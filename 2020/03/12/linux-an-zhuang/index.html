@@ -4,8 +4,24 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="test, Hexo">
-    <meta name="description" content="test | Hexo">
+    <meta name="keywords" content="linux安装, Hexo">
+    <meta name="description" content="kali linux安装部分相关知识kali安装硬盘安装
+下载安装镜像
+https://www.kali.org/downloads
+
+验证hash值
+
+制作启动光盘
+live
+
+制作启动U盘
+
+设置BIOS启动顺序
+
+启动安装
+
+
+doc">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +29,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>test | Hexo</title>
+    <title>linux安装 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -303,12 +319,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">test</h1>
+                    <h1 class="description center-align post-title">linux安装</h1>
                 </div>
             </div>
         </div>
@@ -446,7 +462,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    1.6k
                 </div>
                 
 
@@ -459,7 +475,193 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h3 id="kali-linux安装部分相关知识"><a href="#kali-linux安装部分相关知识" class="headerlink" title="kali linux安装部分相关知识"></a>kali linux安装部分相关知识</h3><h4 id="kali安装"><a href="#kali安装" class="headerlink" title="kali安装"></a>kali安装</h4><h5 id="硬盘安装"><a href="#硬盘安装" class="headerlink" title="硬盘安装"></a>硬盘安装</h5><ul>
+<li><p>下载安装镜像</p>
+<p><a href="https://www.kali.org/downloads" target="_blank" rel="noopener">https://www.kali.org/downloads</a></p>
+</li>
+<li><p>验证hash值</p>
+</li>
+<li><p>制作启动光盘</p>
+<p>live</p>
+</li>
+<li><p>制作启动U盘</p>
+</li>
+<li><p>设置BIOS启动顺序</p>
+</li>
+<li><p>启动安装</p>
+</li>
+</ul>
+<h5 id="docker安装"><a href="#docker安装" class="headerlink" title="docker安装"></a>docker安装</h5><ul>
+<li>虚拟化和Docker</li>
+<li>kali Docker image<ul>
+<li><a href="https://www.kali.org/news/official-kali-linux-docker-images/" target="_blank" rel="noopener">https://www.kali.org/news/official-kali-linux-docker-images/</a></li>
+<li><a href="https://github.com/offensive-security/kali-linux-docker" target="_blank" rel="noopener">https://github.com/offensive-security/kali-linux-docker</a></li>
+</ul>
+</li>
+</ul>
+<h5 id="虚拟机安装"><a href="#虚拟机安装" class="headerlink" title="虚拟机安装"></a>虚拟机安装</h5><ul>
+<li>官方VM镜像</li>
+<li>vmware workstation</li>
+<li>virtualBox<ul>
+<li>下载、安装、扩展工具、基本使用</li>
+<li>win8系统</li>
+<li>安装kali</li>
+<li>安装tools</li>
+</ul>
+</li>
+</ul>
+<h4 id="熟悉环境"><a href="#熟悉环境" class="headerlink" title="熟悉环境"></a>熟悉环境</h4><ul>
+<li>登录密码</li>
+<li>TOP 10安全工具</li>
+<li>字体调整</li>
+<li>强行终止程序</li>
+<li>文件目录</li>
+<li>共享文件</li>
+</ul>
+<h4 id="常见linux命令"><a href="#常见linux命令" class="headerlink" title="常见linux命令"></a>常见linux命令</h4><p>*<em>chmod *</em>控制文件如何被他人所调用</p>
+<ul>
+<li><p>​    u 表示该文件的拥有者，g 表示与该文件的拥有者属于同一个群体(group)者，o 表示其他以外的人，a 表示这三者皆是。</p>
+</li>
+<li><p>+ 表示增加权限、- 表示取消权限、= 表示唯一设定权限。</p>
+</li>
+<li><p>r 表示可读取，w 表示可写入，x 表示可执行，X 表示只有当该文件是个子目录或者该文件已经被设定过为可执行。</p>
+<p>数字来表示权限</p>
+</li>
+</ul>
+<p>​    r=4,w=2,x=1</p>
+<ul>
+<li>若要rwx属性则4+2+1=7；</li>
+<li>若要rw-属性则4+2=6；</li>
+<li>若要r-x属性则4+1=5。<ul>
+<li>​    chmod ugo+r test.txt ，chmod a+r file1.txt  #将文件设为所有人皆可读取</li>
+<li>chmod 777 test.txt  #用数字来表示权限</li>
+</ul>
+</li>
+</ul>
+<p><strong>ls</strong> 显示目录下文件 </p>
+<ul>
+<li>-l    列出文件详细信息</li>
+<li>-a   列出当前目录下所有文件及目录，包括隐藏文件</li>
+</ul>
+<p><strong>mkdir</strong> 创建目录</p>
+<ul>
+<li>-p 创建目录，若无父目录，则创建p(parent)</li>
+</ul>
+<p><strong>pwd</strong> 查看当前工作目录</p>
+<p><strong>cp</strong>:复制文件</p>
+<p><strong>cd</strong> #切换目录</p>
+<ul>
+<li>cd ~ #跳到自己的home目录</li>
+</ul>
+<p><strong>touch:</strong>创建空文件</p>
+<p><strong>echo:</strong>创建带有内容的文件</p>
+<p><strong>cat</strong> 查看文件内容</p>
+<ul>
+<li>n 或 –number：由 1 开始对所有输出的行数编号。</li>
+<li>-b 或 –number-nonblank：和 -n 相似，只不过对于空白行不编号。</li>
+<li>-s 或 –squeeze-blank：当遇到有连续两行以上的空白行，就代换为一行的空白行。</li>
+<li>-v 或 –show-nonprinting：使用 ^ 和 M- 符号，除了 LFD 和 TAB 之外。</li>
+<li>-E 或 –show-ends : 在每行结束处显示 $。</li>
+<li>-T 或 –show-tabs: 将 TAB 字符显示为 ^I。</li>
+<li>-A, –show-all：等价于 -vET。</li>
+<li>-e：等价于”-vE”选项；</li>
+<li>-t：等价于”-vT”选项；</li>
+</ul>
+<p><strong>fInd</strong>  在文件系统中搜索某文件</p>
+<ul>
+<li>​    find / name <em>xxx\</em>.c  #模糊查找目录下的文件<ul>
+<li>​    find /var/log -type f -mtime +7  -ok rm {} \  #查找/var/log目录中更改时间在7日以前的普通文                                                                                    件，并在删除之前询问它们： </li>
+<li>find . -type f -perm 644 -exec ls -l {} \   #查找前目录中文件属主具有读写权限                                                                    </li>
+</ul>
+</li>
+</ul>
+<p><strong>wc</strong> 统计文本中行数、字数、字符数</p>
+<p><strong>grep</strong> 在文本文件中查找某个字符串</p>
+<ul>
+<li>grep “被查找的字符串“ 文件名</li>
+<li>grep  -e “正则表达式“ 文件名</li>
+<li>grep -i  “被查找的字符串” 文件名    #忽略大小写</li>
+</ul>
+<p><strong>pwd</strong> 显示当前目录</p>
+<p><strong>more less</strong> 分页显示文本文件内容</p>
+<p><strong>head tail</strong> 显示文件头、尾内容</p>
+<p><strong>mv</strong> 移动或重命名</p>
+<p><strong>us</strong> #切换管理员目录</p>
+<p><strong>./文件名</strong>  #执行文件</p>
+<p><strong>rm</strong> 文件名 #删除文件</p>
+<p><strong>rm -r</strong> 文件夹名 #删除文件夹</p>
+<h5 id="二、Linux系统管理命令"><a href="#二、Linux系统管理命令" class="headerlink" title="二、Linux系统管理命令"></a>二、Linux系统管理命令</h5><p><strong>chmod</strong>控制文件如何被他人所调用。</p>
+<p><strong>stat</strong>        显示指定文件的详细信息，比ls更详细</p>
+<p><strong>who</strong>        显示在线登陆用户</p>
+<p><strong>whoami</strong>      显示当前操作用户</p>
+<p><strong>hostname</strong>    显示主机名</p>
+<p><strong>uname</strong>      显示系统信息</p>
+<p><strong>top</strong>         动态显示当前耗费资源最多进程信息</p>
+<p><strong>ps</strong>          显示瞬间进程状态 ps -au</p>
+<ul>
+<li>ps -A    #显示进程信息</li>
+<li>ps -u root     #显示root用户进程信息</li>
+<li>ps -aux      # 显示所有包含其他使用者的行程</li>
+</ul>
+<p><strong>du</strong>          查看目录大小 du -h /home带有单位显示目录信息</p>
+<p><strong>df</strong>          查看磁盘大小 df -h 带有单位显示磁盘信息</p>
+<p><strong>ifconfig</strong>      查看网络情况</p>
+<p><strong>ping</strong>         测试网络连通</p>
+<p><strong>netstat</strong>      显示网络状态信息</p>
+<p><strong>clear</strong>        清屏</p>
+<p><strong>alias</strong>        对命令重命名 如：alias showmeit=”ps -aux” ，另外解除使用unaliax showmeit</p>
+<p><strong>kill</strong>         杀死进程，可以先用ps 或 top命令查看进程的id，然后再用kill命令杀死进程。</p>
+<ul>
+<li>kill -9  $(ps -ef | grep hnlinux)  #过滤出hnlinux用户进程</li>
+<li>kill -u hnlinux  #方法二</li>
+<li>kill -KILL 123456+  #强制杀死进程</li>
+</ul>
+<h5 id="三、vim使用"><a href="#三、vim使用" class="headerlink" title="三、vim使用"></a>三、vim使用</h5><p>vim三种模式：命令模式、插入模式、编辑模式。使用ESC或i或：l来切换模式。</p>
+<p>命令模式下：</p>
+<p><strong>q</strong>            退出</p>
+<p><strong>:q!</strong>           强制退出</p>
+<p><strong>:wq</strong>          保存并退出</p>
+<p><strong>:set number</strong>   显示行号</p>
+<p><strong>:set nonumber</strong>  隐藏行号</p>
+<p><strong>/apache</strong>       在文档中查找apache 按n跳到下一个，shift+n上一个</p>
+<p><strong>yyp</strong>          复制光标所在行，并粘贴</p>
+<p>(左移一个字符←)、j(下一行↓)、k(上一行↑)、l(右移一个字符→)</p>
+<h5 id="四、Kali-Linux目录结构（文件系统）"><a href="#四、Kali-Linux目录结构（文件系统）" class="headerlink" title="四、Kali Linux目录结构（文件系统）"></a>四、Kali Linux目录结构（文件系统）</h5><p><strong>bin</strong> 所有用户都可以使用的程序目录</p>
+<p><strong>boot</strong> 引导程序GRUB等的存放目录</p>
+<p><strong>dev</strong> 存放所有的设备目录</p>
+<p><strong>etc</strong> 主要的存放配置文件的目录</p>
+<p><strong>home</strong> 用户主目录 </p>
+<p><strong>lib</strong> 库文件目录</p>
+<p><strong>live-bulid</strong> build自己的kali版本的目录</p>
+<p><strong>media</strong> 默认挂载外接存储的目录</p>
+<p><strong>mnt</strong> 以前的linux常用的挂载目录</p>
+<p><strong>usr</strong> 存放执行程序、共享文件</p>
+<p><strong>var</strong> 存放日志、邮件等经常变化的内容。</p>
+<h5 id="五、文件读写权限"><a href="#五、文件读写权限" class="headerlink" title="五、文件读写权限"></a>五、文件读写权限</h5><p>三种基本权限</p>
+<p><strong>R</strong>      读     数值表示为4</p>
+<p><strong>W</strong>     写     数值表示为2</p>
+<p><strong>X</strong>      可执行  数值表示为1</p>
+<h5 id="六、打包压缩命令"><a href="#六、打包压缩命令" class="headerlink" title="六、打包压缩命令"></a>六、打包压缩命令</h5><p><strong>gzip：</strong></p>
+<ul>
+<li>gzip *            #压缩目录下的所有文件</li>
+<li>gzip -dv *    #解压文件，并列出详细信息</li>
+</ul>
+<p><strong>bzip2：</strong></p>
+<p><strong>tar:</strong>         打包压缩</p>
+<p>   <strong>-c</strong>        归档文件</p>
+<p>   <strong>-x</strong>        压缩文件</p>
+<p>   <strong>-z</strong>        gzip压缩文件</p>
+<p>   <strong>-j</strong>        bzip2压缩文件</p>
+<p>   <strong>-v</strong>        显示压缩或解压缩过程 v(view)</p>
+<p>   <strong>-f</strong>        使用档名</p>
+<p>例：</p>
+<p><strong>tar -cvf /home/abc.tar /home/abc</strong>        只打包，不压缩</p>
+<p><strong>tar -zcvf /home/abc.tar.gz /home/abc</strong>     打包，并用gzip压缩</p>
+<p><strong>tar -jcvf /home/abc.tar.bz2 /home/abc</strong>    打包，并用bzip2压缩</p>
+<p>当然，如果想解压缩，就直接替换上面的命令 tar -cvf / tar -zcvf / tar -jcvf 中的“c” 换成“x” 就可以了。</p>
+<h5 id="七、linux管道"><a href="#七、linux管道" class="headerlink" title="七、linux管道"></a>七、linux管道</h5><p>将一个命令的标准输出作为另一个命令的标准输入</p>
+<p>例：grep -r “close” /home/* | more    在home目录下所有文件中查找，包括close的文件，并分页输出。</p>
+
             </div>
             <hr/>
 
@@ -484,7 +686,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://shu1l.github.io/test/index.html">https://shu1l.github.io/test/index.html</a>
+                    <a href="https://shu1l.github.io/2020/03/12/linux-an-zhuang/">https://shu1l.github.io/2020/03/12/linux-an-zhuang/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -685,30 +887,39 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/test/index.html">
+                <a href="/2020/03/12/shen-tou-ce-shi-ji-ben-gong-ju/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="test">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="渗透测试——基本工具">
                         
-                        <span class="card-title">test</span>
+                        <span class="card-title">渗透测试——基本工具</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            渗透测试——基本工具一、NETCAT（nc)
+网络工具中的瑞士军刀（小身材、大智慧）
+侦听模式/传输模式
+telent/获取banner信息
+传输文本信息
+传输文件/目录
+加密传输文件
+远程控制/木马
+加密所有流量
+流媒体服务器
+远程克隆硬
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-12
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-12
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -717,7 +928,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -725,22 +935,35 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/test/index.html">
+                <a href="/2020/03/12/shen-tou-ce-shi-zhu-dong-xin-xi-shou-ji/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="test">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="渗透测试——主动信息收集">
                         
-                        <span class="card-title">test</span>
+                        <span class="card-title">渗透测试——主动信息收集</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            主动信息收集部分主动信息收集
+直接与目标主机交互
+
+无法避免留下发文的痕迹；
+
+使用受控的第三方电脑进行探测；
+
+使用代理或者已经被控制的主机
+
+做好被封杀的准备
+
+使用噪音迷惑目标，淹没真实的探测流量
+
+扫描-发送不同的探测，根据返回结果
                         
                     </div>
                     <div class="publish-info">
@@ -755,7 +978,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>

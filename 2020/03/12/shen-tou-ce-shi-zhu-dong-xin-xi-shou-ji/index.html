@@ -4,8 +4,21 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="test, Hexo">
-    <meta name="description" content="test | Hexo">
+    <meta name="keywords" content="渗透测试——主动信息收集, Hexo">
+    <meta name="description" content="主动信息收集部分主动信息收集
+直接与目标主机交互
+
+无法避免留下发文的痕迹；
+
+使用受控的第三方电脑进行探测；
+
+使用代理或者已经被控制的主机
+
+做好被封杀的准备
+
+使用噪音迷惑目标，淹没真实的探测流量
+
+扫描-发送不同的探测，根据返回结果">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +26,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>test | Hexo</title>
+    <title>渗透测试——主动信息收集 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -303,12 +316,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">test</h1>
+                    <h1 class="description center-align post-title">渗透测试——主动信息收集</h1>
                 </div>
             </div>
         </div>
@@ -446,7 +459,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    1.7k
                 </div>
                 
 
@@ -459,7 +472,242 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h3 id="主动信息收集部分"><a href="#主动信息收集部分" class="headerlink" title="主动信息收集部分"></a>主动信息收集部分</h3><h4 id="主动信息收集"><a href="#主动信息收集" class="headerlink" title="主动信息收集"></a>主动信息收集</h4><ul>
+<li><p>直接与目标主机交互</p>
+</li>
+<li><p>无法避免留下发文的痕迹；</p>
+</li>
+<li><p>使用受控的第三方电脑进行探测；</p>
+</li>
+<li><p>使用代理或者已经被控制的主机</p>
+</li>
+<li><p>做好被封杀的准备</p>
+</li>
+<li><p>使用噪音迷惑目标，淹没真实的探测流量</p>
+</li>
+<li><p>扫描-发送不同的探测，根据返回结果判断目标状态</p>
+</li>
+</ul>
+<h4 id="发现"><a href="#发现" class="headerlink" title="发现"></a>发现</h4><ul>
+<li>识别活着的主机</li>
+<li>潜在的被攻击目标</li>
+<li>输出一个IP地址列表</li>
+<li>网络2、3、4层发现</li>
+</ul>
+<p>包括ARP、IPv4、IPv6、ICMP、IPSec、TCP、UDP</p>
+<h4 id="发现——二层发现"><a href="#发现——二层发现" class="headerlink" title="发现——二层发现"></a>发现——二层发现</h4><p>优点：扫描速度快，可靠</p>
+<p>缺点：不可路由</p>
+<h5 id="Arp协议"><a href="#Arp协议" class="headerlink" title="Arp协议"></a>Arp协议</h5><ul>
+<li><p>抓包</p>
+</li>
+<li><p>arping 1.1.1.1 -c 1</p>
+</li>
+<li><p>arping 1.1.1.1 -d</p>
+<p>发现重复响应，不同mac地址拥有相同的IP时，退出返回1</p>
+<p> arp地址欺骗：在你的网络里有另外一个IP地址，声称自己是网关IP，发给网关的数据包就会发给欺骗的主机，该主机的所有者就可以在其机器上抓包，实现中间人攻击，嗅探甚至修改通过该主机传输的数据包，窃取密码，篡改数据，实现一些恶意攻击。</p>
+</li>
+<li><p>arping -c 1.1.1.1 grep “bytes from”|cut -d “ “ -f 5|cut -d “(“ -f 2 |cut -d “)” -f 1</p>
+</li>
+<li><p>脚本：</p>
+<p>arping1.sh eth0&gt;addrs</p>
+</li>
+</ul>
+<p>​       arping2.sh addrs    </p>
+<h5 id="nmap二层发现"><a href="#nmap二层发现" class="headerlink" title="nmap二层发现"></a>nmap二层发现</h5><ul>
+<li>nmap 1.1.1.1-254 -sn</li>
+<li>nmap 1.1.1.1/24 -sn</li>
+</ul>
+<p>​          -sn ping扫描，禁用端口扫描</p>
+<ul>
+<li>​    nmap -iL iplist.txt -sn （扫描文件内IP，类似arping2.sh功能）</li>
+</ul>
+<h5 id="Netdiscover–二层发现"><a href="#Netdiscover–二层发现" class="headerlink" title="Netdiscover–二层发现"></a>Netdiscover–二层发现</h5><ol>
+<li>专用于二层发现</li>
+<li>可用于无线和交换网络环境</li>
+<li>主动和被动探测</li>
+</ol>
+<p><strong>主动</strong></p>
+<p>netdiscover -i eth0 -r 192.168.1/24</p>
+<p>netdiscover -i iplist.txt</p>
+<p><strong>被动</strong></p>
+<p>netdiscover -p  #将本地网卡赋值为混杂模式，非本网卡的数据包也会被侦听到</p>
+<p>主动arp容易触发报警</p>
+<h5 id="Scapy-二层发现"><a href="#Scapy-二层发现" class="headerlink" title="Scapy-二层发现"></a>Scapy-二层发现</h5><p>•作为Python库进行调用</p>
+<p>•也可作为单独的工具使用</p>
+<p>•抓包、分析、创建、修改、注入网络流量</p>
+<p>• apt-get install python-gnuplot #安装python-gnuplot组件</p>
+<p>• Scapy  #启动Scapy</p>
+<h4 id="发现-三层发现"><a href="#发现-三层发现" class="headerlink" title="发现-三层发现"></a>发现-三层发现</h4><p>IP,icmp协议  网络控制管理层</p>
+<p>路径发现，主机网络通断的诊断</p>
+<p>优点：可路由，速度快。</p>
+<p>缺点：速度比二层慢，经常被边界防火墙过滤。</p>
+<h5 id="ping-icmp"><a href="#ping-icmp" class="headerlink" title="ping(icmp)"></a>ping(icmp)</h5><ul>
+<li>ping 192.168.1.1 -c 2（设置发包的数量）</li>
+<li>路由追踪：traceroute <a href="http://www.sina.com" target="_blank" rel="noopener">www.sina.com</a></li>
+<li>ping -R 192.168.1.1</li>
+<li>ping 192.168.1.1 -c 1 | grep “bytes from”|cut -d “” -f 4 | cut -d “.” -f 1</li>
+</ul>
+<h5 id="Scapy"><a href="#Scapy" class="headerlink" title="Scapy"></a>Scapy</h5><p>OSI多层堆叠手工声称ICMP包-IP/icmp</p>
+<ul>
+<li>i=Ip()</li>
+<li>i.dst=”192.168.1.1”（目标IP地址）</li>
+<li>p=ICMP()</li>
+<li>a=str(i/p)</li>
+<li>a.display()</li>
+</ul>
+<h5 id="Nmap——三层发现"><a href="#Nmap——三层发现" class="headerlink" title="Nmap——三层发现"></a>Nmap——三层发现</h5><p>nmap -sn 192.168.1/24  (-sn在同一网段，用arp，不同网段，用ICMP)</p>
+<h5 id="fping-——三层发现"><a href="#fping-——三层发现" class="headerlink" title="fping ——三层发现"></a>fping ——三层发现</h5><ul>
+<li>fping 1.1.1.1 -c 1 （会显示包大小、响应时间、丢包率）</li>
+<li>fping -g 1.1.1.1  1.1.1.2(起始参数 结束参数)</li>
+<li>fping -g 1.1.1.0/24</li>
+<li>fping -f iplist.txt</li>
+</ul>
+<h5 id="hping——三层发现"><a href="#hping——三层发现" class="headerlink" title="hping——三层发现"></a>hping——三层发现</h5><ul>
+<li>Hping(功能强大)</li>
+<li>能够发送几乎任意TCP/IP包</li>
+<li>功能强大但每次只能扫描一个目标</li>
+<li>hping3 192.168.1.1 –icmp -c 5(发5个ping包)</li>
+<li>for addr in $(seq 1 254); do hping3 192.168.1.$addr –icmp -c 5 &gt;&gt; handle.txt &amp; done</li>
+</ul>
+<h4 id="发现——四层扫描"><a href="#发现——四层扫描" class="headerlink" title="发现——四层扫描"></a>发现——四层扫描</h4><p>优点</p>
+<ul>
+<li>可路由且结果可靠</li>
+<li>不太可能被防火墙过滤</li>
+<li>甚至可以发现所有端口都被过滤的主机</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>基于状态过滤的防火墙可能过滤扫描</li>
+<li>全端口扫描速度慢</li>
+</ul>
+<p>TCP(三次握手)</p>
+<p>未经请求的ACK-RST（非正常通信：目标在线）</p>
+<p>SYN-SYN/ACK、RST(正常通信：目标在线)</p>
+<p>UDP</p>
+<p>目标IP不在线，无响应，目标IP在线、探测的端口也是开放状态，目标主机不会回复；只有一种情况可以探测：我发向目标IP一个没有开放的端口，对方回复一个ICNP端口不可达、一去不复返。</p>
+<p>ACK—Tcp  Port—-RST(如果返回rst则在线)</p>
+<p>scapy：</p>
+<p>\1. i=IP()</p>
+<p>\2. t=TCP()</p>
+<p>3.r=(i/t)</p>
+<p>4.r[tcp].flags=’A’（表示发ack包）</p>
+<p>r[IP].dst=”1.1.1.1”</p>
+<p>a=sr1(r)</p>
+<p>a.display()(查看返回的包)</p>
+<p>a=sr1(IP(dst=”1.1.1.1”)/TCP(dport=80,flags=’A’),timeout=1)</p>
+<p>UDP—–UDP Port—–icmp</p>
+<p>1.u=UDP()</p>
+<p>2.u.deport=33333</p>
+<p>3.r=(i/u)</p>
+<p>4.a=sr1(r.timeout=1,verbose=1)</p>
+<p>5.a.display()</p>
+<p>6.a=sr1(r)</p>
+<p>port-unreachable(目标端口不可达)</p>
+<h4 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h4><h5 id="scapy"><a href="#scapy" class="headerlink" title="scapy"></a>scapy</h5><p>str1(dst=”192.168.1.1”/TCP(dport=80),timeout=1,verbose=1)</p>
+<p>操作系统莫名接受一个syn/ack包，会自动给目标服务器回复一个rst包</p>
+<h5 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h5><p>nmap -sS 1.1.1.1 -p 80,21,25,443</p>
+<p>可以不加-sS 默认是-sS</p>
+<p>-p 1-100 扫描1到100</p>
+<p>-p 全扫描</p>
+<p>–open 只显示open的端口</p>
+<p>nmap -sS -iL test.txt -p 80</p>
+<h5 id="hping3"><a href="#hping3" class="headerlink" title="hping3:"></a>hping3:</h5><p>hping3 1.1.1.1 –scan 80,21,25 -S</p>
+<p>hping3 1.1.1.1 –scan 0-65535 -S</p>
+<p>hping3 -c 10 -S –spoof 192.168.1.140 -p ++1 192.168.1.1</p>
+<p>-c 发包数量 –spoof欺骗伪造成另一个IP</p>
+<p>++1端口号每次+1</p>
+<h5 id="全连接端口扫描"><a href="#全连接端口扫描" class="headerlink" title="全连接端口扫描"></a>全连接端口扫描</h5><p>全连接对scapy比较困难</p>
+<p>特殊情况下隐蔽扫描无法准确检测</p>
+<p>把操作系统返回的rst包被iptable过滤掉,建立完整的连接</p>
+<p>iptables -A OUTPUT -p tcp –tcp-flags RST RST -d 192.168.1.134 -j DROP</p>
+<p>-d 目标ip</p>
+<p>scapy脚本</p>
+<p><strong>nmap:</strong></p>
+<p>nmap -sT 1.1.1.1 -p 80,21</p>
+<p>nmap -sT 1.1.1.1 -p 80-2000</p>
+<p>nmap -sT -iL test.txt -p 80</p>
+<p>不加-p 默认1000个常用端口</p>
+<p><strong>dmitry:</strong></p>
+<p>功能简单,但使用简便,默认150个做常用端口</p>
+<p>dmitry -p 1.1.1.1  //tcp扫描</p>
+<p>dmitry -p 1.1.1.1 -o output</p>
+<p>-o 保存到文件</p>
+<p><strong>nc:</strong></p>
+<p>nc -nv -w l -z 1.1.1.1 1-100</p>
+<p>-w 超时时间</p>
+<h4 id="服务扫描"><a href="#服务扫描" class="headerlink" title="服务扫描"></a>服务扫描</h4><ul>
+<li><p>识别开发端口上运行的应用</p>
+</li>
+<li><p>识别目标操作系统</p>
+</li>
+<li><p>提高攻击效率</p>
+<ul>
+<li>Banner捕获</li>
+<li>服务识别</li>
+<li>操作系统识别</li>
+<li>SNMP分析</li>
+<li>防火墙识别</li>
+</ul>
+<h5 id="服务扫描——banner"><a href="#服务扫描——banner" class="headerlink" title="服务扫描——banner"></a>服务扫描——banner</h5><ul>
+<li>软件开发商</li>
+<li>软件名称</li>
+<li>服务类型</li>
+<li>版本号</li>
+<li>直接发现已知的漏洞和弱点</li>
+</ul>
+</li>
+<li><p>连接建立后直接获取banner</p>
+</li>
+<li><p>另类服务识别方法</p>
+<ul>
+<li>特征行为和响应字段</li>
+<li>不同的响应可用于识别底层操作系统</li>
+</ul>
+<p><strong>Python socket</strong></p>
+<ul>
+<li><p>Socket模块用于连接网络服务</p>
+<pre><code>import socket
+bangrab=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+bangrab.connect((&quot;1.1.1.1&quot;,21))
+bangrab.recv(4096)
+bangrab.close()
+exit()</code></pre></li>
+<li><p>Banner不允许抓取，recv函数无返回将挂起！</p>
+</li>
+</ul>
+<p><strong>dmitry</strong></p>
+<ul>
+<li><code>dmitry -p 192.168.153.131</code></li>
+<li><code>dmitry -pb 192.168.153.131</code></li>
+</ul>
+<p><strong>nmap</strong></p>
+<p><code>nmap -sT 192.168.153.131 -p 22 --script=banner.nse</code></p>
+<p><strong>amap</strong></p>
+<ul>
+<li><code>amap -B 192.168.153.131 21</code></li>
+<li><code>amap -B 192.168.153.131 1-65535</code></li>
+<li><code>amap -B  192.168.153.131|grep on</code></li>
+</ul>
+<p>banner信息抓取能力有限</p>
+<p>nmap响应特征分析识别服务</p>
+<ul>
+<li>发送系列复杂的探测</li>
+<li>依据响应特征signature</li>
+<li><code>nc  -nv 1.1.1.1 80</code></li>
+<li><code>nmap 1.1.1.1 -p 80 -sV</code></li>
+</ul>
+<h5 id="服务扫描——SNMP"><a href="#服务扫描——SNMP" class="headerlink" title="服务扫描——SNMP"></a>服务扫描——SNMP</h5><ul>
+<li><p>简单网络管理协议</p>
+</li>
+<li><p>Community strings</p>
+</li>
+<li><p>信息查询或重新配置</p>
+<p>识别和绕过防火墙筛选</p>
+</li>
+</ul>
+</li>
+</ul>
+
             </div>
             <hr/>
 
@@ -484,7 +732,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://shu1l.github.io/test/index.html">https://shu1l.github.io/test/index.html</a>
+                    <a href="https://shu1l.github.io/2020/03/12/shen-tou-ce-shi-zhu-dong-xin-xi-shou-ji/">https://shu1l.github.io/2020/03/12/shen-tou-ce-shi-zhu-dong-xin-xi-shou-ji/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -685,30 +933,45 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/test/index.html">
+                <a href="/2020/03/12/linux-an-zhuang/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="test">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="linux安装">
                         
-                        <span class="card-title">test</span>
+                        <span class="card-title">linux安装</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            kali linux安装部分相关知识kali安装硬盘安装
+下载安装镜像
+https://www.kali.org/downloads
+
+验证hash值
+
+制作启动光盘
+live
+
+制作启动U盘
+
+设置BIOS启动顺序
+
+启动安装
+
+
+doc
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-12
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-12
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -717,7 +980,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -725,22 +987,22 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/test/index.html">
+                <a href="/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="test">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="SQL注入知识点总结+靶场笔记">
                         
-                        <span class="card-title">test</span>
+                        <span class="card-title">SQL注入知识点总结+靶场笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            SQL注入漏洞学习笔记+靶场总结mysql相关知识点Mysql 5.x数据结构​      在Mysql5.0以上的版本中，为了方便管理，默认定义了information_schema数据库，用来存储数据库元信息。其中具有表schemata
                         
                     </div>
                     <div class="publish-info">
@@ -755,7 +1017,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
