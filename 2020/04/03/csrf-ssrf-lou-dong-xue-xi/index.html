@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="CSRF漏洞+SSRF漏洞笔记+靶场实战[TOC] CSRF漏洞部分CSRF简述漏洞原理CSRF攻击建立在浏览器和Web服务器的对话之中，并且能欺骗用户访问url，发起的目标是通过伪造的用户请求，该请求不是用户想发出去的请求，对服务器或服务来说，该请求是完全合法的请求，但却完成了攻击者的期望操作。 从代码上看，CSRF能攻击成功是攻击者猜到了你重要参数，因而伪造请求。 漏洞利用条件1.攻击者必须在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSRF+SSRF漏洞学习">
+<meta property="og:url" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="CSRF漏洞+SSRF漏洞笔记+靶场实战[TOC] CSRF漏洞部分CSRF简述漏洞原理CSRF攻击建立在浏览器和Web服务器的对话之中，并且能欺骗用户访问url，发起的目标是通过伪造的用户请求，该请求不是用户想发出去的请求，对服务器或服务来说，该请求是完全合法的请求，但却完成了攻击者的期望操作。 从代码上看，CSRF能攻击成功是攻击者猜到了你重要参数，因而伪造请求。 漏洞利用条件1.攻击者必须在">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200123184231.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128112112.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128112036.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128112051.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128112923.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128113629.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128113414.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128114230.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128114910.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128115317.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128120628.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200129173327.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200129173354.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200129173746.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200129173928.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200129174206.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200203172940.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/20181227082125119.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200212110340.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128162933.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128163234.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128163521.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128164256.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128170206.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128170255.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128171953.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128175808.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128175940.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128180043.png">
+<meta property="article:published_time" content="2020-04-03T08:26:02.000Z">
+<meta property="article:modified_time" content="2020-04-03T08:46:04.771Z">
+<meta property="article:author" content="Shu1L">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200123184231.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/"/>
+
+
+
+
+
+  <title>CSRF+SSRF漏洞学习 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/csrf-ssrf-lou-dong-xue-xi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CSRF+SSRF漏洞学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T16:26:02+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="CSRF漏洞-SSRF漏洞笔记-靶场实战"><a href="#CSRF漏洞-SSRF漏洞笔记-靶场实战" class="headerlink" title="CSRF漏洞+SSRF漏洞笔记+靶场实战"></a>CSRF漏洞+SSRF漏洞笔记+靶场实战</h2><p>[TOC]</p>
+<h3 id="CSRF漏洞部分"><a href="#CSRF漏洞部分" class="headerlink" title="CSRF漏洞部分"></a>CSRF漏洞部分</h3><h4 id="CSRF简述"><a href="#CSRF简述" class="headerlink" title="CSRF简述"></a>CSRF简述</h4><h5 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h5><p>CSRF攻击建立在浏览器和Web服务器的对话之中，并且能欺骗用户访问url，发起的目标是通过伪造的用户请求，该请求不是用户想发出去的请求，对服务器或服务来说，该请求是完全合法的请求，但却完成了攻击者的期望操作。</p>
+<p>从代码上看，CSRF能攻击成功是攻击者猜到了你重要参数，因而伪造请求。</p>
+<h5 id="漏洞利用条件"><a href="#漏洞利用条件" class="headerlink" title="漏洞利用条件"></a>漏洞利用条件</h5><p>1.攻击者必须在目标站点找到一个表单的提交入口，或者有类似的URL(例如用来转钱，修改受害者邮箱或者密码)</p>
+<p>2.目标站点不能有检测referer头操作，或者被攻击者的浏览器允许referer欺骗</p>
+<p>3.攻击者必须了解表单或者URL参数中的正确的值，如果有秘密验证值或者ID，攻击者没有猜对，攻击者很可能不成功。</p>
+<p>4。攻击者必须诱使受害者访问有恶意代码的页面，并且此时受害者已经登录到目标站点。</p>
+<h5 id="漏洞利用场景"><a href="#漏洞利用场景" class="headerlink" title="漏洞利用场景"></a>漏洞利用场景</h5><ul>
+<li>有意义的操作（如修改密码）</li>
+<li>验证过于简单（参数固定、我们可以设置参数）</li>
+</ul>
+<p><strong>漏洞类型</strong></p>
+<ul>
+<li>GET型</li>
+<li>POST型</li>
+</ul>
+<h5 id="检测方法"><a href="#检测方法" class="headerlink" title="检测方法"></a>检测方法</h5><p>1.手工检测：抓包查看是否存在无token无referer验证这种情况。存在的话就会有CSRF漏洞</p>
+<p>​                       如果存在无token有referer验证这种情况时，我们可以尝试空referer绕过或者尝试抓包伪造referer  </p>
+<p>2.半自动检测：常用半自动检测漏洞的软件有CSRFTester,CSRF Request Builder等。</p>
+<h5 id="常见的防御方法："><a href="#常见的防御方法：" class="headerlink" title="常见的防御方法："></a>常见的防御方法：</h5><ul>
+<li><p><strong>使用验证码：</strong></p>
+<p>验证码强制用户必须和应用进行交互，才能完成最终的请求</p>
+</li>
+<li><p><strong>验证HTTP referer字段：</strong></p>
+<p>HTTP Referer是header的一部分，当浏览器向web服务器发送请求的时候，会带上Referer，通过验证Referer，可以判断请求的合法性，如果Referer是其他网站的话，就有可能是CSRF攻击，则拒绝该请求。</p>
+</li>
+<li><p><strong>在请求地址中添加token并验证：</strong></p>
+<p>在HTTP请求中以参数的形式加入一个随机产生的token，并在服务器端建立一个拦截器来验证这个token，如果请求中没有token或者token不正确，则认为可能是CSRF攻击而拒绝该请求。</p>
+</li>
+</ul>
+<h4 id="DVWA（CSRF部分）"><a href="#DVWA（CSRF部分）" class="headerlink" title="DVWA（CSRF部分）"></a>DVWA（CSRF部分）</h4><h5 id="simple"><a href="#simple" class="headerlink" title="simple:"></a>simple:</h5><img src="QQ截图20200123184231.png" style="zoom:50%;" />
+
+<p><strong>分析：</strong></p>
+<p>​      我们分析源代码可知，服务器收到修改密码的请求后，会检查参数password_new password_conf是否相同，如果相同，就会修改密码，并没有任何的防CSRF机制，所以我们只需要用户在cookie还有效的时间内在相同的浏览器访问我们给定的url（该操作是服务器对请求的发送者进行了身份验证，检查cookie），就可以实现CSRF攻击，修改用户密码。</p>
+<p><strong>漏洞利用</strong></p>
+<p>我们可以构造如下URL进行修改密码：</p>
+<p><a href="http://localhost/DVWA/vulnerabilities/csrf/?password_new=admin&amp;password_conf=admin&amp;Change=Change#" target="_blank" rel="noopener">http://localhost/DVWA/vulnerabilities/csrf/?password_new=admin&amp;password_conf=admin&amp;Change=Change#</a></p>
+<p>我们构造一个html表单提交页面</p>
+<img src="QQ截图20200128112112.png" style="zoom:67%;" />
+
+<p>将html文件放入本地网站的根目录下。</p>
+<p>我们尝试在本地访问该网页</p>
+<img src="QQ截图20200128112036.png" style="zoom:50%;" />
+
+
+
+<p>点击后发现跳转到了DVWA更改密码界面，密码被修改</p>
+<img src="QQ截图20200128112051.png" style="zoom:67%;" />
+
+
+
+<h5 id="medium"><a href="#medium" class="headerlink" title="medium"></a>medium</h5><pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+
+<span class="token keyword">if</span><span class="token punctuation">(</span> <span class="token function">isset</span><span class="token punctuation">(</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span> <span class="token string">'Change'</span> <span class="token punctuation">]</span> <span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// Checks to see where the request came from</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span> <span class="token function">stripos</span><span class="token punctuation">(</span> <span class="token variable">$_SERVER</span><span class="token punctuation">[</span> <span class="token string">'HTTP_REFERER'</span> <span class="token punctuation">]</span> <span class="token punctuation">,</span><span class="token variable">$_SERVER</span><span class="token punctuation">[</span> <span class="token string">'SERVER_NAME'</span> <span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token boolean">false</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// Get input</span>
+        <span class="token variable">$pass_new</span>  <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span> <span class="token string">'password_new'</span> <span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token variable">$pass_conf</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span> <span class="token string">'password_conf'</span> <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// Do the passwords match?</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span> <span class="token variable">$pass_new</span> <span class="token operator">==</span> <span class="token variable">$pass_conf</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// They do!</span>
+            <span class="token variable">$pass_new</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$GLOBALS</span><span class="token punctuation">[</span><span class="token string">"___mysqli_ston"</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">is_object</span><span class="token punctuation">(</span><span class="token variable">$GLOBALS</span><span class="token punctuation">[</span><span class="token string">"___mysqli_ston"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token function">mysqli_real_escape_string</span><span class="token punctuation">(</span><span class="token variable">$GLOBALS</span><span class="token punctuation">[</span><span class="token string">"___mysqli_ston"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token variable">$pass_new</span> <span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token function">trigger_error</span><span class="token punctuation">(</span><span class="token string">"[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work."</span><span class="token punctuation">,</span> <span class="token constant">E_USER_ERROR</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token string">""</span> <span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token variable">$pass_new</span> <span class="token operator">=</span> <span class="token function">md5</span><span class="token punctuation">(</span> <span class="token variable">$pass_new</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// Update the database</span>
+            <span class="token variable">$insert</span> <span class="token operator">=</span> <span class="token string">"UPDATE `users` SET password = '$pass_new' WHERE user = '"</span> <span class="token punctuation">.</span> <span class="token function">dvwaCurrentUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">.</span> <span class="token string">"';"</span><span class="token punctuation">;</span>
+            <span class="token variable">$result</span> <span class="token operator">=</span> <span class="token function">mysqli_query</span><span class="token punctuation">(</span><span class="token variable">$GLOBALS</span><span class="token punctuation">[</span><span class="token string">"___mysqli_ston"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token variable">$insert</span> <span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token keyword">die</span><span class="token punctuation">(</span> <span class="token string">'&lt;pre>'</span> <span class="token punctuation">.</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token function">is_object</span><span class="token punctuation">(</span><span class="token variable">$GLOBALS</span><span class="token punctuation">[</span><span class="token string">"___mysqli_ston"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token function">mysqli_error</span><span class="token punctuation">(</span><span class="token variable">$GLOBALS</span><span class="token punctuation">[</span><span class="token string">"___mysqli_ston"</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token variable">$___mysqli_res</span> <span class="token operator">=</span> <span class="token function">mysqli_connect_error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token variable">$___mysqli_res</span> <span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">.</span> <span class="token string">'&lt;/pre>'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// Feedback for the user</span>
+            <span class="token keyword">echo</span> <span class="token string">"&lt;pre>Password Changed.&lt;/pre>"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// Issue with passwords matching</span>
+            <span class="token keyword">echo</span> <span class="token string">"&lt;pre>Passwords did not match.&lt;/pre>"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// Didn't come from a trusted source</span>
+        <span class="token keyword">echo</span> <span class="token string">"&lt;pre>That request didn't look correct.&lt;/pre>"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token function">is_null</span><span class="token punctuation">(</span><span class="token variable">$___mysqli_res</span> <span class="token operator">=</span> <span class="token function">mysqli_close</span><span class="token punctuation">(</span><span class="token variable">$GLOBALS</span><span class="token punctuation">[</span><span class="token string">"___mysqli_ston"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token boolean">false</span> <span class="token punctuation">:</span> <span class="token variable">$___mysqli_res</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token delimiter">?></span> </code></pre>
+<p><strong>分析：</strong></p>
+<p>Medium级别的代码检查了保留变量 HTTP_REFERER（http包头的Referer参数的值，表示来源地址）中是否包含SERVER_NAME（http包头的Host参数，及要访问的主机名，这里是192.168.153.130），希望通过这种机制抵御CSRF攻击</p>
+<p><strong>漏洞利用：</strong></p>
+<p>我们用burp对数据进行抓包，不断对referer进行修改，最后发现referer需包含我们host名</p>
+<img src="QQ截图20200128112923.png" style="zoom: 67%;" />
+
+
+
+
+
+<p>查阅资料了解到referer参数和链接相同，我们可以将Html文件名中包含127.0.0.1,比如将html文件修改为</p>
+<p>127.0.0.1.html</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200128113629.png" alt=""></p>
+<p>我们在浏览器打开127.0.0.1.html，点击submit</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200128113414.png" alt=""></p>
+<p>我们发现密码成功修改。</p>
+<p><strong>high</strong></p>
+<p>high等级我们发现在url中多了user_token,并且每次修改密码user_token都随着变化</p>
+<p>usr_token的职责：它的职责是保护用户的用户名及密码多次提交，以防密码泄露。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200128114230.png" alt=""></p>
+<p>如果该页面不存在XSS漏洞时，此方法就可以有效杜绝CSRF漏洞</p>
+<p>但我们可以通过利用DVWA的XSS漏洞进行有效利用</p>
+<p><strong>利用过程</strong></p>
+<p>我们首先利用dvwa的XSS漏洞获取浏览器cookie.</p>
+<img src="QQ截图20200128114910.png" style="zoom:50%;" />
+
+<p>然后我们回到构造好的CSRF页面提交用Burp进行抓包</p>
+<img src="QQ截图20200128115317.png" style="zoom:67%;" />
+
+<p>我们使用获取到的cookie进行替换，然后发包即可成功修改密码。</p>
+<p><strong>impossibe</strong></p>
+<img src="QQ截图20200128120628.png" style="zoom:50%;" />
+
+<p>它提示了要输入原始密码，这就保证了当前用户一定是本人，有效的确保了CSRF攻击。</p>
+<h4 id="Pikachu平台-CSRF部分）"><a href="#Pikachu平台-CSRF部分）" class="headerlink" title="Pikachu平台(CSRF部分）"></a>Pikachu平台(CSRF部分）</h4><p><img src="QQ%E6%88%AA%E5%9B%BE20200129173327.png" alt=""></p>
+<h5 id="CSRF-GET"><a href="#CSRF-GET" class="headerlink" title="CSRF(GET)"></a>CSRF(GET)</h5><p>我们首先根据右上角的提示登录账号</p>
+<img src="QQ截图20200129173354.png" style="zoom:50%;" />
+
+
+
+
+
+<img src="QQ截图20200129173746.png" style="zoom:67%;" />
+
+
+
+<p>我们选择修改个人信息并用burp抓包</p>
+<img src="QQ截图20200129173928.png" style="zoom:80%;" />
+
+<p>提交的请求来看，后台没做CSRF token，同时也是通过GET请求来提交修改信息，我们拿到这个请求，伪造一个请求链接，然后让kobe点击就好，我们构造的URL中把地址add改为hack。kobe一点击就修改了地址。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200129174206.png" alt=""></p>
+<h5 id="CSRF-POST"><a href="#CSRF-POST" class="headerlink" title="CSRF(POST)"></a>CSRF(POST)</h5><p>POST型，所有参数在请求体中提交，我们不能通过伪造URL的方式进行攻击。</p>
+<p>这里的攻击方式跟XSS中POST类型是一样的，攻击者可以搭建一个站点，在站点上做一个表单，诱导lucy点击这个链接，当用户点击时，就会自动向存在CSRF的服务器提交POST请求修改个人信息。</p>
+<p>我们编写一个自动提交表单的html文件：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
+window<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"postsubmit"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://192.168.171.133/pikachu/vul/csrf/csrfpost/csrf_post_edit.php<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>sex<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>sex<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>girl<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>phonenum<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>phonenum<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>12345678922<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>add<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>add<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>hacker<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>email<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>email<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>lucy@pikachu.com<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>postsubmit<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span></code></pre>
+<p>​      下面把页面的URL发送给受害者，只要受害者一点击这个链接，就会自动往服务器发送POST请求，修改地址信息。</p>
+<h5 id="CSRF（token"><a href="#CSRF（token" class="headerlink" title="CSRF（token)"></a>CSRF（token)</h5><p> CSRF的主要问题是敏感操作容易被伪造，我们可以加入Token让请求不容易被伪造</p>
+<ul>
+<li><p>每次请求，都增加一个随机码(需要够随机，不容易被伪造），后台每次对这个随机码进行验证</p>
+<p>我们进入Pikachu平台的CSRF（token）页面并登录，我们可以看一下这个GET请求</p>
+</li>
+</ul>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200203172940.png" alt=""></p>
+<p>跟前面比较，这里多了一个Token，如果后台对提交的Token进行了验证，由于Token是随机的，我们就无法伪造URL了</p>
+<h3 id="SSRF漏洞部分"><a href="#SSRF漏洞部分" class="headerlink" title="SSRF漏洞部分"></a>SSRF漏洞部分</h3><h4 id="SSRF简述"><a href="#SSRF简述" class="headerlink" title="SSRF简述"></a>SSRF简述</h4><p><img src="20181227082125119.png" alt=""></p>
+<p>​    SSRF(Server-Side Request Forgery:服务器端请求伪造) 是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。（正是因为它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）</p>
+<h5 id="漏洞形成原因"><a href="#漏洞形成原因" class="headerlink" title="漏洞形成原因"></a>漏洞形成原因</h5><p>SSRF形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等等。</p>
+<p>例如：</p>
+<p><code>www.xxx.com/a.php?image=http://www.abc.com/1.jpg</code></p>
+<p>如果我们将<a href="http://www.abc.com/1.jpg换为与该服务器相连的内网服务器地址会产生什么效果呢？" target="_blank" rel="noopener">http://www.abc.com/1.jpg换为与该服务器相连的内网服务器地址会产生什么效果呢？</a></p>
+<p>如果存在该内网地址就会返回1xx 2xx 之类的状态码，不存在就会其他的状态码</p>
+<p>SSRF漏洞就是通过篡改获取资源的请求发送给服务器，但是服务器并没有发现这个请求是否合法，然后服务器以他的身份来访问其他服务器的资源。</p>
+<p><strong>curl造成的SSRF</strong></p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token keyword">function</span> <span class="token function">curl</span><span class="token punctuation">(</span><span class="token variable">$url</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token variable">$ch</span><span class="token operator">=</span><span class="token function">curl_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">curl_setopt</span><span class="token punctuation">(</span><span class="token variable">$ch</span><span class="token punctuation">,</span><span class="token constant">CURLOPT_URL</span><span class="token punctuation">,</span><span class="token variable">$URL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">curl_setopt</span><span class="token punctuation">(</span><span class="token variable">$ch</span><span class="token punctuation">,</span><span class="token constant">CURLOPT_HEADER</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">curl_exec</span><span class="token punctuation">(</span><span class="token variable">$ch</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">curl_close</span><span class="token punctuation">(</span><span class="token variable">$ch</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token variable">$url</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'url'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token function">curl</span><span class="token punctuation">(</span><span class="token variable">$url</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p><strong>file_get_contents造成的SSRF</strong></p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token variable">$url</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'url'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">echo</span> <span class="token function">file_get_contents</span><span class="token punctuation">(</span><span class="token variable">$url</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<h5 id="SSRF常见出现位置"><a href="#SSRF常见出现位置" class="headerlink" title="SSRF常见出现位置"></a>SSRF常见出现位置</h5><ul>
+<li>分享：通过URL地址分享网页内容</li>
+<li>转码服务</li>
+<li>在线翻译</li>
+<li>图片加载与下载：通过URL地址加载或下载图片</li>
+<li>图片、文章收藏功能</li>
+<li>未公开API实现以及其他调用URL的功能</li>
+</ul>
+<h5 id="SSRF验证方法"><a href="#SSRF验证方法" class="headerlink" title="SSRF验证方法"></a>SSRF验证方法</h5><p>1.因为SSRF漏洞是构造服务器发送请求的安全漏洞，所以我们就可以通过抓包分析发送的请求是否是由服务器的发送的来判断是否存在SSRF漏洞</p>
+<p>2.在页面源码中查找访问的资源地址 ，如果该资源地址类型为 <a href="http://www.xxx.com/a.php?image=（地址）的就可能存在SSRF漏洞" target="_blank" rel="noopener">http://www.xxx.com/a.php?image=（地址）的就可能存在SSRF漏洞</a></p>
+<h5 id="利用SSRF漏洞"><a href="#利用SSRF漏洞" class="headerlink" title="利用SSRF漏洞"></a>利用SSRF漏洞</h5><ol>
+<li>让服务器去访问相应的网址</li>
+<li>让服务器去访问自己所处内网的一些指纹文件来判断是否存在相应的CMS</li>
+<li>可以使用file、dict、gopher[11]、ftp协议进行请求访问相应的文件</li>
+</ol>
+<ul>
+<li><p>file协议</p>
+<p>​    查看文件：file:///etc/passwd</p>
+</li>
+<li><p>dict协议</p>
+<p>​    探测端口：dict://127.0.0.1:80</p>
+</li>
+<li><p>gopher协议</p>
+<p>​    Gopher协议可以做很多，特别是在SSRF漏洞中可以发挥很多重要的作用，利用此协议可以攻击内网的FTP、Telnet Redis Memcache 也可以进行GET POST请求 .</p>
+</li>
+</ul>
+<ol>
+<li>攻击内网web应用（可以向内部任意主机的任意端口发送精心构造的数据包）</li>
+<li>攻击内网应用程序（利用跨协议通信技术）</li>
+<li>DOS攻击</li>
+<li>判断内网主机是否存活：访问是否有端口开放</li>
+</ol>
+<h5 id="常见的绕过方法"><a href="#常见的绕过方法" class="headerlink" title="常见的绕过方法"></a>常见的绕过方法</h5><ul>
+<li><p>@绕过：<code>http://xxx.com@10.10.10.10=10.10.10.10</code></p>
+</li>
+<li><p>利用特殊的域名</p>
+</li>
+<li><p>利用句号</p>
+<p>127。0。0。1=&gt;127.0.0.1</p>
+</li>
+<li><p>利用协议</p>
+</li>
+<li><p>利用Enclosed </p>
+</li>
+<li><p>IP使用其他进制：127.0.0.1=2130706433</p>
+</li>
+<li><p>使用短地址：<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> ==<a href="https://dwz.lc/2fGYWaE" target="_blank" rel="noopener">https://dwz.lc/2fGYWaE</a></p>
+</li>
+</ul>
+<h5 id=""><a href="#" class="headerlink" title=""></a><img src="QQ%E6%88%AA%E5%9B%BE20200212110340.png" alt=""></h5><h4 id="bWAPP靶场实战（SSRF"><a href="#bWAPP靶场实战（SSRF" class="headerlink" title="bWAPP靶场实战（SSRF)"></a>bWAPP靶场实战（SSRF)</h4><h5 id="一、使用（RFI）远程文件包含进行端口扫描（内网探测）"><a href="#一、使用（RFI）远程文件包含进行端口扫描（内网探测）" class="headerlink" title="一、使用（RFI）远程文件包含进行端口扫描（内网探测）"></a>一、使用（RFI）远程文件包含进行端口扫描（内网探测）</h5><p>我们进入bWAPP  SSRF部分。</p>
+<img src="QQ截图20200128162933.png" style="zoom:50%;" />
+
+
+
+
+
+<p>我们点击黑体字Port scan得到了端口扫描的攻击脚本</p>
+<img src="QQ截图20200128163234.png" style="zoom:50%;" />
+
+
+
+<p>我们退出SSRF模块 进入（RFI/LFI)模块，发现?language=lang_en.php此处可能存在文件包含漏洞。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200128163521.png" alt=""></p>
+<p>我们在VM中开启了虚拟机，得知IP为192.168.153.131</p>
+<img src="QQ截图20200128164256.png" style="zoom:50%;" />
+
+
+
+<h5 id="二、使用XXE获取敏感文件中的内容"><a href="#二、使用XXE获取敏感文件中的内容" class="headerlink" title="二、使用XXE获取敏感文件中的内容"></a>二、使用XXE获取敏感文件中的内容</h5><p>我们先点击黑体字获取XXE攻击脚本。</p>
+<img src="QQ截图20200128170206.png" style="zoom:67%;" />
+
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200128170255.png" alt=""></p>
+<p> 然后使用Burp抓包后发送到Repeater模块，</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200128171953.png" alt=""></p>
+<p> 第一次我们使用http协议读取robots.txt文件内容</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200128175808.png" alt=""></p>
+<p>第二次我们使用php协议读取 xml页面中的内容</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200128175940.png" alt=""></p>
+<p>第三次我们使用file协议读取本机的/etc/passwd的内容</p>
+<img src="QQ截图20200128180043.png" style="zoom:67%;" />
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/03/ti-quan-fang-shi-zong-jie/" rel="next" title="提权方式总结">
+                <i class="fa fa-chevron-left"></i> 提权方式总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/03/xss-lou-dong-xue-xi/" rel="prev" title="XSS漏洞学习">
+                XSS漏洞学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Shu1L</p>
+              <p class="site-description motion-element" itemprop="description">欢迎来到Shu1L的神秘小屋！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF漏洞-SSRF漏洞笔记-靶场实战"><span class="nav-number">1.</span> <span class="nav-text">CSRF漏洞+SSRF漏洞笔记+靶场实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF漏洞部分"><span class="nav-number">1.1.</span> <span class="nav-text">CSRF漏洞部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CSRF简述"><span class="nav-number">1.1.1.</span> <span class="nav-text">CSRF简述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞原理"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">漏洞原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞利用条件"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">漏洞利用条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞利用场景"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">漏洞利用场景</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#检测方法"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">检测方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常见的防御方法："><span class="nav-number">1.1.1.5.</span> <span class="nav-text">常见的防御方法：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DVWA（CSRF部分）"><span class="nav-number">1.1.2.</span> <span class="nav-text">DVWA（CSRF部分）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#simple"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">simple:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#medium"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">medium</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pikachu平台-CSRF部分）"><span class="nav-number">1.1.3.</span> <span class="nav-text">Pikachu平台(CSRF部分）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CSRF-GET"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">CSRF(GET)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CSRF-POST"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">CSRF(POST)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CSRF（token"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">CSRF（token)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSRF漏洞部分"><span class="nav-number">1.2.</span> <span class="nav-text">SSRF漏洞部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SSRF简述"><span class="nav-number">1.2.1.</span> <span class="nav-text">SSRF简述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞形成原因"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">漏洞形成原因</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SSRF常见出现位置"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">SSRF常见出现位置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SSRF验证方法"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">SSRF验证方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#利用SSRF漏洞"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">利用SSRF漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常见的绕过方法"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">常见的绕过方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#null"><span class="nav-number">1.2.1.6.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bWAPP靶场实战（SSRF"><span class="nav-number">1.2.2.</span> <span class="nav-text">bWAPP靶场实战（SSRF)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、使用（RFI）远程文件包含进行端口扫描（内网探测）"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">一、使用（RFI）远程文件包含进行端口扫描（内网探测）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、使用XXE获取敏感文件中的内容"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">二、使用XXE获取敏感文件中的内容</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shu1L</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

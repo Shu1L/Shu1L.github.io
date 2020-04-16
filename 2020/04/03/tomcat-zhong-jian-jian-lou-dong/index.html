@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Tomcat中间件漏洞复现Tomcat简介Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用 服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试JSP 程序的首选。对于一个初学者来说，可以这样认为，当在一台机器上配置好Apache 服务器，可利用它响应 HTML （ 标准通用标记语言下的一个应用）页面的访问请求。实际上Tomcat是Apache">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tomcat中间件漏洞">
+<meta property="og:url" content="https://shu1l.github.io/2020/04/03/tomcat-zhong-jian-jian-lou-dong/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Tomcat中间件漏洞复现Tomcat简介Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用 服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试JSP 程序的首选。对于一个初学者来说，可以这样认为，当在一台机器上配置好Apache 服务器，可利用它响应 HTML （ 标准通用标记语言下的一个应用）页面的访问请求。实际上Tomcat是Apache">
+<meta property="og:image" content="https://image.3001.net/images/20181216/1544955083_5c1624cb8ac8a.png!small">
+<meta property="og:image" content="https://image.3001.net/images/20181216/1544955095_5c1624d7b5447.png!small">
+<meta property="og:image" content="https://image.3001.net/images/20181216/1544955107_5c1624e39d5ed.png!small">
+<meta property="og:image" content="https://image.3001.net/images/20181216/1544955120_5c1624f0e6795.png!small">
+<meta property="og:image" content="https://image.3001.net/images/20181216/1544955131_5c1624fb87534.png!small">
+<meta property="og:image" content="https://image.3001.net/images/20181216/1544955146_5c16250a9c859.png!small">
+<meta property="og:image" content="https://image.3001.net/images/20181216/1544955158_5c162516bfdc4.png!small">
+<meta property="og:image" content="https://image.3001.net/images/20181216/1544955173_5c162525a51ea.png!small">
+<meta property="og:image" content="https://image.3001.net/images/20181216/1544955183_5c16252f655db.png!small">
+<meta property="article:published_time" content="2020-04-03T02:48:51.000Z">
+<meta property="article:modified_time" content="2020-04-03T07:31:17.714Z">
+<meta property="article:author" content="Shu1L">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.3001.net/images/20181216/1544955083_5c1624cb8ac8a.png!small">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://shu1l.github.io/2020/04/03/tomcat-zhong-jian-jian-lou-dong/"/>
+
+
+
+
+
+  <title>Tomcat中间件漏洞 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/tomcat-zhong-jian-jian-lou-dong/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Tomcat中间件漏洞</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T10:48:51+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Tomcat中间件漏洞复现"><a href="#Tomcat中间件漏洞复现" class="headerlink" title="Tomcat中间件漏洞复现"></a>Tomcat中间件漏洞复现</h2><h4 id="Tomcat简介"><a href="#Tomcat简介" class="headerlink" title="Tomcat简介"></a>Tomcat简介</h4><p>Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用 服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试JSP 程序的首选。对于一个初学者来说，可以这样认为，当在一台机器上配置好Apache 服务器，可利用它响应 HTML （ 标准通用标记语言下的一个应用）页面的访问请求。实际上Tomcat是Apache 服务器的扩展，但运行时它是独立运行的，所以当运行tomcat 时，它实际上作为一个与Apache 独立的进程单独运行的。</p>
+<h4 id="远程代码执行"><a href="#远程代码执行" class="headerlink" title="远程代码执行"></a>远程代码执行</h4><h5 id="1-漏洞原理"><a href="#1-漏洞原理" class="headerlink" title="1.漏洞原理"></a>1.漏洞原理</h5><p>Tomcat 运行在Windows 主机上，且启用了 HTTP PUT 请求方法，可通过构造的攻击请求向服务器上传包含任意代码的 JSP 文件，造成任意代码执行。</p>
+<p>影响版本： Apache Tomcat 7.0.0 – 7.0.81</p>
+<h5 id="2-漏洞复现"><a href="#2-漏洞复现" class="headerlink" title="2.漏洞复现"></a>2.漏洞复现</h5><p>配置漏洞，开启put方法可上传文件功能。</p>
+<p>tomcat文件夹下的/conf/web.xml文件插入：</p>
+<pre><code>     &lt;init-param&gt;           &lt;param-name&gt;readonly&lt;/param-name&gt;           &lt;param-value&gt;false&lt;/param-value&gt;     &lt;/init-param&gt;</code></pre><p>重启tomcat服务。</p>
+<p><a href="https://image.3001.net/images/20181216/1544955083_5c1624cb8ac8a.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955083_5c1624cb8ac8a.png!small" alt="img"></a></p>
+<p>访问127.0.0.1：8080，burp抓包，send to Repeater，将请求方式改为PUT，创建一个122.jsp，并用%20转义空格字符。123.jsp内容为：</p>
+<pre><code>&lt;%Runtime.getRuntime().exec(request.getParameter(&quot;cmd&quot;));%</code></pre><p>返回201，说明创建成功。</p>
+<p><a href="https://image.3001.net/images/20181216/1544955095_5c1624d7b5447.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955095_5c1624d7b5447.png!small" alt="img"></a></p>
+<p>访问127.0.0.1：8080/122.jsp?cmd=calc。</p>
+<p>弹出计算器：</p>
+<p><a href="https://image.3001.net/images/20181216/1544955107_5c1624e39d5ed.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955107_5c1624e39d5ed.png!small" alt="img"></a></p>
+<p><strong>3、 漏洞修复</strong></p>
+<p>1）检测当前版本是否在影响范围内，并禁用PUT方法。</p>
+<p>2）更新并升级至最新版。</p>
+<h3 id="（三）war后门文件部署"><a href="#（三）war后门文件部署" class="headerlink" title="（三）war后门文件部署"></a>（三）war后门文件部署</h3><p><strong>1、漏洞简介及成因</strong></p>
+<p>Tomcat 支持在后台部署war文件，可以直接将webshell部署到web目录下。</p>
+<p>若后台管理页面存在弱口令，则可以通过爆破获取密码。</p>
+<p><strong>2、漏洞复现</strong></p>
+<p>Tomcat安装目录下conf里的tomcat-users.xml配置如下：</p>
+<p><a href="https://image.3001.net/images/20181216/1544955120_5c1624f0e6795.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955120_5c1624f0e6795.png!small" alt="img"></a></p>
+<p>访问后台，登陆：</p>
+<p><a href="https://image.3001.net/images/20181216/1544955131_5c1624fb87534.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955131_5c1624fb87534.png!small" alt="img"></a></p>
+<p>上传一个war包，里面是jsp后门：</p>
+<p><a href="https://image.3001.net/images/20181216/1544955146_5c16250a9c859.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955146_5c16250a9c859.png!small" alt="img"></a></p>
+<p>成功上传并解析，打开：</p>
+<p><a href="https://image.3001.net/images/20181216/1544955158_5c162516bfdc4.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955158_5c162516bfdc4.png!small" alt="img"></a></p>
+<p>可执行系统命令：</p>
+<p><a href="https://image.3001.net/images/20181216/1544955173_5c162525a51ea.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955173_5c162525a51ea.png!small" alt="img"></a></p>
+<p>也可进行文件管理，任意查看、删除、上传文件：</p>
+<p><a href="https://image.3001.net/images/20181216/1544955183_5c16252f655db.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955183_5c16252f655db.png!small" alt="img"></a></p>
+<p><strong>3、漏洞修复</strong></p>
+<p>1）在系统上以低权限运行Tomcat应用程序。创建一个专门的 Tomcat服务用户，该用户只能拥有一组最小权限（例如不允许远程登录）。</p>
+<p>2）增加对于本地和基于证书的身份验证，部署账户锁定机制（对于集中式认证，目录服务也要做相应配置）。在CATALINA_HOME/conf/web.xml文件设置锁定机制和时间超时限制。</p>
+<p>3）以及针对manager-gui/manager-status/manager-script等目录页面设置最小权限访问限制。</p>
+<p>4）后台管理避免弱口令。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/03/weblogiic-zhong-jian-jian-lou-dong/" rel="next" title="Weblogic中间件漏洞">
+                <i class="fa fa-chevron-left"></i> Weblogic中间件漏洞
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/03/qi-ta-zhong-jian-jian-lou-dong/" rel="prev" title="其他中间件漏洞">
+                其他中间件漏洞 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Shu1L</p>
+              <p class="site-description motion-element" itemprop="description">欢迎来到Shu1L的神秘小屋！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tomcat中间件漏洞复现"><span class="nav-number">1.</span> <span class="nav-text">Tomcat中间件漏洞复现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Tomcat简介"><span class="nav-number">1.0.1.</span> <span class="nav-text">Tomcat简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#远程代码执行"><span class="nav-number">1.0.2.</span> <span class="nav-text">远程代码执行</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-漏洞原理"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">1.漏洞原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-漏洞复现"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">2.漏洞复现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（三）war后门文件部署"><span class="nav-number">1.1.</span> <span class="nav-text">（三）war后门文件部署</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shu1L</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
