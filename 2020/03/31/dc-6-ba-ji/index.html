@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="DC-6靶机学习," />
 
 
 
@@ -79,16 +79,28 @@
 
 
 
-<meta name="description" content="欢迎来到Shu1L的神秘小屋！">
+<meta name="description" content="DC-6靶机学习第一步、主机发现我们设置靶机与kali均为.nat模式连接。 然后我们首先考虑获得靶机的IP地址。使用arp去发现内网存活主机，从而确定靶机IP为192.168.153.137。 netdiscover -i eth0 -r 192.168.153.0&#x2F;24 第二步、信息收集我们使用神器nmap对靶机IP进行探测。 nmap -A -p 1-65535 192.168.153.13">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DC-6靶机">
 <meta property="og:url" content="https://shu1l.github.io/2020/03/31/dc-6-ba-ji/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="欢迎来到Shu1L的神秘小屋！">
+<meta property="og:description" content="DC-6靶机学习第一步、主机发现我们设置靶机与kali均为.nat模式连接。 然后我们首先考虑获得靶机的IP地址。使用arp去发现内网存活主机，从而确定靶机IP为192.168.153.137。 netdiscover -i eth0 -r 192.168.153.0&#x2F;24 第二步、信息收集我们使用神器nmap对靶机IP进行探测。 nmap -A -p 1-65535 192.168.153.13">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209200455.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209200850.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200211113951.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209201216.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209201612.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209202612.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209202622.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209203905.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209204033.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209204455.png">
 <meta property="article:published_time" content="2020-03-31T14:20:37.000Z">
-<meta property="article:modified_time" content="2020-04-02T15:41:26.121Z">
+<meta property="article:modified_time" content="2020-04-19T09:16:28.390Z">
 <meta property="article:author" content="Shu1L">
+<meta property="article:tag" content="DC-6靶机学习">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shu1l.github.io/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209200455.png">
 
 
 
@@ -301,6 +313,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">靶机学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -328,7 +362,32 @@
       
 
       
-        
+        <h2 id="DC-6靶机学习"><a href="#DC-6靶机学习" class="headerlink" title="DC-6靶机学习"></a>DC-6靶机学习</h2><h4 id="第一步、主机发现"><a href="#第一步、主机发现" class="headerlink" title="第一步、主机发现"></a>第一步、主机发现</h4><p>我们设置靶机与kali均为.nat模式连接。</p>
+<p>然后我们首先考虑获得靶机的IP地址。使用arp去发现内网存活主机，从而确定靶机IP为192.168.153.137。</p>
+<pre><code>netdiscover -i eth0 -r 192.168.153.0/24</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200209200455.png" alt=""></p>
+<h4 id="第二步、信息收集"><a href="#第二步、信息收集" class="headerlink" title="第二步、信息收集"></a>第二步、信息收集</h4><p>我们使用神器nmap对靶机IP进行探测。</p>
+<pre><code>nmap -A -p 1-65535 192.168.153.137 -T4</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200209200850.png" alt=""></p>
+<p>我们发现靶机开放了22端口和80端口。</p>
+<p>我们直接访问IP发现被重定向到了<a href="http://wordy。" target="_blank" rel="noopener">http://wordy。</a></p>
+<p>我们编辑 /etc/hosts中的文件添加该域名</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200211113951.png" alt=""></p>
+<p>我们再次尝试访问192.168.153.137发现成功跳转，</p>
+<p>我们利用火狐自带插件进行指纹识别</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200209201216.png" alt=""></p>
+<p>我们可以确定该cms为WordPress，且数据库为MYSQL</p>
+<h4 id="第三步、漏洞扫描"><a href="#第三步、漏洞扫描" class="headerlink" title="第三步、漏洞扫描"></a>第三步、漏洞扫描</h4><p>使用wordpress漏洞测试工具wpscan进行网站漏洞探测，wpscan是一款针对wordpress的黑盒漏洞扫描器，可以获得包括版本、主体、插件等信息。</p>
+<pre><code>wpscan --url http://Wordy -u t</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200209201612.png" alt=""></p>
+<p>通过扫描我们得到几个系统的用户名信息。我们接下来思考能否获得任一账号的密码。</p>
+<h4 id="第四步、漏洞利用"><a href="#第四步、漏洞利用" class="headerlink" title="第四步、漏洞利用"></a>第四步、漏洞利用</h4><p>我们首先根据作者的提示，使用到kali里面的rockyou.txt字典</p>
+<p>使用解压命令：</p>
+<pre><code>gzip -d rockyou.txt.gz</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200209202612.png" alt=""></p>
+<pre><code>cat rockyou.txt | grep k01&gt;k01.txt</code></pre><p>将里面的k01的部分导出到dc6目录下面的passwords.txt</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200209202622.png" alt=""></p>
+<p>接着使用wpscan的暴力破解命令：</p>
+<pre><code>wpscan --url wordy -u -p passwords.txt</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200209203905.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200209204033.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200209204455.png" alt=""></p>
+
       
     </div>
     
@@ -342,6 +401,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DC-6%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/" rel="tag"># DC-6靶机学习</a>
+          
+        </div>
       
 
       
@@ -416,8 +481,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -432,7 +506,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -443,7 +517,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -454,7 +528,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -477,6 +551,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DC-6靶机学习"><span class="nav-number">1.</span> <span class="nav-text">DC-6靶机学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步、主机发现"><span class="nav-number">1.0.1.</span> <span class="nav-text">第一步、主机发现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步、信息收集"><span class="nav-number">1.0.2.</span> <span class="nav-text">第二步、信息收集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三步、漏洞扫描"><span class="nav-number">1.0.3.</span> <span class="nav-text">第三步、漏洞扫描</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第四步、漏洞利用"><span class="nav-number">1.0.4.</span> <span class="nav-text">第四步、漏洞利用</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
