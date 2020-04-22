@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="敏感信息泄露&#x2F;源码泄露  学习笔记[TOC] 1.什么是敏感数据？  敏感数据包括但不限于：口令、密钥、证书、会话标识、Licence、隐私数据、授权凭据、个人数据等、在程序文件、配置文件、日志文件、备份文件及数据库中都有可能包含敏感数据。 1、.git文件泄露漏洞漏洞描述：git在初始化项目的时候，会在项目的根目录（git rev-parse  –show-toplevel查看）创建一个名为.g">
+<meta name="description" content="敏感信息泄露&#x2F;源码泄露  学习笔记1.什么是敏感数据？  敏感数据包括但不限于：口令、密钥、证书、会话标识、Licence、隐私数据、授权凭据、个人数据等、在程序文件、配置文件、日志文件、备份文件及数据库中都有可能包含敏感数据。 1、.git文件泄露漏洞漏洞描述：git在初始化项目的时候，会在项目的根目录（git rev-parse  –show-toplevel查看）创建一个名为.git的隐藏文">
 <meta property="og:type" content="article">
 <meta property="og:title" content="敏感信息泄露常见类型">
 <meta property="og:url" content="https://shu1l.github.io/2020/04/19/min-gan-xin-xi-xie-lu-chang-jian-lei-xing/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="敏感信息泄露&#x2F;源码泄露  学习笔记[TOC] 1.什么是敏感数据？  敏感数据包括但不限于：口令、密钥、证书、会话标识、Licence、隐私数据、授权凭据、个人数据等、在程序文件、配置文件、日志文件、备份文件及数据库中都有可能包含敏感数据。 1、.git文件泄露漏洞漏洞描述：git在初始化项目的时候，会在项目的根目录（git rev-parse  –show-toplevel查看）创建一个名为.g">
+<meta property="og:description" content="敏感信息泄露&#x2F;源码泄露  学习笔记1.什么是敏感数据？  敏感数据包括但不限于：口令、密钥、证书、会话标识、Licence、隐私数据、授权凭据、个人数据等、在程序文件、配置文件、日志文件、备份文件及数据库中都有可能包含敏感数据。 1、.git文件泄露漏洞漏洞描述：git在初始化项目的时候，会在项目的根目录（git rev-parse  –show-toplevel查看）创建一个名为.git的隐藏文">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/19/min-gan-xin-xi-xie-lu-chang-jian-lei-xing/QQ%E6%88%AA%E5%9B%BE20200119121609.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/19/min-gan-xin-xi-xie-lu-chang-jian-lei-xing/QQ%E6%88%AA%E5%9B%BE20200119121109.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/19/min-gan-xin-xi-xie-lu-chang-jian-lei-xing/QQ%E6%88%AA%E5%9B%BE20200119121116.png">
@@ -92,7 +92,7 @@
 <meta property="og:image" content="https://shu1l.github.io/2020/04/19/min-gan-xin-xi-xie-lu-chang-jian-lei-xing/QQ%E6%88%AA%E5%9B%BE20200119110727.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/19/min-gan-xin-xi-xie-lu-chang-jian-lei-xing/sec_hole_13.png">
 <meta property="article:published_time" content="2020-04-19T10:33:38.000Z">
-<meta property="article:modified_time" content="2020-04-20T06:01:52.035Z">
+<meta property="article:modified_time" content="2020-04-21T04:36:55.829Z">
 <meta property="article:author" content="Shu1L">
 <meta property="article:tag" content="敏感信息泄露">
 <meta name="twitter:card" content="summary">
@@ -358,8 +358,7 @@
       
 
       
-        <h2 id="敏感信息泄露-源码泄露-学习笔记"><a href="#敏感信息泄露-源码泄露-学习笔记" class="headerlink" title="敏感信息泄露/源码泄露  学习笔记"></a>敏感信息泄露/源码泄露  学习笔记</h2><p>[TOC]</p>
-<h4 id="1-什么是敏感数据？"><a href="#1-什么是敏感数据？" class="headerlink" title="1.什么是敏感数据？"></a>1.什么是敏感数据？</h4><p>  敏感数据包括但不限于：口令、密钥、证书、会话标识、Licence、隐私数据、授权凭据、个人数据等、在程序文件、配置文件、日志文件、备份文件及数据库中都有可能包含敏感数据。</p>
+        <h2 id="敏感信息泄露-源码泄露-学习笔记"><a href="#敏感信息泄露-源码泄露-学习笔记" class="headerlink" title="敏感信息泄露/源码泄露  学习笔记"></a>敏感信息泄露/源码泄露  学习笔记</h2><h4 id="1-什么是敏感数据？"><a href="#1-什么是敏感数据？" class="headerlink" title="1.什么是敏感数据？"></a>1.什么是敏感数据？</h4><p>  敏感数据包括但不限于：口令、密钥、证书、会话标识、Licence、隐私数据、授权凭据、个人数据等、在程序文件、配置文件、日志文件、备份文件及数据库中都有可能包含敏感数据。</p>
 <h4 id="1、-git文件泄露漏洞"><a href="#1、-git文件泄露漏洞" class="headerlink" title="1、.git文件泄露漏洞"></a>1、.git文件泄露漏洞</h4><p><strong>漏洞描述：</strong>git在初始化项目的时候，会在项目的根目录（git rev-parse  –show-toplevel查看）创建一个名为<code>.git</code>的隐藏文件夹，里面包含了本地所有commit的历史纪录，如果无意间将这个目录置于Web的路径下让用户可以访问，那么也就泄露了几乎所有的源代码和其他的敏感信息。可能泄露的内容：</p>
 <ul>
 <li>所有该项目的源码</li>
@@ -526,7 +525,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -548,7 +547,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

