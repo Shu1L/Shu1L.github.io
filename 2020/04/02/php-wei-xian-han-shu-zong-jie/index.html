@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="php危险函数," />
 
 
 
@@ -92,8 +92,9 @@
 <meta property="og:image" content="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ%E6%88%AA%E5%9B%BE20200218133234.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ%E6%88%AA%E5%9B%BE20200218202542.png">
 <meta property="article:published_time" content="2020-04-02T15:02:41.000Z">
-<meta property="article:modified_time" content="2020-04-02T15:41:26.118Z">
+<meta property="article:modified_time" content="2020-04-22T15:13:45.276Z">
 <meta property="article:author" content="Shu1L">
+<meta property="article:tag" content="php危险函数">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ%E6%88%AA%E5%9B%BE20200218123543.png">
 
@@ -307,6 +308,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">代码审计学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -572,6 +595,9 @@ echo (&quot;Deleted $file&quot;);
 </ul>
 </li>
 </ul>
+<h5 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h5><p><a href="https://wh0ale.github.io/2019/08/21/php代码审计危险函数总结/" target="_blank" rel="noopener">https://wh0ale.github.io/2019/08/21/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%8D%B1%E9%99%A9%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</a></p>
+<p><a href="https://blog.csdn.net/qq_43431158/article/details/99673451" target="_blank" rel="noopener">https://blog.csdn.net/qq_43431158/article/details/99673451</a></p>
+<p><a href="https://blog.csdn.net/zhezhebie/article/details/80508139" target="_blank" rel="noopener">https://blog.csdn.net/zhezhebie/article/details/80508139</a></p>
 
       
     </div>
@@ -586,6 +612,12 @@ echo (&quot;Deleted $file&quot;);
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php%E5%8D%B1%E9%99%A9%E5%87%BD%E6%95%B0/" rel="tag"># php危险函数</a>
+          
+        </div>
       
 
       
@@ -689,7 +721,7 @@ echo (&quot;Deleted $file&quot;);
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -711,7 +743,7 @@ echo (&quot;Deleted $file&quot;);
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -744,7 +776,7 @@ echo (&quot;Deleted $file&quot;);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#php危险函数总结"><span class="nav-number">1.</span> <span class="nav-text">php危险函数总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是危险函数"><span class="nav-number">1.0.1.</span> <span class="nav-text">什么是危险函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行任意代码的函数"><span class="nav-number">1.0.2.</span> <span class="nav-text">执行任意代码的函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#eval函数"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">eval函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#assert函数"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">assert函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#create-function函数"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">create_function函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#preg-replace函数"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">preg_replace函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#call-user-func-call-user-func-array函数"><span class="nav-number">1.0.2.5.</span> <span class="nav-text">call_user_func&#x2F;call_user_func_array函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#array-map函数"><span class="nav-number">1.0.2.6.</span> <span class="nav-text">array_map函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#array-filter函数"><span class="nav-number">1.0.2.7.</span> <span class="nav-text">array_filter函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#usort-uasort函数"><span class="nav-number">1.0.2.8.</span> <span class="nav-text">usort&#x2F;uasort函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#a-b动态函数"><span class="nav-number">1.0.2.9.</span> <span class="nav-text">$a$b动态函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读取网络资源的函数"><span class="nav-number">1.0.3.</span> <span class="nav-text">读取网络资源的函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#php命令执行函数"><span class="nav-number">1.0.4.</span> <span class="nav-text">php命令执行函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#system函数"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">system函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#shell-exec-没有回显的命令执行"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">shell_exec(没有回显的命令执行)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#passthru函数"><span class="nav-number">1.0.4.3.</span> <span class="nav-text">passthru函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#exec函数"><span class="nav-number">1.0.4.4.</span> <span class="nav-text">exec函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ob-start函数"><span class="nav-number">1.0.4.5.</span> <span class="nav-text">ob_start函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作文件的函数"><span class="nav-number">1.0.5.</span> <span class="nav-text">操作文件的函数</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#php危险函数总结"><span class="nav-number">1.</span> <span class="nav-text">php危险函数总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是危险函数"><span class="nav-number">1.0.1.</span> <span class="nav-text">什么是危险函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行任意代码的函数"><span class="nav-number">1.0.2.</span> <span class="nav-text">执行任意代码的函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#eval函数"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">eval函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#assert函数"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">assert函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#create-function函数"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">create_function函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#preg-replace函数"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">preg_replace函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#call-user-func-call-user-func-array函数"><span class="nav-number">1.0.2.5.</span> <span class="nav-text">call_user_func&#x2F;call_user_func_array函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#array-map函数"><span class="nav-number">1.0.2.6.</span> <span class="nav-text">array_map函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#array-filter函数"><span class="nav-number">1.0.2.7.</span> <span class="nav-text">array_filter函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#usort-uasort函数"><span class="nav-number">1.0.2.8.</span> <span class="nav-text">usort&#x2F;uasort函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#a-b动态函数"><span class="nav-number">1.0.2.9.</span> <span class="nav-text">$a$b动态函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读取网络资源的函数"><span class="nav-number">1.0.3.</span> <span class="nav-text">读取网络资源的函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#php命令执行函数"><span class="nav-number">1.0.4.</span> <span class="nav-text">php命令执行函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#system函数"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">system函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#shell-exec-没有回显的命令执行"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">shell_exec(没有回显的命令执行)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#passthru函数"><span class="nav-number">1.0.4.3.</span> <span class="nav-text">passthru函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#exec函数"><span class="nav-number">1.0.4.4.</span> <span class="nav-text">exec函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ob-start函数"><span class="nav-number">1.0.4.5.</span> <span class="nav-text">ob_start函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作文件的函数"><span class="nav-number">1.0.5.</span> <span class="nav-text">操作文件的函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文章："><span class="nav-number">1.0.5.1.</span> <span class="nav-text">参考文章：</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
