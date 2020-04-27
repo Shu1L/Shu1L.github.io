@@ -279,7 +279,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/" itemprop="url">渗透测试——Mestasploit基本使用</a></h1>
+                <a class="post-title-link" href="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/" itemprop="url">Mestasploit基本使用学习</a></h1>
         
 
         <div class="post-meta">
@@ -301,6 +301,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -331,8 +353,7 @@
       
         
           
-            <p>title: Mestasploit基本使用学习<br>abbrlink: 6042<br>date: 2020-04-03 19:52:51<br>tags:</p>
-<h2 id="渗透测试——Mestasploit-基本使用"><a href="#渗透测试——Mestasploit-基本使用" class="headerlink" title="渗透测试——Mestasploit 基本使用"></a>渗透测试——Mestasploit 基本使用</h2><h5 id="渗透测试者的困扰"><a href="#渗透测试者的困扰" class="headerlink" title="渗透测试者的困扰"></a>渗透测试者的困扰</h5><ul>
+            <h2 id="渗透测试——Mestasploit-基本使用"><a href="#渗透测试——Mestasploit-基本使用" class="headerlink" title="渗透测试——Mestasploit 基本使用"></a>渗透测试——Mestasploit 基本使用</h2><h5 id="渗透测试者的困扰"><a href="#渗透测试者的困扰" class="headerlink" title="渗透测试者的困扰"></a>渗透测试者的困扰</h5><ul>
 <li>需要掌握数百个工具软件，上千个命令参数，实在记不住</li>
 <li>新出现的漏洞 PoC/EXP 有不同的运行环境要求，准备工作繁琐</li>
 <li>大部分时间都在学习不同工具的使用户环境，如果能统一就好了</li>
@@ -5008,7 +5029,7 @@ POST:
 <pre class=" language-xml"><code class="language-xml"> http://127.0.0.1:81/FileInclusion/index2.php?file=<span class="token prolog">&lt;?php @eval($_POST[c]);?></span></code></pre>
 <p><img src="9272355-f9f0db6a9d7ff53a%5B1%5D.png" alt=""></p>
 <p>（2）测试结果：失败<br>利用文件包含漏洞直接访问“服务日志文件”，发现文件包含漏洞并未对构造的php一句话进行正常解析，观察发现是构造的PHP一句话中的相关字符在记录进日志文件后，相关的字符被转码了，导致PHP解析失败，具体失败原因见“失败原因分析”</p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/9272355-738380f7e8b09e46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1195" alt="img"></p>
+<p><img src="9272355-738380f7e8b09e46%5B1%5D.png" alt=""></p>
 <p>image.png（3）失败原因分析<br>一句话写入日志文件的利用过程是，利用浏览器直接构造一个关于请求资源的报错信息，消息中包含依据。报错信息服务自动记录到日志文件，但实际测试发现写入日志文件内的报错信息发生了字符转码：<br>日志文件内容如上图所示：</p>
 <pre class=" language-ruby"><code class="language-ruby">http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">81</span><span class="token operator">/</span><span class="token constant">FileInclusion</span><span class="token operator">/</span>index2<span class="token punctuation">.</span>php<span class="token operator">?</span>page<span class="token operator">=</span><span class="token operator">%</span>3C<span class="token operator">?</span>php<span class="token operator">%</span><span class="token number">20</span><span class="token variable">@eval</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token operator">?</span><span class="token operator">%</span>3E</code></pre>
 <pre class=" language-rust"><code class="language-rust">               <span class="token string">"&lt;"</span>  <span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token punctuation">-></span> 大于号被转码为了 <span class="token operator">%</span>3C
@@ -5883,7 +5904,7 @@ python fpm.py 192.168.139.129 /usr/local/lib/php/PEAR.php-c &#39;&lt;?php echo `
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
