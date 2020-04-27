@@ -355,7 +355,7 @@
           
             <h2 id="绕过CDN查找真实IP方法总结"><a href="#绕过CDN查找真实IP方法总结" class="headerlink" title="绕过CDN查找真实IP方法总结"></a>绕过CDN查找真实IP方法总结</h2><h4 id="什么是CDN以及CDN加速？"><a href="#什么是CDN以及CDN加速？" class="headerlink" title="什么是CDN以及CDN加速？"></a>什么是CDN以及CDN加速？</h4><p><strong>(摘自百度百科）</strong></p>
 <p>​        CDN的全称是Content Delivery Network，即<a href="https://baike.baidu.com/item/内容分发网络/4034265" target="_blank" rel="noopener">内容分发网络</a>。CDN是构建在现有网络基础之上的智能虚拟网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。CDN的关键技术主要有内容存储和分发技术。</p>
-<p>​    <img src="https://bkimg.cdn.bcebos.com/pic/4610b912c8fcc3ce005c05d19c45d688d53f20b0?x-bce-process=image/watermark,g_7,image_d2F0ZXIvYmFpa2U4MA==,xp_5,yp_5" alt="img"></p>
+<p><img src="4610b912c8fcc3ce005c05d19c45d688d53f20b0%5B1%5D.png" alt=""></p>
 <p>比较常见的基于公有云的高可用架构，即：</p>
 <pre><code>域名--&gt;CDN，CDN--&gt;WAF，WAF--&gt;SLB，SLB--&gt;ECS</code></pre><p><strong>CDN对网站有什么好处?</strong></p>
 <p>​    首先，开启CDN后的网站，会根据用户所在地的不同访问CDN的节点服务器，并不直接访问源服务器，这样可以减少网站服务器宽带资源,降低服务器压力。这也就是大家都在ping百度,但是不同地区得到的反馈ip不一样的原因。</p>
@@ -390,7 +390,7 @@
 <p>下面介绍些常用的子域名查找的方法和工具：</p>
 <p>1）微步在线(<a href="https://x.threatbook.cn/" target="_blank" rel="noopener">https://x.threatbook.cn/</a>)</p>
 <p>上文提到的微步在线功能强大，黑客只需输入要查找的域名(如baidu.com)，点击子域名选项就可以查找它的子域名了，但是免费用户每月只有5次免费查询机会。如图：</p>
-<p><img src="https://img2018.cnblogs.com/blog/1058583/201810/1058583-20181009230922994-1826758810.png" alt="img"></p>
+<p><img src="1058583-20181009230922994-1826758810%5B1%5D.png" alt=""></p>
 <p>2）Dnsdb查询法。(<a href="https://dnsdb.io/zh-cn/" target="_blank" rel="noopener">https://dnsdb.io/zh-cn/</a>)</p>
 <p>黑客只需输入baidu.com type:A就能收集百度的子域名和ip了。如图：<br> <img src="QQ%E6%88%AA%E5%9B%BE20200427094630.png" alt=""></p>
 <p>3）Google 搜索</p>
@@ -399,11 +399,14 @@
 <p>4）各种子域名扫描器</p>
 <p>这里，主要为大家推荐子域名挖掘机和lijiejie的subdomainbrute(<a href="https://github.com/lijiejie/subDomainsBrute" target="_blank" rel="noopener">https://github.com/lijiejie/subDomainsBrute</a>)</p>
 <p>子域名挖掘机仅需输入域名即可基于字典挖掘它的子域名，如图：</p>
-<p><img src="https://img2018.cnblogs.com/blog/1058583/201810/1058583-20181009231018377-2070670991.png" alt="img"></p>
-<p>Subdomainbrute以windows为例，黑客仅需打开cmd进入它所在的目录输入Python subdomainbrute.py baidu.com –full即可收集百度的子域名，如图：</p>
-<p><img src="https://img2018.cnblogs.com/blog/1058583/201810/1058583-20181009231030794-1664451845.png" alt="img"></p>
+<p><img src="1058583-20181009231018377-2070670991%5B1%5D.png" alt=""></p>
+<p>Subdomainbrute以windows为例，黑客仅需打开cmd进入它所在的目录输入</p>
+<p><code>Python subdomainbrute.py baidu.com --full</code></p>
+<p>即可收集百度的子域名，如图：</p>
+<p><img src="1058583-20181009231030794-1664451845%5B1%5D.png" alt=""></p>
 <p>注：收集子域名后尝试以解析ip不在cdn上的ip解析主站，真实ip成功被获取到。</p>
-<h5 id="3：网络空间引擎搜索法"><a href="#3：网络空间引擎搜索法" class="headerlink" title="3：网络空间引擎搜索法"></a>3：网络空间引擎搜索法</h5><p>常见的有以前的钟馗之眼，<a href="https://www.shodan.io/" target="_blank" rel="noopener">shodan</a>，<a href="https://fofa.so/" target="_blank" rel="noopener">fofa搜索</a>。以fofa为例，只需输入：title:“网站的title关键字”或者body：“网站的body特征”就可以找出fofa收录的有这些关键字的ip域名，很多时候能获取网站的真实ip，如图：<br><img src="https://img2018.cnblogs.com/blog/1058583/201810/1058583-20181009231044976-1731199101.png" alt="img"> </p>
+<h5 id="3：网络空间引擎搜索法"><a href="#3：网络空间引擎搜索法" class="headerlink" title="3：网络空间引擎搜索法"></a>3：网络空间引擎搜索法</h5><p>常见的有以前的钟馗之眼，<a href="https://www.shodan.io/" target="_blank" rel="noopener">shodan</a>，<a href="https://fofa.so/" target="_blank" rel="noopener">fofa搜索</a>。以fofa为例，只需输入：title:“网站的title关键字”或者body：“网站的body特征”就可以找出fofa收录的有这些关键字的ip域名，很多时候能获取网站的真实ip，如图：</p>
+<p> <img src="1058583-20181009231044976-1731199101%5B1%5D.png" alt=""></p>
 <h5 id="4-利用SSL证书寻找真实原始IP"><a href="#4-利用SSL证书寻找真实原始IP" class="headerlink" title="4:利用SSL证书寻找真实原始IP"></a>4:利用SSL证书寻找真实原始IP</h5><p><strong>SSL证书</strong></p>
 <p>​        SSL证书是<a href="https://baike.baidu.com/item/数字证书/326874" target="_blank" rel="noopener">数字证书</a>的一种，类似于驾驶证、护照和营业执照的电子副本。因为配置在服务器上，也称为SSL服务器证书。SSL 证书就是遵守 SSL协议，由受信任的数字证书颁发机构CA，在验证服务器身份后颁发，具有服务器身份验证和数据传输加密功能。</p>
 <p>​        以CloudFlare这款CDN加速器举例：假如你在 abc.com 上托管了一个服务，原始服务器IP是136.23.63.44。 而CloudFlare则会为你提供DDoS保护，Web应用程序防火墙和其他一些安全服务，以保护你的服务免受攻击。</p>
