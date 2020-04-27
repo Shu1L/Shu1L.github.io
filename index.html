@@ -260,6 +260,125 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/27/msf-fan-dan-payload-xue-xi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/27/msf-fan-dan-payload-xue-xi/" itemprop="url">msf反弹payload学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-27T13:30:20+08:00">
+                2020-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/27/rao-guo-cdn-cha-zhao-ip-fang-fa-zong-jie/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -382,7 +501,7 @@
 <h4 id="绕过-CDN-查找网站真实-IP"><a href="#绕过-CDN-查找网站真实-IP" class="headerlink" title="绕过 CDN 查找网站真实 IP"></a>绕过 CDN 查找网站真实 IP</h4><h5 id="1-查询历史DNS记录"><a href="#1-查询历史DNS记录" class="headerlink" title="1:查询历史DNS记录"></a>1:查询历史DNS记录</h5><p>1）查看 IP 与 域名绑定的历史记录，可能会存在使用 CDN 前的记录，相关查询网站有：<br> <a href="https://dnsdb.io/zh-cn/" target="_blank" rel="noopener">https://dnsdb.io/zh-cn/</a>     ###DNS查询<br> <a href="https://x.threatbook.cn/" target="_blank" rel="noopener">https://x.threatbook.cn/</a>    ###微步在线<br> <a href="http://toolbar.netcraft.com/site_report?url=" target="_blank" rel="noopener">http://toolbar.netcraft.com/site_report?url=</a>    ###在线域名信息查询<br> <a href="http://viewdns.info/" target="_blank" rel="noopener">http://viewdns.info/</a>        ###DNS、IP等查询<br> <a href="https://tools.ipip.net/cdn.php" target="_blank" rel="noopener">https://tools.ipip.net/cdn.php</a>  ###CDN查询IP</p>
 <p>2）利用<a href="https://securitytrails.com/" target="_blank" rel="noopener">SecurityTrails</a>平台，攻击者就可以精准的找到真实原始IP。他们只需在搜索字段中输入网站域名，然后按Enter键即可，这时“历史数据”就可以在左侧的菜单中找到。</p>
 <p>如何寻找隐藏在CloudFlare或TOR背后的真实原始IP</p>
-<p><img src="https://img2018.cnblogs.com/blog/1058583/201810/1058583-20181009230838766-860479177.png" alt="img"></p>
+<p><img src="1058583-20181009230838766-860479177%5B1%5D.png" alt=""></p>
 <p>除了过去的DNS记录，即使是当前的记录也可能泄漏原始服务器IP。例如，MX记录是一种常见的查找IP的方式。如果网站在与web相同的服务器和IP上托管自己的邮件服务器，那么原始服务器IP将在MX记录中。</p>
 <p><strong>MX记录</strong></p>
 <p>邮件交换记录 (<strong>MX record</strong>)是域名系统（DNS）中的一种资源记录类型，用于指定负责处理发往收件人域名的邮件服务器</p>
@@ -419,14 +538,14 @@
 <p>攻击者可以在Censys上实现多个参数的组合，这可以通过使用简单的布尔逻辑来完成。</p>
 <p>2、组合后的搜索参数为：<code>parsed.names: aaa.com and tags.raw: trusted</code></p>
 <p>3、Censys将向你显示符合上述搜索条件的所有标准证书。要逐个查看这些搜索结果，攻击者可以通过单击右侧的“<strong>Explore</strong>”，打开包含多个工具的下拉菜单。What’s using this certificate? &gt; <strong>IPv4 Hosts</strong>；</p>
-<p><img src="https://www.fujieace.com/wp-content/uploads/2019/07/1077.jpg?x83086" alt="Censys空间搜索SHA1指纹"></p>
 <p>隐藏服务具有SSL证书，要查找它使用的IPv4，只需将”SHA1 fingerprint”（签名证书的sha1值，也就是SHA1指纹）粘贴到Censys平台IPv4主机搜索中，即可找到证书，使用此方法可以轻松找到配置错误的Web服务器真实IP。</p>
 <h5 id="方法5-利用HTTP标头寻找真实原始IP"><a href="#方法5-利用HTTP标头寻找真实原始IP" class="headerlink" title="方法5:利用HTTP标头寻找真实原始IP"></a>方法5:利用HTTP标头寻找真实原始IP</h5><p>借助SecurityTrails这样的平台，任何人都可以在茫茫的大数据搜索到自己的目标，甚至可以通过比较HTTP标头来查找到原始服务器。</p>
 <p>特别是当用户拥有一个非常特别的服务器名称与软件名称时，攻击者找到你就变得更容易。</p>
 <p>如果要搜索的数据相当多，如上所述，攻击者可以在Censys上组合搜索参数。假设你正在与1500个Web服务器共享你的服务器HTTP标头，这些服务器都发送的是相同的标头参数和值的组合。而且你还使用新的PHP框架发送唯一的HTTP标头（例如：X-Generated-Via：XYZ框架），目前约有400名网站管理员使用了该框架。而最终由三个服务器组成的交集，只需手动操作就可以找到了IP，整个过程只需要几秒钟。</p>
 <p>例如，Censys上用于匹配服务器标头的搜索参数是80.http.get.headers.server :，查找由CloudFlare提供服务的网站的参数如下</p>
 <p>80.http.get.headers.server:cloudflare</p>
-<h3 id=""><a href="#" class="headerlink" title=""></a><img src="https://img2018.cnblogs.com/blog/1058583/201810/1058583-20181009231212219-1764707602.png" alt="img"></h3><h5 id="方法6-利用网站返回的内容寻找真实原始IP"><a href="#方法6-利用网站返回的内容寻找真实原始IP" class="headerlink" title="方法6:利用网站返回的内容寻找真实原始IP"></a>方法6:利用网站返回的内容寻找真实原始IP</h5><p>如果原始服务器IP也返回了网站的内容，那么可以在网上搜索大量的相关数据。</p>
+<p><img src="1058583-20181009231212219-1764707602%5B1%5D.png" alt=""></p>
+<h5 id="方法6-利用网站返回的内容寻找真实原始IP"><a href="#方法6-利用网站返回的内容寻找真实原始IP" class="headerlink" title="方法6:利用网站返回的内容寻找真实原始IP"></a>方法6:利用网站返回的内容寻找真实原始IP</h5><p>如果原始服务器IP也返回了网站的内容，那么可以在网上搜索大量的相关数据。</p>
 <p>浏览网站源代码，寻找独特的代码片段。在JavaScript中使用具有访问或标识符参数的第三方服务（例如Google Analytics，reCAPTCHA）是攻击者经常使用的方法。</p>
 <p>以下是从HackTheBox网站获取的Google Analytics跟踪代码示例：</p>
 <pre><code>ga（&#39;create&#39;，&#39;UA-93577176-1&#39;，&#39;auto&#39;）;</code></pre><p>​        可以使用80.http.get.body：参数通过body/source过滤Censys数据，不幸的是，正常的搜索字段有局限性，但你可以在Censys请求研究访问权限，该权限允许你通过Google BigQuery进行更强大的查询。</p>
@@ -1290,147 +1409,6 @@ server {
             
           </span>
 
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/19/xiong-hai-cms-dai-ma-shen-ji-xue-xi/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu1L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/19/xiong-hai-cms-dai-ma-shen-ji-xue-xi/" itemprop="url">熊海cms代码审计学习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-19T20:01:15+08:00">
-                2020-04-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">代码审计学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -3149,7 +3127,7 @@ root@kali:~# lastlog
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
