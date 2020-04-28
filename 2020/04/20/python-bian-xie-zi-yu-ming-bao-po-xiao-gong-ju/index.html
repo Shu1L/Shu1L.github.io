@@ -79,14 +79,14 @@
 
 
 
-<meta name="description" content="欢迎来到Shu1L的神秘小屋！">
+<meta name="description" content="python编写子域名爆破小工具字典生成工具编写这里主要使用的python的exrex模块： 此处有详细介绍， https:&#x2F;&#x2F;github.com&#x2F;asciimoo&#x2F;exrex这个模块的主要功能：  生成所有匹配的字符串 生成随机匹配的字符串 计算匹配字符串的数量 简化正则表达式  安装方法： pip install exrex我们主要使用该模块的generate()方法。  generate(">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python编写子域名爆破小工具">
 <meta property="og:url" content="https://shu1l.github.io/2020/04/20/python-bian-xie-zi-yu-ming-bao-po-xiao-gong-ju/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="欢迎来到Shu1L的神秘小屋！">
+<meta property="og:description" content="python编写子域名爆破小工具字典生成工具编写这里主要使用的python的exrex模块： 此处有详细介绍， https:&#x2F;&#x2F;github.com&#x2F;asciimoo&#x2F;exrex这个模块的主要功能：  生成所有匹配的字符串 生成随机匹配的字符串 计算匹配字符串的数量 简化正则表达式  安装方法： pip install exrex我们主要使用该模块的generate()方法。  generate(">
 <meta property="article:published_time" content="2020-04-20T04:42:19.000Z">
-<meta property="article:modified_time" content="2020-04-20T06:01:52.032Z">
+<meta property="article:modified_time" content="2020-04-28T05:09:06.824Z">
 <meta property="article:author" content="Shu1L">
 <meta name="twitter:card" content="summary">
 
@@ -301,6 +301,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">python学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -328,7 +350,164 @@
       
 
       
-        
+        <h2 id="python编写子域名爆破小工具"><a href="#python编写子域名爆破小工具" class="headerlink" title="python编写子域名爆破小工具"></a>python编写子域名爆破小工具</h2><h4 id="字典生成工具编写"><a href="#字典生成工具编写" class="headerlink" title="字典生成工具编写"></a>字典生成工具编写</h4><p>这里主要使用的python的exrex模块：</p>
+<p>此处有详细介绍，</p>
+<pre><code>https://github.com/asciimoo/exrex</code></pre><p>这个模块的主要功能：</p>
+<ul>
+<li>生成所有匹配的字符串</li>
+<li>生成随机匹配的字符串</li>
+<li>计算匹配字符串的数量</li>
+<li>简化正则表达式</li>
+</ul>
+<p>安装方法：</p>
+<pre><code>pip install exrex</code></pre><p>我们主要使用该模块的generate()方法。</p>
+<ul>
+<li>generate(s,limit=20)</li>
+<li>函数的作用：创建一个生成器，生成给定正则表达式的所有匹配字符串</li>
+<li>参数s:正则表达式</li>
+<li>limit：范围限制，要求limit的类型为整型数</li>
+</ul>
+<h5 id="简单的例子："><a href="#简单的例子：" class="headerlink" title="简单的例子："></a>简单的例子：</h5><pre><code>import exrex
+
+web_dic=&#39;demo&#39;
+dic_pass=&#39;admin&#39;
+rule = &#39;{web_dic}[!@#]{dic_pass}&#39;
+s = rule.format(web_dic=web_dic,dic_pass=dic_pass)
+dics = list(exrex.generate(s))
+for i in dics:
+    print i</code></pre><h4 id="编写子域名爆破脚本"><a href="#编写子域名爆破脚本" class="headerlink" title="编写子域名爆破脚本"></a>编写子域名爆破脚本</h4><p>自己编写的理解脚本</p>
+<pre><code>import exrex  #导入生成字典模块
+
+
+def host_replace(hosts):         #域名处理方法
+    if &#39;://&#39; in hosts:
+        hosts = hosts.split(&#39;://&#39;)[1]
+    if &#39;/&#39; in hosts: 
+        hosts = hosts.replace(&#39;/&#39;,&#39;&#39;)              
+    hosts = &quot;&quot;.join(hosts)
+    return hosts
+
+def dic_create(hosts):        #子域名字典生成方法
+    web_white = [&#39;com&#39;, &#39;cn&#39;, &#39;gov&#39;, &#39;edu&#39;, &#39;org&#39;]
+    web_dics = hosts.split(&#39;.&#39;)
+    for web_dic in web_dics:
+        if web_dic not in web_white:
+            f_rule = open(&#39;rule.ini&#39;, &#39;r&#39;)
+            for i in f_rule:
+                dics = list(exrex.generate(web_dic+i.strip(&#39;\r\n&#39;)))
+                for dic in dics:
+                    if len(dic)&gt;3:
+                        dic_out = open(&#39;mypass.txt&#39;,&#39;a+&#39;)
+                        dic_out.write(dic+&#39;\r\n&#39;)
+                        dic_out.close()
+                        print dic
+    f_rule.close()
+def main():       #主函数
+    hosts = raw_input(&quot;Write Your Hosts :&quot;)
+    host =host_replace(hosts)
+    dic_create(host)
+
+if __name__ == &#39;__main__&#39;:
+    main()</code></pre><p>参考：<a href="https://www.jianshu.com/p/a481a341eaa4" target="_blank" rel="noopener">https://www.jianshu.com/p/a481a341eaa4</a></p>
+<p>子域名爆破脚本进阶版：</p>
+<pre><code>#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import dns.resolver
+import threading
+import Queue 
+import optparse
+import sys                    
+
+queue = Queue.Queue()
+lock = threading.Lock()
+
+class GetSubDomain(threading.Thread):
+    &quot;&quot;&quot;docstring for SubDomain&quot;&quot;&quot;
+    def __init__(self, target,queue,outfile):
+        threading.Thread.__init__(self)
+        self.target = target
+        self.queue = queue
+        self.rsv = dns.resolver.Resolver()
+        outfile = target + &#39;.txt&#39; if not outfile else outfile
+        self.f = open(&#39;./output/&#39;+outfile,&#39;a+&#39;)
+        self.ip_list = []
+
+    def _scan(self):
+        while not self.queue.empty():
+            self.ip_list = []
+            ips = None
+            sub_domain = self.queue.get() + &#39;.&#39; + self.target
+            for _ in range(3):
+                try:
+                    answers = self.rsv.query(sub_domain)
+                    if answers:
+                        for answer in answers:
+                            if answer.address not in self.ip_list:
+                                self.ip_list.append(answer.address)
+                except dns.resolver.NoNameservers, e:
+                    break
+                except Exception, e:
+                    pass
+            if len(self.ip_list)&gt;0:
+                ips = &#39;,&#39;.join(self.ip_list)
+                msg = sub_domain.ljust(30) + ips + &#39;\n&#39;
+                lock.acquire()
+                print msg
+                self.f.write(msg)
+                lock.release()
+            self.queue.task_done()
+
+    def run(self):
+        self._scan()
+
+def get_target(domain_list):
+    targets = []
+    for line in open(domain_list,&#39;r&#39;):
+        if line:
+            targets.append(line.strip())
+    return targets
+
+def get_sub_queue(sub_file): #得到所有子域名的queue
+    for line in open(sub_file,&#39;r&#39;):
+        if line:
+            queue.put(line.strip())
+
+def main():
+    parser = optparse.OptionParser()
+    parser.add_option(&#39;-u&#39;, &#39;--url&#39;, dest=&#39;url&#39;,
+        type=&#39;string&#39;, help=&#39;Get a single top-level domain names.&#39;)
+    parser.add_option(&#39;-l&#39;, &#39;--list&#39;, dest=&#39;domain_list&#39;,
+        type=&#39;string&#39;, help=&#39;Top-level domain name list.&#39;)
+    parser.add_option(&#39;-f&#39;, &#39;--file&#39;, dest=&#39;sub_file&#39;, default=&#39;sub.txt&#39;,
+        type=&#39;string&#39;, help=&#39;Dict file used to brute sub names&#39;)
+    parser.add_option(&#39;-t&#39;, &#39;--threads&#39;, dest=&#39;threads_num&#39;, default=60, 
+        type=&#39;int&#39;, help=&#39;Number of threads. default = 60&#39;)
+    parser.add_option(&#39;-o&#39;, &#39;--outfile&#39;, dest=&#39;outfile&#39;, default=None,
+        type=&#39;string&#39;, help=&#39;Output file name. default is {target}.txt&#39;)
+
+    (options, args) = parser.parse_args()
+    if options.url:
+        urls = [options.url]
+    elif options.domain_list:
+        urls = get_target(options.domain_list)
+    else:
+        parser.print_help()
+        print &quot;Example: &quot;
+        print &quot;\tpython getsub.py -u baidu.com&quot;
+        print &quot;\tpython getsub.py -l domain.txt -f sub.txt -t 50&quot;
+        sys.exit(0)
+
+    for url in urls:
+        get_sub_queue(options.sub_file)
+        for x in xrange(1,options.threads_num+1):
+            t = GetSubDomain(url,queue,options.outfile)
+            t.setDaemon(True)
+            t.start()
+        queue.join()
+
+if __name__ == &#39;__main__&#39;:
+    main()</code></pre>
       
     </div>
     
@@ -416,8 +595,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -436,7 +624,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -458,7 +646,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -481,6 +669,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#python编写子域名爆破小工具"><span class="nav-number">1.</span> <span class="nav-text">python编写子域名爆破小工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字典生成工具编写"><span class="nav-number">1.0.1.</span> <span class="nav-text">字典生成工具编写</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简单的例子："><span class="nav-number">1.0.1.1.</span> <span class="nav-text">简单的例子：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写子域名爆破脚本"><span class="nav-number">1.0.2.</span> <span class="nav-text">编写子域名爆破脚本</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

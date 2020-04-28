@@ -79,14 +79,14 @@
 
 
 
-<meta name="description" content="欢迎来到Shu1L的神秘小屋！">
+<meta name="description" content="Python编写C段&amp;web目录扫描工具python编写目录扫描工具import requests from optparse import OptionParser import threading from Queue import Queue import sys  class WEB_DIR(threading.Thread):     def __init__(self,queu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python编写C段&amp;web目录扫描工具">
+<meta property="og:title" content="python编写简单C段&amp;web目录扫描工具">
 <meta property="og:url" content="https://shu1l.github.io/2020/04/20/python-bian-xie-c-duan-web-mu-lu-sao-miao-gong-ju/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="欢迎来到Shu1L的神秘小屋！">
+<meta property="og:description" content="Python编写C段&amp;web目录扫描工具python编写目录扫描工具import requests from optparse import OptionParser import threading from Queue import Queue import sys  class WEB_DIR(threading.Thread):     def __init__(self,queu">
 <meta property="article:published_time" content="2020-04-20T04:41:18.000Z">
-<meta property="article:modified_time" content="2020-04-20T06:01:52.031Z">
+<meta property="article:modified_time" content="2020-04-28T05:01:43.120Z">
 <meta property="article:author" content="Shu1L">
 <meta name="twitter:card" content="summary">
 
@@ -124,7 +124,7 @@
 
 
 
-  <title>python编写C段&web目录扫描工具 | Hexo</title>
+  <title>python编写简单C段&web目录扫描工具 | Hexo</title>
   
 
 
@@ -278,7 +278,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">python编写C段&web目录扫描工具</h1>
+          <h1 class="post-title" itemprop="name headline">python编写简单C段&web目录扫描工具</h1>
         
 
         <div class="post-meta">
@@ -300,6 +300,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">python学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -328,7 +350,99 @@
       
 
       
-        
+        <h2 id="Python编写C段-amp-web目录扫描工具"><a href="#Python编写C段-amp-web目录扫描工具" class="headerlink" title="Python编写C段&amp;web目录扫描工具"></a>Python编写C段&amp;web目录扫描工具</h2><h4 id="python编写目录扫描工具"><a href="#python编写目录扫描工具" class="headerlink" title="python编写目录扫描工具"></a>python编写目录扫描工具</h4><pre><code>import requests
+from optparse import OptionParser
+import threading
+from Queue import Queue
+import sys
+
+class WEB_DIR(threading.Thread):
+    def __init__(self,queue):
+            threading.Thread.__init__(self)
+            self._queue = queue
+    def run(self):
+        while not self._queue.empty():
+            url = self._queue.get()
+            try:
+                headers = {&#39;User-Agent&#39;: &#39;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 SE 2.X MetaSr&#39;}
+                r = requests.get(url, headers=headers, timeout=1)
+            except Exception,e:
+              pass
+            if r.status_code == 200:
+                print &#39;[*]&#39; + url
+
+def start(url,file,count):
+    queue = Queue()
+    f = open(&#39;%s.txt&#39; % file, &#39;r&#39;)
+    for i in f:
+        queue.put(url + i.strip(&#39;\r\n&#39;))
+    threads = []
+    thread_count = int(count)
+    for i in range(thread_count):
+        threads.append(WEB_DIR(queue))
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+
+def main():
+    parser = OptionParser()
+    parser = OptionParser()
+    parser.add_option(&quot;-u&quot;,&quot;--url&quot;,dest=&quot;url&quot;,help=&quot;Target url for scan&quot;)
+    parser.add_option(&quot;-f&quot;, &quot;--file&quot;, dest=&quot;filename&quot;, help=&quot;Dir filename&quot;)
+    parser.add_option(&quot;-t&quot;, &quot;--thread&quot;, dest=&quot;count&quot;,type=int,default=10, help=&quot;scan thread count&quot;)
+    options,args = parser.parse_args()
+    if options.url and options.filename:
+        start(options.url,options.filename,options.count)
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+if __name__ == &#39;__main__&#39;:
+    main()</code></pre><h4 id="python编写C段扫描工具"><a href="#python编写C段扫描工具" class="headerlink" title="python编写C段扫描工具"></a>python编写C段扫描工具</h4><pre><code>import ipaddr
+import requests
+import threading
+from Queue import Queue
+import sys
+
+
+class C_Scan(threading.Thread):
+    def __init__(self,queue):
+            threading.Thread.__init__(self)
+            self._queue = queue
+    def run(self):
+        while not self._queue.empty():
+            r = 0
+            url = str(self._queue.get())
+            url = &#39;http://&#39;+url
+            try:
+                headers = {&#39;User-Agent&#39;: &#39;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 SE 2.X MetaSr&#39;}
+                r = requests.get(url, headers=headers, timeout=1)
+            except Exception,e:
+                pass
+            if r.status_code == 200:
+                    print &#39;[*]&#39; + url
+def main():
+    if len(sys.argv) != 2:
+        print &#39;Usage: Python %s 192.168.1.1/24&#39;%(sys.argv[0])
+    else:
+        threads = []
+        threadnum = 250
+        queue = Queue()
+        cidrip = sys.argv[1]
+        ips = ipaddr.IPNetwork(cidrip)
+        for ip in ips:
+            queue.put(ip)
+        for i in xrange(threadnum):
+            threads.append(C_Scan(queue))
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+        print &quot;All Finished!!!&quot;
+
+if __name__ == &#39;__main__&#39;:
+    main()</code></pre>
       
     </div>
     
@@ -352,8 +466,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/19/python-zhi-zheng-ze-biao-da-shi-xue-xi/" rel="next" title="“python之正则表达式学习”">
-                <i class="fa fa-chevron-left"></i> “python之正则表达式学习”
+              <a href="/2020/04/19/thinkphp5-kuang-jia-xue-xi/" rel="next" title="Thinkphp5框架学习">
+                <i class="fa fa-chevron-left"></i> Thinkphp5框架学习
               </a>
             
           </div>
@@ -416,8 +530,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -436,7 +559,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -458,7 +581,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -481,6 +604,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python编写C段-amp-web目录扫描工具"><span class="nav-number">1.</span> <span class="nav-text">Python编写C段&amp;web目录扫描工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#python编写目录扫描工具"><span class="nav-number">1.0.1.</span> <span class="nav-text">python编写目录扫描工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#python编写C段扫描工具"><span class="nav-number">1.0.2.</span> <span class="nav-text">python编写C段扫描工具</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
