@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -52,6 +52,38 @@
 
 
 
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
 
 
 
@@ -81,7 +113,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="Shu1L's blog" type="application/atom+xml" />
 
 
 
@@ -92,7 +124,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux提权综述">
 <meta property="og:url" content="https://shu1l.github.io/2020/04/29/linux-ti-quan-zong-shu/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Shu1L&#39;s blog">
 <meta property="og:description" content="linux提权方法综述前言提权方式总结利用内核漏洞提权当我们渗透时获得一个低权限的shell时，内核漏洞应该是最先想到的提权方法。比如前几年很流行的”脏牛漏洞“，直接利用系统里面自带的软件或者内核存在的漏洞。 ，要判断我们应该先对系统相关的信息进行收集。 利用前提： 已经拿到低权限shell 目标系统上有gcc 有上传文件的权限  使用命令： uname -a  或  uname -r 这样，我们">
 <meta property="og:image" content="d:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429143857.png">
 <meta property="og:image" content="d:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429144304.png">
@@ -117,7 +149,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
@@ -145,7 +177,7 @@
 
 
 
-  <title>linux提权综述 | Hexo</title>
+  <title>linux提权综述 | Shu1L's blog</title>
   
 
 
@@ -175,12 +207,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">Shu1L's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">一只菜鸟白帽子</p>
       
   </div>
 
@@ -325,7 +357,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Shu1L's blog">
     </span>
 
     
@@ -814,7 +846,7 @@ uid=1002(service) gid=1002(service) euid=0(root) groups=1002(serv</code></pre><h
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 
@@ -863,9 +895,10 @@ uid=1002(service) gid=1002(service) euid=0(root) groups=1002(serv</code></pre><h
   
 
 
+
+
   
-
-
+  
 
 
 
@@ -907,7 +940,12 @@ uid=1002(service) gid=1002(service) euid=0(root) groups=1002(serv</code></pre><h
 
   
   
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
   
 
 
@@ -922,13 +960,6 @@ uid=1002(service) gid=1002(service) euid=0(root) groups=1002(serv</code></pre><h
 
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>

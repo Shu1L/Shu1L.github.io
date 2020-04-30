@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -52,6 +52,38 @@
 
 
 
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
 
 
 
@@ -81,7 +113,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="Shu1L's blog" type="application/atom+xml" />
 
 
 
@@ -92,7 +124,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="XSS漏洞学习">
 <meta property="og:url" content="https://shu1l.github.io/2020/04/03/xss-lou-dong-xue-xi/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Shu1L&#39;s blog">
 <meta property="og:description" content="XSS漏洞学习笔记+靶场实战[TOC] XSS漏洞相关知识点XSS漏洞简介​         XSS是跨站脚本攻击，属于被动式的攻击。XSS指的是恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意的特殊目的。 XSS漏洞分类 非持久性XSS攻击，当用户访问已被插入攻击代码的链接时，攻击代码执行，完成该次攻击。 持久型XSS攻击，">
 <meta property="og:image" content="c:/Users/尚慧亮/Pictures/Saved%20Pictures/QQ截图20200201183252.png">
 <meta property="og:image" content="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CDesktop~31370AWY0@A%5D%%5BZYLQ8I%5BI.png">
@@ -143,7 +175,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
@@ -171,7 +203,7 @@
 
 
 
-  <title>XSS漏洞学习 | Hexo</title>
+  <title>XSS漏洞学习 | Shu1L's blog</title>
   
 
 
@@ -201,12 +233,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">Shu1L's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <p class="site-subtitle">一只菜鸟白帽子</p>
       
   </div>
 
@@ -351,7 +383,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Shu1L's blog">
     </span>
 
     
@@ -1027,7 +1059,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 
@@ -1076,9 +1108,10 @@
   
 
 
+
+
   
-
-
+  
 
 
 
@@ -1120,7 +1153,12 @@
 
   
   
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
   
 
 
@@ -1135,13 +1173,6 @@
 
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
