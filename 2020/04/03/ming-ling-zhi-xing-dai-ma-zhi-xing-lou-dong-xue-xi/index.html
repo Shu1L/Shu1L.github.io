@@ -120,12 +120,12 @@
 
 
 
-<meta name="description" content="代码执行+命令执行漏洞学习笔记+靶场实战[TOC] 命令注入一、什么是命令执行漏洞命令执行漏洞概念：当应用需要调用一些外部程序去处理内容的情况下，就会用到一些执行系统命令的函数。如PHP中的system，exec，shell_exec等，当用户可以控制命令执行函数中的参数时，将可注入恶意系统命令到正常命令中，造成命令执行攻击。 漏洞危害： 继承web服务器程序的权限，去执行系统命令。 继承web服">
+<meta name="description" content="代码执行+命令执行漏洞学习笔记+靶场实战命令注入一、什么是命令执行漏洞命令执行漏洞概念：当应用需要调用一些外部程序去处理内容的情况下，就会用到一些执行系统命令的函数。如PHP中的system，exec，shell_exec等，当用户可以控制命令执行函数中的参数时，将可注入恶意系统命令到正常命令中，造成命令执行攻击。 漏洞危害： 继承web服务器程序的权限，去执行系统命令。 继承web服务器程序的权">
 <meta property="og:type" content="article">
 <meta property="og:title" content="命令执行&#x2F;代码执行漏洞学习">
 <meta property="og:url" content="https://shu1l.github.io/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/index.html">
 <meta property="og:site_name" content="Shu1L&#39;s blog">
-<meta property="og:description" content="代码执行+命令执行漏洞学习笔记+靶场实战[TOC] 命令注入一、什么是命令执行漏洞命令执行漏洞概念：当应用需要调用一些外部程序去处理内容的情况下，就会用到一些执行系统命令的函数。如PHP中的system，exec，shell_exec等，当用户可以控制命令执行函数中的参数时，将可注入恶意系统命令到正常命令中，造成命令执行攻击。 漏洞危害： 继承web服务器程序的权限，去执行系统命令。 继承web服">
+<meta property="og:description" content="代码执行+命令执行漏洞学习笔记+靶场实战命令注入一、什么是命令执行漏洞命令执行漏洞概念：当应用需要调用一些外部程序去处理内容的情况下，就会用到一些执行系统命令的函数。如PHP中的system，exec，shell_exec等，当用户可以控制命令执行函数中的参数时，将可注入恶意系统命令到正常命令中，造成命令执行攻击。 漏洞危害： 继承web服务器程序的权限，去执行系统命令。 继承web服务器程序的权">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200121111755.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200121111928.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200121112035.png">
@@ -140,7 +140,7 @@
 <meta property="og:image" content="https://shu1l.github.io/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200124111354.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200124111639.png">
 <meta property="article:published_time" content="2020-04-03T08:48:40.000Z">
-<meta property="article:modified_time" content="2020-04-19T11:56:56.654Z">
+<meta property="article:modified_time" content="2020-04-30T07:38:04.544Z">
 <meta property="article:author" content="Shu1L">
 <meta property="article:tag" content="代码执行&#x2F;命令执行">
 <meta name="twitter:card" content="summary">
@@ -440,16 +440,20 @@
       
 
       
-        <h2 id="代码执行-命令执行漏洞学习笔记-靶场实战"><a href="#代码执行-命令执行漏洞学习笔记-靶场实战" class="headerlink" title="代码执行+命令执行漏洞学习笔记+靶场实战"></a>代码执行+命令执行漏洞学习笔记+靶场实战</h2><p>[TOC]</p>
-<h3 id="命令注入"><a href="#命令注入" class="headerlink" title="命令注入"></a>命令注入</h3><h4 id="一、什么是命令执行漏洞"><a href="#一、什么是命令执行漏洞" class="headerlink" title="一、什么是命令执行漏洞"></a>一、什么是命令执行漏洞</h4><h5 id="命令执行漏洞概念："><a href="#命令执行漏洞概念：" class="headerlink" title="命令执行漏洞概念："></a>命令执行漏洞概念：</h5><p>当应用需要调用一些外部程序去处理内容的情况下，就会用到一些执行系统命令的函数。如PHP中的system，exec，shell_exec等，当用户可以控制命令执行函数中的参数时，将可注入恶意系统命令到正常命令中，造成命令执行攻击。</p>
+        <h2 id="代码执行-命令执行漏洞学习笔记-靶场实战"><a href="#代码执行-命令执行漏洞学习笔记-靶场实战" class="headerlink" title="代码执行+命令执行漏洞学习笔记+靶场实战"></a>代码执行+命令执行漏洞学习笔记+靶场实战</h2><h3 id="命令注入"><a href="#命令注入" class="headerlink" title="命令注入"></a>命令注入</h3><h4 id="一、什么是命令执行漏洞"><a href="#一、什么是命令执行漏洞" class="headerlink" title="一、什么是命令执行漏洞"></a>一、什么是命令执行漏洞</h4><h5 id="命令执行漏洞概念："><a href="#命令执行漏洞概念：" class="headerlink" title="命令执行漏洞概念："></a>命令执行漏洞概念：</h5><p>当应用需要调用一些外部程序去处理内容的情况下，就会用到一些执行系统命令的函数。如PHP中的system，exec，shell_exec等，当用户可以控制命令执行函数中的参数时，将可注入恶意系统命令到正常命令中，造成命令执行攻击。</p>
 <h5 id="漏洞危害："><a href="#漏洞危害：" class="headerlink" title="漏洞危害："></a>漏洞危害：</h5><ul>
 <li>继承web服务器程序的权限，去执行系统命令。</li>
 <li>继承web服务器程序的权限，读取文件</li>
 <li>反弹shell</li>
 <li>控制整个网站甚至控制整个服务器</li>
 </ul>
+<p><strong>代码层：</strong>一些商业应用需要执行命令，商业应用的一些核心代码可能封装在二进制文件中，在web应用中通过system函数来调用；</p>
+<p><strong>系统层：</strong>（bash破壳漏洞）如果我们能够控制执行的bash的环境变量，就可以通过破壳漏洞来执行任意代码；</p>
+<p><strong>第三方组件层：</strong>很典型的就是wordpress中，可以选择使用imageMagick这个常用的图片处理组件，对用户上传的图片进行处理，造成命令执行，另外java中的命令执行漏洞（struts2/Elasticsearch等）</p>
 <p><strong>常用的Linux命令总结：</strong></p>
-<pre><code>ls cd mkdir rm cp mv touch cat more chmod find vi du ifconfig ping netstat lsof shutdown uname kill...</code></pre><h5 id="命令执行与代码执行的区别："><a href="#命令执行与代码执行的区别：" class="headerlink" title="命令执行与代码执行的区别："></a>命令执行与代码执行的区别：</h5><p>代码执行是通过调用<strong>服务器网站代码</strong>进行执行，而命令注入则是调用<strong>操作系统命令</strong>进行执行。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls cd mkdir rm cp mv touch cat more chmod <span class="builtin-name">find</span> vi du ifconfig<span class="built_in"> ping </span>netstat lsof shutdown uname kill<span class="built_in">..</span>.</span><br></pre></td></tr></table></figure>
+
+<h5 id="命令执行与代码执行的区别："><a href="#命令执行与代码执行的区别：" class="headerlink" title="命令执行与代码执行的区别："></a>命令执行与代码执行的区别：</h5><p>代码执行是通过调用<strong>服务器网站代码</strong>进行执行，而命令注入则是调用<strong>操作系统命令</strong>进行执行。</p>
 <h5 id="常见的命令执行函数："><a href="#常见的命令执行函数：" class="headerlink" title="常见的命令执行函数："></a>常见的命令执行函数：</h5><ul>
 <li><p><strong>system()</strong></p>
 <img src="QQ截图20200121111755.png" style="zoom: 67%;" /> 
@@ -499,11 +503,14 @@
 </ul>
 <h5 id="常见的绕过方法"><a href="#常见的绕过方法" class="headerlink" title="常见的绕过方法"></a>常见的绕过方法</h5><p><strong>1.空格过滤绕过</strong></p>
 <p>空格可以用以下字符替换</p>
-<pre><code>&lt;    &lt;&gt;   %20(space)   %09(tab)  $IFS$9  ${IFS}  $IFS等</code></pre><p>  测试：</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;    &lt;&gt;   %20(space)   %09(tab)  $IFS$9  $&#123;IFS&#125;  $IFS等</span><br></pre></td></tr></table></figure>
+
+<p>  测试：</p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200121121710.png" alt=""></p>
 <p>2.<strong>命令分隔符</strong></p>
-<pre><code>linux:%0a、%0d、;、&amp;、|、&amp;&amp;、||、
-window: %0a、&amp;、|、%1a、</code></pre><img src="QQ截图20200121121840.png" style="zoom:67%;" />
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">linux:%0a、%0d、;、&amp;、|、&amp;&amp;、||、</span><br><span class="line"><span class="keyword">window</span>: %0a、&amp;、|、%1a、</span><br></pre></td></tr></table></figure>
+
+<img src="QQ截图20200121121840.png" style="zoom:67%;" />
 
 <p><strong>%0a符号：</strong>换行符                 <strong>%0d符号：</strong>回车符             <strong><code>;</code>符号：</strong>起连续指令的功能        </p>
 <p><strong>&amp;  &amp;&amp; ||的区别</strong></p>
@@ -528,62 +535,15 @@ window: %0a、&amp;、|、%1a、</code></pre><img src="QQ截图20200121121840.pn
 <li>参数的值尽量使用引号包裹，并在拼接前调用addslashes进行转义。</li>
 </ol>
 <h4 id="DVWA-命令注入部分"><a href="#DVWA-命令注入部分" class="headerlink" title="DVWA (命令注入部分)"></a>DVWA (命令注入部分)</h4><h5 id="simple"><a href="#simple" class="headerlink" title="simple"></a>simple</h5><p>由源码可知，要求我们输入ip地址，未进行任何过滤，我们在ip地址后使用&amp;&amp;拼接想要执行的命令。</p>
-<pre><code>127.0.0.1&amp;&amp;net user</code></pre><h5 id="medium"><a href="#medium" class="headerlink" title="medium"></a>medium</h5><pre><code>&lt;?php 
-if( isset( $_POST[ &#39;Submit&#39; ]  ) ) { 
-    // Get input 
-    $target = $_REQUEST[ &#39;ip&#39; ]; 
-    // Set blacklist 
-    $substitutions = array( 
-        &#39;&amp;&amp;&#39; =&gt; &#39;&#39;, 
-        &#39;;&#39;  =&gt; &#39;&#39;, 
-    ); 
-    // Remove any of the charactars in the array (blacklist). 
-    $target = str_replace( array_keys( $substitutions ), $substitutions, $target ); 
-    // Determine OS and execute the ping command. 
-    if( stristr( php_uname( &#39;s&#39; ), &#39;Windows NT&#39; ) ) { 
-        // Windows 
-        $cmd = shell_exec( &#39;ping  &#39; . $target ); 
-    } 
-    else { 
-        // *nix 
-        $cmd = shell_exec( &#39;ping  -c 4 &#39; . $target ); 
-    } 
-    // Feedback for the end user 
-    echo &quot;&lt;pre&gt;{$cmd}&lt;/pre&gt;&quot;; 
-} 
-?&gt;</code></pre><p><strong>这里把&amp;&amp;过滤了。。但是我可以使用一个&amp;来绕过。。127.0.0.1&amp;net user</strong></p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0.0.1</span>&amp;&amp;net user</span><br></pre></td></tr></table></figure>
+
+<h5 id="medium"><a href="#medium" class="headerlink" title="medium"></a>medium</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span> </span></span><br><span class="line"><span class="php"><span class="keyword">if</span>( <span class="keyword">isset</span>( $_POST[ <span class="string">'Submit'</span> ]  ) ) &#123; </span></span><br><span class="line"><span class="php">    <span class="comment">// Get input </span></span></span><br><span class="line"><span class="php">    $target = $_REQUEST[ <span class="string">'ip'</span> ]; </span></span><br><span class="line"><span class="php">    <span class="comment">// Set blacklist </span></span></span><br><span class="line"><span class="php">    $substitutions = <span class="keyword">array</span>( </span></span><br><span class="line"><span class="php">        <span class="string">'&amp;&amp;'</span> =&gt; <span class="string">''</span>, </span></span><br><span class="line"><span class="php">        <span class="string">';'</span>  =&gt; <span class="string">''</span>, </span></span><br><span class="line"><span class="php">    ); </span></span><br><span class="line"><span class="php">    <span class="comment">// Remove any of the charactars in the array (blacklist). </span></span></span><br><span class="line"><span class="php">    $target = str_replace( array_keys( $substitutions ), $substitutions, $target ); </span></span><br><span class="line"><span class="php">    <span class="comment">// Determine OS and execute the ping command. </span></span></span><br><span class="line"><span class="php">    <span class="keyword">if</span>( stristr( php_uname( <span class="string">'s'</span> ), <span class="string">'Windows NT'</span> ) ) &#123; </span></span><br><span class="line"><span class="php">        <span class="comment">// Windows </span></span></span><br><span class="line"><span class="php">        $cmd = shell_exec( <span class="string">'ping  '</span> . $target ); </span></span><br><span class="line"><span class="php">    &#125; </span></span><br><span class="line"><span class="php">    <span class="keyword">else</span> &#123; </span></span><br><span class="line"><span class="php">        <span class="comment">// *nix </span></span></span><br><span class="line"><span class="php">        $cmd = shell_exec( <span class="string">'ping  -c 4 '</span> . $target ); </span></span><br><span class="line"><span class="php">    &#125; </span></span><br><span class="line"><span class="php">    <span class="comment">// Feedback for the end user </span></span></span><br><span class="line"><span class="php">    <span class="keyword">echo</span> <span class="string">"&lt;pre&gt;&#123;$cmd&#125;&lt;/pre&gt;"</span>; </span></span><br><span class="line"><span class="php">&#125; </span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>这里把&amp;&amp;过滤了。。但是我可以使用一个&amp;来绕过。。127.0.0.1&amp;net user</strong></p>
 <p><strong>当然也可以使用 ||  |效果相同</strong></p>
-<h5 id="high"><a href="#high" class="headerlink" title="high:"></a>high:</h5><pre><code>&lt;?php 
-if( isset( $_POST[ &#39;Submit&#39; ]  ) ) { 
-    // Get input 
-    $target = trim($_REQUEST[ &#39;ip&#39; ]); 
-    // Set blacklist 
-    $substitutions = array( 
-        &#39;&amp;&#39;  =&gt; &#39;&#39;, 
-        &#39;;&#39;  =&gt; &#39;&#39;, 
-        &#39;|  &#39; =&gt; &#39;&#39;, 
-        &#39;-&#39;  =&gt; &#39;&#39;, 
-        &#39;$&#39;  =&gt; &#39;&#39;, 
-        &#39;(&#39;  =&gt; &#39;&#39;, 
-        &#39;)&#39;  =&gt; &#39;&#39;, 
-        &#39;`&#39;  =&gt; &#39;&#39;, 
-        &#39;||&#39; =&gt; &#39;&#39;, 
-    ); 
-    // Remove any of the charactars in the array (blacklist). 
-    $target = str_replace( array_keys( $substitutions ), $substitutions, $target ); 
-    // Determine OS and execute the ping command. 
-    if( stristr( php_uname( &#39;s&#39; ), &#39;Windows NT&#39; ) ) { 
-        // Windows 
-        $cmd = shell_exec( &#39;ping  &#39; . $target ); 
-    } 
-    else { 
-        // *nix 
-        $cmd = shell_exec( &#39;ping  -c 4 &#39; . $target ); 
-    } 
-    // Feedback for the end user 
-    echo &quot;&lt;pre&gt;{$cmd}&lt;/pre&gt;&quot;; 
-} 
-?&gt; </code></pre><p>还是黑名单。。。，发现|符号还是可以使用   所以     <code>127.0.0.1| net user</code> 成功</p>
+<h5 id="high"><a href="#high" class="headerlink" title="high:"></a>high:</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span> </span></span><br><span class="line"><span class="php"><span class="keyword">if</span>( <span class="keyword">isset</span>( $_POST[ <span class="string">'Submit'</span> ]  ) ) &#123; </span></span><br><span class="line"><span class="php">    <span class="comment">// Get input </span></span></span><br><span class="line"><span class="php">    $target = trim($_REQUEST[ <span class="string">'ip'</span> ]); </span></span><br><span class="line"><span class="php">    <span class="comment">// Set blacklist </span></span></span><br><span class="line"><span class="php">    $substitutions = <span class="keyword">array</span>( </span></span><br><span class="line"><span class="php">        <span class="string">'&amp;'</span>  =&gt; <span class="string">''</span>, </span></span><br><span class="line"><span class="php">        <span class="string">';'</span>  =&gt; <span class="string">''</span>, </span></span><br><span class="line"><span class="php">        <span class="string">'|  '</span> =&gt; <span class="string">''</span>, </span></span><br><span class="line"><span class="php">        <span class="string">'-'</span>  =&gt; <span class="string">''</span>, </span></span><br><span class="line"><span class="php">        <span class="string">'$'</span>  =&gt; <span class="string">''</span>, </span></span><br><span class="line"><span class="php">        <span class="string">'('</span>  =&gt; <span class="string">''</span>, </span></span><br><span class="line"><span class="php">        <span class="string">')'</span>  =&gt; <span class="string">''</span>, </span></span><br><span class="line"><span class="php">        <span class="string">'`'</span>  =&gt; <span class="string">''</span>, </span></span><br><span class="line"><span class="php">        <span class="string">'||'</span> =&gt; <span class="string">''</span>, </span></span><br><span class="line"><span class="php">    ); </span></span><br><span class="line"><span class="php">    <span class="comment">// Remove any of the charactars in the array (blacklist). </span></span></span><br><span class="line"><span class="php">    $target = str_replace( array_keys( $substitutions ), $substitutions, $target ); </span></span><br><span class="line"><span class="php">    <span class="comment">// Determine OS and execute the ping command. </span></span></span><br><span class="line"><span class="php">    <span class="keyword">if</span>( stristr( php_uname( <span class="string">'s'</span> ), <span class="string">'Windows NT'</span> ) ) &#123; </span></span><br><span class="line"><span class="php">        <span class="comment">// Windows </span></span></span><br><span class="line"><span class="php">        $cmd = shell_exec( <span class="string">'ping  '</span> . $target ); </span></span><br><span class="line"><span class="php">    &#125; </span></span><br><span class="line"><span class="php">    <span class="keyword">else</span> &#123; </span></span><br><span class="line"><span class="php">        <span class="comment">// *nix </span></span></span><br><span class="line"><span class="php">        $cmd = shell_exec( <span class="string">'ping  -c 4 '</span> . $target ); </span></span><br><span class="line"><span class="php">    &#125; </span></span><br><span class="line"><span class="php">    <span class="comment">// Feedback for the end user </span></span></span><br><span class="line"><span class="php">    <span class="keyword">echo</span> <span class="string">"&lt;pre&gt;&#123;$cmd&#125;&lt;/pre&gt;"</span>; </span></span><br><span class="line"><span class="php">&#125; </span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>还是黑名单。。。，发现|符号还是可以使用   所以     <code>127.0.0.1| net user</code> 成功</p>
 <h3 id="代码执行漏洞"><a href="#代码执行漏洞" class="headerlink" title="代码执行漏洞"></a>代码执行漏洞</h3><h5 id="什么是代码执行漏洞？"><a href="#什么是代码执行漏洞？" class="headerlink" title="什么是代码执行漏洞？"></a>什么是代码执行漏洞？</h5><p>   当应用在调用一些能够将字符转化为代码的函数（如PHP中的eval)时，没有考虑用户是否能控制这个字符串，这就会造成代码执行漏洞。</p>
 <h5 id="相关函数"><a href="#相关函数" class="headerlink" title="相关函数"></a>相关函数</h5><p>PHP:eval()    assert()、  preg_replace() 、 call_user_func() 、  array_map() </p>
 <p>Python:exec</p>
@@ -614,6 +574,18 @@ if( isset( $_POST[ &#39;Submit&#39; ]  ) ) {
 <h5 id="示例二：-eval闭合代码执行"><a href="#示例二：-eval闭合代码执行" class="headerlink" title="示例二：  eval闭合代码执行"></a>示例二：  eval闭合代码执行</h5><img src="QQ截图20200124111354.png" style="zoom: 80%;" />
 
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200124111639.png" alt=""></p>
+<h4 id="安全防御"><a href="#安全防御" class="headerlink" title="安全防御"></a>安全防御</h4><ol>
+<li>尝试对所有输入提交可能执行命令的构造语句进行严格的检查或者控制外部输入，系统命令执行函数禁止外部传参</li>
+<li>验证数据类型、格式、长度、范围和内容</li>
+<li>客户端与服务端都需要做验证与过滤</li>
+<li>对输出的数据也要做安全检查</li>
+<li>在进入命令执行的函数或方法之前，对参数进行过滤</li>
+<li>参数的值尽量使用引号包裹，并在拼接前调用addslashes进行转义</li>
+<li>能使用脚本解决的工作，不要调用其他程序处理，尽量少用执行命令的函数，并在disabl_functions中禁用</li>
+</ol>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a href="https://www.jianshu.com/p/f36e96955b87" target="_blank" rel="noopener">https://www.jianshu.com/p/f36e96955b87</a></p>
+<p><a href="https://www.freebuf.com/column/154670.html" target="_blank" rel="noopener">https://www.freebuf.com/column/154670.html</a></p>
+<p><a href="https://wh0ale.github.io/2018/12/01/2018-12-01-命令执行/" target="_blank" rel="noopener">https://wh0ale.github.io/2018/12/01/2018-12-01-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</a></p>
 
       
     </div>
@@ -839,7 +811,7 @@ if( isset( $_POST[ &#39;Submit&#39; ]  ) ) {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码执行-命令执行漏洞学习笔记-靶场实战"><span class="nav-number">1.</span> <span class="nav-text">代码执行+命令执行漏洞学习笔记+靶场实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令注入"><span class="nav-number">1.1.</span> <span class="nav-text">命令注入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、什么是命令执行漏洞"><span class="nav-number">1.1.1.</span> <span class="nav-text">一、什么是命令执行漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#命令执行漏洞概念："><span class="nav-number">1.1.1.1.</span> <span class="nav-text">命令执行漏洞概念：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞危害："><span class="nav-number">1.1.1.2.</span> <span class="nav-text">漏洞危害：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命令执行与代码执行的区别："><span class="nav-number">1.1.1.3.</span> <span class="nav-text">命令执行与代码执行的区别：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常见的命令执行函数："><span class="nav-number">1.1.1.4.</span> <span class="nav-text">常见的命令执行函数：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常见的绕过方法"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">常见的绕过方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞修复"><span class="nav-number">1.1.2.</span> <span class="nav-text">漏洞修复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DVWA-命令注入部分"><span class="nav-number">1.1.3.</span> <span class="nav-text">DVWA (命令注入部分)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#simple"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">simple</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#medium"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">medium</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#high"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">high:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码执行漏洞"><span class="nav-number">1.2.</span> <span class="nav-text">代码执行漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是代码执行漏洞？"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">什么是代码执行漏洞？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#相关函数"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">相关函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞危害：-1"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">漏洞危害：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常见种类"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">常见种类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞分类："><span class="nav-number">1.2.0.5.</span> <span class="nav-text">漏洞分类：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例一：php-eval代码执行"><span class="nav-number">1.2.0.6.</span> <span class="nav-text">示例一：php eval代码执行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例二：-eval闭合代码执行"><span class="nav-number">1.2.0.7.</span> <span class="nav-text">示例二：  eval闭合代码执行</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码执行-命令执行漏洞学习笔记-靶场实战"><span class="nav-number">1.</span> <span class="nav-text">代码执行+命令执行漏洞学习笔记+靶场实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令注入"><span class="nav-number">1.1.</span> <span class="nav-text">命令注入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、什么是命令执行漏洞"><span class="nav-number">1.1.1.</span> <span class="nav-text">一、什么是命令执行漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#命令执行漏洞概念："><span class="nav-number">1.1.1.1.</span> <span class="nav-text">命令执行漏洞概念：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞危害："><span class="nav-number">1.1.1.2.</span> <span class="nav-text">漏洞危害：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命令执行与代码执行的区别："><span class="nav-number">1.1.1.3.</span> <span class="nav-text">命令执行与代码执行的区别：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常见的命令执行函数："><span class="nav-number">1.1.1.4.</span> <span class="nav-text">常见的命令执行函数：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常见的绕过方法"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">常见的绕过方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞修复"><span class="nav-number">1.1.2.</span> <span class="nav-text">漏洞修复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DVWA-命令注入部分"><span class="nav-number">1.1.3.</span> <span class="nav-text">DVWA (命令注入部分)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#simple"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">simple</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#medium"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">medium</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#high"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">high:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码执行漏洞"><span class="nav-number">1.2.</span> <span class="nav-text">代码执行漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是代码执行漏洞？"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">什么是代码执行漏洞？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#相关函数"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">相关函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞危害：-1"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">漏洞危害：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常见种类"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">常见种类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞分类："><span class="nav-number">1.2.0.5.</span> <span class="nav-text">漏洞分类：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例一：php-eval代码执行"><span class="nav-number">1.2.0.6.</span> <span class="nav-text">示例一：php eval代码执行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例二：-eval闭合代码执行"><span class="nav-number">1.2.0.7.</span> <span class="nav-text">示例二：  eval闭合代码执行</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全防御"><span class="nav-number">1.2.1.</span> <span class="nav-text">安全防御</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考文章"><span class="nav-number">1.2.2.</span> <span class="nav-text">参考文章</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

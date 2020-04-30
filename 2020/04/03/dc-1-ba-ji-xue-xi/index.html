@@ -460,7 +460,9 @@
 <p><code>arp-scan -l</code></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200204114720.png" alt=""></p>
 <h4 id="第三步、靶机的信息收集"><a href="#第三步、靶机的信息收集" class="headerlink" title="第三步、靶机的信息收集"></a>第三步、靶机的信息收集</h4><p>我们使用nmap对该靶机进行扫描。</p>
-<pre><code>nmap -A -p 1-65535 192.168.153.150</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200204103823.png" alt=""></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -A -p <span class="number">1</span><span class="number">-65535</span> <span class="number">192.168</span><span class="number">.153</span><span class="number">.150</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204103823.png" alt=""></p>
 <p>我们发现开放的80(tcp) 22（ssh) 111(tcp)端口，并且可以看出使用的CMS为Drupal7。</p>
 <p>我们从浏览器访问该IP的80页面</p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200204104045.png" alt=""></p>
@@ -490,11 +492,15 @@
 <p>/etc/passwd 储存了用户重要信息，一般可读但不可写</p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200204115756.png" alt=""></p>
 <p>我们尝试使用john+hydra进行暴力破解。</p>
-<pre><code>hydra -l flag4 -p/Users/john-1.8.0/run/password.lst ssh://192.168.153.150</code></pre><p>-l 指定用户名<br> -P 加载密码字典（这里使用了John the Ripper安装后提供的密码本，一般在john-1.8.0/run/password.lst)<br> ssh://ip 指定使用协议和ip地址</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -l flag4 -p<span class="regexp">/Users/</span>john<span class="number">-1.8</span><span class="number">.0</span><span class="regexp">/run/</span>password.lst <span class="string">ssh:</span><span class="comment">//192.168.153.150</span></span><br></pre></td></tr></table></figure>
+
+<p>-l 指定用户名<br> -P 加载密码字典（这里使用了John the Ripper安装后提供的密码本，一般在john-1.8.0/run/password.lst)<br> ssh://ip 指定使用协议和ip地址</p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200204120356.png" alt=""></p>
 <p>得到了flag4账号对应的密码为orange</p>
 <p>我们使用kali ssh远程登录 </p>
-<pre><code>ssh flag4@192.168.153.150</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200204120529.png" alt=""></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh <span class="symbol">flag4@</span><span class="number">192.168</span><span class="number">.153</span><span class="number">.150</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200204120529.png" alt=""></p>
 <p>ls后发现flag4.txt文件，尝试cat读取。</p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200204121509.png" alt=""></p>
 <p>翻译:您可以使用相同的方法在根目录中查找或访问标志吗?可能。但也许不是那么容易。或许是这样？</p>

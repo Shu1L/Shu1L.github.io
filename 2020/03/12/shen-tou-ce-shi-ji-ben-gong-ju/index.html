@@ -529,15 +529,33 @@
 <li>HTTP流</li>
 </ul>
 <h4 id="Tcpdump"><a href="#Tcpdump" class="headerlink" title="Tcpdump"></a>Tcpdump</h4><h5 id="tcpdump——抓包"><a href="#tcpdump——抓包" class="headerlink" title="tcpdump——抓包"></a>tcpdump——抓包</h5><p>​       wireshark是图形化工具，在服务器等没有图形化界面的设备上无法使用，此时tcpdump命令行工具可以代替</p>
-<pre><code>tcpdump -i eth0 -s 0 -w a.cap/b.pcap</code></pre><p>-i 指定抓包接口，-s 指定抓包大小，0为抓取整个包，不指定则默认抓取64字节。-w 将抓到的包保存到某个文件，不指定则实时显示</p>
-<pre><code>tcpdump -r a.cap/b.cap</code></pre><p>-r read读取</p>
-<pre><code>tcpdump -A -r a.cap/b.cap</code></pre><p>-A 使用ascii码表转码显示，不要加在-r后面，不然会报错 -X 使用16进制显示</p>
-<h5 id="tcpdump——抓包筛选器"><a href="#tcpdump——抓包筛选器" class="headerlink" title="tcpdump——抓包筛选器"></a>tcpdump——抓包筛选器</h5><pre><code>tcpdump -i eth0 port 22</code></pre><p>抓以太网0上22端口的包。</p>
-<pre><code>tcpdump -i eth0 tcp port 22</code></pre><p>抓以太网0上22端口的TCP包。 curl -v URL</p>
-<h5 id="tcpdump——显示筛选器"><a href="#tcpdump——显示筛选器" class="headerlink" title="tcpdump——显示筛选器"></a>tcpdump——显示筛选器</h5><pre><code>tcpdump -n -r http.cap | awk &#39;{print $3}&#39; | sort -u</code></pre><p>-n 不对IP进行域名解析  AWK 默认用空格做分割 -u unique去重</p>
-<pre><code>tcpdump -n src host IP -r file.cap/file.pcap</code></pre><p>src host IP 指定来源IP，src–&gt;source</p>
-<pre><code>tcpdump -n dst host IP -r file.cap/file.pcap</code></pre><p>dst destination，指定目标IP</p>
-<pre><code>tcpdump -n udp port 53  -r file.cap/file.pcap</code></pre><p>udp 指定显示的协议  port 53 指定端口</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -<span class="selector-tag">i</span> eth0 -s <span class="number">0</span> -w <span class="selector-tag">a</span>.cap/<span class="selector-tag">b</span>.pcap</span><br></pre></td></tr></table></figure>
+
+<p>-i 指定抓包接口，-s 指定抓包大小，0为抓取整个包，不指定则默认抓取64字节。-w 将抓到的包保存到某个文件，不指定则实时显示</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -r a.<span class="built_in">cap</span>/b.<span class="built_in">cap</span></span><br></pre></td></tr></table></figure>
+
+<p>-r read读取</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -A -r a.<span class="built_in">cap</span>/b.<span class="built_in">cap</span></span><br></pre></td></tr></table></figure>
+
+<p>-A 使用ascii码表转码显示，不要加在-r后面，不然会报错 -X 使用16进制显示</p>
+<h5 id="tcpdump——抓包筛选器"><a href="#tcpdump——抓包筛选器" class="headerlink" title="tcpdump——抓包筛选器"></a>tcpdump——抓包筛选器</h5><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -i eth0<span class="built_in"> port </span>22</span><br></pre></td></tr></table></figure>
+
+<p>抓以太网0上22端口的包。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -i eth0 tcp<span class="built_in"> port </span>22</span><br></pre></td></tr></table></figure>
+
+<p>抓以太网0上22端口的TCP包。 curl -v URL</p>
+<h5 id="tcpdump——显示筛选器"><a href="#tcpdump——显示筛选器" class="headerlink" title="tcpdump——显示筛选器"></a>tcpdump——显示筛选器</h5><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -<span class="keyword">n</span> -r http.<span class="keyword">cap</span> | awk '&#123;<span class="keyword">print</span> <span class="variable">$3&#125;</span>' | <span class="keyword">sort</span> -<span class="keyword">u</span></span><br></pre></td></tr></table></figure>
+
+<p>-n 不对IP进行域名解析  AWK 默认用空格做分割 -u unique去重</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -n src host<span class="built_in"> IP </span>-r file.cap/file.pcap</span><br></pre></td></tr></table></figure>
+
+<p>src host IP 指定来源IP，src–&gt;source</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -n dst host<span class="built_in"> IP </span>-r file.cap/file.pcap</span><br></pre></td></tr></table></figure>
+
+<p>dst destination，指定目标IP</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -n udp<span class="built_in"> port </span>53  -r file.cap/file.pcap</span><br></pre></td></tr></table></figure>
+
+<p>udp 指定显示的协议  port 53 指定端口</p>
 
       
     </div>

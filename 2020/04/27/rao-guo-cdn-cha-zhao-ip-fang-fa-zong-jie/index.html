@@ -442,11 +442,13 @@
 <p>​        CDN的全称是Content Delivery Network，即<a href="https://baike.baidu.com/item/内容分发网络/4034265" target="_blank" rel="noopener">内容分发网络</a>。CDN是构建在现有网络基础之上的智能虚拟网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。CDN的关键技术主要有内容存储和分发技术。</p>
 <p><img src="4610b912c8fcc3ce005c05d19c45d688d53f20b0%5B1%5D.png" alt=""></p>
 <p>比较常见的基于公有云的高可用架构，即：</p>
-<pre><code>域名--&gt;CDN，CDN--&gt;WAF，WAF--&gt;SLB，SLB--&gt;ECS</code></pre><p><strong>CDN对网站有什么好处?</strong></p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">域名</span>--&gt;<span class="comment">CDN，CDN</span>--&gt;<span class="comment">WAF，WAF</span>--&gt;<span class="comment">SLB，SLB</span>--&gt;<span class="comment">ECS</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>CDN对网站有什么好处?</strong></p>
 <p>​    首先，开启CDN后的网站，会根据用户所在地的不同访问CDN的节点服务器，并不直接访问源服务器，这样可以减少网站服务器宽带资源,降低服务器压力。这也就是大家都在ping百度,但是不同地区得到的反馈ip不一样的原因。</p>
 <p>​    其次，由于CDN节点的阻挡防护，可以更好的保护员服务器的安全。具体来说，CDN其实是充当了一个替身的角色，无论服务器是渗透还是DD0S攻击，攻击的目标都将是CDN节点，这样一来便间接的保护了网站本身。</p>
 <p><strong>为什么我们需要绕过CDN？</strong></p>
-<pre><code>   对于我们渗透测试者来说，我们在信息收集中重要的一步就是要得到目标服务器主机的**真实IP地址**，但如果目标服务器部署了CDN服务，那么往往我们直接访问得到的IP只是CDN节点服务器的IP，而不是真实的源服务器的IP地址，这是就需要我们想办法绕过CDN获取源服务器IP。</code></pre><p>下面我收集了一些常见的绕过CDN的方法，留作记录:</p>
+<pre><code>对于我们渗透测试者来说，我们在信息收集中重要的一步就是要得到目标服务器主机的**真实IP地址**，但如果目标服务器部署了CDN服务，那么往往我们直接访问得到的IP只是CDN节点服务器的IP，而不是真实的源服务器的IP地址，这是就需要我们想办法绕过CDN获取源服务器IP。</code></pre><p>下面我收集了一些常见的绕过CDN的方法，留作记录:</p>
 <h4 id="验证是否存在CDN"><a href="#验证是否存在CDN" class="headerlink" title="验证是否存在CDN"></a>验证是否存在CDN</h4><h5 id="方法1："><a href="#方法1：" class="headerlink" title="方法1："></a>方法1：</h5><p>很简单，使用各种多地 ping 的服务，查看对应 IP 地址是否唯一，如果不唯一多半是使用了CDN， 多地 Ping 网站有：<br> <a href="http://ping.chinaz.com/" target="_blank" rel="noopener">http://ping.chinaz.com/</a><br> <a href="http://ping.aizhan.com/" target="_blank" rel="noopener">http://ping.aizhan.com/</a><br> <a href="http://ce.cloud.360.cn/" target="_blank" rel="noopener">http://ce.cloud.360.cn/</a></p>
 <p>我们这里打开第一个网站：ping一下<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a></p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200427093341.png" alt=""></p>
@@ -514,7 +516,9 @@
 <h5 id="方法6-利用网站返回的内容寻找真实原始IP"><a href="#方法6-利用网站返回的内容寻找真实原始IP" class="headerlink" title="方法6:利用网站返回的内容寻找真实原始IP"></a>方法6:利用网站返回的内容寻找真实原始IP</h5><p>如果原始服务器IP也返回了网站的内容，那么可以在网上搜索大量的相关数据。</p>
 <p>浏览网站源代码，寻找独特的代码片段。在JavaScript中使用具有访问或标识符参数的第三方服务（例如Google Analytics，reCAPTCHA）是攻击者经常使用的方法。</p>
 <p>以下是从HackTheBox网站获取的Google Analytics跟踪代码示例：</p>
-<pre><code>ga（&#39;create&#39;，&#39;UA-93577176-1&#39;，&#39;auto&#39;）;</code></pre><p>​        可以使用80.http.get.body：参数通过body/source过滤Censys数据，不幸的是，正常的搜索字段有局限性，但你可以在Censys请求研究访问权限，该权限允许你通过Google BigQuery进行更强大的查询。</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ga（'create'，'UA-<span class="number">93577176</span>-1'，'auto'）;</span><br></pre></td></tr></table></figure>
+
+<p>​        可以使用80.http.get.body：参数通过body/source过滤Censys数据，不幸的是，正常的搜索字段有局限性，但你可以在Censys请求研究访问权限，该权限允许你通过Google BigQuery进行更强大的查询。</p>
 <p><strong>Shodan</strong></p>
 <p>Shodan是一种类似于Censys的服务，也提供了http.html搜索参数。</p>
 <h5 id="7-使用国外主机解析域名"><a href="#7-使用国外主机解析域名" class="headerlink" title="7:使用国外主机解析域名"></a>7:使用国外主机解析域名</h5><p>​        国内很多 CDN 厂商因为各种原因只做了国内的线路，而针对国外的线路可能几乎没有，此时我们使用国外的主机直接访问可能就能获取到真实IP。</p>
@@ -529,29 +533,13 @@
 <h5 id="9-网站邮件订阅查找"><a href="#9-网站邮件订阅查找" class="headerlink" title="9:网站邮件订阅查找"></a>9:网站邮件订阅查找</h5><p>RSS邮件订阅，很多网站都自带 sendmail，会发邮件给我们，此时查看邮件源码里面就会包含服务器的真实 IP 了。</p>
 <h4 id="如何防止CDN被绕过？"><a href="#如何防止CDN被绕过？" class="headerlink" title="如何防止CDN被绕过？"></a>如何防止CDN被绕过？</h4><p>通过中间件配置只允许域名访问，禁止ip访问。</p>
 <p>这样处理的话，所有直接访问站点真实IP的请求将会被拒绝，任何用户只能通过域名访问站点，通过预先设定的网络链路，从DNS→CDN→waf防护→源站，所有的域名访问请求都必须经过WAF检测。</p>
-<h5 id="Nginx参考配置："><a href="#Nginx参考配置：" class="headerlink" title="Nginx参考配置："></a>Nginx参考配置：</h5><pre><code>#添加一个server,在原server里绑定域名
-server  {
-        listen 80 default;
-        server_name _;
-        return 403;
-    }
-server {
-        listen       80;
-        server_name  www.demo.com;
-        .........</code></pre><h5 id="Apache参考配置"><a href="#Apache参考配置" class="headerlink" title="Apache参考配置:"></a>Apache参考配置:</h5><pre><code>#在httpd.conf最后面加上
+<h5 id="Nginx参考配置："><a href="#Nginx参考配置：" class="headerlink" title="Nginx参考配置："></a>Nginx参考配置：</h5><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#添加一个server,在原server里绑定域名</span></span><br><span class="line">server  &#123;</span><br><span class="line">        listen 80 default;</span><br><span class="line">        server_name _;</span><br><span class="line">        return 403;</span><br><span class="line">    &#125;</span><br><span class="line">server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  www.demo.com;</span><br><span class="line">        <span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>.</span><br></pre></td></tr></table></figure>
 
-&lt;VirtualHost 此处填写IP&gt;
-        ServerName 此处填写IP
-        &lt;Location /&gt;
-            Order Allow,Deny
-            Deny from all
-        &lt;/Location&gt;
-&lt;/VirtualHost&gt;
+<h5 id="Apache参考配置"><a href="#Apache参考配置" class="headerlink" title="Apache参考配置:"></a>Apache参考配置:</h5><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在httpd.conf最后面加上</span></span><br><span class="line"></span><br><span class="line"><span class="section">&lt;VirtualHost 此处填写IP&gt;</span></span><br><span class="line">        <span class="attribute"><span class="nomarkup">ServerName</span></span> 此处填写IP</span><br><span class="line">        <span class="section">&lt;Location /&gt;</span></span><br><span class="line">            <span class="attribute"><span class="nomarkup">Order</span></span> Allow,Deny</span><br><span class="line">            <span class="attribute"><span class="nomarkup">Deny</span></span> from <span class="literal">all</span></span><br><span class="line">        <span class="section">&lt;/Location&gt;</span></span><br><span class="line"><span class="section">&lt;/VirtualHost&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="section">&lt;VirtualHost 此处填写IP&gt;</span></span><br><span class="line">        <span class="attribute"><span class="nomarkup">DocumentRoot</span></span> /var/www/html</span><br><span class="line">        <span class="attribute"><span class="nomarkup">ServerName</span></span>   此处填写域名</span><br><span class="line"><span class="section">&lt;/VirtualHost&gt;</span></span><br></pre></td></tr></table></figure>
 
-&lt;VirtualHost 此处填写IP&gt;
-        DocumentRoot /var/www/html
-        ServerName   此处填写域名
-&lt;/VirtualHost&gt;</code></pre><h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://zhuanlan.zhihu.com/p/116026247" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/116026247</a></p>
+
+
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://zhuanlan.zhihu.com/p/116026247" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/116026247</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/107294740" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/107294740</a></p>
 <p><a href="https://www.fujieace.com/penetration-test/cdn-find-ip.html" target="_blank" rel="noopener">https://www.fujieace.com/penetration-test/cdn-find-ip.html</a></p>
 <p><a href="https://forum.90sec.com/t/topic/524" target="_blank" rel="noopener">https://forum.90sec.com/t/topic/524</a></p>

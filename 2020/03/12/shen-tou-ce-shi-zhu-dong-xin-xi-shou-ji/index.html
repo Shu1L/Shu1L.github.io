@@ -620,12 +620,8 @@
 <p><strong>Python socket</strong></p>
 <ul>
 <li><p>Socket模块用于连接网络服务</p>
-<pre><code>import socket
-bangrab=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-bangrab.connect((&quot;1.1.1.1&quot;,21))
-bangrab.recv(4096)
-bangrab.close()
-exit()</code></pre></li>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import socket</span><br><span class="line">bangrab=socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">bangrab.connect((<span class="string">"1.1.1.1"</span>,<span class="number">21</span>))</span><br><span class="line">bangrab.recv(<span class="number">4096</span>)</span><br><span class="line">bangrab.close()</span><br><span class="line"><span class="keyword">exit</span>()</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>Banner不允许抓取，recv函数无返回将挂起！</p>
 </li>
 </ul>

