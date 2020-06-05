@@ -2370,12 +2370,6 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 </code></pre></li>
 </ul>
 ]]></content>
-      <categories>
-        <category>渗透测试学习</category>
-      </categories>
-      <tags>
-        <tag>msf后渗透</tag>
-      </tags>
   </entry>
   <entry>
     <title>linux提权综述</title>
@@ -2414,7 +2408,6 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <p>passwd 由冒号分割，第一列是用户名，第二列是密码，x 代表密码 hash 被放在 shadow 里面了（这样非 root 就看不到了）。而 shadow 里面最重要的就是密码的 hash</p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200430191351.png" alt=""></p>
 <p>以非root用户打开，提示没有权限。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429145009.png" alt=""></p>
 <h5 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h5><p>查看两个文件：</p>
 <figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ls</span> -l <span class="string">/etc/passwd</span> <span class="string">/etc/shadow</span></span><br></pre></td></tr></table></figure>
 
@@ -5521,7 +5514,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <p>2、本机登陆Serv_U<br>打开本地的SERV_U 在IP上填入127.0.0.1<br>帐号写LocalAdministrator 密码#l@$ak#.lk;0@P</p>
 <p>详情参考：<a href="https://blog.csdn.net/God_XiangYu/article/details/99692269" target="_blank" rel="noopener">https://blog.csdn.net/God_XiangYu/article/details/99692269</a></p>
 <p>这里就不写具体过程了</p>
-<h4 id="第三方软件G6-FTP提权"><a href="#第三方软件G6-FTP提权" class="headerlink" title="第三方软件G6-FTP提权"></a>第三方软件G6-FTP提权</h4><p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%B8%89%5CQQ%E6%88%AA%E5%9B%BE20200429095652.png" alt=""></p>
+<h4 id="第三方软件G6-FTP提权"><a href="#第三方软件G6-FTP提权" class="headerlink" title="第三方软件G6-FTP提权"></a>第三方软件G6-FTP提权</h4><p><img src="QQ%E6%88%AA%E5%9B%BE20200429095652.png" alt=""></p>
 <h5 id="G6-FTP简介"><a href="#G6-FTP简介" class="headerlink" title="G6-FTP简介"></a>G6-FTP简介</h5><ul>
 <li>G6 FTP Server 新一代的 FTP 服务器端软件，支持 RFC-959 标准并增强其中的某些功能，上传和下载都可以续传，实时查看运行状态，占用带宽，还有很多功能。</li>
 <li>G6-FTP的默认端口为<code>8021</code>，只侦听在127.0.0.1的8021端口上，所以无法从外部直接访问，需要进行端口转发（使用lcx 工具（lcx 具有三个功能：监听、转发、端口转向））。</li>
@@ -5586,7 +5579,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <li>上传利用到2008启动项 目录里，c:/users/administrator/appdata/roaming/microsoft/windows/start menu/programs/startup/</li>
 <li>替换system系统服务程序，进行提权。</li>
 </ol>
-<h4 id="第三方软件FlashFXP提权"><a href="#第三方软件FlashFXP提权" class="headerlink" title="第三方软件FlashFXP提权"></a>第三方软件FlashFXP提权</h4><p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%B8%89%5CQQ%E6%88%AA%E5%9B%BE20200429102747.png" alt=""></p>
+<h4 id="第三方软件FlashFXP提权"><a href="#第三方软件FlashFXP提权" class="headerlink" title="第三方软件FlashFXP提权"></a>第三方软件FlashFXP提权</h4><p><img src="QQ%E6%88%AA%E5%9B%BE20200429102747.png" alt=""></p>
 <h5 id="1、FlashFXP简介"><a href="#1、FlashFXP简介" class="headerlink" title="1、FlashFXP简介"></a>1、FlashFXP简介</h5><ul>
 <li>FlashFXP是一款功能强大的FXP/FTP软件，集成了其它优秀的FTP软件的优点，如CuteFTP的目录比较，支持彩色文字显示；如BpFTP支持多目录选择文件，暂存目录；又如LeapFTP的界面设计。</li>
 </ul>
@@ -5636,7 +5629,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <p>​            由于搜狗输入法默认设置是自动更新，更新程序没有对exe做任何校验直接在输入法升级时调用运行，导致可以执行恶意代码。</p>
 <h5 id="提权步骤-2"><a href="#提权步骤-2" class="headerlink" title="提权步骤"></a>提权步骤</h5><p>​         我们只要把这个文件替换为自己的远控木马，或是添加账户的批处理，等搜狗升级的时候，就可以达成我们的目的了。搜狗拼音输入法，会定时调用这个文件进行升级，用户无法禁止。</p>
 <p>（很老的一个漏洞了，现在应该这种情况应该也很少见了。。。。。）</p>
-<h4 id="第三方软件之巴西烤肉提权"><a href="#第三方软件之巴西烤肉提权" class="headerlink" title="第三方软件之巴西烤肉提权"></a>第三方软件之巴西烤肉提权</h4><h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a href="https://cloud.tencent.com/developer/article/1547098" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1547098</a></p>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a href="https://cloud.tencent.com/developer/article/1547098" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1547098</a></p>
 <p><a href="https://yqxy20.blog.csdn.net/article/details/99707033" target="_blank" rel="noopener">https://yqxy20.blog.csdn.net/article/details/99707033</a></p>
 <p><a href="https://yqxy20.blog.csdn.net/article/details/99715736" target="_blank" rel="noopener">https://yqxy20.blog.csdn.net/article/details/99715736</a></p>
 ]]></content>
