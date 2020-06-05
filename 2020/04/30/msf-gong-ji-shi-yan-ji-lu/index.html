@@ -107,7 +107,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="msf," />
 
 
 
@@ -120,21 +120,25 @@
 
 
 
-<meta name="description" content="MSF攻击实验记录前言这篇文章记录一些自己使用msf进行的一些实验。 一、msf利用UnrealIRCd后门漏洞攻击攻击主机：Kali linux, IP地址：192.168.153.176 漏洞主机：linux   IP地址：192.168.153.131 nmap扫描开放端口 利用命令： nmap -sT -v 10.1.1.136 扫描漏洞主机开放端口信息,扫描结果如下 1nmap -sT">
+<meta name="description" content="经典漏洞MSF攻击实验记录前言这篇文章记录一些自己使用msf进行的一些实验。 msf利用UnrealIRCd后门漏洞攻击攻击主机：Kali linux, IP地址：192.168.153.176 漏洞主机：linux   IP地址：192.168.153.131 nmap扫描开放端口 利用命令： nmap -sT -v 10.1.1.136 扫描漏洞主机开放端口信息,扫描结果如下 1nmap -s">
 <meta property="og:type" content="article">
-<meta property="og:title" content="msf攻击实验记录">
+<meta property="og:title" content="经典漏洞msf攻击实验记录">
 <meta property="og:url" content="https://shu1l.github.io/2020/04/30/msf-gong-ji-shi-yan-ji-lu/index.html">
 <meta property="og:site_name" content="Shu1L&#39;s blog">
-<meta property="og:description" content="MSF攻击实验记录前言这篇文章记录一些自己使用msf进行的一些实验。 一、msf利用UnrealIRCd后门漏洞攻击攻击主机：Kali linux, IP地址：192.168.153.176 漏洞主机：linux   IP地址：192.168.153.131 nmap扫描开放端口 利用命令： nmap -sT -v 10.1.1.136 扫描漏洞主机开放端口信息,扫描结果如下 1nmap -sT">
-<meta property="og:image" content="d:%5Cmsrf%5CQQ%E6%88%AA%E5%9B%BE20200429210327.png">
-<meta property="og:image" content="d:%5Cmsrf%5CQQ%E6%88%AA%E5%9B%BE20200429210558.png">
-<meta property="og:image" content="d:%5Cmsrf%5CQQ%E6%88%AA%E5%9B%BE20200429211137.png">
-<meta property="og:image" content="d:%5Cmsrf%5CQQ%E6%88%AA%E5%9B%BE20200429211204.png">
+<meta property="og:description" content="经典漏洞MSF攻击实验记录前言这篇文章记录一些自己使用msf进行的一些实验。 msf利用UnrealIRCd后门漏洞攻击攻击主机：Kali linux, IP地址：192.168.153.176 漏洞主机：linux   IP地址：192.168.153.131 nmap扫描开放端口 利用命令： nmap -sT -v 10.1.1.136 扫描漏洞主机开放端口信息,扫描结果如下 1nmap -s">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/30/msf-gong-ji-shi-yan-ji-lu/QQ%E6%88%AA%E5%9B%BE20200429210327.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/30/msf-gong-ji-shi-yan-ji-lu/QQ%E6%88%AA%E5%9B%BE20200429210558.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/30/msf-gong-ji-shi-yan-ji-lu/QQ%E6%88%AA%E5%9B%BE20200429211137.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/30/msf-gong-ji-shi-yan-ji-lu/QQ%E6%88%AA%E5%9B%BE20200429211204.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/30/msf-gong-ji-shi-yan-ji-lu/QQ%E6%88%AA%E5%9B%BE20200429211425.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/30/msf-gong-ji-shi-yan-ji-lu/QQ%E6%88%AA%E5%9B%BE20200429211846.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/30/msf-gong-ji-shi-yan-ji-lu/QQ%E6%88%AA%E5%9B%BE20200429212150.png">
 <meta property="article:published_time" content="2020-04-30T07:54:24.000Z">
-<meta property="article:modified_time" content="2020-04-30T11:26:42.960Z">
+<meta property="article:modified_time" content="2020-06-05T10:03:57.967Z">
 <meta property="article:author" content="Shu1L">
+<meta property="article:tag" content="msf">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="d:%5Cmsrf%5CQQ%E6%88%AA%E5%9B%BE20200429210327.png">
+<meta name="twitter:image" content="https://shu1l.github.io/2020/04/30/msf-gong-ji-shi-yan-ji-lu/QQ%E6%88%AA%E5%9B%BE20200429210327.png">
 
 
 
@@ -170,7 +174,7 @@
 
 
 
-  <title>msf攻击实验记录 | Shu1L's blog</title>
+  <title>经典漏洞msf攻击实验记录 | Shu1L's blog</title>
   
 
 
@@ -358,7 +362,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">msf攻击实验记录</h1>
+          <h1 class="post-title" itemprop="name headline">经典漏洞msf攻击实验记录</h1>
         
 
         <div class="post-meta">
@@ -380,6 +384,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -408,13 +434,13 @@
       
 
       
-        <h2 id="MSF攻击实验记录"><a href="#MSF攻击实验记录" class="headerlink" title="MSF攻击实验记录"></a>MSF攻击实验记录</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>这篇文章记录一些自己使用msf进行的一些实验。</p>
-<h3 id="一、msf利用UnrealIRCd后门漏洞攻击"><a href="#一、msf利用UnrealIRCd后门漏洞攻击" class="headerlink" title="一、msf利用UnrealIRCd后门漏洞攻击"></a>一、msf利用UnrealIRCd后门漏洞攻击</h3><p><strong>攻击主机：</strong>Kali linux, IP地址：192.168.153.176</p>
+        <h2 id="经典漏洞MSF攻击实验记录"><a href="#经典漏洞MSF攻击实验记录" class="headerlink" title="经典漏洞MSF攻击实验记录"></a>经典漏洞MSF攻击实验记录</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>这篇文章记录一些自己使用msf进行的一些实验。</p>
+<h3 id="msf利用UnrealIRCd后门漏洞攻击"><a href="#msf利用UnrealIRCd后门漏洞攻击" class="headerlink" title="msf利用UnrealIRCd后门漏洞攻击"></a>msf利用UnrealIRCd后门漏洞攻击</h3><p><strong>攻击主机：</strong>Kali linux, IP地址：192.168.153.176</p>
 <p><strong>漏洞主机：</strong>linux   IP地址：192.168.153.131</p>
 <h4 id="nmap扫描开放端口"><a href="#nmap扫描开放端口" class="headerlink" title="nmap扫描开放端口"></a>nmap扫描开放端口</h4><p> 利用命令： nmap -sT -v 10.1.1.136 扫描漏洞主机开放端口信息,扫描结果如下</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sT -v <span class="number">192.168</span><span class="number">.153</span><span class="number">.131</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="D:%5Cmsrf%5CQQ%E6%88%AA%E5%9B%BE20200429210327.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429210327.png" alt=""></p>
 <h4 id="UnrealIRCd后门漏洞简介"><a href="#UnrealIRCd后门漏洞简介" class="headerlink" title="UnrealIRCd后门漏洞简介"></a>UnrealIRCd后门漏洞简介</h4><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CVE：CVE<span class="number">-2010</span><span class="number">-2075</span></span><br><span class="line"></span><br><span class="line">BID：BID<span class="number">-40820</span></span><br><span class="line"></span><br><span class="line">OSVDB：OSVDB<span class="number">-65445</span></span><br></pre></td></tr></table></figure>
 
 <h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><p>​        在2009年11月到2010年6月间分布于某些镜面站点的UnrealIRCd，在DEBUG3_DOLOG_SYSTEM宏中包含外部引入的恶意代码，远程攻击者能够执行任意代码，影响系统/软件 Unreal UnrealIRCd 3.2.8.1。</p>
@@ -424,11 +450,30 @@
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">search unrealircd</span></span><br></pre></td></tr></table></figure>
 
 <p>命令搜索关于UnrealIRCD漏洞的利用信息</p>
-<p><img src="D:%5Cmsrf%5CQQ%E6%88%AA%E5%9B%BE20200429210558.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429210558.png" alt=""></p>
 <h5 id="设置漏洞利用exp"><a href="#设置漏洞利用exp" class="headerlink" title="设置漏洞利用exp"></a>设置漏洞利用exp</h5><p>使用’show options’ 命令查看该exploit的参数设置信息，发现执行该EXP前可以配置漏洞主机的IP和端口</p>
-<p><img src="D:%5Cmsrf%5CQQ%E6%88%AA%E5%9B%BE20200429211137.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429211137.png" alt=""></p>
 <h5 id="执行查看结果"><a href="#执行查看结果" class="headerlink" title="执行查看结果"></a>执行查看结果</h5><p>运行linux系统命令“whoami”，回显“root”说明当前shell的权限是root权限，可进行任意操作而不受权限控制，</p>
-<p><img src="D:%5Cmsrf%5CQQ%E6%88%AA%E5%9B%BE20200429211204.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429211204.png" alt=""></p>
+<h3 id="利用Distcc后门漏洞攻击"><a href="#利用Distcc后门漏洞攻击" class="headerlink" title="利用Distcc后门漏洞攻击"></a>利用Distcc后门漏洞攻击</h3><h4 id="Distcc后门漏洞"><a href="#Distcc后门漏洞" class="headerlink" title="Distcc后门漏洞"></a>Distcc后门漏洞</h4><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">安全组织索引</span><br><span class="line">CVE：CVE<span class="number">-2004</span><span class="number">-2687</span></span><br><span class="line">BID：无</span><br><span class="line">OSVDB：OSVDB<span class="number">-13378</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h5><pre><code>Distcc用于大量代码在网络服务器上的分布式编译，但是如果配置不严格，容易被滥用执行命令，该漏洞是XCode 1.5版本及其他版本的distcc 2.x版本配置对于服务器端口的访问不限制，影响系统 distcc 2.x</code></pre><h4 id="攻击过程-1"><a href="#攻击过程-1" class="headerlink" title="攻击过程"></a>攻击过程</h4><ol>
+<li><h5 id="开启Msfconsole"><a href="#开启Msfconsole" class="headerlink" title="开启Msfconsole"></a>开启Msfconsole</h5><p>运行<code>msfconsole</code>命令开启msf</p>
+</li>
+<li><h5 id="搜索漏洞利用EXP"><a href="#搜索漏洞利用EXP" class="headerlink" title="搜索漏洞利用EXP"></a>搜索漏洞利用EXP</h5><p>运行<code>search distcc</code>命令搜索关于Distcc_exec 漏洞的利用信息</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429211425.png" alt=""></p>
+</li>
+</ol>
+<ol start="3">
+<li><h5 id="运行漏洞利用EXP"><a href="#运行漏洞利用EXP" class="headerlink" title="运行漏洞利用EXP"></a>运行漏洞利用EXP</h5><p>运行<code>use exploit/unix/misc/distcc_exec</code>命令开始运行EXP</p>
+</li>
+</ol>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429211846.png" alt=""></p>
+<p>设置漏洞主机IP</p>
+<p>运行<code>set RHOST 10.1.1.136</code>命令设置漏洞主机IP</p>
+<p>运行<code>exploit</code>命令，成功建立shell回话</p>
+<h5 id="6-验证shell权限"><a href="#6-验证shell权限" class="headerlink" title="6.验证shell权限"></a>6.验证shell权限</h5><p>运行linux系统命令“whoami”，回显“root”说明当前shell的权限是root权限，可进行任意操作而不受权限控制.</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429212150.png" alt=""></p>
 
       
     </div>
@@ -444,6 +489,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/msf/" rel="tag"># msf</a>
+          
+        </div>
+      
 
       
       
@@ -453,8 +504,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/29/linux-ti-quan-zong-jie-yi/" rel="next" title="linux提权总结(一)">
-                <i class="fa fa-chevron-left"></i> linux提权总结(一)
+              <a href="/2020/04/30/na-webshell-fang-fa/" rel="next" title="拿WebShell 方法">
+                <i class="fa fa-chevron-left"></i> 拿WebShell 方法
               </a>
             
           </div>
@@ -542,7 +593,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -644,7 +695,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MSF攻击实验记录"><span class="nav-number">1.</span> <span class="nav-text">MSF攻击实验记录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.0.1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一、msf利用UnrealIRCd后门漏洞攻击"><span class="nav-number">1.1.</span> <span class="nav-text">一、msf利用UnrealIRCd后门漏洞攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nmap扫描开放端口"><span class="nav-number">1.1.1.</span> <span class="nav-text">nmap扫描开放端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UnrealIRCd后门漏洞简介"><span class="nav-number">1.1.2.</span> <span class="nav-text">UnrealIRCd后门漏洞简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#原理"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">原理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#攻击过程"><span class="nav-number">1.1.3.</span> <span class="nav-text">攻击过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-分析可以利用的漏洞"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">1.分析可以利用的漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-开启Msfconsole"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">2. 开启Msfconsole</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-搜索漏洞利用EXP"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">3. 搜索漏洞利用EXP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置漏洞利用exp"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">设置漏洞利用exp</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#执行查看结果"><span class="nav-number">1.1.3.5.</span> <span class="nav-text">执行查看结果</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#经典漏洞MSF攻击实验记录"><span class="nav-number">1.</span> <span class="nav-text">经典漏洞MSF攻击实验记录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.0.1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#msf利用UnrealIRCd后门漏洞攻击"><span class="nav-number">1.1.</span> <span class="nav-text">msf利用UnrealIRCd后门漏洞攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nmap扫描开放端口"><span class="nav-number">1.1.1.</span> <span class="nav-text">nmap扫描开放端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UnrealIRCd后门漏洞简介"><span class="nav-number">1.1.2.</span> <span class="nav-text">UnrealIRCd后门漏洞简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#原理"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">原理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#攻击过程"><span class="nav-number">1.1.3.</span> <span class="nav-text">攻击过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-分析可以利用的漏洞"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">1.分析可以利用的漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-开启Msfconsole"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">2. 开启Msfconsole</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-搜索漏洞利用EXP"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">3. 搜索漏洞利用EXP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置漏洞利用exp"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">设置漏洞利用exp</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#执行查看结果"><span class="nav-number">1.1.3.5.</span> <span class="nav-text">执行查看结果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用Distcc后门漏洞攻击"><span class="nav-number">1.2.</span> <span class="nav-text">利用Distcc后门漏洞攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Distcc后门漏洞"><span class="nav-number">1.2.1.</span> <span class="nav-text">Distcc后门漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#原理-1"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">原理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#攻击过程-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">攻击过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#开启Msfconsole"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">开启Msfconsole</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#搜索漏洞利用EXP"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">搜索漏洞利用EXP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#运行漏洞利用EXP"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">运行漏洞利用EXP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-验证shell权限"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">6.验证shell权限</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

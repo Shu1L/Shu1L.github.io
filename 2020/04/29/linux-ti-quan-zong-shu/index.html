@@ -128,9 +128,9 @@
 <meta property="og:description" content="linux提权方法综述前言提权方式总结利用内核漏洞提权​        当我们渗透时获得一个低权限的shell时，内核漏洞应该是最先想到的提权方法。比如前几年很流行的”脏牛漏洞“，直接利用系统里面自带的软件或者内核存在的漏洞。 ，要判断我们应该先对系统相关的信息进行收集。 利用前提： 已经拿到低权限shell 目标系统上有gcc 有上传文件的权限  使用命令： 1uname -a  或  unam">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429143857.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429144304.png">
-<meta property="og:image" content="d:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E7%BB%BC%E8%BF%B0%5CQQ%E6%88%AA%E5%9B%BE20200429144854.png">
-<meta property="og:image" content="d:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E7%BB%BC%E8%BF%B0%5CQQ%E6%88%AA%E5%9B%BE20200430191351.png">
-<meta property="og:image" content="d:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429145009.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429144854.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200430191351.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429145009.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429163933.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429164436.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429164548.png">
@@ -139,7 +139,7 @@
 <meta property="og:image" content="https://shu1l.github.io/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429165555.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429145451.png">
 <meta property="article:published_time" content="2020-04-29T06:01:07.000Z">
-<meta property="article:modified_time" content="2020-04-30T11:27:59.990Z">
+<meta property="article:modified_time" content="2020-05-17T11:01:32.489Z">
 <meta property="article:author" content="Shu1L">
 <meta property="article:tag" content="linux提权">
 <meta name="twitter:card" content="summary">
@@ -469,11 +469,11 @@
 <h4 id="明文-root-密码提权"><a href="#明文-root-密码提权" class="headerlink" title="明文 root 密码提权"></a>明文 root 密码提权</h4><p>情况极少。。。。</p>
 <p>passwd 储存了用户，全用户可读，root 可写 shadow 存储密码的 hash，仅 root 可读写</p>
 <p>passwd 文件：</p>
-<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E7%BB%BC%E8%BF%B0%5CQQ%E6%88%AA%E5%9B%BE20200429144854.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429144854.png" alt=""></p>
 <p>passwd 由冒号分割，第一列是用户名，第二列是密码，x 代表密码 hash 被放在 shadow 里面了（这样非 root 就看不到了）。而 shadow 里面最重要的就是密码的 hash</p>
-<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E7%BB%BC%E8%BF%B0%5CQQ%E6%88%AA%E5%9B%BE20200430191351.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200430191351.png" alt=""></p>
 <p>以非root用户打开，提示没有权限。</p>
-<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429145009.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429145009.png" alt=""></p>
 <h5 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h5><p>查看两个文件：</p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ls</span> -l <span class="string">/etc/passwd</span> <span class="string">/etc/shadow</span></span><br></pre></td></tr></table></figure>
 
@@ -652,8 +652,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/29/linux-ti-quan-zong-jie-yi/" rel="prev" title="linux提权总结(一)">
-                linux提权总结(一) <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/30/na-webshell-fang-fa/" rel="prev" title="拿WebShell 方法">
+                拿WebShell 方法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -735,7 +735,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

