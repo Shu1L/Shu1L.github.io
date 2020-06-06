@@ -120,12 +120,12 @@
 
 
 
-<meta name="description" content="域渗透之NTML-Hash一、认识Windows HASH​    早期SMB协议在网络上传输明文口令。后来出现”LAN Manager Challenge&#x2F;Response”验证机制，简称LM，它是如此简单以至很容易被破解。微软提出了WindowsNT挑战&#x2F;响应验证机制，称之为NTLM。现在已经有了更新的NTLMv2以及Kerberos验证体系。Windows加密过的密码口令，我们称之为hash">
+<meta name="description" content="转载自:https:&#x2F;&#x2F;ssooking.github.io&#x2F;yu-shen-tou-zhi-ntml-hash&#x2F; 域渗透之NTML-Hash一、认识Windows HASH​    早期SMB协议在网络上传输明文口令。后来出现”LAN Manager Challenge&#x2F;Response”验证机制，简称LM，它是如此简单以至很容易被破解。微软提出了WindowsNT挑战&#x2F;响应验证机制，称之为NT">
 <meta property="og:type" content="article">
 <meta property="og:title" content="域渗透之NTML hash">
 <meta property="og:url" content="https://shu1l.github.io/2020/06/05/yu-shen-tou-zhi-ntml-hash/index.html">
 <meta property="og:site_name" content="Shu1L&#39;s blog">
-<meta property="og:description" content="域渗透之NTML-Hash一、认识Windows HASH​    早期SMB协议在网络上传输明文口令。后来出现”LAN Manager Challenge&#x2F;Response”验证机制，简称LM，它是如此简单以至很容易被破解。微软提出了WindowsNT挑战&#x2F;响应验证机制，称之为NTLM。现在已经有了更新的NTLMv2以及Kerberos验证体系。Windows加密过的密码口令，我们称之为hash">
+<meta property="og:description" content="转载自:https:&#x2F;&#x2F;ssooking.github.io&#x2F;yu-shen-tou-zhi-ntml-hash&#x2F; 域渗透之NTML-Hash一、认识Windows HASH​    早期SMB协议在网络上传输明文口令。后来出现”LAN Manager Challenge&#x2F;Response”验证机制，简称LM，它是如此简单以至很容易被破解。微软提出了WindowsNT挑战&#x2F;响应验证机制，称之为NT">
 <meta property="og:image" content="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181204130140.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181204130759.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181204134230.png">
@@ -134,7 +134,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181204094217.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181203225415.png">
 <meta property="article:published_time" content="2020-06-05T14:25:49.000Z">
-<meta property="article:modified_time" content="2020-06-05T14:33:38.634Z">
+<meta property="article:modified_time" content="2020-06-06T03:15:28.839Z">
 <meta property="article:author" content="Shu1L">
 <meta property="article:tag" content="NTML">
 <meta name="twitter:card" content="summary">
@@ -434,7 +434,8 @@
       
 
       
-        <h2 id="域渗透之NTML-Hash"><a href="#域渗透之NTML-Hash" class="headerlink" title="域渗透之NTML-Hash"></a>域渗透之NTML-Hash</h2><h3 id="一、认识Windows-HASH"><a href="#一、认识Windows-HASH" class="headerlink" title="一、认识Windows HASH"></a>一、认识Windows HASH</h3><p>​    早期SMB协议在网络上传输明文口令。后来出现”LAN Manager Challenge/Response”验证机制，简称LM，它是如此简单以至很容易被破解。微软提出了<strong>WindowsNT挑战/响应验证机制</strong>，称之为NTLM。现在已经有了更新的NTLMv2以及Kerberos验证体系。Windows加密过的密码口令，我们称之为hash（中文：哈希），Windows的系统密码hash默认情况下一般由两部分组成：第一部分是LM-hash，第二部分是NTLM-hash。</p>
+        <p><strong>转载自:</strong><a href="https://ssooking.github.io/yu-shen-tou-zhi-ntml-hash/" target="_blank" rel="noopener">https://ssooking.github.io/yu-shen-tou-zhi-ntml-hash/</a></p>
+<h2 id="域渗透之NTML-Hash"><a href="#域渗透之NTML-Hash" class="headerlink" title="域渗透之NTML-Hash"></a>域渗透之NTML-Hash</h2><h3 id="一、认识Windows-HASH"><a href="#一、认识Windows-HASH" class="headerlink" title="一、认识Windows HASH"></a>一、认识Windows HASH</h3><p>​    早期SMB协议在网络上传输明文口令。后来出现”LAN Manager Challenge/Response”验证机制，简称LM，它是如此简单以至很容易被破解。微软提出了<strong>WindowsNT挑战/响应验证机制</strong>，称之为NTLM。现在已经有了更新的NTLMv2以及Kerberos验证体系。Windows加密过的密码口令，我们称之为hash（中文：哈希），Windows的系统密码hash默认情况下一般由两部分组成：第一部分是LM-hash，第二部分是NTLM-hash。</p>
 <p>​     NTLM-Hash与LM-Hash算法相比，明文口令大小写敏感，但无法根据NTLM-Hash判断原始明文口令是否小于8字节，摆脱了魔术字符串<code>KGS!@#$%</code>。MD4是真正的单向哈希函数，穷举做为数据源出现的明文，难度较大。问题在于，微软一味强调NTLM-Hash的强度高，却避而不谈一个事实，为了保持向后兼容性，NTLM-Hash缺省总是与LM-Hash一起使用的。这意味着NTLM-Hash强调再高也是无助于安全的，相反潜在损害着安全性。增加NTLM-Hash后，首先利用LM-Hash的弱点穷举出原始明文口令的大小写不敏感版本，再利用NTLM-Hash修正出原始明文口令的大小写敏感版本</p>
 <h4 id="LM-HASH"><a href="#LM-HASH" class="headerlink" title="LM HASH"></a>LM HASH</h4><p>​    <code>LM HASH</code>是一种较古老的Hash，在<code>LAN Manager</code>协议中使用，非常容易通过暴力破解获取明文凭据。Vista以前的Windows OS使用它，Vista之后的版本默认禁用了LM协议，但某些情况下还是可以使用。</p>
 <p><strong>补充：</strong></p>

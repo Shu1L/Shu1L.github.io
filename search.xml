@@ -7786,7 +7786,8 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
   <entry>
     <title>域渗透之NTML hash</title>
     <url>/2020/06/05/yu-shen-tou-zhi-ntml-hash/</url>
-    <content><![CDATA[<h2 id="域渗透之NTML-Hash"><a href="#域渗透之NTML-Hash" class="headerlink" title="域渗透之NTML-Hash"></a>域渗透之NTML-Hash</h2><h3 id="一、认识Windows-HASH"><a href="#一、认识Windows-HASH" class="headerlink" title="一、认识Windows HASH"></a>一、认识Windows HASH</h3><p>​    早期SMB协议在网络上传输明文口令。后来出现”LAN Manager Challenge/Response”验证机制，简称LM，它是如此简单以至很容易被破解。微软提出了<strong>WindowsNT挑战/响应验证机制</strong>，称之为NTLM。现在已经有了更新的NTLMv2以及Kerberos验证体系。Windows加密过的密码口令，我们称之为hash（中文：哈希），Windows的系统密码hash默认情况下一般由两部分组成：第一部分是LM-hash，第二部分是NTLM-hash。</p>
+    <content><![CDATA[<p><strong>转载自:</strong><a href="https://ssooking.github.io/yu-shen-tou-zhi-ntml-hash/" target="_blank" rel="noopener">https://ssooking.github.io/yu-shen-tou-zhi-ntml-hash/</a></p>
+<h2 id="域渗透之NTML-Hash"><a href="#域渗透之NTML-Hash" class="headerlink" title="域渗透之NTML-Hash"></a>域渗透之NTML-Hash</h2><h3 id="一、认识Windows-HASH"><a href="#一、认识Windows-HASH" class="headerlink" title="一、认识Windows HASH"></a>一、认识Windows HASH</h3><p>​    早期SMB协议在网络上传输明文口令。后来出现”LAN Manager Challenge/Response”验证机制，简称LM，它是如此简单以至很容易被破解。微软提出了<strong>WindowsNT挑战/响应验证机制</strong>，称之为NTLM。现在已经有了更新的NTLMv2以及Kerberos验证体系。Windows加密过的密码口令，我们称之为hash（中文：哈希），Windows的系统密码hash默认情况下一般由两部分组成：第一部分是LM-hash，第二部分是NTLM-hash。</p>
 <p>​     NTLM-Hash与LM-Hash算法相比，明文口令大小写敏感，但无法根据NTLM-Hash判断原始明文口令是否小于8字节，摆脱了魔术字符串<code>KGS!@#$%</code>。MD4是真正的单向哈希函数，穷举做为数据源出现的明文，难度较大。问题在于，微软一味强调NTLM-Hash的强度高，却避而不谈一个事实，为了保持向后兼容性，NTLM-Hash缺省总是与LM-Hash一起使用的。这意味着NTLM-Hash强调再高也是无助于安全的，相反潜在损害着安全性。增加NTLM-Hash后，首先利用LM-Hash的弱点穷举出原始明文口令的大小写不敏感版本，再利用NTLM-Hash修正出原始明文口令的大小写敏感版本</p>
 <h4 id="LM-HASH"><a href="#LM-HASH" class="headerlink" title="LM HASH"></a>LM HASH</h4><p>​    <code>LM HASH</code>是一种较古老的Hash，在<code>LAN Manager</code>协议中使用，非常容易通过暴力破解获取明文凭据。Vista以前的Windows OS使用它，Vista之后的版本默认禁用了LM协议，但某些情况下还是可以使用。</p>
 <p><strong>补充：</strong></p>
@@ -8129,7 +8130,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
     <title>红日安全ATT&amp;CK靶场总结</title>
     <url>/2020/06/05/hong-ri-an-quan-att-ck-ba-chang-zong-jie/</url>
     <content><![CDATA[<h2 id="红日安全ATT-amp-CK靶场-一"><a href="#红日安全ATT-amp-CK靶场-一" class="headerlink" title="红日安全ATT&amp;CK靶场(一)"></a>红日安全ATT&amp;CK靶场(一)</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>此文只记录打靶机过程的思路，因为我也是基本按照其他师傅的过程学习的，所以具体的过程可以去看其他师傅的文章。这里只记录下思路与过程。</p>
-<h3 id="红队评估-一）："><a href="#红队评估-一）：" class="headerlink" title="红队评估(一）："></a>红队评估(一）：</h3><h5 id="详细教程：https-www-freebuf-com-column-230476-html"><a href="#详细教程：https-www-freebuf-com-column-230476-html" class="headerlink" title="详细教程：https://www.freebuf.com/column/230476.html"></a>详细教程：<a href="https://www.freebuf.com/column/230476.html" target="_blank" rel="noopener">https://www.freebuf.com/column/230476.html</a></h5><p>​                   <a href="https://www.freebuf.com/column/230725.html" target="_blank" rel="noopener">https://www.freebuf.com/column/230725.html</a></p>
+<h3 id="红队实战-一）："><a href="#红队实战-一）：" class="headerlink" title="红队实战(一）："></a>红队实战(一）：</h3><h5 id="详细教程：https-www-freebuf-com-column-230476-html"><a href="#详细教程：https-www-freebuf-com-column-230476-html" class="headerlink" title="详细教程：https://www.freebuf.com/column/230476.html"></a>详细教程：<a href="https://www.freebuf.com/column/230476.html" target="_blank" rel="noopener">https://www.freebuf.com/column/230476.html</a></h5><p>​                   <a href="https://www.freebuf.com/column/230725.html" target="_blank" rel="noopener">https://www.freebuf.com/column/230725.html</a></p>
 <p><strong>拓扑结构：</strong></p>
 <p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CVideos%5Ct018915c37beca70abc.png" alt=""></p>
 <h4 id="外网渗透"><a href="#外网渗透" class="headerlink" title="外网渗透:"></a>外网渗透:</h4><h5 id="思路一"><a href="#思路一" class="headerlink" title="思路一:"></a>思路一:</h5><ul>
@@ -8172,7 +8173,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <li><strong>phpmyadmin通过开启全局日志的方式getshell，</strong></li>
 </ul>
 <p>​      <a href="https://www.cnblogs.com/0nc3/p/12071314.html" target="_blank" rel="noopener">[phpmyadmin后台getshell方法学习总结]</a></p>
-<h4 id="内网后渗透"><a href="#内网后渗透" class="headerlink" title="内网后渗透"></a>内网后渗透</h4><ul>
+<h4 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h4><ul>
 <li><strong>1.使用msfvenom生成payload文件，使用菜刀上传到WWW目录下，msf监听连接。</strong></li>
 </ul>
 <p>​      <a href="https://shu1l.github.io/2020/04/27/msf-fan-dan-payload-xue-xi/">MSF反弹payload学习</a></p>
@@ -8228,7 +8229,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 </li>
 </ul>
 <p>​      <code>exploit/windows/smb/psexec</code>远程连接即可拿到shell，并且是管理员权限。</p>
-<p>​      <a href="https://www.freebuf.com/articles/system/183670.html" target="_blank" rel="noopener"><strong>多种使用SMB端口远程连接PC的方法介绍</strong> </a></p>
+<p>​      <a href="https://www.freebuf.com/articles/system/183670.html" target="_blank" rel="noopener">多种使用SMB端口远程连接PC的方法介绍 </a></p>
 <ul>
 <li><strong>植入后门</strong></li>
 <li><strong>痕迹清理</strong></li>
@@ -8252,9 +8253,9 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <p>​    <a href="https://www.cnblogs.com/liliyuanshangcao/p/10820583.html" target="_blank" rel="noopener"><a href="https://www.cnblogs.com/liliyuanshangcao/p/10820583.html" target="_blank" rel="noopener">（CVE-2019-2725）复现</a></a></p>
 <ul>
 <li><strong>或者直接使用msf自带的cve模块打一波，拿到shell.</strong></li>
-<li><strong>或者使用这个脚本：<a href="https://github.com/TopScrew/CVE-2019-2725" target="_blank" rel="noopener">https://github.com/TopScrew/CVE-2019-2725</a></strong></li>
+<li><strong>或者使用这个脚本</strong>：<a href="https://github.com/TopScrew/CVE-2019-2725" target="_blank" rel="noopener">https://github.com/TopScrew/CVE-2019-2725</a></li>
 </ul>
-<h4 id="内网后渗透-1"><a href="#内网后渗透-1" class="headerlink" title="内网后渗透"></a>内网后渗透</h4><ul>
+<h4 id="内网渗透-1"><a href="#内网渗透-1" class="headerlink" title="内网渗透"></a>内网渗透</h4><ul>
 <li><p><strong>后渗透常规操作走一波</strong></p>
 <ul>
 <li>查看用户权限，这里已经是管理员权限，暂不提权。</li>
@@ -8300,6 +8301,78 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 </ul>
 </li>
 </ul>
+<h3 id="红队实战（三）"><a href="#红队实战（三）" class="headerlink" title="红队实战（三）"></a>红队实战（三）</h3><h5 id="环境拓扑"><a href="#环境拓扑" class="headerlink" title="环境拓扑"></a>环境拓扑</h5><p><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191223205755-d65c291e-2583-1.png" alt="img"></p>
+<h4 id="外网渗透-2"><a href="#外网渗透-2" class="headerlink" title="外网渗透"></a>外网渗透</h4><ul>
+<li><p><strong>首先发现80端口网站是个joomla!，探测版本，发现是3.9.2较高的版本。</strong></p>
+<ul>
+<li><a href="https://github.com/rezasp/joomscan" target="_blank" rel="noopener">JoomScan开源扫描器</a></li>
+<li><a href="https://www.anquanke.com/post/id/188177" target="_blank" rel="noopener">Joomla 3.4.6远程代码执行漏洞原理分析和poc</a></li>
+<li><a href="https://blog.csdn.net/m0_37438418/article/details/80976593" target="_blank" rel="noopener">Joomla漏洞</a></li>
+</ul>
+</li>
+<li><p><strong>然后扫了下目录，发现存在备份的配置文件configuration.php。</strong></p>
+</li>
+<li><p><strong>在配置文件中得到了一个mysql普通数据库用户</strong></p>
+</li>
+</ul>
+<figure class="highlight erlang-repl"><table><tr><td class="code"><pre><span class="line">testuser cvcvgjASD!@</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>探测端口发现3306开放，尝试使用拿到的mysql密码登录</strong></p>
+</li>
+<li><p><strong>登录成功，拿到了joomla!的数据库，尝试添加管理员 admin2</strong> </p>
+</li>
+<li><p><strong>使用账号admin2 secret登录后台：<a href="http://192.168.1.110/administrator/index.php" target="_blank" rel="noopener">http://192.168.1.110/administrator/index.php</a></strong></p>
+</li>
+<li><p><strong>通过模板修改，getshell。然后访问shell。</strong></p>
+</li>
+<li><p><strong>这里得绕一下disable_function。可以用LD_PRELOAD绕过。</strong></p>
+<ul>
+<li><a href="https://xz.aliyun.com/t/5320" target="_blank" rel="noopener">PHP Webshell下绕过disable_function的方法</a></li>
+</ul>
+</li>
+<li><p>在ubuntu上找到了个test.txt，存放着应该是账号密码。</p>
+</li>
+<li><p>尝试使用wwwuser通过ssh登陆192.168.1.110</p>
+</li>
+<li></li>
+</ul>
+<ul>
+<li></li>
+</ul>
+<h4 id="内网渗透-2"><a href="#内网渗透-2" class="headerlink" title="内网渗透"></a>内网渗透</h4><ul>
+<li><p>上msf，scp上传payload到centos，centos执行payload获取shell。</p>
+<p><a href="https://www.cnblogs.com/tugenhua0707/p/8278772.html" target="_blank" rel="noopener">[scp传输文件的命令]</a></p>
+</li>
+<li><p>添加路由,使用msf扫描获取周围windows信息。</p>
+<p>​    <a href="https://www.cnblogs.com/Hi-blog/p/7413406.html#autoid-5-3-0" target="_blank" rel="noopener">MSF的辅助扫描模块（信息搜集）</a></p>
+</li>
+<li><p>得到了三台加入test域的windows主机</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">192.168.93.20 windows<span class="built_in"> server </span>2008</span><br><span class="line"></span><br><span class="line">192.168.93.30 windows 7</span><br><span class="line"></span><br><span class="line">192.168.93.10 windows<span class="built_in"> server </span>2012</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>尝试爆破一下windows server 2008的本地管理员，得到了本地管理员的密码：123qwe!ASD</p>
+</li>
+<li><p>搭建目标网络代理，kali使用proxychains来代理socs4a。</p>
+</li>
+<li><p>用<a href="https://github.com/ropnop/impacket_static_binaries" target="_blank" rel="noopener">wmiexec</a>执行命令，使用得到的密码远程连接目标机器</p>
+<p>​    <a href="http://www.91ri.org/12908.html" target="_blank" rel="noopener">利用WMI代替psexec（WMIEXEC.vbs）</a></p>
+<p>​    <a href="https://www.cnblogs.com/ssooking/articles/6082407.html" target="_blank" rel="noopener">丢掉PSEXEC来横向渗透</a></p>
+</li>
+<li><p>查看进程时发现有test域的administrator的进程，于是尝试抓一下密码</p>
+</li>
+<li><p>kali下使用smbclient通过代理连接windows server 2008 上传mimikatz。</p>
+<p>​    <a href="[https://www.marksec.org/2019/04/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bsmbclient%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0/](https://www.marksec.org/2019/04/10/内网渗透之smbclient工具学习/)">内网渗透之smbclient工具学习</a></p>
+</li>
+<li><p>wmiexec远程执行mimikatz抓到了test域的administrator密码。</p>
+<p><a href="https://cloud.tencent.com/developer/article/1171183" target="_blank" rel="noopener">九种姿势运行Mimikatz</a></p>
+</li>
+<li><p>查看windows server 2008的ip，然后ping test.org获取到域控制器ip</p>
+</li>
+<li><p>直接ipc连接（环境有点问题，3389连接域控提示administrator的密码过期了）</p>
+</li>
+<li><p>得到重要文件flag.txt。</p>
+</li>
+</ul>
 <h3 id="红队评估（五）"><a href="#红队评估（五）" class="headerlink" title="红队评估（五）"></a>红队评估（五）</h3><h5 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h5><p><strong>Win7 +phpstudy+thinkphp（5.0.22）</strong> </p>
 <p>ip  192.168.135.150</p>
 <p>ip  192.168.138.136</p>
@@ -8307,7 +8380,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <p>ip 192.168.138.138</p>
 <p><strong>攻击机 win10</strong>     </p>
 <p>ip  192.168.135.143</p>
-<h4 id="外网渗透-2"><a href="#外网渗透-2" class="headerlink" title="外网渗透"></a>外网渗透</h4><h5 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h5><ul>
+<h4 id="外网渗透-3"><a href="#外网渗透-3" class="headerlink" title="外网渗透"></a>外网渗透</h4><h5 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h5><ul>
 <li><p><strong>漏洞搜索与利用，浏览器访问192.168.135.150，发现是thinkphp框架，爆下错，看下tp版本为5.0.22。</strong></p>
 <ul>
 <li><a href="https://github.com/SkyBlueEternal/thinkphp-RCE-POC-Collection" target="_blank" rel="noopener">thinkphp v5.x 远程代码执行漏洞-POC集合</a></li>
@@ -8319,7 +8392,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
 <li><p><strong>蚁剑连接，查看权限，发现居然是域管理员权限！！！</strong></p>
 </li>
 </ul>
-<h4 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h4><ul>
+<h4 id="内网渗透-3"><a href="#内网渗透-3" class="headerlink" title="内网渗透"></a>内网渗透</h4><ul>
 <li><p><strong>在横向移动前我们需要收集域内信息。</strong></p>
 <ul>
 <li>内网网段:192.168.138.0/24</li>
