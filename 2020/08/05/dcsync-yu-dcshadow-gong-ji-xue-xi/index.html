@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Shu1L's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="DCSync与DCshadow攻击学习前言DCSync与DCshadow是域渗透中经常会用到的技术。 DCSync 攻击​    2015 年 8 月，Benjamin Delpy(神器 Mimikatz 的作者)和 Vincent Le Toux 发布了新版本的 Mimikatz，新增加了 DCSync 功能。模仿一个域控制器 DC，从真实的域控制器中请求获取数据，例如账号的口令散列值等数据。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DCSync与DCshadow攻击学习">
+<meta property="og:url" content="https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/index.html">
+<meta property="og:site_name" content="Shu1L&#39;s blog">
+<meta property="og:description" content="DCSync与DCshadow攻击学习前言DCSync与DCshadow是域渗透中经常会用到的技术。 DCSync 攻击​    2015 年 8 月，Benjamin Delpy(神器 Mimikatz 的作者)和 Vincent Le Toux 发布了新版本的 Mimikatz，新增加了 DCSync 功能。模仿一个域控制器 DC，从真实的域控制器中请求获取数据，例如账号的口令散列值等数据。">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/20200507093022.png-water_print">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/20200507093039.png-water_print">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/20200507093111.png-water_print">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/20200507100302.png-water_print">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/20200507100638.png-water_print">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/20200507100807.png-water_print">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/20200507100835.png-water_print">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/20200507100956.png-water_print">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/20200507101146.png-water_print">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/20200507101534.png-water_print">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/20200507101621.png-water_print">
+<meta property="article:published_time" content="2020-08-05T09:03:28.000Z">
+<meta property="article:modified_time" content="2020-08-05T11:26:59.151Z">
+<meta property="article:author" content="Shu1L">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/20200507093022.png-water_print">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/"/>
+
+
+
+
+
+  <title>DCSync与DCshadow攻击学习 | Shu1L's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shu1L's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只菜鸟白帽子</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shu1L's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DCSync与DCshadow攻击学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-05T17:03:28+08:00">
+                2020-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="DCSync与DCshadow攻击学习"><a href="#DCSync与DCshadow攻击学习" class="headerlink" title="DCSync与DCshadow攻击学习"></a>DCSync与DCshadow攻击学习</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>DCSync与DCshadow是域渗透中经常会用到的技术。</p>
+<h3 id="DCSync-攻击"><a href="#DCSync-攻击" class="headerlink" title="DCSync 攻击"></a>DCSync 攻击</h3><p>​    2015 年 8 月，Benjamin Delpy(神器 Mimikatz 的作者)和 Vincent Le Toux 发布了新版本的 Mimikatz，新增加了 DCSync 功能。模仿一个域控制器 DC，从真实的域控制器中请求获取数据，例如账号的口令散列值等数据。</p>
+<p>​    DCSync 之前，获取域的账号口令信息，需要登录域服务器，在域服务器上运行代码才可以获取。</p>
+<p>​    DCSync 的最大特点，在于不用登录域服务器，即可远程通过<strong>域数据同步复制</strong>的方式获得想要的用户口令信息。</p>
+<p>​    需要注意的是，DCSync 攻击的对象如果是 RODC 域控制器，则会失效，因为 RODC是不能参与复制同步数据</p>
+<h4 id="DCSync攻击原理"><a href="#DCSync攻击原理" class="headerlink" title="DCSync攻击原理"></a>DCSync攻击原理</h4><p>DCSync 的原理非常清晰，利用<strong>域控制器之间的数据同步复制</strong>。</p>
+<ul>
+<li>发现网络中的目标域控制器;</li>
+<li>通过 DRS 服务的 GetNCChanges 接口发起数据同步请求，Directory Replication Service (DRS) Remote Protocol</li>
+</ul>
+<p>Samba wiki 关于 GetNCChanges 的描述包括:</p>
+<p>​    当一个 DC (客户端 DC)想从其他 DC (服务端 DC)获取数据时，客户端 DC 会向服务端 DC 发起一个 GetNCChanges 请求。回应的数据包括需要同步的数据。</p>
+<p>如果需要同步的数据比较多，则会重复上述过程。毕竟每次回应的数据有限。</p>
+<h5 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h5><p><a href="https://github.com/gentilkiwi/mimikatz/blob/master/mimikatz/modules/lsadump/kuhl_m_lsadump_dc.c#L27" target="_blank" rel="noopener">https://github.com/gentilkiwi/mimikatz/blob/master/mimikatz/modules/lsadump/kuhl_m_lsadump_dc.c#L27</a></p>
+<h4 id="DCSync攻击前提"><a href="#DCSync攻击前提" class="headerlink" title="DCSync攻击前提"></a>DCSync攻击前提</h4><p>一个用户想发起 DCSync 攻击，必须获得以下任一用户的权限：</p>
+<ul>
+<li>Administrators组内的用户</li>
+<li>Domain Admins组内的用户</li>
+<li>Enterprise Admins组内的用户</li>
+<li>域控制器的计算机帐户</li>
+</ul>
+<p>即：默认情况下域管理员组具有该权限。</p>
+<p><img src="20200507093022.png-water_print" alt="img"></p>
+<p><img src="20200507093039.png-water_print" alt="img"></p>
+<h4 id="DCSync攻击利用"><a href="#DCSync攻击利用" class="headerlink" title="DCSync攻击利用"></a>DCSync攻击利用</h4><h5 id="1-使用mimikatz"><a href="#1-使用mimikatz" class="headerlink" title="1.使用mimikatz"></a>1.使用mimikatz</h5><p>导出域内所有用户的hash：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe <span class="string">"lsadump::dcsync /domain:test.com /all /csv"</span> <span class="keyword">exit</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="20200507093111.png-water_print" alt="img"></p>
+<p>导出域内administrator帐户的hash：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe <span class="string">"lsadump::dcsync /domain:test.com /user:administrator /csv"</span> <span class="keyword">exit</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="2-powershell实现"><a href="#2-powershell实现" class="headerlink" title="2.powershell实现"></a>2.powershell实现</h5><p><a href="https://gist.github.com/monoxgas/9d238accd969550136db" target="_blank" rel="noopener">https://gist.github.com/monoxgas/9d238accd969550136db</a></p>
+<p>通过Invoke-ReflectivePEinjection调用mimikatz.dll中的dcsync功能</p>
+<p>导出域内所有用户的hash：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-DCSync -DumpForest <span class="string">| ft -wrap -autosize</span></span><br></pre></td></tr></table></figure>
+
+<p>导出域内administrator帐户的hash：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-DCSync -DumpForest -Users @(<span class="string">"administrator"</span>) | ft -<span class="keyword">wrap</span> -<span class="keyword">a</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">lsadump:</span>:dcsync <span class="regexp">/domain:rd.adsecurity.org /</span><span class="string">user:</span>Administrator</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="DCSync防御"><a href="#DCSync防御" class="headerlink" title="DCSync防御"></a>DCSync防御</h4><p>DCSync 攻击的原理是模拟域控制器发起服务器之间的数据同步复制。</p>
+<p>最好的防御方法是给域控制器设置白名单。在域内，域控制器的数量、IP地址、MAC 地址是非常明确清晰的资产，将这些资产设置在允许同步的白名单内。非白名单的 IP 不允许发生数据同步</p>
+<p>获取域内所有IP的脚本:</p>
+<p>powershell</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PowerShell:<span class="built_in">Get-ADDomainController</span> <span class="literal">-filter</span> * | select IPv4Address</span><br><span class="line">或</span><br><span class="line">[<span class="type">System.DirectoryServices.ActiveDirectory.Domain</span>]::GetCurrentDomain().DomainControllers | select IPAddress</span><br></pre></td></tr></table></figure>
+
+<p>在网络设备上检测来自白名单以外的域控制器数据同步复制</p>
+<h3 id="DCShadow-攻击"><a href="#DCShadow-攻击" class="headerlink" title="DCShadow 攻击"></a>DCShadow 攻击</h3><p>2018年1月24日，Benjamin Delpy(神器 Mimikatz 的作者)和 Vincent Le Toux 在 BlueHat IL 会议期间公布了针对域活动目录的一种新型攻击技术 <code>DCShadow</code></p>
+<p>在<strong>具备域管理员权限条件</strong>下，攻击者可以<strong>创建伪造的域控制器</strong>，将预先设定的对象或对象属性复制到正在运行域服务器中。</p>
+<p>DCSync 从域服务器复制出东西，DCShadow 是将数据复制至域服务器。</p>
+<p>Luc Delsalle 对这种技术进行了验证和详细的描述，并就红蓝对抗中蓝队对抗此种攻击技术的缺陷和补救方法。</p>
+<p>从 DCShadow 目前展示的功能来看，主要只能用于红蓝对抗的隐蔽后门。但是 DCShadow 第一次澄清和实现了伪造一个 DC 的最小需求合集，这个贡献非常大。以 前很多攻击方法都卡在不能伪造域服务器，例如 MS15-011 和 MS15-014 等，有了 <code>DCShadow</code> 的基础，相信将来会有很多新的攻击方法。</p>
+<h4 id="DCShadow-攻击流程"><a href="#DCShadow-攻击流程" class="headerlink" title="DCShadow 攻击流程"></a>DCShadow 攻击流程</h4><p>根据 Luc Delsalle 的描述，DCShadow 的攻击过程包括 3 个主要个步骤:</p>
+<p>1、在目标域的 AD 活动目录注册一个伪造的 DC 中;</p>
+<p>2、使伪造的 DC 被其他的 DC 认可，能够参与域复制 ;</p>
+<p>3、强制触发域复制，将指定的新对象或修改后的对象属性同步复制到其他 DC 中;</p>
+<h4 id="注册伪造的DC"><a href="#注册伪造的DC" class="headerlink" title="注册伪造的DC"></a>注册伪造的DC</h4><p>一台机器要想注册成为域中的一台 DC 服务器，需要在域的活动目录中注册一个 <code>NTDS-DSA(nTDSDSA)</code>类对象。注册的位置为 <code>CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=adsec,DC=com</code></p>
+<p><img src="20200507100302.png-water_print" alt="img"></p>
+<p>adsec.com 域有 3 台域服务器，分别是 LABDC01、RESDC01 及 WIN2016-DC01，标红的正是我们实验环境的域服务器。我们测试的机器为 Win7X86cn04，测试成功的则会生成一个新的NTDS-DSA(nTDSDSA)类对象</p>
+<p><img src="20200507100638.png-water_print" alt="img"></p>
+<p>查看 <code>CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=adsec,DC=com</code>的安全描述符，可知必须有<code>域管理员权限</code>才具备<code>写</code>权限</p>
+<p>所以发动 DCShadow 攻击首先必须具备域管理员权限，但是我们可以通实验，做点手脚，就会好办一些，例如将完全权限赋予普通用户，则普通用户也可以修改</p>
+<p><img src="20200507100807.png-water_print" alt="img"></p>
+<p><img src="20200507100835.png-water_print" alt="img"></p>
+<p>DC Shadow 源码：</p>
+<p><img src="20200507100956.png-water_print" alt="img"></p>
+<h4 id="注册的DC被其他DC认可，能够参与域复制"><a href="#注册的DC被其他DC认可，能够参与域复制" class="headerlink" title="注册的DC被其他DC认可，能够参与域复制"></a>注册的DC被其他DC认可，能够参与域复制</h4><p>一个刚注册的 DC 要想被域中其他DC认可，能够参与域复制，需要满足 3 个条件:</p>
+<ul>
+<li>这台伪造 DC 具备认证凭证，能认证到域，即有域内账号，可以使用机器账号，实验环境中为 <code>WIN7X86CN04$</code>;</li>
+<li>伪造 DC 能认证其他 DC 来访问的账号，如果我们给 <code>WIN7X86CN04$</code> 添加 <code>SPN</code>，则可以实现这一点。关键是需要添加哪些SPN，DCShadow 的一个大贡献是找到 了 SPN 的最小合集，只需要 2 个即可:<code>DRS</code>服务(GUID 为 E3514235–4B06–11D1-AB04–00C04FC2DCD2) 和 <code>GS</code>(Global Catalog)服务</li>
+</ul>
+<p><img src="20200507101146.png-water_print" alt="img"></p>
+<ul>
+<li>运行DRS服务，最少需要实现 IDL_DRSBind、IDL_DRSUnbind、IDL_DRSGetNCChanges、IDL_DRSUpdateRefs 这 4 个 RPC 接口，以便其他 DC 能够通过 RPC 获取需要复制的数据。Mimikatz 工具的最新版已经集成了这 4 个接口</li>
+</ul>
+<h4 id="强制立即发起域复制"><a href="#强制立即发起域复制" class="headerlink" title="强制立即发起域复制"></a>强制立即发起域复制</h4><p>​    通常负责域复制和同步的进程是 KCC 进程，默认时间是 15 分钟校验一次，如果需要复制则发起;也可以使用 Windows 域服务器自带的系统工具 repadmin，该工具会调用 DRSReplicaAdd 函数接口强制立即发起域复制，DCShadow 正是通过调用 DRSReplicaAdd 函数强制立即发起域复制</p>
+<p><img src="20200507101534.png-water_print" alt="img"></p>
+<h4 id="攻击复现"><a href="#攻击复现" class="headerlink" title="攻击复现"></a>攻击复现</h4><p>查看 <code>CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=adsec,DC=com</code> 的安全描述符，可知必须有域管理员权限才具备写权限</p>
+<p>所以发动 <code>DCShadow</code> 攻击首先必须具备域管理员权限，但是我们可以通实验，做点手脚，就会好办一些，例如将完全权限赋予普通用户，则普通用户也可以修改</p>
+<p><img src="20200507101621.png-water_print" alt="img"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/" rel="next" title="kerberos域委派攻击学习">
+                <i class="fa fa-chevron-left"></i> kerberos域委派攻击学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/08/05/kerberosating-gong-ji-xue-xi/" rel="prev" title="kerberosating攻击学习">
+                kerberosating攻击学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header.jpg"
+                alt="Shu1L" />
+            
+              <p class="site-author-name" itemprop="name">Shu1L</p>
+              <p class="site-description motion-element" itemprop="description">欢迎来到Shu1L的神秘小屋！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="http://xun9er.com/" target="_blank" title="xun9er">
+                      
+                        <i class="fa fa-fw fa-globe"></i>xun9er</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://hack-for.fun/" target="_blank" title="M0nk3y">
+                      
+                        <i class="fa fa-fw fa-globe"></i>M0nk3y</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://106.15.121.121/" target="_blank" title="ttpfx">
+                      
+                        <i class="fa fa-fw fa-globe"></i>ttpfx</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/lyxf/" target="_blank" title="l0gan">
+                      
+                        <i class="fa fa-fw fa-globe"></i>l0gan</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.mythe.top/" target="_blank" title="mythe">
+                      
+                        <i class="fa fa-fw fa-globe"></i>mythe</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://cyzcc.vip/" target="_blank" title="cyzCc">
+                      
+                        <i class="fa fa-fw fa-globe"></i>cyzCc</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.d0g3.cn/" target="_blank" title="道格安全研究实验室">
+                      
+                        <i class="fa fa-fw fa-globe"></i>道格安全研究实验室</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DCSync与DCshadow攻击学习"><span class="nav-number">1.</span> <span class="nav-text">DCSync与DCshadow攻击学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.0.1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DCSync-攻击"><span class="nav-number">1.1.</span> <span class="nav-text">DCSync 攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DCSync攻击原理"><span class="nav-number">1.1.1.</span> <span class="nav-text">DCSync攻击原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#实现代码"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">实现代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DCSync攻击前提"><span class="nav-number">1.1.2.</span> <span class="nav-text">DCSync攻击前提</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DCSync攻击利用"><span class="nav-number">1.1.3.</span> <span class="nav-text">DCSync攻击利用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-使用mimikatz"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">1.使用mimikatz</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-powershell实现"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">2.powershell实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DCSync防御"><span class="nav-number">1.1.4.</span> <span class="nav-text">DCSync防御</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DCShadow-攻击"><span class="nav-number">1.2.</span> <span class="nav-text">DCShadow 攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DCShadow-攻击流程"><span class="nav-number">1.2.1.</span> <span class="nav-text">DCShadow 攻击流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注册伪造的DC"><span class="nav-number">1.2.2.</span> <span class="nav-text">注册伪造的DC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注册的DC被其他DC认可，能够参与域复制"><span class="nav-number">1.2.3.</span> <span class="nav-text">注册的DC被其他DC认可，能够参与域复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#强制立即发起域复制"><span class="nav-number">1.2.4.</span> <span class="nav-text">强制立即发起域复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#攻击复现"><span class="nav-number">1.2.5.</span> <span class="nav-text">攻击复现</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shu1L</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

