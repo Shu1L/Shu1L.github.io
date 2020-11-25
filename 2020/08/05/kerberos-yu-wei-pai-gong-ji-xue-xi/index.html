@@ -120,12 +120,12 @@
 
 
 
-<meta name="description" content="title: kerberos域委派攻击学习date: 2020-08-05 17:02:51tags: Kerberos委派攻击学习前言​    域委派是大型网络中经常部署的应用模式，给多跳认证带来很大的便利，同时也带来很大的安全隐患，利用 委派可获取域管理员权限，甚至制作深度隐藏的后门域委派是指将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。 域委派的基本过程​    委">
+<meta name="description" content="Kerberos委派攻击学习前言​    域委派是大型网络中经常部署的应用模式，给多跳认证带来很大的便利，同时也带来很大的安全隐患，利用 委派可获取域管理员权限，甚至制作深度隐藏的后门域委派是指将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。 域委派的基本过程​    委派（Delegation）是kerberos相对于NTLM认证独有的特性，指的是A可以让B“代理”自己去访">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kerberos域委派攻击学习">
 <meta property="og:url" content="https://shu1l.github.io/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/index.html">
 <meta property="og:site_name" content="Shu1L&#39;s blog">
-<meta property="og:description" content="title: kerberos域委派攻击学习date: 2020-08-05 17:02:51tags: Kerberos委派攻击学习前言​    域委派是大型网络中经常部署的应用模式，给多跳认证带来很大的便利，同时也带来很大的安全隐患，利用 委派可获取域管理员权限，甚至制作深度隐藏的后门域委派是指将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。 域委派的基本过程​    委">
+<meta property="og:description" content="Kerberos委派攻击学习前言​    域委派是大型网络中经常部署的应用模式，给多跳认证带来很大的便利，同时也带来很大的安全隐患，利用 委派可获取域管理员权限，甚至制作深度隐藏的后门域委派是指将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。 域委派的基本过程​    委派（Delegation）是kerberos相对于NTLM认证独有的特性，指的是A可以让B“代理”自己去访">
 <meta property="og:image" content="https://shu1l.github.io/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200505104626.png-water_print">
 <meta property="og:image" content="https://shu1l.github.io/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/WX20200414-123835@2x.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/WX20200414-123923@2x.png">
@@ -150,8 +150,8 @@
 <meta property="og:image" content="https://shu1l.github.io/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200505113609.png-water_print">
 <meta property="og:image" content="https://shu1l.github.io/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200505113722.png-water_print">
 <meta property="og:image" content="https://shu1l.github.io/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200505113740.png-water_print">
-<meta property="article:published_time" content="2020-08-05T09:02:51.275Z">
-<meta property="article:modified_time" content="2020-08-05T11:52:43.569Z">
+<meta property="article:published_time" content="2020-08-05T09:02:51.000Z">
+<meta property="article:modified_time" content="2020-11-25T09:14:23.903Z">
 <meta property="article:author" content="Shu1L">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://shu1l.github.io/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200505104626.png-water_print">
@@ -401,6 +401,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%86%85%E7%BD%91%E4%B8%8E%E5%9F%9F%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">内网与域渗透学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -433,8 +455,7 @@
       
 
       
-        <p>title: kerberos域委派攻击学习<br>date: 2020-08-05 17:02:51<br>tags:</p>
-<h2 id="Kerberos委派攻击学习"><a href="#Kerberos委派攻击学习" class="headerlink" title="Kerberos委派攻击学习"></a>Kerberos委派攻击学习</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>​    域委派是大型网络中经常部署的应用模式，给多跳认证带来很大的便利，同时也带来很大的安全隐患，利用 委派可获取域管理员权限，甚至制作深度隐藏的后门域委派是指将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。</p>
+        <h2 id="Kerberos委派攻击学习"><a href="#Kerberos委派攻击学习" class="headerlink" title="Kerberos委派攻击学习"></a>Kerberos委派攻击学习</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>​    域委派是大型网络中经常部署的应用模式，给多跳认证带来很大的便利，同时也带来很大的安全隐患，利用 委派可获取域管理员权限，甚至制作深度隐藏的后门域委派是指将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。</p>
 <h4 id="域委派的基本过程"><a href="#域委派的基本过程" class="headerlink" title="域委派的基本过程"></a>域委派的基本过程</h4><p>​    委派（Delegation）是kerberos相对于NTLM认证独有的特性，指的是A可以让B<strong>“代理”</strong>自己去访问C服务，说是代理，也可以理解为<strong>“假冒”</strong>。</p>
 <p>​    具体为：域中A使用Kerberos身份验证访问域中的服务B，而B再利用A的身份去请求域中的服务C，因为用的是A的身份，所以只有A有权限访问C的时候，委派才能成功。</p>
 <p><img src="20200505104626.png-water_print" alt="img"></p>
@@ -701,7 +722,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -712,7 +733,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -723,7 +744,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
