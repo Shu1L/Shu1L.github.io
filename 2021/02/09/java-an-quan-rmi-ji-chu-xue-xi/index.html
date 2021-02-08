@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="RMI," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Shu1L's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="java安全学习–RMI学习RMI定义 Java远程调用，实现远程调用的应用程序编程接口。 RMI对象是通过序列化方式进行编码传输的。 Java程序远程调用另一台服务器的java对象。 RMI依赖的通信协议 JRMP。  RMI实现流程 1.创建接口在创建对象类之前，我们首先需要创建一个空接口，接口需要继承java.rmi.Remote。  12345import java.rmi.RemoteE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java安全--RMI基础学习">
+<meta property="og:url" content="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/index.html">
+<meta property="og:site_name" content="Shu1L&#39;s blog">
+<meta property="og:description" content="java安全学习–RMI学习RMI定义 Java远程调用，实现远程调用的应用程序编程接口。 RMI对象是通过序列化方式进行编码传输的。 Java程序远程调用另一台服务器的java对象。 RMI依赖的通信协议 JRMP。  RMI实现流程 1.创建接口在创建对象类之前，我们首先需要创建一个空接口，接口需要继承java.rmi.Remote。  12345import java.rmi.RemoteE">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/4f14ac03-3aa6-4f9b-9eff-acf8551e5efb.png-w331s">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204205736.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204205829.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204205801.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204205817.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204152056.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204144136.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204200612.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204210147.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/007S8ZIlly1gfz5kokqvgj30fe0if407.jpg">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/20200701101308-6810e0aa-bb40-1.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204220949.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204221009.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210209010010.png">
+<meta property="og:image" content="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204221040.png">
+<meta property="article:published_time" content="2021-02-08T17:12:01.000Z">
+<meta property="article:modified_time" content="2021-02-08T17:30:02.785Z">
+<meta property="article:author" content="Shu1L">
+<meta property="article:tag" content="RMI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/4f14ac03-3aa6-4f9b-9eff-acf8551e5efb.png-w331s">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/"/>
+
+
+
+
+
+  <title>Java安全--RMI基础学习 | Shu1L's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shu1L's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只菜鸟白帽子</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shu1L's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java安全--RMI基础学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-09T01:12:01+08:00">
+                2021-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%AE%89%E5%85%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">java安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="java安全学习–RMI学习"><a href="#java安全学习–RMI学习" class="headerlink" title="java安全学习–RMI学习"></a>java安全学习–RMI学习</h2><h3 id="RMI定义"><a href="#RMI定义" class="headerlink" title="RMI定义"></a>RMI定义</h3><ul>
+<li>Java远程调用，<strong>实现远程调用的应用程序编程接口</strong>。</li>
+<li>RMI对象是通过<strong>序列化方式</strong>进行编码传输的。</li>
+<li>Java程序远程调用另一台服务器的java对象。</li>
+<li>RMI依赖的通信协议 JRMP。</li>
+</ul>
+<h3 id="RMI实现流程"><a href="#RMI实现流程" class="headerlink" title="RMI实现流程"></a>RMI实现流程</h3><p><img src="4f14ac03-3aa6-4f9b-9eff-acf8551e5efb.png-w331s" alt="img"></p>
+<h4 id="1-创建接口"><a href="#1-创建接口" class="headerlink" title="1.创建接口"></a>1.创建接口</h4><p>在创建对象类之前，我们首先需要创建一个空接口，接口需要继承<code>java.rmi.Remote</code>。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210204205736.png" alt=""></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import java.rmi.RemoteException;</span><br><span class="line"></span><br><span class="line">public<span class="built_in"> interface </span>Services extends java.rmi.Remote &#123;</span><br><span class="line">    Object sendMessage(Message msg) throws RemoteException;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-实现接口"><a href="#2-实现接口" class="headerlink" title="2.实现接口"></a>2.实现接口</h4><p>接着我们实现这个接口，创建服务端对象类，实现的类必须继承UnicastRmeoteObject。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210204205829.png" alt=""></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.rmi.<span class="type">RemoteException</span>;</span><br><span class="line"><span class="keyword">import</span> java.rmi.server.<span class="type">UnicastRemoteObject</span>;</span><br><span class="line"></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">ServicesImpl</span> <span class="keyword">extends</span> <span class="title">UnicastRemoteObject</span> <span class="title">implements</span> <span class="title">Services</span> </span>&#123;</span><br><span class="line">    public <span class="type">ServicesImpl</span>() <span class="keyword">throws</span> <span class="type">RemoteException</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="type">Object</span> sendMessage(<span class="type">Message</span> msg) <span class="keyword">throws</span> <span class="type">RemoteException</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> msg.getMessage();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-创建服务端-amp-amp-注册中心"><a href="#3-创建服务端-amp-amp-注册中心" class="headerlink" title="3.创建服务端&amp;&amp;注册中心"></a>3.创建服务端&amp;&amp;注册中心</h4><p>创建一个RMI服务端，服务端和客户端需要有共同的接口。然后创建注册中心，启动 <code>RMI</code> 的注册服务。<strong>server端将实例化的服务端远程对象绑定到registry</strong></p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">import</span> java.rmi.AlreadyBoundException;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> java.rmi.RemoteException;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> java.rmi.registry.LocateRegistry;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> java.rmi.registry.Registry;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RMIServer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 实例化服务端远程对象</span></span><br><span class="line">            ServicesImpl obj = <span class="keyword">new</span> ServicesImpl();</span><br><span class="line">            Registry registry = <span class="literal">null</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 创建Registry</span></span><br><span class="line">                registry = LocateRegistry.createRegistry(<span class="number">9999</span>);</span><br><span class="line">                System.out.println(<span class="string">"java RMI registry created. port on 9999..."</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                System.out.println(<span class="string">"Using existing registry"</span>);</span><br><span class="line">                registry = LocateRegistry.getRegistry();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//绑定远程对象到Registry</span></span><br><span class="line">            registry.bind(<span class="string">"Services"</span>, obj);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (AlreadyBoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210204205801.png" alt=""></p>
+<p><strong>注意:</strong>低版本的JDK中，server服务端和register注册中心可以不在一台服务器上，高版本则只能在一台服务器上。</p>
+<h4 id="4-创建客户端"><a href="#4-创建客户端" class="headerlink" title="4.创建客户端"></a>4.创建客户端</h4><p>客户端与server和registry交互。</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package me.mole.javarmi;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.LocateRegistry;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.Registry;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RMIClient</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">String</span>[] args)</span> throws Exception </span>&#123;</span><br><span class="line">        Registry registry = LocateRegistry.getRegistry(<span class="string">"127.0.0.1"</span>, <span class="number">9999</span>);</span><br><span class="line">        <span class="comment">// 获取远程对象的引用</span></span><br><span class="line">        Services services = (Services) registry.lookup(<span class="string">"Services"</span>);</span><br><span class="line">        VulObject malicious = <span class="keyword">new</span> VulObject();</span><br><span class="line">        malicious.setParam(<span class="string">"calc.exe"</span>);</span><br><span class="line">        malicious.setMessage(<span class="string">"hacked by m01e"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用远程对象的引用调用对应的方法</span></span><br><span class="line">        System.out.<span class="built_in">println</span>(services.sendMessage(malicious));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210204205817.png" alt=""></p>
+<p>我们在客户端这里创建一个恶意的命令执行的类VulObject。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VulObject</span> <span class="keyword">extends</span> <span class="title">Message</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">7398165783113471324L</span>;</span><br><span class="line">    <span class="keyword">private</span> String param;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setParam</span><span class="params">(String param)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.param = param;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(ObjectInputStream in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        in.defaultReadObject();</span><br><span class="line">        Runtime.getRuntime().exec(<span class="keyword">this</span>.param);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="本地获取注册中心-反序列化点"><a href="#本地获取注册中心-反序列化点" class="headerlink" title="本地获取注册中心(反序列化点)"></a>本地获取注册中心(反序列化点)</h4><p>获取注册中心的两种方式。</p>
+<ul>
+<li>创建时获取:LocateRegistry#createRegistry</li>
+<li>远程获取:LocateRegistry#getRegistry</li>
+</ul>
+<p>无论是客户端还是服务端，最终其调用注册中心的方法都是通过对创建的RegistryImpl对象进行调用。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210204152056.png" alt=""></p>
+<p>我们这里分析下调用 <code>LocateRegistry</code> 类的 <code>getRegistry</code> 方法。</p>
+<p>调用通过<code>getRegistry</code> 方法得到的<code>RegistryImpl_Stub</code> 的 <code>bind</code> 方法。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210204144136.png" alt=""></p>
+<p>这里首先通过<strong>newCall</strong>方法调用 TCPChannel 类的 createConnection 方法创建 socket 连接和注册服务通信。</p>
+<p>然后通过<strong>writeObject</strong>方法先后写入bind方法序列化的参数值。</p>
+<p>然后通过调用serviceCall 方法，获取到dispatcher，最后调用registry.RegistryImpl_Skel类的dispatch方法。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210204200612.png" alt=""></p>
+<p>var3是传递过来的int类型的参数，在这里有如下关系的对应：</p>
+<ul>
+<li>0-&gt;bind</li>
+<li>1-&gt;list</li>
+<li>2-&gt;lookup</li>
+<li>3-&gt;rebind</li>
+<li>4-&gt;unbind</li>
+</ul>
+<p>​     根据参数来决定服务端与客户端调用的方法。这个过程中基于序列化和反序列化来进行通讯的。那么我们就可以寻找反序列化的点来进行攻击。</p>
+<h4 id="调用rmi执行反序列化攻击"><a href="#调用rmi执行反序列化攻击" class="headerlink" title="调用rmi执行反序列化攻击"></a>调用rmi执行反序列化攻击</h4><p>首先启动注册服务，然后执行服务端，最后执行客户端。可以发现客户端能够成功调用服务端上的方法，实现远程方法调用。</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210204210147.png" alt=""></p>
+<h4 id="总结流程"><a href="#总结流程" class="headerlink" title="总结流程"></a>总结流程</h4><ul>
+<li>服务端Clockmpl()继承Clock()创建对象。</li>
+<li>服务端CLock()注册远程对象</li>
+<li>客户端访问服务器b并查找相应远程对象。</li>
+<li>服务端将stub(存根返回)客户端</li>
+<li>客户端调用stub(存根)的方法</li>
+<li>stub(存根)作为代理与服务端骨架通信//骨架作为服务端代理。</li>
+<li>骨架代理调用Clockmpl相应方法。</li>
+<li>骨架将结果返回给客户端的存根</li>
+<li>存根返回给客户端。</li>
+</ul>
+<h5 id="P牛对注册中心的解释"><a href="#P牛对注册中心的解释" class="headerlink" title="P牛对注册中心的解释"></a>P牛对注册中心的解释</h5><p>​    RMI Registry就像⼀个⽹关，他⾃⼰是不会执⾏远程⽅法的，但RMI Server可以在上⾯注册⼀个Name 到对象的绑定关系；RMI Client通过Name向RMI Registry查询，得到这个绑定关系，然后再连接RMI Server；最后，远程⽅法实际上在RMI Server上调用。</p>
+<h4 id="插一张先知的流程图"><a href="#插一张先知的流程图" class="headerlink" title="插一张先知的流程图"></a>插一张先知的流程图</h4><p><img src="007S8ZIlly1gfz5kokqvgj30fe0if407.jpg" alt="img"></p>
+<h3 id="RMI攻击手法"><a href="#RMI攻击手法" class="headerlink" title="RMI攻击手法"></a>RMI攻击手法</h3><p>先知社区上的一些总结，上图:</p>
+<p><img src="20200701101308-6810e0aa-bb40-1.png" alt="img"></p>
+<p><strong>大致可以分为以下四类:</strong></p>
+<ul>
+<li><p>探测利用开放的RMI服务。</p>
+</li>
+<li><p>基于RMI服务反序列化过程的攻击。</p>
+</li>
+<li><p>利用RMI的动态加载特性的攻击利用。</p>
+</li>
+<li><p>结合JNDI注入。</p>
+</li>
+</ul>
+<p>我们主要学习RMI结合反序列化攻击的相关内容。</p>
+<h4 id="基于RMI服务反序列化过程的攻击"><a href="#基于RMI服务反序列化过程的攻击" class="headerlink" title="基于RMI服务反序列化过程的攻击"></a>基于RMI服务反序列化过程的攻击</h4><p>RMI反序列化漏洞的存在必须包含两个条件：</p>
+<ol>
+<li>能够进行RMI通信</li>
+<li>目标服务器引用了第三方存在反序列化漏洞的jar包</li>
+</ol>
+<p>注：复现的时候需要JDK8 121以下版本，121及以后加了白名单限制。</p>
+<h4 id="利用RMI的动态加载特性的攻击利用"><a href="#利用RMI的动态加载特性的攻击利用" class="headerlink" title="利用RMI的动态加载特性的攻击利用"></a>利用RMI的动态加载特性的攻击利用</h4><h5 id="codebase"><a href="#codebase" class="headerlink" title="codebase"></a>codebase</h5><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;applet code=<span class="string">"HelloWorld.class"</span> codebase=<span class="string">"Applets"</span> <span class="built_in">width</span>=<span class="string">"800"</span> <span class="built_in">height</span>=<span class="string">"600"</span>&gt;</span><br><span class="line">&lt;/applet&gt;</span><br></pre></td></tr></table></figure>
+
+<p>​     codebase是一个地址，告诉Java虚拟机我们应该从哪个地方去搜索类；CLASSPATH是本地路径，而codebase通常是远程URL，比如http、ftp等。所以动态加载的class文件可以保存在web服务器、ftp中。</p>
+<p>​     如果我们指定 codebase=<a href="http://example.com/" target="_blank" rel="noopener">http://example.com/</a> ，动态加载 org.vulhub.example.Example 类，<br>则Java虚拟机会下载这个文件<a href="http://example.com/org/vulhub/example/Example.class，并作为" target="_blank" rel="noopener">http://example.com/org/vulhub/example/Example.class，并作为</a> Example类的字节码。</p>
+<p>​     在RMI中，我们可以通过codebase随着序列化数据一起传输的，服务器在接收到这个数据后就会去 CLASSPATH和指定的codebase寻找类，由于codebase被控制导致任意命令执行漏洞。</p>
+<p><strong>但是相对而言这种限制条件很严：</strong></p>
+<ul>
+<li>安装并配置了SecurityManager</li>
+<li>Java版本低于7u21、6u45，或者设置了 java.rmi.server.useCodebaseOnly=false</li>
+</ul>
+<p>这里使用这位师傅打包好的代码学习:<a href="https://github.com/fa1c0n1/rmi-attack-demo" target="_blank" rel="noopener">https://github.com/fa1c0n1/rmi-attack-demo</a></p>
+<h5 id="客户端动态加载"><a href="#客户端动态加载" class="headerlink" title="客户端动态加载"></a>客户端动态加载</h5><ul>
+<li>创建HTTP服务器，作为动态加载代码的远程仓库。</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m http.server <span class="number">8000</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>服务端创建远程对象，<code>RMI Registry</code>启动并完成名称绑定，并设置<code>java.rmi.server.codebase</code>。</li>
+</ul>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210204220949.png" alt=""></p>
+<ul>
+<li>客户端对<code>RMI Registry</code>发起请求，根据提供的<code>Name</code>得到<code>Stub</code>，并根据服务器返回的<code>java.rmi.server.codebase</code>远程加载动态所需的类。</li>
+</ul>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210204221009.png" alt=""></p>
+<h5 id="服务端动态加载"><a href="#服务端动态加载" class="headerlink" title="服务端动态加载"></a>服务端动态加载</h5><p>恶意的客户端代码：</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210209010010.png" alt=""></p>
+<p>受害服务端代码：</p>
+<p><img src="QQ%E6%88%AA%E5%9B%BE20210204221040.png" alt=""></p>
+<h4 id="结合JNDI注入"><a href="#结合JNDI注入" class="headerlink" title="结合JNDI注入"></a>结合JNDI注入</h4><p>放到后面再细说。。(学晕了)</p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://payloads.info/2020/06/21/Java%E5%AE%89%E5%85%A8-RMI-%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/#%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90" target="_blank" rel="noopener">https://payloads.info/2020/06/21/Java%E5%AE%89%E5%85%A8-RMI-%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/#%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90</a></p>
+<p><a href="https://xz.aliyun.com/t/8644" target="_blank" rel="noopener">https://xz.aliyun.com/t/8644</a></p>
+<p><a href="https://xz.aliyun.com/t/8706" target="_blank" rel="noopener">https://xz.aliyun.com/t/8706</a></p>
+<p><a href="https://paper.seebug.org/1091/" target="_blank" rel="noopener">https://paper.seebug.org/1091/</a></p>
+<p><a href="https://www.bookstack.cn/read/anbai-inc-javaweb-sec/javase-RMI-README.md#6mltu7" target="_blank" rel="noopener">https://www.bookstack.cn/read/anbai-inc-javaweb-sec/javase-RMI-README.md#6mltu7</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/RMI/" rel="tag"># RMI</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/01/27/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/" rel="next" title="java代码审计之常见漏洞学习">
+                <i class="fa fa-chevron-left"></i> java代码审计之常见漏洞学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/" rel="prev" title="WebLogic XMLDecoder反序列化漏洞学习">
+                WebLogic XMLDecoder反序列化漏洞学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header.jpg"
+                alt="Shu1L" />
+            
+              <p class="site-author-name" itemprop="name">Shu1L</p>
+              <p class="site-description motion-element" itemprop="description">欢迎来到Shu1L的神秘小屋！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="http://xun9er.com/" target="_blank" title="xun9er">
+                      
+                        <i class="fa fa-fw fa-globe"></i>xun9er</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://hack-for.fun/" target="_blank" title="M0nk3y">
+                      
+                        <i class="fa fa-fw fa-globe"></i>M0nk3y</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://106.15.121.121/" target="_blank" title="ttpfx">
+                      
+                        <i class="fa fa-fw fa-globe"></i>ttpfx</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/lyxf/" target="_blank" title="l0gan">
+                      
+                        <i class="fa fa-fw fa-globe"></i>l0gan</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.mythe.top/" target="_blank" title="mythe">
+                      
+                        <i class="fa fa-fw fa-globe"></i>mythe</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://cyzcc.vip/" target="_blank" title="cyzCc">
+                      
+                        <i class="fa fa-fw fa-globe"></i>cyzCc</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.d0g3.cn/" target="_blank" title="道格安全研究实验室">
+                      
+                        <i class="fa fa-fw fa-globe"></i>道格安全研究实验室</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#java安全学习–RMI学习"><span class="nav-number">1.</span> <span class="nav-text">java安全学习–RMI学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RMI定义"><span class="nav-number">1.1.</span> <span class="nav-text">RMI定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RMI实现流程"><span class="nav-number">1.2.</span> <span class="nav-text">RMI实现流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建接口"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.创建接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-实现接口"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.实现接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-创建服务端-amp-amp-注册中心"><span class="nav-number">1.2.3.</span> <span class="nav-text">3.创建服务端&amp;&amp;注册中心</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-创建客户端"><span class="nav-number">1.2.4.</span> <span class="nav-text">4.创建客户端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地获取注册中心-反序列化点"><span class="nav-number">1.2.5.</span> <span class="nav-text">本地获取注册中心(反序列化点)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调用rmi执行反序列化攻击"><span class="nav-number">1.2.6.</span> <span class="nav-text">调用rmi执行反序列化攻击</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结流程"><span class="nav-number">1.2.7.</span> <span class="nav-text">总结流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#P牛对注册中心的解释"><span class="nav-number">1.2.7.1.</span> <span class="nav-text">P牛对注册中心的解释</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插一张先知的流程图"><span class="nav-number">1.2.8.</span> <span class="nav-text">插一张先知的流程图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RMI攻击手法"><span class="nav-number">1.3.</span> <span class="nav-text">RMI攻击手法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基于RMI服务反序列化过程的攻击"><span class="nav-number">1.3.1.</span> <span class="nav-text">基于RMI服务反序列化过程的攻击</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用RMI的动态加载特性的攻击利用"><span class="nav-number">1.3.2.</span> <span class="nav-text">利用RMI的动态加载特性的攻击利用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#codebase"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">codebase</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端动态加载"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">客户端动态加载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#服务端动态加载"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">服务端动态加载</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结合JNDI注入"><span class="nav-number">1.3.3.</span> <span class="nav-text">结合JNDI注入</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-number">1.4.</span> <span class="nav-text">参考文章</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shu1L</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
