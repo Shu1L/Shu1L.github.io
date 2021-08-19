@@ -451,12 +451,12 @@
 <p>​                 <code>python GitHack.py  http://网站地址/.git/</code></p>
 <p><strong>示例：</strong>来源(i春秋web Hello world);</p>
 <p>进入题目，查看源码，只发现一个js文件</p>
-<img src="QQ截图20200119121609.png" style="zoom:100%;" />
+<img src="/2020/04/19/min-gan-xin-xi-xie-lu-chang-jian-lei-xing/QQ截图20200119121609.png" style="zoom:100%;">
 
 <p>我们尝试使用Githack来判断网站是否有.git泄露。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200119121109.png" alt=""></p>
+<p><img src="/2020/04/19/min-gan-xin-xi-xie-lu-chang-jian-lei-xing/QQ%E6%88%AA%E5%9B%BE20200119121109.png" alt></p>
 <p>可见该网站下存在.git泄露，并且在工具文件夹下得到了泄露的文件内容。</p>
-<img src="QQ截图20200119121116.png" style="zoom:100%;" />
+<img src="/2020/04/19/min-gan-xin-xi-xie-lu-chang-jian-lei-xing/QQ截图20200119121116.png" style="zoom:100%;">
 
 <h4 id="2、-hg源码泄露漏洞"><a href="#2、-hg源码泄露漏洞" class="headerlink" title="2、.hg源码泄露漏洞"></a>2、.hg源码泄露漏洞</h4><p><strong>漏洞描述：</strong><a href="https://www.mercurial-scm.org/" target="_blank" rel="noopener">Mercurial</a>的意思是水银, 所以缩写成hg(汞), 也是一个版本管理软件. 用法和git有点类似, 但也保留了svn命令简明的特点, 而且原生地支持Windows/MacOS/Linux三大平台, 不像git需要MinGW才得以运行, 所以当今也有不少人偏向于用hg做版本控制.</p>
 <p><strong>检测方式：</strong>工具dvcs-ripper,使用方法：<code>rip-hg.pl -v -u http://域名/.hg/</code></p>
@@ -466,9 +466,9 @@
 <p><strong>检测方式：</strong>1.我们可以直接使用御剑进行后台扫描，或者直接用爬虫进行爬取，从而找到robots.txt文件。</p>
 <p>​                   2.直接在网站URL输入/robots.txt进行查看。</p>
 <p><strong>修复方案：</strong>为了不让robots.txt中的内容不泄露网站的后台和隐私，我们可以使用星号（*）作为通配符进行设置。例如限制访问我们的后台admin目录，则规则为：</p>
-<p>​       <img src="QQ截图20200119110404.png" style="zoom: 100%;" /></p>
+<p>​       <img src="/2020/04/19/min-gan-xin-xi-xie-lu-chang-jian-lei-xing/QQ截图20200119110404.png" style="zoom: 100%;"></p>
 <p>​             当我们又不想泄露我们的敏感目录时，我们可以使用星号(*)作为通配符即可。</p>
-<img src="QQ截图20200119110727.png" style="zoom:100%;" />
+<img src="/2020/04/19/min-gan-xin-xi-xie-lu-chang-jian-lei-xing/QQ截图20200119110727.png" style="zoom:100%;">
 
 <p>​                 </p>
 <h4 id="5、备份文件泄露漏洞"><a href="#5、备份文件泄露漏洞" class="headerlink" title="5、备份文件泄露漏洞"></a>5、备份文件泄露漏洞</h4><p><strong>漏洞描述：</strong>备份文件泄露又分为两种情况, 一种是运维人员偷懒地直接在网站根目录用类似<code>tar -czvf    bakup.tgz</code>的命令将网站进行备份,<br> 这样整站的源代码都能直接被用户打包下载了； 另一种是开发或者运维人员使用的编辑器修改文件时自动备份了所编辑的网页内容,<br> 如vim的<code>.swp</code>, 从而泄露了该网页的源代码。<br><strong>检测方式：</strong>常见的备份文件后缀名：直接在URL中进行检测。</p>
@@ -477,7 +477,7 @@
 <p>​                   或者使用工具比如AWVS进行扫描。</p>
 <p><strong>修复方案：</strong>做好版本管理, 并利用版本管理工具过滤掉这些类型的文件, 同时不要直接在生产环境中修改或者添加文件</p>
 <h4 id="6、phpinfo-）信息泄露漏洞"><a href="#6、phpinfo-）信息泄露漏洞" class="headerlink" title="6、phpinfo(）信息泄露漏洞"></a>6、phpinfo(）信息泄露漏洞</h4><p><strong>漏洞描述</strong>：Web站点的某些测试页面可能会使用到PHP的phpinfo()函数，会输出服务器的关键信息。</p>
-<img src="sec_hole_13.png" style="zoom:100%;" />
+<img src="/2020/04/19/min-gan-xin-xi-xie-lu-chang-jian-lei-xing/sec_hole_13.png" style="zoom:100%;">
 
 <p><strong>检测方式 ：</strong>访问<a href="http://ip/phpinfo.php看是否成功。" target="_blank" rel="noopener">http://ip/phpinfo.php看是否成功。</a></p>
 <p><strong>修复方案 ：</strong>删除该PHP文件。</p>
@@ -614,7 +614,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

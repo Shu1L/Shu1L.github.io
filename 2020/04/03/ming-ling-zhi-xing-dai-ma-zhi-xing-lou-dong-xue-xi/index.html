@@ -461,7 +461,7 @@
 <h5 id="命令执行与代码执行的区别："><a href="#命令执行与代码执行的区别：" class="headerlink" title="命令执行与代码执行的区别："></a>命令执行与代码执行的区别：</h5><p>代码执行是通过调用<strong>服务器网站代码</strong>进行执行，而命令注入则是调用<strong>操作系统命令</strong>进行执行。</p>
 <h5 id="常见的命令执行函数："><a href="#常见的命令执行函数：" class="headerlink" title="常见的命令执行函数："></a>常见的命令执行函数：</h5><ul>
 <li><p><strong>system()</strong></p>
-<img src="QQ截图20200121111755.png" style="zoom: 67%;" /> 
+<img src="/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ截图20200121111755.png" style="zoom: 67%;"> 
 
 
 
@@ -469,7 +469,7 @@
 </ul>
 <ul>
 <li><p><strong>passthru()</strong></p>
-<img src="QQ截图20200121111928.png" style="zoom: 67%;" />
+<img src="/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ截图20200121111928.png" style="zoom: 67%;">
 
 
 
@@ -478,21 +478,21 @@
 <ul>
 <li><strong>exec()</strong></li>
 </ul>
-  <img src="QQ截图20200121112035.png" style="zoom:67%;" />
+  <img src="/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ截图20200121112035.png" style="zoom:67%;">
 
 
 
 <ul>
 <li><strong>shell_exec()</strong></li>
 </ul>
-  <img src="QQ截图20200121112153.png" style="zoom:67%;" />
+  <img src="/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ截图20200121112153.png" style="zoom:67%;">
 
 
 
 <ul>
 <li><strong>`反引号</strong></li>
 </ul>
-  <img src="QQ截图20200121112345.png" style="zoom:67%;" />
+  <img src="/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ截图20200121112345.png" style="zoom:67%;">
 
 
 
@@ -511,11 +511,11 @@
 <figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;    &lt;&gt;   %20(space)   %09(tab)  $IFS$9  $&#123;IFS&#125;  $IFS等</span><br></pre></td></tr></table></figure>
 
 <p>  测试：</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200121121710.png" alt=""></p>
+<p><img src="/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200121121710.png" alt></p>
 <p>2.<strong>命令分隔符</strong></p>
 <figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">linux:%0a、%0d、;、&amp;、|、&amp;&amp;、||、</span><br><span class="line"><span class="keyword">window</span>: %0a、&amp;、|、%1a、</span><br></pre></td></tr></table></figure>
 
-<img src="QQ截图20200121121840.png" style="zoom:67%;" />
+<img src="/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ截图20200121121840.png" style="zoom:67%;">
 
 <p><strong>%0a符号：</strong>换行符                 <strong>%0d符号：</strong>回车符             <strong><code>;</code>符号：</strong>起连续指令的功能        </p>
 <p><strong>&amp;  &amp;&amp; ||的区别</strong></p>
@@ -525,10 +525,10 @@
 <p>3.<strong>敏感字符绕过</strong></p>
 <ul>
 <li><p>利用变量绕过</p>
-<img src="QQ截图20200121122131.png" style="zoom:67%;" />
+<img src="/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ截图20200121122131.png" style="zoom:67%;">
 </li>
 <li><p>利用base64编码绕过</p>
-<img src="QQ截图20200121122557.png" style="zoom:67%;" />
+<img src="/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ截图20200121122557.png" style="zoom:67%;">
 
 
 
@@ -569,16 +569,16 @@
 <p>callback函数：preg_replace + /e模式</p>
 <p>反序列化：unserialize()反序列化</p>
 <h5 id="示例一：php-eval代码执行"><a href="#示例一：php-eval代码执行" class="headerlink" title="示例一：php eval代码执行"></a>示例一：php eval代码执行</h5><p>本地新建test.php</p>
-<img src="QQ截图20200124110825.png" style="zoom:67%;" />
+<img src="/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ截图20200124110825.png" style="zoom:67%;">
 
 <p>我们本地网址执行phpinfo()</p>
-<img src="QQ截图20200124111032.png" style="zoom:67%;" />
+<img src="/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ截图20200124111032.png" style="zoom:67%;">
 
 
 
-<h5 id="示例二：-eval闭合代码执行"><a href="#示例二：-eval闭合代码执行" class="headerlink" title="示例二：  eval闭合代码执行"></a>示例二：  eval闭合代码执行</h5><img src="QQ截图20200124111354.png" style="zoom: 80%;" />
+<h5 id="示例二：-eval闭合代码执行"><a href="#示例二：-eval闭合代码执行" class="headerlink" title="示例二：  eval闭合代码执行"></a>示例二：  eval闭合代码执行</h5><img src="/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ截图20200124111354.png" style="zoom: 80%;">
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200124111639.png" alt=""></p>
+<p><img src="/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200124111639.png" alt></p>
 <h4 id="安全防御"><a href="#安全防御" class="headerlink" title="安全防御"></a>安全防御</h4><ol>
 <li>尝试对所有输入提交可能执行命令的构造语句进行严格的检查或者控制外部输入，系统命令执行函数禁止外部传参</li>
 <li>验证数据类型、格式、长度、范围和内容</li>
@@ -714,7 +714,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

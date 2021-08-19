@@ -446,39 +446,39 @@
 <p>然后我们首先考虑获得靶机的IP地址。使用arp去发现内网存活主机，从而确定靶机IP为192.168.153.137。</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netdiscover -i eth0 -r <span class="number">192.168</span><span class="number">.153</span><span class="number">.0</span>/<span class="number">24</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200209200455.png" alt=""></p>
+<p><img src="/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209200455.png" alt></p>
 <h4 id="第二步、信息收集"><a href="#第二步、信息收集" class="headerlink" title="第二步、信息收集"></a>第二步、信息收集</h4><p>我们使用神器nmap对靶机IP进行探测。</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -A -p <span class="number">1</span><span class="number">-65535</span> <span class="number">192.168</span><span class="number">.153</span><span class="number">.137</span> -T4</span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200209200850.png" alt=""></p>
+<p><img src="/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209200850.png" alt></p>
 <p>我们发现靶机开放了22端口和80端口。</p>
 <p>我们直接访问IP发现被重定向到了<a href="http://wordy。" target="_blank" rel="noopener">http://wordy。</a></p>
 <p>我们编辑 /etc/hosts中的文件添加该域名</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200211113951.png" alt=""></p>
+<p><img src="/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200211113951.png" alt></p>
 <p>我们再次尝试访问192.168.153.137发现成功跳转，</p>
 <p>我们利用火狐自带插件进行指纹识别</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200209201216.png" alt=""></p>
+<p><img src="/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209201216.png" alt></p>
 <p>我们可以确定该cms为WordPress，且数据库为MYSQL</p>
 <h4 id="第三步、漏洞扫描"><a href="#第三步、漏洞扫描" class="headerlink" title="第三步、漏洞扫描"></a>第三步、漏洞扫描</h4><p>使用wordpress漏洞测试工具wpscan进行网站漏洞探测，wpscan是一款针对wordpress的黑盒漏洞扫描器，可以获得包括版本、主体、插件等信息。</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wpscan --url <span class="string">http:</span><span class="comment">//Wordy -u t</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200209201612.png" alt=""></p>
+<p><img src="/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209201612.png" alt></p>
 <p>通过扫描我们得到几个系统的用户名信息。我们接下来思考能否获得任一账号的密码。</p>
 <h4 id="第四步、漏洞利用"><a href="#第四步、漏洞利用" class="headerlink" title="第四步、漏洞利用"></a>第四步、漏洞利用</h4><p>我们首先根据作者的提示，使用到kali里面的rockyou.txt字典</p>
 <p>使用解压命令：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">gzip</span> <span class="selector-tag">-d</span> <span class="selector-tag">rockyou</span><span class="selector-class">.txt</span><span class="selector-class">.gz</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200209202612.png" alt=""></p>
+<p><img src="/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209202612.png" alt></p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cat</span> rockyou.txt | <span class="keyword">grep</span> k01&gt;k01.txt</span><br></pre></td></tr></table></figure>
 
 <p>将里面的k01的部分导出到dc6目录下面的passwords.txt</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200209202622.png" alt=""></p>
+<p><img src="/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209202622.png" alt></p>
 <p>接着使用wpscan的暴力破解命令：</p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wpscan <span class="comment">--url wordy -u -p passwords.txt</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200209203905.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200209204033.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200209204455.png" alt=""></p>
+<p><img src="/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209203905.png" alt></p>
+<p><img src="/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209204033.png" alt></p>
+<p><img src="/2020/03/31/dc-6-ba-ji/QQ%E6%88%AA%E5%9B%BE20200209204455.png" alt></p>
 
       
     </div>
@@ -602,7 +602,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

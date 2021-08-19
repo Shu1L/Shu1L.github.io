@@ -454,65 +454,65 @@
       
         <h2 id="DC-2靶机测试"><a href="#DC-2靶机测试" class="headerlink" title="DC-2靶机测试"></a>DC-2靶机测试</h2><p>[TOC]</p>
 <h4 id="第一步、下载DC-2靶机并进行主机发现"><a href="#第一步、下载DC-2靶机并进行主机发现" class="headerlink" title="第一步、下载DC-2靶机并进行主机发现"></a>第一步、下载DC-2靶机并进行主机发现</h4><p>我们下载安装DC-2靶机。设置.nat连接模式。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200205133827.png" alt=""></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200205133827.png" alt></p>
 <p>我们使用netdiscover进行主机发现。</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netdiscover -i eth0 -r <span class="number">192.168</span><span class="number">.153</span><span class="number">.0</span>/<span class="number">24</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200205102253.png" alt=""></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200205102253.png" alt></p>
 <p>确定了靶机IP为192.168.153.136</p>
 <h4 id="第二步、信息收集"><a href="#第二步、信息收集" class="headerlink" title="第二步、信息收集"></a>第二步、信息收集</h4><p>我们使用nmap 进行信息收集</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -A -p <span class="number">1</span><span class="number">-65535</span> <span class="number">192.168</span><span class="number">.153</span><span class="number">.136</span> -T4</span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200205111215.png" alt=""></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200205111215.png" alt></p>
 <p>我们发现靶机上开放着80端口，并且部署了apache服务器，7744开启了SSH服务。提示是一个wordpress站点</p>
 <p>我们需要首先在host文件下添加<a href="http://dc-2/域名，然后使用浏览器去访问该域名。" target="_blank" rel="noopener">http://dc-2/域名，然后使用浏览器去访问该域名。</a></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200205111308.png" alt=""></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200205111308.png" alt></p>
 <p>我们使用Wappalyzer进行指纹识别。确定了是一个WordPress的站点。</p>
 <h4 id="第三步、使用Wpscan扫描"><a href="#第三步、使用Wpscan扫描" class="headerlink" title="第三步、使用Wpscan扫描"></a>第三步、使用Wpscan扫描</h4><p>​       该扫描器可以实现获取<code>Wordpress</code>站点用户名，获取安装的所有插件、主题，以及存在漏洞的插件、主题，并提供漏洞信息。同时还可以实现对未加防护的<code>Wordpress</code>站点暴力破解用户名密码。</p>
 <p>我们使用命令扫描网站内的用户名</p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wpscan <span class="comment">--url dc-2 -e u</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200205132051.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200205132034.png" alt=""></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200205132051.png" alt></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200205132034.png" alt></p>
 <p>获取到用户名后，我们思考能否爆破密码。</p>
 <p>我们首先使用crel收集网页的信息</p>
 <p>​    Cewl：CeWL是一款以爬虫模式在指定URL上收集单词的工具，可以将它收集到的单词纳入密码字典，以提高密码破解工具的成功率。</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cewl dc<span class="number">-2</span> -w dict.txt</span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200205111938.png" alt=""></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200205111938.png" alt></p>
 <p>得到密码字典后我们继续回到wpscan进行密码爆破、</p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wpscan <span class="comment">--url dc-2 -P dict.txt</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200205132515.png" alt=""></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200205132515.png" alt></p>
 <p>我们得到了两个登录的账号和密码。</p>
 <h4 id="第四步、登录后台"><a href="#第四步、登录后台" class="headerlink" title="第四步、登录后台"></a>第四步、登录后台</h4><p>我们通过wpscan发现了默认的后台登录页面。（wp-login.php)</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200205132755.png" alt=""></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200205132755.png" alt></p>
 <p>我们使用jerry用户进行登录。在其账号中发现了flag2.txt的信息。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200205132930.png" alt=""></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200205132930.png" alt></p>
 <p>我们翻译一下：</p>
 <p>如果你不能利用WordPress并抄近路，还有别的办法。           </p>
 <p>   希望你能找到另一个切入点。</p>
-<h4 id="第五步、登录ssh"><a href="#第五步、登录ssh" class="headerlink" title="第五步、登录ssh"></a>第五步、登录ssh</h4><pre><code>我们尝试使用上面两个账户来登陆ssh。首先尝试tom的账户。</code></pre><p><img src="QQ%E6%88%AA%E5%9B%BE20200217113658.png" alt=""></p>
+<h4 id="第五步、登录ssh"><a href="#第五步、登录ssh" class="headerlink" title="第五步、登录ssh"></a>第五步、登录ssh</h4><pre><code>我们尝试使用上面两个账户来登陆ssh。首先尝试tom的账户。</code></pre><p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200217113658.png" alt></p>
 <p>可以登陆，ls一下可以看到flag3。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200217113757.png" alt=""></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200217113757.png" alt></p>
 <p>​    但是登陆使用的shell是rBash，功能受到严重限制以至于cat命令都无法使用，所以需要想办法绕过限制。我们先尝试把shell切换为/bin/sh，成功了。继续尝试使用cat来查看flag3中的内容，提示不能找到命令，这时候原因应该是没有将cat命令的目录添加到$PATH中，于是添加之。然后使用cat查看flag3.txt中的内容。<br>rBash和sh shell命令</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200205115512.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200205115956.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200205120014.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200205120104.png" alt=""></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200205115512.png" alt></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200205115956.png" alt></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200205120014.png" alt></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200205120104.png" alt></p>
 <h4 id="第六步、Git提权获得最终flag"><a href="#第六步、Git提权获得最终flag" class="headerlink" title="第六步、Git提权获得最终flag"></a>第六步、Git提权获得最终flag</h4><p>我们先切换到jerry用户，在jerry的家目录下找到flag4.txt</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200205120330.png" alt=""></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200205120330.png" alt></p>
 <p>flag4 提示我们可以使用git，我们可以通过git来提权</p>
 <p>sudo -l 我们可以看到无需root权限，jerry 可以使用 git ！</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200217123533.png" alt=""></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200217123533.png" alt></p>
 <p>我们可以利用suid 进行提权</p>
 <p>SUID可以让调用者以文件拥有者的身份运行该文件</p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo git -p <span class="comment">--help</span></span><br></pre></td></tr></table></figure>
 
 <p>输入!/bin/bash 获得root权限</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200217123719.png" alt=""></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200217123719.png" alt></p>
 <p>我们在root目录下找到最后一个flag。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200217123829.png" alt=""></p>
+<p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200217123829.png" alt></p>
 
       
     </div>
@@ -636,7 +636,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

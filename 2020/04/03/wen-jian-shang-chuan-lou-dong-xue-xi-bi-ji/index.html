@@ -729,41 +729,41 @@
 <p>​            upload/image/1.jpg/.php</p>
 <p>tomcat:弱口令进入后台，上传war包即可，shell.jsp–&gt;shell.zip–&gt;shell.war</p>
 <h3 id="靶场：upload-labs-实战总结"><a href="#靶场：upload-labs-实战总结" class="headerlink" title="靶场：upload-labs 实战总结"></a>靶场：upload-labs 实战总结</h3><p><strong>upolad-labs考察知识点汇总：</strong></p>
-<img src="11525934-e19630249b9b8764.png"  />
+<img src="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/11525934-e19630249b9b8764.png">
 
 
 
 <p>​    upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场。旨在帮助大家对上传漏洞有一个全面的了解。目前一共20关，每一关都包含着不同上传方式。</p>
 <h5 id="Pass-01-前端js检测"><a href="#Pass-01-前端js检测" class="headerlink" title="Pass-01-前端js检测"></a>Pass-01-前端js检测</h5><p><strong>考察知识点：</strong>前端js检测，我们可以选择禁用js,或者直接burp直接抓包绕过.。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200115201219.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200115201219.png" alt></p>
 <h5 id="Pass-02-只检测Content-type"><a href="#Pass-02-只检测Content-type" class="headerlink" title="Pass-02 只检测Content-type"></a>Pass-02 只检测Content-type</h5><p><strong>考察知识点：</strong>Content-Type绕过，我们直接改为 image/jpeg</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200115201548.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200115201548.png" alt></p>
 <h5 id="Pass-03-黑名单绕过"><a href="#Pass-03-黑名单绕过" class="headerlink" title="Pass-03 黑名单绕过"></a>Pass-03 黑名单绕过</h5><p><strong>考察知识点：</strong>黑名单绕过，禁止上传.asp|.aspx|.php|.jsp后缀文件，但是我们可以上传.php3 .phtml .php5另类后缀名。</p>
 <h5 id="Pass-04-htaccess绕过"><a href="#Pass-04-htaccess绕过" class="headerlink" title="Pass-04  .htaccess绕过"></a>Pass-04  .htaccess绕过</h5><p><strong>考察知识点：</strong>构造.htaccess文件，内容为<code>AddType  application/x-httpd-php  .jpg</code></p>
 <p>我们首先上传.htaccess文件，</p>
-<img src="QQ截图20200124121848.png" style="zoom: 80%;" />
+<img src="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ截图20200124121848.png" style="zoom: 80%;">
 
 
 
 <p>然后上传我们事先准备好的php文件将后缀改为.jpg文件,</p>
-<img src="QQ截图20200124122245.png" style="zoom:150%;" />
+<img src="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ截图20200124122245.png" style="zoom:150%;">
 
 <p>可以在本地看到成功上传。</p>
 <h5 id="Pass-05-大小写绕过"><a href="#Pass-05-大小写绕过" class="headerlink" title="Pass-05 大小写绕过"></a>Pass-05 大小写绕过</h5><p><strong>考察知识点：</strong>因为此次黑名单过滤了.htaccess，但是没有将文件名转换为小写。所以我们可以通过大小写绕过。</p>
-<img src="QQ截图20200124124135.png" style="zoom: 80%;" />
+<img src="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ截图20200124124135.png" style="zoom: 80%;">
 
 
 
 <h5 id="Pass-06-空格绕过"><a href="#Pass-06-空格绕过" class="headerlink" title="Pass-06 空格绕过"></a>Pass-06 空格绕过</h5><p><strong>考察知识点</strong>：修改文件后缀为<code>1.php空格</code>.,利用.php[空格]绕过黑名单，然后利用windows的文件命名规则默认除去空格,达到上传.php的目的</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200124124135.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200124124135.png" alt></p>
 <h5 id="Pass-07-点绕过"><a href="#Pass-07-点绕过" class="headerlink" title="Pass-07 点绕过"></a>Pass-07 点绕过</h5><p><strong>考察知识点：</strong>wIndow命名规则:window下 xx.php空格xx.php.不允许存在，系统会默认去除空格或点。此处过滤了空格，但是没有过滤点。我们用burp将文件后缀改为php.即可。</p>
-<img src="QQ截图20200124130943.png" style="zoom:150%;" />
+<img src="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ截图20200124130943.png" style="zoom:150%;">
 
 
 
 <h5 id="Pass-08-DATA绕过"><a href="#Pass-08-DATA绕过" class="headerlink" title="Pass-08  ::$DATA绕过"></a>Pass-08  ::$DATA绕过</h5><p><strong>考察知识点</strong>：$DATA绕过：在php+windows的情况下：如果文件名+”::$DATA”会把::$DATA之后的数据当成文件流处理,不会检测后缀名.且保持”::$DATA”之前的文件名。</p>
 <p>所以：文件后缀改为：<code>xx.php::$DATA</code>即可</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200115202909.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200115202909.png" alt></p>
 <h5 id="Pass-09-点空格点绕过"><a href="#Pass-09-点空格点绕过" class="headerlink" title="Pass-09 点空格点绕过"></a>Pass-09 点空格点绕过</h5><p>这里我们分析一下源代码：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">$is_upload = <span class="keyword">false</span>;</span><br><span class="line">$msg = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>])) &#123;</span><br><span class="line">    <span class="keyword">if</span> (file_exists(UPLOAD_PATH)) &#123;</span><br><span class="line">        $deny_ext = <span class="keyword">array</span>(<span class="string">".php"</span>,<span class="string">".php5"</span>,<span class="string">".php4"</span>,<span class="string">".php3"</span>,<span class="string">".php2"</span>,<span class="string">".html"</span>,<span class="string">".htm"</span>,<span class="string">".phtml"</span>,<span class="string">".pht"</span>,<span class="string">".pHp"</span>,<span class="string">".pHp5"</span>,<span class="string">".pHp4"</span>,<span class="string">".pHp3"</span>,<span class="string">".pHp2"</span>,<span class="string">".Html"</span>,<span class="string">".Htm"</span>,<span class="string">".pHtml"</span>,<span class="string">".jsp"</span>,<span class="string">".jspa"</span>,<span class="string">".jspx"</span>,<span class="string">".jsw"</span>,<span class="string">".jsv"</span>,<span class="string">".jspf"</span>,<span class="string">".jtml"</span>,<span class="string">".jSp"</span>,<span class="string">".jSpx"</span>,<span class="string">".jSpa"</span>,<span class="string">".jSw"</span>,<span class="string">".jSv"</span>,<span class="string">".jSpf"</span>,<span class="string">".jHtml"</span>,<span class="string">".asp"</span>,<span class="string">".aspx"</span>,<span class="string">".asa"</span>,<span class="string">".asax"</span>,<span class="string">".ascx"</span>,<span class="string">".ashx"</span>,<span class="string">".asmx"</span>,<span class="string">".cer"</span>,<span class="string">".aSp"</span>,<span class="string">".aSpx"</span>,<span class="string">".aSa"</span>,<span class="string">".aSax"</span>,<span class="string">".aScx"</span>,<span class="string">".aShx"</span>,<span class="string">".aSmx"</span>,<span class="string">".cEr"</span>,<span class="string">".sWf"</span>,<span class="string">".swf"</span>,<span class="string">".htaccess"</span>);</span><br><span class="line">        $file_name = trim($_FILES[<span class="string">'upload_file'</span>][<span class="string">'name'</span>]);</span><br><span class="line">        $file_name = deldot($file_name);<span class="comment">//删除文件名末尾的点</span></span><br><span class="line">        $file_ext = strrchr($file_name, <span class="string">'.'</span>);</span><br><span class="line">        $file_ext = strtolower($file_ext); <span class="comment">//转换为小写</span></span><br><span class="line">        $file_ext = str_ireplace(<span class="string">'::$DATA'</span>, <span class="string">''</span>, $file_ext);<span class="comment">//去除字符串::$DATA</span></span><br><span class="line">        $file_ext = trim($file_ext); <span class="comment">//首尾去空</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (!in_array($file_ext, $deny_ext)) &#123;</span><br><span class="line">            $temp_file = $_FILES[<span class="string">'upload_file'</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">            $img_path = UPLOAD_PATH.<span class="string">'/'</span>.$file_name;</span><br><span class="line">            <span class="keyword">if</span> (move_uploaded_file($temp_file, $img_path)) &#123;</span><br><span class="line">                $is_upload = <span class="keyword">true</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                $msg = <span class="string">'上传出错！'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $msg = <span class="string">'此文件类型不允许上传！'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $msg = UPLOAD_PATH . <span class="string">'文件夹不存在,请手工创建！'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -771,20 +771,20 @@
 <p>依次进行了严格的黑名单过滤、转换大小写、去除文件名尾的空格和点。还去除了;$DATA.</p>
 <p>但是这里存在很明显的代码逻辑漏洞：代码<strong>去点，除空</strong>的操作只进行了一次。那么我们把后缀名改为</p>
 <p><strong>php. .</strong> 点 空格点的格式。最后的后缀名为<strong>.php.</strong> 成功绕过。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200115204443.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200115204443.png" alt></p>
 <h5 id="Pass-10-双写绕过"><a href="#Pass-10-双写绕过" class="headerlink" title="Pass-10 双写绕过"></a>Pass-10 双写绕过</h5><p>考察知识点:双写绕过，这里利用了<code>str_irepalce</code>函数将不符合上传的后缀名替换为空，且该函数对 大小写不敏感，我们可以通过双写后缀名 .pphphp进行绕过。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200115205208.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200115205208.png" alt></p>
 <h5 id="Pass-11-get-00截断"><a href="#Pass-11-get-00截断" class="headerlink" title="Pass-11 get 00截断"></a>Pass-11 get 00截断</h5><p>考察知识点：00截断</p>
-<img src="QQ截图20200124131542.png" style="zoom:50%;" />
+<img src="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ截图20200124131542.png" style="zoom:50%;">
 
 <p><strong>Pass-12 Post 00截断</strong></p>
 <p>考察知识点：00截断</p>
 <p>和十一关不同的是这次的save_path是通过post传进来的，还是利用00截断，但这次需要在二进制中进行修改，因为post不会像get对%00进行自动解码</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200128202954.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200128203026.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200128202954.png" alt></p>
+<p><img src="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200128203026.png" alt></p>
 <h4 id="Pass-13"><a href="#Pass-13" class="headerlink" title="Pass-13"></a>Pass-13</h4><p>考察知识点：图片马，结合文件包含</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200115211730.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200115211949.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200115211730.png" alt></p>
+<p><img src="/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200115211949.png" alt></p>
 <h5 id="拓展资料"><a href="#拓展资料" class="headerlink" title="拓展资料"></a>拓展资料</h5><ul>
 <li><a href="http://thief.one/2016/09/21/服务器解析漏洞/" target="_blank" rel="noopener">http://thief.one/2016/09/21/服务器解析漏洞/</a></li>
 </ul>
@@ -921,7 +921,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

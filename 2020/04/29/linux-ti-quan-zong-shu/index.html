@@ -453,10 +453,10 @@
 <p><strong>使用命令</strong>：</p>
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -<span class="keyword">a</span>  或  uname -r</span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429143857.png" alt=""></p>
+<p><img src="/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429143857.png" alt></p>
 <p>这样，我们就得到了系统的内核版，cpu架构，和发行版等信息</p>
 <p>然后我们就可以使用kali自带的searchsploit来搜索利用代码。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429144304.png" alt=""></p>
+<p><img src="/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429144304.png" alt></p>
 <p>这里在推荐一个很好用的工具</p>
 <h5 id="Linux-Exploit-Suggester"><a href="#Linux-Exploit-Suggester" class="headerlink" title="Linux Exploit Suggester"></a>Linux Exploit Suggester</h5><p>​    linux exploit_Suggester是一款根据操作系统版本号自动查找相应<a href="https://www.webshell.cc/tag/tiquan" target="_blank" rel="noopener">提权</a>脚本的工具，如果不带任何参数运行该脚本的话，将执行uname -r返回的操作系统发行版本，或者手工输入-k参数查找指定版本号。</p>
 <p>下载地址：<a href="https://github.com/InteliSecureLabs/Linux_Exploit_Suggester" target="_blank" rel="noopener">https://github.com/InteliSecureLabs/Linux_Exploit_Suggester</a></p>
@@ -473,9 +473,9 @@
 <h4 id="明文-root-密码提权"><a href="#明文-root-密码提权" class="headerlink" title="明文 root 密码提权"></a>明文 root 密码提权</h4><p>情况极少。。。。</p>
 <p>passwd 储存了用户，全用户可读，root 可写 shadow 存储密码的 hash，仅 root 可读写</p>
 <p>passwd 文件：</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429144854.png" alt=""></p>
+<p><img src="/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429144854.png" alt></p>
 <p>passwd 由冒号分割，第一列是用户名，第二列是密码，x 代表密码 hash 被放在 shadow 里面了（这样非 root 就看不到了）。而 shadow 里面最重要的就是密码的 hash</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200430191351.png" alt=""></p>
+<p><img src="/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200430191351.png" alt></p>
 <p>以非root用户打开，提示没有权限。</p>
 <h5 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h5><p>查看两个文件：</p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ls</span> -l <span class="string">/etc/passwd</span> <span class="string">/etc/shadow</span></span><br></pre></td></tr></table></figure>
@@ -487,7 +487,7 @@
 <h4 id="sudo-滥用"><a href="#sudo-滥用" class="headerlink" title="sudo 滥用"></a>sudo 滥用</h4><p>sudo 是一个linux经常用到的命令，比如执行权限不够时加 sudo 执行，sudo 是让普通用户使用超级用户的命令。其配置文件为 <strong>/etc/sudoers</strong>，文件定义可以执行 sudo 的账户、定义某个应用程序用 root 访问、是否需要密码验证。</p>
 <p>查看可以执行哪些命令，即不需要知道 root 密码时，需验证自身普通权限的密码</p>
 <p><code>sudo -l</code></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429163933.png" alt=""></p>
+<p><img src="/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429163933.png" alt></p>
 <p>可以支持所有命令，下面参考这个网址:</p>
 <blockquote>
 <p><a href="https://gtfobins.github.io/" target="_blank" rel="noopener">https://gtfobins.github.io/</a></p>
@@ -498,18 +498,18 @@
 <p>sudo su</p>
 </blockquote>
 <p>输入普通权限用户密码，切换为 root</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429164436.png" alt=""></p>
+<p><img src="/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429164436.png" alt></p>
 <p><strong>2、awk</strong></p>
 <blockquote>
 <p>sudo awk ‘BEGIN {system(“/bin/sh”)}’</p>
 </blockquote>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429164548.png" alt=""></p>
+<p><img src="/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429164548.png" alt></p>
 <p><strong>3、man</strong></p>
 <blockquote>
 <p>sudo man man</p>
 </blockquote>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429164826.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429164919.png" alt=""></p>
+<p><img src="/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429164826.png" alt></p>
+<p><img src="/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429164919.png" alt></p>
 <blockquote>
 </blockquote>
 <h4 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务"></a>计划任务</h4><blockquote>
@@ -523,7 +523,7 @@
 <blockquote>
 <p>cat /etc/crontab</p>
 </blockquote>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429165555.png" alt=""></p>
+<p><img src="/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429165555.png" alt></p>
 <p>我没有设置定时任务，模拟一下，如果里面有个 <code>1.python</code></p>
 <blockquote>
 <p>ls -al /tmp/1.py //查看是否有w权限 </p>
@@ -553,7 +553,7 @@
 <p>查找系统上运行的所有SUID可执行文件：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. <span class="builtin-name">find</span> / -user root -perm -4000 -<span class="builtin-name">print</span> 2&gt;/dev/<span class="literal">null</span></span><br><span class="line">2. <span class="builtin-name">find</span> / -perm <span class="attribute">-u</span>=s -type f 2&gt;/dev/<span class="literal">null</span></span><br><span class="line">3. <span class="builtin-name">find</span> / -user root -perm -4000 -exec ls -ldb &#123;&#125; \;</span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429145451.png" alt=""></p>
+<p><img src="/2020/04/29/linux-ti-quan-zong-shu/QQ%E6%88%AA%E5%9B%BE20200429145451.png" alt></p>
 <h5 id="例NMAP"><a href="#例NMAP" class="headerlink" title="例NMAP"></a>例NMAP</h5><p>较旧版本的Nmap（2.02至5.21）具有交互模式，允许用户执行shell命令。由于Nmap在使用root权限执行的二进制文件列表中，因此可以使用交互式控制台来运行具有相同权限的shell。</p>
 <p>交互模式可以通过执行Nmap参数” interactive “</p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap <span class="comment">--interactive</span></span><br></pre></td></tr></table></figure>
@@ -738,7 +738,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

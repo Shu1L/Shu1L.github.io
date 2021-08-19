@@ -465,9 +465,9 @@
 <li>manual—-手册</li>
 </ul>
 <h5 id="apache原理介绍"><a href="#apache原理介绍" class="headerlink" title="apache原理介绍:"></a>apache原理介绍:</h5><p>要讲到的Apahce的漏洞必须要理解Apache的运行原理。</p>
-<p><img src="v2-61e13c6df766e990c4e228d3222fee36_720w.jpg" alt=""></p>
+<p><img src="/2020/04/02/apachhe-zhong-jian-jian-lou-dong/v2-61e13c6df766e990c4e228d3222fee36_720w.jpg" alt></p>
 <p>图中简易描述了Apahce与PHP配合完成了一次WEB请求，Apahce在前，PHP在后，那两者之间如何进行通信的呢？先了解下PHP的架构。如下图</p>
-<p><img src="v2-7692da2f8367d3fff6ef09df67fba07a_720w.jpg" alt=""></p>
+<p><img src="/2020/04/02/apachhe-zhong-jian-jian-lou-dong/v2-7692da2f8367d3fff6ef09df67fba07a_720w.jpg" alt></p>
 <ul>
 <li>Zend Engine是PHP的底层实现，包含编译和执行，底层由C语言实现。</li>
 <li>Zend API、Zend Extension API是基于Zend底层对外封装提供服务。</li>
@@ -483,20 +483,20 @@
 
 <h4 id="Apache-文件解析漏洞"><a href="#Apache-文件解析漏洞" class="headerlink" title="Apache 文件解析漏洞"></a>Apache 文件解析漏洞</h4><h5 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h5><p>​       Apache文件解析漏洞与用户的配置有密切关系，严格来说属于用户的配置问题。Apache文件解析漏洞涉及到一个解析文件的特性。Apache默认一个文件可以有多个以点分隔的后缀，当右边的后缀无法识别，则继续向左识别，发现后缀是php,交给php处理这个文件。</p>
 <h5 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>我们首先打开phpstudy，切换apache版本为5.2.17.</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200201102616.png" alt=""></p>
+<p><img src="/2020/04/02/apachhe-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200201102616.png" alt></p>
 <p>我们在本地网站根目录下新建文本文档写入任意字母。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200201104725.png" alt=""></p>
+<p><img src="/2020/04/02/apachhe-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200201104725.png" alt></p>
 <p>我们尝试修改后缀名为不存在的.456，然后在本地访问该文件</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200201104035.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200201104057.png" alt=""></p>
+<p><img src="/2020/04/02/apachhe-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200201104035.png" alt></p>
+<p><img src="/2020/04/02/apachhe-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200201104057.png" alt></p>
 <p>发现仍然可以成功读取</p>
 <p>我们继续修改后缀名</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200201104123.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200201104141.png" alt=""></p>
+<p><img src="/2020/04/02/apachhe-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200201104123.png" alt></p>
+<p><img src="/2020/04/02/apachhe-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200201104141.png" alt></p>
 <p>发现服务器仍然可以解析</p>
 <p>我们修改为.php.360尝试，依然可以成功解析。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200201104210.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200201104231.png" alt=""></p>
+<p><img src="/2020/04/02/apachhe-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200201104210.png" alt></p>
+<p><img src="/2020/04/02/apachhe-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200201104231.png" alt></p>
 <p>那么我们在文件上传时就可以利用Apache的解析特性进行绕过</p>
 <h5 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h5><p>在httpd.conf或httpd-vhosts.conf中加入以下语句，从而禁止文件名格式为<em>.php.\</em>的访问权限：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch <span class="string">".(php.|php3.|php4|php5.)"</span>&gt;</span><br><span class="line">Order Deny,Allow</span><br><span class="line">Deny from all</span><br><span class="line">&lt;/FilesMatch&gt;</span><br></pre></td></tr></table></figure>
@@ -507,14 +507,14 @@
 <p>​      程序在实现上没有充分过滤用户输入的../之类的目录跳转符，导致恶意用户可以通过提交目录跳转来遍历服务器上的任意文件。</p>
 <h5 id="漏洞复现-1"><a href="#漏洞复现-1" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>我们打开phpstudy.</p>
 <p>然后在本地网站根目录下新建多个子目录</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200201112807.png" alt=""></p>
+<p><img src="/2020/04/02/apachhe-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200201112807.png" alt></p>
 <p>我们此时访问网站</p>
-<p><img src="18d8bc3eb13533fa38aa502b974b3d1a41345b31.jpg" alt=""></p>
+<p><img src="/2020/04/02/apachhe-zhong-jian-jian-lou-dong/18d8bc3eb13533fa38aa502b974b3d1a41345b31.jpg" alt></p>
 <p>可以看到很明显的index  of标志,说明此时存在目录遍历</p>
 <p>我们可以在谷歌中通过 intitle ：index of来帮我们寻找目录遍历漏洞</p>
 <h5 id="漏洞防御"><a href="#漏洞防御" class="headerlink" title="漏洞防御"></a>漏洞防御</h5><p>在httpd.conf文件中找到Options + Indexes + FollowSymLinks + ExecCGI并修改成</p>
 <p>Options -Indexes + FollowSymLinks + ExecCGI并保存（把+修改为-）</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200201114345.png" alt=""></p>
+<p><img src="/2020/04/02/apachhe-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200201114345.png" alt></p>
 <h4 id="Apache换行解析漏洞"><a href="#Apache换行解析漏洞" class="headerlink" title="Apache换行解析漏洞"></a>Apache换行解析漏洞</h4><p>转载：<a href="https://github.com/zhangzhenfeng/vulhub/tree/master/httpd/CVE-2017-15715" target="_blank" rel="noopener">https://github.com/zhangzhenfeng/vulhub/tree/master/httpd/CVE-2017-15715</a></p>
 <p><strong>（我按该文章复现的以下两个漏洞，人懒就直接复制了。。。。）</strong></p>
 <p><strong>影响版本</strong>：Apache 2.4.0~2.4.29</p>
@@ -694,7 +694,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

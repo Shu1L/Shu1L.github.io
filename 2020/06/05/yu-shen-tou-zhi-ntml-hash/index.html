@@ -498,7 +498,7 @@
 <p>​    <strong>工作组</strong>和<strong>域</strong>宏观上都是一群计算机的集合，域中计算机的数量规模通常大于工作组内的计算机。在认证体系中，工作组和域的主要区别在于，工作组内的机器名义上虽然是属于一个集合，但是内部各计算机还是各自管理各自的，没有一个相对成熟的信任机制，工作组内各个计算机的关系依旧是<code>点对点</code>的。因此，在工作组环境下进行访问认证，仅涉及<strong>Client</strong>和<strong>Server</strong>。我们使用的个人计算机，默认便处于WORKGROUP工作组环境下。</p>
 <p>​    域是一个有安全边界的计算机集合，同一个域中的计算机通过<code>共同的第三方信任机构</code>建立信任关系，这个第三方信任机构角色由<code>DC (Domain Controller，域控制器)</code> 担当。通俗来讲，域中的机器都信任域控制器，那么只要域控制器信任我们，我们就可以在域内获得对其他服务器的访问权限。在这种认证体系中涉及三方：<strong>Client、Server、DC</strong> 。</p>
 <blockquote>
-<p>注意：在Windows域环境下涉及三方的<strong>访问认证</strong>场景中，即客户端想要访问服务器资源的情况下，采用 <strong>基于Kerberos协议的网络认证机制</strong>，NTML认证机制参与认证过程。此部分详细内容请参考<a href="">域渗透之Kerberos</a> 。</p>
+<p>注意：在Windows域环境下涉及三方的<strong>访问认证</strong>场景中，即客户端想要访问服务器资源的情况下，采用 <strong>基于Kerberos协议的网络认证机制</strong>，NTML认证机制参与认证过程。此部分详细内容请参考<a href>域渗透之Kerberos</a> 。</p>
 </blockquote>
 <p>​    下面我们就来分别介绍一下在工作组和域环境下，基于NTML协议的网络认证机制的工作流程。以交互式为例。</p>
 <h4 id="工作组环境NTML认证流程"><a href="#工作组环境NTML认证流程" class="headerlink" title="工作组环境NTML认证流程"></a>工作组环境NTML认证流程</h4><p>工作组中，涉及Clinet、Server，流程如下：</p>
@@ -887,7 +887,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

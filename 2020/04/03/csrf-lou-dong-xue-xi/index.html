@@ -491,29 +491,29 @@
 <p>CSRFTester</p>
 <p>下载地址：<a href="https://www.owasp.org/index.php/File:CSRFTester-1.0.zip" target="_blank" rel="noopener">https://www.owasp.org/index.php/File:CSRFTester-1.0.zip</a></p>
 <p>1.安装CSRFTester</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200123184231.png" alt="1.jpg"></p>
+<p><img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200123184231.png" alt="1.jpg"></p>
 <p>打开run.bat就可以打开工具，但是需要java的环境</p>
-<p><img src="2-1024x622.jpg" alt="2.jpg">)<img src="21-1024x622.jpg" alt="2.jpg"></p>
+<p><img src="/2020/04/03/csrf-lou-dong-xue-xi/2-1024x622.jpg" alt="2.jpg">)<img src="/2020/04/03/csrf-lou-dong-xue-xi/21-1024x622.jpg" alt="2.jpg"></p>
 <p>消息框出现该消息时，表示工具已经开始监听本地8008这个端口了，这个时候需要配置浏览器的代理</p>
 <p>\2. 设置浏览器代理（搜狗浏览器为例）</p>
 <p>点击工具栏–代理设置–添加新代理，将代理进行添加并启用即可</p>
-<p><img src="3-1024x584.png" alt="3.png"></p>
+<p><img src="/2020/04/03/csrf-lou-dong-xue-xi/3-1024x584.png" alt="3.png"></p>
 <p>\3. 用户登录</p>
 <p>单击“Start Recording”，开启CSRFTester的检测工作，这样以后我们所有访问的URL以及参数都会被记录下来。</p>
 <p>\4. 通过CSRFTester抓取和伪造请求</p>
 <p>当你登录一个网站账号时，CSRF Tester会进行抓取</p>
-<p><img src="9.png" alt="9.png"></p>
+<p><img src="/2020/04/03/csrf-lou-dong-xue-xi/9.png" alt="9.png"></p>
 <p>我们抓取了该请求，在Step属性中添加请求，然后将Form Parameter中的user等表单中参数进行修改，然后单击Generate HTML按钮（可以选择其他格式：Forms、IFrame等）来产生CSRF攻击脚本。</p>
-<p><img src="10-1024x659.png" alt="10.png"></p>
+<p><img src="/2020/04/03/csrf-lou-dong-xue-xi/10-1024x659.png" alt="10.png"></p>
 <p>随机生成了一个攻击脚本，将其上传服务器，发送给受害者即可。</p>
 <p>CSRF PoC generator</p>
 <p>打开burpsuite，在抓取任意一个HTTP请求中点击右键，选择Engagement tools，然后点击Generate CSRF POC即可生成CSRF POC，</p>
-<p><img src="8-1024x822.png" alt="8.png">)<img src="https://www.secpulse.com/wp-content/themes/secpulse2017/js/editor/themes/default/images/spacer.gif" alt="img"></p>
+<p><img src="/2020/04/03/csrf-lou-dong-xue-xi/8-1024x822.png" alt="8.png">)<img src="https://www.secpulse.com/wp-content/themes/secpulse2017/js/editor/themes/default/images/spacer.gif" alt="img"></p>
 <p>这款工具也是根据请求参数生成的POC，可以直接点击test in browser按钮进行测试，点击后会利用这段POC进行攻击。</p>
 <p>上列两款工具可以拦截所有的请求，渗透测试人员可以在登录状态下进行修改密码、删除文件等操作，工具便会将发送的请求进行拦截，再通过工具生成的POC便可以验证漏洞是否存在。</p>
 <p>1.CSRFTester设置浏览器代理:127.0.0.1:8008，bp是8080</p>
 <p>2.登录web应用程序，提交表单，在CSRF工具中修改表单内容，查看是否更改，如果更改就存在CSRF漏洞</p>
-<p>3.生成POC<br>一个wordpress博客为例就存在一个CSRF漏洞<br>创建用户，bp抓包，修改添加用户的账号密码<br>[<img src="20190802112041-81ebadd4-b4d4-1.png" alt="img">]<br>发送到CSRF POC<br>[<img src="20190802112102-8e91ff5c-b4d4-1.png" alt="img">]<br>以html形式保存下来，发送给目标用户欺骗他打开，成功创建一个新账户<br>[<img src="20190802112122-9a57c2f4-b4d4-1.png" alt="img">]</p>
+<p>3.生成POC<br>一个wordpress博客为例就存在一个CSRF漏洞<br>创建用户，bp抓包，修改添加用户的账号密码<br>[<img src="/2020/04/03/csrf-lou-dong-xue-xi/20190802112041-81ebadd4-b4d4-1.png" alt="img">]<br>发送到CSRF POC<br>[<img src="/2020/04/03/csrf-lou-dong-xue-xi/20190802112102-8e91ff5c-b4d4-1.png" alt="img">]<br>以html形式保存下来，发送给目标用户欺骗他打开，成功创建一个新账户<br>[<img src="/2020/04/03/csrf-lou-dong-xue-xi/20190802112122-9a57c2f4-b4d4-1.png" alt="img">]</p>
 <h5 id="常见的防御方法："><a href="#常见的防御方法：" class="headerlink" title="常见的防御方法："></a>常见的防御方法：</h5><ul>
 <li><p><strong>使用验证码：</strong></p>
 <p>验证码强制用户必须和应用进行交互，才能完成最终的请求</p>
@@ -525,7 +525,7 @@
 <p>在HTTP请求中以参数的形式加入一个随机产生的token，并在服务器端建立一个拦截器来验证这个token，如果请求中没有token或者token不正确，则认为可能是CSRF攻击而拒绝该请求。</p>
 </li>
 </ul>
-<h4 id="DVWA（CSRF部分）"><a href="#DVWA（CSRF部分）" class="headerlink" title="DVWA（CSRF部分）"></a>DVWA（CSRF部分）</h4><h5 id="simple"><a href="#simple" class="headerlink" title="simple:"></a>simple:</h5><img src="QQ截图20200123184231.png" style="zoom:50%;" />
+<h4 id="DVWA（CSRF部分）"><a href="#DVWA（CSRF部分）" class="headerlink" title="DVWA（CSRF部分）"></a>DVWA（CSRF部分）</h4><h5 id="simple"><a href="#simple" class="headerlink" title="simple:"></a>simple:</h5><img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ截图20200123184231.png" style="zoom:50%;">
 
 <p><strong>分析：</strong></p>
 <p>​      我们分析源代码可知，服务器收到修改密码的请求后，会检查参数password_new password_conf是否相同，如果相同，就会修改密码，并没有任何的防CSRF机制，所以我们只需要用户在cookie还有效的时间内在相同的浏览器访问我们给定的url（该操作是服务器对请求的发送者进行了身份验证，检查cookie），就可以实现CSRF攻击，修改用户密码。</p>
@@ -533,16 +533,16 @@
 <p>我们可以构造如下URL进行修改密码：</p>
 <p><a href="http://localhost/DVWA/vulnerabilities/csrf/?password_new=admin&amp;password_conf=admin&amp;Change=Change#" target="_blank" rel="noopener">http://localhost/DVWA/vulnerabilities/csrf/?password_new=admin&amp;password_conf=admin&amp;Change=Change#</a></p>
 <p>我们构造一个html表单提交页面</p>
-<img src="QQ截图20200128112112.png" style="zoom:67%;" />
+<img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ截图20200128112112.png" style="zoom:67%;">
 
 <p>将html文件放入本地网站的根目录下。</p>
 <p>我们尝试在本地访问该网页</p>
-<img src="QQ截图20200128112036.png" style="zoom:50%;" />
+<img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ截图20200128112036.png" style="zoom:50%;">
 
 
 
 <p>点击后发现跳转到了DVWA更改密码界面，密码被修改</p>
-<img src="QQ截图20200128112051.png" style="zoom:67%;" />
+<img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ截图20200128112051.png" style="zoom:67%;">
 
 
 
@@ -552,7 +552,7 @@
 <p>Medium级别的代码检查了保留变量 HTTP_REFERER（http包头的Referer参数的值，表示来源地址）中是否包含SERVER_NAME（http包头的Host参数，及要访问的主机名，这里是192.168.153.130），希望通过这种机制抵御CSRF攻击</p>
 <p><strong>漏洞利用：</strong></p>
 <p>我们用burp对数据进行抓包，不断对referer进行修改，最后发现referer需包含我们host名</p>
-<img src="QQ截图20200128112923.png" style="zoom: 67%;" />
+<img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ截图20200128112923.png" style="zoom: 67%;">
 
 
 
@@ -560,45 +560,45 @@
 
 <p>查阅资料了解到referer参数和链接相同，我们可以将Html文件名中包含127.0.0.1,比如将html文件修改为</p>
 <p>127.0.0.1.html</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200128113629.png" alt=""></p>
+<p><img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128113629.png" alt></p>
 <p>我们在浏览器打开127.0.0.1.html，点击submit</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200128113414.png" alt=""></p>
+<p><img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128113414.png" alt></p>
 <p>我们发现密码成功修改。</p>
 <p><strong>high</strong></p>
 <p>high等级我们发现在url中多了user_token,并且每次修改密码user_token都随着变化</p>
 <p>usr_token的职责：它的职责是保护用户的用户名及密码多次提交，以防密码泄露。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200128114230.png" alt=""></p>
+<p><img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200128114230.png" alt></p>
 <p>如果该页面不存在XSS漏洞时，此方法就可以有效杜绝CSRF漏洞</p>
 <p>但我们可以通过利用DVWA的XSS漏洞进行有效利用</p>
 <p><strong>利用过程</strong></p>
 <p>我们首先利用dvwa的XSS漏洞获取浏览器cookie.</p>
-<img src="QQ截图20200128114910.png" style="zoom:50%;" />
+<img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ截图20200128114910.png" style="zoom:50%;">
 
 <p>然后我们回到构造好的CSRF页面提交用Burp进行抓包</p>
-<img src="QQ截图20200128115317.png" style="zoom:67%;" />
+<img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ截图20200128115317.png" style="zoom:67%;">
 
 <p>我们使用获取到的cookie进行替换，然后发包即可成功修改密码。</p>
 <p><strong>impossibe</strong></p>
-<img src="QQ截图20200128120628.png" style="zoom:50%;" />
+<img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ截图20200128120628.png" style="zoom:50%;">
 
 <p>它提示了要输入原始密码，这就保证了当前用户一定是本人，有效的确保了CSRF攻击。</p>
-<h4 id="Pikachu平台-CSRF部分）"><a href="#Pikachu平台-CSRF部分）" class="headerlink" title="Pikachu平台(CSRF部分）"></a>Pikachu平台(CSRF部分）</h4><p><img src="QQ%E6%88%AA%E5%9B%BE20200129173327.png" alt=""></p>
+<h4 id="Pikachu平台-CSRF部分）"><a href="#Pikachu平台-CSRF部分）" class="headerlink" title="Pikachu平台(CSRF部分）"></a>Pikachu平台(CSRF部分）</h4><p><img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200129173327.png" alt></p>
 <h5 id="CSRF-GET"><a href="#CSRF-GET" class="headerlink" title="CSRF(GET)"></a>CSRF(GET)</h5><p>我们首先根据右上角的提示登录账号</p>
-<img src="QQ截图20200129173354.png" style="zoom:50%;" />
+<img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ截图20200129173354.png" style="zoom:50%;">
 
 
 
 
 
-<img src="QQ截图20200129173746.png" style="zoom:67%;" />
+<img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ截图20200129173746.png" style="zoom:67%;">
 
 
 
 <p>我们选择修改个人信息并用burp抓包</p>
-<img src="QQ截图20200129173928.png" style="zoom:80%;" />
+<img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ截图20200129173928.png" style="zoom:80%;">
 
 <p>提交的请求来看，后台没做CSRF token，同时也是通过GET请求来提交修改信息，我们拿到这个请求，伪造一个请求链接，然后让kobe点击就好，我们构造的URL中把地址add改为hack。kobe一点击就修改了地址。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200129174206.png" alt=""></p>
+<p><img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200129174206.png" alt></p>
 <h5 id="CSRF-POST"><a href="#CSRF-POST" class="headerlink" title="CSRF(POST)"></a>CSRF(POST)</h5><p>POST型，所有参数在请求体中提交，我们不能通过伪造URL的方式进行攻击。</p>
 <p>这里的攻击方式跟XSS中POST类型是一样的，攻击者可以搭建一个站点，在站点上做一个表单，诱导lucy点击这个链接，当用户点击时，就会自动向存在CSRF的服务器提交POST请求修改个人信息。</p>
 <p>我们编写一个自动提交表单的html文件：</p>
@@ -611,7 +611,7 @@
 <p>我们进入Pikachu平台的CSRF（token）页面并登录，我们可以看一下这个GET请求</p>
 </li>
 </ul>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200203172940.png" alt=""></p>
+<p><img src="/2020/04/03/csrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200203172940.png" alt></p>
 <p>跟前面比较，这里多了一个Token，如果后台对提交的Token进行了验证，由于Token是随机的，我们就无法伪造URL了</p>
 <h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://xz.aliyun.com/t/7297" target="_blank" rel="noopener">https://xz.aliyun.com/t/7297</a></p>
 <p><a href="https://xz.aliyun.com/t/240" target="_blank" rel="noopener">https://xz.aliyun.com/t/240</a></p>
@@ -740,7 +740,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

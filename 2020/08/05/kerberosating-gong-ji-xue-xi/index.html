@@ -446,7 +446,7 @@
 <li>KDC使用<strong>Krbtgt账号</strong>的NTLM加密认证后的票据TGT</li>
 <li>KDC使用<strong>运行服务的服务账号</strong>的NTLM加密授权票据TGS</li>
 </ul>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200805123917.png" alt=""></p>
+<p><img src="/2020/08/05/kerberosating-gong-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200805123917.png" alt></p>
 <p>​            当发布Windows 2000和Active Directory时，微软打算在 Windows NT 和Windows 95 上也支持Active Directory，这意味着不仅会产生各种各样的安全问题也会导致更多不安全的配置方式。同时，也意味着，微软要保证在多个不同版本的 Windows 客户端上均支持Kerberos协议。</p>
 <p>​            要实现这个想法的一个简单的办法就是在Kerberos协议中使用<strong>RC4加密算法</strong>·，并将<strong>NTLM密码哈希</strong>作为该加密算法的私钥，该私钥可用于加密或签名Kerberos票证。因此，对于攻击者来说，一旦发现了 NTLM 密码哈希，就可以随意使用，包括重新拿回Active Directory域权限（比如：黄金票证和白银票证攻击）。</p>
 <h4 id="SPN（ServicePrincipal-Names-服务主体名称"><a href="#SPN（ServicePrincipal-Names-服务主体名称" class="headerlink" title="SPN（ServicePrincipal Names)服务主体名称"></a>SPN（ServicePrincipal Names)服务主体名称</h4><p>官方文档：</p>
@@ -465,7 +465,7 @@
 <li>host有两种形式，FQDN和NetBIOS名，例如server01.test.com和server01</li>
 <li>如果服务运行在默认端口上，则端口号(port)可以省略</li>
 </ul>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200805125050.png" alt=""></p>
+<p><img src="/2020/08/05/kerberosating-gong-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200805125050.png" alt></p>
 <p><strong>查询SPN</strong></p>
 <p>对域控制器发起LDAP查询，这是正常kerberos票据行为的一部分，因此查询SPN的操作很难被检测。</p>
 <h6 id="1-使用SetSPN"><a href="#1-使用SetSPN" class="headerlink" title="(1) 使用SetSPN"></a>(1) 使用SetSPN</h6><p>Win7和Windows Server2008自带的工具</p>
@@ -568,17 +568,17 @@
 
 <p>-AdminCount表示选择高权限的用户</p>
 <p>输出结果如下图</p>
-<p><img src="2-2.png" alt="Alt text"></p>
+<p><img src="/2020/08/05/kerberosating-gong-ji-xue-xi/2-2.png" alt="Alt text"></p>
 <p>只提取出hash的参数如下：</p>
 <figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Kerberoast -AdminCount -OutputFormat Hashcat | <span class="type">Select</span> hash | <span class="type">ConvertTo</span>-CSV -NoTypeInformation</span><br></pre></td></tr></table></figure>
 
 <p>输出结果如下图</p>
-<p><img src="2-3.png" alt="Alt text"></p>
+<p><img src="/2020/08/05/kerberosating-gong-ji-xue-xi/2-3.png" alt="Alt text"></p>
 <p>使用hashcat破解的参数如下：</p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hashcat -m 13100 <span class="string">/tmp/hash.txt</span> <span class="string">/tmp/password.list</span> -o found.txt <span class="params">--force</span></span><br></pre></td></tr></table></figure>
 
 <p>破解结果如下图，成功获得明文口令<code>MySQLAdmin111!</code></p>
-<p><img src="2-4.png" alt="Alt text"></p>
+<p><img src="/2020/08/05/kerberosating-gong-ji-xue-xi/2-4.png" alt="Alt text"></p>
 <p><strong>注：</strong></p>
 <p>Rubeus也可以实现Invoke-Kerberoast的功能，地址如下：</p>
 <p><a href="https://github.com/GhostPack/Rubeus" target="_blank" rel="noopener">https://github.com/GhostPack/Rubeus</a></p>
@@ -591,9 +591,9 @@
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn<span class="selector-class">.exe</span> -U -A VNC/DC1<span class="selector-class">.test</span><span class="selector-class">.com</span> Administrator</span><br></pre></td></tr></table></figure>
 
 <p>如下图</p>
-<p><img src="3-1.png" alt="Alt text"></p>
+<p><img src="/2020/08/05/kerberosating-gong-ji-xue-xi/3-1.png" alt="Alt text"></p>
 <p>在域内任意一台主机都能获得该SPN，并且能够使用Kerberoast获得TGS，如下图</p>
-<p><img src="3-2.png" alt="Alt text"></p>
+<p><img src="/2020/08/05/kerberosating-gong-ji-xue-xi/3-2.png" alt="Alt text"></p>
 <p>再使用hashcat破解即可</p>
 <p><strong>补充：</strong></p>
 <p>删除SPN的参数如下：</p>
@@ -729,7 +729,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

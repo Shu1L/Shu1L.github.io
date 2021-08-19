@@ -455,21 +455,21 @@
 <p>Ngnix是反向代理服务器，它是代理，本身并不执行，是个传话筒，把用户提交的请求转发给web服务器，再把web服务器的结果转发给用户。为了提高性能，启用反向代理，实际的web服务器可以有很多台，而Ngnix放在前面，可以把这些web服务器整合成一个虚拟的更强大的服务</p>
 <h4 id="Nginx-文件解析漏洞"><a href="#Nginx-文件解析漏洞" class="headerlink" title="Nginx-文件解析漏洞"></a>Nginx-文件解析漏洞</h4><h5 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h5><p>​          nginx是一款高性能的web服务器，使用非常广泛，其不仅经常被用作反向代理，也可以非常好的支持PHP的运行。80sec发现其中存在一个较为严重的安全问题，默认情况下可能导致服务器错误的将任何类型的文件以PHP的方式进行解析，这将导致严重的安全问题，使得恶意的攻击者可能攻陷支持php的nginx服务器。<br>​          漏洞格式：test.jpg/a.php</p>
 <h5 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>我们首先打开phpstudy切换版本为nginx-5.2.17</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200131115008.png" alt=""></p>
+<p><img src="/2020/04/03/nginx-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200131115008.png" alt></p>
 <p>我们可以从phpstudy下的nginx的index.html复制到网站根目录下</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200131115049.png" alt=""></p>
+<p><img src="/2020/04/03/nginx-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200131115049.png" alt></p>
 <p>我们从本地打开网站的该页面即可看到nginx的欢迎页面</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200131115112.png" alt=""></p>
+<p><img src="/2020/04/03/nginx-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200131115112.png" alt></p>
 <p>我们在C盘根目录下新建shell.php写入如下代码。然后任意选择一张图片。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200131115532.png" alt=""></p>
+<p><img src="/2020/04/03/nginx-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200131115532.png" alt></p>
 <p>我们在命令行下选择使用管理员打开命令行，然后使用copy命令制作图片马。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200131120017.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200131120033.png" alt=""></p>
+<p><img src="/2020/04/03/nginx-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200131120017.png" alt></p>
+<p><img src="/2020/04/03/nginx-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200131120033.png" alt></p>
 <p>然后我们在本地网站根目录下创建文件上传页面。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200131121704.png" alt=""></p>
-<img src="QQ截图20200131121729.png" style="zoom:50%;" />
+<p><img src="/2020/04/03/nginx-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200131121704.png" alt></p>
+<img src="/2020/04/03/nginx-zhong-jian-jian-lou-dong/QQ截图20200131121729.png" style="zoom:50%;">
 
-<img src="QQ截图20200131121803.png" style="zoom:50%;" />
+<img src="/2020/04/03/nginx-zhong-jian-jian-lou-dong/QQ截图20200131121803.png" style="zoom:50%;">
 
 
 
@@ -478,26 +478,26 @@
 
 
 <p>我们将我们刚刚制作好的图片马进行上传，发现提示上传成功。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200131122629.png" alt=""></p>
+<p><img src="/2020/04/03/nginx-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200131122629.png" alt></p>
 <p>我们在本地网站根目录下进行查看</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200131122944.png" alt=""></p>
-<img src="QQ截图20200131123013.png" style="zoom:67%;" />
+<p><img src="/2020/04/03/nginx-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200131122944.png" alt></p>
+<img src="/2020/04/03/nginx-zhong-jian-jian-lou-dong/QQ截图20200131123013.png" style="zoom:67%;">
 
 
 
 <p>我们在shell.jpg后添加/a.php或/b.php后发现可以成功解析。</p>
-<img src="QQ截图20200131123036.png" style="zoom:67%;" />
+<img src="/2020/04/03/nginx-zhong-jian-jian-lou-dong/QQ截图20200131123036.png" style="zoom:67%;">
 
 <h5 id="漏洞防御"><a href="#漏洞防御" class="headerlink" title="漏洞防御"></a>漏洞防御</h5><p> 将php.ini文件中的cgi.fix_pathinfo的值设为0，这样php在解析1.php/1.jpg这样的目录时，只要1.jpg不存在就会显示404.</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200131123518.png" alt=""></p>
+<p><img src="/2020/04/03/nginx-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200131123518.png" alt></p>
 <h4 id="nginx-目录遍历漏洞"><a href="#nginx-目录遍历漏洞" class="headerlink" title="nginx-目录遍历漏洞"></a>nginx-目录遍历漏洞</h4><h5 id="漏洞原理-1"><a href="#漏洞原理-1" class="headerlink" title="漏洞原理"></a>漏洞原理</h5><p>​       目录遍历（路径遍历）是由于web服务器或者web应用程序对用户输入的文件名称的安全性验证不足而导致的一种安全漏洞。使得攻击者通过利用一些特殊字符就可以绕过服务器的安全限制，访问任意的文件（可以是web根目录以外的文件），甚至执行系统命令。</p>
 <p>​      程序在实现上没有充分过滤用户输入的../之类的目录跳转符，导致恶意用户可以通过提交目录跳转来遍历服务器上的任意文件。</p>
 <h5 id="漏洞复现-1"><a href="#漏洞复现-1" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>我们首先需要将nginx的配置文件nginx.conf中autoindex off；改为on;</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200131182922.png" alt=""></p>
+<p><img src="/2020/04/03/nginx-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200131182922.png" alt></p>
 <p>我们任意访问网站根目录下的某一文件夹，即可看到该目录下的所有文件，出现目录遍历漏洞。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200131183226.png" alt=""></p>
+<p><img src="/2020/04/03/nginx-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200131183226.png" alt></p>
 <h5 id="漏洞防御-1"><a href="#漏洞防御-1" class="headerlink" title="漏洞防御"></a>漏洞防御</h5><p>将nginx的配置文件nginx.conf下改为autoindex   off即可；</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200131182922.png" alt=""></p>
+<p><img src="/2020/04/03/nginx-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200131182922.png" alt></p>
 
       
     </div>
@@ -621,7 +621,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

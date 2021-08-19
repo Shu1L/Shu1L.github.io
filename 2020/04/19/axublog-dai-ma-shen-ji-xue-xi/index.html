@@ -507,67 +507,67 @@
 
 <p>然后使用菜刀连接即可getshell。</p>
 <h4 id="后台登录处的sql注入漏洞"><a href="#后台登录处的sql注入漏洞" class="headerlink" title="后台登录处的sql注入漏洞"></a>后台登录处的sql注入漏洞</h4><h5 id="漏洞分析：-3"><a href="#漏洞分析：-3" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><p>首先分析其login.php页面，发现用户名和密码输入后是使用的jsloginpost函数进行处理的。jsloginpost函数是在c_login.php文件中定义的。</p>
-<p><img src="1587018-20200303210401433-2074327058.png" alt=""></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200303210401433-2074327058.png" alt></p>
 <p>打开c_login.php页面，分析jsloginpost代码，发现jsloginpost并没有对user和psw进行过滤处理，而是直接带入了sql语句进行查询，所以此处造成了sql注入漏洞。</p>
-<p><img src="1587018-20200303211200124-595595133%5B1%5D.png" alt=""></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200303211200124-595595133%5B1%5D.png" alt></p>
 <h5 id="漏洞利用："><a href="#漏洞利用：" class="headerlink" title="漏洞利用："></a>漏洞利用：</h5><p>我们只需要在后台管理员登录处使用万能密码即可成功登录，例如</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">user:admin'</span> <span class="string">or</span> <span class="number">1</span><span class="string">=1#</span></span><br><span class="line"><span class="attr">psw:</span> <span class="string">随意</span></span><br><span class="line"><span class="string">或者</span></span><br><span class="line"><span class="attr">user:</span> <span class="string">admin'</span> <span class="string">or</span> <span class="number">1</span><span class="comment">#</span></span><br><span class="line"><span class="attr">psw:</span> <span class="string">随意</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="1587018-20200303211645255-577074129%5B1%5D.png" alt=""></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200303211645255-577074129%5B1%5D.png" alt></p>
 <h4 id="前台反射型xss漏洞"><a href="#前台反射型xss漏洞" class="headerlink" title="前台反射型xss漏洞"></a>前台反射型xss漏洞</h4><h5 id="漏洞分析：-4"><a href="#漏洞分析：-4" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><p>此漏洞是搜索功能处的xss漏洞，由于在search.php中对word参数没有过滤而产生的。首先分析search.php文件，在文件中首先获取搜索数据给word参数，然后进行判断，如果没有传参数，则直接调用index()函数，如果传递了参数则调用so()函数。</p>
-<p><img src="1587018-20200303232615102-565416911%5B1%5D.png" alt=""></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200303232615102-565416911%5B1%5D.png" alt></p>
 <p>进入so()函数继续分析：在so()函数中也没有对word参数进行任何过滤处理，而是包含了一个模板文件search.mb，继续跟进模板文件：</p>
-<p><img src="1587018-20200303234054140-229902481%5B1%5D.png" alt=""></p>
-<p><img src="1587018-20200303233948167-467235758%5B1%5D.png" alt=""></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200303234054140-229902481%5B1%5D.png" alt></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200303233948167-467235758%5B1%5D.png" alt></p>
 <p>模板文件search.mb分析：发现在模板文件中也是直接对word参数直接输出，而没有任何过滤，所以此处就造成了xss漏洞</p>
-<p><img src="1587018-20200303234320733-213715566%5B1%5D.png" alt=""></p>
-<h5 id="漏洞利用：-1"><a href="#漏洞利用：-1" class="headerlink" title="漏洞利用："></a>漏洞利用：</h5><p><img src="1587018-20200303234506377-737313316.png" alt="img"></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200303234320733-213715566%5B1%5D.png" alt></p>
+<h5 id="漏洞利用：-1"><a href="#漏洞利用：-1" class="headerlink" title="漏洞利用："></a>漏洞利用：</h5><p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200303234506377-737313316.png" alt="img"></p>
 <h4 id="前台sql注入漏洞"><a href="#前台sql注入漏洞" class="headerlink" title="前台sql注入漏洞"></a>前台sql注入漏洞</h4><p>在第二个分析xss漏洞的过程中发现，在其模板文件search.mb中还调用了searchlist()函数，继续跟进searchlist()函数（searchlist函数在search.php文件中）</p>
-<p><img src="1587018-20200303234835707-2141296773.png" alt="img"></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200303234835707-2141296773.png" alt="img"></p>
 <p>发现在searchlist()函数中同样没有对word参数进行过滤，而直接带入了sql语句进行查询，所以此处就造成了sql注入漏洞。</p>
 <p>漏洞利用：</p>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">执行如下poc时候返回正确结果：</span><br><span class="line"><span class="symbol">http:</span><span class="comment">//192.168.110.152/axublog/search.php?word=广%' or 1=1--+</span></span><br><span class="line">执行如下poc时候无结果返回：</span><br><span class="line"><span class="symbol">http:</span><span class="comment">//192.168.110.152/axublog/search.php?word=广%' or 1=2--+</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="后台任意文件写入漏洞"><a href="#后台任意文件写入漏洞" class="headerlink" title="后台任意文件写入漏洞"></a>后台任意文件写入漏洞</h4><p>注明：这个后台文件上传漏洞不需要登录后台即可直接getshell</p>
 <p>漏洞点：admin/theme.php</p>
-<p><img src="1587018-20200304002821492-309441952.png" alt=""></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200304002821492-309441952.png" alt></p>
 <p>edit2save()函数进行了文件的写入操作，将REQUEST请求的的path参数和content参数分别作为作为报存的路径和内容传入file_put_contents中进行保存操作。</p>
 <p>继续寻找edit2save()函数调用点：发现当g=edit2save时调用该函数。</p>
-<p><img src="1587018-20200304003116729-1307171520.png" alt="img"></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200304003116729-1307171520.png" alt="img"></p>
 <h5 id="漏洞利用：-2"><a href="#漏洞利用：-2" class="headerlink" title="漏洞利用："></a>漏洞利用：</h5><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">请求：</span><br><span class="line"><span class="symbol">http:</span><span class="comment">//192.168.110.152/axublog/admin/theme.php?g=edit2save</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">post:</span></span><br><span class="line">path=./shell.php<span class="variable">&amp;content</span>=<span class="params">&lt;?php phpinfo();?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="1587018-20200304003256803-1334544380.png" alt="img"></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200304003256803-1334544380.png" alt="img"></p>
 <h4 id="后台多个sql注入漏洞"><a href="#后台多个sql注入漏洞" class="headerlink" title="后台多个sql注入漏洞"></a>后台多个sql注入漏洞</h4><h5 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h5><p>漏洞点：admin/admin.php</p>
 <p>定位edit()函数，发现id参数没有经过过滤而直接带入sql语句进行查询了。</p>
-<p><img src="1587018-20200304172222897-1426655107.png" alt="img"></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200304172222897-1426655107.png" alt="img"></p>
 <p>但是这里在获取id参数之前调用了chkoutpost()函数进行验证。跟进chkoutpost()函数。class/c_other.php</p>
-<p><img src="1587018-20200304172533350-1121177041.png" alt="img"></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200304172533350-1121177041.png" alt="img"></p>
 <p>chkoutpost()函数仅仅验证了refer是否为空的情况，所以我们在利用这个sql注入漏洞是时候给refer随便赋个值即可。</p>
 <p>查看edit函数在哪里被调用了：发现当g=edit时候调用edit函数。</p>
-<p><img src="1587018-20200304172752867-937007122.png" alt="img"></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200304172752867-937007122.png" alt="img"></p>
 <h5 id="漏洞利用：-3"><a href="#漏洞利用：-3" class="headerlink" title="漏洞利用："></a>漏洞利用：</h5><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">poc:</span></span><br><span class="line"><span class="symbol">http:</span>/<span class="regexp">/192.168.110.152/axublog</span><span class="regexp">/admin/admin</span>.php?g=edit&amp;id=<span class="number">1</span> <span class="class"><span class="keyword">union</span> <span class="title">select</span> 1,<span class="title">version</span>(),3,4--+</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">Referer:</span> 任意填写</span><br></pre></td></tr></table></figure>
 
-<p><img src="1587018-20200304172922428-724640530.png" alt="img"></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200304172922428-724640530.png" alt="img"></p>
 <p>6，既然这个cms的sql注入都没有进行防御，那么肯定还存在n个sql注入漏洞，此处就不一一说明了。</p>
 <h4 id="任意文件读取漏洞"><a href="#任意文件读取漏洞" class="headerlink" title="任意文件读取漏洞"></a>任意文件读取漏洞</h4><p>漏洞点：admin/app.php</p>
 <p>首先定位到edit2()函数，在edit2函数中通过调用file_get_contents函数获取变量path文件中的内容，然而变量path文件中的内容，然而变量path的值是通过request的方式从path参数获取的，并且对变量$path没有任何过滤而直接带入到file_get_contents函数进行获取文件内容，所以此处就造成了任意文件读取漏洞。</p>
-<p><img src="1587018-20200304173840167-1365630191.png" alt="img"></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200304173840167-1365630191.png" alt="img"></p>
 <p>跟进edit2()函数，寻找调用方法：当g=edit2的时候调用edit2函数。</p>
-<p><img src="1587018-20200304174437952-1224821444.png" alt="img"></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200304174437952-1224821444.png" alt="img"></p>
 <p>漏洞利用：</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">poc:</span><br><span class="line">http:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">110.152</span><span class="regexp">/axublog/</span>admin<span class="regexp">/app.php?g=edit2&amp;path=./</span>app.php</span><br></pre></td></tr></table></figure>
 
-<p><img src="1587018-20200304174618584-506013891.png" alt=""></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200304174618584-506013891.png" alt></p>
 <h4 id="代码执行漏洞"><a href="#代码执行漏洞" class="headerlink" title="代码执行漏洞"></a>代码执行漏洞</h4><p>漏洞点：admin/html.php</p>
 <p>漏洞分析：在生成about页面的时候调用了ob_get_contents函数执行about.mb里面的php代码，并且没有进行任何过滤，所以我们可以通过向about.md文件中写入php代码，从而使其被执行。然而在后台管理页面中正好有编辑about页功能。</p>
-<p><img src="1587018-20200304210913536-1220729563.png" alt="img"></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200304210913536-1220729563.png" alt="img"></p>
 <p>漏洞利用：</p>
 <p>首先编辑about页，然后向其中写入想要执行的php代码即可，此处我使用file_put_contents函数生成一个文件名为shell2.php的探针文件。</p>
-<p><img src="1587018-20200304211607584-434322337.png" alt="img"></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200304211607584-434322337.png" alt="img"></p>
 <p>保存编辑后选择生成about：</p>
-<p><img src="1587018-20200304211905560-277463672.png" alt="img"></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200304211905560-277463672.png" alt="img"></p>
 <p>然后我们的代码就被成功的执行了，访问shell2.php:</p>
-<p><img src="1587018-20200304212324112-1387100175.png" alt="img"></p>
+<p><img src="/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/1587018-20200304212324112-1387100175.png" alt="img"></p>
 <h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="http://www.ttk7.cn/post-82.html" target="_blank" rel="noopener">http://www.ttk7.cn/post-82.html</a></p>
 <p><a href="https://blog.csdn.net/sweet0swat/article/details/89056383" target="_blank" rel="noopener">https://blog.csdn.net/sweet0swat/article/details/89056383</a></p>
 
@@ -693,7 +693,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

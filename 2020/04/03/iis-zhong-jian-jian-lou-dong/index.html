@@ -463,39 +463,39 @@
 <p>安装windows server 2003版本，准备iis写入工具，下载IIS6.0版本</p>
 <p>2.复现过程：</p>
 <p>我们首先在虚拟机中打开win server 2003 版本。</p>
-<img src="QQ截图20200118185950.png" style="zoom:50%;" />
+<img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ截图20200118185950.png" style="zoom:50%;">
 
 <p>之后我们安装IIS6.0服务,进入网站配置界面</p>
-<img src="QQ截图20200118190925.png" style="zoom:50%;" />
+<img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ截图20200118190925.png" style="zoom:50%;">
 
 <p>打开webDAV服务配置  Active Server pages(允许解析asp文件)，提供文件写入权限。</p>
-<img src="QQ截图20200118191122.png" style="zoom:33%;" />
+<img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ截图20200118191122.png" style="zoom:33%;">
 
-<img src="QQ截图20200118191318.png" style="zoom: 50%;" />
+<img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ截图20200118191318.png" style="zoom: 50%;">
 
 <p>我们尝试在物理机打开网站</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200118191510.png" alt=""></p>
+<p><img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200118191510.png" alt></p>
 <p>说明服务已开启。</p>
 <p>我们打开iis写入工具。尝试写入test.txt文件。</p>
-<img src="QQ截图20200118192007.png" style="zoom:50%;" />
+<img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ截图20200118192007.png" style="zoom:50%;">
 
 
 
 <p>发现提示“您未被授予查看该页”。</p>
 <p>后来发现未开启来宾用户足够的权限</p>
-<img src="QQ截图20200118192257.png" style="zoom:50%;" />
+<img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ截图20200118192257.png" style="zoom:50%;">
 
 <p>我们再次尝试。成功写入。</p>
-<img src="QQ截图20200118192408.png" style="zoom:50%;" />
+<img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ截图20200118192408.png" style="zoom:50%;">
 
-<img src="QQ截图20200118192500.png" style="zoom:50%;" />
+<img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ截图20200118192500.png" style="zoom:50%;">
 
 <p>我们新建一个asp一句话木马文件，先命名为shell.txt,写入网站根目录下。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200118193312.png" alt=""></p>
+<p><img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200118193312.png" alt></p>
 <p>然后使用iiswrite的mv功能。首先我们需开启网站主目录下的脚本资源访问功能</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200118112701.png" alt=""></p>
+<p><img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200118112701.png" alt></p>
 <p>然后将根目录下的shell.txt修改为shell.asp</p>
-<img src="QQ截图20200118112855.png" style="zoom: 80%;" />
+<img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ截图20200118112855.png" style="zoom: 80%;">
 
 <p>之后我们使用菜刀连接即可。</p>
 <h4 id="IIS-短文件名猜解漏洞"><a href="#IIS-短文件名猜解漏洞" class="headerlink" title="IIS-短文件名猜解漏洞"></a>IIS-短文件名猜解漏洞</h4><p><strong>什么是短文件名？</strong></p>
@@ -503,35 +503,35 @@
 <h5 id="漏洞原理：-1"><a href="#漏洞原理：-1" class="headerlink" title="漏洞原理："></a>漏洞原理：</h5><p>  为了兼容16位MS-DOS程序，Windows为文件名较长的文件（和文件夹）生成了对应的windows 8.3 短文件名。<br> 在Windows下查看对应的短文件名，可以使用命令 <code>dir /x</code></p>
 <p>​     攻击者使用通配符*和？发送一个请求到IIS，当IIS接收到一个文件路径中包含“~”请求时，返回的HTTP状态码和错误信息不同。基于这个特点，可以根据HTTP的响应区分一个可用或者不可用的文件。访问构造的某个存在的短文件名，会返回404；访问构造的某个不存在的短文件名，会返回400（报错页面）。</p>
 <h5 id="漏洞复现-1"><a href="#漏洞复现-1" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>我们进入win server 2003的网站根目录下。</p>
-<img src="QQ截图20200118194442.png" style="zoom:67%;" />
+<img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ截图20200118194442.png" style="zoom:67%;">
 
 <p>在根目录下新建多个超过8个字符的文件名</p>
-<p>​                   <img src="QQ%E6%88%AA%E5%9B%BE20200118144312.png" alt=""></p>
+<p>​                   <img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200118144312.png" alt></p>
 <p>我们在命令提示符使用 dir c:/x，即可看到我们创建的文件的短文件名。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200118144400.png" alt=""></p>
+<p><img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200118144400.png" alt></p>
 <p>我们在物理机上访问该网站并使用通配符猜解文件名。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200202204523.png" alt=""></p>
+<p><img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200202204523.png" alt></p>
 <p>可以看到网页回显404，说明网站根目录存在所猜解的文件名。</p>
-<img src="QQ截图20200202204745.png" style="zoom:67%;" />
+<img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ截图20200202204745.png" style="zoom:67%;">
 
 <p>我们访问不存在的文件会报错。</p>
 <h5 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h5><ol>
 <li>升级.net framework</li>
 <li>修改注册表键值：</li>
 </ol>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200202205239.png" alt=""></p>
+<p><img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200202205239.png" alt></p>
 <p>将数值数据改为1，1代表不创建短文件名格式。修改完成后，需要重启系统生效。</p>
 <h4 id="IIS-解析漏洞"><a href="#IIS-解析漏洞" class="headerlink" title="IIS-解析漏洞"></a>IIS-解析漏洞</h4><h5 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h5><p>在网站下建立文件夹的名称中以.asp或.asa等作为后缀的文件夹,其目录内任何扩展名的文件都被IIS当作asp可执行文件去解析并执行.</p>
 <p>举例：/xx.asp/xx.jpg为xx.asp目录下存在xx.jpg文件,但将会被IIS解析成asp文件去执行,与原文件的后缀无关.</p>
 <h5 id="漏洞复现-2"><a href="#漏洞复现-2" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>我们在www下新建一个test.asp文件夹和test.jpg图像文件</p>
 <p>在图像文件中写入任意字符。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200202210506.png" alt=""></p>
+<p><img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200202210506.png" alt></p>
 <p>我们直接访问图像文件，发现无法成功解析。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200202210532.png" alt=""></p>
+<p><img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200202210532.png" alt></p>
 <p>我们再将图片文件放入asp文件夹下重新尝试访问</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200202210636.png" alt=""></p>
+<p><img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200202210636.png" alt></p>
 <p>发现网站将该文件解析成了asp文件进而成功执行。</p>
-<p><img src="QQ%E6%88%AA%E5%9B%BE20200202210706.png" alt=""></p>
+<p><img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/QQ%E6%88%AA%E5%9B%BE20200202210706.png" alt></p>
 <h5 id="漏洞修复-1"><a href="#漏洞修复-1" class="headerlink" title="漏洞修复"></a>漏洞修复</h5><ul>
 <li>取消网站后台新建目录的功能，不允许新建目录。</li>
 <li>对新建目录文件名进行过滤，不允许新建包含.的文件夹。</li>
@@ -541,9 +541,9 @@
 <p>在windows server 2003 r2 32位上安装iis6.0</p>
 <p>2.触发漏洞：</p>
 <p>在本地执行exp</p>
-<p><img src="4-2-1.png" alt=""></p>
+<p><img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/4-2-1.png" alt></p>
 <p>执行成功后，服务器弹出计算器。</p>
-<p><img src="4-2-2.png" alt=""></p>
+<p><img src="/2020/04/03/iis-zhong-jian-jian-lou-dong/4-2-2.png" alt></p>
 <h5 id="漏洞修复："><a href="#漏洞修复：" class="headerlink" title="漏洞修复："></a>漏洞修复：</h5><p>1.关闭webDAV服务</p>
 <p>2.使用相关防护设备</p>
 <h5 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h5><h5 id="https-www-secpulse-com-archives-82410-html"><a href="#https-www-secpulse-com-archives-82410-html" class="headerlink" title="https://www.secpulse.com/archives/82410.html"></a><a href="https://www.secpulse.com/archives/82410.html" target="_blank" rel="noopener">https://www.secpulse.com/archives/82410.html</a></h5><p><a href="https://www.aqniu.com/learn/43996.html" target="_blank" rel="noopener">https://www.aqniu.com/learn/43996.html</a></p>
@@ -671,7 +671,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

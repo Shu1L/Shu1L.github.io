@@ -480,7 +480,7 @@
 <p>1）升级php版本；（php-5.3.12以上版本）;</p>
 <p>2）在apache上做文章，开启url过滤，把危险的命令行参数给过滤掉，由于这种方法修补比较简单，采用比较多吧。</p>
 <p>具体做法：</p>
-<p>修改http.conf文件，找到<Directory/>增加以下三行</p>
+<p>修改http.conf文件，找到<Directory>增加以下三行</Directory></p>
 <p>RewriteEngine on</p>
 <p>RewriteCond %{QUERY_STRING} ^(%2d|-)[^=]+$ [NC]</p>
 <p>RewriteRule ^(.*) $1? [L]</p>
@@ -610,7 +610,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
