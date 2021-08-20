@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="浅析黄金票据与白银票据"/><meta name="keywords" content="票据, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
+<meta name="description" content="浅析黄金票据与白银票据"/><meta name="keywords" content="票据, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://shu1l.github.io/2020/06/06/qian-xi-huang-jin-piao-ju-yu-bai-yin-piao-ju/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>浅析黄金票据与白银票据 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -79,7 +119,12 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="浅析黄金票据与白银票据"><a href="#浅析黄金票据与白银票据" class="headerlink" title="浅析黄金票据与白银票据"></a>浅析黄金票据与白银票据</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​        票据传递攻击（PtT）是一种使用Kerberos票据代替明文密码或NTLM哈希的方法。PtT最常见的用途可能是使用<strong>黄金票据</strong>和<strong>白银票据</strong>，通过PtT访问主机相当简单。</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#概念"><span class="toc-text">概念</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#金票-GoldenTicket"><span class="toc-text">(金票)GoldenTicket</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#黄金票据特点"><span class="toc-text">黄金票据特点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#制作金票的条件："><span class="toc-text">制作金票的条件：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#利用步骤"><span class="toc-text">利用步骤:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-导出krbtgt的Hash"><span class="toc-text">1.导出krbtgt的Hash</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-生成Golden-Ticket"><span class="toc-text">2.生成Golden Ticket</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-导入伪造Golden-Ticket获得域控权限"><span class="toc-text">3.  导入伪造Golden Ticket获得域控权限</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#注意"><span class="toc-text">注意</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#黄金票据防御"><span class="toc-text">黄金票据防御</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#银票-SilverTickets"><span class="toc-text">(银票)SilverTickets</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#简介-1"><span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#白银票据的特点"><span class="toc-text">白银票据的特点</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#利用过程"><span class="toc-text">利用过程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-获取hash-sid等信息"><span class="toc-text">1.获取hash sid等信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-伪造白银票据"><span class="toc-text">2.伪造白银票据</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#各种服务中的示例"><span class="toc-text">各种服务中的示例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Windows共享（CIFS）管理访问的银票"><span class="toc-text">Windows共享（CIFS）管理访问的银票</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#具有管理员权限的Windows计算机（HOST）白银票据"><span class="toc-text">具有管理员权限的Windows计算机（HOST）白银票据</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Silver-Ticket连接到以Windows管理员权限计算机上的PowerShell远程执行"><span class="toc-text">Silver Ticket连接到以Windows管理员权限计算机上的PowerShell远程执行</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#白银票据证连接到具有管理员权限Windows计算机上的LDAP"><span class="toc-text">白银票据证连接到具有管理员权限Windows计算机上的LDAP</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#白银票据证连接到具有管理员权限Windows计算机上的WMI"><span class="toc-text">白银票据证连接到具有管理员权限Windows计算机上的WMI</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#访问域控上“cifs”服务实列"><span class="toc-text">访问域控上“cifs”服务实列</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关于黄金票据和白银票据的一些区别"><span class="toc-text">关于黄金票据和白银票据的一些区别:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-访问权限不同"><span class="toc-text">1.访问权限不同</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-认证流程不同"><span class="toc-text">3.认证流程不同</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考文章"><span class="toc-text">参考文章</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#null"><span class="toc-text"></span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​        票据传递攻击（PtT）是一种使用Kerberos票据代替明文密码或NTLM哈希的方法。PtT最常见的用途可能是使用<strong>黄金票据</strong>和<strong>白银票据</strong>，通过PtT访问主机相当简单。</p>
 <h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>我们首先需要学习关于kerberos认证</p>
 <ul>
 <li><strong>KDC</strong>(Key Distribution Center)： 密钥分发中心，里面包含两个服务：AS和TGS</li>
@@ -261,7 +306,19 @@
 <p><a href="http://sh1yan.top/2019/06/03/Discussion-on-Silver-Bill-and-Gold-Bill/" target="_blank" rel="noopener">http://sh1yan.top/2019/06/03/Discussion-on-Silver-Bill-and-Gold-Bill/</a></p>
 <h5 id><a href="#" class="headerlink" title></a></h5>
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2020/06/06/qian-xi-huang-jin-piao-ju-yu-bai-yin-piao-ju/">https://shu1l.github.io/2020/06/06/qian-xi-huang-jin-piao-ju-yu-bai-yin-piao-ju/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         <div class="post-tags">
             <a href="/tags/%E7%A5%A8%E6%8D%AE/">票据</a>
@@ -272,8 +329,8 @@
         <span class="prev-text nav-default">188jianzhan SQL注入漏洞代码审计</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
-    <a class="next" href="/2020/06/05/yu-shen-tou-zhi-ntml-hash/">
-        <span class="next-text nav-default">域渗透之NTML hash</span>
+    <a class="next" href="/2020/06/05/hong-ri-an-quan-att-ck-ba-chang-zong-jie/">
+        <span class="next-text nav-default">红日安全ATT&CK靶场总结</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
@@ -281,7 +338,10 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -291,7 +351,7 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -302,8 +362,17 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

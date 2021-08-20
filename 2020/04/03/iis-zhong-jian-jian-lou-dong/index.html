@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="IIS中间件漏洞"/><meta name="keywords" content="IIS中间件漏洞, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
+<meta name="description" content="IIS中间件漏洞"/><meta name="keywords" content="IIS中间件漏洞, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://shu1l.github.io/2020/04/03/iis-zhong-jian-jian-lou-dong/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>IIS中间件漏洞 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -79,7 +119,12 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="IIS中间件漏洞复现"><a href="#IIS中间件漏洞复现" class="headerlink" title="IIS中间件漏洞复现"></a>IIS中间件漏洞复现</h2><h4 id="IIS-put漏洞"><a href="#IIS-put漏洞" class="headerlink" title="IIS-put漏洞"></a>IIS-put漏洞</h4><p><strong>什么是IIS？</strong></p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#IIS-put漏洞"><span class="toc-text">IIS-put漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞原理："><span class="toc-text">漏洞原理：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞复现"><span class="toc-text">漏洞复现</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IIS-短文件名猜解漏洞"><span class="toc-text">IIS-短文件名猜解漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞原理：-1"><span class="toc-text">漏洞原理：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞复现-1"><span class="toc-text">漏洞复现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞修复"><span class="toc-text">漏洞修复</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IIS-解析漏洞"><span class="toc-text">IIS-解析漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞原理"><span class="toc-text">漏洞原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞复现-2"><span class="toc-text">漏洞复现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞修复-1"><span class="toc-text">漏洞修复</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IIS远程代码执行"><span class="toc-text">IIS远程代码执行</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞原理：-2"><span class="toc-text">漏洞原理：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞复现："><span class="toc-text">漏洞复现：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞修复："><span class="toc-text">漏洞修复：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#参考文章："><span class="toc-text">参考文章：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#https-www-secpulse-com-archives-82410-html"><span class="toc-text">https:&#x2F;&#x2F;www.secpulse.com&#x2F;archives&#x2F;82410.html</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h4 id="IIS-put漏洞"><a href="#IIS-put漏洞" class="headerlink" title="IIS-put漏洞"></a>IIS-put漏洞</h4><p><strong>什么是IIS？</strong></p>
 <p>  IIS是一种Web（网页）服务组件，其中包括Web服务器、FTP服务器、NNTP服务器和SMTP服务器，分别用于网页浏览、文件传输、新闻服务和邮件发送等方面，它使得在网络（包括互联网和局域网）上发布信息成了一件很容易的事。</p>
 <h5 id="漏洞原理："><a href="#漏洞原理：" class="headerlink" title="漏洞原理："></a>漏洞原理：</h5><p>​      WebDAV （Web-based Distributed Authoring and Versioning） 是一种HTTP1.1的扩展协议。它扩展了HTTP 1.1，在GET、POST、HEAD等几个HTTP标准方法以外添加了一些新的方法，使应用程序可对Web Server直接读写，并支持写文件锁定(Locking)及解锁(Unlock)，还可以支持文件的版本控制。可以像在操作本地文件夹一样操作服务器上的文件夹，该扩展也存在缺陷，可以被恶意攻击者利用，直接上传恶意文件。</p>
 <h5 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>1.准备过程：</p>
@@ -173,7 +218,19 @@
 <p><a href="https://blog.csdn.net/weixin_45744757/article/details/104512683" target="_blank" rel="noopener">https://blog.csdn.net/weixin_45744757/article/details/104512683</a></p>
 
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2020/04/03/iis-zhong-jian-jian-lou-dong/">https://shu1l.github.io/2020/04/03/iis-zhong-jian-jian-lou-dong/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         <div class="post-tags">
             <a href="/tags/IIS%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/">IIS中间件漏洞</a>
@@ -193,7 +250,10 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -203,7 +263,7 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -214,8 +274,17 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

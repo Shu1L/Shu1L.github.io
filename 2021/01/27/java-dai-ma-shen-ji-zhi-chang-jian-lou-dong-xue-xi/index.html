@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="java代码审计之常见漏洞学习"/><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
-<link rel="canonical" href="https://shu1l.github.io/2021/06/18/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/"/>
+<meta name="description" content="java代码审计之常见漏洞学习"/><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://shu1l.github.io/2021/01/27/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>java代码审计之常见漏洞学习 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -72,12 +112,16 @@
 
       <div class="post-meta">
         <span class="post-time">
-          2021-06-18
+          2021-01-27
         </span></div>
     </header>
 
-    <div class="post-content"><p>title: java代码审计之常见漏洞学习<br>abbrlink: 15301<br>date: 2021-01-27 14:28:28<br>tags:</p>
-<h2 id="java代码审计之常见漏洞学习"><a href="#java代码审计之常见漏洞学习" class="headerlink" title="java代码审计之常见漏洞学习"></a>java代码审计之常见漏洞学习</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>Java代码审计中常见的一些漏洞学习总结以及一些审计思路。</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#java项目分层"><span class="toc-text">java项目分层</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Servlet"><span class="toc-text">Servlet</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sql注入漏洞"><span class="toc-text">sql注入漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#成因"><span class="toc-text">成因</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#审计方法"><span class="toc-text">审计方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修复"><span class="toc-text">修复</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#XSS漏洞"><span class="toc-text">XSS漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#成因-1"><span class="toc-text">成因</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#审计方法-1"><span class="toc-text">审计方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修复-1"><span class="toc-text">修复</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#XXE漏洞"><span class="toc-text">XXE漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#成因-2"><span class="toc-text">成因</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#审计方法-2"><span class="toc-text">审计方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修复-2"><span class="toc-text">修复</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SSRF漏洞"><span class="toc-text">SSRF漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#成因-3"><span class="toc-text">成因</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#审计方法-3"><span class="toc-text">审计方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修复-3"><span class="toc-text">修复</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#任意文件操作类漏洞"><span class="toc-text">任意文件操作类漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#成因-4"><span class="toc-text">成因</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#审计方法-4"><span class="toc-text">审计方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修复方法"><span class="toc-text">修复方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#命令执行漏洞"><span class="toc-text">命令执行漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#成因-5"><span class="toc-text">成因</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#举例"><span class="toc-text">举例</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#审计方法-5"><span class="toc-text">审计方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修复-4"><span class="toc-text">修复</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#反序列化漏洞"><span class="toc-text">反序列化漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#成因-6"><span class="toc-text">成因</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#审计方法-6"><span class="toc-text">审计方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修复-5"><span class="toc-text">修复</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#中间件漏洞"><span class="toc-text">中间件漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#成因-7"><span class="toc-text">成因</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#审计方法-7"><span class="toc-text">审计方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#修复-6"><span class="toc-text">修复</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#业务逻辑漏洞"><span class="toc-text">业务逻辑漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#成因-8"><span class="toc-text">成因</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#审计方法-8"><span class="toc-text">审计方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修复-7"><span class="toc-text">修复</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#其他漏洞"><span class="toc-text">其他漏洞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考文章"><span class="toc-text">参考文章</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>Java代码审计中常见的一些漏洞学习总结以及一些审计思路。</p>
 <h4 id="java项目分层"><a href="#java项目分层" class="headerlink" title="java项目分层"></a>java项目分层</h4><ul>
 <li>视图层(View 视图)</li>
 <li>控制层（Controller、Action控制层)</li>
@@ -264,9 +308,9 @@
 </ul>
 <h4 id="中间件漏洞"><a href="#中间件漏洞" class="headerlink" title="中间件漏洞"></a>中间件漏洞</h4><h5 id="成因-7"><a href="#成因-7" class="headerlink" title="成因"></a>成因</h5><p>​    <strong>中间件</strong>是提供系统软件和应用软件之间连接的软件，它将应用程序运行环境与操作系统隔离，从而实现应用程序开发者不必为更多系统问题忧虑，而直接关注该应用程序在解决问题上的能力 。容器就是中间件的一种。</p>
 <p>java常见的中间件:</p>
-<p><img src="/2021/06/18/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MTE5MTky,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p><img src="/2021/01/27/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MTE5MTky,size_16,color_FFFFFF,t_70" alt="img"></p>
 <h4 id="审计方法-7"><a href="#审计方法-7" class="headerlink" title="审计方法"></a>审计方法</h4><p>直接打开pom.xml文件查看其 使用的中间件及其版本，然后到漏洞库里找漏洞即可。</p>
-<img src="/2021/06/18/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/QQ截图20210127114728.png" style="zoom: 50%;">
+<img src="/2021/01/27/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/QQ截图20210127114728.png" style="zoom: 50%;">
 
 <h5 id="修复-6"><a href="#修复-6" class="headerlink" title="修复"></a>修复</h5><p>及时更新项目使用的java中间件的版本。</p>
 <h4 id="业务逻辑漏洞"><a href="#业务逻辑漏洞" class="headerlink" title="业务逻辑漏洞"></a>业务逻辑漏洞</h4><h5 id="成因-8"><a href="#成因-8" class="headerlink" title="成因"></a>成因</h5><p>​    常见的业务逻辑漏洞主要是越权，分为平行越权和垂直越权。在javaweb的各个功能点中都可能存在越权漏洞。</p>
@@ -286,16 +330,28 @@
 <p><a href="https://www.freebuf.com/articles/web/253139.html" target="_blank" rel="noopener">看一名Java开发人员以红队思维五分钟审计一套代码（续） - FreeBuf网络安全行业门户</a></p>
 
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2021/01/27/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/">https://shu1l.github.io/2021/01/27/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         
-        <nav class="post-nav"><a class="prev" href="/2021/08/06/mian-sha-xue-xi-powershell-jia-zai-shellcode-mian-sha/">
+        <nav class="post-nav"><a class="prev" href="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">免杀学习--powershell加载shellcode免杀</span>
+        <span class="prev-text nav-default">Java安全--RMI基础学习</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
-    <a class="next" href="/2021/04/03/golang-xue-xi-bian-xie-pa-chong/">
-        <span class="next-text nav-default">golang学习--编写爬虫</span>
+    <a class="next" href="/2021/01/16/src-hun-zi-de-lou-dong-wa-jue-zhi-dao/">
+        <span class="next-text nav-default">SRC混子的漏洞挖掘之道</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
@@ -303,7 +359,10 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -313,7 +372,7 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -324,8 +383,17 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

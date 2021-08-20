@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="exchange攻击链复现"/><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
+<meta name="description" content="exchange攻击链复现"/><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://shu1l.github.io/2021/08/19/exchange-gong-ji-lian-fu-xian/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>exchange攻击链复现 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -76,8 +116,12 @@
         </span></div>
     </header>
 
-    <div class="post-content"><h2 id="exchange攻击链复现"><a href="#exchange攻击链复现" class="headerlink" title="exchange攻击链复现"></a>exchange攻击链复现</h2><p>[TOC]</p>
-<h4 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h4><h5 id="1-域环境搭建"><a href="#1-域环境搭建" class="headerlink" title="1.域环境搭建"></a>1.域环境搭建</h5><p>我们首先需要搭建一个简单的域环境,具体的搭建步骤可以参考:</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#环境搭建"><span class="toc-text">环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-域环境搭建"><span class="toc-text">1.域环境搭建</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-exchange服务搭建"><span class="toc-text">2.exchange服务搭建</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-outlook2016安装"><span class="toc-text">3.outlook2016安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-win10受控机配置"><span class="toc-text">4.win10受控机配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-ubuntu配置"><span class="toc-text">5.ubuntu配置</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击手法一复现"><span class="toc-text">攻击手法一复现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#攻击链"><span class="toc-text">攻击链</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-配置-LM-身份验证级别-LmCompatibilityLevel"><span class="toc-text">1.配置(LM 身份验证级别)LmCompatibilityLevel</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-添加钓鱼域名dns记录"><span class="toc-text">2.添加钓鱼域名dns记录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-发送钓鱼邮件"><span class="toc-text">3.发送钓鱼邮件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-开启responder监听"><span class="toc-text">4.开启responder监听</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-受害者打开邮件"><span class="toc-text">5.受害者打开邮件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-网站在线解密hash"><span class="toc-text">6.网站在线解密hash</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7-pth利用ews接口收取邮件"><span class="toc-text">7.pth利用ews接口收取邮件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击手法二复现"><span class="toc-text">攻击手法二复现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#攻击链-1"><span class="toc-text">攻击链</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-配置-LM-身份验证级别-LmCompatibilityLevel-1"><span class="toc-text">1.配置(LM 身份验证级别)LmCompatibilityLevel</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-获取net-ntlmv2-hash"><span class="toc-text">2.获取net-ntlmv2 hash</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-relay到ews接口获取邮件"><span class="toc-text">3.relay到ews接口获取邮件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击手法三复现"><span class="toc-text">攻击手法三复现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#攻击链-2"><span class="toc-text">攻击链</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#homepage利用"><span class="toc-text">homepage利用</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后记"><span class="toc-text">后记</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h4 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h4><h5 id="1-域环境搭建"><a href="#1-域环境搭建" class="headerlink" title="1.域环境搭建"></a>1.域环境搭建</h5><p>我们首先需要搭建一个简单的域环境,具体的搭建步骤可以参考:</p>
 <p><a href="https://www.jianshu.com/p/2708f3dfb7cf" target="_blank" rel="noopener">配置Windows Server 2012域控环境，并抓取hash - 简书 (jianshu.com)</a></p>
 <p>搭建的结果:</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Winserver2012R2      DC域控   ip:<span class="number">192.168</span><span class="number">.111</span><span class="number">.175</span></span><br><span class="line">Winserver2012R2      exchange服务器   ip:<span class="number">192.168</span><span class="number">.111</span><span class="number">.185</span></span><br><span class="line">windows <span class="number">10</span> x64       win10成员机(受控机)      ip:<span class="number">192.168</span><span class="number">.111</span><span class="number">.143</span></span><br><span class="line"></span><br><span class="line">攻击者kali机   ip:<span class="number">192.168</span><span class="number">.111</span><span class="number">.182</span></span><br></pre></td></tr></table></figure>
@@ -206,7 +250,19 @@
 </ul>
 
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2021/08/19/exchange-gong-ji-lian-fu-xian/">https://shu1l.github.io/2021/08/19/exchange-gong-ji-lian-fu-xian/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         
         <nav class="post-nav"><a class="next" href="/2021/08/17/tidesec-mian-sha-fang-fa-zui-xin-sha-ruan-ce-shi-jie-guo/">
@@ -218,7 +274,10 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -228,7 +287,7 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -239,8 +298,17 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

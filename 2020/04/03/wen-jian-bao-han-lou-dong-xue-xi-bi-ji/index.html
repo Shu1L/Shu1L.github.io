@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="文件包含漏洞学习笔记"/><meta name="keywords" content="文件包含漏洞, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
+<meta name="description" content="文件包含漏洞学习笔记"/><meta name="keywords" content="文件包含漏洞, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://shu1l.github.io/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>文件包含漏洞学习笔记 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -79,7 +119,12 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="文件包含漏洞学习"><a href="#文件包含漏洞学习" class="headerlink" title="文件包含漏洞学习"></a>文件包含漏洞学习</h2><h4 id="文件包含漏洞相关知识点"><a href="#文件包含漏洞相关知识点" class="headerlink" title="文件包含漏洞相关知识点"></a>文件包含漏洞相关知识点</h4><h5 id="什么是文件包含？"><a href="#什么是文件包含？" class="headerlink" title="什么是文件包含？"></a>什么是文件包含？</h5><p>​       服务器执行PHP文件时，可以通过文件包含函数加载另一个文件中的PHP代码，并且当PHP执行，这会为开发者节省大量的时间。这意味着您可以创建供所有网页引用的标准页眉或菜单文件。当页眉需要更新时，您只更新一个包含文件就可以了，或者当您向网站添加一张新页面时，仅仅需要修改一下菜单文件（而不是更新所有网页中的链接）。</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#文件包含漏洞相关知识点"><span class="toc-text">文件包含漏洞相关知识点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#什么是文件包含？"><span class="toc-text">什么是文件包含？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#文件包含函数"><span class="toc-text">文件包含函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞产生的原因"><span class="toc-text">漏洞产生的原因</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分类"><span class="toc-text">分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#本地文件包含漏洞"><span class="toc-text">本地文件包含漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#一、无限制本地文件包含漏洞"><span class="toc-text">一、无限制本地文件包含漏洞</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二、session文件包含漏洞"><span class="toc-text">二、session文件包含漏洞</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#三、有限制本地文件包含漏洞绕过"><span class="toc-text">三、有限制本地文件包含漏洞绕过</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#远程文件包含漏洞"><span class="toc-text">远程文件包含漏洞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP伪协议在文件包含中的应用"><span class="toc-text">PHP伪协议在文件包含中的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#php-input"><span class="toc-text">php:&#x2F;&#x2F;input</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#php-input-（读取POST数据）"><span class="toc-text">php:&#x2F;&#x2F;input （读取POST数据）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#php-input-命令执行"><span class="toc-text">php:&#x2F;&#x2F;input(命令执行)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#data-伪协议"><span class="toc-text">data:&#x2F;&#x2F;伪协议</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#phar伪协议"><span class="toc-text">phar伪协议</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#zip：-伪协议"><span class="toc-text">zip：&#x2F;&#x2F;伪协议</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#本地包含配合文件上传"><span class="toc-text">本地包含配合文件上传</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#包含日志文件"><span class="toc-text">包含日志文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#SSH-log"><span class="toc-text">SSH log</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#包含临时文件"><span class="toc-text">包含临时文件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jsp文件包含漏洞"><span class="toc-text">jsp文件包含漏洞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#asp文件包含漏洞"><span class="toc-text">asp文件包含漏洞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#aspx文件包含漏洞"><span class="toc-text">aspx文件包含漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#参考文章："><span class="toc-text">参考文章：</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h4 id="文件包含漏洞相关知识点"><a href="#文件包含漏洞相关知识点" class="headerlink" title="文件包含漏洞相关知识点"></a>文件包含漏洞相关知识点</h4><h5 id="什么是文件包含？"><a href="#什么是文件包含？" class="headerlink" title="什么是文件包含？"></a>什么是文件包含？</h5><p>​       服务器执行PHP文件时，可以通过文件包含函数加载另一个文件中的PHP代码，并且当PHP执行，这会为开发者节省大量的时间。这意味着您可以创建供所有网页引用的标准页眉或菜单文件。当页眉需要更新时，您只更新一个包含文件就可以了，或者当您向网站添加一张新页面时，仅仅需要修改一下菜单文件（而不是更新所有网页中的链接）。</p>
 <h5 id="文件包含函数"><a href="#文件包含函数" class="headerlink" title="文件包含函数"></a>文件包含函数</h5><ul>
 <li>require()</li>
 <li>require_once()</li>
@@ -375,7 +420,19 @@
 <p><a href="https://thief.one/2017/04/10/2/" target="_blank" rel="noopener">https://thief.one/2017/04/10/2/</a></p>
 
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/">https://shu1l.github.io/2020/04/03/wen-jian-bao-han-lou-dong-xue-xi-bi-ji/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         <div class="post-tags">
             <a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/">文件包含漏洞</a>
@@ -395,7 +452,10 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -405,7 +465,7 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -416,8 +476,17 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

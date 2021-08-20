@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="java安全--FastJson 1.2.22-1.2.24漏洞分析"/><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
+<meta name="description" content="java安全--FastJson 1.2.22-1.2.24漏洞分析"/><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://shu1l.github.io/2021/03/02/java-an-quan-fastjson-1-2-22-1-2-24-lou-dong-fen-xi/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>java安全--FastJson 1.2.22-1.2.24漏洞分析 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -76,7 +116,12 @@
         </span></div>
     </header>
 
-    <div class="post-content"><h2 id="java安全–FastJson-1-2-22-1-2-24漏洞分析"><a href="#java安全–FastJson-1-2-22-1-2-24漏洞分析" class="headerlink" title="java安全–FastJson 1.2.22-1.2.24漏洞分析"></a>java安全–FastJson 1.2.22-1.2.24漏洞分析</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​    Fastjson是Alibaba开发的Java语言编写的高性能JSON库，用于将数据在JSON和Java Object之间互相转换。最近几年fastjson爆出了不少漏洞，但源头还是fastjson1.2.24爆出的反序列化漏洞,本文记录学习调试该漏洞的过程。</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#初探fastjosn反序列化"><span class="toc-text">初探fastjosn反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#说明"><span class="toc-text">说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#序列化与反序列化"><span class="toc-text">序列化与反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#三个反序列化方法的区别"><span class="toc-text">三个反序列化方法的区别</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Type-关键"><span class="toc-text">@Type(关键)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TemplatesImpl利用链-lt-1-2-24"><span class="toc-text">TemplatesImpl利用链(&lt;&#x3D;1.2.24)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#利用点"><span class="toc-text">利用点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞位置"><span class="toc-text">漏洞位置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#限制条件"><span class="toc-text">限制条件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#分析"><span class="toc-text">分析</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结-1"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#利用POC"><span class="toc-text">利用POC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#动态调试"><span class="toc-text">动态调试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后续修复分析"><span class="toc-text">后续修复分析</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​    Fastjson是Alibaba开发的Java语言编写的高性能JSON库，用于将数据在JSON和Java Object之间互相转换。最近几年fastjson爆出了不少漏洞，但源头还是fastjson1.2.24爆出的反序列化漏洞,本文记录学习调试该漏洞的过程。</p>
 <h3 id="初探fastjosn反序列化"><a href="#初探fastjosn反序列化" class="headerlink" title="初探fastjosn反序列化"></a>初探fastjosn反序列化</h3><h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><p>Fastjson在进行反序列化操作时，并没有使用默认的readObject()，而是自己实现了一套反序列化机制。我们通过操作操作属性的setter getter方法结合一些特殊类从而实现任意命令执行。</p>
 <h4 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h4><p>我们可以首先构造一个User类:</p>
 <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package com.fastjson;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> &#123;</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">String</span> name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">String</span> <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(<span class="keyword">String</span> name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -214,7 +259,19 @@
 <p>后续的绕过接下来再分析。。。。</p>
 
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2021/03/02/java-an-quan-fastjson-1-2-22-1-2-24-lou-dong-fen-xi/">https://shu1l.github.io/2021/03/02/java-an-quan-fastjson-1-2-22-1-2-24-lou-dong-fen-xi/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         
         <nav class="post-nav"><a class="prev" href="/2021/03/29/java-shen-ji-la-ji-dong-xi-lie-ji-he/">
@@ -231,7 +288,10 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -241,7 +301,7 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -252,8 +312,17 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="Axublog代码审计学习"/><meta name="keywords" content="Axublog, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
+<meta name="description" content="Axublog代码审计学习"/><meta name="keywords" content="Axublog, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://shu1l.github.io/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>Axublog代码审计学习 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -79,7 +119,12 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="Axublog代码审计学习"><a href="#Axublog代码审计学习" class="headerlink" title="Axublog代码审计学习"></a>Axublog代码审计学习</h2><h4 id="前台数字型sql注入"><a href="#前台数字型sql注入" class="headerlink" title="前台数字型sql注入"></a>前台数字型sql注入</h4><h5 id="漏洞位置：axublog-hit-php"><a href="#漏洞位置：axublog-hit-php" class="headerlink" title="漏洞位置：axublog/hit.php"></a>漏洞位置：axublog/hit.php</h5><h5 id="漏洞分析："><a href="#漏洞分析：" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><p>hit.php漏洞关键代码：</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前台数字型sql注入"><span class="toc-text">前台数字型sql注入</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞位置：axublog-hit-php"><span class="toc-text">漏洞位置：axublog&#x2F;hit.php</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞分析："><span class="toc-text">漏洞分析：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞修复："><span class="toc-text">漏洞修复：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#任意文件上传漏洞"><span class="toc-text">任意文件上传漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞位置："><span class="toc-text">漏洞位置：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞分析：-1"><span class="toc-text">漏洞分析：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修复方案："><span class="toc-text">修复方案：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后台生成about页面getshell"><span class="toc-text">后台生成about页面getshell</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞位置：-1"><span class="toc-text">漏洞位置：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞分析：-2"><span class="toc-text">漏洞分析：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后台登录处的sql注入漏洞"><span class="toc-text">后台登录处的sql注入漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞分析：-3"><span class="toc-text">漏洞分析：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞利用："><span class="toc-text">漏洞利用：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前台反射型xss漏洞"><span class="toc-text">前台反射型xss漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞分析：-4"><span class="toc-text">漏洞分析：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞利用：-1"><span class="toc-text">漏洞利用：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前台sql注入漏洞"><span class="toc-text">前台sql注入漏洞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后台任意文件写入漏洞"><span class="toc-text">后台任意文件写入漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞利用：-2"><span class="toc-text">漏洞利用：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后台多个sql注入漏洞"><span class="toc-text">后台多个sql注入漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞分析"><span class="toc-text">漏洞分析</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞利用：-3"><span class="toc-text">漏洞利用：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#任意文件读取漏洞"><span class="toc-text">任意文件读取漏洞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码执行漏洞"><span class="toc-text">代码执行漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#参考文章"><span class="toc-text">参考文章</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h4 id="前台数字型sql注入"><a href="#前台数字型sql注入" class="headerlink" title="前台数字型sql注入"></a>前台数字型sql注入</h4><h5 id="漏洞位置：axublog-hit-php"><a href="#漏洞位置：axublog-hit-php" class="headerlink" title="漏洞位置：axublog/hit.php"></a>漏洞位置：axublog/hit.php</h5><h5 id="漏洞分析："><a href="#漏洞分析：" class="headerlink" title="漏洞分析："></a>漏洞分析：</h5><p>hit.php漏洞关键代码：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">header(<span class="string">"Content-type:text/html; charset=utf-8"</span>);</span></span><br><span class="line"><span class="php"><span class="keyword">require</span>(<span class="string">"cmsconfig.php"</span>);</span></span><br><span class="line"><span class="php"><span class="keyword">require</span>(<span class="string">"class/c_other.php"</span>);</span></span><br><span class="line"><span class="php">sqlguolv();</span></span><br><span class="line"></span><br><span class="line"><span class="php">$g=$_GET[<span class="string">'g'</span>];</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="php"><span class="keyword">if</span> ($g==<span class="string">'arthit'</span>)&#123;</span></span><br><span class="line"><span class="php">$id=$_GET[<span class="string">'id'</span>];        </span></span><br><span class="line"><span class="php">    <span class="keyword">if</span>($id!=<span class="string">''</span>)&#123;</span></span><br><span class="line"><span class="php">    </span></span><br><span class="line"><span class="php">$tab=$tabhead.<span class="string">"arts"</span>;</span></span><br><span class="line"><span class="php">mysql_select_db($tab);</span></span><br><span class="line"><span class="php">$sql=mysql_query(<span class="string">"UPDATE "</span>.$tab.<span class="string">" SET hit=hit+1 where id="</span>.$id);  <span class="comment">//直接将$_GET['id']提取的                                                                      id带入sql查询，没有经过																	  有效过滤</span></span></span><br><span class="line"><span class="php">$sql = mysql_query(<span class="string">"select * from "</span>.$tab.<span class="string">" where id="</span>.$id);</span></span><br><span class="line"><span class="php">$row=mysql_fetch_array($sql);</span></span><br><span class="line"><span class="php">    $str=$row[<span class="string">'hit'</span>];</span></span><br><span class="line"><span class="php">    <span class="keyword">echo</span> <span class="string">'document.write('</span>.$str.<span class="string">');'</span>;</span></span><br><span class="line"><span class="php">    &#125;</span></span><br><span class="line"><span class="php">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>我们尝试直接传入payload尝试：</p>
@@ -196,7 +241,19 @@
 <p><a href="https://blog.csdn.net/sweet0swat/article/details/89056383" target="_blank" rel="noopener">https://blog.csdn.net/sweet0swat/article/details/89056383</a></p>
 
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/">https://shu1l.github.io/2020/04/19/axublog-dai-ma-shen-ji-xue-xi/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         <div class="post-tags">
             <a href="/tags/Axublog/">Axublog</a>
@@ -216,7 +273,10 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -226,7 +286,7 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -237,8 +297,17 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

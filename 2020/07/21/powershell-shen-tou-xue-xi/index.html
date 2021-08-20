@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="Powershell渗透学习"/><meta name="keywords" content="Powershell, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
+<meta name="description" content="Powershell渗透学习"/><meta name="keywords" content="Powershell, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://shu1l.github.io/2020/07/21/powershell-shen-tou-xue-xi/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>Powershell渗透学习 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -79,7 +119,12 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="Powershell渗透学习"><a href="#Powershell渗透学习" class="headerlink" title="Powershell渗透学习"></a>Powershell渗透学习</h2><p>[TOC]</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Powershell渗透学习"><span class="toc-text">Powershell渗透学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#powershell渗透基础"><span class="toc-text">powershell渗透基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#powershell简介"><span class="toc-text">powershell简介</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#powershell的优点"><span class="toc-text">powershell的优点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#常见的Powershell攻击工具"><span class="toc-text">常见的Powershell攻击工具</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#powershell语法基础"><span class="toc-text">powershell语法基础</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#基本语法"><span class="toc-text">基本语法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#常用命令"><span class="toc-text">常用命令</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cmdlets说明"><span class="toc-text">cmdlets说明</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#渗透中常用的cmdlets命令"><span class="toc-text">渗透中常用的cmdlets命令</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#powershell执行策略"><span class="toc-text">powershell执行策略</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#绕过策略的常见方法"><span class="toc-text">绕过策略的常见方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#powershell渗透测试框架Powersploit"><span class="toc-text">powershell渗透测试框架Powersploit</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#各模块功能"><span class="toc-text">各模块功能</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#一、代码执行（CodeExecution）"><span class="toc-text">一、代码执行（CodeExecution）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二、脚本修改（ScriptModification）"><span class="toc-text">二、脚本修改（ScriptModification）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#三、权限维持（Persistence）"><span class="toc-text">三、权限维持（Persistence）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#四、绕过杀毒软件（AntivirusBypass）"><span class="toc-text">四、绕过杀毒软件（AntivirusBypass）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#五、信息收集（Exfiltration）"><span class="toc-text">五、信息收集（Exfiltration）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#六、信息侦察（Recon）"><span class="toc-text">六、信息侦察（Recon）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#搭建PowerSploit脚本服务器"><span class="toc-text">搭建PowerSploit脚本服务器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Invoke-Shellcode"><span class="toc-text">Invoke-Shellcode</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-直接执行shellcode反弹Meterpreter-Shell"><span class="toc-text">1.直接执行shellcode反弹Meterpreter Shell</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-指定进程注入shellcode反弹Meterpreter-Shell"><span class="toc-text">2.指定进程注入shellcode反弹Meterpreter Shell</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Invoke-DllInjection"><span class="toc-text">Invoke-DllInjection</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Invoke-Portscan"><span class="toc-text">Invoke-Portscan</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Invoke-Mimikatz"><span class="toc-text">Invoke-Mimikatz</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Get-Keystrokes"><span class="toc-text">Get-Keystrokes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PowerUp"><span class="toc-text">PowerUp</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Powershell渗透框架nishang"><span class="toc-text">Powershell渗透框架nishang</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#简介-1"><span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#目录结构"><span class="toc-text">目录结构</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Nishang使用姿势"><span class="toc-text">Nishang使用姿势</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#nishang常用脚本"><span class="toc-text">nishang常用脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-暴力破解-（Invoke-BruteForce"><span class="toc-text">1.暴力破解 （Invoke-BruteForce)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-端口扫描"><span class="toc-text">2.端口扫描</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-下载文件"><span class="toc-text">3.下载文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-信息收集"><span class="toc-text">4.信息收集</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-后门利用"><span class="toc-text">5.后门利用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-客户端攻击"><span class="toc-text">6.客户端攻击</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7-powershell交互式shell"><span class="toc-text">7.powershell交互式shell</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#基于TCP协议的Powershell交互式shell"><span class="toc-text">基于TCP协议的Powershell交互式shell</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#基于UDP协议的Powershell交互式shell"><span class="toc-text">基于UDP协议的Powershell交互式shell</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#基于HTTP和HTTPS协议的PowerShell交互式Shell"><span class="toc-text">基于HTTP和HTTPS协议的PowerShell交互式Shell</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Powershell渗透框架empire"><span class="toc-text">Powershell渗透框架empire</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#0x01：设置监听"><span class="toc-text">0x01：设置监听</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#0x02：生成木马"><span class="toc-text">0x02：生成木马</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="Powershell渗透学习"><a href="#Powershell渗透学习" class="headerlink" title="Powershell渗透学习"></a>Powershell渗透学习</h2><p>[TOC]</p>
 <h3 id="powershell渗透基础"><a href="#powershell渗透基础" class="headerlink" title="powershell渗透基础"></a>powershell渗透基础</h3><h4 id="powershell简介"><a href="#powershell简介" class="headerlink" title="powershell简介"></a>powershell简介</h4><p>​                PowerShell是一种基于任务的命令行解释器和脚本环境，可以说是一种强大的shell,如同linux的bash,专为系统管理员而设计，以.NET框架为平台，Windows PowerShell帮助IT专业人员和超级用户控制和自动化管理Windows操作系统和运行在操作系统上的应用。<strong>现被更广泛用于渗透测试等方面，在不需要写入磁盘的情况下执行命令，也可以逃避Anti-Virus检测。</strong></p>
 <p><strong>注:</strong>powershell只能针对win7以后的系统使用,</p>
 <p><strong>为什么要学powershell</strong></p>
@@ -390,7 +435,19 @@
 <p><img src="/2020/07/21/powershell-shen-tou-xue-xi/dfghfgdh.jpg" alt="请输入图片描述"></p>
 
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2020/07/21/powershell-shen-tou-xue-xi/">https://shu1l.github.io/2020/07/21/powershell-shen-tou-xue-xi/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         <div class="post-tags">
             <a href="/tags/Powershell/">Powershell</a>
@@ -410,7 +467,10 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -420,7 +480,7 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -431,8 +491,17 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

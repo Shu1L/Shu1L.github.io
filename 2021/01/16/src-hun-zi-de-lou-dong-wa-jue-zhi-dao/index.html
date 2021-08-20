@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="SRC混子的漏洞挖掘之道"/><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
+<meta name="description" content="SRC混子的漏洞挖掘之道"/><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://shu1l.github.io/2021/01/16/src-hun-zi-de-lou-dong-wa-jue-zhi-dao/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>SRC混子的漏洞挖掘之道 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -76,7 +116,12 @@
         </span></div>
     </header>
 
-    <div class="post-content"><h2 id="SRC混子的漏洞挖掘之道"><a href="#SRC混子的漏洞挖掘之道" class="headerlink" title="SRC混子的漏洞挖掘之道"></a>SRC混子的漏洞挖掘之道</h2><p>本文首先于先知社区:<a href="https://xz.aliyun.com/t/8501" target="_blank" rel="noopener">SRC混子的漏洞挖掘之道 - 先知社区 (aliyun.com)</a></p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前期信息收集"><span class="toc-text">前期信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#企业相关信息收集"><span class="toc-text">企业相关信息收集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#子域名收集和网站信息收集"><span class="toc-text">子域名收集和网站信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#通过github收集子域名"><span class="toc-text">通过github收集子域名</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#oneforAll"><span class="toc-text">oneforAll</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#xray"><span class="toc-text">xray</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Goby"><span class="toc-text">Goby</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#BBScan"><span class="toc-text">BBScan</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#js信息收集"><span class="toc-text">js信息收集</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#捡中低危漏洞的一些技巧"><span class="toc-text">捡中低危漏洞的一些技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#登录框处常见的一些漏洞"><span class="toc-text">登录框处常见的一些漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#绕过限制导致的爆破、撞库、用户遍历漏洞"><span class="toc-text">绕过限制导致的爆破、撞库、用户遍历漏洞</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#弱口令漏洞"><span class="toc-text">弱口令漏洞</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#注册、登录、找回密码处的短信-邮箱轰炸漏洞"><span class="toc-text">注册、登录、找回密码处的短信\邮箱轰炸漏洞</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#逻辑缺陷的导致的任意用户注册、登录、找回密码漏洞"><span class="toc-text">逻辑缺陷的导致的任意用户注册、登录、找回密码漏洞</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常见的信息泄露漏洞"><span class="toc-text">常见的信息泄露漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#github导致的信息泄露"><span class="toc-text">github导致的信息泄露</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#配置错误导致的信息泄露"><span class="toc-text">配置错误导致的信息泄露</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#越权导致的信息泄露"><span class="toc-text">越权导致的信息泄露</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他的OWASPTop10漏洞"><span class="toc-text">其他的OWASPTop10漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CSRF漏洞"><span class="toc-text">CSRF漏洞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#任意文件上传漏洞"><span class="toc-text">任意文件上传漏洞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#XSS漏洞"><span class="toc-text">XSS漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#bypass姿势"><span class="toc-text">bypass姿势</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#威胁情报的提交"><span class="toc-text">威胁情报的提交</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对于挖掘高危、严重级别漏洞的一些思考"><span class="toc-text">对于挖掘高危、严重级别漏洞的一些思考</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-自动化信息收集的能力"><span class="toc-text">1.自动化信息收集的能力</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-打漏洞组合拳的能力"><span class="toc-text">2.打漏洞组合拳的能力</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-绕waf的能力"><span class="toc-text">3.绕waf的能力</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-细心和耐心和一些运气"><span class="toc-text">4.细心和耐心和一些运气</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><p>本文首先于先知社区:<a href="https://xz.aliyun.com/t/8501" target="_blank" rel="noopener">SRC混子的漏洞挖掘之道 - 先知社区 (aliyun.com)</a></p>
 <p>一个SRC混子挖SRC的半年经验分享~,基本都是文字阐述，希望能给同样在挖洞的师傅们带来一点新收获。</p>
 <h3 id="前期信息收集"><a href="#前期信息收集" class="headerlink" title="前期信息收集"></a>前期信息收集</h3><p> 还是那句老话,渗透测试的本质是信息收集，对于没有0day的弱鸡选手来说，挖SRC感觉更像是对企业的资产梳理，我们往往需要花很长的时间去做信息收集，收集与此公司相关的信息，包括<strong>企业的分公司，全资子公司，网站域名、手机app,微信小程序，企业专利品牌信息，企业邮箱，电话</strong>等等，对于很多万人挖的src来说，你收集到了别人没有收集过的资产，往往离挖到漏洞就不远了。</p>
 <h4 id="企业相关信息收集"><a href="#企业相关信息收集" class="headerlink" title="企业相关信息收集"></a>企业相关信息收集</h4><ul>
@@ -338,12 +383,24 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p> 挖SRC需要有一个好心态，国内SRC生态并不是很好，SRC感觉更多的提供了一个相对安全的测试保障，所以更需要抱着一种学习的心态去挖，将我们学习的到的知识灵活运用，发现新的问题。不要想我今晚一定要挖到多少漏洞，要拿到多少奖金，不然可能会被忽略三连打崩心态。</p>
 
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2021/01/16/src-hun-zi-de-lou-dong-wa-jue-zhi-dao/">https://shu1l.github.io/2021/01/16/src-hun-zi-de-lou-dong-wa-jue-zhi-dao/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         
-        <nav class="post-nav"><a class="prev" href="/2021/02/09/java-an-quan-rmi-ji-chu-xue-xi/">
+        <nav class="post-nav"><a class="prev" href="/2021/01/27/java-dai-ma-shen-ji-zhi-chang-jian-lou-dong-xue-xi/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">Java安全--RMI基础学习</span>
+        <span class="prev-text nav-default">java代码审计之常见漏洞学习</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     <a class="next" href="/2020/11/25/cong-apache-commons-collections-zhong-xue-xi-java-fan-xu-lie-hua/">
@@ -355,7 +412,10 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -365,7 +425,7 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -376,8 +436,17 @@ xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;text/plain;charset=UTF-8&qu
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

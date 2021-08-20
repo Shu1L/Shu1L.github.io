@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="jBoss中间件漏洞"/><meta name="keywords" content="JBoss中间件漏洞, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
+<meta name="description" content="jBoss中间件漏洞"/><meta name="keywords" content="JBoss中间件漏洞, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://shu1l.github.io/2020/04/03/jboss-zhong-jian-jian-lou-dong/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>jBoss中间件漏洞 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -79,7 +119,12 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="jBoss中间件漏洞复现"><a href="#jBoss中间件漏洞复现" class="headerlink" title="jBoss中间件漏洞复现"></a>jBoss中间件漏洞复现</h2><h4 id="jBoss简介"><a href="#jBoss简介" class="headerlink" title="jBoss简介"></a>jBoss简介</h4><p>jBoss是一个基于J2EE的开发源代码的应用服务器。 JBoss代码遵循LGPL许可，可以在任何商业应用中免费使用。JBoss是一个管理EJB的容器和服务器，支持EJB1.1、EJB 2.0和EJB3的规范。但JBoss核心服务不包括支持servlet/JSP的WEB容器，一般与Tomcat或Jetty绑定使用。</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#jBoss简介"><span class="toc-text">jBoss简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JBoss-5-x-6-x-反序列化漏洞（CVE-2017-12149）"><span class="toc-text">JBoss 5.x&#x2F;6.x 反序列化漏洞（CVE-2017-12149）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#测试环境"><span class="toc-text">测试环境</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞复现"><span class="toc-text">漏洞复现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#EXP"><span class="toc-text">EXP</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-漏洞修复"><span class="toc-text">3 漏洞修复</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#war后门文件部署"><span class="toc-text">war后门文件部署</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-漏洞原理"><span class="toc-text">1.漏洞原理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用kali复现"><span class="toc-text">使用kali复现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#参考文章："><span class="toc-text">参考文章：</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h4 id="jBoss简介"><a href="#jBoss简介" class="headerlink" title="jBoss简介"></a>jBoss简介</h4><p>jBoss是一个基于J2EE的开发源代码的应用服务器。 JBoss代码遵循LGPL许可，可以在任何商业应用中免费使用。JBoss是一个管理EJB的容器和服务器，支持EJB1.1、EJB 2.0和EJB3的规范。但JBoss核心服务不包括支持servlet/JSP的WEB容器，一般与Tomcat或Jetty绑定使用。</p>
 <h4 id="JBoss-5-x-6-x-反序列化漏洞（CVE-2017-12149）"><a href="#JBoss-5-x-6-x-反序列化漏洞（CVE-2017-12149）" class="headerlink" title="JBoss 5.x/6.x 反序列化漏洞（CVE-2017-12149）"></a>JBoss 5.x/6.x 反序列化漏洞（CVE-2017-12149）</h4><p>这里直接复制了官方文档复现：<a href="https://github.com/vulhub/vulhub/tree/master/jboss/CVE-2017-12149" target="_blank" rel="noopener">https://github.com/vulhub/vulhub/tree/master/jboss/CVE-2017-12149</a></p>
 <p>该漏洞为 Java反序列化错误类型，存在于 Jboss 的 HttpInvoker 组件中的 ReadOnlyAccessFilter 过滤器中。该过滤器在没有进行任何安全检查的情况下尝试将来自客户端的数据流进行反序列化，从而导致了漏洞。</p>
 <p>参考：</p>
@@ -158,7 +203,19 @@
 <p><a href="https://www.freebuf.com/articles/web/192063.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/192063.html</a></p>
 
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2020/04/03/jboss-zhong-jian-jian-lou-dong/">https://shu1l.github.io/2020/04/03/jboss-zhong-jian-jian-lou-dong/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         <div class="post-tags">
             <a href="/tags/JBoss%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/">JBoss中间件漏洞</a>
@@ -178,7 +235,10 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -188,7 +248,7 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -199,8 +259,17 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

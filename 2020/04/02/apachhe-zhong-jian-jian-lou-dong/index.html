@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="Apache中间件漏洞学习"/><meta name="keywords" content="apache中间件, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
+<meta name="description" content="Apache中间件漏洞学习"/><meta name="keywords" content="apache中间件, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://shu1l.github.io/2020/04/02/apachhe-zhong-jian-jian-lou-dong/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>Apache中间件漏洞学习 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -79,7 +119,12 @@
         </div>
     </header>
 
-    <div class="post-content"><h3 id="Apache中间件漏洞复现"><a href="#Apache中间件漏洞复现" class="headerlink" title="Apache中间件漏洞复现"></a>Apache中间件漏洞复现</h3><h4 id="关于apache"><a href="#关于apache" class="headerlink" title="关于apache"></a>关于apache</h4><h5 id="apache简介"><a href="#apache简介" class="headerlink" title="apache简介"></a>apache简介</h5><p>​       Apache HTTP Server（简称Apache）是Apache软件基金会的一个开放源码的网页服务器，可以在大多数计算机操作系统中运行，由于其多平台和安全性被广泛使用，是最流行的Web服务器端软件之一。它快速、可靠并且可通过简单的API扩展，将Perl/Python等解释器编译到服务器中。</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#关于apache"><span class="toc-text">关于apache</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#apache简介"><span class="toc-text">apache简介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Apache的目录结构："><span class="toc-text">Apache的目录结构：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#apache原理介绍"><span class="toc-text">apache原理介绍:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Apache-文件解析漏洞"><span class="toc-text">Apache 文件解析漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞原理"><span class="toc-text">漏洞原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞复现"><span class="toc-text">漏洞复现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞修复"><span class="toc-text">漏洞修复</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Apache-目录遍历漏洞"><span class="toc-text">Apache 目录遍历漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞原理-1"><span class="toc-text">漏洞原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞复现-1"><span class="toc-text">漏洞复现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞防御"><span class="toc-text">漏洞防御</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Apache换行解析漏洞"><span class="toc-text">Apache换行解析漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞原理："><span class="toc-text">漏洞原理：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞复现："><span class="toc-text">漏洞复现：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Apache-SSI远程命令执行漏洞"><span class="toc-text">Apache SSI远程命令执行漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞复现：-1"><span class="toc-text">漏洞复现：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#参考文章："><span class="toc-text">参考文章：</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h4 id="关于apache"><a href="#关于apache" class="headerlink" title="关于apache"></a>关于apache</h4><h5 id="apache简介"><a href="#apache简介" class="headerlink" title="apache简介"></a>apache简介</h5><p>​       Apache HTTP Server（简称Apache）是Apache软件基金会的一个开放源码的网页服务器，可以在大多数计算机操作系统中运行，由于其多平台和安全性被广泛使用，是最流行的Web服务器端软件之一。它快速、可靠并且可通过简单的API扩展，将Perl/Python等解释器编译到服务器中。</p>
 <h5 id="Apache的目录结构："><a href="#Apache的目录结构：" class="headerlink" title="Apache的目录结构："></a>Apache的目录结构：</h5><ul>
 <li>bin——-存放常用的命令工具，例如httpd</li>
 <li>cgi-bin—存放Linux下常用的命令，例如xxx.sh</li>
@@ -200,7 +245,19 @@
 <h5 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h5><p><a href="https://zhuanlan.zhihu.com/p/125115734" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/125115734</a></p>
 
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2020/04/02/apachhe-zhong-jian-jian-lou-dong/">https://shu1l.github.io/2020/04/02/apachhe-zhong-jian-jian-lou-dong/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         <div class="post-tags">
             <a href="/tags/apache%E4%B8%AD%E9%97%B4%E4%BB%B6/">apache中间件</a>
@@ -220,7 +277,10 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -230,7 +290,7 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -241,8 +301,17 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

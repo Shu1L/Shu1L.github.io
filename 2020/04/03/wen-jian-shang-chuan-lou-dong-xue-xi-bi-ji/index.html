@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="文件上传漏洞学习"/><meta name="keywords" content="文件上传漏洞, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
+<meta name="description" content="文件上传漏洞学习"/><meta name="keywords" content="文件上传漏洞, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://shu1l.github.io/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>文件上传漏洞学习 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -79,7 +119,12 @@
         </div>
     </header>
 
-    <div class="post-content"><h1 id="文件上传漏洞学习笔记-靶场实战"><a href="#文件上传漏洞学习笔记-靶场实战" class="headerlink" title="文件上传漏洞学习笔记+靶场实战"></a>文件上传漏洞学习笔记+靶场实战</h1><h4 id="一-什么是文件上传漏洞"><a href="#一-什么是文件上传漏洞" class="headerlink" title="一.什么是文件上传漏洞"></a>一.什么是文件上传漏洞</h4><p>  文件上传<a href="http://www.2cto.com/" target="_blank" rel="noopener">漏洞</a>是指用户上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。这种攻击方式是最为直接和有效的.</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#一-什么是文件上传漏洞"><span class="toc-text">一.什么是文件上传漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#文件上传中常见的函数错误"><span class="toc-text">文件上传中常见的函数错误</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文件上传漏洞的利用"><span class="toc-text">文件上传漏洞的利用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#补充知识："><span class="toc-text">补充知识：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#条件竞争漏洞"><span class="toc-text">条件竞争漏洞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#校验方式分类-amp-总结"><span class="toc-text">校验方式分类&amp;总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#校验方式溯源"><span class="toc-text">校验方式溯源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#校验方式-amp-绕过姿势"><span class="toc-text">校验方式&amp;绕过姿势</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#PUT方法"><span class="toc-text">PUT方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#客户端校验"><span class="toc-text">客户端校验</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#JavaScript校验"><span class="toc-text">JavaScript校验</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#绕过姿势"><span class="toc-text">绕过姿势</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#服务器端校验"><span class="toc-text">服务器端校验</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#文件头content-type字段校验（服务端MIME类型检测）"><span class="toc-text">文件头content-type字段校验（服务端MIME类型检测）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#MIME类型介绍"><span class="toc-text">MIME类型介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#MIME类型格式："><span class="toc-text">MIME类型格式：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#MIME主类别："><span class="toc-text">MIME主类别：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#常见MIME类型："><span class="toc-text">常见MIME类型：</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#验证代码"><span class="toc-text">验证代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#绕过方式"><span class="toc-text">绕过方式</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#服务端文件扩展名检测"><span class="toc-text">服务端文件扩展名检测</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#测试代码"><span class="toc-text">测试代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#绕过技巧"><span class="toc-text">绕过技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#配合Apache的-htaccess文件上传解析漏洞"><span class="toc-text">配合Apache的.htaccess文件上传解析漏洞</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Apache站上的解析缺陷绕过上传漏洞"><span class="toc-text">Apache站上的解析缺陷绕过上传漏洞</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#IIS6-0站上的目录路径检测解析绕过上传漏洞"><span class="toc-text">IIS6.0站上的目录路径检测解析绕过上传漏洞</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#IIS6-0站上的解析缺陷绕过上传漏洞"><span class="toc-text">IIS6.0站上的解析缺陷绕过上传漏洞</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#服务端检测文件内容"><span class="toc-text">服务端检测文件内容</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#配合文件包含漏洞"><span class="toc-text">配合文件包含漏洞</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#利用PHP特性（使用数组绕过）"><span class="toc-text">利用PHP特性（使用数组绕过）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#服务端检测文件头"><span class="toc-text">服务端检测文件头</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#文件头简介"><span class="toc-text">文件头简介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#绕过方式-1"><span class="toc-text">绕过方式</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#上传到服务端后验证"><span class="toc-text">上传到服务端后验证</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#竞争上传"><span class="toc-text">竞争上传</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#针对各种CMS"><span class="toc-text">针对各种CMS</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#针对各种编辑器漏洞"><span class="toc-text">针对各种编辑器漏洞</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#文本编辑器"><span class="toc-text">文本编辑器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-FCKeditor"><span class="toc-text">1 FCKeditor</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-eWebEditor"><span class="toc-text">2 eWebEditor</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#针对各种WAF"><span class="toc-text">针对各种WAF</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-垃圾数据"><span class="toc-text">1 垃圾数据</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-filename"><span class="toc-text">2 filename</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-POST-GET"><span class="toc-text">3 POST&#x2F;GET</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-以上方式"><span class="toc-text">4 以上方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-利用waf本身缺陷"><span class="toc-text">5 利用waf本身缺陷</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#删除实体里面的Conten-Type字段"><span class="toc-text">删除实体里面的Conten-Type字段</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#删除Content-Disposition字段里的空格"><span class="toc-text">删除Content-Disposition字段里的空格</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#修改Content-Disposition字段值的大小写"><span class="toc-text">修改Content-Disposition字段值的大小写</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Boundary边界不一致"><span class="toc-text">Boundary边界不一致</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#文件名处回车"><span class="toc-text">文件名处回车</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#多个Content-Disposition"><span class="toc-text">多个Content-Disposition</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#利用NTFS-ADS特性"><span class="toc-text">利用NTFS ADS特性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#文件重命名绕过"><span class="toc-text">文件重命名绕过</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#特殊的长文件名绕过"><span class="toc-text">特殊的长文件名绕过</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#反删除"><span class="toc-text">反删除</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#防护建议"><span class="toc-text">防护建议</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件上传漏洞的主要利用和绕过方式总结。"><span class="toc-text">文件上传漏洞的主要利用和绕过方式总结。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#靶场：upload-labs-实战总结"><span class="toc-text">靶场：upload-labs 实战总结</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Pass-01-前端js检测"><span class="toc-text">Pass-01-前端js检测</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Pass-02-只检测Content-type"><span class="toc-text">Pass-02 只检测Content-type</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Pass-03-黑名单绕过"><span class="toc-text">Pass-03 黑名单绕过</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Pass-04-htaccess绕过"><span class="toc-text">Pass-04  .htaccess绕过</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Pass-05-大小写绕过"><span class="toc-text">Pass-05 大小写绕过</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Pass-06-空格绕过"><span class="toc-text">Pass-06 空格绕过</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Pass-07-点绕过"><span class="toc-text">Pass-07 点绕过</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Pass-08-DATA绕过"><span class="toc-text">Pass-08  ::$DATA绕过</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Pass-09-点空格点绕过"><span class="toc-text">Pass-09 点空格点绕过</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Pass-10-双写绕过"><span class="toc-text">Pass-10 双写绕过</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Pass-11-get-00截断"><span class="toc-text">Pass-11 get 00截断</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Pass-13"><span class="toc-text">Pass-13</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#拓展资料"><span class="toc-text">拓展资料</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#参考资料"><span class="toc-text">参考资料</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h4 id="一-什么是文件上传漏洞"><a href="#一-什么是文件上传漏洞" class="headerlink" title="一.什么是文件上传漏洞"></a>一.什么是文件上传漏洞</h4><p>  文件上传<a href="http://www.2cto.com/" target="_blank" rel="noopener">漏洞</a>是指用户上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。这种攻击方式是最为直接和有效的.</p>
 <p><strong>关于PHP中$_FILES数组的使用方法</strong></p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$_FILES\[<span class="string">‘file’</span>][<span class="symbol">‘name’</span>] 客户端文件名称</span><br><span class="line"></span><br><span class="line">$_FILES\[<span class="string">‘file’</span>][<span class="symbol">‘type’</span>] 文件的MIME类型</span><br><span class="line"></span><br><span class="line">$_FILES\[<span class="string">‘file’</span>][<span class="symbol">‘size’</span>] 文件大小 单位字节</span><br><span class="line"></span><br><span class="line">$<span class="emphasis">_FILES\[‘file’][‘tmp_</span>name’] 文件被上传后在服务器端临时文件名，可以在php.ini中指定</span><br></pre></td></tr></table></figure>
 
@@ -411,7 +456,19 @@
 </ul>
 
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/">https://shu1l.github.io/2020/04/03/wen-jian-shang-chuan-lou-dong-xue-xi-bi-ji/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         <div class="post-tags">
             <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">文件上传漏洞</a>
@@ -431,7 +488,10 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -441,7 +501,7 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -452,8 +512,17 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

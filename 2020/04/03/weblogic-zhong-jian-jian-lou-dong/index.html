@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="Weblogic中间件漏洞"/><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
+<meta name="description" content="Weblogic中间件漏洞"/><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://shu1l.github.io/2020/04/03/weblogic-zhong-jian-jian-lou-dong/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>Weblogic中间件漏洞 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -79,7 +119,12 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="WebLogic中间件漏洞复现"><a href="#WebLogic中间件漏洞复现" class="headerlink" title="WebLogic中间件漏洞复现"></a>WebLogic中间件漏洞复现</h2><h4 id="WebLogic简介"><a href="#WebLogic简介" class="headerlink" title="WebLogic简介"></a>WebLogic简介</h4><p>WebLogic是美国Oracle公司出品的一个applicationserver，确切的说是一个基于JAVAEE架构的中间件，WebLogic是用于开发、集成、部署和管理大型分布式Web应用、网络应用和数据库应用的Java应用服务器。将Java的动态功能和Java Enterprise标准的安全性引入大型网络应用的开发、集成、部署和管理之中。</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#WebLogic简介"><span class="toc-text">WebLogic简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#反序列化漏洞"><span class="toc-text">反序列化漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-漏洞原理："><span class="toc-text">1.漏洞原理：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-漏洞复现"><span class="toc-text">2.漏洞复现</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SSRF"><span class="toc-text">SSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#漏洞原理："><span class="toc-text">漏洞原理：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-漏洞修复"><span class="toc-text">3.漏洞修复</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#任意文件上传"><span class="toc-text">任意文件上传</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-漏洞原理"><span class="toc-text">1.漏洞原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-漏洞复现-1"><span class="toc-text">2.漏洞复现</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#war后门文件部署"><span class="toc-text">war后门文件部署</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-漏洞原理：-1"><span class="toc-text">1.漏洞原理：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-漏洞复现-2"><span class="toc-text">2.漏洞复现</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h4 id="WebLogic简介"><a href="#WebLogic简介" class="headerlink" title="WebLogic简介"></a>WebLogic简介</h4><p>WebLogic是美国Oracle公司出品的一个applicationserver，确切的说是一个基于JAVAEE架构的中间件，WebLogic是用于开发、集成、部署和管理大型分布式Web应用、网络应用和数据库应用的Java应用服务器。将Java的动态功能和Java Enterprise标准的安全性引入大型网络应用的开发、集成、部署和管理之中。</p>
 <h4 id="反序列化漏洞"><a href="#反序列化漏洞" class="headerlink" title="反序列化漏洞"></a>反序列化漏洞</h4><h5 id="1-漏洞原理："><a href="#1-漏洞原理：" class="headerlink" title="1.漏洞原理："></a>1.漏洞原理：</h5><p>Java序列化，简而言之就是把java对象转化为字节序列的过程。而反序列话则是再把字节序列恢复为java对象的过程，然而就在这一转一变得过程中，程序员的过滤不严格，就可以导致恶意构造的代码的实现。</p>
 <h5 id="2-漏洞复现"><a href="#2-漏洞复现" class="headerlink" title="2.漏洞复现"></a>2.漏洞复现</h5><p>使用vulhub实验环境，启动实验环境，访问靶机，抓包，修改数据包。</p>
 <p><a href="https://image.3001.net/images/20181216/1544955349_5c1625d5f0cfb.png" target="_blank" rel="noopener"><img src="https://image.3001.net/images/20181216/1544955349_5c1625d5f0cfb.png!small" alt="img"></a></p>
@@ -160,7 +205,19 @@
 <p>防火墙设置端口过滤，也可以设置只允许访问后台的IP列表，避免后台弱口令。</p>
 
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2020/04/03/weblogic-zhong-jian-jian-lou-dong/">https://shu1l.github.io/2020/04/03/weblogic-zhong-jian-jian-lou-dong/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         
         <nav class="post-nav"><a class="prev" href="/2020/04/03/tomcat-zhong-jian-jian-lou-dong/">
@@ -177,7 +234,10 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -187,7 +247,7 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -198,8 +258,17 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="XSS漏洞学习"/><meta name="keywords" content="xss漏洞, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
+<meta name="description" content="XSS漏洞学习"/><meta name="keywords" content="xss漏洞, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://shu1l.github.io/2020/04/03/xss-lou-dong-xue-xi/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>XSS漏洞学习 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -79,7 +119,12 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="XSS漏洞学习笔记-靶场实战"><a href="#XSS漏洞学习笔记-靶场实战" class="headerlink" title="XSS漏洞学习笔记+靶场实战"></a>XSS漏洞学习笔记+靶场实战</h2><h3 id="XSS漏洞相关知识点"><a href="#XSS漏洞相关知识点" class="headerlink" title="XSS漏洞相关知识点"></a>XSS漏洞相关知识点</h3><h5 id="XSS漏洞简介"><a href="#XSS漏洞简介" class="headerlink" title="XSS漏洞简介"></a>XSS漏洞简介</h5><p>​         XSS是跨站脚本攻击，属于被动式的攻击。XSS指的是恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意的特殊目的。</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#XSS漏洞相关知识点"><span class="toc-text">XSS漏洞相关知识点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#XSS漏洞简介"><span class="toc-text">XSS漏洞简介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XSS漏洞分类"><span class="toc-text">XSS漏洞分类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XSS漏洞常见危害"><span class="toc-text">XSS漏洞常见危害</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#关于JavaScript"><span class="toc-text">关于JavaScript</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#探测XSS过程"><span class="toc-text">探测XSS过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#xss常用的测试语句"><span class="toc-text">xss常用的测试语句</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DVWA-XSS-部分"><span class="toc-text">DVWA( XSS 部分)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#XSS（reflect"><span class="toc-text">XSS（reflect)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#XSS-DOM"><span class="toc-text">XSS DOM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#XSS-stored"><span class="toc-text">XSS (stored)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#xss常见绕过waf方法"><span class="toc-text">xss常见绕过waf方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考文章："><span class="toc-text">参考文章：</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h3 id="XSS漏洞相关知识点"><a href="#XSS漏洞相关知识点" class="headerlink" title="XSS漏洞相关知识点"></a>XSS漏洞相关知识点</h3><h5 id="XSS漏洞简介"><a href="#XSS漏洞简介" class="headerlink" title="XSS漏洞简介"></a>XSS漏洞简介</h5><p>​         XSS是跨站脚本攻击，属于被动式的攻击。XSS指的是恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的html代码会被执行，从而达到恶意的特殊目的。</p>
 <h5 id="XSS漏洞分类"><a href="#XSS漏洞分类" class="headerlink" title="XSS漏洞分类"></a>XSS漏洞分类</h5><ul>
 <li>非持久性XSS攻击，当用户访问已被插入攻击代码的链接时，攻击代码执行，完成该次攻击。</li>
 <li>持久型XSS攻击，攻击者把攻击代码永久存储在目标服务器上中，例如数据库，消息论坛，留言板，访问者日志等。当用户进入页面，代码就会被执行。</li>
@@ -407,7 +452,19 @@
 <p><a href="https://wetest.qq.com/lab/view/422.html?from=content_gad" target="_blank" rel="noopener">https://wetest.qq.com/lab/view/422.html?from=content_gad</a></p>
 
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2020/04/03/xss-lou-dong-xue-xi/">https://shu1l.github.io/2020/04/03/xss-lou-dong-xue-xi/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         <div class="post-tags">
             <a href="/tags/xss%E6%BC%8F%E6%B4%9E/">xss漏洞</a>
@@ -427,7 +484,10 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -437,7 +497,7 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -448,8 +508,17 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

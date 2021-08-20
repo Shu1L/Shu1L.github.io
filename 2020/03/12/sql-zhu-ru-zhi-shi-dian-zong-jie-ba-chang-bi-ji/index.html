@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="SQL注入知识点总结+靶场笔记"/><meta name="keywords" content="SQL注入学习, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
+<meta name="description" content="SQL注入知识点总结+靶场笔记"/><meta name="keywords" content="SQL注入学习, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://shu1l.github.io/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>SQL注入知识点总结+靶场笔记 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -79,7 +119,12 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="SQL注入漏洞学习笔记-靶场总结"><a href="#SQL注入漏洞学习笔记-靶场总结" class="headerlink" title="SQL注入漏洞学习笔记+靶场总结"></a>SQL注入漏洞学习笔记+靶场总结</h2><h4 id="mysql相关知识点"><a href="#mysql相关知识点" class="headerlink" title="mysql相关知识点"></a>mysql相关知识点</h4><h5 id="Mysql-5-x数据结构"><a href="#Mysql-5-x数据结构" class="headerlink" title="Mysql 5.x数据结构"></a><strong>Mysql 5.x数据结构</strong></h5><p>​      在Mysql5.0以上的版本中，为了方便管理，默认定义了information_schema数据库，用来存储数据库元信息。其中具有表schemata(数据库名)、tables（表名）、columns(列名或字段名)。</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#mysql相关知识点"><span class="toc-text">mysql相关知识点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Mysql-5-x数据结构"><span class="toc-text">Mysql 5.x数据结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#增删改查"><span class="toc-text">增删改查</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Mysql常用的几种函数："><span class="toc-text">Mysql常用的几种函数：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#注释"><span class="toc-text">注释</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#注入点查找"><span class="toc-text">注入点查找</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注入分类"><span class="toc-text">注入分类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#异或注入"><span class="toc-text">异或注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#orderby-注入"><span class="toc-text">orderby 注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#注入位置"><span class="toc-text">注入位置</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SQL注入绕过机制"><span class="toc-text">SQL注入绕过机制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#大小写绕过"><span class="toc-text">大小写绕过</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#双写绕过"><span class="toc-text">双写绕过</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#编码绕过"><span class="toc-text">编码绕过</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#内联注释绕过"><span class="toc-text">内联注释绕过</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sqlmap基础使用方法"><span class="toc-text">sqlmap基础使用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#sqlmap简介"><span class="toc-text">sqlmap简介</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sqli-labs靶场实战"><span class="toc-text">sqli-labs靶场实战</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#less-1-基于错误的GET单引号字符型注入）"><span class="toc-text">less-1 (基于错误的GET单引号字符型注入）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Less-2-（基于错误的GET整型注入）"><span class="toc-text">Less-2 （基于错误的GET整型注入）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Less-3-（基于错误的GET单引号变形字符型注入）"><span class="toc-text">Less-3 （基于错误的GET单引号变形字符型注入）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Less-4（基于错误的GET双引号字符型注入）"><span class="toc-text">Less-4（基于错误的GET双引号字符型注入）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Less-5（双注入GET单引号字符型注入）"><span class="toc-text">Less-5（双注入GET单引号字符型注入）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Less-6-双注入GET双引号字符型注入）"><span class="toc-text">Less-6 (双注入GET双引号字符型注入）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Less-7-导出文件GET字符型注入）"><span class="toc-text">Less-7(导出文件GET字符型注入）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Less-8-基于布尔的盲注）"><span class="toc-text">Less-8 (基于布尔的盲注）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Less-9（基于时间的GET单引号盲注）"><span class="toc-text">Less-9（基于时间的GET单引号盲注）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Less-10-基于时间的双引号盲注）"><span class="toc-text">Less-10 (基于时间的双引号盲注）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Less-11-基于错误的POST型单引号字符型注入）"><span class="toc-text">Less-11(基于错误的POST型单引号字符型注入）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Less-12-基于错误的双引号POST型字符型变形的注入）"><span class="toc-text">Less-12(基于错误的双引号POST型字符型变形的注入）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Less-13-POST单引号变形双注入）"><span class="toc-text">Less-13(POST单引号变形双注入）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Less-14-POST双引号变形双注入）"><span class="toc-text">Less-14(POST双引号变形双注入）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Less-15-基于bool型-时间延迟单引号POST型盲注）"><span class="toc-text">Less-15(基于bool型&#x2F;时间延迟单引号POST型盲注）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Less-16-基于bool型-时间延迟双引号POST型盲注）"><span class="toc-text">Less-16(基于bool型&#x2F;时间延迟双引号POST型盲注）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Less-17-基于错误的更新查询POST注入）"><span class="toc-text">Less-17(基于错误的更新查询POST注入）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考文章"><span class="toc-text">参考文章</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h4 id="mysql相关知识点"><a href="#mysql相关知识点" class="headerlink" title="mysql相关知识点"></a>mysql相关知识点</h4><h5 id="Mysql-5-x数据结构"><a href="#Mysql-5-x数据结构" class="headerlink" title="Mysql 5.x数据结构"></a><strong>Mysql 5.x数据结构</strong></h5><p>​      在Mysql5.0以上的版本中，为了方便管理，默认定义了information_schema数据库，用来存储数据库元信息。其中具有表schemata(数据库名)、tables（表名）、columns(列名或字段名)。</p>
 <p>​     在schemata表中，schema_name字段用来存储数据库名。</p>
 <p>​     在tables表中，table_schema和table_name分别用来存储数据库名和表名。</p>
 <p>​    在columns表中，table_schema(数据库名)、table_name(表名)、column_name(字段名)</p>
@@ -382,7 +427,19 @@
 <p><a href="https://blog.csdn.net/qq_41420747/article/details/81836327" target="_blank" rel="noopener">https://blog.csdn.net/qq_41420747/article/details/81836327</a></p>
 
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/">https://shu1l.github.io/2020/03/12/sql-zhu-ru-zhi-shi-dian-zong-jie-ba-chang-bi-ji/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         <div class="post-tags">
             <a href="/tags/SQL%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/">SQL注入学习</a>
@@ -397,7 +454,10 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -407,7 +467,7 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -418,8 +478,17 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

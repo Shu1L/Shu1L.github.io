@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="渗透测试——拒绝服务"/><meta name="keywords" content="拒绝服务, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
+<meta name="description" content="渗透测试——拒绝服务"/><meta name="keywords" content="拒绝服务, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://shu1l.github.io/2020/04/03/shen-tou-ce-shi-ju-jue-fu-wu/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>渗透测试——拒绝服务 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -79,7 +119,12 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="拒绝服务常见的攻击方式总结"><a href="#拒绝服务常见的攻击方式总结" class="headerlink" title="拒绝服务常见的攻击方式总结"></a>拒绝服务常见的攻击方式总结</h2><h4 id="1-拒绝服务简介"><a href="#1-拒绝服务简介" class="headerlink" title="1.拒绝服务简介"></a>1.拒绝服务简介</h4><ul>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#拒绝服务常见的攻击方式总结"><span class="toc-text">拒绝服务常见的攻击方式总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-拒绝服务简介"><span class="toc-text">1.拒绝服务简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-DoS分类"><span class="toc-text">2.DoS分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-为何会被Dos"><span class="toc-text">3.为何会被Dos</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拒绝服务——Syn-Flood攻击"><span class="toc-text">拒绝服务——Syn-Flood攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-scapy构造数据包"><span class="toc-text">1.scapy构造数据包</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-构造-IP-数据包"><span class="toc-text">1. 构造 IP 数据包</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-构造TCP数据包"><span class="toc-text">2.构造TCP数据包</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-发送数据包需要构造成-IP-TCP-形式：i-t"><span class="toc-text">3. 发送数据包需要构造成 IP()&#x2F;TCP() 形式：i&#x2F;t</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-由于重建连接请求时会向服务器发送-reset-数据包重置连接请求，达不到攻击效果，则可以在本地设置防火墙规则："><span class="toc-text">4.由于重建连接请求时会向服务器发送 reset 数据包重置连接请求，达不到攻击效果，则可以在本地设置防火墙规则：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-脚本攻击"><span class="toc-text">2. 脚本攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#脚本攻击-linux-服务器"><span class="toc-text">脚本攻击 linux 服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-攻击windows机器"><span class="toc-text">2.攻击windows机器</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#泛洪攻击常伴随IP地址欺骗"><span class="toc-text">泛洪攻击常伴随IP地址欺骗</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拒绝服务——Smurf攻击"><span class="toc-text">拒绝服务——Smurf攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-简介"><span class="toc-text">1.简介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-测试攻击"><span class="toc-text">2.测试攻击</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拒绝服务–Sockstress-攻击"><span class="toc-text">拒绝服务–Sockstress 攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-简介-1"><span class="toc-text">1.简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-脚本攻击-1"><span class="toc-text">2.脚本攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-python测试脚本"><span class="toc-text">1.python测试脚本</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-C攻击脚本"><span class="toc-text">2.C攻击脚本</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-防御措施"><span class="toc-text">3.防御措施</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拒绝服务–TearDrop-攻击"><span class="toc-text">拒绝服务–TearDrop 攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-简介-2"><span class="toc-text">1.简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-攻击目标"><span class="toc-text">2.攻击目标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-攻击脚本"><span class="toc-text">3.攻击脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拒绝服务–DNS-放大攻击"><span class="toc-text">拒绝服务–DNS 放大攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-简介-3"><span class="toc-text">1.简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-攻击"><span class="toc-text">2.攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Scapy构造攻击数据包原理"><span class="toc-text">3.Scapy构造攻击数据包原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-构造数据包过程"><span class="toc-text">4.构造数据包过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拒绝服务——SNMP服务"><span class="toc-text">拒绝服务——SNMP服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-简介-4"><span class="toc-text">1.简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-安装SNMP"><span class="toc-text">2.安装SNMP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-scapy构造数据包"><span class="toc-text">3.scapy构造数据包</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拒绝服务——NTP-放大攻击"><span class="toc-text">拒绝服务——NTP 放大攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-简介-5"><span class="toc-text">1.简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-扫描NTP服务器"><span class="toc-text">2.扫描NTP服务器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-防御策略"><span class="toc-text">3.防御策略</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拒绝服务–应用层DoS-攻击"><span class="toc-text">拒绝服务–应用层DoS 攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-攻击测试-MS12-020"><span class="toc-text">2. 攻击测试 MS12-020</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Slowhttptest"><span class="toc-text">3. Slowhttptest</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-攻击测试"><span class="toc-text">4.攻击测试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拒绝服务攻击工具"><span class="toc-text">拒绝服务攻击工具</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-rudy"><span class="toc-text">1.rudy</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-简介-6"><span class="toc-text">1.简介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-测试"><span class="toc-text">2.测试</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hping3"><span class="toc-text">Hping3</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-简介-7"><span class="toc-text">1.简介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-攻击-1"><span class="toc-text">2.攻击</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LAND攻击"><span class="toc-text">LAND攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-nping"><span class="toc-text">3.nping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Siege"><span class="toc-text">Siege</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-T50"><span class="toc-text">5.T50</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-NMAP"><span class="toc-text">6.NMAP</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="拒绝服务常见的攻击方式总结"><a href="#拒绝服务常见的攻击方式总结" class="headerlink" title="拒绝服务常见的攻击方式总结"></a>拒绝服务常见的攻击方式总结</h2><h4 id="1-拒绝服务简介"><a href="#1-拒绝服务简介" class="headerlink" title="1.拒绝服务简介"></a>1.拒绝服务简介</h4><ul>
 <li>Dos不是Ddos<ul>
 <li>利用程序漏洞或一对一资源耗尽的Denial of service拒绝服务</li>
 </ul>
@@ -725,7 +770,19 @@
 
 
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2020/04/03/shen-tou-ce-shi-ju-jue-fu-wu/">https://shu1l.github.io/2020/04/03/shen-tou-ce-shi-ju-jue-fu-wu/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         <div class="post-tags">
             <a href="/tags/%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1/">拒绝服务</a>
@@ -745,7 +802,10 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -755,7 +815,7 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -766,8 +826,17 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

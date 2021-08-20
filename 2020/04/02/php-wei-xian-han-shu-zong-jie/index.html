@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="PHP危险函数总结"/><meta name="keywords" content="php危险函数, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
+<meta name="description" content="PHP危险函数总结"/><meta name="keywords" content="php危险函数, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>PHP危险函数总结 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -79,7 +119,12 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="php危险函数总结"><a href="#php危险函数总结" class="headerlink" title="php危险函数总结"></a>php危险函数总结</h2><h4 id="什么是危险函数"><a href="#什么是危险函数" class="headerlink" title="什么是危险函数"></a>什么是危险函数</h4><p>​    函数设计出来就是让人使用的，之所以危险，是因为其功能过于强大。开发人员特别是刚从业的人员很少很少会完整阅读整个文档，再或者是没有意识到当给这些函数传递一些非常规的，外部可控的参数会带来什么影响。</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#php危险函数总结"><span class="toc-text">php危险函数总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是危险函数"><span class="toc-text">什么是危险函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#执行任意代码的函数"><span class="toc-text">执行任意代码的函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#eval函数"><span class="toc-text">eval函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#assert函数"><span class="toc-text">assert函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#create-function函数"><span class="toc-text">create_function函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#preg-replace函数"><span class="toc-text">preg_replace函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#call-user-func-call-user-func-array函数"><span class="toc-text">call_user_func&#x2F;call_user_func_array函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#array-map函数"><span class="toc-text">array_map函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#array-filter函数"><span class="toc-text">array_filter函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#usort-uasort函数"><span class="toc-text">usort&#x2F;uasort函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#a-b动态函数"><span class="toc-text">$a$b动态函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#读取网络资源的函数"><span class="toc-text">读取网络资源的函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#php命令执行函数"><span class="toc-text">php命令执行函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#system函数"><span class="toc-text">system函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#shell-exec-没有回显的命令执行"><span class="toc-text">shell_exec(没有回显的命令执行)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#passthru函数"><span class="toc-text">passthru函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#exec函数"><span class="toc-text">exec函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ob-start函数"><span class="toc-text">ob_start函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#操作文件的函数"><span class="toc-text">操作文件的函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#参考文章："><span class="toc-text">参考文章：</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="php危险函数总结"><a href="#php危险函数总结" class="headerlink" title="php危险函数总结"></a>php危险函数总结</h2><h4 id="什么是危险函数"><a href="#什么是危险函数" class="headerlink" title="什么是危险函数"></a>什么是危险函数</h4><p>​    函数设计出来就是让人使用的，之所以危险，是因为其功能过于强大。开发人员特别是刚从业的人员很少很少会完整阅读整个文档，再或者是没有意识到当给这些函数传递一些非常规的，外部可控的参数会带来什么影响。</p>
 <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$</span>_GET            </span><br><span class="line"><span class="meta"><span class="meta-keyword">$POST</span></span></span><br><span class="line"><span class="symbol">$</span>_fILES</span><br><span class="line"><span class="symbol">$</span>_COOKIE</span><br><span class="line"><span class="symbol">$</span>_REQUEST		</span><br><span class="line"><span class="symbol">$</span>_SERVER		</span><br><span class="line"><span class="symbol">$</span>_SESSION</span><br></pre></td></tr></table></figure>
 
 <h4 id="执行任意代码的函数"><a href="#执行任意代码的函数" class="headerlink" title="执行任意代码的函数"></a>执行任意代码的函数</h4><ul>
@@ -257,7 +302,19 @@
 <p><a href="https://blog.csdn.net/zhezhebie/article/details/80508139" target="_blank" rel="noopener">https://blog.csdn.net/zhezhebie/article/details/80508139</a></p>
 
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/">https://shu1l.github.io/2020/04/02/php-wei-xian-han-shu-zong-jie/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         <div class="post-tags">
             <a href="/tags/php%E5%8D%B1%E9%99%A9%E5%87%BD%E6%95%B0/">php危险函数</a>
@@ -277,7 +334,10 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -287,7 +347,7 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -298,8 +358,17 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>

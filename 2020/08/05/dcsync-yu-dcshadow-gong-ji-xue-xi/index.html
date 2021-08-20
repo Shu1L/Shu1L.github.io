@@ -13,11 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="DCSync与DCshadow攻击学习"/><meta name="keywords" content="域渗透, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog">
+<meta name="description" content="DCSync与DCshadow攻击学习"/><meta name="keywords" content="域渗透, Shu1L's blog" /><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
 <link rel="canonical" href="https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/"/>
 
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=" />
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
 <script id="baidu_push">
 (function(){
@@ -34,7 +34,7 @@
 })();
 </script>
 <script>
-  window.config = {"leancloud":"","toc":"","fancybox":"","pjax":"","latex":""};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
     <title>DCSync与DCshadow攻击学习 - Shu1L's blog</title>
@@ -53,14 +53,54 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"></ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
 <div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">Shu1L's blog</a>
 </div>
 
-<nav class="site-navbar"></nav>
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
 </header>
 
       <main id="main" class="main">
@@ -79,7 +119,12 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="DCSync与DCshadow攻击学习"><a href="#DCSync与DCshadow攻击学习" class="headerlink" title="DCSync与DCshadow攻击学习"></a>DCSync与DCshadow攻击学习</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>DCSync与DCshadow是域渗透中经常会用到的技术。</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DCSync-攻击"><span class="toc-text">DCSync 攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DCSync攻击原理"><span class="toc-text">DCSync攻击原理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#实现代码"><span class="toc-text">实现代码</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DCSync攻击前提"><span class="toc-text">DCSync攻击前提</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DCSync攻击利用"><span class="toc-text">DCSync攻击利用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-使用mimikatz"><span class="toc-text">1.使用mimikatz</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-powershell实现"><span class="toc-text">2.powershell实现</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DCSync防御"><span class="toc-text">DCSync防御</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DCShadow-攻击"><span class="toc-text">DCShadow 攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DCShadow-攻击流程"><span class="toc-text">DCShadow 攻击流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注册伪造的DC"><span class="toc-text">注册伪造的DC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注册的DC被其他DC认可，能够参与域复制"><span class="toc-text">注册的DC被其他DC认可，能够参与域复制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#强制立即发起域复制"><span class="toc-text">强制立即发起域复制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#攻击复现"><span class="toc-text">攻击复现</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>DCSync与DCshadow是域渗透中经常会用到的技术。</p>
 <h3 id="DCSync-攻击"><a href="#DCSync-攻击" class="headerlink" title="DCSync 攻击"></a>DCSync 攻击</h3><p>​    2015 年 8 月，Benjamin Delpy(神器 Mimikatz 的作者)和 Vincent Le Toux 发布了新版本的 Mimikatz，新增加了 DCSync 功能。模仿一个域控制器 DC，从真实的域控制器中请求获取数据，例如账号的口令散列值等数据。</p>
 <p>​    DCSync 之前，获取域的账号口令信息，需要登录域服务器，在域服务器上运行代码才可以获取。</p>
 <p>​    DCSync 的最大特点，在于不用登录域服务器，即可远程通过<strong>域数据同步复制</strong>的方式获得想要的用户口令信息。</p>
@@ -164,7 +209,19 @@
 <p><img src="/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/20200507101621.png-water_print" alt="img"></p>
 
       </div>
-      
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/">https://shu1l.github.io/2020/08/05/dcsync-yu-dcshadow-gong-ji-xue-xi/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
       <footer class="post-footer">
         <div class="post-tags">
             <a href="/tags/%E5%9F%9F%E6%B8%97%E9%80%8F/">域渗透</a>
@@ -184,7 +241,10 @@
     </article></div><div class="comments" id="comments"></div></div>
       </main>
 
-      <footer id="footer" class="footer"><div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -194,7 +254,7 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">&copy;2021<span class="heart">
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Shu1L</span>
@@ -205,8 +265,17 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v="></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
 </body>
 </html>
