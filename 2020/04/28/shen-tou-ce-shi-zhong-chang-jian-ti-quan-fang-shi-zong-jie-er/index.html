@@ -134,37 +134,44 @@
 <p>​    <strong>udf是Mysql类提权的方式之一</strong>。前提是已知mysql中root的账号密码，我们在拿到webshell后，可以看网站根目录下的config.php里，一般都有mysql的账号密码。利用root权限，创建带有调用cmd函数的’udf.dll’(动态链接库)。当我们把’udf.dll’导出指定文件夹引入Mysql时，其中的调用函数拿出来当作mysql的函数使用。这样我们自定义的函数才被当作本机函数执行。在使用CREAT FUNCITON调用dll中的函数后，mysql账号转化为system权限，从而来提权。</p>
 <h4 id="提权常见手法："><a href="#提权常见手法：" class="headerlink" title="提权常见手法："></a>提权常见手法：</h4><p>一般来说使用udf提权的常规手法：</p>
 <ul>
-<li><p>上传大马webshell，利用大马中的UDF提权功能完成提权。</p>
-</li>
-<li><p>反弹shell，进而获取交互式tty shell，在shell中连接本地数据库，从而完成UDF提权。</p>
-</li>
-<li><p>利用FuckMySQL，本地执行命令。<a href="https://github.com/v5est0r/Python_FuckMySQL" target="_blank" rel="noopener">FuckMySQL</a>项目针对Windows平台。</p>
-</li>
-<li><p>利用SQLMAP中的-d参数连接远程数据库，自动上传so库完成UDF提权，从而获取os-shell</p>
-</li>
-<li><p>使用Navicat等数据库管理工具连接远程数据库，从而完成UDF提权。</p>
-<p>其实这些手法的主要目的都是<strong>想方设法登陆数据库服务来执行SQL语句，进而获取到启动MySQL服务的root权限，</strong></p>
-</li>
+<li>上传大马webshell，利用大马中的UDF提权功能完成提权。</li>
 </ul>
+<ul>
+<li>反弹shell，进而获取交互式tty shell，在shell中连接本地数据库，从而完成UDF提权。</li>
+</ul>
+<ul>
+<li>利用FuckMySQL，本地执行命令。<a href="https://github.com/v5est0r/Python_FuckMySQL" target="_blank" rel="noopener">FuckMySQL</a>项目针对Windows平台。</li>
+</ul>
+<ul>
+<li>利用SQLMAP中的-d参数连接远程数据库，自动上传so库完成UDF提权，从而获取os-shell</li>
+</ul>
+<ul>
+<li>使用Navicat等数据库管理工具连接远程数据库，从而完成UDF提权。</li>
+</ul>
+<p>  其实这些手法的主要目的都是<strong>想方设法登陆数据库服务来执行SQL语句，进而获取到启动MySQL服务的root权限，</strong></p>
 <h4 id="提权的一些前提："><a href="#提权的一些前提：" class="headerlink" title="提权的一些前提："></a>提权的一些前提：</h4><p>利用udf提权有一些利用的先决条件：</p>
 <ul>
 <li>MySQL 数据库没有开启安全模式。</li>
+</ul>
+<ul>
 <li>已知的数据库账号具有对 MySQL 数据库 insert 和 delete 的权限，最好是 root 最高权限。</li>
+</ul>
+<ul>
 <li>shell 有写入到数据库安装目录的权限。</li>
 </ul>
 <p><strong>高版本mysql(mysql Version&gt;5.7)遇到的一些问题：</strong></p>
 <ul>
 <li><p>secure-file-priv默认不为空，即不允许在任意文件夹中导出文件；</p>
-<ul>
-<li>如果对方开启了安全模式，我们是无法利用这个办法进行提权的，所以，为了完成今天的浮现，我们需要关闭安全模式。</li>
-</ul>
+<p>如果对方开启了安全模式，我们是无法利用这个办法进行提权的，所以，为了完成今天的浮现，我们需要关闭安全模式。</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">secure_file_priv</span>=<span class="string">""</span></span><br></pre></td></tr></table></figure>
 
-<pre><code>将这个代码插入到 mysql 配置文件的最后，重启服务，便可以关闭安全模式。</code></pre></li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">将这个代码插入到 mysql 配置文件的最后，重启服务，便可以关闭安全模式。</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>默认root用户使用的authentication-plugins为auth_socket，即在本地登录MySQL时使用unix套接字登录，而非密码；</p>
 </li>
-<li><p>mysql.user下password列更改为authentication_string列。</p>
-</li>
+</ul>
+<ul>
+<li>mysql.user下password列更改为authentication_string列。</li>
 </ul>
 <h4 id="提权复现"><a href="#提权复现" class="headerlink" title="提权复现"></a>提权复现</h4><p>首先通过各种手段获取一个网站的webshell，使用菜刀连接。</p>
 <p><img src="/2020/04/28/shen-tou-ce-shi-zhong-chang-jian-ti-quan-fang-shi-zong-jie-er/QQ%E6%88%AA%E5%9B%BE20200428160603.png" alt></p>

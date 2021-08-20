@@ -134,30 +134,36 @@
 <h4 id="反射获取类的class对象"><a href="#反射获取类的class对象" class="headerlink" title="反射获取类的class对象"></a>反射获取类的class对象</h4><p>要想使用反射，我们首先需要获得代操作的类所对应的Clas对象。</p>
 <p><strong>1.常用的获取Class对象有四种方法：</strong></p>
 <ul>
-<li><p>使用Class类的静态方法</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class clz = <span class="module-access"><span class="module"><span class="identifier">Class</span>.</span></span>for<span class="constructor">Name(<span class="string">"java.lang.String"</span>)</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用类的.class语法</p>
-<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Class</span> clz = <span class="keyword">String</span>.<span class="keyword">class</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用对象的getClass()方法</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">String</span> <span class="built_in">str</span> = <span class="keyword">new</span> <span class="keyword">String</span>(<span class="string">"Hello"</span>);</span><br><span class="line">Class clz = <span class="built_in">str</span>.getClass();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Type语法</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Class</span>&lt;?&gt; classType = <span class="type">Boolean</span>.<span class="keyword">TYPE</span>; </span><br><span class="line">    <span class="keyword">System</span>.<span class="keyword">out</span>.println(classType);</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>使用Class类的静态方法</li>
 </ul>
+  <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class clz = <span class="module-access"><span class="module"><span class="identifier">Class</span>.</span></span>for<span class="constructor">Name(<span class="string">"java.lang.String"</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用类的.class语法</li>
+</ul>
+  <figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Class</span> clz = <span class="keyword">String</span>.<span class="keyword">class</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用对象的getClass()方法</li>
+</ul>
+  <figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">String</span> <span class="built_in">str</span> = <span class="keyword">new</span> <span class="keyword">String</span>(<span class="string">"Hello"</span>);</span><br><span class="line">Class clz = <span class="built_in">str</span>.getClass();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Type语法</li>
+</ul>
+  <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Class</span>&lt;?&gt; classType = <span class="type">Boolean</span>.<span class="keyword">TYPE</span>; </span><br><span class="line">    <span class="keyword">System</span>.<span class="keyword">out</span>.println(classType);</span><br></pre></td></tr></table></figure>
+
 <h4 id="反射创建类对象"><a href="#反射创建类对象" class="headerlink" title="反射创建类对象"></a>反射创建类对象</h4><p>常用两种方法:</p>
 <ul>
-<li><p>通过 Class 对象的 newInstance() 方法，<strong>只能使用默认的无参数构造方法。</strong></p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class clz = pen.<span class="keyword">class</span>;</span><br><span class="line">Pen pen = (pen)clz.<span class="keyword">new</span><span class="constructor">Instance()</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过 Constructor 对象的 newInstance() 方法,<strong>可以选择特定的构造方法。</strong></p>
-<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Class</span> clz = pen.<span class="keyword">class</span>;</span><br><span class="line"><span class="function"><span class="keyword">Constructor</span> <span class="title">constructor</span> = <span class="title">clz</span>.<span class="title">getConstructor</span><span class="params">()</span>;</span></span><br><span class="line">Pen pen = (Pen)<span class="function"><span class="keyword">constructor</span>.<span class="title">newInstance</span><span class="params">()</span>;</span></span><br></pre></td></tr></table></figure>
-
-</li>
+<li>通过 Class 对象的 newInstance() 方法，<strong>只能使用默认的无参数构造方法。</strong></li>
 </ul>
+  <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class clz = pen.<span class="keyword">class</span>;</span><br><span class="line">Pen pen = (pen)clz.<span class="keyword">new</span><span class="constructor">Instance()</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过 Constructor 对象的 newInstance() 方法,<strong>可以选择特定的构造方法。</strong></li>
+</ul>
+  <figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Class</span> clz = pen.<span class="keyword">class</span>;</span><br><span class="line"><span class="function"><span class="keyword">Constructor</span> <span class="title">constructor</span> = <span class="title">clz</span>.<span class="title">getConstructor</span><span class="params">()</span>;</span></span><br><span class="line">Pen pen = (Pen)<span class="function"><span class="keyword">constructor</span>.<span class="title">newInstance</span><span class="params">()</span>;</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="反射获取并调用类的构造函数-Constructor"><a href="#反射获取并调用类的构造函数-Constructor" class="headerlink" title="反射获取并调用类的构造函数(Constructor)"></a>反射获取并调用类的构造函数(Constructor)</h4><h5 id="1-获取所有公有构造函数"><a href="#1-获取所有公有构造函数" class="headerlink" title="1.获取所有公有构造函数"></a>1.获取所有公有构造函数</h5><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">Constructor</span>[] <span class="title">conArray</span> = <span class="title">clazz</span>.<span class="title">getConstructors</span><span class="params">()</span>;</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="function"><span class="keyword">Constructor</span> <span class="title">c</span> :</span> conArray)<span class="comment">&#123;</span></span><br><span class="line"><span class="comment">		System.out.println(c);</span></span><br></pre></td></tr></table></figure>
 
 <h5 id="2-获取所有的构造函数-包括：私有、受保护、默认、公有"><a href="#2-获取所有的构造函数-包括：私有、受保护、默认、公有" class="headerlink" title="2.获取所有的构造函数(包括：私有、受保护、默认、公有)"></a>2.获取所有的构造函数(包括：私有、受保护、默认、公有)</h5><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">conArray = clazz.getDeclaredConstructors();</span><br><span class="line">		<span class="keyword">for</span>(<span class="function"><span class="keyword">Constructor</span> <span class="title">c</span> :</span> conArray)<span class="comment">&#123;</span></span><br><span class="line"><span class="comment">			System.out.println(c);</span></span><br><span class="line"><span class="comment">		&#125;</span></span><br></pre></td></tr></table></figure>

